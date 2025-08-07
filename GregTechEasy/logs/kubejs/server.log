@@ -1,0 +1,19 @@
+[18:44:07] [INIT] KubeJS 2001.6.5-build.16; MC 2001 forge
+[18:44:07] [INIT] Loaded plugins:
+[18:44:07] [INIT] - dev.latvian.mods.kubejs.forge.BuiltinKubeJSForgePlugin
+[18:44:07] [INIT] - dev.latvian.mods.kubejs.forge.BuiltinKubeJSForgeClientPlugin
+[18:44:07] [INIT] - com.gregtechceu.gtceu.integration.kjs.GregTechKubeJSPlugin
+[18:44:07] [INIT] - com.lowdragmc.lowdraglib.kjs.LDLibKubeJSPlugin
+[18:44:07] [INIT] - com.probejs.ProbeJSPlugin
+[18:44:07] [INFO] example.js#5: Hello, World! (Loaded server scripts)
+[18:44:07] [INFO] Loaded script server_scripts:example.js in 0.001 s
+[18:44:07] [INFO] Loaded script server_scripts:flat_dimension.js in 0.0 s
+[18:44:07] [INFO] Loaded script server_scripts:GTERecipe.js in 0.0 s
+[18:44:07] [INFO] Loaded 3/3 KubeJS server scripts in 0.005 s with 0 errors and 0 warnings
+[18:44:07] [INFO] Scripts loaded
+[18:44:07] [INFO] Initializing recipe event...
+[18:44:07] [INFO] Processing recipes...
+[18:44:08] [INFO] Found 36050 recipes in 553.9 ms
+[18:44:08] [INFO] Posted recipe events in 23.41 ms
+[18:44:08] [INFO] Added 5 recipes, removed 21 recipes, modified 0 recipes, with 0 failed recipes in 563.3 ms
+[18:44:09] [INFO] Server resource reload complete!

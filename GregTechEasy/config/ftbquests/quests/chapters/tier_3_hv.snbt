@@ -1,0 +1,11 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "tier_3_hv"
+	group: ""
+	id: "2FA25C8F04A528A5"
+	order_index: 4
+	quest_links: [ ]
+	quests: [ ]
+	title: "[Tier 3] HV"
+}

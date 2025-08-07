@@ -1,0 +1,10 @@
+#618 minecraft:basalt_deltas
+#460 minecraft:cherry_grove
+#570 minecraft:crimson_forest
+#2D6 minecraft:meadow
+#653 minecraft:nether_wastes
+#3DC minecraft:plains
+#5FF minecraft:river
+#721 minecraft:soul_sand_valley
+#372 ae2:spatial_storage
+#628 minecraft:warped_forest

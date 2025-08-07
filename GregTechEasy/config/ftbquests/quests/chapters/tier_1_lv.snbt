@@ -1,0 +1,146 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "tier_1_lv"
+	group: ""
+	icon: "gtceu:lv_machine_hull"
+	id: "405E0FB392C08611"
+	order_index: 2
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: [
+				"37CF6D39A54DFA94"
+				"2BC3FF67FC42E575"
+			]
+			id: "770A22DB88F4ACB1"
+			rewards: [{
+				count: 3
+				id: "03937C35486CF689"
+				item: "gtceu:lv_steam_turbine"
+				type: "item"
+			}]
+			size: 1.0d
+			subtitle: "蒸汽发电，多么简单多么便利"
+			tasks: [{
+				id: "7DA140666B195D5E"
+				item: "gtceu:lv_steam_turbine"
+				type: "item"
+			}]
+			title: "电力时代"
+			x: -27.0d
+			y: -3.0d
+		}
+		{
+			id: "2BC3FF67FC42E575"
+			rewards: [
+				{
+					count: 16
+					id: "1BEE77AC48F55651"
+					item: "gtceu:lv_conveyor_module"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "329F3BCC9921A984"
+					item: "gtceu:lv_electric_piston"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "47605551F410925A"
+					item: "gtceu:lv_robot_arm"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "3E40F2817621CA4E"
+					item: "gtceu:lv_electric_pump"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "46E9BE98BBDA92C9"
+					item: "gtceu:lv_electric_motor"
+					type: "item"
+				}
+			]
+			subtitle: "来制造这些零件吧"
+			tasks: [
+				{
+					id: "1750B9F79531003B"
+					item: "gtceu:lv_conveyor_module"
+					type: "item"
+				}
+				{
+					id: "6102A2269091696B"
+					item: "gtceu:lv_electric_piston"
+					type: "item"
+				}
+				{
+					id: "358288BABC94E05C"
+					item: "gtceu:lv_robot_arm"
+					type: "item"
+				}
+				{
+					id: "47FC61B88523D9EE"
+					item: "gtceu:lv_electric_pump"
+					type: "item"
+				}
+				{
+					id: "32C75F993D3876B3"
+					item: "gtceu:lv_electric_motor"
+					type: "item"
+				}
+			]
+			title: "你需要制造的五种零件"
+			x: -28.5d
+			y: -3.0d
+		}
+		{
+			dependencies: ["770A22DB88F4ACB1"]
+			id: "532EAD0465561CF2"
+			tasks: [{
+				id: "5D8CFD063F8680D9"
+				title: "造一些电力机器"
+				type: "checkmark"
+			}]
+			x: -25.5d
+			y: -3.0d
+		}
+		{
+			dependencies: ["37CF6D39A54DFA94"]
+			description: [
+				"如果你不遵守这些安全须知的话，那么很有可能你的机器和基地将会在一场爆炸在中毁于一旦。"
+				"第一条:不要在机器旁生火，火会使得机器爆炸。"
+				"第二条:注意使用正确规格的线缆。例如你的机器总共发3A LV的电，但是你用的是1x锡线缆，那么你的线缆将会起火。"
+				"第三条:注意机器的输入电压。"
+				"如果你的机器是输入LV的电压，那么千万不要通入LV以上的电压，否则机器会立马爆炸!"
+				"补充信息:现在我们格雷科技公司的机器有了防水功能，哪怕淋雨也不会爆炸。"
+			]
+			icon: "gtceu:generic_hazard_sign_block"
+			id: "52D28804938B0A72"
+			size: 1.5d
+			tasks: [{
+				id: "10143EA750D5D622"
+				title: "用电安全须知"
+				type: "checkmark"
+			}]
+			x: -28.5d
+			y: -4.5d
+		}
+		{
+			dependencies: ["532EAD0465561CF2"]
+			description: ["一锭变两导线，强烈推荐第一个制造它"]
+			id: "1C9FCC8291C6E0BD"
+			tasks: [{
+				id: "4FA7928CE7C27D15"
+				item: "gtceu:lv_wiremill"
+				type: "item"
+			}]
+			x: -25.5d
+			y: -4.5d
+		}
+	]
+	title: "[Tier 1] 低压"
+}

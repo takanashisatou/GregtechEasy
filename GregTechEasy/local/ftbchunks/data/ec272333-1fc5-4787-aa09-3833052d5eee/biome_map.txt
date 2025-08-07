@@ -1,0 +1,11 @@
+#05B minecraft:bamboo_jungle
+#4F9 minecraft:dark_forest
+#4CA minecraft:dripstone_caves
+#010 minecraft:forest
+#4B0 minecraft:jungle
+#1DF minecraft:old_growth_birch_forest
+#5FF minecraft:river
+#3AF minecraft:sparse_jungle
+#152 minecraft:windswept_forest
+#4C3 minecraft:windswept_hills
+#579 minecraft:windswept_savanna

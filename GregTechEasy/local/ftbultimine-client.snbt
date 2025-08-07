@@ -1,0 +1,27 @@
+# Client-specific configuration for FTB Ultimine
+# This file is meant for users to control Ultimine's clientside behaviour and rendering.
+# Changes to this file require you to reload the world
+
+{
+	# Maximum number of blocks the white outline should be rendered for
+	# Keep in mind this may get *very* laggy for large amounts of blocks!
+	# Default: 256
+	# Range: 0 ~ 2147483647
+	render_outline: 256
+	
+	# When holding the Ultimine key, must the player also be sneaking to show the shapes menu?
+	# Default: true
+	require_sneak_for_menu: true
+	
+	# When displaying the shape selection menu by holding the Ultimine key
+	# and sneaking at the same time, the number of shape names to display
+	# above and below the selected shape
+	# Default: 2
+	# Range: 1 ~ 5
+	shape_menu_context_lines: 2
+	
+	# Manual x offset of FTB Ultimine overlay, required for some modpacks
+	# Default: -1
+	# Range: -∞ ~ +∞
+	x_offset: -1
+}

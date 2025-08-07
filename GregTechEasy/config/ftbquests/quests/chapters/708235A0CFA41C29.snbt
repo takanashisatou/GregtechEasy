@@ -1,0 +1,79 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "708235A0CFA41C29"
+	group: ""
+	id: "708235A0CFA41C29"
+	order_index: 15
+	quest_links: [ ]
+	quests: [
+		{
+			id: "074AD733062ACD47"
+			tasks: [{
+				id: "5F9DC12BDB9A6BC0"
+				title: "蒸汽时代多方块结构"
+				type: "checkmark"
+			}]
+			x: -12.5d
+			y: -3.5d
+		}
+		{
+			dependencies: ["074AD733062ACD47"]
+			description: ["有了它，熔炼合金不再缓慢!"]
+			id: "0C78B3C957878EC0"
+			tasks: [{
+				id: "697369992A40CE5D"
+				item: "gtceu:big_alloy"
+				type: "item"
+			}]
+			x: -11.0d
+			y: -5.5d
+		}
+		{
+			dependencies: ["074AD733062ACD47"]
+			id: "600A276DA7D64035"
+			tasks: [{
+				id: "1255FA3C6FAD79F8"
+				item: "gtceu:steam_grinder"
+				type: "item"
+			}]
+			x: -11.0d
+			y: -4.5d
+		}
+		{
+			dependencies: ["074AD733062ACD47"]
+			id: "498C0D3060625D7D"
+			tasks: [{
+				id: "5D88C30DC0FE9D0A"
+				item: "gtceu:steam_oven"
+				type: "item"
+			}]
+			x: -11.0d
+			y: -3.5d
+		}
+		{
+			dependencies: ["074AD733062ACD47"]
+			description: ["搭建好多方块结构后放入煤炭和铁就可以开始炼钢了"]
+			id: "1A8EF42B527CC110"
+			tasks: [{
+				id: "19348883812E8FC7"
+				item: "gtceu:primitive_blast_furnace"
+				type: "item"
+			}]
+			x: -11.0d
+			y: -2.5d
+		}
+		{
+			dependencies: ["074AD733062ACD47"]
+			id: "16A705C32F195B2D"
+			tasks: [{
+				id: "2FC61E260EEF18DC"
+				item: "gtceu:steel_large_boiler"
+				type: "item"
+			}]
+			x: -12.5d
+			y: -5.5d
+		}
+	]
+	title: "多方块结构"
+}

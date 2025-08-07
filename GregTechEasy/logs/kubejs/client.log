@@ -1,0 +1,12 @@
+[17:43:19] [INIT] KubeJS 2001.6.5-build.16; MC 2001 forge
+[17:43:19] [INIT] Loaded plugins:
+[17:43:19] [INIT] - dev.latvian.mods.kubejs.forge.BuiltinKubeJSForgePlugin
+[17:43:19] [INIT] - dev.latvian.mods.kubejs.forge.BuiltinKubeJSForgeClientPlugin
+[17:43:19] [INIT] - com.gregtechceu.gtceu.integration.kjs.GregTechKubeJSPlugin
+[17:43:19] [INIT] - com.lowdragmc.lowdraglib.kjs.LDLibKubeJSPlugin
+[17:43:19] [INIT] - com.probejs.ProbeJSPlugin
+[17:43:19] [INFO] example.js#5: Hello, World! (Loaded client scripts)
+[17:43:19] [INFO] Loaded script client_scripts:example.js in 0.0 s
+[17:43:19] [INFO] Loaded script client_scripts:teleport.js in 0.0 s
+[17:43:19] [INFO] Loaded 2/2 KubeJS client scripts in 0.026 s with 0 errors and 0 warnings
+[17:43:23] [INFO] Client resource reload complete!

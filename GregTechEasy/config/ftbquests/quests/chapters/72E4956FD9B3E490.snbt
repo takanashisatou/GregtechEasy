@@ -1,0 +1,11 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "72E4956FD9B3E490"
+	group: ""
+	id: "72E4956FD9B3E490"
+	order_index: 17
+	quest_links: [ ]
+	quests: [ ]
+	title: "末影接口"
+}
