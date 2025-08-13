@@ -10,6 +10,10 @@
   "ae2:pattern_provider": null,
   "ae2:power_storage": null,
   "ae2:server_data": null,
+  "balm:jade": null,
+  "expatternprovider:jade_chamber": null,
+  "expatternprovider:jade_wireless": null,
+  "expatternprovider:tile_data": null,
   "gtceu:auto_output_info": null,
   "gtceu:cable_info": null,
   "gtceu:controllable_provider": null,
@@ -33,6 +37,7 @@
   "gtceu:steam_boiler_info": null,
   "gtceu:transformer": null,
   "gtceu:workable_provider": null,
+  "gtmthings:wireless_energy_hatch_provider": null,
   "jade:block_face": null,
   "jade:distance": null,
   "jade:mod_name": null,
@@ -78,5 +83,10 @@
   "minecraft:total_enchantment_power": null,
   "minecraft:villager_profession": null,
   "minecraft:waxed": null,
-  "minecraft:zombie_villager": null
+  "minecraft:zombie_villager": null,
+  "touhou_little_maid:altar": null,
+  "touhou_little_maid:maid": null,
+  "touhou_little_maid:picnic_mat": null,
+  "touhou_little_maid:shrine_lamp": null,
+  "touhou_little_maid:tombstone": null
 }

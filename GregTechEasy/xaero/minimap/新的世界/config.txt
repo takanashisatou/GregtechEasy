@@ -11,4 +11,5 @@ ignoreHeightmaps:false
 
 //dimension types (DO NOT EDIT)
 dimensionType:minecraft$overworld:minecraft$overworld
+dimensionType:javd$void:javd$void
 //server waypoints

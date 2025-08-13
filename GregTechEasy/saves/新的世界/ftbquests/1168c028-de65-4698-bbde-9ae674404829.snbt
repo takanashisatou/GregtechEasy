@@ -1,0 +1,12 @@
+{
+	version: 1
+	uuid: "1168c028de654698bbde9ae674404829"
+	name: "Test2#1168c028"
+	lock: false
+	rewards_blocked: false
+	task_progress: { }
+	started: { }
+	completed: { }
+	claimed_rewards: { }
+	player_data: { }
+}

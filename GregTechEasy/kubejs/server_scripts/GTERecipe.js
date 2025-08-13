@@ -1,4 +1,3 @@
-
 ServerEvents.recipes((event) => {
     const gtr = event.recipes.gtceu
     event.remove({input:'gtceu:raw_platinum'})
@@ -33,6 +32,29 @@ ServerEvents.recipes((event) => {
     ).duration(10)
     .EUt(16)
     .itemOutputs('4x gtceu:rubber_ingot')
+    const gte = event.recipes.gtecore
+    gte.easy_box('easy_test')
+    .circuit(1)
+    .duration(20*20)
+    .EUt(32)
+    .itemOutputs('minecraft:raw_iron',
+        'minecraft:raw_copper',
+        'minecraft:raw_gold',
+        'gtceu:raw_redstone',
+        'minecraft:diamond',
+        'gtceu:raw_silver',
+        'gtceu:raw_aluminium',
+        'gtceu:raw_bauxite',
+        'gtceu:raw_ilmenite',
+        'gtceu:raw_sphalerite',
+        'gtceu:raw_sulfur',
+        'gtceu:raw_stibnite',
+        'gtceu:raw_tetrahedrite',
+        'gtceu:raw_tin',
+        'gtceu:raw_cinnabar',
+        'gtceu:raw_bentonite',
+        'gtceu:raw_cobaltite'
+    )
     event.remove({'id':'gtceu:primitive_blast_furnace/steel_from_coal_gem_wrought'})
     event.remove({'id':'gtceu:primitive_blast_furnace/steel_from_coal_gem'})
     event.remove({'id':'gtceu:primitive_blast_furnace/steel_from_charcoal_gem'})

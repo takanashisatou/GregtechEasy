@@ -1,4 +1,7 @@
 {
+  "gtmthings": {
+    "wireless_energy_hatch_provider": true
+  },
   "minecraft": {
     "item_storage.show_name_amount": 5,
     "furnace": true,
@@ -73,6 +76,10 @@
     "cable_info": true,
     "parallel_info": true
   },
+  "touhou_little_maid": {
+    "maid": true,
+    "shrine_lamp": true
+  },
   "jade": {
     "coordinates.rel": false,
     "distance": false,
@@ -80,6 +87,13 @@
     "coordinates": false,
     "registry_name": "OFF",
     "mod_name": true
+  },
+  "expatternprovider": {
+    "jade_chamber": true,
+    "jade_wireless": true
+  },
+  "balm": {
+    "jade": true
   },
   "ae2": {
     "part_icon": true,

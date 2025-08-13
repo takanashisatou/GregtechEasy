@@ -1,0 +1,12 @@
+{
+	journeymap.options.layers: {
+		# Default: false
+		bedrock_fluids: false
+		
+		# Default: false
+		hide_depleted: false
+		
+		# Default: false
+		ore_veins: false
+	}
+}

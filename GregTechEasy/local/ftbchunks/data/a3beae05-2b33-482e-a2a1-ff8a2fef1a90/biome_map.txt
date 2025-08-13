@@ -1,5 +1,0 @@
-#008 minecraft:desert
-#28D minecraft:mangrove_swamp
-#5FF minecraft:river
-#2B7 minecraft:warm_ocean
-#579 minecraft:windswept_savanna

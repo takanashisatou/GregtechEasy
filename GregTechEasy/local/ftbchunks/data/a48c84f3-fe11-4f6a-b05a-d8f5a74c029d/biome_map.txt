@@ -1,9 +1,0 @@
-#705 minecraft:deep_frozen_ocean
-#292 minecraft:frozen_ocean
-#3A0 minecraft:frozen_river
-#72D minecraft:snowy_beach
-#4E5 minecraft:snowy_plains
-#340 minecraft:snowy_taiga
-#152 minecraft:windswept_forest
-#05C minecraft:windswept_gravelly_hills
-#4C3 minecraft:windswept_hills

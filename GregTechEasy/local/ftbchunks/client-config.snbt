@@ -117,7 +117,7 @@
 		
 		# Enable minimap
 		# Default: false
-		enabled: true
+		enabled: false
 		
 		# Show entities on minimap
 		# Default: true

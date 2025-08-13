@@ -8,11 +8,17 @@
 	quest_links: [ ]
 	quests: [
 		{
+			can_repeat: true
 			description: [
 				"GregTech Easy制作组 希望你能在这里度过一个轻松而快乐的格雷之旅，愿你找到属于你的那颗萌新之星。"
-				"本整合包在基本保留GTM流程下大幅度消减了从蒸汽时代到UHV时代的难度，额外增加了一些产线和内容。此外本包为了防止挖矿带来的枯燥在前期加入了虚空采矿机，前期就可以获得无限的矿物"
+				"本整合包在基本保留GTM流程下大幅度消减了从蒸汽时代到UHV时代的难度，额外增加了一些产线和内容。此外本包为了防止挖矿带来的枯燥在前期加入了采矿巨构，前期就可以获得无限的矿物"
 			]
 			id: "7AC928F321C75E9B"
+			rewards: [{
+				command: "/gamerule keepInventory true"
+				id: "46C4F22BA15F9566"
+				type: "command"
+			}]
 			tasks: [{
 				id: "048CBDA2602237A6"
 				title: "整合包介绍"
@@ -24,6 +30,7 @@
 		}
 		{
 			dependencies: ["7AC928F321C75E9B"]
+			description: ["重要提示: GregTech Easy中的钻石是能烧的，但是只有原版钻石能烧。"]
 			id: "13E908447331858E"
 			rewards: [
 				{
@@ -226,12 +233,26 @@
 			dependencies: ["7AC928F321C75E9B"]
 			icon: "minecraft:bread"
 			id: "0C1192A74BBBA469"
-			rewards: [{
-				count: 64
-				id: "1F317938949423C2"
-				item: "minecraft:bread"
-				type: "item"
-			}]
+			rewards: [
+				{
+					count: 64
+					id: "1F317938949423C2"
+					item: "minecraft:bread"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "71984C6BF3A9EEA7"
+					item: "minecraft:cooked_beef"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "29FFFACF78F0D4E9"
+					item: "minecraft:cooked_porkchop"
+					type: "item"
+				}
+			]
 			subtitle: "懒人的福利"
 			tasks: [{
 				id: "1E93798C3ADA5547"
@@ -265,8 +286,8 @@
 					type: "item"
 				}
 				{
-					id: "3A4E07322A51A9D4"
-					item: "gtceu:raw_tin"
+					id: "5FB790E76A4FF744"
+					item: "gtceu:raw_cassiterite"
 					type: "item"
 				}
 			]
@@ -276,6 +297,13 @@
 		}
 		{
 			dependencies: ["2EF82D2485FD5033"]
+			description: [
+				"手持锤子右键机器可以使机器静音。保护好你的听力哟。"
+				"手持螺丝刀右键输入仓/输出仓可以使它们互相转换。"
+				"手持撬棍右击覆盖板可以拆除覆盖板，用稿子拆除覆盖板只会连机器/管道/导线一同拆除。"
+				"而手持扳手右键可以旋转机器，连接/断开管道。"
+				"请多多探索来掌握这些格雷工具的使用技巧吧，第一次上手难免有点困难哟。"
+			]
 			id: "1A130A4134836DFB"
 			rewards: [
 				{
@@ -745,6 +773,116 @@
 			title: "蒸汽时代的开端"
 			x: -8.5d
 			y: 3.0d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			description: [
+				"本整合包添加了Advanced Backup模组。"
+				""
+				"如果你的存档需要回档的话，(这里是你启动器的EXE文件的路径)./minecraft/versions/GregTechEasy/backups文件夹即可找到你的备份存档"
+				""
+				"关于此模组的详细使用方法请咨询相关B站视频或GregTech Easy制造组"
+			]
+			id: "34ABC0B777C13083"
+			subtitle: "总会有意外"
+			tasks: [{
+				id: "3CEF638AA6A7CBA6"
+				title: "备份"
+				type: "checkmark"
+			}]
+			x: -16.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			description: [
+				""
+				"GregTech Easy 交流群喵:  132733633"
+				"本群有着友好的讨论氛围，只要不触及法律红线，可以随意的提出心中的疑问喵，Gregtech Easy作者会认真倾听的喵"
+			]
+			id: "7E5B87ADA50A4371"
+			tasks: [{
+				id: "42B8D973E0D8FC44"
+				title: "GregTech Easy交流群"
+				type: "checkmark"
+			}]
+			title: "GregTech  Easy交流群"
+			x: -16.5d
+			y: -2.5d
+		}
+		{
+			dependencies: ["13E908447331858E"]
+			description: ["                     把不需要的东西丢进里面吧。"]
+			id: "2470AA1CC301D0DB"
+			tasks: [{
+				id: "5C06CB8E5D8EB8E9"
+				item: "simple_trashcan:trashcanclosed"
+				type: "item"
+			}]
+			title: "垃圾桶"
+			x: -11.5d
+			y: -2.5d
+		}
+		{
+			dependencies: ["13E908447331858E"]
+			description: ["                       右键点击它即可传送到虚空世界里去。"]
+			icon: "javd:portal_block"
+			id: "6B6452584D88263D"
+			rewards: [{
+				id: "405E06E91B52374A"
+				item: "javd:portal_block"
+				type: "item"
+			}]
+			subtitle: "别掉下去了"
+			tasks: [{
+				id: "0241122990FD5D55"
+				title: "虚空世界"
+				type: "checkmark"
+			}]
+			x: -13.0d
+			y: 2.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["7AC928F321C75E9B"]
+			description: [
+				""
+				"顺便一提，FTB Ultimate 连锁按键是按住`键。"
+				"在按住`键的同时按住Shift并滑动鼠标滚轮可以切换连锁采矿模式"
+				"在这里可以修改FTB Ultimate的连锁挖矿数量，调太大有可能导致电脑崩溃，量电脑力而行"
+			]
+			id: "140646D9977DFB73"
+			rewards: [{
+				command: "/ftbultimine serverconfig"
+				id: "7B983C16DB64207E"
+				type: "command"
+			}]
+			subtitle: "量电脑力而行"
+			tasks: [{
+				id: "6789B89C0E9BACB9"
+				title: "连锁设置"
+				type: "checkmark"
+			}]
+			x: -15.0d
+			y: 2.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["6B6452584D88263D"]
+			description: ["别摔下去了哟，这个指令将会把你传送到主世界x = 0,y = 120 z = 0处"]
+			id: "1871D68EB938A5C5"
+			rewards: [{
+				command: "/execute in minecraft:overworld run tp 0 120 0"
+				id: "5F9CE722E7598B26"
+				type: "command"
+			}]
+			tasks: [{
+				id: "6D3E1ED182F6FE74"
+				title: "返回主世界"
+				type: "checkmark"
+			}]
+			x: -14.0d
+			y: 3.5d
 		}
 	]
 	title: "从零开始"

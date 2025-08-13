@@ -4,8 +4,152 @@
 	filename: "47AB9034BB01D142"
 	group: ""
 	id: "47AB9034BB01D142"
-	order_index: 12
+	order_index: 14
 	quest_links: [ ]
-	quests: [ ]
+	quests: [
+		{
+			description: [
+				"应用能源是一个非常非常复杂的物流系统模组，一言两语讲不清楚，十分推荐去Bilibili查看有关应用能源2高版本的教学视频，别看成低版本的应用能源2的教学了。高低版本之间差异很大哟。"
+				"如有不懂的欢迎萌新们请教大佬或者制作组哟，他们会非常和谐友善积极的回答你的问题。"
+			]
+			icon: "ae2:blank_pattern"
+			id: "2BBD7C335742BCBE"
+			rewards: [
+				{
+					id: "7FA913205A31D7AD"
+					item: "ae2:controller"
+					type: "item"
+				}
+				{
+					id: "6279FE0FBDD74974"
+					item: "ae2:creative_energy_cell"
+					type: "item"
+				}
+				{
+					id: "1664D5F9CDF329D6"
+					item: {
+						Count: 1
+						id: "expatternprovider:infinity_cell"
+						tag: {
+							record: {
+								"#c": "ae2:f"
+								id: "minecraft:water"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "65E3ED21C4CE511D"
+					item: {
+						Count: 1
+						id: "expatternprovider:infinity_cell"
+						tag: {
+							record: {
+								"#c": "ae2:i"
+								id: "minecraft:cobblestone"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4255C05617EDDD42"
+					item: "ae2:creative_item_cell"
+					type: "item"
+				}
+				{
+					id: "119EFADE82F8601C"
+					item: "ae2:creative_fluid_cell"
+					type: "item"
+				}
+			]
+			size: 2.0d
+			tasks: [{
+				id: "136123CE5ED8482A"
+				type: "checkmark"
+			}]
+			title: "应用能源"
+			x: -3.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "ae2:blank_pattern"
+			id: "5E1887D05D76E7AE"
+			optional: true
+			rewards: [{
+				count: 64
+				id: "3E21A6E900399541"
+				item: "ae2:blank_pattern"
+				type: "item"
+			}]
+			tasks: [{
+				id: "5B2E62CD5C08E3B4"
+				title: "免费的样板"
+				type: "checkmark"
+			}]
+			x: -3.0d
+			y: -4.5d
+		}
+		{
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "ae2:white_smart_cable"
+			id: "30941A7DE06A6E68"
+			rewards: [
+				{
+					count: 64
+					id: "052FFC9A7468707B"
+					item: "ae2:blue_covered_dense_cable"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "2B30663769CF6710"
+					item: "ae2:gray_smart_dense_cable"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "5EC87A1898DCF0E9"
+					item: "ae2:quartz_fiber"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "1E295FFFAE9E7417"
+					item: "ae2:cable_anchor"
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "287CB77DADE884CD"
+				title: "免费的AE线缆"
+				type: "checkmark"
+			}]
+			x: -1.0d
+			y: -4.5d
+		}
+		{
+			dependencies: ["2BBD7C335742BCBE"]
+			description: ["已经送了很多很多AE物品了，已经累到不想送了喵，你如果觉得不够多的话强烈推荐使用红扳手(JEI作弊模式）去掏你想要的AE物品喵"]
+			id: "3FFEE844932A9943"
+			ignore_reward_blocking: true
+			rewards: [{
+				id: "7A0795F5D5CB1E0A"
+				item: "gtceu:air_bucket"
+				type: "item"
+			}]
+			subtitle: "累了喵，好累喵"
+			tasks: [{
+				id: "2721004E932C90CA"
+				title: "还要很多很多免费的东西"
+				type: "checkmark"
+			}]
+			title: "还有很多很多免费的AE物品(只要你想要)"
+			x: -1.0d
+			y: -2.0d
+		}
+	]
 	title: "应用能源"
 }

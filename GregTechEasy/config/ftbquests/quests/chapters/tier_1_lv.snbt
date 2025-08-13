@@ -141,6 +141,495 @@
 			x: -25.5d
 			y: -4.5d
 		}
+		{
+			dependencies: ["532EAD0465561CF2"]
+			id: "6D8B9493839D1BD8"
+			tasks: [{
+				id: "3F16114153C104CD"
+				item: "gtceu:lv_bender"
+				type: "item"
+			}]
+			x: -24.0d
+			y: -4.5d
+		}
+		{
+			dependencies: ["532EAD0465561CF2"]
+			id: "5DEC5A55EA0BC5D3"
+			tasks: [{
+				id: "56195ED281B6A8D1"
+				item: "gtceu:lv_centrifuge"
+				type: "item"
+			}]
+			x: -22.5d
+			y: -4.5d
+		}
+		{
+			dependencies: ["3721C5DCD828F460"]
+			description: ["厌倦了蒸汽发电?需要聚乙烯，这些通通加工石油就可以获得!"]
+			id: "2124A6B2562A70FC"
+			subtitle: "工业之血"
+			tasks: [{
+				id: "55C552B5612CA17A"
+				item: "gtceu:oil_bucket"
+				type: "item"
+			}]
+			title: "石油工业"
+			x: -25.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["532EAD0465561CF2"]
+			description: ["把基础泵放在石油流体的最上端处，即可源源不断的采集石油"]
+			id: "3721C5DCD828F460"
+			tasks: [{
+				id: "456D0C686D762216"
+				item: "gtceu:lv_pump"
+				type: "item"
+			}]
+			x: -25.5d
+			y: -2.0d
+		}
+		{
+			dependencies: ["06EF724BCA69CB3E"]
+			id: "06DEF7D6C31EB5FF"
+			tasks: [{
+				id: "05C8537E77BAC2E0"
+				item: "gtceu:sulfuric_light_fuel_bucket"
+				type: "item"
+			}]
+			x: -28.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["06EF724BCA69CB3E"]
+			id: "2D191471D7148B7C"
+			tasks: [{
+				id: "10D34FC70D5597C4"
+				item: "gtceu:sulfuric_heavy_fuel_bucket"
+				type: "item"
+			}]
+			x: -26.5d
+			y: 1.0d
+		}
+		{
+			dependencies: ["06EF724BCA69CB3E"]
+			id: "60AC6043FC421288"
+			tasks: [{
+				id: "3010C10B024D68A8"
+				item: "gtceu:sulfuric_naphtha_bucket"
+				type: "item"
+			}]
+			x: -25.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["06EF724BCA69CB3E"]
+			id: "768673CE4EAF07C6"
+			tasks: [{
+				id: "5FDE1521A07F2E5D"
+				item: "gtceu:sulfuric_gas_bucket"
+				type: "item"
+			}]
+			x: -23.5d
+			y: 1.0d
+		}
+		{
+			dependencies: ["2124A6B2562A70FC"]
+			id: "06EF724BCA69CB3E"
+			tasks: [{
+				id: "12B59CE7082A4C85"
+				item: "gtceu:lv_distillery"
+				type: "item"
+			}]
+			x: -25.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["532EAD0465561CF2"]
+			id: "1384D96116B68500"
+			tasks: [{
+				id: "7AC60CF1DE268209"
+				item: "gtceu:lv_electrolyzer"
+				type: "item"
+			}]
+			x: -28.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1384D96116B68500"]
+			id: "65666C7F1BBB1E89"
+			tasks: [{
+				id: "11ECBED4D94A7BE2"
+				item: "gtceu:hydrogen_bucket"
+				type: "item"
+			}]
+			x: -29.5d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"65666C7F1BBB1E89"
+				"06DEF7D6C31EB5FF"
+			]
+			id: "39DCE27530471DE4"
+			tasks: [{
+				id: "1BA8F930A2C0BA05"
+				item: "gtceu:light_fuel_bucket"
+				type: "item"
+			}]
+			x: -28.0d
+			y: 2.5d
+		}
+		{
+			dependencies: [
+				"65666C7F1BBB1E89"
+				"2D191471D7148B7C"
+			]
+			id: "4FD6DF4311D65C04"
+			tasks: [{
+				id: "5A98325FABE5A1C6"
+				item: "gtceu:heavy_fuel_bucket"
+				type: "item"
+			}]
+			x: -26.5d
+			y: 2.5d
+		}
+		{
+			dependencies: [
+				"65666C7F1BBB1E89"
+				"60AC6043FC421288"
+			]
+			id: "69EAE37B2A6E9FF9"
+			tasks: [{
+				id: "481C9EA4AC876DB3"
+				item: "gtceu:naphtha_bucket"
+				type: "item"
+			}]
+			x: -25.0d
+			y: 2.5d
+		}
+		{
+			dependencies: [
+				"768673CE4EAF07C6"
+				"65666C7F1BBB1E89"
+			]
+			id: "52B37077DF86E595"
+			tasks: [{
+				id: "55E7F12B3C840FE3"
+				item: "gtceu:refinery_gas_bucket"
+				type: "item"
+			}]
+			x: -23.5d
+			y: 2.5d
+		}
+		{
+			dependencies: [
+				"69EAE37B2A6E9FF9"
+				"4CDFEC48F7AA2F7A"
+			]
+			id: "7487CBB1FCC1D0A0"
+			tasks: [{
+				id: "24D90E562E49FD3E"
+				item: "gtceu:severely_steam_cracked_naphtha_bucket"
+				type: "item"
+			}]
+			x: -25.0d
+			y: 4.5d
+		}
+		{
+			id: "4CDFEC48F7AA2F7A"
+			tasks: [{
+				id: "63505B2A75373525"
+				item: "gtceu:steam_bucket"
+				type: "item"
+			}]
+			x: -22.0d
+			y: 2.5d
+		}
+		{
+			dependencies: ["06EF724BCA69CB3E"]
+			dependency_requirement: "one_completed"
+			id: "45E8ED2DE92FD5C9"
+			tasks: [{
+				id: "37FD1AB4ED46B55E"
+				item: "gtceu:lv_chemical_reactor"
+				type: "item"
+			}]
+			x: -23.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["532EAD0465561CF2"]
+			id: "444006A75D21E421"
+			tasks: [{
+				id: "307B077C7190AD60"
+				item: "gtceu:lv_gas_collector"
+				type: "item"
+			}]
+			x: -27.0d
+			y: -4.5d
+		}
+		{
+			dependencies: [
+				"74E4885E16AA0F71"
+				"4D2FFCA38D00421E"
+			]
+			id: "0CA7A510E60DB2E4"
+			tasks: [{
+				id: "1E9F372EA21A464A"
+				item: "gtceu:good_electronic_circuit"
+				type: "item"
+			}]
+			x: -19.5d
+			y: -3.0d
+		}
+		{
+			dependencies: ["04D8FC7E9A4E2586"]
+			id: "4D2FFCA38D00421E"
+			tasks: [{
+				id: "3A73431751E82E32"
+				item: "gtceu:diode"
+				type: "item"
+			}]
+			x: -21.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["6BDBF6F9BDF917C6"]
+			id: "74E4885E16AA0F71"
+			tasks: [{
+				id: "7FFAABB4CFAE746D"
+				item: "gtceu:phenolic_printed_circuit_board"
+				type: "item"
+			}]
+			x: -21.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["25653EB2986FAC64"]
+			id: "6BDBF6F9BDF917C6"
+			tasks: [{
+				id: "10793D53CEE9BEE4"
+				item: "gtceu:phenolic_circuit_board"
+				type: "item"
+			}]
+			x: -22.5d
+			y: -3.0d
+		}
+		{
+			dependencies: [
+				"03D35FBDC7FE004C"
+				"37CB9ABE2449DE78"
+				"385FC1CAD1920A82"
+			]
+			id: "04D8FC7E9A4E2586"
+			tasks: [{
+				id: "1AE3DEC3DC13151B"
+				item: "gtceu:gallium_arsenide_dust"
+				type: "item"
+			}]
+			x: -22.5d
+			y: -2.0d
+		}
+		{
+			dependencies: ["532EAD0465561CF2"]
+			id: "25653EB2986FAC64"
+			tasks: [{
+				id: "39CC37E39CAEAF0A"
+				item: "gtceu:lv_assembler"
+				type: "item"
+			}]
+			x: -24.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["532EAD0465561CF2"]
+			id: "03D35FBDC7FE004C"
+			tasks: [{
+				id: "7FE33E3DEC09DE06"
+				item: "gtceu:lv_mixer"
+				type: "item"
+			}]
+			x: -24.0d
+			y: -2.0d
+		}
+		{
+			id: "37CB9ABE2449DE78"
+			tasks: [{
+				id: "2527D27B2223BAE3"
+				item: "gtceu:arsenic_dust"
+				type: "item"
+			}]
+			x: -22.5d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"1331E0D775B904BD"
+				"1384D96116B68500"
+			]
+			description: ["                                电解闪锌矿即可获得"]
+			id: "385FC1CAD1920A82"
+			tasks: [{
+				id: "0F14ACC7966F822B"
+				item: "gtceu:gallium_dust"
+				type: "item"
+			}]
+			x: -21.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["0CA7A510E60DB2E4"]
+			id: "4EEDC96C175D7682"
+			tasks: [{
+				id: "5FD29A9B36F95912"
+				item: "gtceu:lv_circuit_assembler"
+				type: "item"
+			}]
+			x: -18.0d
+			y: -3.0d
+		}
+		{
+			dependencies: [
+				"37A2AB7A13ED1E43"
+				"4AA1101043BE88DD"
+				"4C09818766A2526F"
+			]
+			description: ["你需要用工业高炉来烧铝，前往多方块结构这一章节查看如何制造工业高炉"]
+			id: "1F60D3C43DFC1307"
+			tasks: [{
+				id: "43D2E8D66F64C772"
+				item: "gtceu:aluminium_ingot"
+				type: "item"
+			}]
+			x: -18.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1F60D3C43DFC1307"]
+			id: "4E23F7802FD82D2B"
+			size: 3.0d
+			tasks: [{
+				id: "0CB50E878AB59840"
+				item: "gtceu:mv_machine_hull"
+				type: "item"
+			}]
+			title: "前往MV时代"
+			x: -18.0d
+			y: 3.0d
+		}
+		{
+			dependencies: ["4EEDC96C175D7682"]
+			description: [
+				"电解红宝石粉，蓝宝石粉，或者直接粉碎铝矿石即可获取铝粉。"
+				"到了中压时代可以直接电解粘土粉"
+			]
+			id: "37A2AB7A13ED1E43"
+			tasks: [{
+				id: "3FC6DB1BCAD13207"
+				item: "gtceu:aluminium_dust"
+				type: "item"
+			}]
+			x: -18.0d
+			y: -1.5d
+		}
+		{
+			dependencies: ["76E0E419612C082E"]
+			description: ["                               查看无线电网的电力情况"]
+			id: "13B2CFFF749D90BA"
+			tasks: [{
+				id: "6853E873B5B3616F"
+				item: "gtmthings:wireless_energy_monitor"
+				type: "item"
+			}]
+			x: -15.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["4EEDC96C175D7682"]
+			description: [
+				"有了无线电网，从此你的机器再也不用考虑如何接线了，对于多方块发电机，使用无线动力仓向无线电网输送电力。"
+				"对于单方块发电机，使用无线能源接口来接收单方块发电机的电力。"
+				"多方块机器如果需要使用无线电网来供电的话，使用无线能源仓，对于单方块机器来说，使用对应等级的无线能源接收器。"
+				"机器外壳也可以贴上无线能源接收器，请牢记用电安全，不要把高等级的无线能源接收器贴到低等级机器上，这会导致一个大大的爆炸。"
+			]
+			id: "76E0E419612C082E"
+			tasks: [{
+				id: "6C3C2B5AECA86561"
+				title: "无线电网"
+				type: "checkmark"
+			}]
+			x: -16.5d
+			y: -3.0d
+		}
+		{
+			dependencies: ["76E0E419612C082E"]
+			id: "627A080FDF1BC1E0"
+			tasks: [{
+				id: "6AE49102892FF5A6"
+				item: "gtmthings:wireless_energy_interface"
+				type: "item"
+			}]
+			x: -15.0d
+			y: -1.5d
+		}
+		{
+			dependencies: ["76E0E419612C082E"]
+			id: "1A51517BDA0C43E5"
+			tasks: [{
+				id: "03189F7A2D3BB448"
+				item: "gtmthings:lv_wireless_energy_receive_cover"
+				type: "item"
+			}]
+			x: -15.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["532EAD0465561CF2"]
+			description: ["                            一锭出两杆，你值得选择"]
+			id: "067F54C1E7C3DF4A"
+			tasks: [{
+				id: "5BBCED5155649983"
+				item: "gtceu:lv_lathe"
+				type: "item"
+			}]
+			x: -27.0d
+			y: -6.0d
+		}
+		{
+			dependencies: ["25653EB2986FAC64"]
+			id: "4AA1101043BE88DD"
+			tasks: [{
+				count: 16L
+				id: "051E1840BE90DE04"
+				item: "gtceu:cupronickel_coil_block"
+				type: "item"
+			}]
+			x: -19.5d
+			y: -1.5d
+		}
+		{
+			id: "1331E0D775B904BD"
+			tasks: [{
+				id: "182F83CC9B19792B"
+				item: "gtceu:sphalerite_dust"
+				type: "item"
+			}]
+			x: -21.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["25653EB2986FAC64"]
+			id: "4C09818766A2526F"
+			tasks: [{
+				count: 2L
+				id: "0221F5C09331A082"
+				item: { Count: 2, id: "gtmthings:lv_2a_wireless_energy_input_hatch" }
+				type: "item"
+			}]
+			x: -19.5d
+			y: 0.0d
+		}
 	]
-	title: "[Tier 1] 低压"
+	title: "[Tier 1] LV"
 }

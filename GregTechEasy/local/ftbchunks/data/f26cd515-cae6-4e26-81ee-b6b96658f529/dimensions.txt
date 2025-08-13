@@ -1,4 +1,0 @@
-minecraft:overworld
-minecraft:the_end
-dimdoors:public_pockets
-dimdoors:limbo
