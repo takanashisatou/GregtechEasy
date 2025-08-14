@@ -1,0 +1,69 @@
+{
+  "general": {
+    "activity": true
+  },
+  "differential": {
+    "chainLength": 0,
+    "lastBackup": 1755165087273,
+    "hashList": {
+      "hashes": {
+        "region\\r.-1.0.mca": "6226394b81d04bc283fccfa954dbc920",
+        "DIM-1\\data\\raids.dat": "efbfad46e9c27521f78b1afd6a6c6be3",
+        "poi\\r.0.-1.mca": "3932c0ec83302bac87b9317e902a0f97",
+        "DIM-1\\data\\capabilities.dat": "42a6856961d186a52c37558da8368161",
+        "stats\\34355ad3-c7ad-4aa4-8fed-68d68d501b0f.json": "c754cff355cc3bbb6d962c2d118dcb9e",
+        "dimensions\\javd\\void\\data\\capabilities.dat": "42a6856961d186a52c37558da8368161",
+        "icon.png": "b02090cab0e9faf2859308b24cde870d",
+        "serverconfig\\touhou_little_maid-server.toml": "26047a6486d54a7840a4eb0aebed1264",
+        "entities\\r.0.-1.mca": "957d422d1a55e8d0d1ddcea4de740de8",
+        "kubejs_persistent_data.nbt": "43ceb00779fda749b66af0d5f102ac73",
+        "advancements\\34355ad3-c7ad-4aa4-8fed-68d68d501b0f.json": "4a2f740acd1b5d3f8624e6ed972f45a",
+        "entities\\r.-1.-1.mca": "195e0d37fcb174aae4ef53883227bf52",
+        "DIM1\\data\\raids_end.dat": "efbfad46e9c27521f78b1afd6a6c6be3",
+        "dimensions\\ae2\\spatial_storage\\data\\raids.dat": "efbfad46e9c27521f78b1afd6a6c6be3",
+        "serverconfig\\ftbultimine-server.snbt": "44d27247864762b83983412f1213a157",
+        "data\\disk_manager.dat": "b7f979a4cfb5d29371a6d265acafe776",
+        "DIM1\\data\\capabilities.dat": "42a6856961d186a52c37558da8368161",
+        "data\\enderio_conduit_network.dat": "aca8946f148d5c08ec5364f766dc30c9",
+        "entities\\r.0.0.mca": "d41d8cd98f00b204e9800998ecf8427e",
+        "region\\r.0.-1.mca": "885cb3a451b828df1f0bf8b68fdad7f2",
+        "serverconfig\\jei-server.toml": "cea52bec8eece936a7f4b81b4cc64f62",
+        "data\\enderio_traveldata.dat": "ba8507afc281adfb05dbc6dfd4787b8a",
+        "ftbteams\\ftbteams.snbt": "58456f84f96d2f5aca20e1e6a81dc6cc",
+        "level.dat": "81c68a21857ecf2930147dfe2ed27562",
+        "serverconfig\\curios-server.toml": "d064bfb7e16578bd3efc66ab75f98a09",
+        "entities\\r.-1.0.mca": "d41d8cd98f00b204e9800998ecf8427e",
+        "data\\gtceu_world_id.dat": "6091cce4c04f5404ddcdf27aed6fde37",
+        "dimensions\\ae2\\spatial_storage\\data\\enderio_conduit_network.dat": "aca8946f148d5c08ec5364f766dc30c9",
+        "ftbquests\\34355ad3-c7ad-4aa4-8fed-68d68d501b0f.snbt": "d339d2bf5686f7f0033574b5627e3b2a",
+        "serverconfig\\forge-server.toml": "3cadb2d9352669b233524575bcff3922",
+        "ftbteams\\player\\34355ad3-c7ad-4aa4-8fed-68d68d501b0f.snbt": "3cc53c5bad920b95b67774cd355f01d1",
+        "playerdata\\34355ad3-c7ad-4aa4-8fed-68d68d501b0f.dat": "77f15b2a7f0b9c4a3d629cf5f1812f94",
+        "DIM-1\\data\\enderio_conduit_network.dat": "aca8946f148d5c08ec5364f766dc30c9",
+        "dimensions\\javd\\void\\data\\raids.dat": "efbfad46e9c27521f78b1afd6a6c6be3",
+        "DIM1\\data\\enderio_conduit_network.dat": "aca8946f148d5c08ec5364f766dc30c9",
+        "serverconfig\\voicechat-server.toml": "699a02f91395517d5f5cc946c1dc9571",
+        "dimensions\\ae2\\spatial_storage\\data\\capabilities.dat": "42a6856961d186a52c37558da8368161",
+        "region\\r.0.0.mca": "7c236ef6049bbd8b366a33fc7bc4e07d",
+        "region\\r.-1.-1.mca": "b08b2c64dd561a45d49eddbf9c1e684d",
+        "xaeromap.txt": "18ae58dde92a49217674dfe7641d7a90",
+        "dimensions\\javd\\void\\data\\enderio_conduit_network.dat": "aca8946f148d5c08ec5364f766dc30c9",
+        "data\\capabilities.dat": "42a6856961d186a52c37558da8368161",
+        "ftbchunks\\34355ad3-c7ad-4aa4-8fed-68d68d501b0f.snbt": "3473d7bf5b7b48c085a4b8b2ed235651",
+        "data\\raids.dat": "efbfad46e9c27521f78b1afd6a6c6be3",
+        "data\\gtceu_capes.dat": "413af67691ab4efc31aba0e01a8e17a6",
+        "serverconfig\\ftbchunks-world.snbt": "9cf50dba35a74ccebc78e69b4c2b1331",
+        "poi\\r.0.0.mca": "d41d8cd98f00b204e9800998ecf8427e",
+        "poi\\r.-1.-1.mca": "d41d8cd98f00b204e9800998ecf8427e",
+        "poi\\r.-1.0.mca": "d41d8cd98f00b204e9800998ecf8427e"
+      }
+    }
+  },
+  "incremental": {
+    "chainLength": 0,
+    "lastBackup": 0,
+    "hashList": {
+      "hashes": {}
+    }
+  }
+}

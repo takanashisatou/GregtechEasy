@@ -3,6 +3,7 @@
 	default_quest_shape: ""
 	filename: "tier_0"
 	group: ""
+	icon: "gtceu:lp_steam_solid_boiler"
 	id: "7BBC78701013E74F"
 	order_index: 1
 	quest_links: [ ]
@@ -215,17 +216,6 @@
 			y: -1.5d
 		}
 		{
-			dependencies: ["3DF529D0A04AE364"]
-			id: "6D65A86188D4D4B1"
-			tasks: [{
-				id: "19BE18E08568CDA0"
-				item: "gtceu:lp_steam_extractor"
-				type: "item"
-			}]
-			x: -18.5d
-			y: -1.5d
-		}
-		{
 			dependencies: ["6EC9D0556AA06521"]
 			description: ["多方块结构里土高炉一栏可以告诉你如何炼钢"]
 			id: "64F6CF8A3BB36778"
@@ -382,7 +372,10 @@
 			y: 0.5d
 		}
 		{
-			dependencies: ["16361C3DC202F727"]
+			dependencies: [
+				"16361C3DC202F727"
+				"085ACAB6F8374974"
+			]
 			id: "7AD973912F3478F4"
 			tasks: [{
 				id: "37ED8C98A167297E"
@@ -570,6 +563,17 @@
 			}]
 			x: -12.0d
 			y: 3.5d
+		}
+		{
+			dependencies: ["3DF529D0A04AE364"]
+			id: "085ACAB6F8374974"
+			tasks: [{
+				id: "2B01DF7BBC8C2751"
+				item: "gtceu:lp_steam_extractor"
+				type: "item"
+			}]
+			x: -10.5d
+			y: -0.5d
 		}
 	]
 	title: "[Tier 0] 蒸汽时代"

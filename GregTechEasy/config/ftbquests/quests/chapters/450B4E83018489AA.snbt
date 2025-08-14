@@ -14,11 +14,6 @@
 				"本整合包在基本保留GTM流程下大幅度消减了从蒸汽时代到UHV时代的难度，额外增加了一些产线和内容。此外本包为了防止挖矿带来的枯燥在前期加入了采矿巨构，前期就可以获得无限的矿物"
 			]
 			id: "7AC928F321C75E9B"
-			rewards: [{
-				command: "/gamerule keepInventory true"
-				id: "46C4F22BA15F9566"
-				type: "command"
-			}]
 			tasks: [{
 				id: "048CBDA2602237A6"
 				title: "整合包介绍"
@@ -142,50 +137,6 @@
 					type: "item"
 				}
 				{
-					id: "7270EF21D70741A4"
-					item: {
-						Count: 1
-						id: "gtceu:nanomuscle_helmet"
-						tag: {
-							Charge: 6400000L
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "6D05069CEDB8E9D2"
-					item: {
-						Count: 1
-						id: "gtceu:advanced_nanomuscle_chestplate"
-						tag: {
-							Charge: 12800000L
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "72856FF1926D7A1C"
-					item: {
-						Count: 1
-						id: "gtceu:nanomuscle_leggings"
-						tag: {
-							Charge: 6400000L
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "6B97511EBC9FB410"
-					item: {
-						Count: 1
-						id: "gtceu:nanomuscle_boots"
-						tag: {
-							Charge: 6400000L
-						}
-					}
-					type: "item"
-				}
-				{
 					id: "6B809C1E43EC879A"
 					item: {
 						Count: 1
@@ -214,6 +165,50 @@
 						id: "megacells:portable_fluid_cell_256m"
 						tag: {
 							internalCurrentPower: 160000.0d
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "5F8C21FB2BD4147F"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_helmet"
+						tag: {
+							Charge: 26843545600000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "74B92D3249908DDE"
+					item: {
+						Count: 1
+						id: "gtceu:advanced_nanomuscle_chestplate"
+						tag: {
+							Charge: 53687091200000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7C58E81048ED1DFC"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_leggings"
+						tag: {
+							Charge: 26843545600000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "35935C68D7485578"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_boots"
+						tag: {
+							Charge: 26843545600000L
 						}
 					}
 					type: "item"

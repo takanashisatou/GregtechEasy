@@ -58,6 +58,7 @@
 			dependencies: ["074AD733062ACD47"]
 			description: ["搭建好多方块结构后放入煤炭和铁就可以开始炼钢了"]
 			id: "1A8EF42B527CC110"
+			size: 2.0d
 			tasks: [{
 				id: "19348883812E8FC7"
 				item: "gtceu:primitive_blast_furnace"
@@ -154,8 +155,8 @@
 			id: "626C14E16197FCF3"
 			tasks: [{
 				count: 2L
-				id: "60515BEC45411972"
-				item: { Count: 2, id: "gtmthings:lv_2a_wireless_energy_input_hatch" }
+				id: "2AABE022C6A99647"
+				item: { Count: 2, id: "gtceu:lv_energy_input_hatch" }
 				type: "item"
 			}]
 			x: -14.0d
@@ -260,18 +261,6 @@
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
-			description: ["              在稍难的格雷科技整合包中，你可能需要用到。"]
-			id: "6F647791E7BAD161"
-			tasks: [{
-				id: "38BB3F7EFCCF6DED"
-				item: "gtceu:steel_multiblock_tank"
-				type: "item"
-			}]
-			x: -14.0d
-			y: -4.0d
-		}
-		{
-			dependencies: ["074AD733062ACD47"]
 			description: ["                        剩下的材料我相信你自己能凑齐哟"]
 			id: "372DF6CC299D3258"
 			rewards: [
@@ -336,6 +325,52 @@
 			}]
 			x: -6.5d
 			y: -2.5d
+		}
+		{
+			dependencies: ["074AD733062ACD47"]
+			description: ["                 通过钢制多方块储罐，可以储存水和蒸汽"]
+			id: "2AE266C9A656295F"
+			tasks: [{
+				id: "5EC0E77D8B9C3F7B"
+				item: "gtceu:steel_multiblock_tank"
+				type: "item"
+			}]
+			x: -14.0d
+			y: -4.0d
+		}
+		{
+			dependencies: ["074AD733062ACD47"]
+			id: "25CA6681C17C1FD7"
+			tasks: [{
+				id: "2D306AE7E19CA9D6"
+				item: "gtceu:big_forge_hammer"
+				type: "item"
+			}]
+			x: -11.0d
+			y: -6.5d
+		}
+		{
+			dependencies: ["2273DC38F788F572"]
+			description: ["                      一键产出材料的所有可制造的零件!"]
+			id: "06FD08EFBF585EE1"
+			tasks: [{
+				id: "128A497B2DFB94CF"
+				item: "gtceu:component_factory"
+				type: "item"
+			}]
+			x: -8.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["074AD733062ACD47"]
+			id: "0CBD835FB920B89B"
+			tasks: [{
+				id: "45412D41C0A4E582"
+				item: "gtceu:big_steam_extractor"
+				type: "item"
+			}]
+			x: -11.0d
+			y: -7.5d
 		}
 	]
 	title: "多方块结构"

@@ -1,13 +1,13 @@
-[23:23:09] [INIT] KubeJS 2001.6.5-build.16; MC 2001 forge
-[23:23:09] [INIT] Loaded plugins:
-[23:23:09] [INIT] - dev.latvian.mods.kubejs.forge.BuiltinKubeJSForgePlugin
-[23:23:09] [INIT] - dev.latvian.mods.kubejs.forge.BuiltinKubeJSForgeClientPlugin
-[23:23:09] [INIT] - com.gregtechceu.gtceu.integration.kjs.GregTechKubeJSPlugin
-[23:23:09] [INIT] - com.lowdragmc.lowdraglib.kjs.LDLibKubeJSPlugin
-[23:23:09] [INIT] - com.github.tartaricacid.touhoulittlemaid.compat.kubejs.ModKubeJSPlugin
-[23:23:09] [INIT] - com.probejs.ProbeJSPlugin
-[23:23:09] [INFO] example.js#5: Hello, World! (Loaded client scripts)
-[23:23:09] [INFO] Loaded script client_scripts:example.js in 0.001 s
-[23:23:09] [INFO] Loaded script client_scripts:teleport.js in 0.0 s
-[23:23:09] [INFO] Loaded 2/2 KubeJS client scripts in 0.02 s with 0 errors and 0 warnings
-[23:23:13] [INFO] Client resource reload complete!
+[21:24:52] [INIT] KubeJS 2001.6.5-build.16; MC 2001 forge
+[21:24:52] [INIT] Loaded plugins:
+[21:24:52] [INIT] - dev.latvian.mods.kubejs.forge.BuiltinKubeJSForgePlugin
+[21:24:52] [INIT] - dev.latvian.mods.kubejs.forge.BuiltinKubeJSForgeClientPlugin
+[21:24:52] [INIT] - com.gregtechceu.gtceu.integration.kjs.GregTechKubeJSPlugin
+[21:24:52] [INIT] - com.lowdragmc.lowdraglib.kjs.LDLibKubeJSPlugin
+[21:24:52] [INIT] - com.github.tartaricacid.touhoulittlemaid.compat.kubejs.ModKubeJSPlugin
+[21:24:52] [INIT] - com.probejs.ProbeJSPlugin
+[21:24:52] [INFO] example.js#5: Hello, World! (Loaded client scripts)
+[21:24:52] [INFO] Loaded script client_scripts:example.js in 0.0 s
+[21:24:52] [INFO] Loaded script client_scripts:teleport.js in 0.0 s
+[21:24:52] [INFO] Loaded 2/2 KubeJS client scripts in 0.018 s with 0 errors and 0 warnings
+[21:24:55] [INFO] Client resource reload complete!

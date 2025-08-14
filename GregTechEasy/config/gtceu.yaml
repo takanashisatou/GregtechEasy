@@ -157,7 +157,7 @@ machines:
   # If true, progress will reset.
   # If false, progress will decrease to zero with 2x speed
   # Default: true
-  recipeProgressLowEnergy: true
+  recipeProgressLowEnergy: false
 
   # Whether to require a Wrench, Wirecutter, or other GregTech tools to break machines, casings, wires, and more.
   # Default: false
@@ -203,7 +203,7 @@ machines:
   # Whether multiblocks should ignore all cleanroom requirements.
   # This does nothing if enableCleanroom is false.
   # Default: false
-  cleanMultiblocks: false
+  cleanMultiblocks: true
 
   # Block to replace mined ores with in the miner and multiblock miner.
   # Default: minecraft:cobblestone
@@ -453,22 +453,22 @@ tools:
     energyConsumption: 64
 
   # NightVision Goggles Voltage Tier. Default: 1 (LV)
-  voltageTierNightVision: 1
+  voltageTierNightVision: 14
 
   # NanoSuit Voltage Tier. Default: 3 (HV)
-  voltageTierNanoSuit: 3
+  voltageTierNanoSuit: 14
 
   # Advanced NanoSuit Chestplate Voltage Tier.
   # Default: 3 (HV)
-  voltageTierAdvNanoSuit: 3
+  voltageTierAdvNanoSuit: 14
 
   # QuarkTech Suit Voltage Tier.
   # Default: 5 (IV)
-  voltageTierQuarkTech: 5
+  voltageTierQuarkTech: 14
 
   # Advanced QuarkTech Suit Chestplate Voltage Tier.
   # Default: 5 (LuV)
-  voltageTierAdvQuarkTech: 6
+  voltageTierAdvQuarkTech: 14
 
   # Electric Impeller Jetpack Voltage Tier.
   # Default: 2 (MV)

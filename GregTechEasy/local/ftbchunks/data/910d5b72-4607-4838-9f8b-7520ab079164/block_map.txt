@@ -36,6 +36,7 @@
 #41258E gtceu:cassiterite_indicator
 #57FE21 gtceu:cassiterite_ore
 #0D917C gtceu:cassiterite_sand_ore
+#75D854 ae2:cell_workbench
 #0657F7 gtceu:chalcopyrite_indicator
 #E9734A gtceu:chalcopyrite_ore
 #F522F4 minecraft:chest
@@ -74,6 +75,7 @@
 #47DF92 gtceu:diorite_fullers_earth_ore
 #E9FE13 gtceu:diorite_goethite_ore
 #C04480 gtceu:diorite_magnetite_ore
+#A74EA7 gtceu:diorite_oilsands_ore
 #AECD96 gtceu:diorite_opal_ore
 #80497A minecraft:dirt
 #4FA7D0 minecraft:dirt_path
@@ -110,6 +112,7 @@
 #123594 gtceu:hematite_ore
 #52D27E minecraft:ice
 #0575BD minecraft:infested_stone
+#DCA4D3 gtceu:iv_arc_furnace
 #3A4E22 minecraft:jungle_fence
 #F7CC06 minecraft:jungle_planks
 #7FCA6F minecraft:jungle_slab
@@ -119,6 +122,7 @@
 #947C88 gtceu:lepidolite_ore
 #A0FD54 minecraft:light_blue_concrete
 #DFD691 minecraft:lily_pad
+#F2554E minecraft:magenta_concrete
 #DE9468 minecraft:magma_block
 #846DFA gtceu:magnetite_indicator
 #25078D gtceu:magnetite_ore
@@ -156,6 +160,8 @@
 #A8C236 minecraft:prismarine_bricks
 #E6B35B minecraft:pumpkin
 #DAD87E gtceu:pyrochlore_ore
+#07E7D0 ae2:quantum_link
+#0AA206 ae2:quantum_ring
 #10287D gtceu:red_garnet_indicator
 #A3A050 gtceu:red_garnet_ore
 #25660E gtceu:red_granite
@@ -188,12 +194,15 @@
 #ACC8AE gtceu:talc_indicator
 #847941 gtceu:talc_ore
 #0F02B6 gtceu:tin_ore
+#2F5CAD ae2:tiny_tnt
 #C9235D gtceu:tricalcium_phosphate_ore
 #87BAF4 minecraft:tuff
 #E412C9 gtceu:vanadium_magnetite_ore
 #88779D minecraft:vine
 #CE8FAE minecraft:white_terracotta
 #DBA41E minecraft:white_wall_banner
+#541F28 ae2:wireless_access_point
+#483E9B expatternprovider:wireless_connect
 #25B88D gtceu:yellow_garnet_ore
 #077CD3 gtceu:yellow_limonite_ore
 #12D2EF gtceu:zeolite_ore

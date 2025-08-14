@@ -1,0 +1,16 @@
+{
+	version: 1
+	uuid: "34355ad3c7ad4aa48fed68d68d501b0f"
+	name: "GOGOGOPioneer#34355ad3"
+	lock: false
+	rewards_blocked: false
+	task_progress: { }
+	started: { }
+	completed: { }
+	claimed_rewards: { }
+	player_data: {
+		34355ad3c7ad4aa48fed68d68d501b0f: {
+			can_edit: 1b
+		}
+	}
+}

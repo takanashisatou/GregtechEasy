@@ -630,6 +630,42 @@
 			x: -19.5d
 			y: 0.0d
 		}
+		{
+			dependencies: ["7487CBB1FCC1D0A0"]
+			id: "6286FE742D69B3A5"
+			tasks: [{
+				id: "3CBD9ABECA17AE05"
+				item: "gtceu:ethylene_bucket"
+				type: "item"
+			}]
+			x: -26.5d
+			y: 4.5d
+		}
+		{
+			dependencies: ["1384D96116B68500"]
+			id: "1B8CA913FA0498AC"
+			tasks: [{
+				id: "3A7ED1A682F751D8"
+				item: "gtceu:oxygen_bucket"
+				type: "item"
+			}]
+			x: -30.5d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"6286FE742D69B3A5"
+				"1B8CA913FA0498AC"
+			]
+			id: "448B8D6FB7B525CB"
+			tasks: [{
+				id: "0D28D6E82D25F682"
+				item: "gtceu:polyethylene_bucket"
+				type: "item"
+			}]
+			x: -28.0d
+			y: 4.5d
+		}
 	]
 	title: "[Tier 1] LV"
 }
