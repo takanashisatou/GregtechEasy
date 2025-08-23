@@ -109,6 +109,18 @@ file = "config/forge-client.toml"
 hash = "a8448518860cd8b542dadf75521bfab981451775212ee1b51ddc646d998f9311"
 
 [[files]]
+file = "config/ftbquests/quests/assets/gte/lang/en_us.json"
+hash = "37e9e5517bb2fc4aa7ebd1fe336fdbd394c379fe4574ba861f77d7ee5672675f"
+
+[[files]]
+file = "config/ftbquests/quests/assets/gte/lang/zh_cn.json"
+hash = "37e9e5517bb2fc4aa7ebd1fe336fdbd394c379fe4574ba861f77d7ee5672675f"
+
+[[files]]
+file = "config/ftbquests/quests/assets/gte/lang/zh_tw.json"
+hash = "9d9fc6515aeb0bd46a6ed61dcee9360807a4a2b2dafd98e2596c82b4dc71a636"
+
+[[files]]
 file = "config/ftbquests/quests/chapter_groups.snbt"
 hash = "7652e40b108e78cad50d97dc88df9e49097d70c9a7878da928ee3f6bc9d3291c"
 
@@ -211,18 +223,6 @@ hash = "d40a0510a5eaf56e3c48e881348d7d826c5a1f61aa29b69cf0fc33dd96d6fdcd"
 [[files]]
 file = "config/modernfix-mixins.properties"
 hash = "fda82db644ea383536c23b98c52c19e865e28a0fe3abcdd87a70ecc4e5ae748e"
-
-[[files]]
-file = "config/openloader/resources/quests/assets/gte/lang/en_us.json"
-hash = "37e9e5517bb2fc4aa7ebd1fe336fdbd394c379fe4574ba861f77d7ee5672675f"
-
-[[files]]
-file = "config/openloader/resources/quests/assets/gte/lang/zh_cn.json"
-hash = "37e9e5517bb2fc4aa7ebd1fe336fdbd394c379fe4574ba861f77d7ee5672675f"
-
-[[files]]
-file = "config/openloader/resources/quests/assets/gte/lang/zh_tw.json"
-hash = "9d9fc6515aeb0bd46a6ed61dcee9360807a4a2b2dafd98e2596c82b4dc71a636"
 
 [[files]]
 file = "config/patchouli-client.toml"
