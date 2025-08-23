@@ -9,8 +9,8 @@
 	quests: [
 		{
 			description: [
-				"应用能源是一个非常非常复杂的物流系统模组，一言两语讲不清楚，十分推荐去Bilibili查看有关应用能源2高版本的教学视频，别看成低版本的应用能源2的教学了。高低版本之间差异很大哟。"
-				"如有不懂的欢迎萌新们请教大佬或者制作组哟，他们会非常和谐友善积极的回答你的问题。"
+				"{gte.47AB9034BB01D142.quests.2BBD7C335742BCBE.description0}"
+				"{gte.47AB9034BB01D142.quests.2BBD7C335742BCBE.description1}"
 			]
 			icon: "ae2:blank_pattern"
 			id: "2BBD7C335742BCBE"
@@ -59,7 +59,7 @@
 				id: "136123CE5ED8482A"
 				type: "checkmark"
 			}]
-			title: "应用能源"
+			title: "{gte.47AB9034BB01D142.quests.2BBD7C335742BCBE.title}"
 			x: -3.0d
 			y: -2.0d
 		}
@@ -76,7 +76,7 @@
 			}]
 			tasks: [{
 				id: "5B2E62CD5C08E3B4"
-				title: "免费的样板"
+				title: "{gte.47AB9034BB01D142.quests.5E1887D05D76E7AE.tasks.5B2E62CD5C08E3B4.title}"
 				type: "checkmark"
 			}]
 			x: -3.0d
@@ -120,7 +120,7 @@
 			]
 			tasks: [{
 				id: "287CB77DADE884CD"
-				title: "免费的AE线缆"
+				title: "{gte.47AB9034BB01D142.quests.30941A7DE06A6E68.tasks.287CB77DADE884CD.title}"
 				type: "checkmark"
 			}]
 			x: -1.0d
@@ -184,7 +184,7 @@
 			]
 			tasks: [{
 				id: "5B131E23666C6D18"
-				title: "免费的终端"
+				title: "{gte.47AB9034BB01D142.quests.4FA214D2E4741D2C.tasks.5B131E23666C6D18.title}"
 				type: "checkmark"
 			}]
 			x: -1.0d
@@ -240,7 +240,7 @@
 			]
 			tasks: [{
 				id: "2EC938202F4786DC"
-				title: "免费的量子环"
+				title: "{gte.47AB9034BB01D142.quests.5539606B8C636E42.tasks.2EC938202F4786DC.title}"
 				type: "checkmark"
 			}]
 			x: -3.0d
@@ -272,7 +272,7 @@
 			]
 			tasks: [{
 				id: "25B6124C673157C5"
-				title: "免费的样板供应器，接口和分子装配室"
+				title: "{gte.47AB9034BB01D142.quests.27CE31735E0EA29B.tasks.25B6124C673157C5.title}"
 				type: "checkmark"
 			}]
 			x: -1.0d
@@ -321,7 +321,7 @@
 			]
 			tasks: [{
 				id: "0A683090982009B7"
-				title: "免费的输入总线和输出总线"
+				title: "{gte.47AB9034BB01D142.quests.7A6DA401F24F83CB.tasks.0A683090982009B7.title}"
 				type: "checkmark"
 			}]
 			x: -5.0d
@@ -385,7 +385,7 @@
 			]
 			tasks: [{
 				id: "785CEEB13C525C73"
-				title: "各种各样的免费的卡"
+				title: "{gte.47AB9034BB01D142.quests.69E53F5C3470EA20.tasks.785CEEB13C525C73.title}"
 				type: "checkmark"
 			}]
 			x: -5.0d
@@ -415,10 +415,10 @@
 					type: "item"
 				}
 			]
-			subtitle: "根本用不完"
+			subtitle: "{gte.47AB9034BB01D142.quests.1070E84FE5B10F94.subtitle}"
 			tasks: [{
 				id: "628373B1EC3B4375"
-				title: "免费的合成存储器、合成监控器"
+				title: "{gte.47AB9034BB01D142.quests.1070E84FE5B10F94.tasks.628373B1EC3B4375.title}"
 				type: "checkmark"
 			}]
 			x: -5.0d
@@ -435,7 +435,7 @@
 			}]
 			tasks: [{
 				id: "4A1DEE306E30BB8C"
-				title: "免费的可编程覆盖板"
+				title: "{gte.47AB9034BB01D142.quests.670922914762F5F9.tasks.4A1DEE306E30BB8C.title}"
 				type: "checkmark"
 			}]
 			x: -3.0d
@@ -461,7 +461,7 @@
 			}]
 			tasks: [{
 				id: "75C26A2503DDE086"
-				title: "免费的虚拟物品提供器"
+				title: "{gte.47AB9034BB01D142.quests.1BBA5F76E5055FAD.tasks.75C26A2503DDE086.title}"
 				type: "checkmark"
 			}]
 			x: -5.0d
@@ -483,8 +483,8 @@
 		{
 			dependencies: ["2BBD7C335742BCBE"]
 			description: [
-				"闪存Shift+S键右击ME样板总成将会把ME样板总成与闪存绑定。"
-				"使用绑定好的闪存右击ME样板镜像总成即可把ME样板总成与ME样板镜像总成进行绑定。"
+				"{gte.47AB9034BB01D142.quests.3B8E9AA0F9E36A45.description0}"
+				"{gte.47AB9034BB01D142.quests.3B8E9AA0F9E36A45.description1}"
 			]
 			icon: "gtceu:me_pattern_buffer"
 			id: "3B8E9AA0F9E36A45"
@@ -536,13 +536,13 @@
 			]
 			tasks: [{
 				id: "0135496AF844C589"
-				title: "免费的ME输入/输出总成"
+				title: "{gte.47AB9034BB01D142.quests.3B8E9AA0F9E36A45.tasks.0135496AF844C589.title}"
 				type: "checkmark"
 			}]
-			title: "还在用样板供应器吗?过时了"
+			title: "{gte.47AB9034BB01D142.quests.3B8E9AA0F9E36A45.title}"
 			x: -6.5d
 			y: -2.0d
 		}
 	]
-	title: "免费的应用能源"
+	title: "{gte.47AB9034BB01D142.title}"
 }

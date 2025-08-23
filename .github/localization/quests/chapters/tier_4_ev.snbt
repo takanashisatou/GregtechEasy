@@ -10,7 +10,7 @@
 	quests: [
 		{
 			dependencies: ["67FAEC2F39D3E340"]
-			description: ["恭喜你已经到了EV阶段，在这个阶段你需要设计铂处理和环氧树脂产产线"]
+			description: ["{gte.tier_4_ev.quests.5FF7B242947F944C.description0}"]
 			id: "5FF7B242947F944C"
 			size: 2.0d
 			tasks: [
@@ -40,7 +40,7 @@
 					type: "item"
 				}
 			]
-			title: "EV时代的老五样"
+			title: "{gte.tier_4_ev.quests.5FF7B242947F944C.title}"
 			x: -10.0d
 			y: -2.0d
 		}
@@ -65,10 +65,10 @@
 			id: "3918B30E8D983940"
 			tasks: [{
 				id: "23EAE4EF9319FEA8"
-				title: "高级橡胶"
+				title: "{gte.tier_4_ev.quests.3918B30E8D983940.tasks.23EAE4EF9319FEA8.title}"
 				type: "checkmark"
 			}]
-			title: "硅橡胶产线"
+			title: "{gte.tier_4_ev.quests.3918B30E8D983940.title}"
 			x: -9.0d
 			y: 0.5d
 		}
@@ -146,7 +146,7 @@
 			id: "716B21A520547BDB"
 			tasks: [{
 				id: "0E4F7ACAC37FB7BB"
-				title: "丁苯橡胶产线"
+				title: "{gte.tier_4_ev.quests.716B21A520547BDB.tasks.0E4F7ACAC37FB7BB.title}"
 				type: "checkmark"
 			}]
 			x: -12.5d
@@ -157,7 +157,7 @@
 			id: "0EA26B36AF5AC7A9"
 			tasks: [{
 				id: "157AB5D3242CBAEB"
-				title: "高级橡胶"
+				title: "{gte.tier_4_ev.quests.0EA26B36AF5AC7A9.tasks.157AB5D3242CBAEB.title}"
 				type: "checkmark"
 			}]
 			x: -11.0d
@@ -179,7 +179,7 @@
 		}
 		{
 			dependencies: ["716B21A520547BDB"]
-			description: ["丁二烯，推荐使用轻度蒸汽劣化的石脑油蒸馏获得"]
+			description: ["{gte.tier_4_ev.quests.40CC946EFB61C16B.description0}"]
 			id: "40CC946EFB61C16B"
 			tasks: [{
 				id: "38C7229559B47AFA"
@@ -253,11 +253,11 @@
 		}
 		{
 			dependencies: ["5FF7B242947F944C"]
-			description: ["你也许听说过格雷科技中铂处理很困难的传闻，不过没关系，在GregTech Easy中，铂处理保留着GTM原版的配方，因此一点都不难"]
+			description: ["{gte.tier_4_ev.quests.20365C2A54F3C2C1.description0}"]
 			id: "20365C2A54F3C2C1"
 			tasks: [{
 				id: "41577620FF63DC7E"
-				title: "铂处理Easy版"
+				title: "{gte.tier_4_ev.quests.20365C2A54F3C2C1.tasks.41577620FF63DC7E.title}"
 				type: "checkmark"
 			}]
 			x: -8.0d
@@ -298,7 +298,7 @@
 		}
 		{
 			dependencies: ["20365C2A54F3C2C1"]
-			description: ["前往\"氢松\"的化学\"小\"实验这一章节查看如何制造硝酸"]
+			description: ["{gte.tier_4_ev.quests.5E48CF4A88699BBF.description0}"]
 			id: "5E48CF4A88699BBF"
 			tasks: [{
 				id: "19402ECE109A8186"
@@ -482,11 +482,11 @@
 		}
 		{
 			dependencies: ["5FF7B242947F944C"]
-			description: ["环氧树脂，你需要在EV阶段大量制备这种材料来制造更高级的电路板。"]
+			description: ["{gte.tier_4_ev.quests.6CE7AC5A29F23BF5.description0}"]
 			id: "6CE7AC5A29F23BF5"
 			tasks: [{
 				id: "46E5F950246810CC"
-				title: "环氧树脂产线"
+				title: "{gte.tier_4_ev.quests.6CE7AC5A29F23BF5.tasks.46E5F950246810CC.title}"
 				type: "checkmark"
 			}]
 			x: -14.5d
@@ -551,7 +551,7 @@
 			y: -4.0d
 		}
 		{
-			description: ["             前往\"氢松\"的化学\"小\"实验查看如何制备盐酸"]
+			description: ["{gte.tier_4_ev.quests.5B819F3E1DFC6CBB.description0}"]
 			id: "5B819F3E1DFC6CBB"
 			tasks: [{
 				id: "3750356F440B8AF7"
@@ -562,7 +562,7 @@
 			y: -3.0d
 		}
 		{
-			description: ["关于氢氧化纳的制备，查看\"氢松\"的化学\"小\"实验这一章吧。"]
+			description: ["{gte.tier_4_ev.quests.447BFDF877F932BC.description0}"]
 			id: "447BFDF877F932BC"
 			tasks: [{
 				id: "78D7A8D3BA9A2128"
@@ -574,7 +574,7 @@
 		}
 		{
 			dependencies: ["6CE7AC5A29F23BF5"]
-			description: ["前往\"氢松\"的化学\"小\"实验这一章了解如何通过石化/木化产线生产苯"]
+			description: ["{gte.tier_4_ev.quests.0B1DAF47DE921375.description0}"]
 			id: "0B1DAF47DE921375"
 			tasks: [{
 				id: "71B7561C7CD1FF6E"
@@ -586,7 +586,7 @@
 		}
 		{
 			dependencies: ["6CE7AC5A29F23BF5"]
-			description: ["                电解盐水、盐、岩盐等可以获取氯气"]
+			description: ["{gte.tier_4_ev.quests.3C0156635A63ADFE.description0}"]
 			id: "3C0156635A63ADFE"
 			tasks: [{
 				id: "2686123BFD901F63"
@@ -620,7 +620,7 @@
 		}
 		{
 			dependencies: ["6CE7AC5A29F23BF5"]
-			description: ["你应该已经会如何制造乙烯了，如果你还不会，可以看看“氢松\"的化学\"小\"实验这一章哟"]
+			description: ["{gte.tier_4_ev.quests.3506AAE813101DC5.description0}"]
 			id: "3506AAE813101DC5"
 			tasks: [{
 				id: "3A6988710659A37A"
@@ -632,7 +632,7 @@
 		}
 		{
 			dependencies: ["6CE7AC5A29F23BF5"]
-			description: ["             前往\"氢松\"的化学\"小\"实验查看如何制备盐酸"]
+			description: ["{gte.tier_4_ev.quests.6ED67215BD3B4CCA.description0}"]
 			id: "6ED67215BD3B4CCA"
 			tasks: [{
 				id: "6EDFE51137CEC4C1"
@@ -754,7 +754,7 @@
 			id: "61F75E138450A3BF"
 			tasks: [{
 				id: "6C645FBEC83729C7"
-				title: "纳米晶圆系列"
+				title: "{gte.tier_4_ev.quests.61F75E138450A3BF.tasks.6C645FBEC83729C7.title}"
 				type: "checkmark"
 			}]
 			x: -20.5d
@@ -820,11 +820,11 @@
 		}
 		{
 			dependencies: ["5FF7B242947F944C"]
-			description: ["                     通过对钨酸锂和白钨矿加工即可获得钨粉"]
+			description: ["{gte.tier_4_ev.quests.3B70CDEEF4BBC17A.description0}"]
 			id: "3B70CDEEF4BBC17A"
 			tasks: [{
 				id: "702108A51C8D9CE6"
-				title: "钨产线"
+				title: "{gte.tier_4_ev.quests.3B70CDEEF4BBC17A.tasks.702108A51C8D9CE6.title}"
 				type: "checkmark"
 			}]
 			x: -10.0d
@@ -1042,7 +1042,7 @@
 			id: "544DEEE75E855C16"
 			tasks: [{
 				id: "4B1A0A7AA4ED6AF2"
-				title: "石墨烯产线"
+				title: "{gte.tier_4_ev.quests.544DEEE75E855C16.tasks.4B1A0A7AA4ED6AF2.title}"
 				type: "checkmark"
 			}]
 			x: -9.0d
@@ -1130,5 +1130,5 @@
 			y: -3.0d
 		}
 	]
-	title: "[Tier 4] EV"
+	title: "{gte.tier_4_ev.title}"
 }
