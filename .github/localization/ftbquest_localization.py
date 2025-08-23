@@ -10,7 +10,7 @@ QUEST_PATH = Path('config/ftbquests/quests')
 QUEST_LOCALIZED_PATH = Path('.github/localization/quests')
 QUEST_LOCALIZED_PATH.mkdir(exist_ok=True)
 
-LANG_FILE_PATH = Path('config/openloader/resources/quests/assets/gte/lang')
+LANG_FILE_PATH = Path('config/ftbquests/quests/assets/gte/lang')
 os.makedirs(LANG_FILE_PATH, exist_ok=True)
 SOURCE_LANGUAGE = 'zh_cn'
 TARGET_LANGUAGE = 'en_us'
