@@ -1,0 +1,15 @@
+filename = "Applied-Mekanistics-1.4.2.jar"
+name = "Applied Mekanistics"
+side = "both"
+x-prismlauncher-loaders = ["forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "1c6742e3ac2662844c720a42728a10bb9648d13b"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/4842/281/Applied-Mekanistics-1.4.2.jar"
+
+[update.curseforge]
+file-id = 4842281
+project-id = 574300

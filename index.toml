@@ -455,13 +455,18 @@ hash = "522520763d4e47f073aca025f57f86d9a02cc5ef3dcc646984196c8f2d7e8e76"
 metafile = true
 
 [[files]]
+file = "mods/applied-mekanistics.pw.toml"
+hash = "7fb3ff43b8ab09c7bc47fb7ee7abddb0d230e591127a6ff2692ff12ab505c95d"
+metafile = true
+
+[[files]]
 file = "mods/architectury-api.pw.toml"
 hash = "4b51ac85217347cfbb37da58616d1fa07b0901880a2c16f725d285e318b858fd"
 metafile = true
 
 [[files]]
 file = "mods/balm.pw.toml"
-hash = "dc5d02e47bc0c35e88c3fd93d6a8eb1bcecf6e11fb7b822ac0e65dcd46516969"
+hash = "541bb2a2fa0f34554def18020206b54b9dee97e0c07933f5b922e0001bade14b"
 metafile = true
 
 [[files]]
@@ -650,27 +655,27 @@ metafile = true
 
 [[files]]
 file = "mods/mekanism-additions.pw.toml"
-hash = "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+hash = "c234321838696947a154fb123948c117cd2b18a09b4e7b4bd0cc874910d8badc"
 metafile = true
 
 [[files]]
 file = "mods/mekanism-extras.pw.toml"
-hash = "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+hash = "944c1dfbe389efd14bc396cf7f1e5fa7e3ed280a725ea998856638953e6199ad"
 metafile = true
 
 [[files]]
 file = "mods/mekanism-generators.pw.toml"
-hash = "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+hash = "48bce500ec3e4f7f6a515bd0e604aed2df94c59c2fd10f237880fc2179d71fc4"
 metafile = true
 
 [[files]]
 file = "mods/mekanism-tools.pw.toml"
-hash = "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+hash = "ebbd2ac2626eb4349efd0505feab7c7b943f4fd46e68722134722b596dc41c47"
 metafile = true
 
 [[files]]
 file = "mods/mekanism.pw.toml"
-hash = "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+hash = "8a53ab0ec157fd1d8b77a4d16a2e6aa5881a3ccf5edcc93dfd9080db6f50802b"
 metafile = true
 
 [[files]]
@@ -725,7 +730,7 @@ metafile = true
 
 [[files]]
 file = "mods/simple-voice-chat.pw.toml"
-hash = "f9769ef1eb2e7037437c69c91d6c9cb6e1e6e38998dff47254335009ffaeb81b"
+hash = "74c960d99ba8e2ee941671b38f5dea17839530f2fb1dc39ff1129e6575ade03c"
 metafile = true
 
 [[files]]
@@ -750,7 +755,7 @@ metafile = true
 
 [[files]]
 file = "mods/trashslot.pw.toml"
-hash = "d07ac804a9ec5bc3021982fa97ebefffc1a03c11e799b794fd52113e186a0448"
+hash = "11df17f6ab6bc1d89917cabc819ce3b06aadf2cff1eb5f7623bac520fbd017d0"
 metafile = true
 
 [[files]]
@@ -761,4 +766,9 @@ metafile = true
 [[files]]
 file = "mods/worldedit.pw.toml"
 hash = "fcdd33302aef9c8d6a2086ae5cf68b0041092fbd6683002df7adedff6410f946"
+metafile = true
+
+[[files]]
+file = "mods/worldeditcui-forge.pw.toml"
+hash = "f642af5b1291af74d04eb998ed186b384863e5c604b6c889d49de2f0208895f6"
 metafile = true
