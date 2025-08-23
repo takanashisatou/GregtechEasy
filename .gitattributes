@@ -1,8 +1,1 @@
-* text=auto
-
-*.sh text eol=lf
-*.nix text eol=lf
-*.yml text eol=lf
-*.json text eol=lf
-
-*.png binary
+* -text eol=lf

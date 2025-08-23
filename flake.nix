@@ -16,6 +16,10 @@
         pkgs = nixpkgs.legacyPackages.${system};
         pack = builtins.fromTOML (builtins.readFile ./pack.toml);
         inherit (packwiz2nix.packages.${system}) buildPackwizModpack;
+        patchFilesCommon = ''
+          rm -rf config/ftbquests/quests
+          cp -r .github/localization/quests config/ftbquests/quests
+        '';
       in {
         devShells.default =
           pkgs.mkShell { packages = with pkgs; [ packwiz yq ]; };
@@ -28,8 +32,7 @@
             buildInputs = with pkgs; [ packwiz ];
             phases = [ "unpackPhase" "buildPhase" "installPhase" ];
             buildPhase = ''
-              export HOME=$PWD/home
-              mkdir -p $HOME
+              ${patchFilesCommon}
               packwiz cf export
             '';
             installPhase = ''
@@ -62,8 +65,6 @@
             allowMissingFile = true;
 
             buildPhase = ''
-              rm -rf config/ftbquests/quests
-              cp -r .github/localization/quests config/ftbquests/quests
             '';
           };
 
@@ -75,8 +76,7 @@
             side = "client";
 
             buildPhase = ''
-              rm -rf config/ftbquests/quests
-              cp -r .github/localization/quests config/ftbquests/quests
+              ${patchFilesCommon}
             '';
           };
 
