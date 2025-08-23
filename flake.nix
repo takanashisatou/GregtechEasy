@@ -32,7 +32,7 @@
             buildInputs = with pkgs; [ packwiz ];
             phases = [ "unpackPhase" "buildPhase" "installPhase" ];
             buildPhase = ''
-              export HOME=$PWD/home
+              export HOME=$PWD
               mkdir -p $HOME
               ${patchFilesCommon}
               packwiz cf export
