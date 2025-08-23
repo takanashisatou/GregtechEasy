@@ -2,8 +2,8 @@ import json
 import os
 from pathlib import Path
 
-INPUT_FILE_PATH = Path('config/ftbquests/quests/assets/gte/lang/zh_cn.json')
-OUTPUT_FILE_PATH = Path('config/ftbquests/quests/assets/gte/lang/zh_tw.json')
+INPUT_FILE_PATH = Path('.github/localization/quests/assets/gte/lang/zh_cn.json')
+OUTPUT_FILE_PATH = Path('.github/localization/quests/assets/gte/lang/zh_tw.json')
 
 mapping_table = {}
 
