@@ -121,6 +121,10 @@ file = "config/gtceu.yaml"
 hash = "e1160fcfcfd123d4383de1b2fac43f350cbc5776f4f9c10701b2cd22d3ca0010"
 
 [[files]]
+file = "config/gtecore.yaml"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+
+[[files]]
 file = "config/gtmthings.yaml"
 hash = "8e852306d8e95f0dd349ee876b44722ad9ac49a047dcc63608cf69f851d07648"
 
