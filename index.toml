@@ -109,6 +109,14 @@ file = "config/forge-client.toml"
 hash = "0b1b3c45343435184c9dde3149b38afcdb97953e287686ecda54385f53ebcddc"
 
 [[files]]
+file = "config/ftbquests/quests/chapter_groups.snbt"
+hash = "07bd4f3a4508b8d2bee8b9906009967570193143031dcb760d8ee4384957c4b8"
+
+[[files]]
+file = "config/ftbquests/quests/data.snbt"
+hash = "6fd6f7a8adf8e6d9fd4d0ef68d1fad516cc1556b0805655a58d925f80c22f670"
+
+[[files]]
 file = "config/gtceu.yaml"
 hash = "e1160fcfcfd123d4383de1b2fac43f350cbc5776f4f9c10701b2cd22d3ca0010"
 
