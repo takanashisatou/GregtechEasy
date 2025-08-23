@@ -1,0 +1,13 @@
+name = "GregTech Easy"
+author = "takanashisatou"
+version = "1.0.0"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "d065eda47bbb1472f95750ff870cbaec2e85c3564342c4fdf43cfe94c57159f7"
+
+[versions]
+forge = "47.4.4"
+minecraft = "1.20.1"

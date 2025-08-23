@@ -1,0 +1,15 @@
+filename = "merequester-forge-1.20.1-1.1.5.jar"
+name = "ME Requester"
+side = "both"
+x-prismlauncher-loaders = ["neoforge", "forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "24e6611df470afd957eafd16c43890b7214e3da9"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/5689/932/merequester-forge-1.20.1-1.1.5.jar"
+
+[update.curseforge]
+file-id = 5689932
+project-id = 688367
