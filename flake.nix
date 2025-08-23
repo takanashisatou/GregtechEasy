@@ -40,7 +40,7 @@
 
           forge = let
             minecraftVersion = "1.20.1";
-            forgeVersion = "47.4.1";
+            forgeVersion = "47.4.4";
             version = "${minecraftVersion}-${forgeVersion}";
           in pkgs.runCommandNoCC "forge-${version}" {
             inherit version;
