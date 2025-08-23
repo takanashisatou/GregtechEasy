@@ -53,3 +53,5 @@ fixup.sh
 config/flywheel-client.toml
 config/embeddium-options.json
 README_zh.md
+
+!extendedae_plus-*.jar

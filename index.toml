@@ -461,7 +461,7 @@ metafile = true
 
 [[files]]
 file = "mods/balm.pw.toml"
-hash = "541bb2a2fa0f34554def18020206b54b9dee97e0c07933f5b922e0001bade14b"
+hash = "dc5d02e47bc0c35e88c3fd93d6a8eb1bcecf6e11fb7b822ac0e65dcd46516969"
 metafile = true
 
 [[files]]
@@ -510,6 +510,10 @@ hash = "557e0bbbfee7df4264c8e7cfeffccdfb9dde84cce4d0a859aaf4a4dff1aba492"
 metafile = true
 
 [[files]]
+file = "mods/extendedae_plus-1.3.2-fix1.jar"
+hash = "e9bfc37e7bb96ae439afb1e6680742491f7dd9804453bd4d887a52697edf1ebd"
+
+[[files]]
 file = "mods/ferritecore.pw.toml"
 hash = "907de56227a9f6e2b2c7448f31be3989cbf85237150ac30f619a702c8a2c9785"
 metafile = true
@@ -537,6 +541,11 @@ metafile = true
 [[files]]
 file = "mods/ftb-ultimine-forge.pw.toml"
 hash = "ebeed09c3c8fbbf07da4ddf2dada92334a48457169dc5392c797a6430a25e0eb"
+metafile = true
+
+[[files]]
+file = "mods/geckolib.pw.toml"
+hash = "e57d25761835c7137403eb54bc49e60407a57a9907975da4b522b062806f5c58"
 metafile = true
 
 [[files]]
@@ -610,8 +619,18 @@ hash = "5d565533ea069f0a9e50c1eeb35688a87dfc345bd43910616f49df91f1c644c7"
 metafile = true
 
 [[files]]
+file = "mods/laserio.pw.toml"
+hash = "74dec8c570268cb79791317d27a862302f2e0c1162bf697df508252aedac695c"
+metafile = true
+
+[[files]]
 file = "mods/lazydfu.pw.toml"
 hash = "8a7788c5aa658aeea091efcde1056bee9bdb73bf0e8df4bf7ad669da3ed7a5cc"
+metafile = true
+
+[[files]]
+file = "mods/ldlib.pw.toml"
+hash = "52688fed72e0d3a39906c26be0d747ca8054872a09bf3afd610ba79a29801001"
 metafile = true
 
 [[files]]
@@ -627,6 +646,31 @@ metafile = true
 [[files]]
 file = "mods/mega-cells.pw.toml"
 hash = "196bdcd0070de8f764435f6acc1afc91c17fa0e3fd91ed0bf7e27e7cec483f03"
+metafile = true
+
+[[files]]
+file = "mods/mekanism-additions.pw.toml"
+hash = "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+metafile = true
+
+[[files]]
+file = "mods/mekanism-extras.pw.toml"
+hash = "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+metafile = true
+
+[[files]]
+file = "mods/mekanism-generators.pw.toml"
+hash = "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+metafile = true
+
+[[files]]
+file = "mods/mekanism-tools.pw.toml"
+hash = "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+metafile = true
+
+[[files]]
+file = "mods/mekanism.pw.toml"
+hash = "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
 metafile = true
 
 [[files]]
@@ -650,8 +694,18 @@ hash = "ca89921b933b380b7c0620b2a4b5badd4af01f45d0ce740853e86d44930163f8"
 metafile = true
 
 [[files]]
+file = "mods/mouse-tweaks.pw.toml"
+hash = "1e6eaa64efdce69099d2f4efc144b56730fc72dfcc6c7dbfbd388fed0304180d"
+metafile = true
+
+[[files]]
 file = "mods/patchouli.pw.toml"
 hash = "5c233884544e4bcaa5979592cb31d3162b5c4c4c2b6f0139f37d5949b8393547"
+metafile = true
+
+[[files]]
+file = "mods/pipez.pw.toml"
+hash = "a747a6a2b4ff5a6d3ae4117ae86d024a080f157b5539afc77672f9808490eb11"
 metafile = true
 
 [[files]]
@@ -671,7 +725,22 @@ metafile = true
 
 [[files]]
 file = "mods/simple-voice-chat.pw.toml"
-hash = "74c960d99ba8e2ee941671b38f5dea17839530f2fb1dc39ff1129e6575ade03c"
+hash = "f9769ef1eb2e7037437c69c91d6c9cb6e1e6e38998dff47254335009ffaeb81b"
+metafile = true
+
+[[files]]
+file = "mods/sophisticated-backpacks.pw.toml"
+hash = "f98f768b44bc80faa94735d7cf64cccb6762d5661d90beea2f4b4e66a7a50a30"
+metafile = true
+
+[[files]]
+file = "mods/sophisticated-core.pw.toml"
+hash = "660c96688d2644acc336fe63c125a2f20f7bf822cefe2719fb3615611084b8dc"
+metafile = true
+
+[[files]]
+file = "mods/sophisticated-storage.pw.toml"
+hash = "c377654ebf4b51ecf4eb0feb819131be7e2e0ec31c8a4000d71d84f6a48d5330"
 metafile = true
 
 [[files]]
@@ -681,10 +750,15 @@ metafile = true
 
 [[files]]
 file = "mods/trashslot.pw.toml"
-hash = "11df17f6ab6bc1d89917cabc819ce3b06aadf2cff1eb5f7623bac520fbd017d0"
+hash = "d07ac804a9ec5bc3021982fa97ebefffc1a03c11e799b794fd52113e186a0448"
 metafile = true
 
 [[files]]
 file = "mods/trenzalore.pw.toml"
 hash = "20664c31dac57ffb154d2b6286e9d3bf0d4f130db6f26a9c25b5097cabcc6d3e"
+metafile = true
+
+[[files]]
+file = "mods/worldedit.pw.toml"
+hash = "fcdd33302aef9c8d6a2086ae5cf68b0041092fbd6683002df7adedff6410f946"
 metafile = true

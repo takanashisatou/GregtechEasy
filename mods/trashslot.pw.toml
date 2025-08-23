@@ -1,15 +1,16 @@
-filename = "trashslot-forge-1.20-15.1.2.jar"
-name = "TrashSlot"
-side = "both"
-x-prismlauncher-loaders = ["forge"]
-x-prismlauncher-mc-versions = ["1.20", "1.20.1"]
-x-prismlauncher-release-type = "release"
+filename = '[垃圾槽] trashslot-forge-1.20-15.1.1.jar'
+name = 'TrashSlot'
+side = 'both'
+x-prismlauncher-loaders = [ 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20', '1.20.1' ]
+x-prismlauncher-release-type = 'release'
 
 [download]
-hash = "c83d929a3535f6a1c371d7c8d4c915bc7d814c27"
-hash-format = "sha1"
-url = "https://edge.forgecdn.net/files/6319/121/trashslot-forge-1.20-15.1.2.jar"
+hash = 'ea4c243aec3a6c20f5aa1dbf3b01e2c0b3c030e1478d4499979f5d0995a745b37af59797872142a2a3555586eed9a63b804b92fe73d7e349de3faa0734872f30'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/vRYk0bv7/versions/fugZlKHM/trashslot-forge-1.20-15.1.1.jar'
 
-[update.curseforge]
-file-id = 6319121
-project-id = 235577
+[update.modrinth]
+mod-id = 'vRYk0bv7'
+version = 'fugZlKHM'
