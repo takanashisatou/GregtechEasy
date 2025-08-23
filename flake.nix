@@ -28,8 +28,6 @@
             buildInputs = with pkgs; [ packwiz ];
             phases = [ "unpackPhase" "buildPhase" "installPhase" ];
             buildPhase = ''
-              export HOME=$PWD/home
-              mkdir -p $HOME
               packwiz cf export
             '';
             installPhase = ''
