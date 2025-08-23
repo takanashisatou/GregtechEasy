@@ -47,7 +47,7 @@
             nativeBuildInputs = with pkgs; [ cacert curl jre_headless ];
 
             outputHashMode = "recursive";
-            outputHash = "sha256-xObsID3NwcvfvplT7y2jdl/LLkCK3UgNd/lP1a5Bhhk=";
+            outputHash = "sha256-gQ8Vn22LFIN1zAkjzvCYy19JkL29+oULvsaAj8pGZtU=";
           } ''
             mkdir -p "$out"
 
