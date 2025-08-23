@@ -1,0 +1,884 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "450B4E83018489AA"
+	group: ""
+	id: "450B4E83018489AA"
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			can_repeat: true
+			description: [
+				"GregTech Easy制作组 希望你能在这里度过一个轻松而快乐的格雷之旅，愿你找到属于你的那颗萌新之星。"
+				"本整合包在基本保留GTM流程下大幅度消减了从蒸汽时代到UHV时代的难度，额外增加了一些产线和内容。此外本包为了防止挖矿带来的枯燥在前期加入了采矿巨构，前期就可以获得无限的矿物"
+			]
+			id: "7AC928F321C75E9B"
+			tasks: [{
+				id: "048CBDA2602237A6"
+				title: "整合包介绍"
+				type: "checkmark"
+			}]
+			title: "制作组想说的话"
+			x: -15.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			description: ["重要提示: GregTech Easy中的钻石是能烧的，但是只有原版钻石能烧。"]
+			id: "13E908447331858E"
+			rewards: [
+				{
+					id: "0FFEB1F76F462ED8"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_mining_hammer"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								AoEColumn: 1
+								AoELayer: 0
+								AoERow: 1
+								MaxAoEColumn: 1
+								MaxAoELayer: 0
+								MaxAoERow: 1
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+								TorchPlacing: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 196604
+								ToolSpeed: 76.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "6D517A5D3A2794D1"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_pickaxe"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+								TorchPlacing: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4DDBEA79FE495EE7"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_axe"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								DisableShields: 1b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+								TreeFelling: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 182.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "731510744D00C245"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_sword"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								AttackDamage: 103.0f
+								AttackSpeed: -1.9000001f
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					count: 64
+					id: "2BA143384D58DDCA"
+					item: "minecraft:cooked_beef"
+					type: "item"
+				}
+				{
+					id: "6B809C1E43EC879A"
+					item: {
+						Count: 1
+						id: "gtceu:prospector.luv"
+						tag: {
+							Charge: 1000000000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "18511BCB1337CF46"
+					item: {
+						Count: 1
+						id: "megacells:portable_item_cell_256m"
+						tag: {
+							internalCurrentPower: 160000.0d
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "32731EB1B6DE2CFC"
+					item: {
+						Count: 1
+						id: "megacells:portable_fluid_cell_256m"
+						tag: {
+							internalCurrentPower: 160000.0d
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "5F8C21FB2BD4147F"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_helmet"
+						tag: {
+							Charge: 26843545600000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "74B92D3249908DDE"
+					item: {
+						Count: 1
+						id: "gtceu:advanced_nanomuscle_chestplate"
+						tag: {
+							Charge: 53687091200000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7C58E81048ED1DFC"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_leggings"
+						tag: {
+							Charge: 26843545600000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "35935C68D7485578"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_boots"
+						tag: {
+							Charge: 26843545600000L
+						}
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "78F6F8B3C16A6905"
+				title: "萌新的必备工具"
+				type: "checkmark"
+			}]
+			title: "萌新前期必备生存套装"
+			x: -13.5d
+			y: 0.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["7AC928F321C75E9B"]
+			icon: "minecraft:bread"
+			id: "0C1192A74BBBA469"
+			rewards: [
+				{
+					count: 64
+					id: "1F317938949423C2"
+					item: "minecraft:bread"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "71984C6BF3A9EEA7"
+					item: "minecraft:cooked_beef"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "29FFFACF78F0D4E9"
+					item: "minecraft:cooked_porkchop"
+					type: "item"
+				}
+			]
+			subtitle: "懒人的福利"
+			tasks: [{
+				id: "1E93798C3ADA5547"
+				title: "免费的食物"
+				type: "checkmark"
+			}]
+			title: "食物银行"
+			x: -15.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["13E908447331858E"]
+			description: ["前期很重要的三种矿物，记得多多挖掘它们"]
+			id: "2EF82D2485FD5033"
+			rewards: [{
+				count: 64
+				id: "2AAAE6BDDA4F705D"
+				item: "minecraft:blast_furnace"
+				type: "item"
+			}]
+			subtitle: "蒸汽时代的基石矿物"
+			tasks: [
+				{
+					id: "5026206897AE922A"
+					item: "minecraft:raw_iron"
+					type: "item"
+				}
+				{
+					id: "78E45F9E89BA94C5"
+					item: "minecraft:raw_copper"
+					type: "item"
+				}
+				{
+					id: "5FB790E76A4FF744"
+					item: "gtceu:raw_cassiterite"
+					type: "item"
+				}
+			]
+			title: "挖矿时间到"
+			x: -12.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["2EF82D2485FD5033"]
+			description: [
+				"手持锤子右键机器可以使机器静音。保护好你的听力哟。"
+				"手持螺丝刀右键输入仓/输出仓可以使它们互相转换。"
+				"手持撬棍右击覆盖板可以拆除覆盖板，用稿子拆除覆盖板只会连机器/管道/导线一同拆除。"
+				"而手持扳手右键可以旋转机器，连接/断开管道。"
+				"请多多探索来掌握这些格雷工具的使用技巧吧，第一次上手难免有点困难哟。"
+			]
+			id: "1A130A4134836DFB"
+			rewards: [
+				{
+					id: "4A5D9059AFB9BC8F"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_hammer"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "78EDA5FE6BFB1F25"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_wrench"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								Mode: 2b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "54E50289349FF8A8"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_file"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+			]
+			subtitle: "你将与它们度过很长时间"
+			tasks: [
+				{
+					id: "76C800A672BE6CFF"
+					item: {
+						Count: 1
+						id: "gtceu:iron_hammer"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "17ED76320275F11C"
+					item: {
+						Count: 1
+						id: "gtceu:iron_wrench"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								Mode: 2b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "30E649A83C6305D4"
+					item: {
+						Count: 1
+						id: "gtceu:iron_file"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "格雷工具I"
+			x: -12.0d
+			y: 2.0d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			description: ["按住R键查看这个物品是如何合成的，按住U键查看这个物品能合成什么,按住Ctrl加左键点击右边的扳手即可开启JEI作弊模式(你有可能会需要它)。如果你想要知道流体的合成配方，不用对含有流体的桶进行R键，而是在JEI里搜索含有流体的桶的对应的流体后对着它按R键查看合成配方，按住U键查看它能合成什么。"]
+			id: "66EF24234DD8A278"
+			subtitle: "没JEI格雷没法玩"
+			tasks: [{
+				id: "3A7D1ED17EA25F53"
+				title: "伟大的JEI"
+				type: "checkmark"
+			}]
+			title: "伟大的JEI"
+			x: -13.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1A130A4134836DFB"]
+			description: [""]
+			id: "6C03035896A297CC"
+			rewards: [
+				{
+					id: "53CEA2B4BC640DB7"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_saw"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								HarvestIce: 1b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "79A2552F22096152"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_screwdriver"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "59CCDAF6660CCAB5"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_crowbar"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "29AE39E0AD8069F4"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_saw"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								HarvestIce: 1b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "1692F965935E4443"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_knife"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								AttackDamage: 100.0f
+								AttackSpeed: 3.5f
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "0337918F60FC0D4C"
+					item: {
+						Count: 1
+						id: "gtceu:infinite_mortar"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 79999999
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+			]
+			subtitle: "你同样要与这些工具陪伴很久"
+			tasks: [
+				{
+					id: "19478BBB90FF5FF0"
+					item: {
+						Count: 1
+						id: "gtceu:iron_wire_cutter"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "17F97B46D79D1A3B"
+					item: {
+						Count: 1
+						id: "gtceu:iron_screwdriver"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7A0EE98F88908131"
+					item: {
+						Count: 1
+						id: "gtceu:iron_crowbar"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "111377D7B403B1FC"
+					item: {
+						Count: 1
+						id: "gtceu:iron_saw"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								HarvestIce: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "047B680620DB5EB9"
+					item: {
+						Count: 1
+						id: "gtceu:iron_knife"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								AttackDamage: 2.0f
+								AttackSpeed: 3.0f
+								Damage: 0
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4E4B453A43A97F3F"
+					item: {
+						Count: 1
+						id: "gtceu:iron_mortar"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "格雷工具II"
+			x: -10.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["6C03035896A297CC"]
+			id: "47DDDD0BB3FAF8C6"
+			tasks: [{
+				id: "6529060DA3596E5D"
+				item: "gtceu:copper_dust"
+				type: "item"
+			}]
+			x: -9.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["6C03035896A297CC"]
+			id: "5FA070D57A03E897"
+			tasks: [{
+				id: "034B5D5BCAC76B34"
+				item: "gtceu:tin_dust"
+				type: "item"
+			}]
+			x: -9.0d
+			y: 2.0d
+		}
+		{
+			dependencies: [
+				"47DDDD0BB3FAF8C6"
+				"5FA070D57A03E897"
+			]
+			id: "38DFB362E98E750B"
+			tasks: [{
+				id: "64557346E158E921"
+				item: "gtceu:bronze_dust"
+				type: "item"
+			}]
+			x: -9.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["38DFB362E98E750B"]
+			id: "3EDFD3C66D10EC35"
+			tasks: [{
+				id: "72788194128D5741"
+				item: "gtceu:bronze_ingot"
+				type: "item"
+			}]
+			x: -7.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["3EDFD3C66D10EC35"]
+			id: "787EC074263C1BA6"
+			tasks: [{
+				id: "6A0EF5C027282A36"
+				item: "gtceu:bronze_plate"
+				type: "item"
+			}]
+			x: -7.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["787EC074263C1BA6"]
+			id: "454E75E87ACFE4C6"
+			tasks: [{
+				id: "7BCC2F4EBBC4CB9F"
+				item: "gtceu:lp_steam_solid_boiler"
+				type: "item"
+			}]
+			title: "蒸汽时代的开端"
+			x: -7.5d
+			y: 2.0d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			description: [
+				"本整合包添加了Advanced Backup模组。"
+				""
+				"如果你的存档需要回档的话，(这里是你启动器的EXE文件的路径)./minecraft/versions/GregTechEasy/backups文件夹即可找到你的备份存档"
+				""
+				"关于此模组的详细使用方法请咨询相关B站视频或GregTech Easy制造组"
+			]
+			id: "34ABC0B777C13083"
+			subtitle: "总会有意外"
+			tasks: [{
+				id: "3CEF638AA6A7CBA6"
+				title: "备份"
+				type: "checkmark"
+			}]
+			x: -16.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			description: [
+				""
+				"GregTech Easy 交流群喵:  132733633"
+				"本群有着友好的讨论氛围，只要不触及法律红线，可以随意的提出心中的疑问喵，Gregtech Easy作者会认真倾听的喵"
+			]
+			id: "7E5B87ADA50A4371"
+			tasks: [{
+				id: "42B8D973E0D8FC44"
+				title: "GregTech Easy交流群"
+				type: "checkmark"
+			}]
+			title: "GregTech  Easy交流群"
+			x: -16.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["13E908447331858E"]
+			description: ["                     把不需要的东西丢进里面吧。"]
+			id: "2470AA1CC301D0DB"
+			tasks: [{
+				id: "5C06CB8E5D8EB8E9"
+				item: "simple_trashcan:trashcanclosed"
+				type: "item"
+			}]
+			title: "垃圾桶"
+			x: -12.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["13E908447331858E"]
+			description: ["                       右键点击它即可传送到虚空世界里去。"]
+			icon: "javd:portal_block"
+			id: "6B6452584D88263D"
+			rewards: [{
+				id: "405E06E91B52374A"
+				item: "javd:portal_block"
+				type: "item"
+			}]
+			subtitle: "别掉下去了"
+			tasks: [{
+				id: "0241122990FD5D55"
+				title: "虚空世界"
+				type: "checkmark"
+			}]
+			x: -13.5d
+			y: 2.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["7AC928F321C75E9B"]
+			description: [
+				""
+				"顺便一提，FTB Ultimate 连锁按键是按住`键。"
+				"在按住`键的同时按住Shift并滑动鼠标滚轮可以切换连锁采矿模式"
+				"在这里可以修改FTB Ultimate的连锁挖矿数量，调太大有可能导致电脑崩溃，量电脑力而行"
+			]
+			id: "140646D9977DFB73"
+			rewards: [{
+				command: "/ftbultimine serverconfig"
+				id: "7B983C16DB64207E"
+				type: "command"
+			}]
+			subtitle: "量电脑力而行"
+			tasks: [{
+				id: "6789B89C0E9BACB9"
+				title: "连锁设置"
+				type: "checkmark"
+			}]
+			x: -16.5d
+			y: 2.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["6B6452584D88263D"]
+			description: ["别摔下去了哟，这个指令将会把你传送到主世界x = 0,y = 120 z = 0处"]
+			id: "1871D68EB938A5C5"
+			rewards: [{
+				command: "/execute in minecraft:overworld run tp 0 120 0"
+				id: "5F9CE722E7598B26"
+				type: "command"
+			}]
+			tasks: [{
+				id: "6D3E1ED182F6FE74"
+				title: "返回主世界"
+				type: "checkmark"
+			}]
+			x: -15.0d
+			y: 2.0d
+		}
+	]
+	title: "从零开始"
+}

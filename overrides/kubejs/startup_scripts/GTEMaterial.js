@@ -1,0 +1,10 @@
+GTCEuStartupEvents.registry('gtceu:material',e=>{
+    const PropertyKey = Java.loadClass('com.gregtechceu.gtceu.api.data.chemical.material.properties.PropertyKey')
+    const OreProperty = Java.loadClass('com.gregtechceu.gtceu.api.data.chemical.material.properties.OreProperty')
+    e.create('infinite')
+    .color(0xed1661)
+    .ingot()
+    .iconSet(GTMaterialIconSet.DULL)
+    .element('Xe')
+    .toolStats(new ToolProperty(144, 114, 80000000, 6, [GTToolType.AXE, GTToolType.PICKAXE, GTToolType.SWORD,GTToolType.MORTAR]))
+})
