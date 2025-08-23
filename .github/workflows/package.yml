@@ -28,6 +28,8 @@ jobs:
         nix_conf: |
           keep-env-derivations = true
           keep-outputs = true
+    - name: Convert line endings
+      run: find . -type f -name "*.sh" -exec dos2unix {} +
     - name: Restore and save Nix store
       uses: nix-community/cache-nix-action@v6
       with:
