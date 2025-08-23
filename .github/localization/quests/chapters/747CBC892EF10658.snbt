@@ -9,8 +9,8 @@
 	quests: [
 		{
 			description: [
-				"提交完充满电的终极电池，GregTechEasy整合包就算通关了。"
-				"      GregTechEasy制作组感谢你的游玩。"
+				"{gte.747CBC892EF10658.quests.7AA6A019F5BCC984.description0}"
+				"{gte.747CBC892EF10658.quests.7AA6A019F5BCC984.description1}"
 			]
 			id: "7AA6A019F5BCC984"
 			rewards: [
@@ -48,7 +48,7 @@
 				}
 			]
 			size: 3.0d
-			subtitle: "毕业了 O Ye!"
+			subtitle: "{gte.747CBC892EF10658.quests.7AA6A019F5BCC984.subtitle}"
 			tasks: [{
 				id: "3A80A07F02269D61"
 				item: {
@@ -60,12 +60,12 @@
 				}
 				type: "item"
 			}]
-			title: "终极目标"
+			title: "{gte.747CBC892EF10658.quests.7AA6A019F5BCC984.title}"
 			x: -3.0d
 			y: 0.0d
 		}
 		{
-			description: ["                  做出这个，代表你不再是菜鸟了，恭喜!"]
+			description: ["{gte.747CBC892EF10658.quests.0976E5C824FB677A.description0}"]
 			id: "0976E5C824FB677A"
 			size: 3.0d
 			tasks: [{
@@ -77,5 +77,5 @@
 			y: 0.0d
 		}
 	]
-	title: "终极目标"
+	title: "{gte.747CBC892EF10658.title}"
 }
