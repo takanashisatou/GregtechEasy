@@ -1,0 +1,15 @@
+filename = "megacells-forge-2.4.6-1.20.1.jar"
+name = "MEGA Cells"
+side = "both"
+x-prismlauncher-loaders = ["neoforge", "forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "ed6fd5eb0c782529be03f199d66d9a7c9eb2a518"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/6175/008/megacells-forge-2.4.6-1.20.1.jar"
+
+[update.curseforge]
+file-id = 6175008
+project-id = 622112

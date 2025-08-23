@@ -1,0 +1,15 @@
+filename = "1.20.1-maid_storage_manager-1.12.14.jar"
+name = "Maid Storage Manager"
+side = "both"
+x-prismlauncher-loaders = ["forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "beta"
+
+[download]
+hash = "69160e5b9db06c1bd814103cfefa7b96a89298d9"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/6897/861/1.20.1-maid_storage_manager-1.12.14.jar"
+
+[update.curseforge]
+file-id = 6897861
+project-id = 1210244
