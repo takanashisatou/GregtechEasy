@@ -4,5 +4,6 @@
 { max_blocks: 4096
 merge_tags: [
 		"minecraft:base_stone_overworld"
+		"c:ores"
 		"forge:ores"
 	]}
