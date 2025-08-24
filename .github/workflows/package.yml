@@ -39,6 +39,14 @@ jobs:
         purge-last-accessed: 0
         purge-primary-key: always
     - run: nix build .#curseforge -o curseforge
+    - name: Extract version from filename
+      run: |
+        ZIP_FILE=$(ls *.zip | head -n 1)
+        
+        VERSION=$(echo $ZIP_FILE | sed -E 's/^[^-]+-([0-9]+\.[0-9]+\.[0-9]+).*\.zip$/\1/')
+        
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+            echo "Extracted version: $VERSION"
     - name: Build Server Modpack
       run: |
         nix build .#modpack
@@ -59,7 +67,7 @@ jobs:
         mkdir server
         cp -r result/* server/
         chmod -R +w server/config/ server/defaultconfigs/
-        zip -r GregTechEasy-server.zip server/*
+        cd server && zip -r ../GregTechEasy-server-${{ env.VERSION }}.zip ./*
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
       with:
@@ -117,4 +125,5 @@ jobs:
           git push origin :$TAG_NAME || true 
       - name: Publish release
         run: |
-          gh release create $TAG_NAME $PRERELEASE --title "$SUBJECT" --target $GITHUB_SHA GregTechEasy/* GregTechEasy-server-mods/* GregTechEasy-client-mods/* GregTechEasy-server/* 
+          RELEASE_TITLE="GregTechEasy ${{ env.VERSION }}"
+          gh release create $TAG_NAME $PRERELEASE --title "$RELEASE_TITLE" "$SUBJECT" --target $GITHUB_SHA GregTechEasy/* GregTechEasy-server-mods/* GregTechEasy-client-mods/* GregTechEasy-server/* 
