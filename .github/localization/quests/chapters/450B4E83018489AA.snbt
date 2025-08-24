@@ -10,22 +10,22 @@
 		{
 			can_repeat: true
 			description: [
-				"GregTech Easy制作组 希望你能在这里度过一个轻松而快乐的格雷之旅，愿你找到属于你的那颗萌新之星。"
-				"本整合包在基本保留GTM流程下大幅度消减了从蒸汽时代到UHV时代的难度，额外增加了一些产线和内容。此外本包为了防止挖矿带来的枯燥在前期加入了采矿巨构，前期就可以获得无限的矿物"
+				"{gte.450B4E83018489AA.quests.7AC928F321C75E9B.description0}"
+				"{gte.450B4E83018489AA.quests.7AC928F321C75E9B.description1}"
 			]
 			id: "7AC928F321C75E9B"
 			tasks: [{
 				id: "048CBDA2602237A6"
-				title: "整合包介绍"
+				title: "{gte.450B4E83018489AA.quests.7AC928F321C75E9B.tasks.048CBDA2602237A6.title}"
 				type: "checkmark"
 			}]
-			title: "制作组想说的话"
+			title: "{gte.450B4E83018489AA.quests.7AC928F321C75E9B.title}"
 			x: -15.0d
 			y: 0.5d
 		}
 		{
 			dependencies: ["7AC928F321C75E9B"]
-			description: ["重要提示: GregTech Easy中的钻石是能烧的，但是只有原版钻石能烧。"]
+			description: ["{gte.450B4E83018489AA.quests.13E908447331858E.description0}"]
 			id: "13E908447331858E"
 			rewards: [
 				{
@@ -216,10 +216,10 @@
 			]
 			tasks: [{
 				id: "78F6F8B3C16A6905"
-				title: "萌新的必备工具"
+				title: "{gte.450B4E83018489AA.quests.13E908447331858E.tasks.78F6F8B3C16A6905.title}"
 				type: "checkmark"
 			}]
-			title: "萌新前期必备生存套装"
+			title: "{gte.450B4E83018489AA.quests.13E908447331858E.title}"
 			x: -13.5d
 			y: 0.5d
 		}
@@ -248,19 +248,19 @@
 					type: "item"
 				}
 			]
-			subtitle: "懒人的福利"
+			subtitle: "{gte.450B4E83018489AA.quests.0C1192A74BBBA469.subtitle}"
 			tasks: [{
 				id: "1E93798C3ADA5547"
-				title: "免费的食物"
+				title: "{gte.450B4E83018489AA.quests.0C1192A74BBBA469.tasks.1E93798C3ADA5547.title}"
 				type: "checkmark"
 			}]
-			title: "食物银行"
+			title: "{gte.450B4E83018489AA.quests.0C1192A74BBBA469.title}"
 			x: -15.0d
 			y: -1.0d
 		}
 		{
 			dependencies: ["13E908447331858E"]
-			description: ["前期很重要的三种矿物，记得多多挖掘它们"]
+			description: ["{gte.450B4E83018489AA.quests.2EF82D2485FD5033.description0}"]
 			id: "2EF82D2485FD5033"
 			rewards: [{
 				count: 64
@@ -268,7 +268,7 @@
 				item: "minecraft:blast_furnace"
 				type: "item"
 			}]
-			subtitle: "蒸汽时代的基石矿物"
+			subtitle: "{gte.450B4E83018489AA.quests.2EF82D2485FD5033.subtitle}"
 			tasks: [
 				{
 					id: "5026206897AE922A"
@@ -286,18 +286,18 @@
 					type: "item"
 				}
 			]
-			title: "挖矿时间到"
+			title: "{gte.450B4E83018489AA.quests.2EF82D2485FD5033.title}"
 			x: -12.0d
 			y: 0.5d
 		}
 		{
 			dependencies: ["2EF82D2485FD5033"]
 			description: [
-				"手持锤子右键机器可以使机器静音。保护好你的听力哟。"
-				"手持螺丝刀右键输入仓/输出仓可以使它们互相转换。"
-				"手持撬棍右击覆盖板可以拆除覆盖板，用稿子拆除覆盖板只会连机器/管道/导线一同拆除。"
-				"而手持扳手右键可以旋转机器，连接/断开管道。"
-				"请多多探索来掌握这些格雷工具的使用技巧吧，第一次上手难免有点困难哟。"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description0}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description1}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description2}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description3}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description4}"
 			]
 			id: "1A130A4134836DFB"
 			rewards: [
@@ -370,7 +370,7 @@
 					type: "item"
 				}
 			]
-			subtitle: "你将与它们度过很长时间"
+			subtitle: "{gte.450B4E83018489AA.quests.1A130A4134836DFB.subtitle}"
 			tasks: [
 				{
 					id: "76C800A672BE6CFF"
@@ -430,21 +430,21 @@
 					type: "item"
 				}
 			]
-			title: "格雷工具I"
+			title: "{gte.450B4E83018489AA.quests.1A130A4134836DFB.title}"
 			x: -12.0d
 			y: 2.0d
 		}
 		{
 			dependencies: ["7AC928F321C75E9B"]
-			description: ["按住R键查看这个物品是如何合成的，按住U键查看这个物品能合成什么,按住Ctrl加左键点击右边的扳手即可开启JEI作弊模式(你有可能会需要它)。如果你想要知道流体的合成配方，不用对含有流体的桶进行R键，而是在JEI里搜索含有流体的桶的对应的流体后对着它按R键查看合成配方，按住U键查看它能合成什么。"]
+			description: ["{gte.450B4E83018489AA.quests.66EF24234DD8A278.description0}"]
 			id: "66EF24234DD8A278"
-			subtitle: "没JEI格雷没法玩"
+			subtitle: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.subtitle}"
 			tasks: [{
 				id: "3A7D1ED17EA25F53"
-				title: "伟大的JEI"
+				title: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.tasks.3A7D1ED17EA25F53.title}"
 				type: "checkmark"
 			}]
-			title: "伟大的JEI"
+			title: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.title}"
 			x: -13.5d
 			y: -1.0d
 		}
@@ -582,7 +582,7 @@
 					type: "item"
 				}
 			]
-			subtitle: "你同样要与这些工具陪伴很久"
+			subtitle: "{gte.450B4E83018489AA.quests.6C03035896A297CC.subtitle}"
 			tasks: [
 				{
 					id: "19478BBB90FF5FF0"
@@ -695,7 +695,7 @@
 					type: "item"
 				}
 			]
-			title: "格雷工具II"
+			title: "{gte.450B4E83018489AA.quests.6C03035896A297CC.title}"
 			x: -10.5d
 			y: 0.5d
 		}
@@ -765,24 +765,24 @@
 				item: "gtceu:lp_steam_solid_boiler"
 				type: "item"
 			}]
-			title: "蒸汽时代的开端"
+			title: "{gte.450B4E83018489AA.quests.454E75E87ACFE4C6.title}"
 			x: -7.5d
 			y: 2.0d
 		}
 		{
 			dependencies: ["7AC928F321C75E9B"]
 			description: [
-				"本整合包添加了Advanced Backup模组。"
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description0}"
 				""
-				"如果你的存档需要回档的话，(这里是你启动器的EXE文件的路径)./minecraft/versions/GregTechEasy/backups文件夹即可找到你的备份存档"
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description1}"
 				""
-				"关于此模组的详细使用方法请咨询相关B站视频或GregTech Easy制造组"
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description2}"
 			]
 			id: "34ABC0B777C13083"
-			subtitle: "总会有意外"
+			subtitle: "{gte.450B4E83018489AA.quests.34ABC0B777C13083.subtitle}"
 			tasks: [{
 				id: "3CEF638AA6A7CBA6"
-				title: "备份"
+				title: "{gte.450B4E83018489AA.quests.34ABC0B777C13083.tasks.3CEF638AA6A7CBA6.title}"
 				type: "checkmark"
 			}]
 			x: -16.5d
@@ -792,22 +792,22 @@
 			dependencies: ["7AC928F321C75E9B"]
 			description: [
 				""
-				"GregTech Easy 交流群喵:  132733633"
-				"本群有着友好的讨论氛围，只要不触及法律红线，可以随意的提出心中的疑问喵，Gregtech Easy作者会认真倾听的喵"
+				"{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.description0}"
+				"{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.description1}"
 			]
 			id: "7E5B87ADA50A4371"
 			tasks: [{
 				id: "42B8D973E0D8FC44"
-				title: "GregTech Easy交流群"
+				title: "{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.tasks.42B8D973E0D8FC44.title}"
 				type: "checkmark"
 			}]
-			title: "GregTech  Easy交流群"
+			title: "{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.title}"
 			x: -16.5d
 			y: -1.0d
 		}
 		{
 			dependencies: ["13E908447331858E"]
-			description: ["                       右键点击它即可传送到虚空世界里去。"]
+			description: ["{gte.450B4E83018489AA.quests.6B6452584D88263D.description0}"]
 			icon: "javd:portal_block"
 			id: "6B6452584D88263D"
 			rewards: [{
@@ -815,10 +815,10 @@
 				item: "javd:portal_block"
 				type: "item"
 			}]
-			subtitle: "别掉下去了"
+			subtitle: "{gte.450B4E83018489AA.quests.6B6452584D88263D.subtitle}"
 			tasks: [{
 				id: "0241122990FD5D55"
-				title: "虚空世界"
+				title: "{gte.450B4E83018489AA.quests.6B6452584D88263D.tasks.0241122990FD5D55.title}"
 				type: "checkmark"
 			}]
 			x: -13.5d
@@ -829,9 +829,9 @@
 			dependencies: ["7AC928F321C75E9B"]
 			description: [
 				""
-				"顺便一提，FTB Ultimate 连锁按键是按住`键。"
-				"在按住`键的同时按住Shift并滑动鼠标滚轮可以切换连锁采矿模式"
-				"在这里可以修改FTB Ultimate的连锁挖矿数量，调太大有可能导致电脑崩溃，量电脑力而行"
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description0}"
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description1}"
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description2}"
 			]
 			id: "140646D9977DFB73"
 			rewards: [{
@@ -839,10 +839,10 @@
 				id: "7B983C16DB64207E"
 				type: "command"
 			}]
-			subtitle: "量电脑力而行"
+			subtitle: "{gte.450B4E83018489AA.quests.140646D9977DFB73.subtitle}"
 			tasks: [{
 				id: "6789B89C0E9BACB9"
-				title: "连锁设置"
+				title: "{gte.450B4E83018489AA.quests.140646D9977DFB73.tasks.6789B89C0E9BACB9.title}"
 				type: "checkmark"
 			}]
 			x: -16.5d
@@ -851,7 +851,7 @@
 		{
 			can_repeat: true
 			dependencies: ["6B6452584D88263D"]
-			description: ["别摔下去了哟，这个指令将会把你传送到主世界x = 0,y = 120 z = 0处"]
+			description: ["{gte.450B4E83018489AA.quests.1871D68EB938A5C5.description0}"]
 			id: "1871D68EB938A5C5"
 			rewards: [{
 				command: "/execute in minecraft:overworld run tp 0 120 0"
@@ -860,7 +860,7 @@
 			}]
 			tasks: [{
 				id: "6D3E1ED182F6FE74"
-				title: "返回主世界"
+				title: "{gte.450B4E83018489AA.quests.1871D68EB938A5C5.tasks.6D3E1ED182F6FE74.title}"
 				type: "checkmark"
 			}]
 			x: -13.5d
@@ -943,7 +943,7 @@
 				id: "1EAD63363FD78044"
 				type: "checkmark"
 			}]
-			title: "建筑小帮手"
+			title: "{gte.450B4E83018489AA.quests.283E6EE3D126D688.title}"
 			x: -15.0d
 			y: 2.0d
 		}
@@ -3356,10 +3356,10 @@
 				id: "26CC16A7F12DD5D4"
 				type: "checkmark"
 			}]
-			title: "免费的建筑材料"
+			title: "{gte.450B4E83018489AA.quests.6E92A1D6CF61C86D.title}"
 			x: -12.0d
 			y: -1.0d
 		}
 	]
-	title: "从零开始"
+	title: "{gte.450B4E83018489AA.title}"
 }

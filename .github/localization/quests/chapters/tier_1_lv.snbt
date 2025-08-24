@@ -22,13 +22,13 @@
 				type: "item"
 			}]
 			size: 1.0d
-			subtitle: "蒸汽发电，多么简单多么便利"
+			subtitle: "{gte.tier_1_lv.quests.770A22DB88F4ACB1.subtitle}"
 			tasks: [{
 				id: "7DA140666B195D5E"
 				item: "gtceu:lv_steam_turbine"
 				type: "item"
 			}]
-			title: "电力时代"
+			title: "{gte.tier_1_lv.quests.770A22DB88F4ACB1.title}"
 			x: -27.0d
 			y: -3.0d
 		}
@@ -66,7 +66,7 @@
 					type: "item"
 				}
 			]
-			subtitle: "来制造这些零件吧"
+			subtitle: "{gte.tier_1_lv.quests.2BC3FF67FC42E575.subtitle}"
 			tasks: [
 				{
 					id: "1750B9F79531003B"
@@ -94,7 +94,7 @@
 					type: "item"
 				}
 			]
-			title: "你需要制造的五种零件"
+			title: "{gte.tier_1_lv.quests.2BC3FF67FC42E575.title}"
 			x: -28.5d
 			y: -3.0d
 		}
@@ -103,7 +103,7 @@
 			id: "532EAD0465561CF2"
 			tasks: [{
 				id: "5D8CFD063F8680D9"
-				title: "造一些电力机器"
+				title: "{gte.tier_1_lv.quests.532EAD0465561CF2.tasks.5D8CFD063F8680D9.title}"
 				type: "checkmark"
 			}]
 			x: -25.5d
@@ -112,19 +112,19 @@
 		{
 			dependencies: ["37CF6D39A54DFA94"]
 			description: [
-				"如果你不遵守这些安全须知的话，那么很有可能你的机器和基地将会在一场爆炸在中毁于一旦。"
-				"第一条:不要在机器旁生火，火会使得机器爆炸。"
-				"第二条:注意使用正确规格的线缆。例如你的机器总共发3A LV的电，但是你用的是1x锡线缆，那么你的线缆将会起火。"
-				"第三条:注意机器的输入电压。"
-				"如果你的机器是输入LV的电压，那么千万不要通入LV以上的电压，否则机器会立马爆炸!"
-				"补充信息:现在我们格雷科技公司的机器有了防水功能，哪怕淋雨也不会爆炸。"
+				"{gte.tier_1_lv.quests.52D28804938B0A72.description0}"
+				"{gte.tier_1_lv.quests.52D28804938B0A72.description1}"
+				"{gte.tier_1_lv.quests.52D28804938B0A72.description2}"
+				"{gte.tier_1_lv.quests.52D28804938B0A72.description3}"
+				"{gte.tier_1_lv.quests.52D28804938B0A72.description4}"
+				"{gte.tier_1_lv.quests.52D28804938B0A72.description5}"
 			]
 			icon: "gtceu:generic_hazard_sign_block"
 			id: "52D28804938B0A72"
 			size: 1.5d
 			tasks: [{
 				id: "10143EA750D5D622"
-				title: "用电安全须知"
+				title: "{gte.tier_1_lv.quests.52D28804938B0A72.tasks.10143EA750D5D622.title}"
 				type: "checkmark"
 			}]
 			x: -28.5d
@@ -132,7 +132,7 @@
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
-			description: ["一锭变两导线，强烈推荐第一个制造它"]
+			description: ["{gte.tier_1_lv.quests.1C9FCC8291C6E0BD.description0}"]
 			id: "1C9FCC8291C6E0BD"
 			tasks: [{
 				id: "4FA7928CE7C27D15"
@@ -166,21 +166,21 @@
 		}
 		{
 			dependencies: ["3721C5DCD828F460"]
-			description: ["厌倦了蒸汽发电?需要聚乙烯，这些通通加工石油就可以获得!"]
+			description: ["{gte.tier_1_lv.quests.2124A6B2562A70FC.description0}"]
 			id: "2124A6B2562A70FC"
-			subtitle: "工业之血"
+			subtitle: "{gte.tier_1_lv.quests.2124A6B2562A70FC.subtitle}"
 			tasks: [{
 				id: "55C552B5612CA17A"
 				item: "gtceu:oil_bucket"
 				type: "item"
 			}]
-			title: "石油工业"
+			title: "{gte.tier_1_lv.quests.2124A6B2562A70FC.title}"
 			x: -29.0d
 			y: -1.5d
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
-			description: ["把基础泵放在石油流体的最上端处，即可源源不断的采集石油"]
+			description: ["{gte.tier_1_lv.quests.3721C5DCD828F460.description0}"]
 			id: "3721C5DCD828F460"
 			tasks: [{
 				id: "456D0C686D762216"
@@ -471,7 +471,7 @@
 				"1331E0D775B904BD"
 				"7AC60CF1DE268209"
 			]
-			description: ["                                电解闪锌矿即可获得"]
+			description: ["{gte.tier_1_lv.quests.385FC1CAD1920A82.description0}"]
 			id: "385FC1CAD1920A82"
 			tasks: [{
 				id: "0F14ACC7966F822B"
@@ -498,7 +498,7 @@
 				"4AA1101043BE88DD"
 				"4C09818766A2526F"
 			]
-			description: ["你需要用工业高炉来烧铝，前往多方块结构这一章节查看如何制造工业高炉"]
+			description: ["{gte.tier_1_lv.quests.1F60D3C43DFC1307.description0}"]
 			id: "1F60D3C43DFC1307"
 			tasks: [{
 				id: "43D2E8D66F64C772"
@@ -517,15 +517,15 @@
 				item: "gtceu:mv_machine_hull"
 				type: "item"
 			}]
-			title: "前往MV时代"
+			title: "{gte.tier_1_lv.quests.4E23F7802FD82D2B.title}"
 			x: -18.0d
 			y: 3.0d
 		}
 		{
 			dependencies: ["4EEDC96C175D7682"]
 			description: [
-				"电解红宝石粉，蓝宝石粉，或者直接粉碎铝矿石即可获取铝粉。"
-				"到了中压时代可以直接电解粘土粉"
+				"{gte.tier_1_lv.quests.37A2AB7A13ED1E43.description0}"
+				"{gte.tier_1_lv.quests.37A2AB7A13ED1E43.description1}"
 			]
 			id: "37A2AB7A13ED1E43"
 			tasks: [{
@@ -538,7 +538,7 @@
 		}
 		{
 			dependencies: ["76E0E419612C082E"]
-			description: ["                               查看无线电网的电力情况"]
+			description: ["{gte.tier_1_lv.quests.13B2CFFF749D90BA.description0}"]
 			id: "13B2CFFF749D90BA"
 			tasks: [{
 				id: "6853E873B5B3616F"
@@ -551,15 +551,15 @@
 		{
 			dependencies: ["4EEDC96C175D7682"]
 			description: [
-				"有了无线电网，从此你的机器再也不用考虑如何接线了，对于多方块发电机，使用无线动力仓向无线电网输送电力。"
-				"对于单方块发电机，使用无线能源接口来接收单方块发电机的电力。"
-				"多方块机器如果需要使用无线电网来供电的话，使用无线能源仓，对于单方块机器来说，使用对应等级的无线能源接收器。"
-				"机器外壳也可以贴上无线能源接收器，请牢记用电安全，不要把高等级的无线能源接收器贴到低等级机器上，这会导致一个大大的爆炸。"
+				"{gte.tier_1_lv.quests.76E0E419612C082E.description0}"
+				"{gte.tier_1_lv.quests.76E0E419612C082E.description1}"
+				"{gte.tier_1_lv.quests.76E0E419612C082E.description2}"
+				"{gte.tier_1_lv.quests.76E0E419612C082E.description3}"
 			]
 			id: "76E0E419612C082E"
 			tasks: [{
 				id: "6C3C2B5AECA86561"
-				title: "无线电网"
+				title: "{gte.tier_1_lv.quests.76E0E419612C082E.tasks.6C3C2B5AECA86561.title}"
 				type: "checkmark"
 			}]
 			x: -19.5d
@@ -589,7 +589,7 @@
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
-			description: ["                            一锭出两杆，你值得选择"]
+			description: ["{gte.tier_1_lv.quests.067F54C1E7C3DF4A.description0}"]
 			id: "067F54C1E7C3DF4A"
 			tasks: [{
 				id: "5BBCED5155649983"
@@ -630,7 +630,10 @@
 			tasks: [{
 				count: 2L
 				id: "0221F5C09331A082"
-				item: { Count: 2, id: "gtmthings:lv_2a_wireless_energy_input_hatch" }
+				item: {
+					Count: 2
+					id: "gtmthings:lv_2a_wireless_energy_input_hatch"
+				}
 				type: "item"
 			}]
 			x: -21.0d
@@ -674,7 +677,7 @@
 		}
 		{
 			dependencies: ["6D8B9493839D1BD8"]
-			description: ["      1个单元可以存储1B的流体，但是我更推荐你用AE来存储流体"]
+			description: ["{gte.tier_1_lv.quests.28941BC8E9384495.description0}"]
 			id: "28941BC8E9384495"
 			tasks: [{
 				id: "68EAFD5E49C695FB"
@@ -695,5 +698,5 @@
 			y: -6.0d
 		}
 	]
-	title: "[Tier 1] LV"
+	title: "{gte.tier_1_lv.title}"
 }
