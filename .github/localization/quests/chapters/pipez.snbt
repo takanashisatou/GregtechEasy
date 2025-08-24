@@ -73,14 +73,14 @@
 			}
 		]
 		size: 2.0d
-		subtitle: "在GregTech Easy你永远不需要担心物流"
+		subtitle: "{gte.pipez.quests.7EAE7F4267D2EFB5.subtitle}"
 		tasks: [{
 			id: "4E925F6147D6A787"
-			title: "免费的Pipez"
+			title: "{gte.pipez.quests.7EAE7F4267D2EFB5.tasks.4E925F6147D6A787.title}"
 			type: "checkmark"
 		}]
 		x: 0.0d
 		y: -2.0d
 	}]
-	title: "免费的Pipez"
+	title: "{gte.pipez.title}"
 }
