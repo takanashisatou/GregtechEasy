@@ -2,10 +2,10 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "tier_5_iv"
-	group: "277796EFA601375B"
+	group: ""
 	icon: "gtceu:iv_machine_hull"
 	id: "68CAEFC8ABCCA704"
-	order_index: 5
+	order_index: 6
 	quest_links: [ ]
 	quests: [
 		{
@@ -39,13 +39,13 @@
 					type: "item"
 				}
 			]
-			title: "IV时代的老五样"
+			title: "{gte.tier_5_iv.quests.6D9CCAFA1FF0BB86.title}"
 			x: -10.0d
 			y: -1.0d
 		}
 		{
 			dependencies: ["6D9CCAFA1FF0BB86"]
-			description: ["以后的合金可不是单纯用搅拌机，工业高炉，真空冷冻机了来制造，我们需要用合金冶炼炉来把合金粉冶炼成液态的合金后，经过真空冷冻机冷却，才能制造。"]
+			description: ["{gte.tier_5_iv.quests.1C743E79E6E28EBB.description0}"]
 			id: "1C743E79E6E28EBB"
 			size: 1.0d
 			tasks: [{
@@ -61,22 +61,22 @@
 				"763B51ECF164B909"
 				"23488AAE8D8DD1D8"
 			]
-			description: ["装配线，它是一种特殊的组装机器，专门用来组装复杂的产品，制造物品时需要放入对应的闪存或数据球，并且装配线必须使用ULV输入仓，无法使用ME样板镜像总成。当然你也可以使用GregTech Easy的奇迹之环!"]
+			description: ["{gte.tier_5_iv.quests.1AEFB7F5AB309AE9.description0}"]
 			icon: "gtceu:assembly_line"
 			id: "1AEFB7F5AB309AE9"
 			shape: "gear"
 			size: 1.5d
-			title: "装配线的使用方法"
+			title: "{gte.tier_5_iv.quests.1AEFB7F5AB309AE9.title}"
 			x: -7.0d
 			y: -1.0d
 		}
 		{
 			dependencies: ["6D9CCAFA1FF0BB86"]
-			description: ["往后的机器和产物都大量的需要夹层玻璃，为此你需要搭建一个产线来生产它。"]
+			description: ["{gte.tier_5_iv.quests.7CC320E2F6CBCD46.description0}"]
 			id: "7CC320E2F6CBCD46"
 			tasks: [{
 				id: "179DBACC3D15E508"
-				title: "夹层玻璃产线"
+				title: "{gte.tier_5_iv.quests.7CC320E2F6CBCD46.tasks.179DBACC3D15E508.title}"
 				type: "checkmark"
 			}]
 			x: -10.0d
@@ -88,7 +88,7 @@
 			id: "136E2F9E1B298906"
 			tasks: [{
 				id: "6FA0AA209855E366"
-				title: "丙烯"
+				title: "{gte.tier_5_iv.quests.136E2F9E1B298906.tasks.6FA0AA209855E366.title}"
 				type: "checkmark"
 			}]
 			x: -12.0d
@@ -100,7 +100,7 @@
 			id: "3E23A87C3DA090E0"
 			tasks: [{
 				id: "50B60E98C3559CD9"
-				title: "氢气"
+				title: "{gte.tier_5_iv.quests.3E23A87C3DA090E0.tasks.50B60E98C3559CD9.title}"
 				type: "checkmark"
 			}]
 			x: -11.0d
@@ -112,7 +112,7 @@
 			id: "0B0FB8C770D0DE27"
 			tasks: [{
 				id: "72765E274C292072"
-				title: "一氧化碳"
+				title: "{gte.tier_5_iv.quests.0B0FB8C770D0DE27.tasks.72765E274C292072.title}"
 				type: "checkmark"
 			}]
 			x: -10.0d
@@ -128,7 +128,7 @@
 			id: "006A04386F14E949"
 			tasks: [{
 				id: "06FADEA7AB58E4E3"
-				title: "丁醛"
+				title: "{gte.tier_5_iv.quests.006A04386F14E949.tasks.06FADEA7AB58E4E3.title}"
 				type: "checkmark"
 			}]
 			x: -11.0d
@@ -139,7 +139,7 @@
 			id: "1E7CAA766CAFBA30"
 			tasks: [{
 				id: "2150D623E7CB364C"
-				title: "丁醛产线"
+				title: "{gte.tier_5_iv.quests.1E7CAA766CAFBA30.tasks.2150D623E7CB364C.title}"
 				type: "checkmark"
 			}]
 			x: -11.0d
@@ -150,7 +150,7 @@
 			id: "4897A6C0BA336A36"
 			tasks: [{
 				id: "5A74C6BDDCCEA0F5"
-				title: "聚乙酸乙酯产线"
+				title: "{gte.tier_5_iv.quests.4897A6C0BA336A36.tasks.5A74C6BDDCCEA0F5.title}"
 				type: "checkmark"
 			}]
 			x: -9.0d
@@ -164,7 +164,7 @@
 				id: "7338B47E2EEE9725"
 				type: "checkmark"
 			}]
-			title: "气态氧"
+			title: "{gte.tier_5_iv.quests.69EE3AD81BC2E198.title}"
 			x: -8.0d
 			y: 2.0d
 		}
@@ -175,7 +175,7 @@
 			id: "65A06721697EF879"
 			tasks: [{
 				id: "05D39850769E0FBB"
-				title: "乙酸乙烯酯产线"
+				title: "{gte.tier_5_iv.quests.65A06721697EF879.tasks.05D39850769E0FBB.title}"
 				type: "checkmark"
 			}]
 			x: -9.0d
@@ -190,10 +190,10 @@
 			id: "193C708ED3A8D2C0"
 			tasks: [{
 				id: "14C0631BB3128FDA"
-				title: "聚乙酸乙烯酯产线"
+				title: "{gte.tier_5_iv.quests.193C708ED3A8D2C0.tasks.14C0631BB3128FDA.title}"
 				type: "checkmark"
 			}]
-			title: "聚乙酸乙烯酯"
+			title: "{gte.tier_5_iv.quests.193C708ED3A8D2C0.title}"
 			x: -9.0d
 			y: 3.0d
 		}
@@ -206,10 +206,10 @@
 			id: "0825C1298D3D2257"
 			tasks: [{
 				id: "37DB79DBC53CC664"
-				title: "液态聚乙烯缩醛丁醛"
+				title: "{gte.tier_5_iv.quests.0825C1298D3D2257.tasks.37DB79DBC53CC664.title}"
 				type: "checkmark"
 			}]
-			title: "液态聚乙烯醇缩丁醛"
+			title: "{gte.tier_5_iv.quests.0825C1298D3D2257.title}"
 			x: -10.0d
 			y: 3.0d
 		}
@@ -295,7 +295,7 @@
 			id: "401374AA6D5C3951"
 			tasks: [{
 				id: "5A019E05CD8DE999"
-				title: "独居石处理Easy++版"
+				title: "{gte.tier_5_iv.quests.401374AA6D5C3951.tasks.5A019E05CD8DE999.title}"
 				type: "checkmark"
 			}]
 			x: -9.0d
@@ -416,10 +416,10 @@
 			id: "7294890ED6E1912E"
 			tasks: [{
 				id: "71CBBE20B7F53AAC"
-				title: "聚苯并咪挫产线"
+				title: "{gte.tier_5_iv.quests.7294890ED6E1912E.tasks.71CBBE20B7F53AAC.title}"
 				type: "checkmark"
 			}]
-			title: "聚苯并咪唑产线"
+			title: "{gte.tier_5_iv.quests.7294890ED6E1912E.title}"
 			x: -14.0d
 			y: 0.0d
 		}
@@ -429,7 +429,7 @@
 			id: "0CC6915EA0E235EF"
 			tasks: [{
 				id: "79E4FC9C8E17A3C1"
-				title: "硝酸混酸"
+				title: "{gte.tier_5_iv.quests.0CC6915EA0E235EF.tasks.79E4FC9C8E17A3C1.title}"
 				type: "checkmark"
 			}]
 			x: -16.0d
@@ -441,7 +441,7 @@
 			id: "380757492DD020D5"
 			tasks: [{
 				id: "10012D9654002F7C"
-				title: "氯苯"
+				title: "{gte.tier_5_iv.quests.380757492DD020D5.tasks.10012D9654002F7C.title}"
 				type: "checkmark"
 			}]
 			x: -15.0d
@@ -456,10 +456,10 @@
 			id: "2633E8E0CAEE89F5"
 			tasks: [{
 				id: "1B8D596517EB53A7"
-				title: "硝基氯苯"
+				title: "{gte.tier_5_iv.quests.2633E8E0CAEE89F5.tasks.1B8D596517EB53A7.title}"
 				type: "checkmark"
 			}]
-			x: -15.5d
+			x: -15.0d
 			y: 2.0d
 		}
 		{
@@ -468,10 +468,10 @@
 			id: "532B6062A92E5A32"
 			tasks: [{
 				id: "4F2A739CE37D23EE"
-				title: "二氯联苯胺"
+				title: "{gte.tier_5_iv.quests.532B6062A92E5A32.tasks.4F2A739CE37D23EE.title}"
 				type: "checkmark"
 			}]
-			x: -15.5d
+			x: -15.0d
 			y: 3.0d
 		}
 		{
@@ -480,11 +480,11 @@
 			id: "0DEE42F917D4DEF6"
 			tasks: [{
 				id: "1D2D482A29725FC7"
-				title: "二氨基联苯胺"
+				title: "{gte.tier_5_iv.quests.0DEE42F917D4DEF6.tasks.1D2D482A29725FC7.title}"
 				type: "checkmark"
 			}]
 			x: -14.0d
-			y: 3.0d
+			y: 2.0d
 		}
 		{
 			dependencies: ["7294890ED6E1912E"]
@@ -492,7 +492,7 @@
 			id: "2C7EB30DCCDD9916"
 			tasks: [{
 				id: "360A3209E7E4A8EE"
-				title: "苯酚"
+				title: "{gte.tier_5_iv.quests.2C7EB30DCCDD9916.tasks.360A3209E7E4A8EE.title}"
 				type: "checkmark"
 			}]
 			x: -14.0d
@@ -504,7 +504,7 @@
 			id: "06B77A3D19FF8797"
 			tasks: [{
 				id: "182540BBD4470EE3"
-				title: "硫酸"
+				title: "{gte.tier_5_iv.quests.06B77A3D19FF8797.tasks.182540BBD4470EE3.title}"
 				type: "checkmark"
 			}]
 			x: -13.0d
@@ -516,7 +516,7 @@
 			id: "70C0A24B363101A4"
 			tasks: [{
 				id: "7956A69DC8BFB40D"
-				title: "邻苯二甲酸"
+				title: "{gte.tier_5_iv.quests.70C0A24B363101A4.tasks.7956A69DC8BFB40D.title}"
 				type: "checkmark"
 			}]
 			x: -12.0d
@@ -532,7 +532,7 @@
 			id: "20F392FE24B38385"
 			tasks: [{
 				id: "297A310722F719AB"
-				title: "间苯二甲酸二甲酯"
+				title: "{gte.tier_5_iv.quests.20F392FE24B38385.tasks.297A310722F719AB.title}"
 				type: "checkmark"
 			}]
 			x: -13.0d
@@ -546,14 +546,14 @@
 			icon: "gtceu:polybenzimidazole_bucket"
 			id: "512893D7E5C6FABF"
 			shape: "gear"
-			size: 1.25d
+			size: 1.5d
 			tasks: [{
 				id: "0458A623BD98BE7F"
-				title: "聚苯并咪唑"
+				title: "{gte.tier_5_iv.quests.512893D7E5C6FABF.tasks.0458A623BD98BE7F.title}"
 				type: "checkmark"
 			}]
-			x: -13.0d
-			y: 3.0d
+			x: -13.5d
+			y: 3.75d
 		}
 		{
 			dependencies: ["1C743E79E6E28EBB"]
@@ -848,8 +848,8 @@
 		{
 			dependencies: ["1AEFB7F5AB309AE9"]
 			description: [
-				"举一个扫描仪和装配线联合使用的例子吧，比如你的装配线如果想要制作Luv马达的话，你需要制作出携带Luv马达信息的闪存。"
-				"通过R键查看Luv马达的配方之后，发现有个扫描仪的配方，输入闪存,IV马达\"获得\"Luv马达，但是请注意,扫描仪的配方并不会输出对应的物品，而是输出含有对应物品信息的闪存。然后你把闪存放进装配线中，下单，Luv马达即可制造完毕，推荐搭配数据库使用。"
+				"{gte.tier_5_iv.quests.39A1F1B31CF95423.description0}"
+				"{gte.tier_5_iv.quests.39A1F1B31CF95423.description1}"
 			]
 			id: "39A1F1B31CF95423"
 			tasks: [{
@@ -872,12 +872,12 @@
 				}
 				type: "item"
 			}]
-			x: -5.5d
-			y: 1.0d
+			x: -4.0d
+			y: -1.0d
 		}
 		{
 			dependencies: ["1AEFB7F5AB309AE9"]
-			description: ["               数据访问仓是用来存放闪存和数据球的。"]
+			description: ["{gte.tier_5_iv.quests.0E3BAC2ECB22BC3F.description0}"]
 			id: "0E3BAC2ECB22BC3F"
 			tasks: [{
 				id: "2123C52534172A48"
@@ -885,11 +885,11 @@
 				type: "item"
 			}]
 			x: -7.0d
-			y: 1.0d
+			y: 0.5d
 		}
 		{
 			dependencies: ["0E3BAC2ECB22BC3F"]
-			description: ["             数据库是用来存储算力和研究数据的地方"]
+			description: ["{gte.tier_5_iv.quests.11C93BB27E803120.description0}"]
 			id: "11C93BB27E803120"
 			tasks: [{
 				id: "511B3EF76B58EAB7"
@@ -907,7 +907,7 @@
 				item: "gtceu:assembly_line"
 				type: "item"
 			}]
-			x: -8.5d
+			x: -8.0d
 			y: -1.5d
 		}
 		{
@@ -918,9 +918,9 @@
 				item: "gtceu:miracle_ring"
 				type: "item"
 			}]
-			x: -8.5d
+			x: -8.0d
 			y: -0.5d
 		}
 	]
-	title: "[Tier 5] IV"
+	title: "{gte.tier_5_iv.title}"
 }

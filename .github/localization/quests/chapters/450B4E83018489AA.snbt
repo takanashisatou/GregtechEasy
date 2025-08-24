@@ -10,22 +10,22 @@
 		{
 			can_repeat: true
 			description: [
-				"GregTech Easy制作组 希望你能在这里度过一个轻松而快乐的格雷之旅，愿你找到属于你的那颗萌新之星。"
-				"本整合包在基本保留GTM流程下大幅度消减了从蒸汽时代到UHV时代的难度，额外增加了一些产线和内容。此外本包为了防止挖矿带来的枯燥在前期加入了采矿巨构，前期就可以获得无限的矿物"
+				"{gte.450B4E83018489AA.quests.7AC928F321C75E9B.description0}"
+				"{gte.450B4E83018489AA.quests.7AC928F321C75E9B.description1}"
 			]
 			id: "7AC928F321C75E9B"
 			tasks: [{
 				id: "048CBDA2602237A6"
-				title: "整合包介绍"
+				title: "{gte.450B4E83018489AA.quests.7AC928F321C75E9B.tasks.048CBDA2602237A6.title}"
 				type: "checkmark"
 			}]
-			title: "制作组想说的话"
+			title: "{gte.450B4E83018489AA.quests.7AC928F321C75E9B.title}"
 			x: -15.0d
 			y: 0.5d
 		}
 		{
 			dependencies: ["7AC928F321C75E9B"]
-			description: ["重要提示: GregTech Easy中的钻石是能烧的，但是只有原版钻石能烧。"]
+			description: ["{gte.450B4E83018489AA.quests.13E908447331858E.description0}"]
 			id: "13E908447331858E"
 			rewards: [
 				{
@@ -216,11 +216,11 @@
 			]
 			tasks: [{
 				id: "78F6F8B3C16A6905"
-				title: "萌新的必备工具"
+				title: "{gte.450B4E83018489AA.quests.13E908447331858E.tasks.78F6F8B3C16A6905.title}"
 				type: "checkmark"
 			}]
-			title: "萌新前期必备生存套装"
-			x: -13.5d
+			title: "{gte.450B4E83018489AA.quests.13E908447331858E.title}"
+			x: -13.0d
 			y: 0.5d
 		}
 		{
@@ -248,19 +248,19 @@
 					type: "item"
 				}
 			]
-			subtitle: "懒人的福利"
+			subtitle: "{gte.450B4E83018489AA.quests.0C1192A74BBBA469.subtitle}"
 			tasks: [{
 				id: "1E93798C3ADA5547"
-				title: "免费的食物"
+				title: "{gte.450B4E83018489AA.quests.0C1192A74BBBA469.tasks.1E93798C3ADA5547.title}"
 				type: "checkmark"
 			}]
-			title: "食物银行"
+			title: "{gte.450B4E83018489AA.quests.0C1192A74BBBA469.title}"
 			x: -15.0d
-			y: -1.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["13E908447331858E"]
-			description: ["前期很重要的三种矿物，记得多多挖掘它们"]
+			description: ["{gte.450B4E83018489AA.quests.2EF82D2485FD5033.description0}"]
 			id: "2EF82D2485FD5033"
 			rewards: [{
 				count: 64
@@ -268,7 +268,7 @@
 				item: "minecraft:blast_furnace"
 				type: "item"
 			}]
-			subtitle: "蒸汽时代的基石矿物"
+			subtitle: "{gte.450B4E83018489AA.quests.2EF82D2485FD5033.subtitle}"
 			tasks: [
 				{
 					id: "5026206897AE922A"
@@ -286,18 +286,18 @@
 					type: "item"
 				}
 			]
-			title: "挖矿时间到"
-			x: -12.0d
+			title: "{gte.450B4E83018489AA.quests.2EF82D2485FD5033.title}"
+			x: -11.5d
 			y: 0.5d
 		}
 		{
 			dependencies: ["2EF82D2485FD5033"]
 			description: [
-				"手持锤子右键机器可以使机器静音。保护好你的听力哟。"
-				"手持螺丝刀右键输入仓/输出仓可以使它们互相转换。"
-				"手持撬棍右击覆盖板可以拆除覆盖板，用稿子拆除覆盖板只会连机器/管道/导线一同拆除。"
-				"而手持扳手右键可以旋转机器，连接/断开管道。"
-				"请多多探索来掌握这些格雷工具的使用技巧吧，第一次上手难免有点困难哟。"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description0}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description1}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description2}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description3}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description4}"
 			]
 			id: "1A130A4134836DFB"
 			rewards: [
@@ -370,7 +370,7 @@
 					type: "item"
 				}
 			]
-			subtitle: "你将与它们度过很长时间"
+			subtitle: "{gte.450B4E83018489AA.quests.1A130A4134836DFB.subtitle}"
 			tasks: [
 				{
 					id: "76C800A672BE6CFF"
@@ -430,23 +430,23 @@
 					type: "item"
 				}
 			]
-			title: "格雷工具I"
-			x: -12.0d
-			y: 2.0d
+			title: "{gte.450B4E83018489AA.quests.1A130A4134836DFB.title}"
+			x: -10.0d
+			y: 0.5d
 		}
 		{
 			dependencies: ["7AC928F321C75E9B"]
-			description: ["按住R键查看这个物品是如何合成的，按住U键查看这个物品能合成什么,按住Ctrl加左键点击右边的扳手即可开启JEI作弊模式(你有可能会需要它)。如果你想要知道流体的合成配方，不用对含有流体的桶进行R键，而是在JEI里搜索含有流体的桶的对应的流体后对着它按R键查看合成配方，按住U键查看它能合成什么。"]
+			description: ["{gte.450B4E83018489AA.quests.66EF24234DD8A278.description0}"]
 			id: "66EF24234DD8A278"
-			subtitle: "没JEI格雷没法玩"
+			subtitle: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.subtitle}"
 			tasks: [{
 				id: "3A7D1ED17EA25F53"
-				title: "伟大的JEI"
+				title: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.tasks.3A7D1ED17EA25F53.title}"
 				type: "checkmark"
 			}]
-			title: "伟大的JEI"
+			title: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.title}"
 			x: -13.5d
-			y: -1.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["1A130A4134836DFB"]
@@ -582,7 +582,7 @@
 					type: "item"
 				}
 			]
-			subtitle: "你同样要与这些工具陪伴很久"
+			subtitle: "{gte.450B4E83018489AA.quests.6C03035896A297CC.subtitle}"
 			tasks: [
 				{
 					id: "19478BBB90FF5FF0"
@@ -695,8 +695,8 @@
 					type: "item"
 				}
 			]
-			title: "格雷工具II"
-			x: -10.5d
+			title: "{gte.450B4E83018489AA.quests.6C03035896A297CC.title}"
+			x: -8.5d
 			y: 0.5d
 		}
 		{
@@ -707,8 +707,8 @@
 				item: "gtceu:copper_dust"
 				type: "item"
 			}]
-			x: -9.0d
-			y: -1.0d
+			x: -7.0d
+			y: -0.5d
 		}
 		{
 			dependencies: ["6C03035896A297CC"]
@@ -718,8 +718,8 @@
 				item: "gtceu:tin_dust"
 				type: "item"
 			}]
-			x: -9.0d
-			y: 2.0d
+			x: -7.0d
+			y: 1.5d
 		}
 		{
 			dependencies: [
@@ -732,7 +732,7 @@
 				item: "gtceu:bronze_dust"
 				type: "item"
 			}]
-			x: -9.0d
+			x: -5.5d
 			y: 0.5d
 		}
 		{
@@ -743,8 +743,8 @@
 				item: "gtceu:bronze_ingot"
 				type: "item"
 			}]
-			x: -7.5d
-			y: -1.0d
+			x: -5.5d
+			y: 3.0d
 		}
 		{
 			dependencies: ["3EDFD3C66D10EC35"]
@@ -754,8 +754,8 @@
 				item: "gtceu:bronze_plate"
 				type: "item"
 			}]
-			x: -7.5d
-			y: 0.5d
+			x: -7.0d
+			y: 3.0d
 		}
 		{
 			dependencies: ["787EC074263C1BA6"]
@@ -765,24 +765,24 @@
 				item: "gtceu:lp_steam_solid_boiler"
 				type: "item"
 			}]
-			title: "蒸汽时代的开端"
-			x: -7.5d
-			y: 2.0d
+			title: "{gte.450B4E83018489AA.quests.454E75E87ACFE4C6.title}"
+			x: -8.5d
+			y: 3.0d
 		}
 		{
 			dependencies: ["7AC928F321C75E9B"]
 			description: [
-				"本整合包添加了Advanced Backup模组。"
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description0}"
 				""
-				"如果你的存档需要回档的话，(这里是你启动器的EXE文件的路径)./minecraft/versions/GregTechEasy/backups文件夹即可找到你的备份存档"
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description1}"
 				""
-				"关于此模组的详细使用方法请咨询相关B站视频或GregTech Easy制造组"
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description2}"
 			]
 			id: "34ABC0B777C13083"
-			subtitle: "总会有意外"
+			subtitle: "{gte.450B4E83018489AA.quests.34ABC0B777C13083.subtitle}"
 			tasks: [{
 				id: "3CEF638AA6A7CBA6"
-				title: "备份"
+				title: "{gte.450B4E83018489AA.quests.34ABC0B777C13083.tasks.3CEF638AA6A7CBA6.title}"
 				type: "checkmark"
 			}]
 			x: -16.5d
@@ -792,22 +792,35 @@
 			dependencies: ["7AC928F321C75E9B"]
 			description: [
 				""
-				"GregTech Easy 交流群喵:  132733633"
-				"本群有着友好的讨论氛围，只要不触及法律红线，可以随意的提出心中的疑问喵，Gregtech Easy作者会认真倾听的喵"
+				"{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.description0}"
+				"{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.description1}"
 			]
 			id: "7E5B87ADA50A4371"
 			tasks: [{
 				id: "42B8D973E0D8FC44"
-				title: "GregTech Easy交流群"
+				title: "{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.tasks.42B8D973E0D8FC44.title}"
 				type: "checkmark"
 			}]
-			title: "GregTech  Easy交流群"
+			title: "{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.title}"
 			x: -16.5d
-			y: -1.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["13E908447331858E"]
-			description: ["                       右键点击它即可传送到虚空世界里去。"]
+			description: ["{gte.450B4E83018489AA.quests.2470AA1CC301D0DB.description0}"]
+			id: "2470AA1CC301D0DB"
+			tasks: [{
+				id: "5C06CB8E5D8EB8E9"
+				item: "simple_trashcan:trashcanclosed"
+				type: "item"
+			}]
+			title: "{gte.450B4E83018489AA.quests.2470AA1CC301D0DB.title}"
+			x: -11.5d
+			y: -2.5d
+		}
+		{
+			dependencies: ["13E908447331858E"]
+			description: ["{gte.450B4E83018489AA.quests.6B6452584D88263D.description0}"]
 			icon: "javd:portal_block"
 			id: "6B6452584D88263D"
 			rewards: [{
@@ -815,13 +828,13 @@
 				item: "javd:portal_block"
 				type: "item"
 			}]
-			subtitle: "别掉下去了"
+			subtitle: "{gte.450B4E83018489AA.quests.6B6452584D88263D.subtitle}"
 			tasks: [{
 				id: "0241122990FD5D55"
-				title: "虚空世界"
+				title: "{gte.450B4E83018489AA.quests.6B6452584D88263D.tasks.0241122990FD5D55.title}"
 				type: "checkmark"
 			}]
-			x: -13.5d
+			x: -13.0d
 			y: 2.0d
 		}
 		{
@@ -829,9 +842,9 @@
 			dependencies: ["7AC928F321C75E9B"]
 			description: [
 				""
-				"顺便一提，FTB Ultimate 连锁按键是按住`键。"
-				"在按住`键的同时按住Shift并滑动鼠标滚轮可以切换连锁采矿模式"
-				"在这里可以修改FTB Ultimate的连锁挖矿数量，调太大有可能导致电脑崩溃，量电脑力而行"
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description0}"
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description1}"
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description2}"
 			]
 			id: "140646D9977DFB73"
 			rewards: [{
@@ -839,19 +852,19 @@
 				id: "7B983C16DB64207E"
 				type: "command"
 			}]
-			subtitle: "量电脑力而行"
+			subtitle: "{gte.450B4E83018489AA.quests.140646D9977DFB73.subtitle}"
 			tasks: [{
 				id: "6789B89C0E9BACB9"
-				title: "连锁设置"
+				title: "{gte.450B4E83018489AA.quests.140646D9977DFB73.tasks.6789B89C0E9BACB9.title}"
 				type: "checkmark"
 			}]
-			x: -16.5d
+			x: -15.0d
 			y: 2.0d
 		}
 		{
 			can_repeat: true
 			dependencies: ["6B6452584D88263D"]
-			description: ["别摔下去了哟，这个指令将会把你传送到主世界x = 0,y = 120 z = 0处"]
+			description: ["{gte.450B4E83018489AA.quests.1871D68EB938A5C5.description0}"]
 			id: "1871D68EB938A5C5"
 			rewards: [{
 				command: "/execute in minecraft:overworld run tp 0 120 0"
@@ -860,2506 +873,12 @@
 			}]
 			tasks: [{
 				id: "6D3E1ED182F6FE74"
-				title: "返回主世界"
+				title: "{gte.450B4E83018489AA.quests.1871D68EB938A5C5.tasks.6D3E1ED182F6FE74.title}"
 				type: "checkmark"
 			}]
-			x: -13.5d
+			x: -14.0d
 			y: 3.5d
 		}
-		{
-			can_repeat: true
-			dependencies: ["7AC928F321C75E9B"]
-			id: "283E6EE3D126D688"
-			rewards: [
-				{
-					id: "2773D5507251C04E"
-					item: {
-						Count: 1
-						id: "buildinggadgets2:gadget_building"
-						tag: {
-							energy: 5000000
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "585C1EFC732AC973"
-					item: {
-						Count: 1
-						id: "buildinggadgets2:gadget_exchanging"
-						tag: {
-							energy: 5000000
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "36E3A4B7967AEB6F"
-					item: {
-						Count: 1
-						id: "buildinggadgets2:gadget_copy_paste"
-						tag: {
-							energy: 5000000
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "63E9F86AEEC86FEA"
-					item: {
-						Count: 1
-						id: "buildinggadgets2:gadget_cut_paste"
-						tag: {
-							energy: 5000000
-							pastereplace: 1b
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "7D0B9E8B4349E173"
-					item: {
-						Count: 1
-						id: "buildinggadgets2:gadget_destruction"
-						tag: {
-							energy: 5000000
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "4272F93E4ACA677D"
-					item: {
-						Count: 1
-						id: "wands:creative_wand"
-						tag: {
-							Damage: 0
-						}
-					}
-					type: "item"
-				}
-			]
-			tasks: [{
-				id: "1EAD63363FD78044"
-				type: "checkmark"
-			}]
-			title: "建筑小帮手"
-			x: -15.0d
-			y: 2.0d
-		}
-		{
-			dependencies: ["13E908447331858E"]
-			id: "6E92A1D6CF61C86D"
-			rewards: [
-				{
-					id: "4493E8B97E8AFC05"
-					item: {
-						Count: 1
-						id: "minecraft:lime_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:lime_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:lime_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "7D3D64E70681AB1A"
-					item: {
-						Count: 1
-						id: "minecraft:white_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:white_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:white_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "6290687234D287DF"
-					item: {
-						Count: 1
-						id: "minecraft:light_gray_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:light_gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:light_gray_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "4EFD2A2365215221"
-					item: {
-						Count: 1
-						id: "minecraft:gray_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:gray_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:gray_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "762F6FB80B24C43D"
-					item: {
-						Count: 1
-						id: "minecraft:black_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:black_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:black_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "0CA987937A680CED"
-					item: {
-						Count: 1
-						id: "minecraft:brown_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:brown_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:brown_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "0B50189FF6EA09E2"
-					item: {
-						Count: 1
-						id: "minecraft:red_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:red_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:red_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "2C9933A4D4A01365"
-					item: {
-						Count: 1
-						id: "minecraft:orange_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:orange_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:orange_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "79F386B3B9317E7D"
-					item: {
-						Count: 1
-						id: "minecraft:yellow_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:yellow_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:yellow_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "76A8000E55476392"
-					item: {
-						Count: 1
-						id: "minecraft:green_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:green_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:green_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "1E56392D620A0DEF"
-					item: {
-						Count: 1
-						id: "minecraft:cyan_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:cyan_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:cyan_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "4368EE8BCB5EB909"
-					item: {
-						Count: 1
-						id: "minecraft:light_blue_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:light_blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:light_blue_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "63B86DA4576C2588"
-					item: {
-						Count: 1
-						id: "minecraft:blue_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:blue_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:blue_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "300AAD8C59BEF366"
-					item: {
-						Count: 1
-						id: "minecraft:purple_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:purple_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:purple_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "01BA99414488415A"
-					item: {
-						Count: 1
-						id: "minecraft:magenta_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:magenta_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:magenta_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-				{
-					id: "1D5402D3247B88DE"
-					item: {
-						Count: 1
-						id: "minecraft:pink_shulker_box"
-						tag: {
-							BlockEntityTag: {
-								Items: [
-									{
-										Count: 64b
-										Slot: 0b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 1b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 2b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 3b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 4b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 5b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 6b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 7b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 8b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 9b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 10b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 11b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 12b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 13b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 14b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 15b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 16b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 17b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 18b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 19b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 20b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 21b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 22b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 23b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 24b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 25b
-										id: "minecraft:pink_concrete"
-									}
-									{
-										Count: 64b
-										Slot: 26b
-										id: "minecraft:pink_concrete"
-									}
-								]
-								id: "minecraft:shulker_box"
-							}
-						}
-					}
-					type: "item"
-				}
-			]
-			tasks: [{
-				id: "26CC16A7F12DD5D4"
-				type: "checkmark"
-			}]
-			title: "免费的建筑材料"
-			x: -12.0d
-			y: -1.0d
-		}
 	]
-	title: "从零开始"
+	title: "{gte.450B4E83018489AA.title}"
 }

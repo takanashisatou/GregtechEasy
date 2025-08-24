@@ -2,10 +2,10 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "72E4956FD9B3E490"
-	group: "077D7FFC53DDA8F0"
+	group: ""
 	icon: "enderio:ender_fluid_conduit"
 	id: "72E4956FD9B3E490"
-	order_index: 0
+	order_index: 16
 	quest_links: [ ]
 	quests: [
 		{
@@ -14,7 +14,7 @@
 			size: 2.0d
 			tasks: [{
 				id: "7032CAD5CE0695F1"
-				title: "末影接口，值得你选择"
+				title: "{gte.72E4956FD9B3E490.quests.1B306D342D8E9C38.tasks.7032CAD5CE0695F1.title}"
 				type: "checkmark"
 			}]
 			x: 1.5d
@@ -33,11 +33,11 @@
 			}]
 			tasks: [{
 				id: "65C8977660D21795"
-				title: "免费的末影流体导管"
+				title: "{gte.72E4956FD9B3E490.quests.7D7AE03F6B7A60C5.tasks.65C8977660D21795.title}"
 				type: "checkmark"
 			}]
-			x: 1.5d
-			y: -3.5d
+			x: 4.0d
+			y: -1.5d
 		}
 		{
 			can_repeat: true
@@ -71,12 +71,12 @@
 			}]
 			tasks: [{
 				id: "5F0DEBD9688E9660"
-				title: "免费的旅行权杖"
+				title: "{gte.72E4956FD9B3E490.quests.259A2B1BB828637A.tasks.5F0DEBD9688E9660.title}"
 				type: "checkmark"
 			}]
 			x: 1.5d
 			y: 0.5d
 		}
 	]
-	title: "末影接口"
+	title: "{gte.72E4956FD9B3E490.title}"
 }

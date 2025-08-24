@@ -2,15 +2,15 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "tier_2_mv"
-	group: "277796EFA601375B"
+	group: ""
 	icon: "gtceu:mv_machine_hull"
 	id: "5F6F2A32F97D3D0C"
-	order_index: 2
+	order_index: 3
 	quest_links: [ ]
 	quests: [
 		{
 			dependencies: ["4E23F7802FD82D2B"]
-			description: ["  MV时代你同样也需要这五种零件，很多机器需要它们"]
+			description: ["{gte.tier_2_mv.quests.48A98BD994BA2054.description0}"]
 			icon: "gtceu:mv_electric_motor"
 			id: "48A98BD994BA2054"
 			rewards: [{
@@ -20,7 +20,7 @@
 				type: "item"
 			}]
 			size: 1.5d
-			subtitle: "每个阶段都要造"
+			subtitle: "{gte.tier_2_mv.quests.48A98BD994BA2054.subtitle}"
 			tasks: [
 				{
 					id: "24CBC574E5749D0C"
@@ -48,20 +48,20 @@
 					type: "item"
 				}
 			]
-			title: "MV时代的老五样"
-			x: -13.5d
-			y: 2.25d
+			title: "{gte.tier_2_mv.quests.48A98BD994BA2054.title}"
+			x: -14.5d
+			y: 3.0d
 		}
 		{
 			dependencies: ["48A98BD994BA2054"]
 			id: "50628B5ADF9CC562"
 			tasks: [{
 				id: "1AB3F25F7F31528B"
-				title: "造一些电力机器"
+				title: "{gte.tier_2_mv.quests.50628B5ADF9CC562.tasks.1AB3F25F7F31528B.title}"
 				type: "checkmark"
 			}]
-			x: -12.0d
-			y: 0.5d
+			x: -12.201190476190483d
+			y: -0.03452380952377254d
 		}
 		{
 			dependencies: ["50628B5ADF9CC562"]
@@ -71,20 +71,20 @@
 				item: "gtceu:mv_bender"
 				type: "item"
 			}]
-			x: -9.5d
-			y: -0.5d
+			x: -10.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["4ED12C137FBB0758"]
-			description: ["使用电解机可以电解盐水出氯气，氢气和氢氧化钠，电解糖制造氧气，电解红宝石粉出铬"]
+			description: ["{gte.tier_2_mv.quests.134C731EC3267179.description0}"]
 			id: "134C731EC3267179"
-			subtitle: "来自格雷科技的黑科技"
+			subtitle: "{gte.tier_2_mv.quests.134C731EC3267179.subtitle}"
 			tasks: [{
 				id: "78410E585FC66FA5"
 				item: "gtceu:mv_electrolyzer"
 				type: "item"
 			}]
-			x: -9.0d
+			x: -9.5d
 			y: 2.0d
 		}
 		{
@@ -95,8 +95,8 @@
 				item: "gtceu:mv_chemical_reactor"
 				type: "item"
 			}]
-			x: -11.5d
-			y: -1.0d
+			x: -12.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["50628B5ADF9CC562"]
@@ -106,8 +106,8 @@
 				item: "gtceu:mv_extruder"
 				type: "item"
 			}]
-			x: -14.5d
-			y: -0.5d
+			x: -15.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["50628B5ADF9CC562"]
@@ -117,8 +117,8 @@
 				item: "gtceu:mv_lathe"
 				type: "item"
 			}]
-			x: -13.5d
-			y: -1.0d
+			x: -14.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["50628B5ADF9CC562"]
@@ -128,8 +128,8 @@
 				item: "gtceu:mv_centrifuge"
 				type: "item"
 			}]
-			x: -12.5d
-			y: -1.0d
+			x: -13.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["50628B5ADF9CC562"]
@@ -139,8 +139,8 @@
 				item: "gtceu:mv_ore_washer"
 				type: "item"
 			}]
-			x: -10.5d
-			y: -1.0d
+			x: -11.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["50628B5ADF9CC562"]
@@ -150,8 +150,8 @@
 				item: "gtceu:mv_mixer"
 				type: "item"
 			}]
-			x: -12.0d
-			y: 5.0d
+			x: -12.25d
+			y: 4.5d
 		}
 		{
 			dependencies: ["48A98BD994BA2054"]
@@ -161,8 +161,8 @@
 				item: "gtceu:light_fuel_bucket"
 				type: "item"
 			}]
-			x: -13.0d
-			y: 3.5d
+			x: -13.25d
+			y: 3.0d
 		}
 		{
 			dependencies: ["48A98BD994BA2054"]
@@ -172,8 +172,8 @@
 				item: "gtceu:heavy_fuel_bucket"
 				type: "item"
 			}]
-			x: -14.0d
-			y: 3.5d
+			x: -14.458333333333336d
+			y: 4.51666666666668d
 		}
 		{
 			dependencies: [
@@ -181,15 +181,15 @@
 				"09D80EE7AEA658A1"
 				"01A4616263A9824C"
 			]
-			description: ["                强烈推荐用柴油发电！ 简单，易造，耐烧。"]
+			description: ["{gte.tier_2_mv.quests.722072470416CDCE.description0}"]
 			id: "722072470416CDCE"
 			tasks: [{
 				id: "7E3D77CB84B063B0"
 				item: "gtceu:diesel_bucket"
 				type: "item"
 			}]
-			x: -13.5d
-			y: 5.0d
+			x: -13.25d
+			y: 4.5d
 		}
 		{
 			dependencies: [
@@ -225,7 +225,7 @@
 				type: "item"
 			}]
 			x: -12.0d
-			y: 6.5d
+			y: 6.0d
 		}
 		{
 			dependencies: [
@@ -242,7 +242,7 @@
 				type: "item"
 			}]
 			x: -10.5d
-			y: 5.0d
+			y: 4.5d
 		}
 		{
 			id: "5D2AF811F6A27029"
@@ -251,8 +251,8 @@
 				item: "gtceu:aluminium_dust"
 				type: "item"
 			}]
-			x: -11.0d
-			y: 3.5d
+			x: -11.5d
+			y: 3.0d
 		}
 		{
 			id: "4F5939B389C7E8D3"
@@ -261,8 +261,8 @@
 				item: "gtceu:iron_dust"
 				type: "item"
 			}]
-			x: -10.0d
-			y: 3.5d
+			x: -10.5d
+			y: 3.0d
 		}
 		{
 			dependencies: ["134C731EC3267179"]
@@ -272,8 +272,8 @@
 				item: "gtceu:chromium_dust"
 				type: "item"
 			}]
-			x: -9.0d
-			y: 3.5d
+			x: -9.5d
+			y: 3.0d
 		}
 		{
 			id: "4ED12C137FBB0758"
@@ -296,7 +296,7 @@
 				item: "gtceu:kanthal_coil_block"
 				type: "item"
 			}]
-			x: -15.0d
+			x: -15.5d
 			y: 7.5d
 		}
 		{
@@ -307,8 +307,8 @@
 				item: "gtceu:mv_assembler"
 				type: "item"
 			}]
-			x: -15.0d
-			y: 2.5d
+			x: -15.5d
+			y: 1.5d
 		}
 		{
 			id: "1C24E45E3372E16C"
@@ -317,8 +317,8 @@
 				item: "gtceu:bentonite_dust"
 				type: "item"
 			}]
-			x: -6.5d
-			y: 2.0d
+			x: -8.5d
+			y: 3.0d
 		}
 		{
 			dependencies: [
@@ -331,7 +331,7 @@
 				item: "gtceu:silicon_dust"
 				type: "item"
 			}]
-			x: -7.5d
+			x: -7.0d
 			y: 2.0d
 		}
 		{
@@ -345,7 +345,7 @@
 				item: "gtceu:silicon_boule"
 				type: "item"
 			}]
-			x: -7.5d
+			x: -7.0d
 			y: 4.5d
 		}
 		{
@@ -355,7 +355,7 @@
 				item: "gtceu:gallium_arsenide_dust"
 				type: "item"
 			}]
-			x: -9.0d
+			x: -8.5d
 			y: 4.5d
 		}
 		{
@@ -366,8 +366,8 @@
 				item: "gtceu:mv_cutter"
 				type: "item"
 			}]
-			x: -6.0d
-			y: 0.5d
+			x: -5.5d
+			y: 0.0d
 		}
 		{
 			dependencies: [
@@ -381,31 +381,31 @@
 				item: "gtceu:silicon_wafer"
 				type: "item"
 			}]
-			x: -6.0d
+			x: -5.5d
 			y: 4.5d
 		}
 		{
-			description: ["润滑油虽然造起来稍微麻烦一点，但是它的效率比水快一倍，效率就是王道!"]
+			description: ["{gte.tier_2_mv.quests.621D316EE66F51C7.description0}"]
 			id: "621D316EE66F51C7"
 			tasks: [{
 				id: "5A7976B0DAE7A743"
 				item: "gtceu:lubricant_bucket"
 				type: "item"
 			}]
-			title: "切割机的好助手"
-			x: -3.0d
+			title: "{gte.tier_2_mv.quests.621D316EE66F51C7.title}"
+			x: -2.5d
 			y: 3.0d
 		}
 		{
-			description: ["直接用免费的水就可以切割单晶硅了，稍微慢点无所谓，方便才是王道"]
+			description: ["{gte.tier_2_mv.quests.4D1A81D266B14D46.description0}"]
 			id: "4D1A81D266B14D46"
 			tasks: [{
 				id: "7C7F7A14DADA7F62"
 				item: "minecraft:water_bucket"
 				type: "item"
 			}]
-			title: "直接用水多方便"
-			x: -3.0d
+			title: "{gte.tier_2_mv.quests.4D1A81D266B14D46.title}"
+			x: -2.5d
 			y: 6.0d
 		}
 		{
@@ -417,17 +417,17 @@
 			id: "615B161C633B648E"
 			tasks: [{
 				id: "352966057575E1C2"
-				title: "水或者润滑油?这是一个问题"
+				title: "{gte.tier_2_mv.quests.615B161C633B648E.tasks.352966057575E1C2.title}"
 				type: "checkmark"
 			}]
-			x: -4.5d
-			y: 4.5d
+			x: -4.0d
+			y: 4.0d
 		}
 		{
 			description: [
-				"          蒸馏水也能加速切割机，虽然没有润滑油快。"
+				"{gte.tier_2_mv.quests.1914889AE31B751D.description0}"
 				""
-				"         也是一种不错的选择。"
+				"{gte.tier_2_mv.quests.1914889AE31B751D.description1}"
 			]
 			id: "1914889AE31B751D"
 			tasks: [{
@@ -435,8 +435,8 @@
 				item: "gtceu:distilled_water_bucket"
 				type: "item"
 			}]
-			title: "蒸馏水也可以"
-			x: -3.0d
+			title: "{gte.tier_2_mv.quests.1914889AE31B751D.title}"
+			x: -2.5d
 			y: 4.5d
 		}
 		{
@@ -447,8 +447,8 @@
 				item: "gtceu:mv_laser_engraver"
 				type: "item"
 			}]
-			x: -6.0d
-			y: 6.0d
+			x: -7.5d
+			y: 7.5d
 		}
 		{
 			dependencies: ["2D5D55B87B03C915"]
@@ -458,7 +458,7 @@
 				item: "gtceu:ram_wafer"
 				type: "item"
 			}]
-			x: -4.5d
+			x: -6.5d
 			y: 7.5d
 		}
 		{
@@ -469,7 +469,7 @@
 				item: "gtceu:ulpic_wafer"
 				type: "item"
 			}]
-			x: -7.5d
+			x: -8.5d
 			y: 7.5d
 		}
 		{
@@ -480,8 +480,8 @@
 				item: "gtceu:ram_chip"
 				type: "item"
 			}]
-			x: -4.5d
-			y: 9.0d
+			x: -6.5d
+			y: 8.5d
 		}
 		{
 			dependencies: ["56EB266A4DF8A7DE"]
@@ -491,7 +491,7 @@
 				item: "gtceu:ulpic_chip"
 				type: "item"
 			}]
-			x: -9.0d
+			x: -9.5d
 			y: 7.5d
 		}
 		{
@@ -511,7 +511,7 @@
 				type: "item"
 			}]
 			x: -9.0d
-			y: 10.5d
+			y: 10.0d
 		}
 		{
 			dependencies: ["7E7F9AAFA6ABDB35"]
@@ -521,7 +521,7 @@
 				item: "gtceu:ilc_chip"
 				type: "item"
 			}]
-			x: -7.5d
+			x: -8.5d
 			y: 9.0d
 		}
 		{
@@ -532,8 +532,8 @@
 				item: "gtceu:ilc_wafer"
 				type: "item"
 			}]
-			x: -6.0d
-			y: 7.5d
+			x: -7.5d
+			y: 8.5d
 		}
 		{
 			id: "21F100261EB28C08"
@@ -542,8 +542,8 @@
 				item: "gtceu:resin_printed_circuit_board"
 				type: "item"
 			}]
-			x: -10.5d
-			y: 10.5d
+			x: -11.0d
+			y: 10.0d
 		}
 		{
 			id: "28F72D864759CADE"
@@ -553,8 +553,8 @@
 				item: "gtceu:resistor"
 				type: "item"
 			}]
-			x: -7.5d
-			y: 11.0d
+			x: -8.924999999999983d
+			y: 11.146428571428608d
 		}
 		{
 			id: "0F335FB5496D052A"
@@ -564,8 +564,8 @@
 				item: "gtceu:diode"
 				type: "item"
 			}]
-			x: -7.5d
-			y: 10.0d
+			x: -10.0d
+			y: 12.0d
 		}
 		{
 			id: "5A1D921F18141098"
@@ -575,7 +575,7 @@
 				item: "gtceu:fine_copper_wire"
 				type: "item"
 			}]
-			x: -9.0d
+			x: -11.0d
 			y: 9.0d
 		}
 		{
@@ -586,8 +586,8 @@
 				item: "gtceu:tin_bolt"
 				type: "item"
 			}]
-			x: -9.0d
-			y: 12.0d
+			x: -11.0d
+			y: 11.0d
 		}
 		{
 			dependencies: [
@@ -604,8 +604,8 @@
 				item: "gtceu:good_integrated_circuit"
 				type: "item"
 			}]
-			x: -6.0d
-			y: 10.5d
+			x: -8.0d
+			y: 11.5d
 		}
 		{
 			id: "08D850EC8A9385C1"
@@ -614,8 +614,8 @@
 				item: "gtceu:phenolic_printed_circuit_board"
 				type: "item"
 			}]
-			x: -7.5d
-			y: 12.0d
+			x: -9.0d
+			y: 12.5d
 		}
 		{
 			id: "3033CC485B4907E5"
@@ -625,19 +625,22 @@
 				item: "gtceu:fine_gold_wire"
 				type: "item"
 			}]
-			x: -3.0d
-			y: 7.5d
+			x: -7.0d
+			y: 12.0d
 		}
 		{
 			id: "3987466C540981A9"
 			tasks: [{
 				count: 4L
 				id: "1A97524CB0CED466"
-				item: { Count: 4, id: "gtceu:silver_bolt" }
+				item: {
+					Count: 4
+					id: "gtceu:silver_bolt"
+				}
 				type: "item"
 			}]
-			x: -6.0d
-			y: 12.0d
+			x: -8.0d
+			y: 13.0d
 		}
 		{
 			dependencies: [
@@ -654,18 +657,21 @@
 				item: "gtceu:advanced_integrated_circuit"
 				type: "item"
 			}]
-			x: -4.5d
-			y: 10.5d
+			x: -6.5d
+			y: 10.0d
 		}
 		{
 			id: "32F342D90E7ABB7B"
 			tasks: [{
 				count: 4L
 				id: "67052631ECA714FF"
-				item: { Count: 4, id: "gtceu:transistor" }
+				item: {
+					Count: 4
+					id: "gtceu:transistor"
+				}
 				type: "item"
 			}]
-			x: -4.5d
+			x: -6.0d
 			y: 12.0d
 		}
 		{
@@ -673,22 +679,28 @@
 			tasks: [{
 				count: 8L
 				id: "40222F678C490871"
-				item: { Count: 4, id: "gtceu:fine_electrum_wire" }
+				item: {
+					Count: 4
+					id: "gtceu:fine_electrum_wire"
+				}
 				type: "item"
 			}]
-			x: -6.0d
-			y: 9.0d
+			x: -8.0d
+			y: 10.5d
 		}
 		{
 			id: "559830BE3E2777E1"
 			tasks: [{
 				count: 8L
 				id: "5C8F49E03E8C05CC"
-				item: { Count: 8, id: "gtceu:annealed_copper_bolt" }
+				item: {
+					Count: 8
+					id: "gtceu:annealed_copper_bolt"
+				}
 				type: "item"
 			}]
-			x: -3.0d
-			y: 12.0d
+			x: -5.0d
+			y: 11.5d
 		}
 		{
 			dependencies: [
@@ -713,18 +725,21 @@
 				type: "item"
 			}]
 			x: -12.0d
-			y: 9.0d
+			y: 8.5d
 		}
 		{
 			id: "25EF1506346A0CE7"
 			tasks: [{
 				count: 2L
 				id: "4AF1ABA67391B6DB"
-				item: { Count: 2, id: "gtceu:copper_single_cable" }
+				item: {
+					Count: 2
+					id: "gtceu:copper_single_cable"
+				}
 				type: "item"
 			}]
-			x: -10.5d
-			y: 9.0d
+			x: -10.0d
+			y: 8.5d
 		}
 		{
 			dependencies: ["566A1DE541BC7E64"]
@@ -734,8 +749,8 @@
 				item: "gtceu:stainless_steel_ingot"
 				type: "item"
 			}]
-			x: -17.0d
-			y: 2.5d
+			x: -16.5d
+			y: 1.5d
 		}
 		{
 			dependencies: ["50628B5ADF9CC562"]
@@ -745,8 +760,8 @@
 				item: "gtceu:mv_mixer"
 				type: "item"
 			}]
-			x: -15.0d
-			y: 0.5d
+			x: -14.5d
+			y: 0.0d
 		}
 		{
 			dependencies: ["60D57850EECCE621"]
@@ -756,8 +771,8 @@
 				item: "gtceu:stainless_steel_dust"
 				type: "item"
 			}]
-			x: -17.0d
-			y: 0.5d
+			x: -16.5d
+			y: 0.0d
 		}
 		{
 			dependencies: ["63C73D5738992600"]
@@ -768,24 +783,22 @@
 				item: "gtceu:hv_machine_hull"
 				type: "item"
 			}]
-			x: -17.0d
-			y: 5.0d
+			x: -16.5d
+			y: 3.5d
 		}
 		{
 			dependencies: [
 				"745ADDE0FBB07CEB"
 				"40694915A48C13A3"
-				"6CB56EC58FF8C4D8"
 			]
-			dependency_requirement: "one_completed"
 			id: "20D288D1F83971EA"
 			tasks: [{
 				id: "4BC38186031E785D"
 				item: "gtceu:mv_circuit_assembler"
 				type: "item"
 			}]
-			x: -3.0d
-			y: 10.5d
+			x: -5.5d
+			y: 10.0d
 		}
 		{
 			id: "40694915A48C13A3"
@@ -794,31 +807,9 @@
 				item: "gtceu:mv_emitter"
 				type: "item"
 			}]
-			x: -3.0d
-			y: 9.0d
-		}
-		{
-			dependencies: ["2AD9D77D88691B11"]
-			id: "6CB56EC58FF8C4D8"
-			tasks: [{
-				id: "1BCB7CDD9D5AFDAC"
-				item: "gtceu:advanced_integrated_circuit"
-				type: "item"
-			}]
-			title: "另外一种HV电路制作方式"
-			x: -1.5d
-			y: 10.5d
-		}
-		{
-			id: "2AD9D77D88691B11"
-			tasks: [{
-				id: "1A873CA874DF573E"
-				item: "mekanism:elite_control_circuit"
-				type: "item"
-			}]
-			x: 0.0d
-			y: 10.5d
+			x: -5.5d
+			y: 8.5d
 		}
 	]
-	title: "[Tier 2] MV"
+	title: "{gte.tier_2_mv.title}"
 }
