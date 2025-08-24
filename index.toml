@@ -618,7 +618,7 @@ hash = "0af4a5c9c743c56273b8594f9bf1f57a4adab850c4ac1356b615750b8bb649c6"
 
 [[files]]
 file = "defaultconfigs/ftbultimine/ftbultimine-server.snbt"
-hash = "80685bedf4ee6bcdf48aee17e44e8994fa4ae496c12eec93a1f5f96861edf6d6"
+hash = "441f57b21b82240cb1c332920f82150b6530be124b4fad7209bd6f7a7955d956"
 
 [[files]]
 file = "defaultconfigs/gtceu/client-config.snbt"

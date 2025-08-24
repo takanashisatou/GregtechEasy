@@ -1,12 +1,12 @@
 name = "Gregtech Easy"
 author = "takanashisatou,qiuye"
-version = "1.4.0"
+version = "1.4.1"
 pack-format = "packwiz:1.1.0"
 
 [index]
 file = "index.toml"
 hash-format = "sha256"
-hash = "af9be7dfbbf2a9399eb157f518bfc0119c40842bae77014169ea00e6b1e47c00"
+hash = "abca4f4b527b84d5939696aabd6140eb22fa63f447627683c818b060f71f4651"
 
 [versions]
 forge = "47.4.4"
