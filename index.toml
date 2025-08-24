@@ -852,11 +852,6 @@ hash = "32f6469793df62422eefd2d927204aacb75a3e88739e67a3406c183a202b6543"
 metafile = true
 
 [[files]]
-file = "mods/gregtech-easy-core.pw.toml"
-hash = "ea98e2ec040f65f225c8d656d426ab40e212d66a854fe3951daf509553bf578f"
-metafile = true
-
-[[files]]
 file = "mods/gregtechceu-modern.pw.toml"
 hash = "d23ad02d1e228d011bbfa37f0bb47f07ff6cbd53f6ee38185db1cde529c00ea4"
 metafile = true
