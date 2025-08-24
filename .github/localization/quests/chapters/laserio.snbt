@@ -87,9 +87,9 @@
 			id: "6E904126EB81B30F"
 			type: "checkmark"
 		}]
-		title: "Laser IO大礼包"
+		title: "{gte.laserio.quests.7854DC6CCBA4AD76.title}"
 		x: -0.5d
 		y: -0.5d
 	}]
-	title: "免费的LaserIO"
+	title: "{gte.laserio.title}"
 }
