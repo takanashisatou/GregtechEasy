@@ -5,7 +5,7 @@
 	group: ""
 	icon: "minecraft:command_block"
 	id: "0587C061E00F8A08"
-	order_index: 17
+	order_index: 2
 	quest_links: [ ]
 	quests: [
 		{
@@ -56,7 +56,7 @@
 				type: "checkmark"
 			}]
 			title: "传送到主世界"
-			x: -7.5d
+			x: -8.0d
 			y: 0.0d
 		}
 		{
@@ -74,7 +74,7 @@
 				title: "传送到虚空世界"
 				type: "checkmark"
 			}]
-			x: -7.5d
+			x: -8.0d
 			y: 1.5d
 		}
 	]

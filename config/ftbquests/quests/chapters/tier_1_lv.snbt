@@ -3,10 +3,10 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "tier_1_lv"
-	group: ""
+	group: "277796EFA601375B"
 	icon: "gtceu:lv_machine_hull"
 	id: "405E0FB392C08611"
-	order_index: 2
+	order_index: 1
 	quest_links: [ ]
 	quests: [
 		{
@@ -128,7 +128,7 @@
 				type: "checkmark"
 			}]
 			x: -28.5d
-			y: -4.5d
+			y: -5.25d
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
@@ -139,8 +139,8 @@
 				item: "gtceu:lv_wiremill"
 				type: "item"
 			}]
-			x: -26.0d
-			y: -5.0d
+			x: -25.0d
+			y: -6.0d
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
@@ -150,8 +150,8 @@
 				item: "gtceu:lv_bender"
 				type: "item"
 			}]
-			x: -25.0d
-			y: -5.0d
+			x: -27.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
@@ -161,8 +161,8 @@
 				item: "gtceu:lv_centrifuge"
 				type: "item"
 			}]
-			x: -24.0d
-			y: -4.0d
+			x: -26.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["3721C5DCD828F460"]
@@ -175,8 +175,8 @@
 				type: "item"
 			}]
 			title: "石油工业"
-			x: -25.0d
-			y: -1.0d
+			x: -29.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
@@ -187,8 +187,8 @@
 				item: "gtceu:lv_pump"
 				type: "item"
 			}]
-			x: -26.0d
-			y: -1.0d
+			x: -27.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["06EF724BCA69CB3E"]
@@ -198,8 +198,8 @@
 				item: "gtceu:sulfuric_light_fuel_bucket"
 				type: "item"
 			}]
-			x: -28.0d
-			y: 1.0d
+			x: -29.0d
+			y: 1.5d
 		}
 		{
 			dependencies: ["06EF724BCA69CB3E"]
@@ -209,8 +209,8 @@
 				item: "gtceu:sulfuric_heavy_fuel_bucket"
 				type: "item"
 			}]
-			x: -26.5d
-			y: 1.0d
+			x: -29.0d
+			y: 0.5d
 		}
 		{
 			dependencies: ["06EF724BCA69CB3E"]
@@ -220,8 +220,8 @@
 				item: "gtceu:sulfuric_naphtha_bucket"
 				type: "item"
 			}]
-			x: -24.5d
-			y: 1.0d
+			x: -29.0d
+			y: 2.5d
 		}
 		{
 			dependencies: ["06EF724BCA69CB3E"]
@@ -231,8 +231,8 @@
 				item: "gtceu:sulfuric_gas_bucket"
 				type: "item"
 			}]
-			x: -23.0d
-			y: 1.0d
+			x: -29.0d
+			y: -0.5d
 		}
 		{
 			dependencies: ["2124A6B2562A70FC"]
@@ -242,8 +242,8 @@
 				item: "gtceu:lv_distillery"
 				type: "item"
 			}]
-			x: -25.5d
-			y: 0.0d
+			x: -30.0d
+			y: 1.0d
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
@@ -254,7 +254,7 @@
 				type: "item"
 			}]
 			x: -25.5d
-			y: 1.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["1384D96116B68500"]
@@ -264,8 +264,8 @@
 				item: "gtceu:hydrogen_bucket"
 				type: "item"
 			}]
-			x: -25.5d
-			y: 2.0d
+			x: -27.0d
+			y: 1.0d
 		}
 		{
 			dependencies: [
@@ -279,7 +279,7 @@
 				type: "item"
 			}]
 			x: -28.0d
-			y: 3.0d
+			y: 1.5d
 		}
 		{
 			dependencies: [
@@ -292,8 +292,8 @@
 				item: "gtceu:heavy_fuel_bucket"
 				type: "item"
 			}]
-			x: -26.5d
-			y: 3.0d
+			x: -28.0d
+			y: 0.5d
 		}
 		{
 			dependencies: [
@@ -306,8 +306,8 @@
 				item: "gtceu:naphtha_bucket"
 				type: "item"
 			}]
-			x: -24.5d
-			y: 3.0d
+			x: -28.0d
+			y: 2.5d
 		}
 		{
 			dependencies: [
@@ -320,8 +320,8 @@
 				item: "gtceu:refinery_gas_bucket"
 				type: "item"
 			}]
-			x: -23.0d
-			y: 3.0d
+			x: -28.0d
+			y: -0.5d
 		}
 		{
 			dependencies: [
@@ -334,8 +334,8 @@
 				item: "gtceu:severely_steam_cracked_naphtha_bucket"
 				type: "item"
 			}]
-			x: -24.5d
-			y: 5.0d
+			x: -27.0d
+			y: 2.5d
 		}
 		{
 			id: "4CDFEC48F7AA2F7A"
@@ -344,8 +344,8 @@
 				item: "gtceu:steam_bucket"
 				type: "item"
 			}]
-			x: -23.0d
-			y: 5.0d
+			x: -25.5d
+			y: 1.0d
 		}
 		{
 			dependencies: ["06EF724BCA69CB3E"]
@@ -356,7 +356,7 @@
 				item: "gtceu:lv_chemical_reactor"
 				type: "item"
 			}]
-			x: -27.5d
+			x: -30.0d
 			y: -0.5d
 		}
 		{
@@ -367,14 +367,16 @@
 				item: "gtceu:lv_gas_collector"
 				type: "item"
 			}]
-			x: -27.0d
-			y: -4.0d
+			x: -26.0d
+			y: -6.0d
 		}
 		{
 			dependencies: [
 				"74E4885E16AA0F71"
 				"4D2FFCA38D00421E"
+				"4D22ED8E13B17B3D"
 			]
+			dependency_requirement: "one_completed"
 			id: "0CA7A510E60DB2E4"
 			tasks: [{
 				id: "1E9F372EA21A464A"
@@ -382,7 +384,7 @@
 				type: "item"
 			}]
 			x: -19.5d
-			y: -3.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["04D8FC7E9A4E2586"]
@@ -393,7 +395,7 @@
 				type: "item"
 			}]
 			x: -21.0d
-			y: -4.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["6BDBF6F9BDF917C6"]
@@ -415,7 +417,7 @@
 				type: "item"
 			}]
 			x: -22.5d
-			y: -2.0d
+			y: -1.5d
 		}
 		{
 			dependencies: [
@@ -461,8 +463,8 @@
 				item: "gtceu:arsenic_dust"
 				type: "item"
 			}]
-			x: -23.0d
-			y: -4.0d
+			x: -24.0d
+			y: -4.5d
 		}
 		{
 			dependencies: [
@@ -476,8 +478,8 @@
 				item: "gtceu:gallium_dust"
 				type: "item"
 			}]
-			x: -22.0d
-			y: -4.0d
+			x: -22.5d
+			y: -4.5d
 		}
 		{
 			dependencies: ["0CA7A510E60DB2E4"]
@@ -487,7 +489,7 @@
 				item: "gtceu:lv_circuit_assembler"
 				type: "item"
 			}]
-			x: -18.0d
+			x: -19.5d
 			y: -3.0d
 		}
 		{
@@ -504,12 +506,12 @@
 				type: "item"
 			}]
 			x: -18.0d
-			y: 0.0d
+			y: 1.5d
 		}
 		{
 			dependencies: ["1F60D3C43DFC1307"]
 			id: "4E23F7802FD82D2B"
-			size: 3.0d
+			size: 2.0d
 			tasks: [{
 				id: "0CB50E878AB59840"
 				item: "gtceu:mv_machine_hull"
@@ -532,7 +534,7 @@
 				type: "item"
 			}]
 			x: -18.0d
-			y: -1.5d
+			y: -3.0d
 		}
 		{
 			dependencies: ["76E0E419612C082E"]
@@ -544,7 +546,7 @@
 				type: "item"
 			}]
 			x: -20.0d
-			y: -1.0d
+			y: 0.0d
 		}
 		{
 			dependencies: ["4EEDC96C175D7682"]
@@ -560,8 +562,8 @@
 				title: "无线电网"
 				type: "checkmark"
 			}]
-			x: -19.0d
-			y: -2.0d
+			x: -19.5d
+			y: -1.5d
 		}
 		{
 			dependencies: ["76E0E419612C082E"]
@@ -572,7 +574,7 @@
 				type: "item"
 			}]
 			x: -19.0d
-			y: -1.0d
+			y: 0.0d
 		}
 		{
 			dependencies: ["76E0E419612C082E"]
@@ -583,7 +585,7 @@
 				type: "item"
 			}]
 			x: -21.0d
-			y: -2.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
@@ -594,8 +596,8 @@
 				item: "gtceu:lv_lathe"
 				type: "item"
 			}]
-			x: -27.0d
-			y: -5.0d
+			x: -25.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["25653EB2986FAC64"]
@@ -606,8 +608,8 @@
 				item: "gtceu:cupronickel_coil_block"
 				type: "item"
 			}]
-			x: -21.0d
-			y: 1.0d
+			x: -22.5d
+			y: 1.5d
 		}
 		{
 			id: "1331E0D775B904BD"
@@ -616,8 +618,8 @@
 				item: "gtceu:sphalerite_dust"
 				type: "item"
 			}]
-			x: -22.0d
-			y: -5.0d
+			x: -22.5d
+			y: -6.0d
 		}
 		{
 			dependencies: [
@@ -642,8 +644,8 @@
 				item: "gtceu:ethylene_bucket"
 				type: "item"
 			}]
-			x: -25.5d
-			y: 7.0d
+			x: -24.0d
+			y: 2.5d
 		}
 		{
 			dependencies: ["1384D96116B68500"]
@@ -654,7 +656,7 @@
 				type: "item"
 			}]
 			x: -25.5d
-			y: 4.0d
+			y: 0.0d
 		}
 		{
 			dependencies: [
@@ -667,8 +669,8 @@
 				item: "gtceu:polyethylene_bucket"
 				type: "item"
 			}]
-			x: -25.5d
-			y: 5.5d
+			x: -24.0d
+			y: 0.0d
 		}
 		{
 			dependencies: ["6D8B9493839D1BD8"]
@@ -679,8 +681,18 @@
 				item: "gtceu:fluid_cell"
 				type: "item"
 			}]
-			x: -24.0d
-			y: -5.0d
+			x: -27.0d
+			y: -6.0d
+		}
+		{
+			id: "4D22ED8E13B17B3D"
+			tasks: [{
+				id: "2F72DB15EC53E279"
+				item: "mekanism:advanced_control_circuit"
+				type: "item"
+			}]
+			x: -19.5d
+			y: -6.0d
 		}
 	]
 	title: "[Tier 1] LV"

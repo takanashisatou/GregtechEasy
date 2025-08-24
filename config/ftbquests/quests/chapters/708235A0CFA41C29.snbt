@@ -2,9 +2,9 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "708235A0CFA41C29"
-	group: ""
+	group: "57A2B47B4CC0577F"
 	id: "708235A0CFA41C29"
-	order_index: 11
+	order_index: 0
 	quest_links: [ ]
 	quests: [
 		{
@@ -16,7 +16,7 @@
 				title: "蒸汽时代多方块结构"
 				type: "checkmark"
 			}]
-			x: -12.5d
+			x: -13.5d
 			y: -6.0d
 		}
 		{
@@ -28,8 +28,8 @@
 				item: "gtceu:big_alloy"
 				type: "item"
 			}]
-			x: -11.0d
-			y: -6.0d
+			x: -15.5d
+			y: -5.5d
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
@@ -40,8 +40,8 @@
 				item: "gtceu:steam_grinder"
 				type: "item"
 			}]
-			x: -11.0d
-			y: -5.0d
+			x: -12.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
@@ -51,21 +51,21 @@
 				item: "gtceu:steam_oven"
 				type: "item"
 			}]
-			x: -11.5d
-			y: -4.0d
+			x: -15.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
 			description: ["搭建好多方块结构后放入煤炭和铁就可以开始炼钢了"]
+			icon_scale: 2.0d
 			id: "1A8EF42B527CC110"
-			size: 2.0d
 			tasks: [{
 				id: "19348883812E8FC7"
 				item: "gtceu:primitive_blast_furnace"
 				type: "item"
 			}]
-			x: -14.0d
-			y: -6.0d
+			x: -13.5d
+			y: -8.0d
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
@@ -75,8 +75,8 @@
 				item: "gtceu:steel_large_boiler"
 				type: "item"
 			}]
-			x: -12.5d
-			y: -8.0d
+			x: -15.0d
+			y: -7.5d
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
@@ -88,7 +88,7 @@
 				item: "gtceu:primitive_pump"
 				type: "item"
 			}]
-			x: -12.5d
+			x: -13.5d
 			y: -4.0d
 		}
 		{
@@ -100,20 +100,20 @@
 			}]
 			title: "LV时代多方块结构"
 			x: -8.0d
-			y: -5.5d
+			y: -6.0d
 		}
 		{
 			dependencies: ["19F084F853F742EA"]
 			description: ["          有了电力高炉，即可开始烧铝了"]
+			icon_scale: 2.0d
 			id: "537EAE26BE1C2760"
-			size: 1.5d
 			tasks: [{
 				id: "0D443D0B7AE6BD32"
 				item: "gtceu:electric_blast_furnace"
 				type: "item"
 			}]
-			x: -12.5d
-			y: -1.5d
+			x: -13.5d
+			y: -0.5d
 		}
 		{
 			dependencies: ["2273DC38F788F572"]
@@ -123,21 +123,21 @@
 				item: "gtceu:pyrolyse_oven"
 				type: "item"
 			}]
-			x: -5.5d
-			y: -2.5d
+			x: -4.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["537EAE26BE1C2760"]
+			icon_scale: 2.0d
 			id: "157B5AF50D14C944"
-			size: 1.5d
 			tasks: [{
 				count: 16L
 				id: "0771425DAED90B3F"
 				item: "gtceu:cupronickel_coil_block"
 				type: "item"
 			}]
-			x: -12.5d
-			y: 0.0d
+			x: -13.5d
+			y: 1.5d
 		}
 		{
 			dependencies: ["19F084F853F742EA"]
@@ -147,8 +147,8 @@
 				item: "gtceu:multi_smelter"
 				type: "item"
 			}]
-			x: -7.0d
-			y: -3.5d
+			x: -7.5d
+			y: -4.0d
 		}
 		{
 			dependencies: ["537EAE26BE1C2760"]
@@ -159,8 +159,8 @@
 				item: { Count: 2, id: "gtceu:lv_energy_input_hatch" }
 				type: "item"
 			}]
-			x: -14.0d
-			y: -1.5d
+			x: -15.5d
+			y: -0.5d
 		}
 		{
 			dependencies: ["537EAE26BE1C2760"]
@@ -178,8 +178,8 @@
 				title: "多方块结构建造指南"
 				type: "checkmark"
 			}]
-			x: -10.5d
-			y: -1.5d
+			x: -13.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["537EAE26BE1C2760"]
@@ -189,8 +189,8 @@
 				item: "gtceu:lv_input_bus"
 				type: "item"
 			}]
-			x: -14.0d
-			y: 0.0d
+			x: -12.0d
+			y: 1.0d
 		}
 		{
 			dependencies: ["537EAE26BE1C2760"]
@@ -200,8 +200,8 @@
 				item: "gtceu:lv_output_bus"
 				type: "item"
 			}]
-			x: -11.0d
-			y: 0.0d
+			x: -11.5d
+			y: -0.5d
 		}
 		{
 			dependencies: ["537EAE26BE1C2760"]
@@ -211,8 +211,8 @@
 				item: "gtceu:lv_input_hatch"
 				type: "item"
 			}]
-			x: -14.0d
-			y: -3.0d
+			x: -15.0d
+			y: -2.0d
 		}
 		{
 			dependencies: ["537EAE26BE1C2760"]
@@ -222,8 +222,8 @@
 				item: "gtceu:lv_muffler_hatch"
 				type: "item"
 			}]
-			x: -15.5d
-			y: 0.0d
+			x: -12.0d
+			y: -2.0d
 		}
 		{
 			dependencies: ["537EAE26BE1C2760"]
@@ -233,8 +233,8 @@
 				item: "gtceu:maintenance_hatch"
 				type: "item"
 			}]
-			x: -15.5d
-			y: -1.5d
+			x: -15.0d
+			y: 1.0d
 		}
 		{
 			dependencies: ["537EAE26BE1C2760"]
@@ -256,8 +256,8 @@
 				title: "使用多方块机器还需要注意的"
 				type: "checkmark"
 			}]
-			x: -12.5d
-			y: -3.0d
+			x: -14.0d
+			y: -2.5d
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
@@ -288,22 +288,22 @@
 				item: "gtceu:easy_box"
 				type: "item"
 			}]
-			x: -13.5d
-			y: -8.0d
+			x: -15.5d
+			y: -6.5d
 		}
 		{
 			dependencies: ["157B5AF50D14C944"]
 			hide_dependency_lines: false
+			icon_scale: 2.0d
 			id: "6FDF9C83CD480481"
-			size: 1.5d
 			tasks: [{
 				count: 16L
 				id: "7BAD56ACAB058640"
 				item: { Count: 16, id: "gtceu:kanthal_coil_block" }
 				type: "item"
 			}]
-			x: -12.5d
-			y: 1.5d
+			x: -14.5d
+			y: 2.5d
 		}
 		{
 			id: "2273DC38F788F572"
@@ -312,8 +312,8 @@
 				title: "MV时代多方块结构"
 				type: "checkmark"
 			}]
-			x: -5.5d
-			y: -4.5d
+			x: -4.0d
+			y: -6.0d
 		}
 		{
 			dependencies: ["2273DC38F788F572"]
@@ -323,8 +323,8 @@
 				item: "gtceu:mv_fluid_drilling_rig"
 				type: "item"
 			}]
-			x: -5.5d
-			y: -6.5d
+			x: -4.0d
+			y: -7.5d
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
@@ -335,8 +335,8 @@
 				item: "gtceu:steel_multiblock_tank"
 				type: "item"
 			}]
-			x: -13.5d
-			y: -4.0d
+			x: -12.0d
+			y: -7.5d
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
@@ -346,8 +346,8 @@
 				item: "gtceu:big_forge_hammer"
 				type: "item"
 			}]
-			x: -11.0d
-			y: -7.0d
+			x: -11.5d
+			y: -5.5d
 		}
 		{
 			dependencies: ["2273DC38F788F572"]
@@ -358,8 +358,8 @@
 				item: "gtceu:component_factory"
 				type: "item"
 			}]
-			x: -4.0d
-			y: -4.5d
+			x: -2.5d
+			y: -6.0d
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
@@ -370,7 +370,7 @@
 				type: "item"
 			}]
 			x: -11.5d
-			y: -8.0d
+			y: -6.5d
 		}
 		{
 			dependencies: ["19F084F853F742EA"]
@@ -381,7 +381,7 @@
 				item: "gtceu:big_bender"
 				type: "item"
 			}]
-			x: -9.0d
+			x: -6.5d
 			y: -4.5d
 		}
 		{
@@ -392,8 +392,8 @@
 				item: "gtceu:big_wiremill"
 				type: "item"
 			}]
-			x: -9.0d
-			y: -5.5d
+			x: -10.0d
+			y: -6.0d
 		}
 		{
 			dependencies: ["38EB046626D5399C"]
@@ -403,8 +403,8 @@
 				item: "gtceu:circuit_factory"
 				type: "item"
 			}]
-			x: 0.0d
-			y: -4.5d
+			x: 1.0d
+			y: -6.0d
 		}
 		{
 			dependencies: ["2273DC38F788F572"]
@@ -414,8 +414,8 @@
 				item: "gtceu:ecological_simulator"
 				type: "item"
 			}]
-			x: -4.0d
-			y: -6.5d
+			x: -2.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["19F084F853F742EA"]
@@ -425,8 +425,8 @@
 				item: "gtceu:big_electrolyzer"
 				type: "item"
 			}]
-			x: -9.0d
-			y: -6.5d
+			x: -9.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["19F084F853F742EA"]
@@ -437,7 +437,7 @@
 				type: "item"
 			}]
 			x: -8.0d
-			y: -6.5d
+			y: -8.0d
 		}
 		{
 			dependencies: ["19F084F853F742EA"]
@@ -447,8 +447,8 @@
 				item: "gtceu:big_gas_collector"
 				type: "item"
 			}]
-			x: -7.0d
-			y: -6.5d
+			x: -6.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["19F084F853F742EA"]
@@ -458,8 +458,8 @@
 				item: "gtceu:big_centrifuge"
 				type: "item"
 			}]
-			x: -7.0d
-			y: -5.5d
+			x: -6.0d
+			y: -6.0d
 		}
 		{
 			id: "38EB046626D5399C"
@@ -468,8 +468,8 @@
 				title: "HV时代多方块结构"
 				type: "checkmark"
 			}]
-			x: -2.0d
-			y: -4.5d
+			x: -0.5d
+			y: -6.0d
 		}
 		{
 			dependencies: ["38EB046626D5399C"]
@@ -479,8 +479,8 @@
 				item: "gtceu:distillation_tower"
 				type: "item"
 			}]
-			x: -2.0d
-			y: -6.5d
+			x: -0.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["38EB046626D5399C"]
@@ -490,8 +490,8 @@
 				item: "gtceu:cracker"
 				type: "item"
 			}]
-			x: 0.0d
-			y: -6.5d
+			x: 1.0d
+			y: -7.5d
 		}
 		{
 			dependencies: ["38EB046626D5399C"]
@@ -501,26 +501,26 @@
 				item: "gtceu:vacuum_freezer"
 				type: "item"
 			}]
-			x: -2.0d
-			y: -2.5d
+			x: -0.5d
+			y: -4.5d
 		}
 		{
 			dependencies: ["6FDF9C83CD480481"]
+			icon_scale: 2.0d
 			id: "38CB2C8DCD296695"
-			size: 1.5d
 			tasks: [{
 				count: 16L
 				id: "6537267E6A02E379"
 				item: "gtceu:nichrome_coil_block"
 				type: "item"
 			}]
-			x: -12.5d
-			y: 3.0d
+			x: -13.5d
+			y: 2.5d
 		}
 		{
 			dependencies: ["38CB2C8DCD296695"]
+			icon_scale: 2.0d
 			id: "26606C09F390D923"
-			size: 1.5d
 			tasks: [{
 				count: 16L
 				id: "43CFE2DC6EFB221D"
@@ -528,31 +528,31 @@
 				type: "item"
 			}]
 			x: -12.5d
-			y: 4.5d
+			y: 2.5d
 		}
 		{
 			dependencies: ["26606C09F390D923"]
+			icon_scale: 2.0d
 			id: "3897E3DEC508A2E3"
-			size: 1.5d
 			tasks: [{
 				id: "6E50AF07F368700A"
 				item: "gtceu:hssg_coil_block"
 				type: "item"
 			}]
-			x: -12.5d
-			y: 6.0d
+			x: -15.0d
+			y: 3.5d
 		}
 		{
 			dependencies: ["3897E3DEC508A2E3"]
+			icon_scale: 2.0d
 			id: "069ACAEC9B2E6343"
-			size: 1.5d
 			tasks: [{
 				id: "748F3B63F3711A91"
 				item: "gtceu:naquadah_coil_block"
 				type: "item"
 			}]
-			x: -11.0d
-			y: 6.0d
+			x: -14.0d
+			y: 3.5d
 		}
 		{
 			id: "037C1C6396106B89"
@@ -561,8 +561,8 @@
 				title: "EV时代多方块结构"
 				type: "checkmark"
 			}]
-			x: 2.0d
-			y: -4.5d
+			x: 3.0d
+			y: -6.0d
 		}
 		{
 			dependencies: ["037C1C6396106B89"]
@@ -572,8 +572,8 @@
 				item: "gtceu:hv_fluid_drilling_rig"
 				type: "item"
 			}]
-			x: 2.0d
-			y: -6.5d
+			x: 3.0d
+			y: -7.5d
 		}
 		{
 			dependencies: ["037C1C6396106B89"]
@@ -583,8 +583,8 @@
 				item: "gtceu:titanium_large_boiler"
 				type: "item"
 			}]
-			x: 4.0d
-			y: -6.5d
+			x: 4.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["037C1C6396106B89"]
@@ -594,8 +594,8 @@
 				item: "gtceu:large_combustion_engine"
 				type: "item"
 			}]
-			x: 4.0d
-			y: -4.5d
+			x: 4.5d
+			y: -6.0d
 		}
 		{
 			dependencies: ["037C1C6396106B89"]
@@ -605,8 +605,8 @@
 				item: "gtceu:gas_large_turbine"
 				type: "item"
 			}]
-			x: 2.0d
-			y: -2.5d
+			x: 3.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["037C1C6396106B89"]
@@ -616,32 +616,32 @@
 				item: "gtceu:steam_large_turbine"
 				type: "item"
 			}]
-			x: 4.0d
-			y: -2.5d
+			x: 4.5d
+			y: -4.5d
 		}
 		{
 			dependencies: ["069ACAEC9B2E6343"]
+			icon_scale: 2.0d
 			id: "679DF84EFC2D088F"
-			size: 1.5d
 			tasks: [{
 				id: "6AC7119ED5DDD03B"
 				item: "gtceu:trinium_coil_block"
 				type: "item"
 			}]
-			x: -9.5d
-			y: 6.0d
+			x: -13.0d
+			y: 3.5d
 		}
 		{
 			dependencies: ["679DF84EFC2D088F"]
+			icon_scale: 2.0d
 			id: "7346379CEE294DFC"
-			size: 1.5d
 			tasks: [{
 				id: "2552A9C4A451BC1F"
 				item: "gtceu:tritanium_coil_block"
 				type: "item"
 			}]
-			x: -8.0d
-			y: 6.0d
+			x: -12.0d
+			y: 3.5d
 		}
 		{
 			id: "24FD09E6B8A693B3"
@@ -650,8 +650,8 @@
 				title: "IV时代多方块结构"
 				type: "checkmark"
 			}]
-			x: -5.5d
-			y: 1.5d
+			x: -8.0d
+			y: -0.5d
 		}
 		{
 			dependencies: ["24FD09E6B8A693B3"]
@@ -661,8 +661,8 @@
 				item: "gtceu:ev_fluid_drilling_rig"
 				type: "item"
 			}]
-			x: -5.5d
-			y: -1.0d
+			x: -8.0d
+			y: -2.0d
 		}
 		{
 			dependencies: ["24FD09E6B8A693B3"]
@@ -672,8 +672,8 @@
 				item: "gtceu:extreme_combustion_engine"
 				type: "item"
 			}]
-			x: -3.5d
-			y: -1.0d
+			x: -6.5d
+			y: -2.0d
 		}
 		{
 			dependencies: ["24FD09E6B8A693B3"]
@@ -683,8 +683,8 @@
 				item: "gtceu:general_fuel_engine"
 				type: "item"
 			}]
-			x: -3.5d
-			y: 1.5d
+			x: -6.5d
+			y: -0.5d
 		}
 		{
 			dependencies: ["24FD09E6B8A693B3"]
@@ -694,8 +694,8 @@
 				item: "gtceu:miracle_ring"
 				type: "item"
 			}]
-			x: -7.5d
-			y: -1.0d
+			x: -9.5d
+			y: -2.0d
 		}
 		{
 			dependencies: ["24FD09E6B8A693B3"]
@@ -705,8 +705,8 @@
 				item: "gtceu:tungstensteel_large_boiler"
 				type: "item"
 			}]
-			x: -7.5d
-			y: 1.5d
+			x: -9.5d
+			y: -0.5d
 		}
 		{
 			dependencies: ["19F084F853F742EA"]
@@ -716,8 +716,8 @@
 				item: "gtceu:big_brewery"
 				type: "item"
 			}]
-			x: -9.0d
-			y: -3.5d
+			x: -8.5d
+			y: -4.0d
 		}
 	]
 	title: "多方块结构"

@@ -1,4 +1,28 @@
 
+[mekanism]
+
+	[mekanism.crushing]
+		enable = true
+
+	[mekanism.sawing]
+		enable = true
+
+	[mekanism.enriching]
+		enable = true
+
+	[mekanism.metallurgic_infusing]
+		enable = true
+
+	[mekanism.compressing]
+		enable = true
+
+	[mekanism.combining]
+		enable = true
+
+	[mekanism.smelting]
+		enable = true
+		replace_furnace = true
+
 [maid_storage_manager]
 
 	[maid_storage_manager.smithing]

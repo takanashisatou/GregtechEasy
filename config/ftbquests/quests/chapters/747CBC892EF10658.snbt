@@ -2,9 +2,9 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "747CBC892EF10658"
-	group: ""
+	group: "277796EFA601375B"
 	id: "747CBC892EF10658"
-	order_index: 10
+	order_index: 9
 	quest_links: [ ]
 	quests: [
 		{

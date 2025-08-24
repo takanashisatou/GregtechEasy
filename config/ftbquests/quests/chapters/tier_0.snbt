@@ -2,10 +2,10 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "tier_0"
-	group: ""
+	group: "277796EFA601375B"
 	icon: "gtceu:lp_steam_solid_boiler"
 	id: "7BBC78701013E74F"
-	order_index: 1
+	order_index: 0
 	quest_links: [ ]
 	quests: [
 		{
@@ -33,7 +33,7 @@
 				type: "item"
 			}]
 			title: "水资源危机"
-			x: -20.0d
+			x: -23.0d
 			y: -2.5d
 		}
 		{
@@ -72,8 +72,8 @@
 				item: "gtceu:terminal"
 				type: "item"
 			}]
-			x: -21.5d
-			y: -2.5d
+			x: -23.0d
+			y: -1.0d
 		}
 		{
 			dependencies: ["2D2FF11CE840C1E3"]
@@ -84,8 +84,8 @@
 				item: "gtceu:coke_oven_hatch"
 				type: "item"
 			}]
-			x: -20.0d
-			y: -1.0d
+			x: -21.5d
+			y: -2.5d
 		}
 		{
 			dependencies: ["11101BDC46C78EE0"]
@@ -119,7 +119,7 @@
 			}]
 			title: "免费的管道"
 			x: -20.0d
-			y: 2.0d
+			y: -1.0d
 		}
 		{
 			dependencies: ["11101BDC46C78EE0"]
@@ -179,7 +179,7 @@
 				title: "成堆的蒸汽机器"
 				type: "checkmark"
 			}]
-			x: -16.5d
+			x: -17.0d
 			y: 0.5d
 		}
 		{
@@ -191,7 +191,7 @@
 				type: "item"
 			}]
 			x: -18.0d
-			y: -0.5d
+			y: -2.5d
 		}
 		{
 			dependencies: ["3DF529D0A04AE364"]
@@ -202,7 +202,7 @@
 				type: "item"
 			}]
 			x: -18.0d
-			y: 1.5d
+			y: -1.0d
 		}
 		{
 			dependencies: ["3DF529D0A04AE364"]
@@ -213,7 +213,7 @@
 				type: "item"
 			}]
 			x: -19.0d
-			y: -0.5d
+			y: -2.5d
 		}
 		{
 			dependencies: ["6EC9D0556AA06521"]
@@ -226,7 +226,7 @@
 				type: "item"
 			}]
 			title: "第一块钢"
-			x: -15.0d
+			x: -15.5d
 			y: 0.5d
 		}
 		{
@@ -237,7 +237,7 @@
 				title: "高压蒸汽机器"
 				type: "checkmark"
 			}]
-			x: -13.5d
+			x: -14.0d
 			y: 0.5d
 		}
 		{
@@ -248,8 +248,8 @@
 				item: "gtceu:hp_steam_solid_boiler"
 				type: "item"
 			}]
-			x: -16.5d
-			y: 2.5d
+			x: -17.0d
+			y: 2.0d
 		}
 		{
 			dependencies: ["64F6CF8A3BB36778"]
@@ -260,7 +260,7 @@
 				type: "item"
 			}]
 			x: -15.5d
-			y: 2.5d
+			y: 2.0d
 		}
 		{
 			dependencies: ["64F6CF8A3BB36778"]
@@ -270,8 +270,8 @@
 				item: "gtceu:hp_steam_furnace"
 				type: "item"
 			}]
-			x: -13.5d
-			y: 2.5d
+			x: -20.0d
+			y: 2.0d
 		}
 		{
 			dependencies: ["3DF529D0A04AE364"]
@@ -282,7 +282,7 @@
 				type: "item"
 			}]
 			x: -19.0d
-			y: 1.5d
+			y: -1.0d
 		}
 		{
 			dependencies: ["64F6CF8A3BB36778"]
@@ -292,8 +292,8 @@
 				item: "gtceu:hp_steam_macerator"
 				type: "item"
 			}]
-			x: -14.5d
-			y: 2.5d
+			x: -14.0d
+			y: 2.0d
 		}
 		{
 			dependencies: ["64F6CF8A3BB36778"]
@@ -303,8 +303,8 @@
 				item: "gtceu:hp_steam_compressor"
 				type: "item"
 			}]
-			x: -16.5d
-			y: 1.5d
+			x: -18.5d
+			y: 2.0d
 		}
 		{
 			dependencies: [
@@ -319,7 +319,7 @@
 				type: "item"
 			}]
 			title: "第一块橡胶"
-			x: -7.5d
+			x: -8.0d
 			y: 0.5d
 		}
 		{
@@ -336,7 +336,7 @@
 				item: "gtceu:rubber_sapling"
 				type: "item"
 			}]
-			x: -12.0d
+			x: -12.5d
 			y: 0.5d
 		}
 		{
@@ -355,7 +355,7 @@
 				title: "免费的骨粉"
 				type: "checkmark"
 			}]
-			x: -12.0d
+			x: -12.5d
 			y: 2.0d
 		}
 		{
@@ -368,7 +368,7 @@
 				type: "item"
 			}]
 			title: "获取一些黏性树脂"
-			x: -10.5d
+			x: -11.0d
 			y: 0.5d
 		}
 		{
@@ -378,12 +378,12 @@
 			]
 			id: "7AD973912F3478F4"
 			tasks: [{
-				id: "37ED8C98A167297E"
-				item: "gtceu:rubber_dust"
+				id: "3108EE921F5641A7"
+				item: "gtceu:raw_rubber_dust"
 				type: "item"
 			}]
-			x: -9.0d
-			y: -0.5d
+			x: -9.5d
+			y: -1.0d
 		}
 		{
 			dependencies: ["16361C3DC202F727"]
@@ -393,7 +393,7 @@
 				item: "gtceu:sulfur_dust"
 				type: "item"
 			}]
-			x: -9.0d
+			x: -9.5d
 			y: 0.5d
 		}
 		{
@@ -406,7 +406,7 @@
 				type: "item"
 			}]
 			title: "一些导线"
-			x: -6.0d
+			x: -6.5d
 			y: 0.5d
 		}
 		{
@@ -419,8 +419,8 @@
 				type: "item"
 			}]
 			title: "一些橡胶片"
-			x: -4.5d
-			y: 2.5d
+			x: -6.5d
+			y: 2.0d
 		}
 		{
 			dependencies: [
@@ -435,14 +435,14 @@
 				type: "item"
 			}]
 			title: "一些线缆"
-			x: -4.5d
+			x: -5.0d
 			y: 0.5d
 		}
 		{
 			dependencies: [
 				"69D3A68A2EF415DD"
 				"03B90CA607E4A98B"
-				"55B532170C29E600"
+				"0400B639F2F8A89C"
 			]
 			description: ["恭喜你进入LV时代,别忘了领取我给你的太阳能板"]
 			id: "37CF6D39A54DFA94"
@@ -452,15 +452,15 @@
 				item: "gtceu:lv_solar_panel"
 				type: "item"
 			}]
-			size: 3.0d
+			size: 2.0d
 			tasks: [{
 				id: "6B49A7FCE862092D"
 				item: "gtceu:lv_machine_hull"
 				type: "item"
 			}]
 			title: "前往LV时代"
-			x: -4.5d
-			y: 6.0d
+			x: -5.0d
+			y: 5.0d
 		}
 		{
 			dependencies: ["1DC48BCC4B0F45DF"]
@@ -470,8 +470,8 @@
 				item: "gtceu:wrought_iron_plate"
 				type: "item"
 			}]
-			x: -3.0d
-			y: 0.5d
+			x: -5.0d
+			y: 2.0d
 		}
 		{
 			dependencies: [
@@ -493,8 +493,8 @@
 				item: "gtceu:basic_electronic_circuit"
 				type: "item"
 			}]
-			x: -10.5d
-			y: 6.0d
+			x: -11.0d
+			y: 5.0d
 		}
 		{
 			dependencies: ["16361C3DC202F727"]
@@ -504,7 +504,7 @@
 				item: "gtceu:resin_circuit_board"
 				type: "item"
 			}]
-			x: -10.5d
+			x: -11.5d
 			y: 2.0d
 		}
 		{
@@ -518,7 +518,7 @@
 				item: "gtceu:resin_printed_circuit_board"
 				type: "item"
 			}]
-			x: -10.5d
+			x: -11.0d
 			y: 3.5d
 		}
 		{
@@ -531,17 +531,18 @@
 				type: "item"
 			}]
 			title: "一些铜导线"
-			x: -9.0d
+			x: -10.5d
 			y: 2.0d
 		}
 		{
 			id: "324A5F61107EDE51"
+			subtitle: "MEK的钢也可以当作格雷的钢用"
 			tasks: [{
 				id: "513C3F57AE7C10FF"
 				item: "gtceu:steel_plate"
 				type: "item"
 			}]
-			x: -9.0d
+			x: -9.5d
 			y: 3.5d
 		}
 		{
@@ -551,8 +552,8 @@
 				item: "gtceu:resistor"
 				type: "item"
 			}]
-			x: -7.5d
-			y: 4.5d
+			x: -12.5d
+			y: 5.0d
 		}
 		{
 			id: "68365AC6EE7B4E65"
@@ -561,7 +562,7 @@
 				item: "gtceu:vacuum_tube"
 				type: "item"
 			}]
-			x: -12.0d
+			x: -12.5d
 			y: 3.5d
 		}
 		{
@@ -572,8 +573,46 @@
 				item: "gtceu:lp_steam_extractor"
 				type: "item"
 			}]
-			x: -16.5d
-			y: -0.5d
+			x: -17.0d
+			y: -1.0d
+		}
+		{
+			description: ["你知道吗，一个MEK的基础控制电路是可以合成一个格雷的LV电路的，想偷懒强烈推荐!"]
+			id: "5D79054CFE0C35E0"
+			tasks: [{
+				id: "57B06CA705D12C6E"
+				item: "mekanism:basic_control_circuit"
+				type: "item"
+			}]
+			x: -12.5d
+			y: 6.0d
+		}
+		{
+			dependencies: ["5D79054CFE0C35E0"]
+			description: ["                   一个基础控制电路即可合成微芯片处理器! "]
+			id: "4D0BEE77280B0E03"
+			tasks: [{
+				id: "46A1E7C0B5FDC160"
+				item: "gtceu:microchip_processor"
+				type: "item"
+			}]
+			x: -11.0d
+			y: 6.0d
+		}
+		{
+			dependencies: [
+				"55B532170C29E600"
+				"4D0BEE77280B0E03"
+			]
+			dependency_requirement: "one_completed"
+			id: "0400B639F2F8A89C"
+			tasks: [{
+				id: "15AF01180936BA3C"
+				title: "电路二选一，制作MEK电路或是格雷电路"
+				type: "checkmark"
+			}]
+			x: -9.0d
+			y: 5.0d
 		}
 	]
 	title: "[Tier 0] 蒸汽时代"

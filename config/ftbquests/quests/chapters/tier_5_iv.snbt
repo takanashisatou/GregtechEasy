@@ -2,10 +2,10 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "tier_5_iv"
-	group: ""
+	group: "277796EFA601375B"
 	icon: "gtceu:iv_machine_hull"
 	id: "68CAEFC8ABCCA704"
-	order_index: 6
+	order_index: 5
 	quest_links: [ ]
 	quests: [
 		{
@@ -459,7 +459,7 @@
 				title: "硝基氯苯"
 				type: "checkmark"
 			}]
-			x: -15.0d
+			x: -15.5d
 			y: 2.0d
 		}
 		{
@@ -471,7 +471,7 @@
 				title: "二氯联苯胺"
 				type: "checkmark"
 			}]
-			x: -15.0d
+			x: -15.5d
 			y: 3.0d
 		}
 		{
@@ -484,7 +484,7 @@
 				type: "checkmark"
 			}]
 			x: -14.0d
-			y: 2.0d
+			y: 3.0d
 		}
 		{
 			dependencies: ["7294890ED6E1912E"]
@@ -546,14 +546,14 @@
 			icon: "gtceu:polybenzimidazole_bucket"
 			id: "512893D7E5C6FABF"
 			shape: "gear"
-			size: 1.5d
+			size: 1.25d
 			tasks: [{
 				id: "0458A623BD98BE7F"
 				title: "聚苯并咪唑"
 				type: "checkmark"
 			}]
-			x: -13.5d
-			y: 3.75d
+			x: -13.0d
+			y: 3.0d
 		}
 		{
 			dependencies: ["1C743E79E6E28EBB"]
@@ -872,8 +872,8 @@
 				}
 				type: "item"
 			}]
-			x: -4.0d
-			y: -1.0d
+			x: -5.5d
+			y: 1.0d
 		}
 		{
 			dependencies: ["1AEFB7F5AB309AE9"]
@@ -885,7 +885,7 @@
 				type: "item"
 			}]
 			x: -7.0d
-			y: 0.5d
+			y: 1.0d
 		}
 		{
 			dependencies: ["0E3BAC2ECB22BC3F"]
@@ -907,7 +907,7 @@
 				item: "gtceu:assembly_line"
 				type: "item"
 			}]
-			x: -8.0d
+			x: -8.5d
 			y: -1.5d
 		}
 		{
@@ -918,7 +918,7 @@
 				item: "gtceu:miracle_ring"
 				type: "item"
 			}]
-			x: -8.0d
+			x: -8.5d
 			y: -0.5d
 		}
 	]

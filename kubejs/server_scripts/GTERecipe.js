@@ -81,7 +81,7 @@ ServerEvents.recipes((event) => {
         "A": "gtceu:steam_machine_casing",
         "O": "gtceu:lp_steam_alloy_smelter",
         "X": "gtceu:bronze_gear",
-        "B": "gtceu:black_bronze_gear"
+        "B": "gtceu:potin_gear"
     })
     event.shaped(Item.of('gtceu:industrial_steam_casing',1),[
         "A"
@@ -96,7 +96,7 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
         "A": "gtceu:steam_machine_casing",
         "O": "gtceu:lp_steam_compressor",
         "X": "gtceu:bronze_gear",
-        "B": "gtceu:black_bronze_gear"
+        "B": "gtceu:potin_gear"
     })
     event.shaped(Item.of('gtceu:big_forge_hammer',1),[
         "AXA",
@@ -106,7 +106,7 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
         "A": "gtceu:steam_machine_casing",
         "O": "gtceu:lp_steam_forge_hammer",
         "X": "gtceu:bronze_gear",
-        "B": "gtceu:black_bronze_gear"
+        "B": "gtceu:potin_gear"
     })
     event.shaped(Item.of('gtceu:big_steam_extractor',1),[
         "AXA",
@@ -116,7 +116,7 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
         "A": "gtceu:steam_machine_casing",
         "O": "gtceu:lp_steam_extractor",
         "X": "gtceu:bronze_gear",
-        "B": "gtceu:black_bronze_gear"
+        "B": "gtceu:potin_gear"
     })
     event.shaped(Item.of('gtceu:component_factory',1),[
         "ABA",
@@ -305,6 +305,28 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
     .inputFluids('gtceu:polybenzimidazole 1000000')
     .itemOutputs('1x gtceu:miracle_ring')
     .duration(10000)
+    event.shaped(Item.of('gtceu:microchip_processor',1),[
+        "A"
+    ],{
+        "A":"mekanism:basic_control_circuit"
+    })
+    event.shaped(Item.of('gtceu:good_electronic_circuit',1),[
+        "A"
+    ],{
+        "A":'mekanism:advanced_control_circuit'
+    })
+    gtr.circuit_assembler('gtceu:easy_hv_circuit')
+    .circuit(1)
+    .EUt(30)
+    .itemInputs('1x mekanism:elite_control_circuit')
+    .duration(20)
+    .itemOutputs('1x gtceu:advanced_integrated_circuit')
+    gtr.circuit_assembler('gtceu:easy_ev_circuit')
+    .circuit(1)
+    .EUt(100)
+    .itemInputs('mekanism:ultimate_control_circuit')
+    .duration(20)
+    .itemOutputs('1x gtceu:micro_processor_computer')
     //event.remove({id:'gtceu:blasting/smelt_deepslate_platinum_ore_to_ingot'})
     //event.remove({id:'gtceu:blasting/smelt_raw_platinum_ore_to_ingot'})
     //event.remove({id:'gtceu:blasting/smelt_platinum_ore_to_ingot'})

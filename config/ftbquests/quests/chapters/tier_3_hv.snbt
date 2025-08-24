@@ -2,10 +2,10 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "tier_3_hv"
-	group: ""
+	group: "277796EFA601375B"
 	icon: "gtceu:hv_machine_hull"
 	id: "2FA25C8F04A528A5"
-	order_index: 4
+	order_index: 3
 	quest_links: [ ]
 	quests: [
 		{
@@ -39,7 +39,7 @@
 				}
 			]
 			title: "HV时代的老五样"
-			x: -13.5d
+			x: -14.25d
 			y: -4.5d
 		}
 		{
@@ -51,7 +51,7 @@
 				type: "item"
 			}]
 			x: -12.0d
-			y: -5.0d
+			y: -4.5d
 		}
 		{
 			dependencies: [
@@ -64,8 +64,8 @@
 				item: "gtceu:nichrome_coil_block"
 				type: "item"
 			}]
-			x: -10.5d
-			y: -5.0d
+			x: -10.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["53539B82FE0DF49B"]
@@ -75,8 +75,8 @@
 				item: "gtceu:hot_nichrome_ingot"
 				type: "item"
 			}]
-			x: -11.0d
-			y: -4.0d
+			x: -9.0d
+			y: -6.0d
 		}
 		{
 			dependencies: ["4867A086989ADE96"]
@@ -87,7 +87,7 @@
 				type: "item"
 			}]
 			x: -9.0d
-			y: -2.0d
+			y: -3.0d
 		}
 		{
 			dependencies: [
@@ -101,7 +101,7 @@
 				type: "item"
 			}]
 			x: -9.0d
-			y: -5.0d
+			y: -4.5d
 		}
 		{
 			id: "53539B82FE0DF49B"
@@ -111,7 +111,7 @@
 				type: "item"
 			}]
 			x: -10.0d
-			y: -3.0d
+			y: -6.0d
 		}
 		{
 			dependencies: ["434A56021519D107"]
@@ -121,7 +121,7 @@
 				item: "gtceu:hv_chemical_reactor"
 				type: "item"
 			}]
-			x: -13.5d
+			x: -13.0d
 			y: -3.0d
 		}
 		{
@@ -136,8 +136,8 @@
 				item: "gtceu:chloroform_bucket"
 				type: "item"
 			}]
-			x: -13.5d
-			y: -1.0d
+			x: -13.0d
+			y: -1.5d
 		}
 		{
 			id: "66CA453D2599D542"
@@ -146,8 +146,8 @@
 				item: "gtceu:methane_bucket"
 				type: "item"
 			}]
-			x: -14.5d
-			y: 0.0d
+			x: -13.0d
+			y: 1.5d
 		}
 		{
 			id: "53F8F8708CA81688"
@@ -156,8 +156,8 @@
 				item: "gtceu:chlorine_bucket"
 				type: "item"
 			}]
-			x: -14.5d
-			y: -2.0d
+			x: -14.0d
+			y: -1.5d
 		}
 		{
 			dependencies: [
@@ -171,8 +171,8 @@
 				item: "gtceu:hydrofluoric_acid_bucket"
 				type: "item"
 			}]
-			x: -12.5d
-			y: -2.0d
+			x: -12.0d
+			y: -3.0d
 		}
 		{
 			id: "4B3F18D9198D4302"
@@ -181,8 +181,8 @@
 				item: "gtceu:hydrogen_bucket"
 				type: "item"
 			}]
-			x: -10.5d
-			y: -2.0d
+			x: -11.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["5FB89A158547726E"]
@@ -192,7 +192,7 @@
 				item: "gtceu:fluorine_bucket"
 				type: "item"
 			}]
-			x: -11.5d
+			x: -11.0d
 			y: -3.0d
 		}
 		{
@@ -202,8 +202,8 @@
 				item: "gtceu:topaz_dust"
 				type: "item"
 			}]
-			x: -12.5d
-			y: -4.0d
+			x: -9.5d
+			y: -1.5d
 		}
 		{
 			dependencies: [
@@ -216,8 +216,8 @@
 				item: "gtceu:tetrafluoroethylene_bucket"
 				type: "item"
 			}]
-			x: -12.5d
-			y: -1.0d
+			x: -12.0d
+			y: -1.5d
 		}
 		{
 			id: "17E0BE780A2240E0"
@@ -226,8 +226,8 @@
 				item: "gtceu:oxygen_bucket"
 				type: "item"
 			}]
-			x: -11.5d
-			y: -1.0d
+			x: -12.0d
+			y: 1.5d
 		}
 		{
 			dependencies: [
@@ -240,7 +240,7 @@
 				item: "gtceu:polytetrafluoroethylene_bucket"
 				type: "item"
 			}]
-			x: -12.5d
+			x: -12.0d
 			y: 0.0d
 		}
 		{
@@ -276,8 +276,8 @@
 				item: "gtceu:micro_processor"
 				type: "item"
 			}]
-			x: -8.0d
-			y: -5.0d
+			x: -7.5d
+			y: -4.5d
 		}
 		{
 			dependencies: ["40069ADD354E4BB6"]
@@ -287,7 +287,7 @@
 				item: "gtceu:cpu_chip"
 				type: "item"
 			}]
-			x: -9.0d
+			x: -7.5d
 			y: -6.0d
 		}
 		{
@@ -297,7 +297,7 @@
 				item: "gtceu:cpu_wafer"
 				type: "item"
 			}]
-			x: -7.0d
+			x: -6.0d
 			y: -6.0d
 		}
 		{
@@ -327,7 +327,7 @@
 			]
 			title: "贴片元件系列"
 			x: -12.5d
-			y: -6.5d
+			y: -5.5d
 		}
 		{
 			dependencies: ["5A7802BACA34E648"]
@@ -337,19 +337,23 @@
 				item: "gtceu:micro_processor_assembly"
 				type: "item"
 			}]
-			x: -8.0d
-			y: -3.5d
+			x: -7.5d
+			y: -3.0d
 		}
 		{
-			dependencies: ["1A22D4C4A4FDF503"]
+			dependencies: [
+				"1A22D4C4A4FDF503"
+				"445D4B322C90EC62"
+			]
+			dependency_requirement: "one_completed"
 			id: "4867A086989ADE96"
 			tasks: [{
 				id: "0F99AE60A0A32F89"
 				item: "gtceu:micro_processor_computer"
 				type: "item"
 			}]
-			x: -8.0d
-			y: -1.0d
+			x: -7.5d
+			y: -1.5d
 		}
 		{
 			dependencies: [
@@ -362,8 +366,8 @@
 				item: "gtceu:micro_processor_mainframe"
 				type: "item"
 			}]
-			x: -7.0d
-			y: 0.0d
+			x: -6.0d
+			y: -1.5d
 		}
 		{
 			dependencies: [
@@ -376,8 +380,8 @@
 				item: "gtceu:hv_circuit_assembler"
 				type: "item"
 			}]
-			x: -7.0d
-			y: -2.0d
+			x: -6.0d
+			y: -3.0d
 		}
 		{
 			id: "3487077ED20704A5"
@@ -386,8 +390,8 @@
 				item: "gtceu:hv_emitter"
 				type: "item"
 			}]
-			x: -7.0d
-			y: -3.5d
+			x: -6.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["4867A086989ADE96"]
@@ -397,8 +401,8 @@
 				item: "gtceu:distillation_tower"
 				type: "item"
 			}]
-			x: -8.0d
-			y: 1.0d
+			x: -6.0d
+			y: 0.0d
 		}
 		{
 			dependencies: ["434A56021519D107"]
@@ -408,8 +412,8 @@
 				item: "gtceu:bauxite_dust"
 				type: "item"
 			}]
-			x: -16.0d
-			y: -3.5d
+			x: -15.5d
+			y: -3.0d
 		}
 		{
 			dependencies: [
@@ -424,7 +428,7 @@
 				type: "item"
 			}]
 			x: -17.0d
-			y: -2.5d
+			y: -3.0d
 		}
 		{
 			dependencies: [
@@ -449,7 +453,7 @@
 				type: "item"
 			}]
 			x: -17.0d
-			y: -1.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["0421ECF8A1A08A31"]
@@ -460,7 +464,7 @@
 				type: "item"
 			}]
 			x: -18.5d
-			y: 1.5d
+			y: 0.0d
 		}
 		{
 			dependencies: ["420348FF77D240AE"]
@@ -470,8 +474,8 @@
 				item: "gtceu:hot_titanium_ingot"
 				type: "item"
 			}]
-			x: -17.0d
-			y: 0.5d
+			x: -18.5d
+			y: -1.5d
 		}
 		{
 			dependencies: [
@@ -486,7 +490,7 @@
 				type: "item"
 			}]
 			x: -17.0d
-			y: 2.5d
+			y: 0.0d
 		}
 		{
 			id: "7E28126F0A400200"
@@ -495,7 +499,7 @@
 				item: "gtceu:aluminium_single_cable"
 				type: "item"
 			}]
-			x: -15.5d
+			x: -17.0d
 			y: 1.5d
 		}
 		{
@@ -505,7 +509,7 @@
 				item: "gtceu:ethylene_bucket"
 				type: "item"
 			}]
-			x: -14.5d
+			x: -14.0d
 			y: -3.0d
 		}
 		{
@@ -520,7 +524,7 @@
 				type: "item"
 			}]
 			x: -15.5d
-			y: -2.0d
+			y: -1.5d
 		}
 		{
 			dependencies: [
@@ -534,7 +538,7 @@
 				type: "item"
 			}]
 			x: -15.5d
-			y: 0.0d
+			y: 1.5d
 		}
 		{
 			dependencies: ["6C5FDBAFB7A15115"]
@@ -545,7 +549,17 @@
 				type: "item"
 			}]
 			x: -11.5d
-			y: -6.5d
+			y: -5.5d
+		}
+		{
+			id: "445D4B322C90EC62"
+			tasks: [{
+				id: "60E5652250CDDAE3"
+				item: "mekanism:ultimate_control_circuit"
+				type: "item"
+			}]
+			x: -7.5d
+			y: 0.0d
 		}
 	]
 	title: "[Tier 3] HV"

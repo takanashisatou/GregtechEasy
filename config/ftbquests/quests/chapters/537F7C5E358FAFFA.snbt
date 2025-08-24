@@ -2,9 +2,9 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "537F7C5E358FAFFA"
-	group: ""
+	group: "57A2B47B4CC0577F"
 	id: "537F7C5E358FAFFA"
-	order_index: 12
+	order_index: 1
 	quest_links: [ ]
 	quests: [
 		{
@@ -14,8 +14,8 @@
 				title: "蒸汽发电"
 				type: "checkmark"
 			}]
-			x: -11.0d
-			y: -4.5d
+			x: -11.5d
+			y: -4.0d
 		}
 		{
 			id: "2C31E9D6EF294364"
@@ -24,8 +24,8 @@
 				title: "内燃机发电"
 				type: "checkmark"
 			}]
-			x: -9.5d
-			y: -4.5d
+			x: -10.5d
+			y: -4.0d
 		}
 		{
 			id: "6C9653C5C859FFD0"
@@ -34,8 +34,8 @@
 				title: "燃气轮机发电"
 				type: "checkmark"
 			}]
-			x: -8.0d
-			y: -4.5d
+			x: -9.5d
+			y: -4.0d
 		}
 		{
 			dependencies: ["2E979C3DF69666CC"]
@@ -45,7 +45,7 @@
 				item: "gtceu:lv_steam_turbine"
 				type: "item"
 			}]
-			x: -11.0d
+			x: -11.5d
 			y: -3.0d
 		}
 		{
@@ -56,7 +56,7 @@
 				item: "gtceu:lv_combustion"
 				type: "item"
 			}]
-			x: -9.5d
+			x: -10.5d
 			y: -3.0d
 		}
 		{
@@ -67,7 +67,7 @@
 				item: "gtceu:lv_gas_turbine"
 				type: "item"
 			}]
-			x: -8.0d
+			x: -9.5d
 			y: -3.0d
 		}
 		{
@@ -78,8 +78,8 @@
 				item: "gtceu:mv_steam_turbine"
 				type: "item"
 			}]
-			x: -11.0d
-			y: -1.5d
+			x: -11.5d
+			y: -2.0d
 		}
 		{
 			dependencies: ["43C53EFB91D47425"]
@@ -89,8 +89,8 @@
 				item: "gtceu:mv_combustion"
 				type: "item"
 			}]
-			x: -9.5d
-			y: -1.5d
+			x: -10.5d
+			y: -2.0d
 		}
 		{
 			dependencies: ["4F0BE95A064F878A"]
@@ -100,8 +100,8 @@
 				item: "gtceu:mv_gas_turbine"
 				type: "item"
 			}]
-			x: -8.0d
-			y: -1.5d
+			x: -9.5d
+			y: -2.0d
 		}
 		{
 			id: "01455874FD03F44E"
@@ -121,7 +121,7 @@
 				type: "checkmark"
 			}]
 			x: -13.0d
-			y: -1.5d
+			y: -2.0d
 		}
 		{
 			id: "513D2442E0A3DE64"
@@ -131,7 +131,7 @@
 				type: "checkmark"
 			}]
 			x: -13.0d
-			y: 0.0d
+			y: -1.0d
 		}
 		{
 			dependencies: ["288E3432B284B635"]
@@ -141,8 +141,8 @@
 				item: "gtceu:hv_steam_turbine"
 				type: "item"
 			}]
-			x: -11.0d
-			y: 0.0d
+			x: -11.5d
+			y: -1.0d
 		}
 		{
 			dependencies: ["2005237252C05E1D"]
@@ -152,8 +152,8 @@
 				item: "gtceu:hv_combustion"
 				type: "item"
 			}]
-			x: -9.5d
-			y: 0.0d
+			x: -10.5d
+			y: -1.0d
 		}
 		{
 			dependencies: ["55693F3D63EF1E87"]
@@ -163,8 +163,8 @@
 				item: "gtceu:hv_gas_turbine"
 				type: "item"
 			}]
-			x: -8.0d
-			y: 0.0d
+			x: -9.5d
+			y: -1.0d
 		}
 		{
 			id: "680D1A57961BE637"
@@ -174,7 +174,7 @@
 				type: "checkmark"
 			}]
 			x: -13.0d
-			y: 1.5d
+			y: 0.0d
 		}
 	]
 	title: "电力的来源"

@@ -1,0 +1,16 @@
+filename = 'moreoverlays-1.22.7-mc1.20.2.jar'
+name = 'More Overlays Updated'
+side = 'client'
+x-prismlauncher-loaders = [ 'forge' ]
+x-prismlauncher-mc-versions = [ '1.20', '1.20.1', '1.20.2' ]
+x-prismlauncher-release-type = 'release'
+
+[download]
+hash = '55a1794e99e3cdebf57cffe21114318a2bbf894e79cb5c637cddd337a2fae3ceb8711175642847b9ead78bddaa0de3979e872039b3121fa5a30de15fd37a93ed'
+hash-format = 'sha512'
+mode = 'url'
+url = 'https://cdn.modrinth.com/data/Thy5Pqut/versions/xpC2kCRg/moreoverlays-1.22.7-mc1.20.2.jar'
+
+[update.modrinth]
+mod-id = 'Thy5Pqut'
+version = 'xpC2kCRg'
