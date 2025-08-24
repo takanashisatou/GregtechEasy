@@ -489,6 +489,18 @@ file = "config/openloader/advanced_options.json"
 hash = "051d8aaec9eb09e60cd6125d98056d06888b2dd1da3c1982b8859303050410de"
 
 [[files]]
+file = "config/openloader/resources/quests/assets/gte/lang/en_us.json"
+hash = "81a054bbc96f05fc75cbddf4a26528dda5d62b4e2fa063134630951a23983f59"
+
+[[files]]
+file = "config/openloader/resources/quests/assets/gte/lang/zh_cn.json"
+hash = "81a054bbc96f05fc75cbddf4a26528dda5d62b4e2fa063134630951a23983f59"
+
+[[files]]
+file = "config/openloader/resources/quests/assets/gte/lang/zh_tw.json"
+hash = "52263650ea89140255199f7a277637ebf70d50444578e3c2f70d210b86d4057d"
+
+[[files]]
 file = "config/openloader/resources/quests/pack.mcmeta"
 hash = "7d74661c288f5ae75721b309590592cab23144fb724966fe3aca82e87593442d"
 
