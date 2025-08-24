@@ -485,6 +485,14 @@ file = "config/moreoverlays.toml"
 hash = "9f38bd4301771093649545981fd1e5eedbaa9313c0d57e836eaa8254bb5d17ca"
 
 [[files]]
+file = "config/openloader/advanced_options.json"
+hash = "051d8aaec9eb09e60cd6125d98056d06888b2dd1da3c1982b8859303050410de"
+
+[[files]]
+file = "config/openloader/resources/quests/pack.mcmeta"
+hash = "7d74661c288f5ae75721b309590592cab23144fb724966fe3aca82e87593442d"
+
+[[files]]
 file = "config/patchouli-client-1.toml.bak"
 hash = "d289f4c7540e3e24bcf6bbf3f5a2aaaf87ccf58027d2213e40497fc627422068"
 
