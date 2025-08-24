@@ -39,14 +39,6 @@ jobs:
         purge-last-accessed: 0
         purge-primary-key: always
     - run: nix build .#curseforge -o curseforge
-    - name: Extract version from filename
-      run: |
-        ZIP_FILE=$(ls *.zip | head -n 1)
-        
-        VERSION=$(echo $ZIP_FILE | sed -E 's/^[^-]+-([0-9]+\.[0-9]+\.[0-9]+).*\.zip$/\1/')
-        
-        echo "VERSION=$VERSION" >> $GITHUB_ENV
-            echo "Extracted version: $VERSION"
     - name: Build Server Modpack
       run: |
         nix build .#modpack
@@ -61,6 +53,14 @@ jobs:
         cp -r result/* modpack-client/
         chmod -R +w modpack-client/config/ modpack-client/defaultconfigs/
         zip -r GregTechEasy-client-mods.zip modpack-client/*
+    - name: Extract version from filename
+      run: |
+        ZIP_FILE=$(ls *.zip | head -n 1)
+        
+        VERSION=$(echo $ZIP_FILE | sed -E 's/^[^-]+-([0-9]+\.[0-9]+\.[0-9]+).*\.zip$/\1/')
+        
+        echo "VERSION=$VERSION" >> $GITHUB_ENV
+            echo "Extracted version: $VERSION"
     - name: Build Server
       run: |
         nix build .#server
