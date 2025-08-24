@@ -29,12 +29,6 @@ jobs:
       - name: Generate Traditional Translate Keys
         run: python .github/localization/chinese_converter.py
 
-      - name: Make packwiz executable
-        run: chmod +x .github/packwiz
-
-      - name: Packwiz Refresh
-        run: .github/packwiz refresh
-
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
