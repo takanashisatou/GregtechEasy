@@ -123,4 +123,4 @@ jobs:
           git push origin :$TAG_NAME || true 
       - name: Publish release
         run: |
-          gh release create $TAG_NAME $PRERELEASE --title "$SUBJECT" --target $GITHUB_SHA GregTechEasy/* GregTechEasy-server-mods/* GregTechEasy-client-mods/* GregTechEasy-server/* 
+          gh release create $TAG_NAME $PRERELEASE --title "$SUBJECT" --target $GITHUB_SHA GregTechEasy/* GregTechEasy-server/* 
