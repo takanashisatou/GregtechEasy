@@ -1,0 +1,3365 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "450B4E83018489AA"
+	group: ""
+	id: "450B4E83018489AA"
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			can_repeat: true
+			description: [
+				"{gte.450B4E83018489AA.quests.7AC928F321C75E9B.description0}"
+				"{gte.450B4E83018489AA.quests.7AC928F321C75E9B.description1}"
+			]
+			id: "7AC928F321C75E9B"
+			tasks: [{
+				id: "048CBDA2602237A6"
+				title: "{gte.450B4E83018489AA.quests.7AC928F321C75E9B.tasks.048CBDA2602237A6.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.7AC928F321C75E9B.title}"
+			x: -15.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			description: ["{gte.450B4E83018489AA.quests.13E908447331858E.description0}"]
+			id: "13E908447331858E"
+			rewards: [
+				{
+					id: "0FFEB1F76F462ED8"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_mining_hammer"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								AoEColumn: 1
+								AoELayer: 0
+								AoERow: 1
+								MaxAoEColumn: 1
+								MaxAoELayer: 0
+								MaxAoERow: 1
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+								TorchPlacing: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 196604
+								ToolSpeed: 76.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "6D517A5D3A2794D1"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_pickaxe"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+								TorchPlacing: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4DDBEA79FE495EE7"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_axe"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								DisableShields: 1b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+								TreeFelling: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 182.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "731510744D00C245"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_sword"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								AttackDamage: 103.0f
+								AttackSpeed: -1.9000001f
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					count: 64
+					id: "2BA143384D58DDCA"
+					item: "minecraft:cooked_beef"
+					type: "item"
+				}
+				{
+					id: "6B809C1E43EC879A"
+					item: {
+						Count: 1
+						id: "gtceu:prospector.luv"
+						tag: {
+							Charge: 1000000000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "18511BCB1337CF46"
+					item: {
+						Count: 1
+						id: "megacells:portable_item_cell_256m"
+						tag: {
+							internalCurrentPower: 160000.0d
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "32731EB1B6DE2CFC"
+					item: {
+						Count: 1
+						id: "megacells:portable_fluid_cell_256m"
+						tag: {
+							internalCurrentPower: 160000.0d
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "5F8C21FB2BD4147F"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_helmet"
+						tag: {
+							Charge: 26843545600000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "74B92D3249908DDE"
+					item: {
+						Count: 1
+						id: "gtceu:advanced_nanomuscle_chestplate"
+						tag: {
+							Charge: 53687091200000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7C58E81048ED1DFC"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_leggings"
+						tag: {
+							Charge: 26843545600000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "35935C68D7485578"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_boots"
+						tag: {
+							Charge: 26843545600000L
+						}
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "78F6F8B3C16A6905"
+				title: "{gte.450B4E83018489AA.quests.13E908447331858E.tasks.78F6F8B3C16A6905.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.13E908447331858E.title}"
+			x: -13.5d
+			y: 0.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["7AC928F321C75E9B"]
+			icon: "minecraft:bread"
+			id: "0C1192A74BBBA469"
+			rewards: [
+				{
+					count: 64
+					id: "1F317938949423C2"
+					item: "minecraft:bread"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "71984C6BF3A9EEA7"
+					item: "minecraft:cooked_beef"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "29FFFACF78F0D4E9"
+					item: "minecraft:cooked_porkchop"
+					type: "item"
+				}
+			]
+			subtitle: "{gte.450B4E83018489AA.quests.0C1192A74BBBA469.subtitle}"
+			tasks: [{
+				id: "1E93798C3ADA5547"
+				title: "{gte.450B4E83018489AA.quests.0C1192A74BBBA469.tasks.1E93798C3ADA5547.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.0C1192A74BBBA469.title}"
+			x: -15.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["13E908447331858E"]
+			description: ["{gte.450B4E83018489AA.quests.2EF82D2485FD5033.description0}"]
+			id: "2EF82D2485FD5033"
+			rewards: [{
+				count: 64
+				id: "2AAAE6BDDA4F705D"
+				item: "minecraft:blast_furnace"
+				type: "item"
+			}]
+			subtitle: "{gte.450B4E83018489AA.quests.2EF82D2485FD5033.subtitle}"
+			tasks: [
+				{
+					id: "5026206897AE922A"
+					item: "minecraft:raw_iron"
+					type: "item"
+				}
+				{
+					id: "78E45F9E89BA94C5"
+					item: "minecraft:raw_copper"
+					type: "item"
+				}
+				{
+					id: "5FB790E76A4FF744"
+					item: "gtceu:raw_cassiterite"
+					type: "item"
+				}
+			]
+			title: "{gte.450B4E83018489AA.quests.2EF82D2485FD5033.title}"
+			x: -12.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["2EF82D2485FD5033"]
+			description: [
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description0}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description1}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description2}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description3}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description4}"
+			]
+			id: "1A130A4134836DFB"
+			rewards: [
+				{
+					id: "4A5D9059AFB9BC8F"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_hammer"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "78EDA5FE6BFB1F25"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_wrench"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								Mode: 2b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "54E50289349FF8A8"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_file"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+			]
+			subtitle: "{gte.450B4E83018489AA.quests.1A130A4134836DFB.subtitle}"
+			tasks: [
+				{
+					id: "76C800A672BE6CFF"
+					item: {
+						Count: 1
+						id: "gtceu:iron_hammer"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "17ED76320275F11C"
+					item: {
+						Count: 1
+						id: "gtceu:iron_wrench"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								Mode: 2b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "30E649A83C6305D4"
+					item: {
+						Count: 1
+						id: "gtceu:iron_file"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "{gte.450B4E83018489AA.quests.1A130A4134836DFB.title}"
+			x: -12.0d
+			y: 2.0d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			description: ["{gte.450B4E83018489AA.quests.66EF24234DD8A278.description0}"]
+			id: "66EF24234DD8A278"
+			subtitle: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.subtitle}"
+			tasks: [{
+				id: "3A7D1ED17EA25F53"
+				title: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.tasks.3A7D1ED17EA25F53.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.title}"
+			x: -13.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1A130A4134836DFB"]
+			description: [""]
+			id: "6C03035896A297CC"
+			rewards: [
+				{
+					id: "53CEA2B4BC640DB7"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_saw"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								HarvestIce: 1b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "79A2552F22096152"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_screwdriver"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "59CCDAF6660CCAB5"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_crowbar"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "29AE39E0AD8069F4"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_saw"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								HarvestIce: 1b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "1692F965935E4443"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_knife"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								AttackDamage: 100.0f
+								AttackSpeed: 3.5f
+								Damage: 0
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "0337918F60FC0D4C"
+					item: {
+						Count: 1
+						id: "gtceu:infinite_mortar"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 79999999
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+			]
+			subtitle: "{gte.450B4E83018489AA.quests.6C03035896A297CC.subtitle}"
+			tasks: [
+				{
+					id: "19478BBB90FF5FF0"
+					item: {
+						Count: 1
+						id: "gtceu:iron_wire_cutter"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "17F97B46D79D1A3B"
+					item: {
+						Count: 1
+						id: "gtceu:iron_screwdriver"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7A0EE98F88908131"
+					item: {
+						Count: 1
+						id: "gtceu:iron_crowbar"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "111377D7B403B1FC"
+					item: {
+						Count: 1
+						id: "gtceu:iron_saw"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								HarvestIce: 1b
+							}
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "047B680620DB5EB9"
+					item: {
+						Count: 1
+						id: "gtceu:iron_knife"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								AttackDamage: 2.0f
+								AttackSpeed: 3.0f
+								Damage: 0
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4E4B453A43A97F3F"
+					item: {
+						Count: 1
+						id: "gtceu:iron_mortar"
+						tag: {
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								Damage: 0
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "{gte.450B4E83018489AA.quests.6C03035896A297CC.title}"
+			x: -10.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["6C03035896A297CC"]
+			id: "47DDDD0BB3FAF8C6"
+			tasks: [{
+				id: "6529060DA3596E5D"
+				item: "gtceu:copper_dust"
+				type: "item"
+			}]
+			x: -9.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["6C03035896A297CC"]
+			id: "5FA070D57A03E897"
+			tasks: [{
+				id: "034B5D5BCAC76B34"
+				item: "gtceu:tin_dust"
+				type: "item"
+			}]
+			x: -9.0d
+			y: 2.0d
+		}
+		{
+			dependencies: [
+				"47DDDD0BB3FAF8C6"
+				"5FA070D57A03E897"
+			]
+			id: "38DFB362E98E750B"
+			tasks: [{
+				id: "64557346E158E921"
+				item: "gtceu:bronze_dust"
+				type: "item"
+			}]
+			x: -9.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["38DFB362E98E750B"]
+			id: "3EDFD3C66D10EC35"
+			tasks: [{
+				id: "72788194128D5741"
+				item: "gtceu:bronze_ingot"
+				type: "item"
+			}]
+			x: -7.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["3EDFD3C66D10EC35"]
+			id: "787EC074263C1BA6"
+			tasks: [{
+				id: "6A0EF5C027282A36"
+				item: "gtceu:bronze_plate"
+				type: "item"
+			}]
+			x: -7.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["787EC074263C1BA6"]
+			id: "454E75E87ACFE4C6"
+			tasks: [{
+				id: "7BCC2F4EBBC4CB9F"
+				item: "gtceu:lp_steam_solid_boiler"
+				type: "item"
+			}]
+			title: "{gte.450B4E83018489AA.quests.454E75E87ACFE4C6.title}"
+			x: -7.5d
+			y: 2.0d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			description: [
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description0}"
+				""
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description1}"
+				""
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description2}"
+			]
+			id: "34ABC0B777C13083"
+			subtitle: "{gte.450B4E83018489AA.quests.34ABC0B777C13083.subtitle}"
+			tasks: [{
+				id: "3CEF638AA6A7CBA6"
+				title: "{gte.450B4E83018489AA.quests.34ABC0B777C13083.tasks.3CEF638AA6A7CBA6.title}"
+				type: "checkmark"
+			}]
+			x: -16.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			description: [
+				""
+				"{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.description0}"
+				"{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.description1}"
+			]
+			id: "7E5B87ADA50A4371"
+			tasks: [{
+				id: "42B8D973E0D8FC44"
+				title: "{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.tasks.42B8D973E0D8FC44.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.title}"
+			x: -16.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["13E908447331858E"]
+			description: ["{gte.450B4E83018489AA.quests.6B6452584D88263D.description0}"]
+			icon: "javd:portal_block"
+			id: "6B6452584D88263D"
+			rewards: [{
+				id: "405E06E91B52374A"
+				item: "javd:portal_block"
+				type: "item"
+			}]
+			subtitle: "{gte.450B4E83018489AA.quests.6B6452584D88263D.subtitle}"
+			tasks: [{
+				id: "0241122990FD5D55"
+				title: "{gte.450B4E83018489AA.quests.6B6452584D88263D.tasks.0241122990FD5D55.title}"
+				type: "checkmark"
+			}]
+			x: -13.5d
+			y: 2.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["7AC928F321C75E9B"]
+			description: [
+				""
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description0}"
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description1}"
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description2}"
+			]
+			id: "140646D9977DFB73"
+			rewards: [{
+				command: "/ftbultimine serverconfig"
+				id: "7B983C16DB64207E"
+				type: "command"
+			}]
+			subtitle: "{gte.450B4E83018489AA.quests.140646D9977DFB73.subtitle}"
+			tasks: [{
+				id: "6789B89C0E9BACB9"
+				title: "{gte.450B4E83018489AA.quests.140646D9977DFB73.tasks.6789B89C0E9BACB9.title}"
+				type: "checkmark"
+			}]
+			x: -16.5d
+			y: 2.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["6B6452584D88263D"]
+			description: ["{gte.450B4E83018489AA.quests.1871D68EB938A5C5.description0}"]
+			id: "1871D68EB938A5C5"
+			rewards: [{
+				command: "/execute in minecraft:overworld run tp 0 120 0"
+				id: "5F9CE722E7598B26"
+				type: "command"
+			}]
+			tasks: [{
+				id: "6D3E1ED182F6FE74"
+				title: "{gte.450B4E83018489AA.quests.1871D68EB938A5C5.tasks.6D3E1ED182F6FE74.title}"
+				type: "checkmark"
+			}]
+			x: -13.5d
+			y: 3.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["7AC928F321C75E9B"]
+			id: "283E6EE3D126D688"
+			rewards: [
+				{
+					id: "2773D5507251C04E"
+					item: {
+						Count: 1
+						id: "buildinggadgets2:gadget_building"
+						tag: {
+							energy: 5000000
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "585C1EFC732AC973"
+					item: {
+						Count: 1
+						id: "buildinggadgets2:gadget_exchanging"
+						tag: {
+							energy: 5000000
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "36E3A4B7967AEB6F"
+					item: {
+						Count: 1
+						id: "buildinggadgets2:gadget_copy_paste"
+						tag: {
+							energy: 5000000
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "63E9F86AEEC86FEA"
+					item: {
+						Count: 1
+						id: "buildinggadgets2:gadget_cut_paste"
+						tag: {
+							energy: 5000000
+							pastereplace: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7D0B9E8B4349E173"
+					item: {
+						Count: 1
+						id: "buildinggadgets2:gadget_destruction"
+						tag: {
+							energy: 5000000
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4272F93E4ACA677D"
+					item: {
+						Count: 1
+						id: "wands:creative_wand"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "1EAD63363FD78044"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.283E6EE3D126D688.title}"
+			x: -15.0d
+			y: 2.0d
+		}
+		{
+			dependencies: ["13E908447331858E"]
+			id: "6E92A1D6CF61C86D"
+			rewards: [
+				{
+					id: "4493E8B97E8AFC05"
+					item: {
+						Count: 1
+						id: "minecraft:lime_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:lime_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:lime_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7D3D64E70681AB1A"
+					item: {
+						Count: 1
+						id: "minecraft:white_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:white_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:white_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "6290687234D287DF"
+					item: {
+						Count: 1
+						id: "minecraft:light_gray_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:light_gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:light_gray_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4EFD2A2365215221"
+					item: {
+						Count: 1
+						id: "minecraft:gray_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:gray_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:gray_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "762F6FB80B24C43D"
+					item: {
+						Count: 1
+						id: "minecraft:black_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:black_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:black_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "0CA987937A680CED"
+					item: {
+						Count: 1
+						id: "minecraft:brown_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:brown_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:brown_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "0B50189FF6EA09E2"
+					item: {
+						Count: 1
+						id: "minecraft:red_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:red_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:red_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "2C9933A4D4A01365"
+					item: {
+						Count: 1
+						id: "minecraft:orange_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:orange_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:orange_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "79F386B3B9317E7D"
+					item: {
+						Count: 1
+						id: "minecraft:yellow_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:yellow_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:yellow_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "76A8000E55476392"
+					item: {
+						Count: 1
+						id: "minecraft:green_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:green_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:green_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "1E56392D620A0DEF"
+					item: {
+						Count: 1
+						id: "minecraft:cyan_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:cyan_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:cyan_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4368EE8BCB5EB909"
+					item: {
+						Count: 1
+						id: "minecraft:light_blue_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:light_blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:light_blue_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "63B86DA4576C2588"
+					item: {
+						Count: 1
+						id: "minecraft:blue_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:blue_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:blue_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "300AAD8C59BEF366"
+					item: {
+						Count: 1
+						id: "minecraft:purple_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:purple_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:purple_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "01BA99414488415A"
+					item: {
+						Count: 1
+						id: "minecraft:magenta_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:magenta_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:magenta_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "1D5402D3247B88DE"
+					item: {
+						Count: 1
+						id: "minecraft:pink_shulker_box"
+						tag: {
+							BlockEntityTag: {
+								Items: [
+									{
+										Count: 64b
+										Slot: 0b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 1b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 2b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 3b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 4b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 5b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 6b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 7b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 8b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 9b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 10b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 11b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 12b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 13b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 14b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 15b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 16b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 17b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 18b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 19b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 20b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 21b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 22b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 23b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 24b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 25b
+										id: "minecraft:pink_concrete"
+									}
+									{
+										Count: 64b
+										Slot: 26b
+										id: "minecraft:pink_concrete"
+									}
+								]
+								id: "minecraft:shulker_box"
+							}
+						}
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "26CC16A7F12DD5D4"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.6E92A1D6CF61C86D.title}"
+			x: -12.0d
+			y: -1.0d
+		}
+	]
+	title: "{gte.450B4E83018489AA.title}"
+}

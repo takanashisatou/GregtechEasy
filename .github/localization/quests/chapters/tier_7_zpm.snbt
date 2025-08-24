@@ -1,0 +1,270 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "tier_7_zpm"
+	group: "277796EFA601375B"
+	icon: "gtceu:zpm_machine_hull"
+	id: "50DC7619BF3E0C52"
+	order_index: 7
+	quest_links: [ ]
+	quests: [
+		{
+			description: [""]
+			id: "53C77FF035E5F109"
+			size: 2.0d
+			tasks: [
+				{
+					id: "5F3247131F5475BB"
+					item: "gtceu:zpm_electric_motor"
+					type: "item"
+				}
+				{
+					id: "6F54600EFC818243"
+					item: "gtceu:zpm_electric_piston"
+					type: "item"
+				}
+				{
+					id: "67A90CBD066E2C42"
+					item: "gtceu:zpm_robot_arm"
+					type: "item"
+				}
+				{
+					id: "14433E87EE97623C"
+					item: "gtceu:zpm_conveyor_module"
+					type: "item"
+				}
+				{
+					id: "5B3A7C1A36FD8FDC"
+					item: "gtceu:zpm_electric_pump"
+					type: "item"
+				}
+			]
+			title: "{gte.tier_7_zpm.quests.53C77FF035E5F109.title}"
+			x: 0.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["53C77FF035E5F109"]
+			icon: "gtceu:bacteria_bucket"
+			id: "388D152B2C599071"
+			tasks: [{
+				id: "60E4501C47D94C09"
+				title: "{gte.tier_7_zpm.quests.388D152B2C599071.tasks.60E4501C47D94C09.title}"
+				type: "checkmark"
+			}]
+			x: -2.0d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"388D152B2C599071"
+				"47791E565C464BC9"
+			]
+			icon: "gtceu:bacterial_sludge_bucket"
+			id: "10F77F4B6168C36C"
+			tasks: [{
+				id: "058D9D81976BA84D"
+				title: "{gte.tier_7_zpm.quests.10F77F4B6168C36C.tasks.058D9D81976BA84D.title}"
+				type: "checkmark"
+			}]
+			x: -3.5d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"40C6C9C29AFEE546"
+				"10F77F4B6168C36C"
+			]
+			icon: "gtceu:enriched_bacterial_sludge_bucket"
+			id: "0683041A55AFC84F"
+			tasks: [{
+				id: "4E3D0CFB33DB0112"
+				title: "{gte.tier_7_zpm.quests.0683041A55AFC84F.tasks.4E3D0CFB33DB0112.title}"
+				type: "checkmark"
+			}]
+			x: -5.0d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"0683041A55AFC84F"
+				"695888243D84E3F8"
+			]
+			id: "63933040C63059EF"
+			tasks: [{
+				id: "4651BEAFFCC8E0DB"
+				item: "gtceu:mutagen_bucket"
+				type: "item"
+			}]
+			x: -6.5d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"63933040C63059EF"
+				"38F12D662F302E31"
+			]
+			icon: "gtceu:sterilized_growth_medium_bucket"
+			id: "40C9E9FB0C7C6FC8"
+			tasks: [{
+				id: "32EA08286F8F9266"
+				title: "{gte.tier_7_zpm.quests.40C9E9FB0C7C6FC8.tasks.32EA08286F8F9266.title}"
+				type: "checkmark"
+			}]
+			x: -8.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["40C9E9FB0C7C6FC8"]
+			id: "7011F9A15AED3CFE"
+			tasks: [{
+				id: "59872129D86E282A"
+				item: "gtceu:stem_cells"
+				type: "item"
+			}]
+			x: -8.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["40C9E9FB0C7C6FC8"]
+			id: "0F5FE9ECDB7B01D0"
+			tasks: [{
+				id: "3C674F1A1FA87EF3"
+				item: "gtceu:wetware_circuit_board"
+				type: "item"
+			}]
+			x: -9.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["0F5FE9ECDB7B01D0"]
+			id: "7F76415AE0B133E0"
+			tasks: [{
+				id: "7813B963EF169D48"
+				item: "gtceu:wetware_printed_circuit_board"
+				type: "item"
+			}]
+			x: -11.0d
+			y: -1.0d
+		}
+		{
+			dependencies: [
+				"7F76415AE0B133E0"
+				"7011F9A15AED3CFE"
+			]
+			id: "6596BCABBA5D66FA"
+			tasks: [{
+				id: "114420AE3387A786"
+				item: "gtceu:neuro_processing_unit"
+				type: "item"
+			}]
+			x: -11.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["6596BCABBA5D66FA"]
+			id: "7F7442D83CE799A0"
+			tasks: [{
+				id: "0A11742B99FEB3B5"
+				item: "gtceu:wetware_processor"
+				type: "item"
+			}]
+			x: -11.0d
+			y: 2.0d
+		}
+		{
+			dependencies: ["7F7442D83CE799A0"]
+			id: "5682CCC66A79BECF"
+			tasks: [{
+				id: "039B837FA2178AA0"
+				item: "gtceu:wetware_processor_assembly"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 2.0d
+		}
+		{
+			dependencies: ["5682CCC66A79BECF"]
+			id: "440BE9384F3CCE69"
+			tasks: [{
+				id: "708C7126B2DEED8D"
+				item: "gtceu:wetware_processor_computer"
+				type: "item"
+			}]
+			x: -8.0d
+			y: 2.0d
+		}
+		{
+			dependencies: ["440BE9384F3CCE69"]
+			id: "447076AC0307B54D"
+			tasks: [{
+				id: "0DC864D2C13D420E"
+				item: "gtceu:wetware_processor_mainframe"
+				type: "item"
+			}]
+			x: -6.5d
+			y: 2.0d
+		}
+		{
+			dependencies: ["53C77FF035E5F109"]
+			id: "6D847DD45E559949"
+			size: 2.0d
+			tasks: [{
+				id: "5B223995A7E6B875"
+				item: "gtceu:zpm_fusion_reactor"
+				type: "item"
+			}]
+			x: 3.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["3675BF5AB0DEEECF"]
+			id: "27A60741764CF168"
+			size: 2.0d
+			tasks: [{
+				id: "735B587325FF6CF9"
+				item: "gtceu:uv_machine_hull"
+				type: "item"
+			}]
+			x: 6.0d
+			y: 2.0d
+		}
+		{
+			dependencies: ["6D847DD45E559949"]
+			id: "3675BF5AB0DEEECF"
+			size: 2.0d
+			tasks: [{
+				id: "0CAE8D455173FF73"
+				item: "gtceu:darmstadtium_plate"
+				type: "item"
+			}]
+			x: 6.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["3675BF5AB0DEEECF"]
+			id: "346D831DC8AEC872"
+			size: 2.0d
+			tasks: [{
+				id: "0AAB0E658987F0E4"
+				item: "gtceu:americium_ingot"
+				type: "item"
+			}]
+			x: 9.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["3675BF5AB0DEEECF"]
+			id: "48848D60400673C4"
+			size: 2.0d
+			tasks: [{
+				id: "688CEA26195CDDBD"
+				item: "gtceu:tritanium_ingot"
+				type: "item"
+			}]
+			x: 6.0d
+			y: -3.5d
+		}
+	]
+	title: "{gte.tier_7_zpm.title}"
+}

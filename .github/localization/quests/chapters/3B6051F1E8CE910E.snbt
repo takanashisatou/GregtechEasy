@@ -1,0 +1,23 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "3B6051F1E8CE910E"
+	group: ""
+	id: "3B6051F1E8CE910E"
+	order_index: 1
+	quest_links: [ ]
+	quests: [{
+		id: "50342BB7741FB62B"
+		size: 3.0d
+		subtitle: "[正在施工中......]"
+		tasks: [{
+			id: "3BD6CB15160780B0"
+			title: "{gte.3B6051F1E8CE910E.quests.50342BB7741FB62B.tasks.3BD6CB15160780B0.title}"
+			type: "checkmark"
+		}]
+		title: "[商店暂未开放，正在施工中......]"
+		x: -3.0d
+		y: -1.5d
+	}]
+	title: "{gte.3B6051F1E8CE910E.title}"
+}
