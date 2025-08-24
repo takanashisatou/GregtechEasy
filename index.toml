@@ -249,10 +249,6 @@ file = "config/forge-client.toml"
 hash = "0b1b3c45343435184c9dde3149b38afcdb97953e287686ecda54385f53ebcddc"
 
 [[files]]
-file = "config/ftbquests/quests.7z"
-hash = "7336441f40b27cc9e34fa0dd1d24d7b10b66034bc27a5841c9aa301e3fe5ada2"
-
-[[files]]
 file = "config/ftbquests/quests/chapter_groups.snbt"
 hash = "e6d7bb4b7c70b225cf0432870ec81f5d0a1f280a785120ec66a8fda20f2771a8"
 
@@ -618,7 +614,7 @@ hash = "0af4a5c9c743c56273b8594f9bf1f57a4adab850c4ac1356b615750b8bb649c6"
 
 [[files]]
 file = "defaultconfigs/ftbultimine/ftbultimine-server.snbt"
-hash = "441f57b21b82240cb1c332920f82150b6530be124b4fad7209bd6f7a7955d956"
+hash = "31eb14a822c1f90af529d30c481bff480645677ad2991ec0df24cd3318b32f93"
 
 [[files]]
 file = "defaultconfigs/gtceu/client-config.snbt"
@@ -778,7 +774,7 @@ metafile = true
 
 [[files]]
 file = "mods/cupboard.pw.toml"
-hash = "1b48ff2d353715a3d1af4896156e9a38d67c4535a9eae98055224090628b5d40"
+hash = "84261815200eec3f49a29ab6eec811abc829cdd6233feeb5878dca27f0e164e2"
 metafile = true
 
 [[files]]
@@ -997,6 +993,16 @@ hash = "1e6eaa64efdce69099d2f4efc144b56730fc72dfcc6c7dbfbd388fed0304180d"
 metafile = true
 
 [[files]]
+file = "mods/open-loader.pw.toml"
+hash = "37e123b7ad9d306fbc5ad51c21783bf773d6706063190240067560adbd777db2"
+metafile = true
+
+[[files]]
+file = "mods/oworld2create.pw.toml"
+hash = "3ada5efac45691261a4ca8eaf7a589346b04b5916fea180b815f2ce62566fa39"
+metafile = true
+
+[[files]]
 file = "mods/patchouli.pw.toml"
 hash = "5c233884544e4bcaa5979592cb31d3162b5c4c4c2b6f0139f37d5949b8393547"
 metafile = true
@@ -1059,4 +1065,9 @@ metafile = true
 [[files]]
 file = "mods/worldeditcui-forge.pw.toml"
 hash = "f642af5b1291af74d04eb998ed186b384863e5c604b6c889d49de2f0208895f6"
+metafile = true
+
+[[files]]
+file = "mods/yeetusexperimentus.pw.toml"
+hash = "8a9c4f7a5b311acaba42b1a291ef287857bf65a4a607c803fc3b62695238a60a"
 metafile = true
