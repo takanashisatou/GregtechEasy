@@ -86,7 +86,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: GregTechEasy-server
-        path: ./GregTechEasy-server-*.zip
+        path: ./GregTechEasy-server-${{ env.VERSION }}.zip
 
   
   publish:
@@ -123,4 +123,4 @@ jobs:
           git push origin :$TAG_NAME || true 
       - name: Publish release
         run: |
-          gh release create $TAG_NAME $PRERELEASE --title "$SUBJECT" --target $GITHUB_SHA GregTechEasy/* GregTechEasy-client-mods/* GregTechEasy-server/* 
+          gh release create $TAG_NAME $PRERELEASE --title "$SUBJECT" --target $GITHUB_SHA GregTechEasy/* GregTechEasy-server-mods/* GregTechEasy-client-mods/* GregTechEasy-server/* 
