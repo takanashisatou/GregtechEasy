@@ -778,7 +778,7 @@ metafile = true
 
 [[files]]
 file = "mods/cupboard.pw.toml"
-hash = "4f2794a740ac4351bb47aa57bfc230c3ffb832e0a6f09521bee1c1e4fab0327c"
+hash = "1b48ff2d353715a3d1af4896156e9a38d67c4535a9eae98055224090628b5d40"
 metafile = true
 
 [[files]]
@@ -1019,11 +1019,6 @@ metafile = true
 [[files]]
 file = "mods/rhino.pw.toml"
 hash = "766c2edacb703a75a2ce56055c7dcb22ed77d529bd0c33b011ad7ab649301f54"
-metafile = true
-
-[[files]]
-file = "mods/simple-trashcan.pw.toml"
-hash = "909dbf50773a596fc1d55b836b5a150630ddc88160df8fb8ffe6538c4d124488"
 metafile = true
 
 [[files]]
