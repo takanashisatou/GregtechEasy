@@ -2,10 +2,10 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "tier_8_uv"
-	group: ""
+	group: "277796EFA601375B"
 	icon: "gtceu:uv_machine_hull"
 	id: "73A4D90B82841D11"
-	order_index: 9
+	order_index: 8
 	quest_links: [ ]
 	quests: [
 		{
@@ -38,7 +38,7 @@
 					type: "item"
 				}
 			]
-			title: "{gte.tier_8_uv.quests.3474631B2D37E37B.title}"
+			title: "UV时代的老五样"
 			x: -2.0d
 			y: 0.0d
 		}
@@ -104,7 +104,7 @@
 		}
 		{
 			dependencies: ["4222CF1A35D61D65"]
-			description: ["{gte.tier_8_uv.quests.0A3AACE84D470730.description0}"]
+			description: ["恭喜通关,GregTech Easy制作组感谢你的游玩，期待与你的再次相遇。"]
 			id: "0A3AACE84D470730"
 			size: 2.0d
 			tasks: [{
@@ -116,5 +116,5 @@
 			y: 7.5d
 		}
 	]
-	title: "{gte.tier_8_uv.title}"
+	title: "[Tier 8] UV"
 }

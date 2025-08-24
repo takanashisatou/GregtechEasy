@@ -5,7 +5,7 @@
 	group: ""
 	icon: "minecraft:command_block"
 	id: "0587C061E00F8A08"
-	order_index: 17
+	order_index: 2
 	quest_links: [ ]
 	quests: [
 		{
@@ -18,7 +18,7 @@
 			}]
 			tasks: [{
 				id: "404254248F205B05"
-				title: "{gte.0587C061E00F8A08.quests.3FD9317C61C0AFB6.tasks.404254248F205B05.title}"
+				title: "启用死亡不掉落"
 				type: "checkmark"
 			}]
 			x: -9.5d
@@ -34,7 +34,7 @@
 			}]
 			tasks: [{
 				id: "0E62FAAA90717429"
-				title: "{gte.0587C061E00F8A08.quests.149A0B3B23D46E31.tasks.0E62FAAA90717429.title}"
+				title: "关闭死亡不掉落"
 				type: "checkmark"
 			}]
 			x: -9.5d
@@ -42,41 +42,41 @@
 		}
 		{
 			can_repeat: true
-			description: ["{gte.0587C061E00F8A08.quests.2D65126763E8807D.description0}"]
+			description: ["      它会让你传送到相同X,Z坐标的主世界的高空，因此别摔死了哟"]
 			id: "2D65126763E8807D"
 			rewards: [{
 				command: "/execute in minecraft:overworld run tp ~ 150 ~"
 				id: "07EE2B4DE2A42288"
 				type: "command"
 			}]
-			subtitle: "{gte.0587C061E00F8A08.quests.2D65126763E8807D.subtitle}"
+			subtitle: "注意安全"
 			tasks: [{
 				id: "6A08B99E1C9A1BFF"
-				title: "{gte.0587C061E00F8A08.quests.2D65126763E8807D.tasks.6A08B99E1C9A1BFF.title}"
+				title: "传送到主世界高空"
 				type: "checkmark"
 			}]
-			title: "{gte.0587C061E00F8A08.quests.2D65126763E8807D.title}"
-			x: -7.5d
+			title: "传送到主世界"
+			x: -8.0d
 			y: 0.0d
 		}
 		{
 			can_repeat: true
-			description: ["{gte.0587C061E00F8A08.quests.5C9A19723031B599.description0}"]
+			description: ["      它会让你传送到相同X,Z坐标的虚空世界的高空，因此别摔死了哟"]
 			id: "5C9A19723031B599"
 			rewards: [{
 				command: "/execute in javd:void run tp ~ 120 ~"
 				id: "721BC8E726D85770"
 				type: "command"
 			}]
-			subtitle: "{gte.0587C061E00F8A08.quests.5C9A19723031B599.subtitle}"
+			subtitle: "注意安全"
 			tasks: [{
 				id: "75BC015F9DBCD518"
-				title: "{gte.0587C061E00F8A08.quests.5C9A19723031B599.tasks.75BC015F9DBCD518.title}"
+				title: "传送到虚空世界"
 				type: "checkmark"
 			}]
-			x: -7.5d
+			x: -8.0d
 			y: 1.5d
 		}
 	]
-	title: "{gte.0587C061E00F8A08.title}"
+	title: "有用的指令"
 }

@@ -2,10 +2,10 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "tier_7_zpm"
-	group: ""
+	group: "277796EFA601375B"
 	icon: "gtceu:zpm_machine_hull"
 	id: "50DC7619BF3E0C52"
-	order_index: 8
+	order_index: 7
 	quest_links: [ ]
 	quests: [
 		{
@@ -39,7 +39,7 @@
 					type: "item"
 				}
 			]
-			title: "{gte.tier_7_zpm.quests.53C77FF035E5F109.title}"
+			title: "ZPM阶段的老五样"
 			x: 0.0d
 			y: -1.0d
 		}
@@ -49,7 +49,7 @@
 			id: "388D152B2C599071"
 			tasks: [{
 				id: "60E4501C47D94C09"
-				title: "{gte.tier_7_zpm.quests.388D152B2C599071.tasks.60E4501C47D94C09.title}"
+				title: "细菌"
 				type: "checkmark"
 			}]
 			x: -2.0d
@@ -64,7 +64,7 @@
 			id: "10F77F4B6168C36C"
 			tasks: [{
 				id: "058D9D81976BA84D"
-				title: "{gte.tier_7_zpm.quests.10F77F4B6168C36C.tasks.058D9D81976BA84D.title}"
+				title: "细菌浆液"
 				type: "checkmark"
 			}]
 			x: -3.5d
@@ -79,7 +79,7 @@
 			id: "0683041A55AFC84F"
 			tasks: [{
 				id: "4E3D0CFB33DB0112"
-				title: "{gte.tier_7_zpm.quests.0683041A55AFC84F.tasks.4E3D0CFB33DB0112.title}"
+				title: "富集细菌浆液"
 				type: "checkmark"
 			}]
 			x: -5.0d
@@ -108,7 +108,7 @@
 			id: "40C9E9FB0C7C6FC8"
 			tasks: [{
 				id: "32EA08286F8F9266"
-				title: "{gte.tier_7_zpm.quests.40C9E9FB0C7C6FC8.tasks.32EA08286F8F9266.title}"
+				title: "无菌培养基"
 				type: "checkmark"
 			}]
 			x: -8.0d
@@ -123,7 +123,7 @@
 				type: "item"
 			}]
 			x: -8.0d
-			y: 1.5d
+			y: 0.5d
 		}
 		{
 			dependencies: ["40C9E9FB0C7C6FC8"]
@@ -159,7 +159,7 @@
 				type: "item"
 			}]
 			x: -11.0d
-			y: 1.5d
+			y: 0.5d
 		}
 		{
 			dependencies: ["6596BCABBA5D66FA"]
@@ -170,7 +170,7 @@
 				type: "item"
 			}]
 			x: -11.0d
-			y: 3.5d
+			y: 2.0d
 		}
 		{
 			dependencies: ["7F7442D83CE799A0"]
@@ -181,7 +181,7 @@
 				type: "item"
 			}]
 			x: -9.5d
-			y: 3.5d
+			y: 2.0d
 		}
 		{
 			dependencies: ["5682CCC66A79BECF"]
@@ -192,7 +192,7 @@
 				type: "item"
 			}]
 			x: -8.0d
-			y: 3.5d
+			y: 2.0d
 		}
 		{
 			dependencies: ["440BE9384F3CCE69"]
@@ -203,7 +203,7 @@
 				type: "item"
 			}]
 			x: -6.5d
-			y: 3.5d
+			y: 2.0d
 		}
 		{
 			dependencies: ["53C77FF035E5F109"]
@@ -266,5 +266,5 @@
 			y: -3.5d
 		}
 	]
-	title: "{gte.tier_7_zpm.title}"
+	title: "[Tier 7] ZPM"
 }

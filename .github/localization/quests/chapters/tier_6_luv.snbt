@@ -2,10 +2,10 @@
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "tier_6_luv"
-	group: ""
+	group: "277796EFA601375B"
 	icon: "gtceu:luv_machine_hull"
 	id: "071CA4087BD22343"
-	order_index: 7
+	order_index: 6
 	quest_links: [ ]
 	quests: [
 		{
@@ -38,7 +38,7 @@
 					type: "item"
 				}
 			]
-			title: "{gte.tier_6_luv.quests.7DA58C45E485F227.title}"
+			title: "Luv时代的老五样"
 			x: -3.0d
 			y: -2.0d
 		}
@@ -51,7 +51,7 @@
 				item: "gtceu:raw_naquadah"
 				type: "item"
 			}]
-			title: "{gte.tier_6_luv.quests.3F0AF210D5990D6B.title}"
+			title: "硅岩处理产线"
 			x: -3.0d
 			y: -0.5d
 		}
@@ -86,7 +86,7 @@
 				type: "item"
 			}]
 			x: -2.0d
-			y: 2.5d
+			y: 2.0d
 		}
 		{
 			dependencies: ["579BC49FB703923E"]
@@ -97,7 +97,7 @@
 				type: "item"
 			}]
 			x: -4.0d
-			y: 2.5d
+			y: 2.0d
 		}
 		{
 			dependencies: ["7DA58C45E485F227"]
@@ -105,10 +105,10 @@
 			id: "2A5A840AA41A6682"
 			tasks: [{
 				id: "4FA874CB42923F8E"
-				title: "{gte.tier_6_luv.quests.2A5A840AA41A6682.tasks.4FA874CB42923F8E.title}"
+				title: "氟锑酸产线"
 				type: "checkmark"
 			}]
-			x: 0.0d
+			x: -0.5d
 			y: -2.0d
 		}
 		{
@@ -119,7 +119,7 @@
 				item: "gtceu:antimony_dust"
 				type: "item"
 			}]
-			x: 0.0d
+			x: -0.5d
 			y: -1.0d
 		}
 		{
@@ -130,7 +130,7 @@
 				item: "gtceu:antimony_trioxide_dust"
 				type: "item"
 			}]
-			x: 0.0d
+			x: -0.5d
 			y: 0.0d
 		}
 		{
@@ -141,7 +141,7 @@
 				item: "gtceu:antimony_trifluoride_dust"
 				type: "item"
 			}]
-			x: 0.0d
+			x: -0.5d
 			y: 1.0d
 		}
 		{
@@ -153,26 +153,26 @@
 			id: "3B7606522ABE5DC4"
 			tasks: [{
 				id: "454EB81C5E07A2DF"
-				title: "{gte.tier_6_luv.quests.3B7606522ABE5DC4.tasks.454EB81C5E07A2DF.title}"
+				title: "氟锑酸"
 				type: "checkmark"
 			}]
-			x: 0.0d
-			y: 2.5d
+			x: -0.5d
+			y: 2.0d
 		}
 		{
 			dependencies: [
 				"0DEB2D9AA7FEE7D2"
 				"3B7606522ABE5DC4"
 			]
-			description: ["{gte.tier_6_luv.quests.6F1B3FE3756DAB54.description0}"]
+			description: ["硅岩粉和氟锑酸放进大化反，会得到两种重要的硅岩溶液"]
 			id: "6F1B3FE3756DAB54"
 			tasks: [{
 				id: "4A5B7A556C273106"
-				title: "{gte.tier_6_luv.quests.6F1B3FE3756DAB54.tasks.4A5B7A556C273106.title}"
+				title: "硅岩处理步骤II"
 				type: "checkmark"
 			}]
-			x: -1.0d
-			y: 3.5d
+			x: -0.5d
+			y: 3.0d
 		}
 		{
 			dependencies: [
@@ -183,11 +183,11 @@
 			id: "7EB8DDBEF24A6262"
 			tasks: [{
 				id: "5FB0B321C19DF6DB"
-				title: "{gte.tier_6_luv.quests.7EB8DDBEF24A6262.tasks.5FB0B321C19DF6DB.title}"
+				title: "含杂富集硅岩溶液"
 				type: "checkmark"
 			}]
 			x: -2.0d
-			y: 4.5d
+			y: 3.0d
 		}
 		{
 			dependencies: [
@@ -198,11 +198,11 @@
 			id: "3699B4B98DA11F7E"
 			tasks: [{
 				id: "2D68A244345DC788"
-				title: "{gte.tier_6_luv.quests.3699B4B98DA11F7E.tasks.2D68A244345DC788.title}"
+				title: "含杂超能硅岩溶液"
 				type: "checkmark"
 			}]
-			x: 0.0d
-			y: 4.5d
+			x: -0.5d
+			y: 4.0d
 		}
 		{
 			dependencies: [
@@ -213,11 +213,11 @@
 			id: "2F8223AA0C63EB39"
 			tasks: [{
 				id: "1A49577F7B42421E"
-				title: "{gte.tier_6_luv.quests.2F8223AA0C63EB39.tasks.1A49577F7B42421E.title}"
+				title: "富集硅岩溶液"
 				type: "checkmark"
 			}]
 			x: -2.5d
-			y: 5.5d
+			y: 4.0d
 		}
 		{
 			dependencies: ["7EB8DDBEF24A6262"]
@@ -228,7 +228,7 @@
 				type: "item"
 			}]
 			x: -1.5d
-			y: 5.5d
+			y: 4.0d
 		}
 		{
 			dependencies: ["4D0284E0E363C920"]
@@ -239,7 +239,7 @@
 				type: "item"
 			}]
 			x: -1.5d
-			y: 7.0d
+			y: 5.0d
 		}
 		{
 			dependencies: [
@@ -250,11 +250,11 @@
 			id: "3D9216C1EC5DE107"
 			tasks: [{
 				id: "76C8A1C645E4153A"
-				title: "{gte.tier_6_luv.quests.3D9216C1EC5DE107.tasks.76C8A1C645E4153A.title}"
+				title: "酸性富集硅岩溶液"
 				type: "checkmark"
 			}]
 			x: -2.5d
-			y: 7.0d
+			y: 5.0d
 		}
 		{
 			dependencies: ["3D9216C1EC5DE107"]
@@ -265,7 +265,7 @@
 				type: "item"
 			}]
 			x: -3.0d
-			y: 8.0d
+			y: 6.0d
 		}
 		{
 			dependencies: [
@@ -276,11 +276,11 @@
 			id: "64C2F01D21F7AA1B"
 			tasks: [{
 				id: "193273EEBADC858E"
-				title: "{gte.tier_6_luv.quests.64C2F01D21F7AA1B.tasks.193273EEBADC858E.title}"
+				title: "富集硅岩废液"
 				type: "checkmark"
 			}]
 			x: -2.0d
-			y: 8.0d
+			y: 6.0d
 		}
 		{
 			dependencies: ["19AFCF14C6783CAE"]
@@ -291,7 +291,7 @@
 				type: "item"
 			}]
 			x: -3.0d
-			y: 9.0d
+			y: 7.0d
 		}
 		{
 			dependencies: [
@@ -302,11 +302,11 @@
 			id: "55EEBAA3ADE3BA34"
 			tasks: [{
 				id: "4F5B3965BB38AAD8"
-				title: "{gte.tier_6_luv.quests.55EEBAA3ADE3BA34.tasks.4F5B3965BB38AAD8.title}"
+				title: "超能硅岩溶液"
 				type: "checkmark"
 			}]
-			x: 0.0d
-			y: 5.5d
+			x: -0.5d
+			y: 5.0d
 		}
 		{
 			dependencies: [
@@ -317,11 +317,11 @@
 			id: "2C9B280BC2D8AEE8"
 			tasks: [{
 				id: "115D392DFCF6EA53"
-				title: "{gte.tier_6_luv.quests.2C9B280BC2D8AEE8.tasks.115D392DFCF6EA53.title}"
+				title: "酸性超能硅岩溶液"
 				type: "checkmark"
 			}]
-			x: 0.0d
-			y: 7.0d
+			x: -0.5d
+			y: 6.0d
 		}
 		{
 			dependencies: ["2C9B280BC2D8AEE8"]
@@ -332,7 +332,7 @@
 				type: "item"
 			}]
 			x: -0.5d
-			y: 8.0d
+			y: 7.0d
 		}
 		{
 			dependencies: ["0460E94E21FE1109"]
@@ -343,14 +343,14 @@
 				type: "item"
 			}]
 			x: -0.5d
-			y: 9.0d
+			y: 8.0d
 		}
 		{
 			dependencies: ["7DA58C45E485F227"]
 			id: "3F1682EF49FD8630"
 			tasks: [{
 				id: "3279576946112F90"
-				title: "{gte.tier_6_luv.quests.3F1682EF49FD8630.tasks.3279576946112F90.title}"
+				title: "研究站与计算机"
 				type: "checkmark"
 			}]
 			x: -3.0d
@@ -365,7 +365,7 @@
 				type: "item"
 			}]
 			x: -4.5d
-			y: -5.0d
+			y: -5.5d
 		}
 		{
 			dependencies: ["3F1682EF49FD8630"]
@@ -376,7 +376,7 @@
 				type: "item"
 			}]
 			x: -3.5d
-			y: -5.0d
+			y: -5.5d
 		}
 		{
 			dependencies: ["3F1682EF49FD8630"]
@@ -387,11 +387,11 @@
 				type: "item"
 			}]
 			x: -2.5d
-			y: -5.0d
+			y: -5.5d
 		}
 		{
 			dependencies: ["3F1682EF49FD8630"]
-			description: ["{gte.tier_6_luv.quests.2FB1BB99B8B8D542.description0}"]
+			description: ["这台多方块机器是提供研究站需要的另外一种\"能源\"被称作算力。算力通过算力数据源仓输出到计算机,HPCA总共有四种类型的HPCA组件。空HPCA组件起到填充多方块结构作用，HPCA计算组件，起到提供算力作用，会导致HPCA耗能增加和冷却需求增加，HPCA桥接组件，连接网络交换机，HPCA冷却组件分为被动冷却组件和主动冷却组件,起到冷却作用，主动冷却组件需输对应的冷却液，HPCA如果过热会损坏！"]
 			id: "2FB1BB99B8B8D542"
 			tasks: [{
 				id: "789D8B5C7BCECD20"
@@ -399,7 +399,7 @@
 				type: "item"
 			}]
 			x: -1.5d
-			y: -5.0d
+			y: -5.5d
 		}
 		{
 			dependencies: ["2FB1BB99B8B8D542"]
@@ -409,7 +409,7 @@
 				item: "gtceu:hpca_computation_component"
 				type: "item"
 			}]
-			x: -3.5d
+			x: -2.5d
 			y: -6.5d
 		}
 		{
@@ -420,7 +420,7 @@
 				item: "gtceu:hpca_advanced_computation_component"
 				type: "item"
 			}]
-			x: -2.5d
+			x: -1.5d
 			y: -6.5d
 		}
 		{
@@ -431,7 +431,7 @@
 				item: "gtceu:hpca_heat_sink_component"
 				type: "item"
 			}]
-			x: -1.5d
+			x: -0.5d
 			y: -6.5d
 		}
 		{
@@ -443,7 +443,7 @@
 				type: "item"
 			}]
 			x: -0.5d
-			y: -6.5d
+			y: -5.5d
 		}
 		{
 			dependencies: ["2FB1BB99B8B8D542"]
@@ -453,8 +453,8 @@
 				item: "gtceu:hpca_bridge_component"
 				type: "item"
 			}]
-			x: 0.5d
-			y: -6.5d
+			x: -0.5d
+			y: -4.5d
 		}
 		{
 			dependencies: ["3F1682EF49FD8630"]
@@ -468,15 +468,15 @@
 				}
 				type: "item"
 			}]
-			x: -5.5d
-			y: -5.0d
+			x: -4.5d
+			y: -4.5d
 		}
 		{
 			dependencies: [
 				"7DA58C45E485F227"
 				"7FA9202D6FF9A869"
 			]
-			description: ["{gte.tier_6_luv.quests.3805271E630E26BA.description0}"]
+			description: ["你的第一块晶体处理器需要这台核聚变反应堆，此外，核聚变反应堆能够产出等离子体用来发出巨量的电。"]
 			id: "3805271E630E26BA"
 			size: 2.0d
 			tasks: [{
@@ -496,7 +496,7 @@
 			id: "057B57221E02E23F"
 			tasks: [{
 				id: "5B0D9E7F1BAC516E"
-				title: "{gte.tier_6_luv.quests.057B57221E02E23F.tasks.5B0D9E7F1BAC516E.title}"
+				title: "液态铕"
 				type: "checkmark"
 			}]
 			x: -8.0d
@@ -623,7 +623,7 @@
 				item: "gtceu:naquadah_alloy_ingot"
 				type: "item"
 			}]
-			x: -1.0d
+			x: -2.0d
 			y: -3.5d
 		}
 		{
@@ -634,19 +634,19 @@
 				item: "gtceu:naquadah_alloy_plate"
 				type: "item"
 			}]
-			x: 0.5d
+			x: -0.5d
 			y: -3.5d
 		}
 		{
 			dependencies: ["13857FF0E1E2896C"]
 			id: "451A4C84B76EFAB5"
-			size: 3.0d
+			size: 2.0d
 			tasks: [{
 				id: "7EE72B0041A8DE76"
 				item: "gtceu:zpm_machine_hull"
 				type: "item"
 			}]
-			x: 3.0d
+			x: 1.5d
 			y: -3.5d
 		}
 		{
@@ -669,7 +669,7 @@
 				type: "item"
 			}]
 			x: -5.0d
-			y: -4.0d
+			y: -3.5d
 		}
 		{
 			dependencies: ["35EE10B7B8C18813"]
@@ -683,5 +683,5 @@
 			y: -3.5d
 		}
 	]
-	title: "{gte.tier_6_luv.title}"
+	title: "[Tier 6] Luv"
 }
