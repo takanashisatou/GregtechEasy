@@ -86,7 +86,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: GregTechEasy-server
-        path: ./GregTechEasy-server.zip
+        path: ./GregTechEasy-server-*.zip
 
   
   publish:
