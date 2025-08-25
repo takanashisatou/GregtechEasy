@@ -1,4 +1,4 @@
-filename = "mekanism_extras-1.20.1-1.4.4.jar"
+filename = "mekanism_extras-1.20.1-1.4.5.jar"
 name = "Mekanism Extras"
 side = "both"
 x-prismlauncher-loaders = ["forge"]
@@ -6,10 +6,10 @@ x-prismlauncher-mc-versions = ["1.20.1"]
 x-prismlauncher-release-type = "release"
 
 [download]
-hash = "b530cb9e83873dbff886ce613c0175b987b9e856"
+hash = "6b85f5287bff54bca662f82b595a04085ea7c49e"
 hash-format = "sha1"
-url = "https://edge.forgecdn.net/files/6838/499/mekanism_extras-1.20.1-1.4.4.jar"
+url = "https://edge.forgecdn.net/files/6923/166/mekanism_extras-1.20.1-1.4.5.jar"
 
 [update.curseforge]
-file-id = 6838499
+file-id = 6923166
 project-id = 1026040
