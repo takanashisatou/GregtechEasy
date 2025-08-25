@@ -327,6 +327,15 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
     .itemInputs('mekanism:ultimate_control_circuit')
     .duration(20)
     .itemOutputs('1x gtceu:micro_processor_computer')
+    gtr.assembler('gtceu:general_fuel_engine')
+    .circuit(24)
+    .EUt(1960)
+    .duration(600)
+    .itemInputs('4x gtceu:iv_machine_hull',
+        '4x #gtceu:circuits/zpm',
+        '8x gtceu:iv_electric_piston'
+    ).inputFluids('gtceu:styrene_butadiene_rubber 4096')
+    .itemOutputs('1x gtceu:general_fuel_engine')
     //event.remove({id:'gtceu:blasting/smelt_deepslate_platinum_ore_to_ingot'})
     //event.remove({id:'gtceu:blasting/smelt_raw_platinum_ore_to_ingot'})
     //event.remove({id:'gtceu:blasting/smelt_platinum_ore_to_ingot'})
