@@ -1,0 +1,101 @@
+
+#World generation settings for Mekanism Extras. This config is synced from server to client
+[world_generation]
+	#Allows chunks to retrogen Mekanism Extras ore blocks.
+	enableRegeneration = false
+	#Change this value to cause Mekanism Extras to regen its ore in all loaded chunks.
+	#Range: > 0
+	userWorldGenVersion = 0
+
+	#Generation Settings for naquadah ore.
+	[world_generation.naquadah]
+		#Determines if naquadah ore should be added to world generation.
+		shouldGenerate = true
+
+		#small naquadah vein Generation Settings.
+		[world_generation.naquadah.small]
+			#Determines if small naquadah veins should be added to world generation. Note: Requires generating naquadah ore to be enabled.
+			shouldGenerate = true
+			#Chance that small naquadah veins generates in a chunk.
+			#Range: 1 ~ 256
+			perChunk = 6
+			#Maximum number of blocks in a small naquadah vein.
+			#Range: 1 ~ 64
+			maxVeinSize = 4
+			#Chance that blocks that are directly exposed to air in a small naquadah vein are not placed.
+			#Range: 0.0 ~ 1.0
+			discardChanceOnAirExposure = 0.0
+			#Distribution shape for placing small naquadah veins.
+			#Allowed Values: TRAPEZOID, UNIFORM
+			shape = "TRAPEZOID"
+			#Half length of short side of trapezoid, only used if shape is TRAPEZOID. A value of zero means the shape is a triangle.
+			plateau = 0
+
+			#Minimum (inclusive) height anchor for small naquadah veins.
+			[world_generation.naquadah.small.minInclusive]
+				#Type of anchor.
+				#Absolute -> y = value
+				#Above Bottom -> y = minY + value
+				#Below Top -> y = depth - 1 + minY - value
+				#Allowed Values: ABSOLUTE, ABOVE_BOTTOM, BELOW_TOP
+				type = "ABSOLUTE"
+				#Value used for calculating y for the anchor based on the type.
+				value = -63
+
+			#Maximum (inclusive) height anchor for small naquadah veins.
+			[world_generation.naquadah.small.maxInclusive]
+				#Type of anchor.
+				#Absolute -> y = value
+				#Above Bottom -> y = minY + value
+				#Below Top -> y = depth - 1 + minY - value
+				#Allowed Values: ABSOLUTE, ABOVE_BOTTOM, BELOW_TOP
+				type = "ABSOLUTE"
+				#Value used for calculating y for the anchor based on the type.
+				value = -60
+
+	#Generation Settings for end_naquadah ore.
+	[world_generation.end_naquadah]
+		#Determines if end_naquadah ore should be added to world generation.
+		shouldGenerate = true
+
+		#middle end_naquadah vein Generation Settings.
+		[world_generation.end_naquadah.middle]
+			#Determines if middle end_naquadah veins should be added to world generation. Note: Requires generating end_naquadah ore to be enabled.
+			shouldGenerate = true
+			#Chance that middle end_naquadah veins generates in a chunk.
+			#Range: 1 ~ 256
+			perChunk = 8
+			#Maximum number of blocks in a middle end_naquadah vein.
+			#Range: 1 ~ 64
+			maxVeinSize = 4
+			#Chance that blocks that are directly exposed to air in a middle end_naquadah vein are not placed.
+			#Range: 0.0 ~ 1.0
+			discardChanceOnAirExposure = 0.0
+			#Distribution shape for placing middle end_naquadah veins.
+			#Allowed Values: TRAPEZOID, UNIFORM
+			shape = "TRAPEZOID"
+			#Half length of short side of trapezoid, only used if shape is TRAPEZOID. A value of zero means the shape is a triangle.
+			plateau = 0
+
+			#Minimum (inclusive) height anchor for middle end_naquadah veins.
+			[world_generation.end_naquadah.middle.minInclusive]
+				#Type of anchor.
+				#Absolute -> y = value
+				#Above Bottom -> y = minY + value
+				#Below Top -> y = depth - 1 + minY - value
+				#Allowed Values: ABSOLUTE, ABOVE_BOTTOM, BELOW_TOP
+				type = "ABSOLUTE"
+				#Value used for calculating y for the anchor based on the type.
+				value = 15
+
+			#Maximum (inclusive) height anchor for middle end_naquadah veins.
+			[world_generation.end_naquadah.middle.maxInclusive]
+				#Type of anchor.
+				#Absolute -> y = value
+				#Above Bottom -> y = minY + value
+				#Below Top -> y = depth - 1 + minY - value
+				#Allowed Values: ABSOLUTE, ABOVE_BOTTOM, BELOW_TOP
+				type = "ABSOLUTE"
+				#Value used for calculating y for the anchor based on the type.
+				value = 25
+
