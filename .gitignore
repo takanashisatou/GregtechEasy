@@ -45,5 +45,7 @@
 /result
 packwiz.exe
 
+!extendedae_plus-*.jar
+!gtecore-*.jar
 config/flywheel-client.toml
 config/embeddium-options.json

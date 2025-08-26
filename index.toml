@@ -250,99 +250,99 @@ hash = "0b1b3c45343435184c9dde3149b38afcdb97953e287686ecda54385f53ebcddc"
 
 [[files]]
 file = "config/ftbquests/quests/chapter_groups.snbt"
-hash = "e6d7bb4b7c70b225cf0432870ec81f5d0a1f280a785120ec66a8fda20f2771a8"
+hash = "231286e0bd29604691896ca515450d52401efa38cf23d5b594b97912c0bb40d2"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/0587C061E00F8A08.snbt"
-hash = "da5f0f2fd3a0e5f8e62404d5dace50673d8dd887b3d87c56c7824a344f10e1c5"
+hash = "16a580899d1259a47571c33124a87c58a4355be93bc8c757f77727559f742669"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/1261C93B9F66AF81.snbt"
-hash = "b0745a192440811c13ab6c12608c9993ccd84a4881c1f142eda4a0ee0679bb24"
+hash = "b5a25ce1c755f0b1f700a360c07f9e9cccd66badc5563731e8a3147c008a5db7"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/1AB1207561006D54.snbt"
-hash = "58f0160fe791a85fd1a331698fc05b378bfca4ab39df4aae74a8a810e2671d0c"
+hash = "ea9ee94dc3684f20dffcfa0f7b0d6d3fe2999845c48c3b66546b7c09dec82439"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/32BAFE260186C2F8.snbt"
-hash = "93a59f1c4ba886731c1540a699d9bd909e4d654363c5c85466e7769776f97b8d"
+hash = "219678121b1c1699f58027764cae487adc974fba955e560e06c5a74ea0a1ffb9"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/3B6051F1E8CE910E.snbt"
-hash = "430aaf0967d6fcd21c5a5540637b56900227fcf9db9b9ec58cb0f957d27978e5"
+hash = "021197b64704374b6280a284db46273b256e329c736a657c84d35346debc0c7a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/450B4E83018489AA.snbt"
-hash = "c495e2e32fbac408074c1d811caafea035c0e9492199ef2a10135a9c74e612cc"
+hash = "c92cfbf92742d1a16b9178d3ffe69ebe7c875693469bfee39ffe2b2445d76ec5"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/47AB9034BB01D142.snbt"
-hash = "5e28ff86a71fbf8542851d13335333bf2f9a2647e6cbfa36956268aecef3d890"
+hash = "890c7dc70b7d95808b547b98309f493ae4688e62124908562340f577e06405d6"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/537F7C5E358FAFFA.snbt"
-hash = "c953311fbb983f01b9cd1919e6ee0dbb97852c15a2c341d0a1f2badeccc08a21"
+hash = "71fa42de565f81a41dd848aa9b6c02e1b45b802513a8ceeab079db05abca2d49"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/708235A0CFA41C29.snbt"
-hash = "6721476c59399262e2c5aa4d4565ab3af4229c4f21475b2cd561477b4ac761bb"
+hash = "2cc8c6478d1252ee157f60c475cdc037d546fcfe9646ee8d0a17264a0f881192"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/72E4956FD9B3E490.snbt"
-hash = "0da6bde21dd89e6838a9416d20993abdefcfe04dc71acf0fc12b51fa80484eaa"
+hash = "72d22f4efe6018f4ef42d172c656b7ca873efe2c7218d483267305e24facb24d"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/747CBC892EF10658.snbt"
-hash = "4641529d97687c877ffeeab2238a74a5bf205cfe6ef0ee7e3d265fd0590fd54e"
+hash = "ff4f220cca58868c5b6a458982c6b49651a7a07728280a59f0e5cd6db9d391fd"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/laserio.snbt"
-hash = "50cbbbd2270e7bdf3a24af56d2f559f64fd3c065bb304a91434f44a3aef1480d"
+hash = "389880cb6a2c61ef1d7b167548ab1efd3d8dd507e5b8977c88a7af3c084fff21"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/pipez.snbt"
-hash = "e121dca0ee55f2d31d634d8d9a3874db8c7967df90b4168f6501140e13aacf91"
+hash = "48c04c1357b97ddb6b3a363b2fd5de4bd2e3a095addc77fa3a0bcfa1e8e6c974"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_0.snbt"
-hash = "68c50dcd0423811933247b0546f4567c649f4e8eee0ca507e325bed72f13b112"
+hash = "a389ccf7d7ddbbdb462b8b2ab739fa35f666fbf065fecbf209d16a6cb9d5bc49"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_1_lv.snbt"
-hash = "40fe76b4089c49ae9c968721797f873f42c8b544d91695aaf1038819f2bfdb63"
+hash = "b96b125c1c3f1405c0b7e07799aef18e6189fb9f579e25c96ac6a2475c618a76"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_2_mv.snbt"
-hash = "53c6deeb3c41d2e7e5e8a6711d04589734b17512643c003ae1dbc9960c4c40d1"
+hash = "15c06c70376e9f05c1ec49f5ef14a19af14baf7c83464127e545b660b86d6511"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_3_hv.snbt"
-hash = "3d463cce762037cadeeeaa153c16445e72f522c6e2261c56578ac08e095af981"
+hash = "e4c462deba458fb360f79f311d7ca9815c559a801938962898a3772134a0fb7a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_4_ev.snbt"
-hash = "311a07fe46cc970cf3183ab238e2182fb4dc8cb6312dcdc2178921fdf325a358"
+hash = "a890aaa19475273abfe4a14a5e46addf9db29be3580a20abb2a9012b20089c94"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_5_iv.snbt"
-hash = "56fac47e2c6d10d035054dd0ed9daed53dc7baed0a27fd414b8db8ce894224f0"
+hash = "4b0fa093bd1be893ef3785af67959c2a77e9d6e78092dd7453b4dd044e90caa5"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_6_luv.snbt"
-hash = "fa370adfa5bf7ea68e203d53e3f49fb787cf759c08277cffaeec010668b630bb"
+hash = "bc6df2c9af3a6e7db724da6b78341ea32f5a35359d86871f1a3fabbed4ff5607"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_7_zpm.snbt"
-hash = "72ca8bdb8919f60d424628eb080738b2882c8aabef4900f5c81a0b5d6eb0c0a6"
+hash = "e3f34bf4df6fe5c95ca11db5309809dc1552edf6dc3958609afbe54e99d8de2e"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_8_uv.snbt"
-hash = "9a595fd8c530d099f7b8cdb9df4b85ba0c09bc30c07315d529c2629aec51c9b8"
+hash = "da8ac34d0fd9b9da021bf2b790f68331af04948448bc17f429ac2ff7f30430d7"
 
 [[files]]
 file = "config/ftbquests/quests/data.snbt"
-hash = "6fd6f7a8adf8e6d9fd4d0ef68d1fad516cc1556b0805655a58d925f80c22f670"
+hash = "530db8ec8cdd640ef7f6a68c30ae55de4ddbd7d27f3af27e5b43dc97c5b7cc12"
 
 [[files]]
 file = "config/gtca.yaml"
@@ -642,7 +642,7 @@ hash = "f9b9e1cfc408f14b971340c7d32fda7f073c6285e9b3ff3a9adda04ceca39ad5"
 
 [[files]]
 file = "kubejs/assets/gtceu/lang/zh_cn.json"
-hash = "ca3fcdaa2e183e34d1d4f51c6c867313589039a2495ecb4835f2ebba2c3357b3"
+hash = "746bffad80ef95b8ee237da80933076e2a41bbda23e155a6f8a06a0401faeb51"
 
 [[files]]
 file = "kubejs/assets/kubejs/textures/block/example_block.png"
@@ -654,7 +654,7 @@ hash = "45a5f56eba6066ad05c70988a32b72c50cfeb6e35857739bd582007011ea002b"
 
 [[files]]
 file = "kubejs/assets/mae2/lang/zh_cn.json"
-hash = "58a7175f0222bfcbda65f1c00aced740f7b5162afd9cf3b02dff2971cce65c03"
+hash = "caa1ab297d892964e4b723b3080d6d926afa06f41d3769177216ed2bb2e33892"
 
 [[files]]
 file = "kubejs/client_scripts/example.js"
@@ -662,15 +662,15 @@ hash = "152019ed6e0410a82805a95ea10f1ad1a17beaf2b50864d89b8fa9d172129ac7"
 
 [[files]]
 file = "kubejs/client_scripts/teleport.js"
-hash = "7de423673d4627d785dc353bea748ee493a2f7fc86c57a69e8be6df883e5207b"
+hash = "3174b61fc9ecf2b14fe07e1e9ba881cc7e31110c6f889a706cbf4115640b9b7e"
 
 [[files]]
 file = "kubejs/config/client.properties"
-hash = "f126e20ef9527ffdd6868851beb766e2048905ec98ec70b2d9d9dc47a7ed3e05"
+hash = "ff37d9eac10ae2c0008ce7575388987610145014d4eff188d413ca93f0af3f4c"
 
 [[files]]
 file = "kubejs/config/common.properties"
-hash = "ba07362ba6a43847fb353e9a17711333c28c65fc6bf787cdeebe87c59f7aaa03"
+hash = "817bc19c70d178feedf6ba238bf6fc2210546e0ee051abb359cda457411bd989"
 
 [[files]]
 file = "kubejs/config/probejs.json"
@@ -678,7 +678,7 @@ hash = "eb0bfaed60482e4e159ff4e2452cc098de57689f7cc82b4c9d9f112548173da6"
 
 [[files]]
 file = "kubejs/server_scripts/GTERecipe.js"
-hash = "40e5848a176082d847285b632f8e9a1b3903206c218689467b967e8ad5c95687"
+hash = "fe5bd472f84df585ac24532ba0677c378253398cd45a7c3613c7834845ff1675"
 
 [[files]]
 file = "kubejs/server_scripts/bedrock_fluid.js"
@@ -686,7 +686,7 @@ hash = "a2c2339691fc48fbd14fb307292dff3e21222712d9240810742d7df0c6d74dfb"
 
 [[files]]
 file = "kubejs/server_scripts/easymultiblock.js"
-hash = "564f79e248aa390770f8226cf8bc169825267882b9fdc3e9a63e714ca292fa51"
+hash = "ff3b35283a2431582ee23602285acad1bf9ecf09c0ec54f5ff00d74292e6a5a6"
 
 [[files]]
 file = "kubejs/server_scripts/example.js"
@@ -694,15 +694,15 @@ hash = "a19b7c81a150bd965b153ded9c45ee7649eaad9e10d0a5ec1d662e7b15ceadb2"
 
 [[files]]
 file = "kubejs/server_scripts/flat_dimension.js"
-hash = "f4619fe19bc2103e2b8aadafbfea734783d7be7d5f42ceb43e2850901fb8eaf1"
+hash = "56f2b3730f92a2046705dfcc6aa99b6b2747ec6950001d8b531f102ec613ecce"
 
 [[files]]
 file = "kubejs/startup_scripts/GTEMaterial.js"
-hash = "672da7bab2a8c2c161536e153263993ada625b5ea3aac026593f5c72748c01cd"
+hash = "da55d233485f1cac28c923970ef9e019635e66409ef130a8a218810f856716da"
 
 [[files]]
 file = "kubejs/startup_scripts/GTESteamMultiblockMachine.js"
-hash = "f7f76882e448775ddd84db9258dfbcfb8ccb66076cd4467044cfe74d481e0188"
+hash = "5704718459055b4b4eb3dd70b6c9e6591eb6c513b8c7da8f85e1b44779c99dd9"
 
 [[files]]
 file = "kubejs/startup_scripts/example.js"
@@ -823,6 +823,10 @@ hash = "557e0bbbfee7df4264c8e7cfeffccdfb9dde84cce4d0a859aaf4a4dff1aba492"
 metafile = true
 
 [[files]]
+file = "mods/extendedae_plus-1.3.2-fix1.jar"
+hash = "e9bfc37e7bb96ae439afb1e6680742491f7dd9804453bd4d887a52697edf1ebd"
+
+[[files]]
 file = "mods/ferritecore.pw.toml"
 hash = "907de56227a9f6e2b2c7448f31be3989cbf85237150ac30f619a702c8a2c9785"
 metafile = true
@@ -871,6 +875,10 @@ metafile = true
 file = "mods/gregtechceu-modern.pw.toml"
 hash = "5043cea6f0700666d0b942ec1495e0cdfc46c5408f56710c0befa129b3a52b3d"
 metafile = true
+
+[[files]]
+file = "mods/gtecore-1.20.1-1.5.jar"
+hash = "011e8e63306577fbb2ce0a46873f78f58b27892506cd2024bc9557a12cf4c040"
 
 [[files]]
 file = "mods/gtmthings.pw.toml"
@@ -1081,675 +1089,3 @@ metafile = true
 file = "mods/yeetusexperimentus.pw.toml"
 hash = "8a9c4f7a5b311acaba42b1a291ef287857bf65a4a607c803fc3b62695238a60a"
 metafile = true
-
-[[files]]
-file = "overrides/PCL/Setup.ini"
-hash = "c5edaaaadc10972c0ca8db4a4a682bcc99ba077124be78e3b7573d6bcdcac348"
-
-[[files]]
-file = "overrides/TrashSlotSaveState.json"
-hash = "e75fe8d3b0ecb050ae09661ae464ed870bf5d80d54df8ff40634119b139cabb0"
-
-[[files]]
-file = "overrides/config/AdvancedBackups-client.properties"
-hash = "0ccf7084062f696c9c2c8255dc74994327a71512cb290f9e2e2b7ff502850b5e"
-
-[[files]]
-file = "overrides/config/AdvancedBackups.properties"
-hash = "db154f73880c88d89fd212b0caa6db2aa4dbfb032c3a7841bd43ec3524a75fa4"
-
-[[files]]
-file = "overrides/config/Mekanism/additions-client.toml"
-hash = "7bf81e79c36e1ff5ceea435f5493000f27821b1c72329ea4298955609c6591c8"
-
-[[files]]
-file = "overrides/config/Mekanism/additions.toml"
-hash = "0788522bba20d8e72bdd355a0ea0e11810268956f7dbb0b45781d2bbb79b7347"
-
-[[files]]
-file = "overrides/config/Mekanism/client.toml"
-hash = "096303223e1f1cb384f3fca3d0a825857aab63608013d4300d21486e2ea8e53a"
-
-[[files]]
-file = "overrides/config/Mekanism/common.toml"
-hash = "aded0937dff550c18f0656661333ad9f37990cc5d38e6840497cab3ff7a266fc"
-
-[[files]]
-file = "overrides/config/Mekanism/gear.toml"
-hash = "02d464d81e33020e6ad28e0021829f1727f02821014c251afef14cfc85c99660"
-
-[[files]]
-file = "overrides/config/Mekanism/general.toml"
-hash = "930408c80a41c9e7e39b2c31f7764b85e61d88b382f8bff3992404585f1d0bc2"
-
-[[files]]
-file = "overrides/config/Mekanism/generator-storage.toml"
-hash = "c28e7cc320f69327d5f2affdd2d3cbb85ffee6ba577a75a98618cedd02e564f4"
-
-[[files]]
-file = "overrides/config/Mekanism/generators-gear.toml"
-hash = "9dfdefd08e85a5089eb6ba33478913e1c96d984e18a5edcf9b5310616fee18c9"
-
-[[files]]
-file = "overrides/config/Mekanism/generators.toml"
-hash = "dc3b90dacbb87a5ac278007bf806e63100e47f419492a5a390a55471f6724c08"
-
-[[files]]
-file = "overrides/config/Mekanism/machine-storage.toml"
-hash = "5762af5926b2312aaff9bda0cbbb44748d6ad2ed1b12a5d19af28407bc604dc6"
-
-[[files]]
-file = "overrides/config/Mekanism/machine-usage.toml"
-hash = "331ae2bd0031e3d8c65f3572f17bf81af186363c4a4a630e4184f6d427d2f136"
-
-[[files]]
-file = "overrides/config/Mekanism/tiers.toml"
-hash = "b5fb9d3325f776146cd6d891be2ff373a406494fe51e4cf2551b360241210d26"
-
-[[files]]
-file = "overrides/config/Mekanism/tools-client.toml"
-hash = "b12d9391ca6da6d45a0247daac7dd21a1400f42fccc51edd180e18459ad5fe00"
-
-[[files]]
-file = "overrides/config/Mekanism/tools.toml"
-hash = "6aa5e61a9b6280310e85e127431166fcb4d3826cf2b7ea07d2b42b75c25ab87c"
-
-[[files]]
-file = "overrides/config/Mekanism/world.toml"
-hash = "54971d6ffd03a2bd66d146d77f421e07133752f7b9c2f66a0a8196c7a85bac50"
-
-[[files]]
-file = "overrides/config/MekanismExtras/extras_machine_storage.toml"
-hash = "5b526ebf49f0418fee2474ad46d8e5693a09a052bd5f84963dac65a43501f146"
-
-[[files]]
-file = "overrides/config/MekanismExtras/extras_machine_usage.toml"
-hash = "da080d82b6fa2ec8db60cfaeb6094c42ad44f62df152b30ae5fabde6a64148d6"
-
-[[files]]
-file = "overrides/config/MekanismExtras/generator_extras.toml"
-hash = "7adce51aa106f2f3e08b17bc936fd5796bac6de3e8e285f0b7699ac0bae35f48"
-
-[[files]]
-file = "overrides/config/MekanismExtras/mekanism_extras.toml"
-hash = "cc6e6e583a3071b608b9210cda9efda756d2507d5f417a86b044f5a09ed3176f"
-
-[[files]]
-file = "overrides/config/MekanismExtras/world.toml"
-hash = "b7a165fc96f4cb33d7523e25b78a8ec5ac3937f588e410ba9972b2701b67ff14"
-
-[[files]]
-file = "overrides/config/ModernUI/bootstrap.properties"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "overrides/config/ModernUI/client-1.toml.bak"
-hash = "81614eedb7e665c2e9297f9ea13e3fb47db1b5aad98c4a2565ad6ada45fe6e24"
-
-[[files]]
-file = "overrides/config/ModernUI/client-2.toml.bak"
-hash = "5feb3a8c86c753f11851bc4515df48ecf60c4d024b3ab879d5f4d1f5ec92fce0"
-
-[[files]]
-file = "overrides/config/ModernUI/client-3.toml.bak"
-hash = "81614eedb7e665c2e9297f9ea13e3fb47db1b5aad98c4a2565ad6ada45fe6e24"
-
-[[files]]
-file = "overrides/config/ModernUI/client.toml"
-hash = "81614eedb7e665c2e9297f9ea13e3fb47db1b5aad98c4a2565ad6ada45fe6e24"
-
-[[files]]
-file = "overrides/config/ModernUI/common-1.toml.bak"
-hash = "3f3423b73ede42901495373c756f0b15e0e3f56c369873219176de1d621724fa"
-
-[[files]]
-file = "overrides/config/ModernUI/common-2.toml.bak"
-hash = "3f3423b73ede42901495373c756f0b15e0e3f56c369873219176de1d621724fa"
-
-[[files]]
-file = "overrides/config/ModernUI/common.toml"
-hash = "3f3423b73ede42901495373c756f0b15e0e3f56c369873219176de1d621724fa"
-
-[[files]]
-file = "overrides/config/ModernUI/text.toml"
-hash = "8c9a3a9332c5f5c12b36c7e00821c09195ec046547059cb629ba0a28b669297c"
-
-[[files]]
-file = "overrides/config/MouseTweaks.cfg"
-hash = "4069ce1a439d8c37453c1b1e9f2037e0942674c7e48723a39b37eab245792ad4"
-
-[[files]]
-file = "overrides/config/ae2/client.json"
-hash = "d347c617d6cff1c3f666eeb6cd7d4770177aec8c933b82749e5a0389878ebc8b"
-
-[[files]]
-file = "overrides/config/ae2/common.json"
-hash = "5167b8f7ee4b29979a3b521c856a4cd87e6d61fbebbd9d9fdf1186b9ae1d6104"
-
-[[files]]
-file = "overrides/config/appleskin-client.toml"
-hash = "28c6ad7570268b02ec6f73fb7c39c49ecf90f0697d0db9447899e8aa96285200"
-
-[[files]]
-file = "overrides/config/balm-client.toml"
-hash = "d6fe31956b9b29b35ff0bf93884a6a66ac7300af620d20414a85d8f0004a62a2"
-
-[[files]]
-file = "overrides/config/balm-common.toml"
-hash = "d6fe31956b9b29b35ff0bf93884a6a66ac7300af620d20414a85d8f0004a62a2"
-
-[[files]]
-file = "overrides/config/betterfpsdist.json"
-hash = "7410aa05bb28180a3d5389fe955affffa7e7842e330385d042eb78e7a73db017"
-
-[[files]]
-file = "overrides/config/configuration-options.json"
-hash = "0b68a3b324f4a172d577a10446593b8f64f38e37199c928b0fc5aee152baee00"
-
-[[files]]
-file = "overrides/config/cupboard.json"
-hash = "08bda8a4a20d302cb97d06bf11c4991e152a3a9e04c17302ea3b42aa77e6b028"
-
-[[files]]
-file = "overrides/config/curios-client.toml"
-hash = "3903cd1fcf402a8c155f21bb581eb78d26e067537cb8af0b24bb8b8be63b3b30"
-
-[[files]]
-file = "overrides/config/curios-common.toml"
-hash = "541ee90994c1cf3d4e132df2ac3ff74004bc3952d3914ae843b5089a4dda8a95"
-
-[[files]]
-file = "overrides/config/de/mari_023/ae2wtlib.json5"
-hash = "e9838cc6c67a746008e2c8bc88577be4c350d4f990ee5ca4861f07bce76e36ea"
-
-[[files]]
-file = "overrides/config/dimdoors-config.json5"
-hash = "debf0d9fa5aefe23d94101b9604b448d4889c9586c65c47c089d2778cd6fed1c"
-
-[[files]]
-file = "overrides/config/embeddium-fingerprint.json"
-hash = "af231b7ba6580a1ac91a195bb4ca06b1d485d6263f17505dec1743af1eac70bb"
-
-[[files]]
-file = "overrides/config/embeddium-mixins.properties"
-hash = "09ff183e061d93b79514bc171bf9118497578757e7a5c45946039487656e2619"
-
-[[files]]
-file = "overrides/config/enderio/armory-common.toml"
-hash = "be5a4f4a1b5049bfaad1c8892278d27d46f7a7452be6f83e2b58c054f35b70bf"
-
-[[files]]
-file = "overrides/config/enderio/base-client.toml"
-hash = "91330d6c548c114e55275ab2adb0b4ad51cdfa877359967e9b930f492546c310"
-
-[[files]]
-file = "overrides/config/enderio/base-common-1.toml.bak"
-hash = "bd93c06ae17da4e21e8111d3eca20df42ec7da2ce38f949baf8cab087690b060"
-
-[[files]]
-file = "overrides/config/enderio/base-common.toml"
-hash = "bd93c06ae17da4e21e8111d3eca20df42ec7da2ce38f949baf8cab087690b060"
-
-[[files]]
-file = "overrides/config/enderio/machines-client-1.toml.bak"
-hash = "bdbcf67bdb785fdbcc1bb43ac4b84985da3f629f6bfcef147d8306f5e119e6f8"
-
-[[files]]
-file = "overrides/config/enderio/machines-client.toml"
-hash = "bdbcf67bdb785fdbcc1bb43ac4b84985da3f629f6bfcef147d8306f5e119e6f8"
-
-[[files]]
-file = "overrides/config/enderio/machines-common.toml"
-hash = "fc108a4622b35f83f970ccca139ba4c82af781249f3c6e504216964105fd7078"
-
-[[files]]
-file = "overrides/config/entityculling.json"
-hash = "07ccfa8d4edc6928ec566ce42a16d234436ee678b5ddc258431abf265f4f46f7"
-
-[[files]]
-file = "overrides/config/expatternprovider-common.toml"
-hash = "7c3d2c1baa198a8c43ca6ad0b80ca1676fbf5d459002d3b82538bc065e85ac60"
-
-[[files]]
-file = "overrides/config/extendedae_plus-common.toml"
-hash = "9ad673321f1ecaea68b7e2fa69e2f3aa377b152e3aa27c746149560d4dca77d6"
-
-[[files]]
-file = "overrides/config/ferritecore-mixin.toml"
-hash = "e3ca99e0f233e3bcf8b6762a85b1139f716bf96644318fe9cb022c270461b287"
-
-[[files]]
-file = "overrides/config/fml.toml"
-hash = "1ed9280977d03a3e6d0661ae5c7217b49a4c40e255c88c6811b12b1b28f69ea5"
-
-[[files]]
-file = "overrides/config/forge-client.toml"
-hash = "a8448518860cd8b542dadf75521bfab981451775212ee1b51ddc646d998f9311"
-
-[[files]]
-file = "overrides/config/ftbquests/quests.7z"
-hash = "7336441f40b27cc9e34fa0dd1d24d7b10b66034bc27a5841c9aa301e3fe5ada2"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapter_groups.snbt"
-hash = "231286e0bd29604691896ca515450d52401efa38cf23d5b594b97912c0bb40d2"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/0587C061E00F8A08.snbt"
-hash = "16a580899d1259a47571c33124a87c58a4355be93bc8c757f77727559f742669"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/1261C93B9F66AF81.snbt"
-hash = "b5a25ce1c755f0b1f700a360c07f9e9cccd66badc5563731e8a3147c008a5db7"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/1AB1207561006D54.snbt"
-hash = "ea9ee94dc3684f20dffcfa0f7b0d6d3fe2999845c48c3b66546b7c09dec82439"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/32BAFE260186C2F8.snbt"
-hash = "219678121b1c1699f58027764cae487adc974fba955e560e06c5a74ea0a1ffb9"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/3B6051F1E8CE910E.snbt"
-hash = "021197b64704374b6280a284db46273b256e329c736a657c84d35346debc0c7a"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/450B4E83018489AA.snbt"
-hash = "c92cfbf92742d1a16b9178d3ffe69ebe7c875693469bfee39ffe2b2445d76ec5"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/47AB9034BB01D142.snbt"
-hash = "890c7dc70b7d95808b547b98309f493ae4688e62124908562340f577e06405d6"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/537F7C5E358FAFFA.snbt"
-hash = "71fa42de565f81a41dd848aa9b6c02e1b45b802513a8ceeab079db05abca2d49"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/708235A0CFA41C29.snbt"
-hash = "2cc8c6478d1252ee157f60c475cdc037d546fcfe9646ee8d0a17264a0f881192"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/72E4956FD9B3E490.snbt"
-hash = "72d22f4efe6018f4ef42d172c656b7ca873efe2c7218d483267305e24facb24d"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/747CBC892EF10658.snbt"
-hash = "ff4f220cca58868c5b6a458982c6b49651a7a07728280a59f0e5cd6db9d391fd"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/laserio.snbt"
-hash = "389880cb6a2c61ef1d7b167548ab1efd3d8dd507e5b8977c88a7af3c084fff21"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/pipez.snbt"
-hash = "48c04c1357b97ddb6b3a363b2fd5de4bd2e3a095addc77fa3a0bcfa1e8e6c974"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/tier_0.snbt"
-hash = "a389ccf7d7ddbbdb462b8b2ab739fa35f666fbf065fecbf209d16a6cb9d5bc49"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/tier_1_lv.snbt"
-hash = "b96b125c1c3f1405c0b7e07799aef18e6189fb9f579e25c96ac6a2475c618a76"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/tier_2_mv.snbt"
-hash = "15c06c70376e9f05c1ec49f5ef14a19af14baf7c83464127e545b660b86d6511"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/tier_3_hv.snbt"
-hash = "e4c462deba458fb360f79f311d7ca9815c559a801938962898a3772134a0fb7a"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/tier_4_ev.snbt"
-hash = "a890aaa19475273abfe4a14a5e46addf9db29be3580a20abb2a9012b20089c94"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/tier_5_iv.snbt"
-hash = "4b0fa093bd1be893ef3785af67959c2a77e9d6e78092dd7453b4dd044e90caa5"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/tier_6_luv.snbt"
-hash = "bc6df2c9af3a6e7db724da6b78341ea32f5a35359d86871f1a3fabbed4ff5607"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/tier_7_zpm.snbt"
-hash = "e3f34bf4df6fe5c95ca11db5309809dc1552edf6dc3958609afbe54e99d8de2e"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/chapters/tier_8_uv.snbt"
-hash = "da8ac34d0fd9b9da021bf2b790f68331af04948448bc17f429ac2ff7f30430d7"
-
-[[files]]
-file = "overrides/config/ftbquests/quests/data.snbt"
-hash = "530db8ec8cdd640ef7f6a68c30ae55de4ddbd7d27f3af27e5b43dc97c5b7cc12"
-
-[[files]]
-file = "overrides/config/gtca.yaml"
-hash = "bd1e624f07244234414fc6e8a4aec55b997ff780d749e5f8be147ba36c9814d5"
-
-[[files]]
-file = "overrides/config/gtceu.yaml"
-hash = "90e6be59187fd6bb687cab9feb594626351109b48e1d4d5ee560002bbfa23f5c"
-
-[[files]]
-file = "overrides/config/gtecore-common-1.toml.bak"
-hash = "c5ff2cc6e0454b4b160f101c82e0c366ad84aaf4423c3499c65a0354948abda6"
-
-[[files]]
-file = "overrides/config/gtecore-common.toml"
-hash = "c5ff2cc6e0454b4b160f101c82e0c366ad84aaf4423c3499c65a0354948abda6"
-
-[[files]]
-file = "overrides/config/gtecore.yaml"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "overrides/config/gtmthings.yaml"
-hash = "ac07b79ea7255938b2ba00dd1cef9b19d12e14ec689f4048e6c361201897c27f"
-
-[[files]]
-file = "overrides/config/gtnn.json"
-hash = "7eb1465369ef144b9189783558abc9c1cf90714d363e3180c7ee116b127a2f67"
-
-[[files]]
-file = "overrides/config/guideme.toml"
-hash = "82bcfdf8624ec94cf4cfe30b1def3a0f3d562561b31a0ccef7468657f48e0987"
-
-[[files]]
-file = "overrides/config/inventoryprofilesnext/integrationHints/exampleIntegrationHints.json"
-hash = "ca413dea02cce69c69dccdc525fb0ec013236876eff2d142772c68db3d772d3a"
-
-[[files]]
-file = "overrides/config/inventoryprofilesnext/inventoryprofiles.json"
-hash = "2689ac02bae6531a5d692c88dc77ab26514c02f0c72d9b8e6ca39a997009efa3"
-
-[[files]]
-file = "overrides/config/inventoryprofilesnext/新的世界/prev-villager-trading-config.json"
-hash = "d8159a94fc4562651a5c47dc83e46a7fd71dd70e143fca53d7b288393a87b4ef"
-
-[[files]]
-file = "overrides/config/inventoryprofilesnext/新的世界/villager-trading-config.json"
-hash = "d8159a94fc4562651a5c47dc83e46a7fd71dd70e143fca53d7b288393a87b4ef"
-
-[[files]]
-file = "overrides/config/invtweaks-client.toml"
-hash = "a9b7b1571189071a30231fa3de0a18415df782e9abd94e72a5e2ba523929d7e9"
-
-[[files]]
-file = "overrides/config/jade/hide-blocks.json"
-hash = "247df2699ebb5a0d4c9585aeeb267ef9388cd5bee2b13ca340f35124a135b35b"
-
-[[files]]
-file = "overrides/config/jade/hide-entities.json"
-hash = "22b4560c3dc05da35a70bb6611da0ce04cff295ab8c663afd58e725c396a24b3"
-
-[[files]]
-file = "overrides/config/jade/jade.json"
-hash = "8a9c0403b385ca106d0c0b541ea2f2128bf39e3f9b05b342b176ca11834857a4"
-
-[[files]]
-file = "overrides/config/jade/plugins.json"
-hash = "24fe132b8c2639de77b9e495391902daa47eccddc4d00e1651b77275de20d571"
-
-[[files]]
-file = "overrides/config/jade/sort-order.json"
-hash = "722b9c619745e92ec1689b09727c2d3993a9bd8fe4d077765659a5268a863f35"
-
-[[files]]
-file = "overrides/config/jecharacters.toml"
-hash = "db1fdd1a26060b72dd5126b639b763be17ec9e6b1dbb8434e208c040c981a140"
-
-[[files]]
-file = "overrides/config/jei/blacklist.cfg"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "overrides/config/jei/ingredient-list-mod-sort-order.ini"
-hash = "8a8b524415f8d595aaa6cf6bd06fc4b369d4a932972adcd1812557f34ea6cd92"
-
-[[files]]
-file = "overrides/config/jei/ingredient-list-type-sort-order.ini"
-hash = "b183518630be2b095fcf60da16cfc7a8b50aab09c4cbe198b73c619dbf6eac35"
-
-[[files]]
-file = "overrides/config/jei/jei-client.ini"
-hash = "cba337712ed12b05bbbe3c7a046d88cdba7c2b301f4dbcfb47cfd82e3759897e"
-
-[[files]]
-file = "overrides/config/jei/jei-colors.ini"
-hash = "30ffef1681a9b0255e65a756406f85b1cca8b0bb3c0fab357c2727e325401bd0"
-
-[[files]]
-file = "overrides/config/jei/jei-debug.ini"
-hash = "44e73ad4423c5bf0381da8e934861ac552cca4a12d4a007801cacf6eb85d12e9"
-
-[[files]]
-file = "overrides/config/jei/jei-mod-id-format.ini"
-hash = "07052785400b48d3757dbbcfff0b50899fbaed1ac54ea09bc9024ea7f73b7644"
-
-[[files]]
-file = "overrides/config/jei/recipe-category-sort-order.ini"
-hash = "c2fbbde49268db4df278cebc774f88755425615941c2830f87180841566bebeb"
-
-[[files]]
-file = "overrides/config/lsp.json"
-hash = "ed54e42ac8ad2dd5f02fb1913a37cee69c79898a194019bec61ab1c0caebdc51"
-
-[[files]]
-file = "overrides/config/mae2-common.toml"
-hash = "ff36b268bc1d0fdf911c5179c286a52b1751528caefeacfb81c369d6d396a2c3"
-
-[[files]]
-file = "overrides/config/maid_storage_manager-common-1.toml.bak"
-hash = "aa8a0f668a4947454fd7dce9c5946a727ddbe3f999427f75f6c10758d20b5407"
-
-[[files]]
-file = "overrides/config/maid_storage_manager-common.toml"
-hash = "aa8a0f668a4947454fd7dce9c5946a727ddbe3f999427f75f6c10758d20b5407"
-
-[[files]]
-file = "overrides/config/maid_storage_manager-generating.toml"
-hash = "abd37b1b97401236825472850114a6e5ef48e4a6868c3a9f51b831660e244030"
-
-[[files]]
-file = "overrides/config/maid_useful_task-common.toml"
-hash = "1cf1fc8cfabb2986ed72d40ae74de51c3402b4e1ea67800184d44dc1a6e2989b"
-
-[[files]]
-file = "overrides/config/megacells.json"
-hash = "b9d8a859859ce598ea852230e4d18726756f89b371c03dce59c9ffe5025318d2"
-
-[[files]]
-file = "overrides/config/merequester-common.toml"
-hash = "30c82bc5cb0c8a1b855a57c15de4e5111bd334da0208da2154dcd969d9702c9d"
-
-[[files]]
-file = "overrides/config/patchouli-client-1.toml.bak"
-hash = "3b6236845f6a5ff8804487b63b0d74305b91316dc9a008362838607b0be3bd8e"
-
-[[files]]
-file = "overrides/config/patchouli-client.toml"
-hash = "3b6236845f6a5ff8804487b63b0d74305b91316dc9a008362838607b0be3bd8e"
-
-[[files]]
-file = "overrides/config/sidebar_buttons.json"
-hash = "ce7365ee4adaa38d674b7bda5ac8f302a56b3851536dcfa0b2ad1777f68c02c4"
-
-[[files]]
-file = "overrides/config/touhou_little_maid-common.toml"
-hash = "86258f31265f954f319d1de2ae3aec6cfad8449af77e59998e4372e3d7512a77"
-
-[[files]]
-file = "overrides/config/touhou_little_maid/info.json"
-hash = "2318e7daf10ea1cd56fa5e8ff6469e16f54cc912c3f93684835a7ef10348fea6"
-
-[[files]]
-file = "overrides/config/touhou_little_maid/sites/llm.json"
-hash = "e69be04b3e060ef589356b04010cf3c4ca4235acf1308f8eb62dbd09471c011b"
-
-[[files]]
-file = "overrides/config/touhou_little_maid/sites/stt.json"
-hash = "27f7d12d618f68dba8d5be4816d4e11b577ac8e7c566f0d19f8f456b497a9f07"
-
-[[files]]
-file = "overrides/config/touhou_little_maid/sites/tts.json"
-hash = "62080f2405cb825d7639273e11d6c2c46516cdf1ca9cb9c8668a834d1d42514c"
-
-[[files]]
-file = "overrides/config/trashslot-common.toml"
-hash = "27ef03d4cace8016a12c021daeed1c96d2957a8b6f425177bf01cee15fed14e2"
-
-[[files]]
-file = "overrides/config/voicechat-client.toml"
-hash = "366f0ef6b5ef068aa1e5ef636fa2ec723803b8bcf1b200f958ac99ec21edde72"
-
-[[files]]
-file = "overrides/config/voicechat/translations.properties"
-hash = "b258a94a5ed60fbf93b66c452c3d6e36b044f630741f90e5b13852a4805b235e"
-
-[[files]]
-file = "overrides/config/voicechat/username-cache.json"
-hash = "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
-
-[[files]]
-file = "overrides/config/voicechat/voicechat-client.properties"
-hash = "1f3d8fce3b7670fc344abd757ca28d78bfa2e8487013367976f5ef84231bed2f"
-
-[[files]]
-file = "overrides/config/voicechat/voicechat-server.properties"
-hash = "46302cc2e8801cd76c4e15608a7dbca45f2bb6c7b08b707d3733668032d6d704"
-
-[[files]]
-file = "overrides/config/voicechat/voicechat-volumes.properties"
-hash = "33afebdb8ef07a3d774086931dec8d899f4da7aeba5b448fd4eee540ba5e02a2"
-
-[[files]]
-file = "overrides/config/worldedit/worldedit.properties"
-hash = "89b24612b63eeb8311e655df879dadcfdc269509c65a561abc46d7d3db56d953"
-
-[[files]]
-file = "overrides/config/xaerominimap-common.txt"
-hash = "b410746ddef0f7dd5f1d860ef3fcd6ad29c10988abbf6281181cb9c3acb628ca"
-
-[[files]]
-file = "overrides/config/xaerominimap.txt"
-hash = "cecae3a750fb40a17ed8de5be3421efa388ec8a338aa7842116d70dd5a9e175f"
-
-[[files]]
-file = "overrides/config/xaerominimap_entities.json"
-hash = "8ec85ecdff2a7b60389a80cbffa420876fcf83b3a72120e3564076da50dc3fca"
-
-[[files]]
-file = "overrides/config/xaeropatreon.txt"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "overrides/defaultconfigs/ftbchunks/client-config.snbt"
-hash = "b170593af4096fcf59a09cfc547045351d3aa65d307983eae0a593a57987c277"
-
-[[files]]
-file = "overrides/defaultconfigs/ftbchunks/ftbchunks-world.snbt"
-hash = "908d651f982acf3e640e6027d913ed2ecb974b75e616a1737e20d706400655ec"
-
-[[files]]
-file = "overrides/defaultconfigs/ftblibrary/ftblibrary-client.snbt"
-hash = "d9370c264daed232a167d23424db1d1ae8c01ac00377700fdd345a8a1b7afd75"
-
-[[files]]
-file = "overrides/defaultconfigs/ftbquests/client-config.snbt"
-hash = "b882485f06e840273d3d289b6040442b9a93f0c3a7ea01d730e0fea76d246c22"
-
-[[files]]
-file = "overrides/defaultconfigs/ftbultimine/ftbultimine-client.snbt"
-hash = "29b00fa9efa03679a1743cad71b994decd0f79a597aaac22994e38278079d226"
-
-[[files]]
-file = "overrides/defaultconfigs/ftbultimine/ftbultimine-server.snbt"
-hash = "45698f952b03d77a318fc2929aa619100bbef583f55a19bd3964c970f29a71a2"
-
-[[files]]
-file = "overrides/defaultconfigs/gtceu/client-config.snbt"
-hash = "7fd5a605008ad564652125495491a3ef0465811c0945f5843f404abdae1d92c0"
-
-[[files]]
-file = "overrides/kubejs/assets/gtceu/lang/zh_cn.json"
-hash = "746bffad80ef95b8ee237da80933076e2a41bbda23e155a6f8a06a0401faeb51"
-
-[[files]]
-file = "overrides/kubejs/assets/kubejs/textures/block/example_block.png"
-hash = "783d78bd1ee61d3b32273670dff9d82c34cd74c5ae899a10f104f473828d5bbc"
-
-[[files]]
-file = "overrides/kubejs/assets/kubejs/textures/item/example_item.png"
-hash = "45a5f56eba6066ad05c70988a32b72c50cfeb6e35857739bd582007011ea002b"
-
-[[files]]
-file = "overrides/kubejs/assets/mae2/lang/zh_cn.json"
-hash = "caa1ab297d892964e4b723b3080d6d926afa06f41d3769177216ed2bb2e33892"
-
-[[files]]
-file = "overrides/kubejs/client_scripts/example.js"
-hash = "152019ed6e0410a82805a95ea10f1ad1a17beaf2b50864d89b8fa9d172129ac7"
-
-[[files]]
-file = "overrides/kubejs/client_scripts/teleport.js"
-hash = "3174b61fc9ecf2b14fe07e1e9ba881cc7e31110c6f889a706cbf4115640b9b7e"
-
-[[files]]
-file = "overrides/kubejs/config/client.properties"
-hash = "ff37d9eac10ae2c0008ce7575388987610145014d4eff188d413ca93f0af3f4c"
-
-[[files]]
-file = "overrides/kubejs/config/common.properties"
-hash = "817bc19c70d178feedf6ba238bf6fc2210546e0ee051abb359cda457411bd989"
-
-[[files]]
-file = "overrides/kubejs/config/probejs.json"
-hash = "eb0bfaed60482e4e159ff4e2452cc098de57689f7cc82b4c9d9f112548173da6"
-
-[[files]]
-file = "overrides/kubejs/server_scripts/GTERecipe.js"
-hash = "fe5bd472f84df585ac24532ba0677c378253398cd45a7c3613c7834845ff1675"
-
-[[files]]
-file = "overrides/kubejs/server_scripts/bedrock_fluid.js"
-hash = "a2c2339691fc48fbd14fb307292dff3e21222712d9240810742d7df0c6d74dfb"
-
-[[files]]
-file = "overrides/kubejs/server_scripts/easymultiblock.js"
-hash = "ff3b35283a2431582ee23602285acad1bf9ecf09c0ec54f5ff00d74292e6a5a6"
-
-[[files]]
-file = "overrides/kubejs/server_scripts/example.js"
-hash = "a19b7c81a150bd965b153ded9c45ee7649eaad9e10d0a5ec1d662e7b15ceadb2"
-
-[[files]]
-file = "overrides/kubejs/server_scripts/flat_dimension.js"
-hash = "56f2b3730f92a2046705dfcc6aa99b6b2747ec6950001d8b531f102ec613ecce"
-
-[[files]]
-file = "overrides/kubejs/startup_scripts/GTEMaterial.js"
-hash = "da55d233485f1cac28c923970ef9e019635e66409ef130a8a218810f856716da"
-
-[[files]]
-file = "overrides/kubejs/startup_scripts/GTESteamMultiblockMachine.js"
-hash = "5704718459055b4b4eb3dd70b6c9e6591eb6c513b8c7da8f85e1b44779c99dd9"
-
-[[files]]
-file = "overrides/kubejs/startup_scripts/example.js"
-hash = "395c96d3ddd178821db851f387e91560e606ea752177f66d2016f12bd0542b8f"
-
-[[files]]
-file = "overrides/kubejs/startup_scripts/infinite_cell.js"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-
-[[files]]
-file = "overrides/mods/extendedae_plus-1.3.2-fix1.jar"
-hash = "e9bfc37e7bb96ae439afb1e6680742491f7dd9804453bd4d887a52697edf1ebd"
-
-[[files]]
-file = "overrides/options.txt"
-hash = "4a4fe7701bb99d349b9655f37b9e9023e54687b50b975cc4a572c1ef0c3920ad"
