@@ -54,7 +54,7 @@
 				{
 					count: 25L
 					id: "6B4AF5067B46F614"
-					item: { Count: 25, id: "gtceu:coke_oven_bricks" }
+					item: "gtceu:coke_oven_bricks"
 					type: "item"
 				}
 			]
@@ -364,7 +364,7 @@
 			tasks: [{
 				count: 32L
 				id: "30ACD2059E1C8D5F"
-				item: { Count: 32, id: "gtceu:sticky_resin" }
+				item: "gtceu:sticky_resin"
 				type: "item"
 			}]
 			title: "获取一些黏性树脂"
@@ -402,7 +402,7 @@
 			tasks: [{
 				count: 32L
 				id: "387FB683E5FA0A6B"
-				item: { Count: 32, id: "gtceu:tin_single_wire" }
+				item: "gtceu:tin_single_wire"
 				type: "item"
 			}]
 			title: "一些导线"
@@ -431,7 +431,7 @@
 			tasks: [{
 				count: 32L
 				id: "494262DC4FBFAD84"
-				item: { Count: 32, id: "gtceu:tin_single_cable" }
+				item: "gtceu:tin_single_cable"
 				type: "item"
 			}]
 			title: "一些线缆"

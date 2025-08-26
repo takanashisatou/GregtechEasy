@@ -64,7 +64,7 @@
 				type: "item"
 			}]
 			x: -3.0d
-			y: 0.5d
+			y: 1.0d
 		}
 		{
 			dependencies: ["424465460843F9AC"]
@@ -75,7 +75,7 @@
 				type: "item"
 			}]
 			x: -3.0d
-			y: 1.5d
+			y: 2.0d
 		}
 		{
 			dependencies: ["579BC49FB703923E"]
@@ -108,7 +108,7 @@
 				title: "氟锑酸产线"
 				type: "checkmark"
 			}]
-			x: -0.5d
+			x: -1.5d
 			y: -2.0d
 		}
 		{
@@ -120,7 +120,7 @@
 				type: "item"
 			}]
 			x: -0.5d
-			y: -1.0d
+			y: -2.0d
 		}
 		{
 			dependencies: ["76641542017FAB94"]
@@ -131,7 +131,7 @@
 				type: "item"
 			}]
 			x: -0.5d
-			y: 0.0d
+			y: -1.0d
 		}
 		{
 			dependencies: ["148B998630FA6283"]
@@ -142,7 +142,7 @@
 				type: "item"
 			}]
 			x: -0.5d
-			y: 1.0d
+			y: 0.0d
 		}
 		{
 			dependencies: [
@@ -157,7 +157,7 @@
 				type: "checkmark"
 			}]
 			x: -0.5d
-			y: 2.0d
+			y: 1.0d
 		}
 		{
 			dependencies: [
@@ -172,7 +172,7 @@
 				type: "checkmark"
 			}]
 			x: -0.5d
-			y: 3.0d
+			y: 2.0d
 		}
 		{
 			dependencies: [
@@ -202,7 +202,7 @@
 				type: "checkmark"
 			}]
 			x: -0.5d
-			y: 4.0d
+			y: 3.0d
 		}
 		{
 			dependencies: [
@@ -216,8 +216,8 @@
 				title: "富集硅岩溶液"
 				type: "checkmark"
 			}]
-			x: -2.5d
-			y: 4.0d
+			x: -3.0d
+			y: 3.0d
 		}
 		{
 			dependencies: ["7EB8DDBEF24A6262"]
@@ -227,7 +227,7 @@
 				item: "gtceu:trinium_sulfide_dust"
 				type: "item"
 			}]
-			x: -1.5d
+			x: -2.0d
 			y: 4.0d
 		}
 		{
@@ -238,7 +238,7 @@
 				item: "gtceu:trinium_ingot"
 				type: "item"
 			}]
-			x: -1.5d
+			x: -2.0d
 			y: 5.0d
 		}
 		{
@@ -253,8 +253,8 @@
 				title: "酸性富集硅岩溶液"
 				type: "checkmark"
 			}]
-			x: -2.5d
-			y: 5.0d
+			x: -4.0d
+			y: 3.0d
 		}
 		{
 			dependencies: ["3D9216C1EC5DE107"]
@@ -264,8 +264,8 @@
 				item: "gtceu:enriched_naquadah_sulfate_dust"
 				type: "item"
 			}]
-			x: -3.0d
-			y: 6.0d
+			x: -4.0d
+			y: 4.0d
 		}
 		{
 			dependencies: [
@@ -279,8 +279,8 @@
 				title: "富集硅岩废液"
 				type: "checkmark"
 			}]
-			x: -2.0d
-			y: 6.0d
+			x: -3.0d
+			y: 4.0d
 		}
 		{
 			dependencies: ["19AFCF14C6783CAE"]
@@ -290,8 +290,8 @@
 				item: "gtceu:enriched_naquadah_ingot"
 				type: "item"
 			}]
-			x: -3.0d
-			y: 7.0d
+			x: -4.0d
+			y: 5.0d
 		}
 		{
 			dependencies: [
@@ -305,8 +305,8 @@
 				title: "超能硅岩溶液"
 				type: "checkmark"
 			}]
-			x: -0.5d
-			y: 5.0d
+			x: 0.5d
+			y: 3.0d
 		}
 		{
 			dependencies: [
@@ -320,8 +320,8 @@
 				title: "酸性超能硅岩溶液"
 				type: "checkmark"
 			}]
-			x: -0.5d
-			y: 6.0d
+			x: 1.5d
+			y: 3.0d
 		}
 		{
 			dependencies: ["2C9B280BC2D8AEE8"]
@@ -331,8 +331,8 @@
 				item: "gtceu:naquadria_sulfate_dust"
 				type: "item"
 			}]
-			x: -0.5d
-			y: 7.0d
+			x: 1.5d
+			y: 4.0d
 		}
 		{
 			dependencies: ["0460E94E21FE1109"]
@@ -342,8 +342,8 @@
 				item: "gtceu:naquadria_ingot"
 				type: "item"
 			}]
-			x: -0.5d
-			y: 8.0d
+			x: 1.5d
+			y: 5.0d
 		}
 		{
 			dependencies: ["7DA58C45E485F227"]
@@ -499,7 +499,7 @@
 				title: "液态铕"
 				type: "checkmark"
 			}]
-			x: -8.0d
+			x: -7.5d
 			y: -2.0d
 		}
 		{
@@ -510,7 +510,7 @@
 				item: "gtceu:raw_crystal_chip"
 				type: "item"
 			}]
-			x: -9.5d
+			x: -9.0d
 			y: -2.0d
 		}
 		{
@@ -521,7 +521,7 @@
 				item: "gtceu:engraved_crystal_chip"
 				type: "item"
 			}]
-			x: -11.0d
+			x: -10.5d
 			y: -2.0d
 		}
 		{
@@ -535,8 +535,8 @@
 				item: "gtceu:crystal_cpu"
 				type: "item"
 			}]
-			x: -12.5d
-			y: -2.0d
+			x: -10.5d
+			y: -0.5d
 		}
 		{
 			dependencies: ["5AA7B3EBBDA8DE80"]
@@ -546,8 +546,8 @@
 				item: "gtceu:crystal_processor"
 				type: "item"
 			}]
-			x: -14.0d
-			y: -2.0d
+			x: -10.5d
+			y: 1.0d
 		}
 		{
 			dependencies: ["0F048DDC39292527"]
@@ -557,8 +557,8 @@
 				item: "gtceu:crystal_processor_assembly"
 				type: "item"
 			}]
-			x: -15.5d
-			y: -2.0d
+			x: -9.0d
+			y: 1.0d
 		}
 		{
 			dependencies: ["1E3B6AB80689B32D"]
@@ -568,8 +568,8 @@
 				item: "gtceu:crystal_processor_computer"
 				type: "item"
 			}]
-			x: -17.0d
-			y: -2.0d
+			x: -7.5d
+			y: 1.0d
 		}
 		{
 			dependencies: ["7E49FB87A6677B55"]
@@ -579,8 +579,8 @@
 				item: "gtceu:crystal_processor_mainframe"
 				type: "item"
 			}]
-			x: -18.5d
-			y: -2.0d
+			x: -6.0d
+			y: 1.0d
 		}
 		{
 			dependencies: ["4F26C38839F0F9AF"]
@@ -590,7 +590,7 @@
 				item: "gtceu:multilayer_fiber_reinforced_printed_circuit_board"
 				type: "item"
 			}]
-			x: -12.5d
+			x: -9.0d
 			y: -0.5d
 		}
 		{
@@ -601,7 +601,7 @@
 				item: "gtceu:fiber_reinforced_circuit_board"
 				type: "item"
 			}]
-			x: -5.0d
+			x: -6.0d
 			y: -0.5d
 		}
 		{
@@ -612,7 +612,7 @@
 				item: "gtceu:multilayer_fiber_reinforced_circuit_board"
 				type: "item"
 			}]
-			x: -9.5d
+			x: -7.5d
 			y: -0.5d
 		}
 		{

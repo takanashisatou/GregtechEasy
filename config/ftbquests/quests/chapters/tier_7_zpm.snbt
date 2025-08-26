@@ -111,8 +111,8 @@
 				title: "无菌培养基"
 				type: "checkmark"
 			}]
-			x: -8.0d
-			y: -1.0d
+			x: -6.5d
+			y: 0.5d
 		}
 		{
 			dependencies: ["40C9E9FB0C7C6FC8"]
@@ -122,7 +122,7 @@
 				item: "gtceu:stem_cells"
 				type: "item"
 			}]
-			x: -8.0d
+			x: -5.0d
 			y: 0.5d
 		}
 		{
@@ -133,8 +133,8 @@
 				item: "gtceu:wetware_circuit_board"
 				type: "item"
 			}]
-			x: -9.5d
-			y: -1.0d
+			x: -6.5d
+			y: 2.0d
 		}
 		{
 			dependencies: ["0F5FE9ECDB7B01D0"]
@@ -144,8 +144,8 @@
 				item: "gtceu:wetware_printed_circuit_board"
 				type: "item"
 			}]
-			x: -11.0d
-			y: -1.0d
+			x: -3.5d
+			y: 2.0d
 		}
 		{
 			dependencies: [
@@ -158,7 +158,7 @@
 				item: "gtceu:neuro_processing_unit"
 				type: "item"
 			}]
-			x: -11.0d
+			x: -3.5d
 			y: 0.5d
 		}
 		{
@@ -169,8 +169,8 @@
 				item: "gtceu:wetware_processor"
 				type: "item"
 			}]
-			x: -11.0d
-			y: 2.0d
+			x: -2.0d
+			y: 0.5d
 		}
 		{
 			dependencies: ["7F7442D83CE799A0"]
@@ -180,8 +180,8 @@
 				item: "gtceu:wetware_processor_assembly"
 				type: "item"
 			}]
-			x: -9.5d
-			y: 2.0d
+			x: -0.5d
+			y: 0.5d
 		}
 		{
 			dependencies: ["5682CCC66A79BECF"]
@@ -191,7 +191,7 @@
 				item: "gtceu:wetware_processor_computer"
 				type: "item"
 			}]
-			x: -8.0d
+			x: -0.5d
 			y: 2.0d
 		}
 		{
@@ -202,7 +202,7 @@
 				item: "gtceu:wetware_processor_mainframe"
 				type: "item"
 			}]
-			x: -6.5d
+			x: -2.0d
 			y: 2.0d
 		}
 		{

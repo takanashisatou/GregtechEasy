@@ -270,11 +270,11 @@ hash = "021197b64704374b6280a284db46273b256e329c736a657c84d35346debc0c7a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/450B4E83018489AA.snbt"
-hash = "c92cfbf92742d1a16b9178d3ffe69ebe7c875693469bfee39ffe2b2445d76ec5"
+hash = "612b6444bebff8b172c80ccb38f0acbf6a423af4517fe93bfa6b0bf3c1b9b716"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/47AB9034BB01D142.snbt"
-hash = "890c7dc70b7d95808b547b98309f493ae4688e62124908562340f577e06405d6"
+hash = "18ada278b4b40973ed74c5ba3213349a29ce52d13398b2abf2a994bd2500a3a3"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/537F7C5E358FAFFA.snbt"
@@ -282,7 +282,7 @@ hash = "71fa42de565f81a41dd848aa9b6c02e1b45b802513a8ceeab079db05abca2d49"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/708235A0CFA41C29.snbt"
-hash = "2cc8c6478d1252ee157f60c475cdc037d546fcfe9646ee8d0a17264a0f881192"
+hash = "8570255a39f4a2cd73bd5df0ef596756b97375fd55cbb7e06781e1e27336ea76"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/72E4956FD9B3E490.snbt"
@@ -302,23 +302,23 @@ hash = "48c04c1357b97ddb6b3a363b2fd5de4bd2e3a095addc77fa3a0bcfa1e8e6c974"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_0.snbt"
-hash = "a389ccf7d7ddbbdb462b8b2ab739fa35f666fbf065fecbf209d16a6cb9d5bc49"
+hash = "91722a97955d4337527ccf1382861b5c25043b1c940d620fcbc63a15354bd161"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_1_lv.snbt"
-hash = "b96b125c1c3f1405c0b7e07799aef18e6189fb9f579e25c96ac6a2475c618a76"
+hash = "cf48ec5edca802327b5b2e6ef3a6294e24a263f5bcd658b5ca394b831df5374b"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_2_mv.snbt"
-hash = "15c06c70376e9f05c1ec49f5ef14a19af14baf7c83464127e545b660b86d6511"
+hash = "d8f784b271813b7c92e1481bab67a8b8347ac8f4c6b81e112d4c9409304faaba"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_3_hv.snbt"
-hash = "e4c462deba458fb360f79f311d7ca9815c559a801938962898a3772134a0fb7a"
+hash = "7dfb43060f31f2711a755084d5c359d4869eaf33b35d3de35ac79a39e07ae033"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_4_ev.snbt"
-hash = "a890aaa19475273abfe4a14a5e46addf9db29be3580a20abb2a9012b20089c94"
+hash = "e2c910cc6721fccebeb7def6017d9e95a93c29891dff24325d1d020850195097"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_5_iv.snbt"
@@ -326,11 +326,11 @@ hash = "4b0fa093bd1be893ef3785af67959c2a77e9d6e78092dd7453b4dd044e90caa5"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_6_luv.snbt"
-hash = "bc6df2c9af3a6e7db724da6b78341ea32f5a35359d86871f1a3fabbed4ff5607"
+hash = "c98246b207355b298998f8c069867ed47eb213ca4e201e42e770effab31192d9"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_7_zpm.snbt"
-hash = "e3f34bf4df6fe5c95ca11db5309809dc1552edf6dc3958609afbe54e99d8de2e"
+hash = "bc17a88ebbe462b47e5766ad7fba01cde5550870bdc7f7ca5ab8f08ed9832c38"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/tier_8_uv.snbt"
