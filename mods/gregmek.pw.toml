@@ -1,0 +1,15 @@
+filename = "gregmek-1.0-SNAPSHOT.jar"
+name = "GregMek"
+side = "both"
+x-prismlauncher-loaders = ["forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "437ba9afa6775457ac3570856e4498b333d4c5a3"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/6847/015/gregmek-1.0-SNAPSHOT.jar"
+
+[update.curseforge]
+file-id = 6847015
+project-id = 1320684

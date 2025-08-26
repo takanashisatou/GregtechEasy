@@ -233,10 +233,6 @@ file = "config/extendedae_plus-common.toml"
 hash = "77174d8a664767643afe007d6c8825dffaaa7f025d2bce4230042efb01dd1ff7"
 
 [[files]]
-file = "config/extendedae_plus/recipe_type_names.json"
-hash = "1bd822494f7eb57d2a9ceaa8e96c9941d428e313a3279f9187b35724e3fc3220"
-
-[[files]]
 file = "config/ferritecore-mixin.toml"
 hash = "c164439c632aa7c95c07edec5cfef74b8e2d5671a8445a781deeb4de7ad0c8b6"
 
@@ -490,15 +486,15 @@ hash = "051d8aaec9eb09e60cd6125d98056d06888b2dd1da3c1982b8859303050410de"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/en_us.json"
-hash = "81a054bbc96f05fc75cbddf4a26528dda5d62b4e2fa063134630951a23983f59"
+hash = "0995a2cc4894f4fcd2376bdf88bfbb54b8d608aab28252e0d6c038e26ff33c00"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/zh_cn.json"
-hash = "81a054bbc96f05fc75cbddf4a26528dda5d62b4e2fa063134630951a23983f59"
+hash = "0995a2cc4894f4fcd2376bdf88bfbb54b8d608aab28252e0d6c038e26ff33c00"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/zh_tw.json"
-hash = "52263650ea89140255199f7a277637ebf70d50444578e3c2f70d210b86d4057d"
+hash = "0e7dcf570aabc0c4d0cd6230de259bb1d1d7b7b4828361498dccf314811b9a60"
 
 [[files]]
 file = "config/openloader/resources/quests/pack.mcmeta"
@@ -587,26 +583,6 @@ hash = "58242ef3075b166845e0081281b01113a55b9d095104a68b167e7b4bc08b87c5"
 [[files]]
 file = "config/wands.json"
 hash = "2edc42650c3b9015c29e08e6ac2ca75e6c94131ce1cc5a8a87b453d7ee98ba54"
-
-[[files]]
-file = "config/worldedit/worldedit.properties"
-hash = "683f4f6a5d911e77bc6b3dde04cd5a7a03f06de7831b87f87861bb51e3f596d2"
-
-[[files]]
-file = "config/xaerominimap-common.txt"
-hash = "771a844d13ab6c2ff99f14b8fd912d02c55a1a4104361692b740c3e596084f6f"
-
-[[files]]
-file = "config/xaerominimap.txt"
-hash = "71cffe7689e579cdf95700b08791f8382f9ae4e9709c5f6f4addc736f145ab3e"
-
-[[files]]
-file = "config/xaerominimap_entities.json"
-hash = "8ec85ecdff2a7b60389a80cbffa420876fcf83b3a72120e3564076da50dc3fca"
-
-[[files]]
-file = "config/xaeropatreon.txt"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 [[files]]
 file = "defaultconfigs/ftbchunks/client-config.snbt"
@@ -794,7 +770,7 @@ metafile = true
 
 [[files]]
 file = "mods/cupboard.pw.toml"
-hash = "1b48ff2d353715a3d1af4896156e9a38d67c4535a9eae98055224090628b5d40"
+hash = "84261815200eec3f49a29ab6eec811abc829cdd6233feeb5878dca27f0e164e2"
 metafile = true
 
 [[files]]
@@ -821,10 +797,6 @@ metafile = true
 file = "mods/ex-pattern-provider.pw.toml"
 hash = "557e0bbbfee7df4264c8e7cfeffccdfb9dde84cce4d0a859aaf4a4dff1aba492"
 metafile = true
-
-[[files]]
-file = "mods/extendedae_plus-1.3.2-fix1.jar"
-hash = "e9bfc37e7bb96ae439afb1e6680742491f7dd9804453bd4d887a52697edf1ebd"
 
 [[files]]
 file = "mods/ferritecore.pw.toml"
@@ -869,6 +841,11 @@ metafile = true
 [[files]]
 file = "mods/glodium.pw.toml"
 hash = "32f6469793df62422eefd2d927204aacb75a3e88739e67a3406c183a202b6543"
+metafile = true
+
+[[files]]
+file = "mods/gregmek.pw.toml"
+hash = "85dc92389240eacaaafa725ef260a16e744e46b60b8e43c3481e8fae9cc82eb1"
 metafile = true
 
 [[files]]
