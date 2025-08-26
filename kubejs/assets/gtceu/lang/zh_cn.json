@@ -1,3 +1,9 @@
 {
-    "material.gtceu.infinite" : "无限"
+    "material.gtceu.infinite" : "无限",
+    "gtceu.jei.bedrock_fluid.custom_nacl_fluid_vein":"盐水矿藏",
+    "gtceu.jei.bedrock_fluid.custom_oil_fluid_vein":"石油矿藏",
+    "gtceu.jei.bedrock_fluid.custom_oilh_fluid_vein":"重油矿藏",
+    "gtceu.jei.bedrock_fluid.custom_oill_fluid_vein":"轻油矿藏",
+    "gtceu.jei.bedrock_fluid.custom_oilm_fluid_vein":"原油矿藏",
+    "gtceu.jei.bedrock_fluid.custom_salt_water_in_void_vein":"盐水矿藏"
 }

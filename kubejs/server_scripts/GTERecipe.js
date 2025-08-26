@@ -337,6 +337,16 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
         '8x gtceu:iv_electric_piston'
     ).inputFluids('gtceu:styrene_butadiene_rubber 4096')
     .itemOutputs('1x gtceu:general_fuel_engine')
+    
+    gtr.assembler('gtceu:advanced_energy_detector_cover_easy')
+    .circuit(1)
+    .EUt(28)
+    .duration(200)
+    .itemInputs('1x gtceu:lv_sensor',
+        '1x gtceu:energy_detector_cover'
+    )
+    .itemOutputs('1x gtceu:advanced_energy_detector_cover')
+    
     event.shaped(Item.of('gtceu:steam_grinder_easy',1),[
         "A"
     ],{
@@ -351,6 +361,7 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
     //event.remove({id:'gtceu:blasting/smelt_raw_platinum_ore_to_ingot'})
     //event.remove({id:'gtceu:blasting/smelt_platinum_ore_to_ingot'})
     //event.remove({output:'gtceu:platinum_ingot'})
+    
     
 }
 )
