@@ -854,10 +854,6 @@ hash = "5043cea6f0700666d0b942ec1495e0cdfc46c5408f56710c0befa129b3a52b3d"
 metafile = true
 
 [[files]]
-file = "mods/gtecore-1.20.1-1.5.jar"
-hash = "011e8e63306577fbb2ce0a46873f78f58b27892506cd2024bc9557a12cf4c040"
-
-[[files]]
 file = "mods/gtmthings.pw.toml"
 hash = "baa2615c588aba14d0f6acde69a4a05d49039d1e88fb41387e5ac5c480dee540"
 metafile = true
