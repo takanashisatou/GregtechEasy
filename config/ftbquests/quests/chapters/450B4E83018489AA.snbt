@@ -738,11 +738,21 @@
 		{
 			dependencies: ["38DFB362E98E750B"]
 			id: "3EDFD3C66D10EC35"
-			tasks: [{
-				id: "72788194128D5741"
-				item: "gtceu:bronze_ingot"
-				type: "item"
-			}]
+			optional: true
+			tasks: [
+				{
+					id: "72788194128D5741"
+					item: "gtceu:bronze_ingot"
+					optional_task: true
+					type: "item"
+				}
+				{
+					id: "04CE6144DB08CADD"
+					item: "mekanism:ingot_bronze"
+					optional_task: true
+					type: "item"
+				}
+			]
 			x: -7.5d
 			y: -1.0d
 		}

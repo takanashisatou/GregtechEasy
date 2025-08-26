@@ -496,7 +496,6 @@
 			dependencies: [
 				"37A2AB7A13ED1E43"
 				"4AA1101043BE88DD"
-				"4C09818766A2526F"
 			]
 			description: ["你需要用工业高炉来烧铝，前往多方块结构这一章节查看如何制造工业高炉"]
 			id: "1F60D3C43DFC1307"
@@ -622,21 +621,6 @@
 			y: -6.0d
 		}
 		{
-			dependencies: [
-				"25653EB2986FAC64"
-				"1A51517BDA0C43E5"
-			]
-			id: "4C09818766A2526F"
-			tasks: [{
-				count: 2L
-				id: "0221F5C09331A082"
-				item: "gtmthings:lv_2a_wireless_energy_input_hatch"
-				type: "item"
-			}]
-			x: -21.0d
-			y: 0.0d
-		}
-		{
 			dependencies: ["7487CBB1FCC1D0A0"]
 			id: "6286FE742D69B3A5"
 			tasks: [{
@@ -693,6 +677,17 @@
 			}]
 			x: -19.5d
 			y: -6.0d
+		}
+		{
+			dependencies: ["4AA1101043BE88DD"]
+			id: "353E182CA46D6A4A"
+			tasks: [{
+				id: "01F3924F5BEAA364"
+				item: "gtmthings:lv_2a_wireless_energy_input_hatch"
+				type: "item"
+			}]
+			x: -22.5d
+			y: 3.0d
 		}
 	]
 	title: "[Tier 1] LV"
