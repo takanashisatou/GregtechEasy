@@ -1,0 +1,15 @@
+filename = "meinfinitycell-1.20.1-4.0.0.jar"
+name = "ME Infinity Cell"
+side = "both"
+x-prismlauncher-loaders = ["forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "5aac877e1ee65c6ee7074196ca7254fa30cb5f42"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/6918/846/meinfinitycell-1.20.1-4.0.0.jar"
+
+[update.curseforge]
+file-id = 6918846
+project-id = 1320551
