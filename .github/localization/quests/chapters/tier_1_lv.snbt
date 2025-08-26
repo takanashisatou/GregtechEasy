@@ -175,7 +175,7 @@
 				type: "item"
 			}]
 			title: "{gte.tier_1_lv.quests.2124A6B2562A70FC.title}"
-			x: -29.0d
+			x: -28.0d
 			y: -1.5d
 		}
 		{
@@ -198,8 +198,8 @@
 				item: "gtceu:sulfuric_light_fuel_bucket"
 				type: "item"
 			}]
-			x: -29.0d
-			y: 1.5d
+			x: -28.0d
+			y: 2.0d
 		}
 		{
 			dependencies: ["06EF724BCA69CB3E"]
@@ -209,8 +209,8 @@
 				item: "gtceu:sulfuric_heavy_fuel_bucket"
 				type: "item"
 			}]
-			x: -29.0d
-			y: 0.5d
+			x: -28.0d
+			y: 1.0d
 		}
 		{
 			dependencies: ["06EF724BCA69CB3E"]
@@ -220,8 +220,8 @@
 				item: "gtceu:sulfuric_naphtha_bucket"
 				type: "item"
 			}]
-			x: -29.0d
-			y: 2.5d
+			x: -28.0d
+			y: 3.0d
 		}
 		{
 			dependencies: ["06EF724BCA69CB3E"]
@@ -231,8 +231,8 @@
 				item: "gtceu:sulfuric_gas_bucket"
 				type: "item"
 			}]
-			x: -29.0d
-			y: -0.5d
+			x: -28.0d
+			y: 0.0d
 		}
 		{
 			dependencies: ["2124A6B2562A70FC"]
@@ -242,8 +242,8 @@
 				item: "gtceu:lv_distillery"
 				type: "item"
 			}]
-			x: -30.0d
-			y: 1.0d
+			x: -29.5d
+			y: 0.0d
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
@@ -264,8 +264,8 @@
 				item: "gtceu:hydrogen_bucket"
 				type: "item"
 			}]
-			x: -27.0d
-			y: 1.0d
+			x: -25.5d
+			y: 0.0d
 		}
 		{
 			dependencies: [
@@ -278,8 +278,8 @@
 				item: "gtceu:light_fuel_bucket"
 				type: "item"
 			}]
-			x: -28.0d
-			y: 1.5d
+			x: -27.0d
+			y: 2.0d
 		}
 		{
 			dependencies: [
@@ -292,8 +292,8 @@
 				item: "gtceu:heavy_fuel_bucket"
 				type: "item"
 			}]
-			x: -28.0d
-			y: 0.5d
+			x: -27.0d
+			y: 1.0d
 		}
 		{
 			dependencies: [
@@ -306,8 +306,8 @@
 				item: "gtceu:naphtha_bucket"
 				type: "item"
 			}]
-			x: -28.0d
-			y: 2.5d
+			x: -27.0d
+			y: 3.0d
 		}
 		{
 			dependencies: [
@@ -320,8 +320,8 @@
 				item: "gtceu:refinery_gas_bucket"
 				type: "item"
 			}]
-			x: -28.0d
-			y: -0.5d
+			x: -27.0d
+			y: 0.0d
 		}
 		{
 			dependencies: [
@@ -334,8 +334,8 @@
 				item: "gtceu:severely_steam_cracked_naphtha_bucket"
 				type: "item"
 			}]
-			x: -27.0d
-			y: 2.5d
+			x: -25.5d
+			y: 3.0d
 		}
 		{
 			id: "4CDFEC48F7AA2F7A"
@@ -345,7 +345,7 @@
 				type: "item"
 			}]
 			x: -25.5d
-			y: 1.0d
+			y: 1.5d
 		}
 		{
 			dependencies: ["06EF724BCA69CB3E"]
@@ -356,8 +356,8 @@
 				item: "gtceu:lv_chemical_reactor"
 				type: "item"
 			}]
-			x: -30.0d
-			y: -0.5d
+			x: -29.5d
+			y: -1.5d
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
@@ -416,7 +416,7 @@
 				item: "gtceu:phenolic_circuit_board"
 				type: "item"
 			}]
-			x: -22.5d
+			x: -21.0d
 			y: -1.5d
 		}
 		{
@@ -443,7 +443,7 @@
 				type: "item"
 			}]
 			x: -22.5d
-			y: 0.0d
+			y: -1.5d
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
@@ -505,7 +505,7 @@
 				item: "gtceu:aluminium_ingot"
 				type: "item"
 			}]
-			x: -18.0d
+			x: -19.5d
 			y: 1.5d
 		}
 		{
@@ -519,7 +519,7 @@
 			}]
 			title: "{gte.tier_1_lv.quests.4E23F7802FD82D2B.title}"
 			x: -18.0d
-			y: 3.0d
+			y: 1.5d
 		}
 		{
 			dependencies: ["4EEDC96C175D7682"]
@@ -533,8 +533,8 @@
 				item: "gtceu:aluminium_dust"
 				type: "item"
 			}]
-			x: -18.0d
-			y: -3.0d
+			x: -19.5d
+			y: -1.5d
 		}
 		{
 			dependencies: ["76E0E419612C082E"]
@@ -545,8 +545,8 @@
 				item: "gtmthings:wireless_energy_monitor"
 				type: "item"
 			}]
-			x: -20.0d
-			y: 0.0d
+			x: -16.5d
+			y: -3.0d
 		}
 		{
 			dependencies: ["4EEDC96C175D7682"]
@@ -562,8 +562,8 @@
 				title: "{gte.tier_1_lv.quests.76E0E419612C082E.tasks.6C3C2B5AECA86561.title}"
 				type: "checkmark"
 			}]
-			x: -19.5d
-			y: -1.5d
+			x: -18.0d
+			y: -3.0d
 		}
 		{
 			dependencies: ["76E0E419612C082E"]
@@ -573,8 +573,8 @@
 				item: "gtmthings:wireless_energy_interface"
 				type: "item"
 			}]
-			x: -19.0d
-			y: 0.0d
+			x: -18.0d
+			y: -4.5d
 		}
 		{
 			dependencies: ["76E0E419612C082E"]
@@ -584,8 +584,8 @@
 				item: "gtmthings:lv_wireless_energy_receive_cover"
 				type: "item"
 			}]
-			x: -21.0d
-			y: -1.5d
+			x: -18.0d
+			y: 0.0d
 		}
 		{
 			dependencies: ["532EAD0465561CF2"]
@@ -630,10 +630,7 @@
 			tasks: [{
 				count: 2L
 				id: "0221F5C09331A082"
-				item: {
-					Count: 2
-					id: "gtmthings:lv_2a_wireless_energy_input_hatch"
-				}
+				item: "gtmthings:lv_2a_wireless_energy_input_hatch"
 				type: "item"
 			}]
 			x: -21.0d
@@ -648,7 +645,7 @@
 				type: "item"
 			}]
 			x: -24.0d
-			y: 2.5d
+			y: 3.0d
 		}
 		{
 			dependencies: ["1384D96116B68500"]
@@ -658,8 +655,8 @@
 				item: "gtceu:oxygen_bucket"
 				type: "item"
 			}]
-			x: -25.5d
-			y: 0.0d
+			x: -24.0d
+			y: -1.5d
 		}
 		{
 			dependencies: [

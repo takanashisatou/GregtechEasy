@@ -54,10 +54,7 @@
 				{
 					count: 25L
 					id: "6B4AF5067B46F614"
-					item: {
-						Count: 25
-						id: "gtceu:coke_oven_bricks"
-					}
+					item: "gtceu:coke_oven_bricks"
 					type: "item"
 				}
 			]
@@ -367,10 +364,7 @@
 			tasks: [{
 				count: 32L
 				id: "30ACD2059E1C8D5F"
-				item: {
-					Count: 32
-					id: "gtceu:sticky_resin"
-				}
+				item: "gtceu:sticky_resin"
 				type: "item"
 			}]
 			title: "{gte.tier_0.quests.16361C3DC202F727.title}"
@@ -408,10 +402,7 @@
 			tasks: [{
 				count: 32L
 				id: "387FB683E5FA0A6B"
-				item: {
-					Count: 32
-					id: "gtceu:tin_single_wire"
-				}
+				item: "gtceu:tin_single_wire"
 				type: "item"
 			}]
 			title: "{gte.tier_0.quests.109F982F0812CE09.title}"
@@ -440,10 +431,7 @@
 			tasks: [{
 				count: 32L
 				id: "494262DC4FBFAD84"
-				item: {
-					Count: 32
-					id: "gtceu:tin_single_cable"
-				}
+				item: "gtceu:tin_single_cable"
 				type: "item"
 			}]
 			title: "{gte.tier_0.quests.1DC48BCC4B0F45DF.title}"

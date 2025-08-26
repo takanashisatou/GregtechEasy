@@ -156,10 +156,7 @@
 			tasks: [{
 				count: 2L
 				id: "2AABE022C6A99647"
-				item: {
-					Count: 2
-					id: "gtceu:lv_energy_input_hatch"
-				}
+				item: "gtceu:lv_energy_input_hatch"
 				type: "item"
 			}]
 			x: -15.5d
@@ -302,10 +299,7 @@
 			tasks: [{
 				count: 16L
 				id: "7BAD56ACAB058640"
-				item: {
-					Count: 16
-					id: "gtceu:kanthal_coil_block"
-				}
+				item: "gtceu:kanthal_coil_block"
 				type: "item"
 			}]
 			x: -14.5d

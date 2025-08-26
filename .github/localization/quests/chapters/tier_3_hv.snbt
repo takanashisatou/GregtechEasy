@@ -39,7 +39,7 @@
 				}
 			]
 			title: "{gte.tier_3_hv.quests.434A56021519D107.title}"
-			x: -14.25d
+			x: -15.0d
 			y: -4.5d
 		}
 		{
@@ -64,7 +64,7 @@
 				item: "gtceu:nichrome_coil_block"
 				type: "item"
 			}]
-			x: -10.0d
+			x: -10.5d
 			y: -4.5d
 		}
 		{
@@ -110,7 +110,7 @@
 				item: "gtceu:nichrome_dust"
 				type: "item"
 			}]
-			x: -10.0d
+			x: -10.5d
 			y: -6.0d
 		}
 		{
@@ -121,7 +121,7 @@
 				item: "gtceu:hv_chemical_reactor"
 				type: "item"
 			}]
-			x: -13.0d
+			x: -13.5d
 			y: -3.0d
 		}
 		{
@@ -136,7 +136,7 @@
 				item: "gtceu:chloroform_bucket"
 				type: "item"
 			}]
-			x: -13.0d
+			x: -13.5d
 			y: -1.5d
 		}
 		{
@@ -146,7 +146,7 @@
 				item: "gtceu:methane_bucket"
 				type: "item"
 			}]
-			x: -13.0d
+			x: -13.5d
 			y: 1.5d
 		}
 		{
@@ -156,7 +156,7 @@
 				item: "gtceu:chlorine_bucket"
 				type: "item"
 			}]
-			x: -14.0d
+			x: -15.0d
 			y: -1.5d
 		}
 		{
@@ -181,7 +181,7 @@
 				item: "gtceu:hydrogen_bucket"
 				type: "item"
 			}]
-			x: -11.0d
+			x: -10.5d
 			y: -1.5d
 		}
 		{
@@ -192,7 +192,7 @@
 				item: "gtceu:fluorine_bucket"
 				type: "item"
 			}]
-			x: -11.0d
+			x: -10.5d
 			y: -3.0d
 		}
 		{
@@ -202,7 +202,7 @@
 				item: "gtceu:topaz_dust"
 				type: "item"
 			}]
-			x: -9.5d
+			x: -9.0d
 			y: -1.5d
 		}
 		{
@@ -326,8 +326,8 @@
 				}
 			]
 			title: "{gte.tier_3_hv.quests.297AE6F35CDA8FAC.title}"
-			x: -12.5d
-			y: -5.5d
+			x: -13.5d
+			y: -6.0d
 		}
 		{
 			dependencies: ["5A7802BACA34E648"]
@@ -412,7 +412,7 @@
 				item: "gtceu:bauxite_dust"
 				type: "item"
 			}]
-			x: -15.5d
+			x: -16.5d
 			y: -3.0d
 		}
 		{
@@ -427,7 +427,7 @@
 				item: "gtceu:rutile_dust"
 				type: "item"
 			}]
-			x: -17.0d
+			x: -18.0d
 			y: -3.0d
 		}
 		{
@@ -441,7 +441,7 @@
 				item: "gtceu:ilmenite_dust"
 				type: "item"
 			}]
-			x: -17.0d
+			x: -18.0d
 			y: -4.5d
 		}
 		{
@@ -452,7 +452,7 @@
 				item: "gtceu:titanium_tetrachloride_bucket"
 				type: "item"
 			}]
-			x: -17.0d
+			x: -18.0d
 			y: -1.5d
 		}
 		{
@@ -463,7 +463,7 @@
 				item: "gtceu:titanium_ingot"
 				type: "item"
 			}]
-			x: -18.5d
+			x: -19.5d
 			y: 0.0d
 		}
 		{
@@ -474,7 +474,7 @@
 				item: "gtceu:hot_titanium_ingot"
 				type: "item"
 			}]
-			x: -18.5d
+			x: -19.5d
 			y: -1.5d
 		}
 		{
@@ -489,7 +489,7 @@
 				item: "gtceu:ev_machine_hull"
 				type: "item"
 			}]
-			x: -17.0d
+			x: -18.0d
 			y: 0.0d
 		}
 		{
@@ -499,7 +499,7 @@
 				item: "gtceu:aluminium_single_cable"
 				type: "item"
 			}]
-			x: -17.0d
+			x: -18.0d
 			y: 1.5d
 		}
 		{
@@ -509,7 +509,7 @@
 				item: "gtceu:ethylene_bucket"
 				type: "item"
 			}]
-			x: -14.0d
+			x: -15.0d
 			y: -3.0d
 		}
 		{
@@ -523,7 +523,7 @@
 				item: "gtceu:vinyl_chloride_bucket"
 				type: "item"
 			}]
-			x: -15.5d
+			x: -16.5d
 			y: -1.5d
 		}
 		{
@@ -537,7 +537,7 @@
 				item: "gtceu:polyvinyl_chloride_bucket"
 				type: "item"
 			}]
-			x: -15.5d
+			x: -16.5d
 			y: 1.5d
 		}
 		{
@@ -548,8 +548,8 @@
 				item: "gtceu:cracker"
 				type: "item"
 			}]
-			x: -11.5d
-			y: -5.5d
+			x: -12.0d
+			y: -6.0d
 		}
 		{
 			id: "445D4B322C90EC62"

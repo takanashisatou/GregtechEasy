@@ -57,7 +57,7 @@
 				item: "gtceu:polydimethylsiloxane_dust"
 				type: "item"
 			}]
-			x: -8.0d
+			x: -7.0d
 			y: 3.0d
 		}
 		{
@@ -69,7 +69,7 @@
 				type: "checkmark"
 			}]
 			title: "{gte.tier_4_ev.quests.3918B30E8D983940.title}"
-			x: -8.0d
+			x: -7.0d
 			y: 0.5d
 		}
 		{
@@ -80,7 +80,7 @@
 				item: "gtceu:silicon_dust"
 				type: "item"
 			}]
-			x: -9.5d
+			x: -9.0d
 			y: 1.5d
 		}
 		{
@@ -91,7 +91,7 @@
 				item: "gtceu:chlorine_bucket"
 				type: "item"
 			}]
-			x: -8.5d
+			x: -8.0d
 			y: 1.5d
 		}
 		{
@@ -102,7 +102,7 @@
 				item: "minecraft:water_bucket"
 				type: "item"
 			}]
-			x: -6.5d
+			x: -6.0d
 			y: 1.5d
 		}
 		{
@@ -113,7 +113,7 @@
 				item: "gtceu:methane_bucket"
 				type: "item"
 			}]
-			x: -7.5d
+			x: -7.0d
 			y: 1.5d
 		}
 		{
@@ -124,7 +124,7 @@
 				item: "gtceu:sulfur_dust"
 				type: "item"
 			}]
-			x: -11.5d
+			x: -10.0d
 			y: 3.0d
 		}
 		{
@@ -138,7 +138,7 @@
 				item: "gtceu:silicone_rubber_bucket"
 				type: "item"
 			}]
-			x: -10.0d
+			x: -8.5d
 			y: 3.0d
 		}
 		{
@@ -490,7 +490,7 @@
 				type: "checkmark"
 			}]
 			x: -12.0d
-			y: -5.5d
+			y: -8.5d
 		}
 		{
 			dependencies: [
@@ -521,7 +521,7 @@
 				item: "gtceu:epichlorohydrin_bucket"
 				type: "item"
 			}]
-			x: -15.0d
+			x: -14.5d
 			y: -5.5d
 		}
 		{
@@ -547,7 +547,7 @@
 				item: "gtceu:acetone_bucket"
 				type: "item"
 			}]
-			x: -16.5d
+			x: -14.5d
 			y: -4.0d
 		}
 		{
@@ -558,7 +558,7 @@
 				item: "gtceu:hydrochloric_acid_bucket"
 				type: "item"
 			}]
-			x: -17.5d
+			x: -16.5d
 			y: -4.0d
 		}
 		{
@@ -570,7 +570,7 @@
 				type: "item"
 			}]
 			x: -15.0d
-			y: -7.0d
+			y: -6.5d
 		}
 		{
 			dependencies: ["6CE7AC5A29F23BF5"]
@@ -581,7 +581,7 @@
 				item: "gtceu:benzene_bucket"
 				type: "item"
 			}]
-			x: -13.5d
+			x: -14.5d
 			y: -8.5d
 		}
 		{
@@ -593,8 +593,8 @@
 				item: "gtceu:chlorine_bucket"
 				type: "item"
 			}]
-			x: -13.5d
-			y: -7.0d
+			x: -14.5d
+			y: -7.5d
 		}
 		{
 			dependencies: ["6CE7AC5A29F23BF5"]
@@ -604,8 +604,8 @@
 				item: "minecraft:water_bucket"
 				type: "item"
 			}]
-			x: -13.5d
-			y: -10.0d
+			x: -14.5d
+			y: -9.5d
 		}
 		{
 			dependencies: ["3506AAE813101DC5"]
@@ -615,7 +615,7 @@
 				item: "gtceu:acetic_acid_bucket"
 				type: "item"
 			}]
-			x: -15.0d
+			x: -13.0d
 			y: -4.0d
 		}
 		{
@@ -627,7 +627,7 @@
 				item: "gtceu:ethylene_bucket"
 				type: "item"
 			}]
-			x: -13.5d
+			x: -12.0d
 			y: -4.0d
 		}
 		{
@@ -639,7 +639,7 @@
 				item: "gtceu:propene_bucket"
 				type: "item"
 			}]
-			x: -13.5d
+			x: -13.0d
 			y: -5.5d
 		}
 		{
@@ -650,7 +650,7 @@
 				item: "gtceu:epoxy_plate"
 				type: "item"
 			}]
-			x: -18.5d
+			x: -18.0d
 			y: -5.5d
 		}
 		{
@@ -661,7 +661,7 @@
 				item: "gtceu:gold_foil"
 				type: "item"
 			}]
-			x: -18.5d
+			x: -18.0d
 			y: -6.5d
 		}
 		{
@@ -672,7 +672,7 @@
 				item: "gtceu:sulfuric_acid_bucket"
 				type: "item"
 			}]
-			x: -18.5d
+			x: -18.0d
 			y: -4.5d
 		}
 		{
@@ -687,7 +687,7 @@
 				item: "gtceu:epoxy_circuit_board"
 				type: "item"
 			}]
-			x: -20.0d
+			x: -19.5d
 			y: -5.5d
 		}
 		{
@@ -698,7 +698,7 @@
 				item: "gtceu:epoxy_printed_circuit_board"
 				type: "item"
 			}]
-			x: -21.5d
+			x: -21.0d
 			y: -5.5d
 		}
 		{
@@ -713,7 +713,7 @@
 				item: "gtceu:nano_cpu_wafer"
 				type: "item"
 			}]
-			x: -23.0d
+			x: -22.5d
 			y: -3.0d
 		}
 		{
@@ -724,7 +724,7 @@
 				item: "gtceu:glowstone_bucket"
 				type: "item"
 			}]
-			x: -20.0d
+			x: -19.5d
 			y: -3.0d
 		}
 		{
@@ -735,7 +735,7 @@
 				item: "gtceu:cpu_wafer"
 				type: "item"
 			}]
-			x: -20.0d
+			x: -19.5d
 			y: -2.0d
 		}
 		{
@@ -746,7 +746,7 @@
 				item: "gtceu:carbon_fibers"
 				type: "item"
 			}]
-			x: -20.0d
+			x: -19.5d
 			y: -4.0d
 		}
 		{
@@ -771,7 +771,7 @@
 				item: "gtceu:nano_processor"
 				type: "item"
 			}]
-			x: -23.0d
+			x: -22.5d
 			y: -5.5d
 		}
 		{
@@ -782,8 +782,8 @@
 				item: "gtceu:nano_cpu_chip"
 				type: "item"
 			}]
-			x: -23.0d
-			y: -4.0d
+			x: -22.5d
+			y: -4.5d
 		}
 		{
 			dependencies: ["0DEE3D6CBB746E49"]
@@ -793,7 +793,7 @@
 				item: "gtceu:nano_processor_assembly"
 				type: "item"
 			}]
-			x: -23.0d
+			x: -22.5d
 			y: -6.5d
 		}
 		{
@@ -804,7 +804,7 @@
 				item: "gtceu:nano_processor_computer"
 				type: "item"
 			}]
-			x: -21.5d
+			x: -21.0d
 			y: -6.5d
 		}
 		{
@@ -815,7 +815,7 @@
 				item: "gtceu:nano_processor_mainframe"
 				type: "item"
 			}]
-			x: -20.0d
+			x: -19.5d
 			y: -6.5d
 		}
 		{
@@ -956,7 +956,7 @@
 				item: "gtceu:tungstic_acid_dust"
 				type: "item"
 			}]
-			x: -12.0d
+			x: -9.0d
 			y: -7.0d
 		}
 		{
@@ -967,7 +967,7 @@
 				item: "gtceu:tungsten_dust"
 				type: "item"
 			}]
-			x: -12.0d
+			x: -9.0d
 			y: -8.5d
 		}
 		{
@@ -1001,7 +1001,7 @@
 				item: "gtceu:iv_machine_hull"
 				type: "item"
 			}]
-			x: -12.0d
+			x: -9.0d
 			y: -10.0d
 		}
 		{
