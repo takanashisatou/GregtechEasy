@@ -1032,6 +1032,16 @@ hash = "a747a6a2b4ff5a6d3ae4117ae86d024a080f157b5539afc77672f9808490eb11"
 metafile = true
 
 [[files]]
+file = "mods/polymorph.pw.toml"
+hash = "9a8c0026b02ecae2ae1432595807f793c17c32501a5d06687c9b2e107830f2d2"
+metafile = true
+
+[[files]]
+file = "mods/polymorphic-energistics.pw.toml"
+hash = "2d112b1fa743dd92dfe4c3002134d1a597d6ec43524b9026cebee49981bd6d13"
+metafile = true
+
+[[files]]
 file = "mods/probejs.pw.toml"
 hash = "5067d05ac59588aa0fa7ab0c0c11de750ccb295d4e24f1c76a111184680d2c2f"
 metafile = true
