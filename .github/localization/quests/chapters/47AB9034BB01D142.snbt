@@ -79,7 +79,7 @@
 				title: "{gte.47AB9034BB01D142.quests.5E1887D05D76E7AE.tasks.5B2E62CD5C08E3B4.title}"
 				type: "checkmark"
 			}]
-			x: -5.0d
+			x: -3.5d
 			y: -4.0d
 		}
 		{
@@ -124,13 +124,12 @@
 				title: "{gte.47AB9034BB01D142.quests.30941A7DE06A6E68.tasks.287CB77DADE884CD.title}"
 				type: "checkmark"
 			}]
-			x: -4.0d
+			x: -2.5d
 			y: -4.0d
 		}
 		{
 			can_repeat: true
 			dependencies: ["2BBD7C335742BCBE"]
-			icon: "ae2:pattern_encoding_terminal"
 			id: "4FA214D2E4741D2C"
 			rewards: [
 				{
@@ -184,20 +183,14 @@
 					item: "ae2:pattern_encoding_terminal"
 					type: "item"
 				}
-				{
-					count: 16
-					id: "401CD85ACA95F4B0"
-					item: "ae2:wireless_access_point"
-					type: "item"
-				}
 			]
 			tasks: [{
 				id: "5B131E23666C6D18"
 				title: "{gte.47AB9034BB01D142.quests.4FA214D2E4741D2C.tasks.5B131E23666C6D18.title}"
 				type: "checkmark"
 			}]
-			x: -2.0d
-			y: -4.0d
+			x: -1.0d
+			y: -1.5d
 		}
 		{
 			can_repeat: true
@@ -253,8 +246,8 @@
 				title: "{gte.47AB9034BB01D142.quests.5539606B8C636E42.tasks.2EC938202F4786DC.title}"
 				type: "checkmark"
 			}]
-			x: -2.0d
-			y: -0.5d
+			x: -2.5d
+			y: 0.0d
 		}
 		{
 			can_repeat: true
@@ -306,22 +299,6 @@
 					}
 					type: "item"
 				}
-				{
-					count: 16
-					id: "1CF10B39CF258E04"
-					item: "expatternprovider:ex_drive"
-					type: "item"
-				}
-				{
-					count: 16
-					id: "21793BF7673A287D"
-					item: {
-						Count: 1
-						id: "megacells:bulk_item_cell"
-						tag: { }
-					}
-					type: "item"
-				}
 			]
 			tasks: [{
 				id: "25B6124C673157C5"
@@ -330,7 +307,7 @@
 			}]
 			title: "{gte.47AB9034BB01D142.quests.27CE31735E0EA29B.title}"
 			x: -1.0d
-			y: -4.0d
+			y: -2.5d
 		}
 		{
 			can_repeat: true
@@ -386,8 +363,8 @@
 				title: "{gte.47AB9034BB01D142.quests.7A6DA401F24F83CB.tasks.0A683090982009B7.title}"
 				type: "checkmark"
 			}]
-			x: -4.0d
-			y: -0.5d
+			x: -3.5d
+			y: 0.0d
 		}
 		{
 			can_repeat: true
@@ -461,8 +438,8 @@
 				title: "{gte.47AB9034BB01D142.quests.69E53F5C3470EA20.tasks.785CEEB13C525C73.title}"
 				type: "checkmark"
 			}]
-			x: -1.0d
-			y: -2.0d
+			x: -5.0d
+			y: -2.5d
 		}
 		{
 			can_repeat: true
@@ -495,35 +472,26 @@
 				title: "{gte.47AB9034BB01D142.quests.1070E84FE5B10F94.tasks.628373B1EC3B4375.title}"
 				type: "checkmark"
 			}]
-			x: -1.0d
-			y: -1.0d
+			x: -4.5d
+			y: -3.5d
 		}
 		{
 			can_repeat: true
 			dependencies: ["2BBD7C335742BCBE"]
-			icon: "gtmthings:programmable_cover"
 			id: "670922914762F5F9"
-			rewards: [
-				{
-					count: 64
-					id: "3AC04E2BAA0ADDAE"
-					item: "gtmthings:programmable_cover"
-					type: "item"
-				}
-				{
-					count: 16
-					id: "6625FF75587CA5B7"
-					item: "gtmthings:max_programmablec_hatch"
-					type: "item"
-				}
-			]
+			rewards: [{
+				count: 64
+				id: "3AC04E2BAA0ADDAE"
+				item: "gtmthings:programmable_cover"
+				type: "item"
+			}]
 			tasks: [{
 				id: "4A1DEE306E30BB8C"
 				title: "{gte.47AB9034BB01D142.quests.670922914762F5F9.tasks.4A1DEE306E30BB8C.title}"
 				type: "checkmark"
 			}]
-			x: -1.0d
-			y: -3.0d
+			x: -1.5d
+			y: -0.5d
 		}
 		{
 			can_repeat: true
@@ -550,7 +518,7 @@
 				type: "checkmark"
 			}]
 			x: -5.0d
-			y: -2.0d
+			y: -1.5d
 		}
 		{
 			can_repeat: true
@@ -568,8 +536,8 @@
 				type: "checkmark"
 			}]
 			title: "{gte.47AB9034BB01D142.quests.76B6FADF4C537E8D.title}"
-			x: -3.0d
-			y: -4.0d
+			x: -1.5d
+			y: -3.5d
 		}
 		{
 			can_repeat: true
@@ -640,53 +608,8 @@
 				type: "checkmark"
 			}]
 			title: "{gte.47AB9034BB01D142.quests.3B8E9AA0F9E36A45.title}"
-			x: -5.0d
-			y: -1.0d
-		}
-		{
-			can_repeat: true
-			dependencies: ["2BBD7C335742BCBE"]
-			icon: "expatternprovider:assembler_matrix_frame"
-			id: "0254CAB58571538A"
-			rewards: [
-				{
-					count: 64
-					id: "1821101BBF5F9D0B"
-					item: "expatternprovider:assembler_matrix_frame"
-					type: "item"
-				}
-				{
-					count: 64
-					id: "761AFA5802194C3E"
-					item: "expatternprovider:assembler_matrix_wall"
-					type: "item"
-				}
-				{
-					count: 64
-					id: "39B9813E57112F89"
-					item: "expatternprovider:assembler_matrix_pattern"
-					type: "item"
-				}
-				{
-					count: 64
-					id: "047ECC4E15542CA5"
-					item: "expatternprovider:assembler_matrix_crafter"
-					type: "item"
-				}
-				{
-					count: 64
-					id: "7E2A4D903BB92AEB"
-					item: "expatternprovider:assembler_matrix_speed"
-					type: "item"
-				}
-			]
-			tasks: [{
-				id: "6C9A1FA87E410604"
-				type: "checkmark"
-			}]
-			title: "{gte.47AB9034BB01D142.quests.0254CAB58571538A.title}"
-			x: -5.0d
-			y: -3.0d
+			x: -4.5d
+			y: -0.5d
 		}
 	]
 	title: "{gte.47AB9034BB01D142.title}"
