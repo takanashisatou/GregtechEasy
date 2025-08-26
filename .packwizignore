@@ -51,7 +51,6 @@ fixup.sh
 /.github
 /result
 
-!extendedae_plus-*.jar
 !gtecore-*.jar
 config/flywheel-client.toml
 config/embeddium-options.json
