@@ -1063,8 +1063,23 @@ hash = "c377654ebf4b51ecf4eb0feb819131be7e2e0ec31c8a4000d71d84f6a48d5330"
 metafile = true
 
 [[files]]
+file = "mods/supermartijn642s-config-lib.pw.toml"
+hash = "db421f942e2394179257a0b05187b53345bac23366ca903233b888e08812f07f"
+metafile = true
+
+[[files]]
+file = "mods/supermartijn642s-core-lib.pw.toml"
+hash = "6622c4213c8e0eaaa15a764bcc559024fef19bb8bc30c0cb2eb2155cbe044102"
+metafile = true
+
+[[files]]
 file = "mods/touhou-little-maid.pw.toml"
 hash = "449e7dae954de9ae456ca220477101efd3e09f2543c74e7848419f73b958e4ed"
+metafile = true
+
+[[files]]
+file = "mods/trash-cans.pw.toml"
+hash = "cf97f2b17ee20ad43005208009e68cfb0ac08c48e07e9661860ac7ae584abeea"
 metafile = true
 
 [[files]]
