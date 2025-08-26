@@ -853,11 +853,6 @@ hash = "85dc92389240eacaaafa725ef260a16e744e46b60b8e43c3481e8fae9cc82eb1"
 metafile = true
 
 [[files]]
-file = "mods/gregtech-easy-core.pw.toml"
-hash = "3086c4f4a64ac6ed784fe8afb971409c5e0c3913e57bf95e52ab22e12323a056"
-metafile = true
-
-[[files]]
 file = "mods/gregtechceu-modern.pw.toml"
 hash = "5043cea6f0700666d0b942ec1495e0cdfc46c5408f56710c0befa129b3a52b3d"
 metafile = true
@@ -866,6 +861,10 @@ metafile = true
 file = "mods/gt.pw.toml"
 hash = "c9c1883f95ec208df36c6f76572abbb64e74471a6041ea34946ac455f2a5f94a"
 metafile = true
+
+[[files]]
+file = "mods/gtecore-1.20.1-1.6.1.jar"
+hash = "35556566b9490704995783c2f765e164ca95e3a1cc294d95fbba1b44c6681e9c"
 
 [[files]]
 file = "mods/gtmthings.pw.toml"
