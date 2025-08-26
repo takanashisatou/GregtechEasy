@@ -1,0 +1,15 @@
+filename = "AppliedFlux-1.20-1.3.2-forge.jar"
+name = "Applied Flux"
+side = "both"
+x-prismlauncher-loaders = ["neoforge", "forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "ae17a231bb3f0e02e0b869996800d05f9d664baa"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/6755/986/AppliedFlux-1.20-1.3.2-forge.jar"
+
+[update.curseforge]
+file-id = 6755986
+project-id = 965012

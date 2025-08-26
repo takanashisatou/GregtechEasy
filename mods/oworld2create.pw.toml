@@ -1,0 +1,15 @@
+filename = "0World2Create-Universal-1.19-1.20.X-1.0.0.jar"
+name = "OWorld2Create"
+side = "client"
+x-prismlauncher-loaders = ["neoforge", "forge", "quilt", "fabric"]
+x-prismlauncher-mc-versions = ["1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.3-Snapshot", "1.19.4", "1.19.4-Snapshot", "1.20", "1.20-Snapshot", "1.20.1", "1.20.2", "1.20.2-Snapshot", "1.20.3-Snapshot"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "35cc436e1155ee1ba23e24cd03eca8d92659a1e2"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/4799/214/0World2Create-Universal-1.19-1.20.X-1.0.0.jar"
+
+[update.curseforge]
+file-id = 4799214
+project-id = 923261

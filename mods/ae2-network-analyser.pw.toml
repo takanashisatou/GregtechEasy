@@ -1,0 +1,15 @@
+filename = "AE2NetworkAnalyzer-1.20-1.0.6-forge.jar"
+name = "AE2 Network Analyser"
+side = "both"
+x-prismlauncher-loaders = ["neoforge", "forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "7616ab6cf999f1844edc87433f60dfe45d829ce8"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/5107/131/AE2NetworkAnalyzer-1.20-1.0.6-forge.jar"
+
+[update.curseforge]
+file-id = 5107131
+project-id = 961856

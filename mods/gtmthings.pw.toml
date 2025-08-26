@@ -1,0 +1,15 @@
+filename = "gtmthings-1.5.4.jar"
+name = "GTMThings"
+side = "both"
+x-prismlauncher-loaders = ["neoforge", "forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "e5379d11c013988ace40bf170508594e2111e591"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/6843/500/gtmthings-1.5.4.jar"
+
+[update.curseforge]
+file-id = 6843500
+project-id = 1104310

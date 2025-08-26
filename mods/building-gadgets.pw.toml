@@ -1,0 +1,15 @@
+filename = "buildinggadgets2-1.0.8.jar"
+name = "Building Gadgets"
+side = "both"
+x-prismlauncher-loaders = ["forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "d06a806e8ca84a9e96a69c32da4b43226a51e0c9"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/6850/495/buildinggadgets2-1.0.8.jar"
+
+[update.curseforge]
+file-id = 6850495
+project-id = 298187

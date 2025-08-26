@@ -1,0 +1,120 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "tier_8_uv"
+	group: "277796EFA601375B"
+	icon: "gtceu:uv_machine_hull"
+	id: "73A4D90B82841D11"
+	order_index: 8
+	quest_links: [ ]
+	quests: [
+		{
+			id: "3474631B2D37E37B"
+			size: 2.0d
+			tasks: [
+				{
+					id: "2009C684D0F0B711"
+					item: "gtceu:uv_electric_motor"
+					type: "item"
+				}
+				{
+					id: "23148FAF5979E3D5"
+					item: "gtceu:uv_electric_piston"
+					type: "item"
+				}
+				{
+					id: "6BEFC780DBDBB90F"
+					item: "gtceu:uv_conveyor_module"
+					type: "item"
+				}
+				{
+					id: "4E1536AD2FD04240"
+					item: "gtceu:uv_robot_arm"
+					type: "item"
+				}
+				{
+					id: "418D9747F0C079F6"
+					item: "gtceu:uv_electric_pump"
+					type: "item"
+				}
+			]
+			title: "UV时代的老五样"
+			x: -2.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["3474631B2D37E37B"]
+			id: "3AA20BA84F95FA42"
+			size: 2.0d
+			tasks: [{
+				id: "764EF5811B6CD305"
+				item: "gtceu:uv_fusion_reactor"
+				type: "item"
+			}]
+			x: 1.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["3AA20BA84F95FA42"]
+			id: "25A7279184870EE1"
+			size: 2.0d
+			tasks: [{
+				id: "4F92B979C9D171A9"
+				item: "gtceu:neutronium_ingot"
+				type: "item"
+			}]
+			x: 4.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["25A7279184870EE1"]
+			id: "654D8540125E0AC4"
+			size: 2.0d
+			tasks: [{
+				id: "699AEAA11B127A88"
+				item: "gtceu:nan_certificate"
+				type: "item"
+			}]
+			x: 6.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["25A7279184870EE1"]
+			id: "254FD01BF0360CCC"
+			size: 2.0d
+			tasks: [{
+				id: "77E6BA49D4ECF9F6"
+				item: "gtceu:gravi_star"
+				type: "item"
+			}]
+			x: 4.0d
+			y: 2.5d
+		}
+		{
+			dependencies: ["254FD01BF0360CCC"]
+			id: "4222CF1A35D61D65"
+			size: 2.0d
+			tasks: [{
+				id: "788BD5AE941E67AD"
+				item: "gtceu:uhv_ultimate_battery"
+				type: "item"
+			}]
+			x: 4.0d
+			y: 5.0d
+		}
+		{
+			dependencies: ["4222CF1A35D61D65"]
+			description: ["恭喜通关,GregTech Easy制作组感谢你的游玩，期待与你的再次相遇。"]
+			id: "0A3AACE84D470730"
+			size: 2.0d
+			tasks: [{
+				id: "37445437BC1431BD"
+				item: "gtceu:max_battery"
+				type: "item"
+			}]
+			x: 4.0d
+			y: 7.5d
+		}
+	]
+	title: "[Tier 8] UV"
+}

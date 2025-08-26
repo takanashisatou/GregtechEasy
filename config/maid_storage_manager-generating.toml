@@ -1,0 +1,65 @@
+
+[mekanism]
+
+	[mekanism.crushing]
+		enable = true
+
+	[mekanism.sawing]
+		enable = true
+
+	[mekanism.enriching]
+		enable = true
+
+	[mekanism.metallurgic_infusing]
+		enable = true
+
+	[mekanism.compressing]
+		enable = true
+
+	[mekanism.combining]
+		enable = true
+
+	[mekanism.smelting]
+		enable = true
+		replace_furnace = true
+
+[maid_storage_manager]
+
+	[maid_storage_manager.smithing]
+		enable = true
+
+	[maid_storage_manager.brewing]
+		enable = true
+		count = 3
+
+	[maid_storage_manager.stripping]
+		enable = true
+
+	[maid_storage_manager.altar]
+		enable = true
+
+	[maid_storage_manager.furnace]
+		enable = true
+
+	[maid_storage_manager.watering]
+		bucket = true
+		enable = true
+		bottle = true
+
+	[maid_storage_manager.craft]
+		enable = true
+
+	[maid_storage_manager.stone_cutting]
+		enable = true
+
+[ae2]
+
+	[ae2.charger]
+		enable = true
+
+	[ae2.inscriber]
+		enable = true
+
+	[ae2.item_transform]
+		enable = true
+

@@ -1,0 +1,81 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "747CBC892EF10658"
+	group: "277796EFA601375B"
+	id: "747CBC892EF10658"
+	order_index: 9
+	quest_links: [ ]
+	quests: [
+		{
+			description: [
+				"提交完充满电的终极电池，GregTechEasy整合包就算通关了。"
+				"      GregTechEasy制作组感谢你的游玩。"
+			]
+			id: "7AA6A019F5BCC984"
+			rewards: [
+				{
+					count: 64
+					id: "070137593BC7625A"
+					item: "gtceu:creative_tank"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "4EA6E4FED28B3E81"
+					item: "gtceu:creative_chest"
+					type: "item"
+				}
+				{
+					id: "3A0970DE0CE8B436"
+					item: "ae2:creative_fluid_cell"
+					type: "item"
+				}
+				{
+					id: "774308BA3C8815EB"
+					item: "ae2:creative_item_cell"
+					type: "item"
+				}
+				{
+					id: "7643111886257693"
+					item: "gtceu:creative_energy"
+					type: "item"
+				}
+				{
+					id: "364097F914F1C2BA"
+					item: "ae2:creative_energy_cell"
+					type: "item"
+				}
+			]
+			size: 3.0d
+			subtitle: "毕业了 O Ye!"
+			tasks: [{
+				id: "3A80A07F02269D61"
+				item: {
+					Count: 1
+					id: "gtceu:max_battery"
+					tag: {
+						Charge: 9223372036854775807L
+					}
+				}
+				type: "item"
+			}]
+			title: "终极目标"
+			x: -3.0d
+			y: 0.0d
+		}
+		{
+			description: ["                  做出这个，代表你不再是菜鸟了，恭喜!"]
+			id: "0976E5C824FB677A"
+			size: 3.0d
+			tasks: [{
+				id: "439A4213DD7DE969"
+				item: "gtceu:nan_certificate"
+				type: "item"
+			}]
+			x: 1.5d
+			y: 0.0d
+		}
+	]
+	title: "终极目标"
+}
