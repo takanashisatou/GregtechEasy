@@ -864,7 +864,7 @@ metafile = true
 
 [[files]]
 file = "mods/gtecore-1.20.1-1.6.1.jar"
-hash = "acaec80ca5ef97f8e69449ec45518020765ea2b3f2aaf41c1a7fa7b59917fbd0"
+hash = "35556566b9490704995783c2f765e164ca95e3a1cc294d95fbba1b44c6681e9c"
 
 [[files]]
 file = "mods/gtmthings.pw.toml"
