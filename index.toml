@@ -877,6 +877,11 @@ hash = "21c57a849ced40c3a341587b58a00a29f5348df4fc4ee33b7b9a5a066229f2f1"
 metafile = true
 
 [[files]]
+file = "mods/infinite-storage-cell.pw.toml"
+hash = "af7310e31547f652119342f26b63d881952e0144bf586e48ee802eef0d2b9312"
+metafile = true
+
+[[files]]
 file = "mods/inventory-essentials.pw.toml"
 hash = "5978ff3b97412b4a08b34d8b54e3160ed4e8c4dbf9d418faf1dfd58bd44c6763"
 metafile = true

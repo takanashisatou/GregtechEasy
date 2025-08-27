@@ -1,0 +1,15 @@
+filename = "infinitestoragecell-1.20.1-1.2.jar"
+name = "Infinite Storage Cell"
+side = "both"
+x-prismlauncher-loaders = ["forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "cbff32e564bcdba954635b11d06d50a3b627fb2d"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/6155/997/infinitestoragecell-1.20.1-1.2.jar"
+
+[update.curseforge]
+file-id = 6155997
+project-id = 1173691
