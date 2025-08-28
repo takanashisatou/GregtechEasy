@@ -53,6 +53,24 @@
 					}
 					type: "item"
 				}
+				{
+					id: "56956C52235F6F81"
+					item: {
+						Count: 1
+						id: "bigger_ae2:digital_singularity_fluid_storage_cell"
+						tag: { }
+					}
+					type: "item"
+				}
+				{
+					id: "3B6D6BB6B91574AC"
+					item: {
+						Count: 1
+						id: "bigger_ae2:digital_singularity_item_storage_cell"
+						tag: { }
+					}
+					type: "item"
+				}
 			]
 			size: 2.0d
 			tasks: [{
@@ -687,6 +705,23 @@
 			title: "免费的装配矩阵"
 			x: -5.0d
 			y: -3.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			id: "785CD420464CB6DD"
+			rewards: [{
+				id: "0879B36E76393EB6"
+				item: "expatternprovider:pattern_modifier"
+				type: "item"
+			}]
+			tasks: [{
+				id: "461EE2557D6D121C"
+				type: "checkmark"
+			}]
+			title: "免费的样板修改器"
+			x: -3.0d
+			y: -0.5d
 		}
 	]
 	title: "免费的应用能源"

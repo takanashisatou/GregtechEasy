@@ -67,7 +67,9 @@ ServerEvents.recipes((event) => {
         'minecraft:end_stone',
         'gtceu:raw_uraninite',
         'gtceu:raw_ruby',
-        'mekanism:raw_osmium'
+        'mekanism:raw_osmium',
+        'gtceu:raw_lead',
+        'gtceu:raw_galena'
     )
     gte.circuit_factory()
     event.remove({'id':'gtceu:primitive_blast_furnace/steel_from_coal_gem_wrought'})
@@ -84,6 +86,7 @@ ServerEvents.recipes((event) => {
         "X": "gtceu:bronze_gear",
         "B": "gtceu:potin_gear"
     })
+    
     event.shaped(Item.of('gtceu:industrial_steam_casing',1),[
         "A"
     ],{
@@ -163,6 +166,18 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
         'O':'gtceu:steel_plate',
         "C":'#gtceu:circuits/lv',
         'D':"gtceu:lv_bender",
+        "E":'gtceu:lv_electric_motor',
+        "F":"gtceu:tin_single_cable"
+    })
+    event.shaped(Item.of('gtceu:big_autoclave',1),[
+        "AOA",
+        "CDC",
+        "EFE"
+    ],{
+        "A":'gtceu:lv_electric_piston',
+        'O':'gtceu:steel_plate',
+        "C":'#gtceu:circuits/lv',
+        'D':"gtceu:lv_autoclave",
         "E":'gtceu:lv_electric_motor',
         "F":"gtceu:tin_single_cable"
     })
@@ -256,7 +271,7 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
     .itemOutputs('16x gtceu:sticky_resin',
         '16x gtceu:rubber_sapling',
         '16x gtceu:rubber_wood',
-        '16  minecraft:sugar_cane',
+        '16x  minecraft:sugar_cane',
         '16x minecraft:ender_pearl',
         '16x minecraft:cod'
     ).duration(160)
