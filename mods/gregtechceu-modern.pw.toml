@@ -1,5 +1,5 @@
 filename = "gtceu-1.20.1-7.1.4.jar"
-name = "GregTech"
+name = "GregTech CEu Modern"
 side = "both"
 x-prismlauncher-loaders = ["forge"]
 x-prismlauncher-mc-versions = ["1.20.1"]

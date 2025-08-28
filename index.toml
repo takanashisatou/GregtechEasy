@@ -753,6 +753,11 @@ hash = "fa99027442a00aa4311ab8638731c70a90b87ce14504da152a5ed74229d37a20"
 metafile = true
 
 [[files]]
+file = "mods/bigger-ae2.pw.toml"
+hash = "743bf2708aa0d68ce39684674268b630eac50b7f81a6ebc98d42b0ca19a8e28a"
+metafile = true
+
+[[files]]
 file = "mods/building-gadgets.pw.toml"
 hash = "d799a5c81ce124aa51861baf6b0140950fc9dd75e654993127b60e209487f7bb"
 metafile = true
@@ -838,6 +843,11 @@ hash = "ebeed09c3c8fbbf07da4ddf2dada92334a48457169dc5392c797a6430a25e0eb"
 metafile = true
 
 [[files]]
+file = "mods/ftb-xmod-compat.pw.toml"
+hash = "9bdfd37900509d4447f80edfdb3cdc5de7ea41078a4e96648eae50ccb0e019ef"
+metafile = true
+
+[[files]]
 file = "mods/geckolib.pw.toml"
 hash = "fda57ae72c6e0cc0eb8367c1acfbfc3798e9a1dc2f54acc90a2c327502c89b1a"
 metafile = true
@@ -853,18 +863,19 @@ hash = "85dc92389240eacaaafa725ef260a16e744e46b60b8e43c3481e8fae9cc82eb1"
 metafile = true
 
 [[files]]
+file = "mods/gregtech-easy-core.pw.toml"
+hash = "bd25915f312ba939fdcbaaf29b1c0e4b78f9276ac5f45b5059157f4f6572003d"
+metafile = true
+
+[[files]]
 file = "mods/gregtechceu-modern.pw.toml"
-hash = "5043cea6f0700666d0b942ec1495e0cdfc46c5408f56710c0befa129b3a52b3d"
+hash = "d86efc94f9d715b5123906b61b24f5c5757c7a0b250a3f5557b0bf0e23883626"
 metafile = true
 
 [[files]]
 file = "mods/gt.pw.toml"
 hash = "c9c1883f95ec208df36c6f76572abbb64e74471a6041ea34946ac455f2a5f94a"
 metafile = true
-
-[[files]]
-file = "mods/gtecore-1.20.1-1.6.1.jar"
-hash = "35556566b9490704995783c2f765e164ca95e3a1cc294d95fbba1b44c6681e9c"
 
 [[files]]
 file = "mods/gtmthings.pw.toml"
@@ -943,7 +954,7 @@ metafile = true
 
 [[files]]
 file = "mods/maid-storage-manager.pw.toml"
-hash = "de8ae21d7553872824769d6dcfbc17d019cbf33c05ed341245a3b12d48e4ff23"
+hash = "7ff7939946a8f59478d99094060c15bf6959b09455fb0d19d22fbeaffe3e6d24"
 metafile = true
 
 [[files]]
