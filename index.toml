@@ -858,6 +858,11 @@ hash = "32f6469793df62422eefd2d927204aacb75a3e88739e67a3406c183a202b6543"
 metafile = true
 
 [[files]]
+file = "mods/gregfluxology.pw.toml"
+hash = "330eabe36748a5865c8d5c770163ff355d03c68ff439fa88288683fce9fd0ea4"
+metafile = true
+
+[[files]]
 file = "mods/gregmek.pw.toml"
 hash = "85dc92389240eacaaafa725ef260a16e744e46b60b8e43c3481e8fae9cc82eb1"
 metafile = true
@@ -1085,6 +1090,11 @@ metafile = true
 [[files]]
 file = "mods/sophisticated-storage.pw.toml"
 hash = "c377654ebf4b51ecf4eb0feb819131be7e2e0ec31c8a4000d71d84f6a48d5330"
+metafile = true
+
+[[files]]
+file = "mods/squat-grow.pw.toml"
+hash = "611b768d9a265e4d4efd9503ace1d7d4b698dc5f595ec05c2e8b319ccce60951"
 metafile = true
 
 [[files]]

@@ -1,0 +1,15 @@
+filename = "squatgrow-forge-5.3.0+mc1.20.1.jar"
+name = "Squat Grow (Shift / Twerk to grow plants)"
+side = "both"
+x-prismlauncher-loaders = ["neoforge", "forge"]
+x-prismlauncher-mc-versions = ["1.20.1"]
+x-prismlauncher-release-type = "release"
+
+[download]
+hash = "a692be4b155a6149f108e6dcb79e5ad9d49ad722"
+hash-format = "sha1"
+url = "https://edge.forgecdn.net/files/5150/173/squatgrow-forge-5.3.0+mc1.20.1.jar"
+
+[update.curseforge]
+file-id = 5150173
+project-id = 515698
