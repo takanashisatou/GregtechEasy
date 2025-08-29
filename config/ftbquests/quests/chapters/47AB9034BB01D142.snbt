@@ -53,24 +53,6 @@
 					}
 					type: "item"
 				}
-				{
-					id: "56956C52235F6F81"
-					item: {
-						Count: 1
-						id: "bigger_ae2:digital_singularity_fluid_storage_cell"
-						tag: { }
-					}
-					type: "item"
-				}
-				{
-					id: "3B6D6BB6B91574AC"
-					item: {
-						Count: 1
-						id: "bigger_ae2:digital_singularity_item_storage_cell"
-						tag: { }
-					}
-					type: "item"
-				}
 			]
 			size: 2.0d
 			tasks: [{
@@ -709,17 +691,50 @@
 		{
 			can_repeat: true
 			dependencies: ["2BBD7C335742BCBE"]
-			id: "785CD420464CB6DD"
-			rewards: [{
-				id: "0879B36E76393EB6"
-				item: "expatternprovider:pattern_modifier"
-				type: "item"
-			}]
+			icon: {
+				Count: 1
+				id: "bigger_ae2:digital_singularity_item_storage_cell"
+				tag: { }
+			}
+			id: "04790EF8523BE4BA"
+			rewards: [
+				{
+					count: 100
+					id: "526567DDC09B0539"
+					item: {
+						Count: 1
+						id: "bigger_ae2:digital_singularity_item_storage_cell"
+						tag: { }
+					}
+					type: "item"
+				}
+				{
+					count: 100
+					id: "13A4433D3F3A0B51"
+					item: {
+						Count: 1
+						id: "bigger_ae2:digital_singularity_fluid_storage_cell"
+						tag: { }
+					}
+					type: "item"
+				}
+				{
+					count: 100
+					id: "15CEBD36FBD017E0"
+					item: {
+						Count: 1
+						id: "bigger_ae2:digital_singularity_flux_storage_cell"
+						tag: { }
+					}
+					type: "item"
+				}
+			]
+			subtitle: "奇点技术，恐怖如斯!"
 			tasks: [{
-				id: "461EE2557D6D121C"
+				id: "50D1696C51CF0B21"
+				title: "奇点存储大礼包"
 				type: "checkmark"
 			}]
-			title: "免费的样板修改器"
 			x: -3.0d
 			y: -0.5d
 		}

@@ -270,15 +270,15 @@ hash = "430aaf0967d6fcd21c5a5540637b56900227fcf9db9b9ec58cb0f957d27978e5"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/450B4E83018489AA.snbt"
-hash = "dc72d8129f81435fa1ac2bc2f461a2947356bb42fb1f4a141fcfa1fb59c58411"
+hash = "b38842bb9b85b7ebbbfa59587498f320a4f39b5fb2257e63de7d2da2961fcdbc"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/47AB9034BB01D142.snbt"
-hash = "294a8226f69eb897efbe71de4f7027cfe5774ba7e1f2e375095cec2882f78968"
+hash = "a160c31b63b166ec71d162ffb1f989cc9ab33a3147780526b2cb720ff64fe81a"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/537F7C5E358FAFFA.snbt"
-hash = "c953311fbb983f01b9cd1919e6ee0dbb97852c15a2c341d0a1f2badeccc08a21"
+hash = "28b9b366a3b6f602df94f6ab58c7e6a2139ca4f10eb8c34f7523f450e94ea2f3"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/708235A0CFA41C29.snbt"
@@ -868,11 +868,6 @@ hash = "85dc92389240eacaaafa725ef260a16e744e46b60b8e43c3481e8fae9cc82eb1"
 metafile = true
 
 [[files]]
-file = "mods/gregtech-easy-core.pw.toml"
-hash = "bd25915f312ba939fdcbaaf29b1c0e4b78f9276ac5f45b5059157f4f6572003d"
-metafile = true
-
-[[files]]
 file = "mods/gregtechceu-modern.pw.toml"
 hash = "d86efc94f9d715b5123906b61b24f5c5757c7a0b250a3f5557b0bf0e23883626"
 metafile = true
@@ -881,6 +876,10 @@ metafile = true
 file = "mods/gt.pw.toml"
 hash = "c9c1883f95ec208df36c6f76572abbb64e74471a6041ea34946ac455f2a5f94a"
 metafile = true
+
+[[files]]
+file = "mods/gtecore-1.20.1-1.7.jar"
+hash = "ccc7eec2fbb714590278944f603269ad3f5352ba66d427ebcbb4efbb98fade13"
 
 [[files]]
 file = "mods/gtmthings.pw.toml"

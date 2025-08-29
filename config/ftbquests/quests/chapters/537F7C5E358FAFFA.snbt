@@ -176,6 +176,39 @@
 			x: -13.0d
 			y: 0.0d
 		}
+		{
+			dependencies: ["18395334D78BB738"]
+			id: "769DDB423547A259"
+			tasks: [{
+				id: "08083976E0AB07A9"
+				item: "gtceu:steam_large_turbine"
+				type: "item"
+			}]
+			x: -11.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["38B9057881435D19"]
+			id: "02205BAD1BCF9347"
+			tasks: [{
+				id: "450AC189B0F8BB07"
+				item: "gtceu:gas_large_turbine"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["075CA277835EA49A"]
+			id: "5238D03DD7D5628D"
+			tasks: [{
+				id: "1327F37444A8E906"
+				item: "gtceu:large_combustion_engine"
+				type: "item"
+			}]
+			x: -10.5d
+			y: 0.0d
+		}
 	]
 	title: "电力的来源"
 }

@@ -457,18 +457,17 @@
 					id: "53CEA2B4BC640DB7"
 					item: {
 						Count: 1
-						id: "gtceu:neutronium_wire_cutter"
+						id: "gtceu:neutronium_saw"
 						tag: {
 							DisallowContainerItem: 0b
 							GT.Behaviours: {
+								HarvestIce: 1b
 								RelocateMinedBlocks: 1b
 								RelocateMobDrops: 1b
 							}
 							GT.Tool: {
 								Damage: 0
-								HarvestLevel: 6
 								MaxDamage: 65534
-								ToolSpeed: 184.0f
 							}
 							HideFlags: 2
 							Unbreakable: 1b
