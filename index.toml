@@ -869,7 +869,7 @@ metafile = true
 
 [[files]]
 file = "mods/gregtech-easy-core.pw.toml"
-hash = "f19ddb3cda19dcdc182568121844be308341308f8375799ad6a540c29fe42e99"
+hash = "064e50cfb45d22226b7296db7e31d77d5c0339d71befeec91e1e87eb08f9560e"
 metafile = true
 
 [[files]]
