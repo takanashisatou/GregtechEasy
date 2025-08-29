@@ -1,0 +1,11 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "1AB1207561006D54"
+	group: "077D7FFC53DDA8F0"
+	id: "1AB1207561006D54"
+	order_index: 4
+	quest_links: [ ]
+	quests: [ ]
+	title: "{gte.1AB1207561006D54.title}"
+}
