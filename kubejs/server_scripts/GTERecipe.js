@@ -41,7 +41,8 @@ ServerEvents.recipes((event) => {
     .circuit(1)
     .duration(20*20)
     .EUt(32)
-    .itemOutputs('minecraft:raw_iron',
+    .itemOutputs(
+        'minecraft:raw_iron',
         'minecraft:raw_copper',
         'minecraft:raw_gold',
         'gtceu:raw_redstone',
@@ -69,9 +70,27 @@ ServerEvents.recipes((event) => {
         'gtceu:raw_ruby',
         'mekanism:raw_osmium',
         'gtceu:raw_lead',
-        'gtceu:raw_galena'
+        'gtceu:raw_galena',
+        'gtceu:raw_garnierite',
+        'gtceu:raw_topaz',
+        'gtceu:raw_beryllium',
+        'gtceu:raw_lithium',
+        'gtceu:raw_garnierite',
+        'gtceu:raw_pyrolusite',
+        'gtceu:raw_bastnasite',
+        'minecraft:ancient_debris',
+        'gtceu:raw_tantalite'
     )
-    gte.circuit_factory()
+    event.remove({output:'gtceu:steel_large_boiler'})
+    event.shaped(Item.of('gtceu:steel_large_boiler',1),[
+        "ABA",
+        "BOB",
+        "ABA"
+    ],{
+        "A":"gtceu:tin_single_cable",
+        "O":"gtceu:steel_firebox_casing",
+        "B":"#gtceu:circuits/lv"
+    })
     event.remove({'id':'gtceu:primitive_blast_furnace/steel_from_coal_gem_wrought'})
     event.remove({'id':'gtceu:primitive_blast_furnace/steel_from_coal_gem'})
     event.remove({'id':'gtceu:primitive_blast_furnace/steel_from_charcoal_gem'})
@@ -151,7 +170,7 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
         "1x gtceu:hv_cutter",
         "1x gtceu:hv_laser_engraver",
         "1x gtceu:hv_circuit_assembler",
-        "2x gtceu:circuits/iv",
+        "2x #gtceu:circuits/iv",
         "2x gtceu:hv_robot_arm"
     ).circuit(1)
     .itemOutputs('1x gtceu:circuit_factory')
@@ -271,9 +290,11 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
     .itemOutputs('16x gtceu:sticky_resin',
         '16x gtceu:rubber_sapling',
         '16x gtceu:rubber_wood',
-        '16x  minecraft:sugar_cane',
+        '16x minecraft:sugar_cane',
         '16x minecraft:ender_pearl',
-        '16x minecraft:cod'
+        '16x minecraft:cod',
+        '16x minecraft:blaze_powder',
+        '16x minecraft:bone_meal'
     ).duration(160)
     event.remove({id:'gtceu:electrolyzer/sugar_electrolysis'})
     gtr.electrolyzer('gtceu:sugar_oxygen')
@@ -376,7 +397,81 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
     //event.remove({id:'gtceu:blasting/smelt_raw_platinum_ore_to_ingot'})
     //event.remove({id:'gtceu:blasting/smelt_platinum_ore_to_ingot'})
     //event.remove({output:'gtceu:platinum_ingot'})
-    
-    
+    gte.desulfurization_recipe('easy_desulfurization_heavy')
+    .inputFluids('gtceu:sulfuric_heavy_fuel 8000')
+    .outputFluids('gtceu:heavy_fuel 8000',
+        'gtceu:hydrogen 8000'
+    )
+    .itemOutputs('8x gtceu:sulfur_dust')
+    .EUt(120)
+    .duration(200)
+    gte.desulfurization_recipe('easy_desulfurization_light')
+    .inputFluids('gtceu:sulfuric_light_fuel 8000')
+    .outputFluids('gtceu:light_fuel 8000',
+        'gtceu:hydrogen 8000'
+    )
+    .itemOutputs('8x gtceu:sulfur_dust')
+    .EUt(120)
+    .duration(200)
+    gte.desulfurization_recipe('easy_desulfurization_naphtha')
+    .inputFluids('gtceu:sulfuric_naphtha 8000')
+    .outputFluids('gtceu:naphtha 8000',
+        'gtceu:hydrogen 8000'
+    )
+    .itemOutputs('8x gtceu:sulfur_dust')
+    .EUt(120)
+    .duration(200)
+    gte.desulfurization_recipe('easy_desulfurization_gas')
+    .inputFluids('gtceu:sulfuric_gas 8000')
+    .outputFluids('gtceu:refinery_gas 8000',
+        'gtceu:hydrogen 8000'
+    )
+    .itemOutputs('8x gtceu:sulfur_dust')
+    .EUt(120)
+    .duration(200)
+    gte.desulfurization_recipe('easy_desulfurization_gas_natural')
+    .inputFluids('gtceu:natural_gas 8000')
+    .outputFluids('gtceu:refinery_gas 8000',
+        'gtceu:hydrogen 8000'
+    )
+    .itemOutputs('8x gtceu:sulfur_dust')
+    .EUt(120)
+    .duration(200)
+    gte.desulfurization_recipe('easy_fuel_2')
+    .inputFluids('gtceu:natural_gas 8000',
+        'gtceu:sulfuric_gas 8000',
+        'gtceu:sulfuric_naphtha 8000',
+        'gtceu:sulfuric_light_fuel 8000',
+        'gtceu:sulfuric_heavy_fuel 8000'
+
+    )
+    .outputFluids('gtceu:refinery_gas 16000',
+        'gtceu:naphtha 8000',
+        'gtceu:light_fuel 8000',
+        'gtceu:heavy_fuel 8000',
+        'gtceu:hydrogen 40000'
+    )
+    .itemOutputs('40x gtceu:sulfur_dust')
+    .circuit(2)
+    .EUt(120)
+    .duration(400)
+    gte.desulfurization_recipe('easy_fuel_1')
+    .inputFluids(
+        'gtceu:sulfuric_gas 8000',
+        'gtceu:sulfuric_naphtha 8000',
+        'gtceu:sulfuric_light_fuel 8000',
+        'gtceu:sulfuric_heavy_fuel 8000'
+
+    )
+    .outputFluids('gtceu:refinery_gas 8000',
+        'gtceu:naphtha 8000',
+        'gtceu:light_fuel 8000',
+        'gtceu:heavy_fuel 8000',
+        'gtceu:hydrogen 32000'
+    )
+    .itemOutputs('32x gtceu:sulfur_dust')
+    .circuit(1)
+    .EUt(120)
+    .duration(300)
 }
 )

@@ -486,15 +486,15 @@ hash = "051d8aaec9eb09e60cd6125d98056d06888b2dd1da3c1982b8859303050410de"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/en_us.json"
-hash = "ba73a57c943c3c39540ac04b868db254027f7506dbb20a93da67e70088d02609"
+hash = "8216852438015404fedf5867907cec8af158b8cdddb812d9de5cb958ef174c17"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/zh_cn.json"
-hash = "ba73a57c943c3c39540ac04b868db254027f7506dbb20a93da67e70088d02609"
+hash = "8216852438015404fedf5867907cec8af158b8cdddb812d9de5cb958ef174c17"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/zh_tw.json"
-hash = "daa14c837ca04600e5992c4758bf84ba6445c04910e9b9ea9872c629e88404f3"
+hash = "006ff8aac779b82cd36fff5e4d887bf40d52f76ebfc989608e6fac59cef040e5"
 
 [[files]]
 file = "config/openloader/resources/quests/pack.mcmeta"
@@ -654,7 +654,7 @@ hash = "eb0bfaed60482e4e159ff4e2452cc098de57689f7cc82b4c9d9f112548173da6"
 
 [[files]]
 file = "kubejs/server_scripts/GTERecipe.js"
-hash = "a24f9ba0bb79b6bee7ed762667a583b6a32b3b4b558762ad8c8f38ae2b71f1e9"
+hash = "68ecdea5183e15411695f6b7071bfb7b0a50155719b1f336827336bfe8c56d7c"
 
 [[files]]
 file = "kubejs/server_scripts/bedrock_fluid.js"
