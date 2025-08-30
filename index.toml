@@ -703,6 +703,11 @@ hash = "50a1749ad4bb138a36230ddd825ae214b5ca0f424f6fbbc6ca33e4fd00a07087"
 metafile = true
 
 [[files]]
+file = "mods/ae-wireless-transceiver.pw.toml"
+hash = "589fa4c3ec3522907477a3e3ea867077c4f2e2653909619f8dc29907dac6cd64"
+metafile = true
+
+[[files]]
 file = "mods/ae2-network-analyser.pw.toml"
 hash = "395916389c46421d81e2fa9911b8981ff1601faa5890b7201d06d31446583c94"
 metafile = true
@@ -868,11 +873,6 @@ hash = "85dc92389240eacaaafa725ef260a16e744e46b60b8e43c3481e8fae9cc82eb1"
 metafile = true
 
 [[files]]
-file = "mods/gregtech-easy-core.pw.toml"
-hash = "064e50cfb45d22226b7296db7e31d77d5c0339d71befeec91e1e87eb08f9560e"
-metafile = true
-
-[[files]]
 file = "mods/gregtechceu-modern.pw.toml"
 hash = "d86efc94f9d715b5123906b61b24f5c5757c7a0b250a3f5557b0bf0e23883626"
 metafile = true
@@ -881,6 +881,10 @@ metafile = true
 file = "mods/gt.pw.toml"
 hash = "c9c1883f95ec208df36c6f76572abbb64e74471a6041ea34946ac455f2a5f94a"
 metafile = true
+
+[[files]]
+file = "mods/gtecore-1.20.1-1.8.jar"
+hash = "c6dd318770da7bd94af31c796d7feadc96970d11cbd043b9bad38470dc24c87c"
 
 [[files]]
 file = "mods/gtmthings.pw.toml"
