@@ -209,6 +209,102 @@
 			x: -10.5d
 			y: 0.0d
 		}
+		{
+			id: "2606AE3A3EB675DE"
+			tasks: [{
+				id: "69BFC8760AA0EBEE"
+				title: "IV"
+				type: "checkmark"
+			}]
+			x: -13.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["5238D03DD7D5628D"]
+			id: "70CF1B548C48D876"
+			tasks: [{
+				id: "5B7237CF3C9B5943"
+				item: "gtceu:extreme_combustion_engine"
+				type: "item"
+			}]
+			x: -10.5d
+			y: 1.0d
+		}
+		{
+			id: "1454887A0DA8591B"
+			tasks: [{
+				id: "256B23A0232599B9"
+				title: "ZPM"
+				type: "checkmark"
+			}]
+			title: "Luv"
+			x: -13.0d
+			y: 2.0d
+		}
+		{
+			dependencies: ["3E9FE13405F67DC5"]
+			id: "7C6D1776709AEA88"
+			tasks: [{
+				id: "42673A2B72AD6297"
+				item: "gtceu:plasma_large_turbine"
+				type: "item"
+			}]
+			x: -8.5d
+			y: 1.0d
+		}
+		{
+			dependencies: ["1D6D151AA1CBB9BA"]
+			id: "763A226E2B424206"
+			tasks: [{
+				id: "15366505A9039D0E"
+				item: "gtnn:ev_naquadah_reactor"
+				type: "item"
+			}]
+			x: -7.5d
+			y: 0.0d
+		}
+		{
+			dependencies: ["763A226E2B424206"]
+			id: "4C087F2251527D7B"
+			tasks: [{
+				id: "728C34DB71A0D013"
+				item: "gtnn:iv_naquadah_reactor"
+				type: "item"
+			}]
+			x: -7.5d
+			y: 1.0d
+		}
+		{
+			dependencies: ["4C087F2251527D7B"]
+			id: "0251C1A5684321AF"
+			tasks: [{
+				id: "36CB619DE5A37BC4"
+				item: "gtnn:luv_naquadah_reactor"
+				type: "item"
+			}]
+			x: -7.5d
+			y: 2.0d
+		}
+		{
+			id: "3E9FE13405F67DC5"
+			tasks: [{
+				id: "2E64AA85BEE3279A"
+				title: "等离子涡轮发电"
+				type: "checkmark"
+			}]
+			x: -8.5d
+			y: 0.0d
+		}
+		{
+			id: "1D6D151AA1CBB9BA"
+			tasks: [{
+				id: "1A3C12E01DEFC4F1"
+				title: "硅岩发电"
+				type: "checkmark"
+			}]
+			x: -7.5d
+			y: -1.0d
+		}
 	]
 	title: "电力的来源"
 }

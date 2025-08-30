@@ -719,6 +719,71 @@
 			x: -8.5d
 			y: -4.0d
 		}
+		{
+			dependencies: ["2273DC38F788F572"]
+			id: "3B90ADFD5F010894"
+			tasks: [{
+				id: "15EC123D8177194B"
+				item: "gtceu:desulfurization"
+				type: "item"
+			}]
+			x: -2.5d
+			y: -4.5d
+		}
+		{
+			dependencies: ["19F084F853F742EA"]
+			id: "02C2A5CDAFB517B9"
+			tasks: [{
+				id: "15DE92154334D717"
+				item: "gtceu:big_mixer"
+				type: "item"
+			}]
+			x: -10.0d
+			y: -4.5d
+		}
+		{
+			dependencies: ["074AD733062ACD47"]
+			id: "44B127C72A81F184"
+			tasks: [{
+				id: "10CEBBE9CB295041"
+				item: "gtecore:steam_op"
+				type: "item"
+			}]
+			x: -12.5d
+			y: -4.0d
+		}
+		{
+			id: "02615C97199FE825"
+			tasks: [{
+				id: "172CC0FBA5AB4217"
+				title: "Luv时代多方块结构"
+				type: "checkmark"
+			}]
+			x: -4.0d
+			y: -0.5d
+		}
+		{
+			dependencies: ["02615C97199FE825"]
+			id: "4B4EFDB51A72DBC0"
+			tasks: [{
+				id: "3211E5AE85A63420"
+				item: "gtnn:component_assembly_line"
+				type: "item"
+			}]
+			x: -4.0d
+			y: -2.0d
+		}
+		{
+			dependencies: ["02615C97199FE825"]
+			id: "125E322362DE8BBC"
+			tasks: [{
+				id: "7A0AC8F368402FB5"
+				item: "gtceu:high_performance_computation_array"
+				type: "item"
+			}]
+			x: -2.5d
+			y: -2.0d
+		}
 	]
 	title: "多方块结构"
 }

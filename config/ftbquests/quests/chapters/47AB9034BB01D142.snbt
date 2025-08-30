@@ -196,6 +196,7 @@
 				title: "免费的终端"
 				type: "checkmark"
 			}]
+			title: "免费的终端和无线接入点"
 			x: -2.0d
 			y: -4.0d
 		}
@@ -247,12 +248,19 @@
 					item: "ae2wtlib:quantum_bridge_card"
 					type: "item"
 				}
+				{
+					count: 100
+					id: "0F311DEF9257B2C8"
+					item: "aewireless:wireless_transceiver"
+					type: "item"
+				}
 			]
 			tasks: [{
 				id: "2EC938202F4786DC"
 				title: "免费的量子环"
 				type: "checkmark"
 			}]
+			title: "免费的量子环和无线收发器"
 			x: -2.0d
 			y: -0.5d
 		}
@@ -691,11 +699,7 @@
 		{
 			can_repeat: true
 			dependencies: ["2BBD7C335742BCBE"]
-			icon: {
-				Count: 1
-				id: "bigger_ae2:digital_singularity_item_storage_cell"
-				tag: { }
-			}
+			icon: "infinitestoragecell:infinity_item_cell"
 			id: "04790EF8523BE4BA"
 			rewards: [
 				{
@@ -728,6 +732,16 @@
 					}
 					type: "item"
 				}
+				{
+					id: "637533FA787B3248"
+					item: "infinitestoragecell:infinity_item_cell"
+					type: "item"
+				}
+				{
+					id: "1969A9A99E390BB3"
+					item: "infinitestoragecell:infinity_fluid_cell"
+					type: "item"
+				}
 			]
 			subtitle: "奇点技术，恐怖如斯!"
 			tasks: [{
@@ -735,6 +749,7 @@
 				title: "奇点存储大礼包"
 				type: "checkmark"
 			}]
+			title: "无限存储大礼包"
 			x: -3.0d
 			y: -0.5d
 		}

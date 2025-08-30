@@ -79,7 +79,15 @@ ServerEvents.recipes((event) => {
         'gtceu:raw_pyrolusite',
         'gtceu:raw_bastnasite',
         'minecraft:ancient_debris',
-        'gtceu:raw_tantalite'
+        'gtceu:raw_tantalite',
+        'gtceu:raw_monazite',
+        'gtceu:raw_rock_salt',
+        'gtceu:quartzite_gem',
+        'gtceu:raw_apatite',
+        'gtceu:raw_vanadium_magnetite',
+        'gtceu:raw_naquadah',
+        'gtceu:raw_molybdenite'
+
     )
     event.remove({output:'gtceu:steel_large_boiler'})
     event.shaped(Item.of('gtceu:steel_large_boiler',1),[
@@ -185,6 +193,18 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
         'O':'gtceu:steel_plate',
         "C":'#gtceu:circuits/lv',
         'D':"gtceu:lv_bender",
+        "E":'gtceu:lv_electric_motor',
+        "F":"gtceu:tin_single_cable"
+    })
+    event.shaped(Item.of('gtceu:big_mixer',1),[
+        "AOA",
+        "CDC",
+        "EFE"
+    ],{
+        "A":'gtceu:lv_electric_piston',
+        'O':'gtceu:steel_plate',
+        "C":'#gtceu:circuits/lv',
+        'D':"gtceu:lv_mixer",
         "E":'gtceu:lv_electric_motor',
         "F":"gtceu:tin_single_cable"
     })
@@ -393,6 +413,11 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
     ],{
         "A":'gtceu:steam_oven'
     })
+    event.shaped(Item.of('gtecore:steam_op',1),[
+        "A"
+    ],{
+        "A":'gtceu:easy_box'
+    })
     //event.remove({id:'gtceu:blasting/smelt_deepslate_platinum_ore_to_ingot'})
     //event.remove({id:'gtceu:blasting/smelt_raw_platinum_ore_to_ingot'})
     //event.remove({id:'gtceu:blasting/smelt_platinum_ore_to_ingot'})
@@ -473,5 +498,33 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
     .circuit(1)
     .EUt(120)
     .duration(300)
+    gtr.assembler('gtceu:desulfurization')
+    .itemInputs('8x #gtceu:circuits/mv',
+        '1x gtceu:mv_machine_hull',
+        '4x gtceu:mv_electric_pump'
+    ).itemOutputs('1x gtceu:desulfurization')
+    .circuit(6)
+    .EUt(120)
+    .duration(300)
+    gtr.assembly_line('gtnn:component_assembly_line')
+    .itemInputs('2x gtceu:assembly_line',
+        '16x gtceu:assembly_line_unit',
+        '16x gtceu:assembly_line_casing',
+        '32x #gtceu:circuits/luv',
+        '8x gtceu:luv_field_generator'
+    )
+    .itemOutputs('1x gtnn:component_assembly_line')
+    .stationResearch((b)=>b
+                        .researchStack(Item.of('gtceu:assembly_line'))
+                        .CWUt(32)
+                        .EUt(GTValues.VA[GTValues.LuV]))
+    .duration(20 * 3000)
+    .EUt(GTValues.VA[GTValues.LuV])
+    gtr.assembler('gtnn:component_assline_casing_luv')
+    .itemInputs('16x gtceu:assembly_line_casing')
+    .circuit(1)
+    .itemOutputs('1x gtnn:component_assline_casing_luv')
+    .duration(20 * 300)
+    .EUt(GTValues.VA[GTValues.LuV])
 }
 )
