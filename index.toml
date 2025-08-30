@@ -693,6 +693,10 @@ file = "kubejs/server_scripts/fluid_veins.js"
 hash = "f6432f9ed7c01d26ec68a96d9717c15aed44453be81a80c394041b63c79ca642"
 
 [[files]]
+file = "kubejs/server_scripts/obsidian_teleport.js"
+hash = "137794b00b921c75ffb61be63d89a330bbe5cdfe353867cbddee80cd252d6387"
+
+[[files]]
 file = "kubejs/startup_scripts/GTEMaterial.js"
 hash = "672da7bab2a8c2c161536e153263993ada625b5ea3aac026593f5c72748c01cd"
 
