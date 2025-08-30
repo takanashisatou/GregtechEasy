@@ -5,9 +5,8 @@ side = "both"
 [download]
 hash-format = "sha1"
 hash = "6c188cf028ea0e78c11975296639ee57d16f0563"
-mode = "metadata:curseforge"
+url = "https://edge.forgecdn.net/files/6943/451/aewireless-1.0.0.jar"
 
-[update]
 [update.curseforge]
 file-id = 6943451
 project-id = 1337607
