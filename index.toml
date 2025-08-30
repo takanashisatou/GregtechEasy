@@ -482,7 +482,19 @@ hash = "9f38bd4301771093649545981fd1e5eedbaa9313c0d57e836eaa8254bb5d17ca"
 
 [[files]]
 file = "config/openloader/advanced_options.json"
-hash = "051d8aaec9eb09e60cd6125d98056d06888b2dd1da3c1982b8859303050410de"
+hash = "d08c3a750d2f50f0d6e66217e92bbbecc102ad91f66b8a263e48d1b6388bba3e"
+
+[[files]]
+file = "config/openloader/data/data/data/gte/dimension/custom_flat_dimension.json"
+hash = "1a591296d65af2bd4836cefd7687a60d528df19110626b7ead6e9a1cae94a249"
+
+[[files]]
+file = "config/openloader/data/data/data/gte/dimension_type/custom_flat_type.json"
+hash = "90045f27941148970ca9ddf3ef7bc7d71f55ecd2f1d26b2125fda49f3115520b"
+
+[[files]]
+file = "config/openloader/data/data/pack.mcmeta"
+hash = "f26cbcc0e36971895bd8f54259bc327633d79b259dc12e8c01df4f7bea4dba7a"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/en_us.json"
@@ -651,6 +663,10 @@ hash = "ba07362ba6a43847fb353e9a17711333c28c65fc6bf787cdeebe87c59f7aaa03"
 [[files]]
 file = "kubejs/config/probejs.json"
 hash = "eb0bfaed60482e4e159ff4e2452cc098de57689f7cc82b4c9d9f112548173da6"
+
+[[files]]
+file = "kubejs/server_scripts/GETSimpleRecipe.js"
+hash = "03fc2e8c005dc5e44541b105c2efc27e9982aa8895dfc10103a527d3146f0ef4"
 
 [[files]]
 file = "kubejs/server_scripts/GTERecipe.js"

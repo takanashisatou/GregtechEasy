@@ -1,0 +1,37 @@
+{
+  "type": "gte:custom_flat_type",
+  "generator": {
+    "type": "minecraft:flat",
+    "settings": {
+      "layers": [
+        {
+          "block": "minecraft:bedrock",
+          "height": 1
+        },
+        {
+          "block": "minecraft:dirt",
+          "height": 62
+        },
+        {
+          "block": "minecraft:grass_block",
+          "height": 1
+        }
+      ],
+      "biome": "minecraft:plains",
+      "features": {
+        "stronghold": {
+          "distance": 0,
+          "count": 0,
+          "spread": 0
+        },
+        "structures": {
+          "structures": {}
+        }
+      },
+      "lakes": false,
+      "structures": {
+        "structures": {}
+      }
+    }
+  }
+}

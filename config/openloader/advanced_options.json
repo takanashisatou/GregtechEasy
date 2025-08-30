@@ -4,7 +4,7 @@
     "additionalFolders": []
   },
   "dataPacks": {
-    "enabled": false,
+    "enabled": true,
     "additionalFolders": []
   },
   "displaySourceName": false
