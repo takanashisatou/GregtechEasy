@@ -486,15 +486,15 @@ hash = "051d8aaec9eb09e60cd6125d98056d06888b2dd1da3c1982b8859303050410de"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/en_us.json"
-hash = "8216852438015404fedf5867907cec8af158b8cdddb812d9de5cb958ef174c17"
+hash = "0cf94ed8d93d39342ffed5aff984f2436d86da3c09bccf1e1b50c271b4d51dfc"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/zh_cn.json"
-hash = "8216852438015404fedf5867907cec8af158b8cdddb812d9de5cb958ef174c17"
+hash = "0cf94ed8d93d39342ffed5aff984f2436d86da3c09bccf1e1b50c271b4d51dfc"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/zh_tw.json"
-hash = "006ff8aac779b82cd36fff5e4d887bf40d52f76ebfc989608e6fac59cef040e5"
+hash = "667d9889742e23a3418553c50afa88d8f2e8b65dc96d210a988f0a5e71f35aed"
 
 [[files]]
 file = "config/openloader/resources/quests/pack.mcmeta"
@@ -883,8 +883,8 @@ hash = "c9c1883f95ec208df36c6f76572abbb64e74471a6041ea34946ac455f2a5f94a"
 metafile = true
 
 [[files]]
-file = "mods/gtecore-1.20.1-1.8.jar"
-hash = "c6dd318770da7bd94af31c796d7feadc96970d11cbd043b9bad38470dc24c87c"
+file = "mods/gtecore-1.20.1-1.8.1.jar"
+hash = "a934986f182b4b76c3bbd2f24566262f341e14f4c9809f68eb6f47e4ab9ac900"
 
 [[files]]
 file = "mods/gtmthings.pw.toml"
