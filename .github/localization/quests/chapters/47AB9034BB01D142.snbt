@@ -190,6 +190,17 @@
 					item: "ae2:wireless_access_point"
 					type: "item"
 				}
+				{
+					id: "4DE9DF3531BA35C5"
+					item: {
+						Count: 1
+						id: "ae2wtlib:wireless_pattern_encoding_terminal"
+						tag: {
+							internalCurrentPower: 1600000.0d
+						}
+					}
+					type: "item"
+				}
 			]
 			tasks: [{
 				id: "5B131E23666C6D18"
