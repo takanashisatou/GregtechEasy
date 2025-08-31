@@ -9,8 +9,8 @@
     "addChatAnimation": false
   },
   "Server": {
-    "enableHarderPlatinumLine": true,
-    "enableHarderNaquadahLine": true,
+    "enableHarderPlatinumLine": false,
+    "enableHarderNaquadahLine": false,
     "banCreateFanBlasting": false,
     "makesEMIBetter": true,
     "isTurnOnEnderFluidCover": true,

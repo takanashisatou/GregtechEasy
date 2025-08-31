@@ -1,0 +1,4 @@
+#Infinity Cell idle drain of the cell: how many AE/t it uses passively.
+#Range: > 1
+idle_drain = 512
+

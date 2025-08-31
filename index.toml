@@ -18,11 +18,11 @@ hash = "4338312bb3adfdecfa567ccb08b8a303ebc2c2dfa4b203383fd3ed99afac2bb2"
 
 [[files]]
 file = "config/Mekanism/client.toml"
-hash = "cc3f7c776b176fe6a008bf47a89255d2540b19997c869a3f80cdf2ebd3cb1973"
+hash = "b9130f71804cf470e88c75ada84521db91a2999719d3b6e311790829f8b9d612"
 
 [[files]]
 file = "config/Mekanism/common.toml"
-hash = "7420cebf3bc66d7cb1f7e8a07083972d2725fa9ed7a0e59ffe66608a2d5eddd7"
+hash = "a5114806b599fdf852a2ae0f22c477e85b2f3211ff48c7e907580ae56f78ff71"
 
 [[files]]
 file = "config/Mekanism/gear.toml"
@@ -134,11 +134,27 @@ hash = "f400a2c3c92c540ae67c2a274cc649977e6401253c740d0f50db72f4dafbdb72"
 
 [[files]]
 file = "config/ae2/client.json"
-hash = "173e8b55a6f5cb2b134413b6ab358460b04a3b8d376646967c2e2e93e62e7e36"
+hash = "d347c617d6cff1c3f666eeb6cd7d4770177aec8c933b82749e5a0389878ebc8b"
 
 [[files]]
 file = "config/ae2/common.json"
 hash = "5167b8f7ee4b29979a3b521c856a4cd87e6d61fbebbd9d9fdf1186b9ae1d6104"
+
+[[files]]
+file = "config/almostunified/debug.json"
+hash = "3e03a291b5310a6b94a45aff63e4731baa643701c42a968ed716483ccd1d5a37"
+
+[[files]]
+file = "config/almostunified/duplicates.json"
+hash = "40639e8cb9e9ea52b8557c50d29fc06e73e2ad1e7ca27ae5ce8fe2eca2e97188"
+
+[[files]]
+file = "config/almostunified/startup.json"
+hash = "ad711622f9b8c5cc8115f52396f5d82587b809fb20cbf9d94c7744aeebcaf4d5"
+
+[[files]]
+file = "config/almostunified/unify.json"
+hash = "23159b1ed8215bf862ac954057c7d969bb2579cca29222ef09634f6dba5b8f56"
 
 [[files]]
 file = "config/appflux-common.toml"
@@ -233,6 +249,10 @@ file = "config/extendedae_plus-common.toml"
 hash = "77174d8a664767643afe007d6c8825dffaaa7f025d2bce4230042efb01dd1ff7"
 
 [[files]]
+file = "config/extendedae_plus/recipe_type_names.json"
+hash = "1bd822494f7eb57d2a9ceaa8e96c9941d428e313a3279f9187b35724e3fc3220"
+
+[[files]]
 file = "config/ferritecore-mixin.toml"
 hash = "c164439c632aa7c95c07edec5cfef74b8e2d5671a8445a781deeb4de7ad0c8b6"
 
@@ -274,7 +294,7 @@ hash = "47cf71df83012be6b0c292ceacafaf37c3b10c9d662fc3d34a08a134bdc27787"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/47AB9034BB01D142.snbt"
-hash = "4c0c35ef6eb68eae2c7ed3e709af3b346f6f954b218f073dc7d5fe9025f4a67a"
+hash = "1258e79827318d3e514e372a099bb1018df97750f35de7112cd4df8e4060fe7b"
 
 [[files]]
 file = "config/ftbquests/quests/chapters/537F7C5E358FAFFA.snbt"
@@ -341,12 +361,16 @@ file = "config/ftbquests/quests/data.snbt"
 hash = "6fd6f7a8adf8e6d9fd4d0ef68d1fad516cc1556b0805655a58d925f80c22f670"
 
 [[files]]
+file = "config/ftbxmodcompat.snbt"
+hash = "9abe2c7f784810cac3ca71c74d02aacd5fe6861d744cb143d077a525a2b42e76"
+
+[[files]]
 file = "config/gtca.yaml"
 hash = "bd1e624f07244234414fc6e8a4aec55b997ff780d749e5f8be147ba36c9814d5"
 
 [[files]]
 file = "config/gtceu.yaml"
-hash = "90e6be59187fd6bb687cab9feb594626351109b48e1d4d5ee560002bbfa23f5c"
+hash = "cb768ff03504497f3b028cd528bfdf22faaf28546e17fc9a20579555768e85a2"
 
 [[files]]
 file = "config/gtecore-common-1.toml.bak"
@@ -358,7 +382,7 @@ hash = "3d29f1312d2c893a7938e977f3ca03ddeffd1c787e7405459601f252dc2c6f24"
 
 [[files]]
 file = "config/gtecore.yaml"
-hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+hash = "fc6a0caaeae0d2949ce89a5bf2cc35912efa76f9fbde1f5c8de81e23840152c7"
 
 [[files]]
 file = "config/gtmthings.yaml"
@@ -366,15 +390,35 @@ hash = "ac07b79ea7255938b2ba00dd1cef9b19d12e14ec689f4048e6c361201897c27f"
 
 [[files]]
 file = "config/gtnn.json"
-hash = "7eb1465369ef144b9189783558abc9c1cf90714d363e3180c7ee116b127a2f67"
+hash = "4198dbf1689aafb4a2ddb4ba40224588c7b60783986747c640886b0174dfa511"
 
 [[files]]
 file = "config/guideme.toml"
 hash = "89a3f43b3cb90476c75121fecdd5f77375e6a95bfbd7f8bb057574e70cec660c"
 
 [[files]]
+file = "config/infinitestoragecell-common.toml"
+hash = "07a55e960c3573f3faf98935af43be79cb1b348f6ce03e998d80b0273bea7edb"
+
+[[files]]
 file = "config/inventoryessentials-common.toml"
 hash = "a0427bf803e7bdb1a30a9d19b8d39931dea6a6afd6825f33cd0bacc52eb38eeb"
+
+[[files]]
+file = "config/inventoryprofilesnext/integrationHints/exampleIntegrationHints.json"
+hash = "ca413dea02cce69c69dccdc525fb0ec013236876eff2d142772c68db3d772d3a"
+
+[[files]]
+file = "config/inventoryprofilesnext/inventoryprofiles.json"
+hash = "2689ac02bae6531a5d692c88dc77ab26514c02f0c72d9b8e6ca39a997009efa3"
+
+[[files]]
+file = "config/inventoryprofilesnext/新的世界/prev-villager-trading-config.json"
+hash = "d8159a94fc4562651a5c47dc83e46a7fd71dd70e143fca53d7b288393a87b4ef"
+
+[[files]]
+file = "config/inventoryprofilesnext/新的世界/villager-trading-config.json"
+hash = "d8159a94fc4562651a5c47dc83e46a7fd71dd70e143fca53d7b288393a87b4ef"
 
 [[files]]
 file = "config/invtweaks-client.toml"
@@ -410,7 +454,7 @@ hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 [[files]]
 file = "config/jei/ingredient-list-mod-sort-order.ini"
-hash = "db201ecf2b9c757f569641177bb40f13a0cd88337d91cf07512ee2f645f2a820"
+hash = "f71d345a1b79ce3bac6a75a7df60073ee323e71f888d1c9befd7a2d1a449a516"
 
 [[files]]
 file = "config/jei/ingredient-list-type-sort-order.ini"
@@ -434,7 +478,7 @@ hash = "326b4f9b813ca8183bfaeee184cf7248c7a75c4d85b59322e349c0e964c253f3"
 
 [[files]]
 file = "config/jei/recipe-category-sort-order.ini"
-hash = "73fa99e05fc5e5b1b7250d8f21913a4887d2451d78cd6b69d0c7a0b9d597d911"
+hash = "78e8de08ebbedffa09a8d94226bc5a374e1c4cb04da0e1f33a30414ee73a10c6"
 
 [[files]]
 file = "config/lsp.json"
@@ -521,6 +565,10 @@ file = "config/patchouli-client.toml"
 hash = "d289f4c7540e3e24bcf6bbf3f5a2aaaf87ccf58027d2213e40497fc627422068"
 
 [[files]]
+file = "config/polymorph-integrations.toml"
+hash = "43a7425a314be7d78c2e31d44ab8f46c5ee824ab10906ab8909923d23646b6ad"
+
+[[files]]
 file = "config/sidebar_buttons.json"
 hash = "33c7071e289295153b0457303c2d903f24d538ab9d10fdcf959e2a1cccd819ed"
 
@@ -565,6 +613,10 @@ file = "config/touhou_little_maid/sites/tts.json"
 hash = "62080f2405cb825d7639273e11d6c2c46516cdf1ca9cb9c8668a834d1d42514c"
 
 [[files]]
+file = "config/trashcans-common.toml"
+hash = "9098a40f3445da4e4e330750079d5629abe4632c211c6f8db11bb0dea829e5d8"
+
+[[files]]
 file = "config/trashslot-common.toml"
 hash = "21493e0c7d7e821cdd69f2e58647eb22f39a0f5dd6045db3bb65a9250bc0cbd7"
 
@@ -595,6 +647,26 @@ hash = "58242ef3075b166845e0081281b01113a55b9d095104a68b167e7b4bc08b87c5"
 [[files]]
 file = "config/wands.json"
 hash = "2edc42650c3b9015c29e08e6ac2ca75e6c94131ce1cc5a8a87b453d7ee98ba54"
+
+[[files]]
+file = "config/worldedit/worldedit.properties"
+hash = "88f5e34562f0f8119d208c22f1b625071cedc07103e4fabf6cd822919eadec45"
+
+[[files]]
+file = "config/xaerominimap-common.txt"
+hash = "771a844d13ab6c2ff99f14b8fd912d02c55a1a4104361692b740c3e596084f6f"
+
+[[files]]
+file = "config/xaerominimap.txt"
+hash = "71cffe7689e579cdf95700b08791f8382f9ae4e9709c5f6f4addc736f145ab3e"
+
+[[files]]
+file = "config/xaerominimap_entities.json"
+hash = "8ec85ecdff2a7b60389a80cbffa420876fcf83b3a72120e3564076da50dc3fca"
+
+[[files]]
+file = "config/xaeropatreon.txt"
+hash = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
 
 [[files]]
 file = "defaultconfigs/ftbchunks/client-config.snbt"

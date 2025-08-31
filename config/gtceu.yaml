@@ -9,7 +9,7 @@ recipes:
   disableManualCompression: true
 
   # Change the recipe of Rods in the Lathe to 1 Rod and 2 Small Piles of Dust, instead of 2 Rods.
-  # Default: false
+  # Default: true
   harderRods: false
 
   # Whether to make crafting recipes for Bricks, Firebricks, Nether Bricks, and Coke Bricks harder.
@@ -50,7 +50,7 @@ recipes:
   nerfPaperCrafting: true
 
   # Recipes for items like Iron Doors, Trapdoors, Anvil require Iron Plates, Rods, and more.
-  # Default: false
+  # Default: true
   hardAdvancedIronRecipes: false
 
   # Whether to make coloring blocks like Concrete or Glass harder.
@@ -86,7 +86,7 @@ recipes:
   hardMultiRecipes: false
 
   # Whether tools should have enchants or not. Like the flint sword getting fire aspect.
-  # Default: true
+  # Default: false
   enchantedTools: true
 
 worldgen:
@@ -153,14 +153,8 @@ worldgen:
     oreIndicatorChunkCacheSize: 2048
 
 machines:
-  # Whether insufficient energy supply should reset Machine recipe progress to zero.
-  # If true, progress will reset.
-  # If false, progress will decrease to zero with 2x speed
-  # Default: true
-  recipeProgressLowEnergy: false
-
   # Whether to require a Wrench, Wirecutter, or other GregTech tools to break machines, casings, wires, and more.
-  # Default: false
+  # Default: true
   requireGTToolsForBlocks: false
 
   # Whether machines explode in rainy weather or when placed next to certain terrain, such as fire or lava
@@ -216,6 +210,10 @@ machines:
   # Whether to enable the Maintenance Hatch, required for Multiblocks.
   # Default: true
   enableMaintenance: true
+
+  # Time in ticks between when Multiblocks can require Maintenance. By default, 48 hours.
+  # Default: 3456000
+  maintenanceTime: 3456000
 
   # Whether to enable World Accelerators, which accelerate ticks for surrounding Tile Entities, Crops, etc.
   # Default: true
@@ -283,7 +281,7 @@ machines:
 
   # Whether the Assembly Line should require the fluid inputs to be in order.
   # (Requires Ordered Assembly Line Item Inputs to be enabled.)
-  # Default: false
+  # Default: true
   orderedAssemblyLineFluids: false
 
   # Default maximum parallel of steam multiblocks
@@ -294,70 +292,75 @@ machines:
   smallBoilers:
     # The amount of steam a Steam Solid Boiler produces per second at max temperature.
     # Default: 120
-    solidBoilerBaseOutput: 120
+    solidBoilerBaseOutput: 120000
 
     # The amount of steam a High Pressure Steam Solid Boiler produces per second at max temperature.
     # Default: 300
-    hpSolidBoilerBaseOutput: 300
+    hpSolidBoilerBaseOutput: 300000
 
     # The amount of steam a Steam Liquid Boiler produces per second at max temperature.
     # Default: 240
-    liquidBoilerBaseOutput: 240
+    liquidBoilerBaseOutput: 240000
 
     # The amount of steam a High Pressure Steam Liquid Boiler produces per second at max temperature.
     # Default: 600
-    hpLiquidBoilerBaseOutput: 600
+    hpLiquidBoilerBaseOutput: 600000
 
     # The amount of steam a Steam Solar Boiler produces per second at max temperature.
     # Default: 120
-    solarBoilerBaseOutput: 120
+    solarBoilerBaseOutput: 120000
 
     # The amount of steam a High Pressure Steam Solar Boiler produces per second at max temperature.
     # Default: 360
-    hpSolarBoilerBaseOutput: 360
+    hpSolarBoilerBaseOutput: 360000
 
   # Large Steam Boiler Options
   largeBoilers:
     # The conversion rate between water and steam in Large Boilers.
     # Default: 160
-    steamPerWater: 160
+    steamPerWater: 160000
 
     # The max temperature of the Large Bronze Boiler.
     # Default: 800
-    bronzeBoilerMaxTemperature: 800
+    bronzeBoilerMaxTemperature: 800000
 
     # The heat speed of the Large Bronze Boiler.
     # Default: 1
-    bronzeBoilerHeatSpeed: 1
+    bronzeBoilerHeatSpeed: 1000
 
     # The max temperature of the Large Steel Boiler.
     # Default: 1800
-    steelBoilerMaxTemperature: 1800
+    steelBoilerMaxTemperature: 1800000
 
     # The heat speed of the Large Steel Boiler.
     # Default: 1
-    steelBoilerHeatSpeed: 1
+    steelBoilerHeatSpeed: 1000
 
     # The max temperature of the Large Titanium Boiler.
     # Default: 3200
-    titaniumBoilerMaxTemperature: 3200
+    titaniumBoilerMaxTemperature: 3200000
 
     # The heat speed of the Large Titanium Boiler.
     # Default: 1
-    titaniumBoilerHeatSpeed: 1
+    titaniumBoilerHeatSpeed: 1000
 
     # The max temperature of the Large Tungstensteel Boiler.
     # Default: 6400
-    tungstensteelBoilerMaxTemperature: 6400
+    tungstensteelBoilerMaxTemperature: 640000
 
     # The heat speed of the Large Tungstensteel Boiler.
     # Default: 2
-    tungstensteelBoilerHeatSpeed: 2
+    tungstensteelBoilerHeatSpeed: 200
 
 client:
   # Whether or not to enable Emissive Textures for GregTech Machines.
   # Default: true
   machinesEmissiveTextures: true
+
+  # Whether most machines will have block entity renderers, mainly used for rendering certain covers. (Restart required)
+  # Disable if experiencing performance issues.
+  # Default: true
+  machinesHaveBERsByDefault: true
 
   # Whether or not sounds should be played when using tools outside of crafting.
   # Default: true
@@ -482,7 +485,7 @@ tools:
 gameplay:
   # Enable hazardous materials
   # Default: true
-  hazardsEnabled: true
+  hazardsEnabled: false
 
   # Whether hazards are applied to all valid items, or just GT's.
   # true = all, false = GT only.
@@ -528,7 +531,7 @@ compat:
     updateIntervals: 40
 
     # The energy consumption of ME Hatch/Bus.
-    # Default: 1.0AE/t
+    # Default: 4.0AE/t
     meHatchEnergyUsage: 1.0
 
   # Config options regarding GTCEu compatibility with minimap mods

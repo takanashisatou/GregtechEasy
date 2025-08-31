@@ -1,0 +1,10 @@
+{
+  "minecraft:smelting": "熔炉",
+  "minecraft:blasting": "高炉",
+  "minecraft:smoking": "烟熏",
+  "minecraft:campfire_cooking": "营火",
+  "gtceu:assembler": "组装机",
+  "gtceu:arc_furnace": "电弧炉",
+  "gtceu:chemical_reactor": "化学反应器",
+  "assembler": "组装机"
+}
