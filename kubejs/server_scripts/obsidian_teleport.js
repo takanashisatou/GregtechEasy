@@ -1,10 +1,13 @@
 // 监听玩家交互事件 - 适配 KubeJS 2001.6.5+
 BlockEvents.rightClicked(event => {
-    const { player, block, hand } = event;
+    const { player, block, hand , item } = event;
 
     // 检查是否右键了黑曜石
     if (block.id !== 'minecraft:obsidian') return;
     if (hand !== 'MAIN_HAND') return;
+
+    // 检查是否为空手（主手没有物品或者物品为空气）
+    if (!item.isEmpty()) return;
 
     // 获取玩家当前维度
     const currentDimension = player.level.dimension;
