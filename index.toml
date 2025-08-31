@@ -722,7 +722,7 @@ hash = "eb0bfaed60482e4e159ff4e2452cc098de57689f7cc82b4c9d9f112548173da6"
 
 [[files]]
 file = "kubejs/server_scripts/GETSimpleRecipe.js"
-hash = "03fc2e8c005dc5e44541b105c2efc27e9982aa8895dfc10103a527d3146f0ef4"
+hash = "7ba78fd07bb6129ca539a156802872906ae92f8ea37ec5b6e41b3c8c87c98e52"
 
 [[files]]
 file = "kubejs/server_scripts/GTERecipe.js"

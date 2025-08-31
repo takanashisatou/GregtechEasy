@@ -1,19 +1,24 @@
 ServerEvents.recipes((event) => {
     const gte = event.recipes.gtecore
-    gte.easy_box('easy_raws_0')
+    gte.easy_box('easy_raws_2')
     .circuit(2)
     .duration(20*20)
     .EUt(32)
-    .itemOutputs(raws0)
-    gte.easy_box('easy_raws_1')
+    .itemOutputs(raws2)
+    gte.easy_box('easy_raws_3')
     .circuit(3)
     .duration(20*20)
     .EUt(32)
-    .itemOutputs(raws1)
+    .itemOutputs(raws3)
+    gte.easy_box('easy_raws_4')
+    .circuit(4)
+    .duration(20*20)
+    .EUt(32)
+    .itemOutputs(raws4)
 })
 
 
-var raws0 = [
+var raws2 = [
 	'minecraft:raw_iron',
 	'minecraft:raw_copper',
 	'minecraft:raw_gold',
@@ -35,6 +40,58 @@ var raws0 = [
 	'gtceu:raw_thorium',
 	'gtceu:raw_tin',
 	'gtceu:raw_naquadah',
+	'gtceu:raw_chalcopyrite',
+	'gtceu:raw_chromite',
+	'gtceu:raw_cinnabar',
+	'gtceu:raw_galena',
+	'gtceu:raw_ilmenite',
+	'gtceu:raw_bauxite',
+	'gtceu:raw_magnetite',
+	'gtceu:raw_molybdenite',
+	'gtceu:raw_scheelite',
+	'gtceu:raw_tantalite',
+	'gtceu:raw_spessartine',
+	'gtceu:raw_sphalerite',
+	'gtceu:raw_stibnite',
+	'gtceu:raw_tetrahedrite',
+	'gtceu:raw_tungstate',
+	'gtceu:raw_uraninite',
+	'gtceu:raw_wulfenite',
+	'gtceu:raw_yellow_limonite',
+	'gtceu:raw_nether_quartz',
+	'gtceu:raw_certus_quartz',
+	'gtceu:raw_graphite',
+	'gtceu:raw_bornite',
+	'gtceu:raw_chalcocite',
+	'gtceu:raw_realgar',
+	'gtceu:raw_pentlandite',
+	'gtceu:raw_spodumene',
+	'gtceu:raw_lepidolite',
+	'gtceu:raw_glauconite_sand',
+	'gtceu:raw_malachite',
+	'gtceu:raw_barite',
+	'gtceu:raw_kyanite',
+	'gtceu:raw_pyrochlore',
+	'gtceu:raw_olivine',
+	'gtceu:raw_apatite',
+	'gtceu:raw_red_garnet',
+	'gtceu:raw_yellow_garnet',
+	'gtceu:raw_vanadium_magnetite',
+	'gtceu:raw_monazite',
+	'gtceu:raw_trona',
+	'gtceu:raw_gypsum',
+	'gtceu:raw_zeolite',
+	'gtceu:raw_diatomite',
+	'gtceu:raw_granitic_mineral_sand',
+	'gtceu:raw_garnet_sand',
+	'gtceu:raw_basaltic_mineral_sand',
+	'gtceu:raw_quartzite',
+	'gtceu:raw_bastnasite',
+	'minecraft:ancient_debris',
+	'minecraft:clay_ball'
+]
+
+var raws3 = [
 	'gtceu:raw_almandine',
 	'gtceu:raw_asbestos',
 	'gtceu:raw_hematite',
@@ -43,24 +100,16 @@ var raws0 = [
 	'gtceu:raw_calcite',
 	'gtceu:raw_cassiterite',
 	'gtceu:raw_cassiterite_sand',
-	'gtceu:raw_chalcopyrite',
-	'gtceu:raw_chromite',
-	'gtceu:raw_cinnabar',
 	'gtceu:raw_coal',
 	'gtceu:raw_cobaltite',
 	'gtceu:raw_cooperite',
 	'gtceu:raw_diamond',
 	'gtceu:raw_emerald',
-	'gtceu:raw_galena',
 	'gtceu:raw_garnierite',
 	'gtceu:raw_green_sapphire',
 	'gtceu:raw_grossular',
-	'gtceu:raw_ilmenite',
-	'gtceu:raw_bauxite',
 	'gtceu:raw_lazurite',
 	'gtceu:raw_magnesite',
-	'gtceu:raw_magnetite',
-	'gtceu:raw_molybdenite',
 	'gtceu:raw_powellite',
 	'gtceu:raw_pyrite',
 	'gtceu:raw_pyrolusite',
@@ -70,70 +119,31 @@ var raws0 = [
 	'gtceu:raw_salt',
 	'gtceu:raw_saltpeter',
 	'gtceu:raw_sapphire',
-	'gtceu:raw_scheelite',
 	'gtceu:raw_sodalite',
-	'gtceu:raw_tantalite',
-	'gtceu:raw_spessartine',
-	'gtceu:raw_sphalerite',
-	'gtceu:raw_stibnite',
-	'gtceu:raw_tetrahedrite',
 	'gtceu:raw_topaz',
-	'gtceu:raw_tungstate',
-	'gtceu:raw_uraninite',
-	'gtceu:raw_wulfenite',
-	'gtceu:raw_yellow_limonite',
-	'gtceu:raw_nether_quartz',
-	'gtceu:raw_certus_quartz',
-	'gtceu:raw_quartzite',
-	'gtceu:raw_graphite',
-	'gtceu:raw_bornite',
-	'gtceu:raw_chalcocite',
-	'gtceu:raw_realgar',
-	'gtceu:raw_bastnasite',
-	'gtceu:raw_pentlandite',
-	'gtceu:raw_spodumene',
-	'gtceu:raw_lepidolite',
-	'gtceu:raw_glauconite_sand'
-];
-var raws1 = [
-    'gtceu:raw_malachite',
-	'gtceu:raw_mica',
-	'gtceu:raw_barite',
-	'gtceu:raw_alunite',
-	'gtceu:raw_talc',
-	'gtceu:raw_soapstone',
-	'gtceu:raw_kyanite',
-	'gtceu:raw_pyrochlore',
-	'gtceu:raw_oilsands',
-	'gtceu:raw_olivine',
 	'gtceu:raw_opal',
 	'gtceu:raw_amethyst',
 	'gtceu:raw_lapis',
-	'gtceu:raw_apatite',
 	'gtceu:raw_tricalcium_phosphate',
-	'gtceu:raw_red_garnet',
-	'gtceu:raw_yellow_garnet',
-	'gtceu:raw_vanadium_magnetite',
 	'gtceu:raw_pollucite',
 	'gtceu:raw_bentonite',
 	'gtceu:raw_fullers_earth',
 	'gtceu:raw_pitchblende',
-	'gtceu:raw_monazite',
-	'gtceu:raw_trona',
-	'gtceu:raw_gypsum',
-	'gtceu:raw_zeolite',
+	'gtceu:raw_oilsands',
+	'gtceu:raw_mica',
+	'gtceu:raw_alunite',
+	'gtceu:raw_talc',
+	'gtceu:raw_soapstone',
 	'gtceu:raw_redstone',
-	'gtceu:raw_electrotine',
-	'gtceu:raw_diatomite',
-	'gtceu:raw_granitic_mineral_sand',
-	'gtceu:raw_garnet_sand',
-	'gtceu:raw_basaltic_mineral_sand',
+	'gtceu:raw_electrotine'
+]
+
+var raws4 = [
 	'gtceu:raw_space_neutronium',
 	'gtceu:raw_infinity',
 	'gtceu:raw_infinity_catalyst',
 	'gtceu:raw_arcane_crystal',
 	'gtceu:raw_wollastonite',
 	'gtceu:raw_kaolinite',
-	'gtceu:raw_dolomite',
-    'minecraft:ancient_debris'
+	'gtceu:raw_dolomite'
 ]
