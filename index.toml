@@ -538,15 +538,15 @@ hash = "f26cbcc0e36971895bd8f54259bc327633d79b259dc12e8c01df4f7bea4dba7a"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/en_us.json"
-hash = "0cf94ed8d93d39342ffed5aff984f2436d86da3c09bccf1e1b50c271b4d51dfc"
+hash = "7a4f9eb276b02b6143be9cb784b284dbf18579151a32c0846e6c8a2a50bd36d9"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/zh_cn.json"
-hash = "0cf94ed8d93d39342ffed5aff984f2436d86da3c09bccf1e1b50c271b4d51dfc"
+hash = "7a4f9eb276b02b6143be9cb784b284dbf18579151a32c0846e6c8a2a50bd36d9"
 
 [[files]]
 file = "config/openloader/resources/quests/assets/gte/lang/zh_tw.json"
-hash = "667d9889742e23a3418553c50afa88d8f2e8b65dc96d210a988f0a5e71f35aed"
+hash = "f1370206bc2f759e92777489afece4205d5031a9a70c361c5585c73e41a9aa4f"
 
 [[files]]
 file = "config/openloader/resources/quests/pack.mcmeta"
@@ -953,6 +953,11 @@ hash = "85dc92389240eacaaafa725ef260a16e744e46b60b8e43c3481e8fae9cc82eb1"
 metafile = true
 
 [[files]]
+file = "mods/gregtech-easy-core.pw.toml"
+hash = "0796c7373c44b357d93c6c1fbebf90ab630c136ea515a6dea592fb9928b33dcc"
+metafile = true
+
+[[files]]
 file = "mods/gregtechceu-modern.pw.toml"
 hash = "d86efc94f9d715b5123906b61b24f5c5757c7a0b250a3f5557b0bf0e23883626"
 metafile = true
@@ -961,10 +966,6 @@ metafile = true
 file = "mods/gt.pw.toml"
 hash = "c9c1883f95ec208df36c6f76572abbb64e74471a6041ea34946ac455f2a5f94a"
 metafile = true
-
-[[files]]
-file = "mods/gtecore-1.20.1-1.8.1.jar"
-hash = "a934986f182b4b76c3bbd2f24566262f341e14f4c9809f68eb6f47e4ab9ac900"
 
 [[files]]
 file = "mods/gtmthings.pw.toml"

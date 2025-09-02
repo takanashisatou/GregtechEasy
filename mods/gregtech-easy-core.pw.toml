@@ -1,0 +1,12 @@
+name = "GregTech Easy Core"
+filename = "gtecore-1.20.1-1.9.1.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "c1c5d2a37aea8f8e405dff42e94bce270e040edd"
+url = "https://edge.forgecdn.net/files/6954/603/gtecore-1.20.1-1.9.1.jar"
+
+[update.curseforge]
+file-id = 6954603
+project-id = 1332244
