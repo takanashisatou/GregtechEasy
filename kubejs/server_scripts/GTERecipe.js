@@ -46,7 +46,7 @@ ServerEvents.recipes((event) => {
         'minecraft:raw_copper',
         'minecraft:raw_gold',
         'gtceu:raw_redstone',
-        'minecraft:diamond',
+        'gtceu:raw_diamond',
         'gtceu:raw_silver',
         'gtceu:raw_aluminium',
         'gtceu:raw_bauxite',
@@ -64,7 +64,7 @@ ServerEvents.recipes((event) => {
         'gtceu:raw_neodymium',
         'gtceu:raw_plutonium',
         'gtceu:raw_pyrochlore',
-        'minecraft:emerald',
+        'gtceu:raw_emerald',
         'minecraft:end_stone',
         'gtceu:raw_uraninite',
         'gtceu:raw_ruby',
@@ -82,7 +82,7 @@ ServerEvents.recipes((event) => {
         'gtceu:raw_tantalite',
         'gtceu:raw_monazite',
         'gtceu:raw_rock_salt',
-        'gtceu:quartzite_gem',
+        'gtceu:raw_quartzite',
         'gtceu:raw_apatite',
         'gtceu:raw_vanadium_magnetite',
         'gtceu:raw_naquadah',
@@ -158,19 +158,7 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
         "O": "gtceu:mv_machine_hull",
         "B": "#gtceu:circuits/mv"
     })
-    event.shaped(Item.of('gtceu:circuit_factory',1),[
-        "AFA",
-        "EXE",
-        "AFA"
-    ],{
-        "A": "gtceu:hv_electric_motor",
-        "B":"gtceu:hv_assembler",
-        "C":"gtceu:hv_laser_engraver",
-        "D":"gtceu:hv_cutter",
-        "E":"#gtceu:circuits/hv",
-        "F":"gtceu:hv_robot_arm",
-        "X":"gtceu:hv_machine_hull"
-    })
+
 
     gtr.assembler('gtceu:circuit_factory')
     .itemInputs("1x gtceu:hv_machine_hull",
@@ -309,12 +297,15 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
     .circuit(1)
     .itemOutputs('16x gtceu:sticky_resin',
         '16x gtceu:rubber_sapling',
-        '16x gtceu:rubber_wood',
+        '16x gtceu:rubber_log',
         '16x minecraft:sugar_cane',
         '16x minecraft:ender_pearl',
         '16x minecraft:cod',
         '16x minecraft:blaze_powder',
-        '16x minecraft:bone_meal'
+        '16x minecraft:bone_meal',
+        '16x minecraft:nether_star',
+        '16x minecraft:blaze_rod',
+        '16x minecraft:wheat'
     ).duration(160)
     event.remove({id:'gtceu:electrolyzer/sugar_electrolysis'})
     gtr.electrolyzer('gtceu:sugar_oxygen')
@@ -526,5 +517,77 @@ event.shaped(Item.of('gtceu:big_compressor',1),[
     .itemOutputs('1x gtnn:component_assline_casing_luv')
     .duration(20 * 300)
     .EUt(GTValues.VA[GTValues.LuV])
+    event.shaped(Item.of('gtecore:ten_in_one',1),[
+        "AOA",
+        "CDC",
+        "EFE"
+    ],{
+        "A":'gtceu:lv_electric_piston',
+        'O':'gtceu:steel_plate',
+        "C":'#gtceu:circuits/lv',
+        'D':"gtceu:lv_machine_hull",
+        "E":'gtceu:lv_electric_motor',
+        "F":"gtceu:tin_single_cable"
+    })
+    gtr.assembly_line('gtecore:chemistry_terminator')
+    .itemInputs('32x gtceu:zpm_electric_motor',
+        '32x gtceu:large_chemical_reactor',
+        '8x gtceu:luv_field_generator',
+        '16x #gtceu:circuits/uv'
+    ).inputFluids('gtceu:polybenzimidazole 32000',
+        'gtceu:reinforced_epoxy_resin 32000',
+        'gtceu:europium 32000'
+    )
+    .itemOutputs('1x gtecore:chemistry_terminator')
+    .stationResearch((b)=>b
+                        .researchStack(Item.of('gtceu:large_chemical_reactor'))
+                        .CWUt(32)
+                        .EUt(GTValues.VA[GTValues.LuV]))
+    .duration(20 * 3000)
+    gte.chemistry_terminator_recipe('gtecore:water_to_oil')
+    .inputFluids('minecraft:water 8000')
+    .outputFluids('gtceu:high_octane_gasoline 80000')
+    .EUt(7)
+    .duration(20)
+    gte.chemistry_terminator_recipe('gtecore:air_to_hno3')
+    .inputFluids('gtceu:air 8000')
+    .outputFluids('gtceu:sulfuric_acid 8000',
+        'gtceu:nitric_acid 8000',
+        'gtceu:phosphoric_acid 8000',
+        'gtceu:hypochlorous_acid 8000',
+        'gtceu:hydrofluoric_acid 8000',
+        'gtceu:hydrochloric_acid 8000',
+        'gtceu:fluoroantimonic_acid 8000'
+    )
+    .EUt(16)
+    .duration(20)
+    gte.chemistry_terminator_recipe('gtecore:one_plantium_recipe')
+    .itemInputs('32x gtceu:cooperite_dust')
+    .itemOutputs('10x gtceu:platinum_dust',
+        '10x gtceu:palladium_dust',
+        '10x gtceu:rhodium_dust',
+        '10x gtceu:ruthenium_dust',
+        '10x gtceu:iridium_dust',
+        '10x gtceu:osmium_dust'
+    ).duration(20)
+    .EUt(30)
+    gte.chemistry_terminator_recipe('gtecore:easy_europium')
+    .inputFluids('gtceu:hydrogen 1000')
+    .outputFluids('gtceu:europium 1000')
+    .duration(20)
+    .EUt(30)
+    gte.chemistry_terminator_recipe('gtecore:easy_americium_plasma')
+    .outputFluids('gtceu:americium_plasma 1000')
+    .itemInputs('1x gtceu:plutonium_dust')
+    .duration(20)
+    .EUt(30)
+    gte.chemistry_terminator_recipe('gtecore:easy_naquadah')
+    .itemInputs('32x gtceu:crushed_naquadah_ore')
+    .itemOutputs('32x gtceu:enriched_naquadah_dust',
+        '32x gtceu:trinium_dust',
+        '32x gtceu:naquadah_dust',
+        '32x gtceu:naquadria_dust'
+    ).duration(20)
+    .EUt(30)
 }
 )
