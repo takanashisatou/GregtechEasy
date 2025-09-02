@@ -1,0 +1,824 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "tier_2_mv"
+	group: "277796EFA601375B"
+	icon: "gtceu:mv_machine_hull"
+	id: "5F6F2A32F97D3D0C"
+	order_index: 2
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["4E23F7802FD82D2B"]
+			description: ["{gte.tier_2_mv.quests.48A98BD994BA2054.description0}"]
+			icon: "gtceu:mv_electric_motor"
+			id: "48A98BD994BA2054"
+			rewards: [{
+				count: 16
+				id: "5054C6F303BA875E"
+				item: "gtceu:mv_machine_hull"
+				type: "item"
+			}]
+			size: 1.5d
+			subtitle: "{gte.tier_2_mv.quests.48A98BD994BA2054.subtitle}"
+			tasks: [
+				{
+					id: "24CBC574E5749D0C"
+					item: "gtceu:mv_electric_motor"
+					type: "item"
+				}
+				{
+					id: "6BA5E11C04D3940E"
+					item: "gtceu:mv_electric_pump"
+					type: "item"
+				}
+				{
+					id: "32BEE933064477D6"
+					item: "gtceu:mv_conveyor_module"
+					type: "item"
+				}
+				{
+					id: "1D61E12CF70668F8"
+					item: "gtceu:mv_robot_arm"
+					type: "item"
+				}
+				{
+					id: "14E6F9D08D2F5E60"
+					item: "gtceu:mv_electric_piston"
+					type: "item"
+				}
+			]
+			title: "{gte.tier_2_mv.quests.48A98BD994BA2054.title}"
+			x: -13.0d
+			y: 2.5d
+		}
+		{
+			dependencies: ["48A98BD994BA2054"]
+			id: "50628B5ADF9CC562"
+			tasks: [{
+				id: "1AB3F25F7F31528B"
+				title: "{gte.tier_2_mv.quests.50628B5ADF9CC562.tasks.1AB3F25F7F31528B.title}"
+				type: "checkmark"
+			}]
+			x: -11.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["50628B5ADF9CC562"]
+			id: "109B3E38DBB29516"
+			tasks: [{
+				id: "49762DBAC75860D4"
+				item: "gtceu:mv_bender"
+				type: "item"
+			}]
+			x: -9.0d
+			y: -0.5d
+		}
+		{
+			dependencies: ["4ED12C137FBB0758"]
+			description: ["{gte.tier_2_mv.quests.134C731EC3267179.description0}"]
+			id: "134C731EC3267179"
+			subtitle: "{gte.tier_2_mv.quests.134C731EC3267179.subtitle}"
+			tasks: [{
+				id: "78410E585FC66FA5"
+				item: "gtceu:mv_electrolyzer"
+				type: "item"
+			}]
+			x: -8.5d
+			y: 3.0d
+		}
+		{
+			dependencies: ["50628B5ADF9CC562"]
+			id: "66A918318A8BB2EE"
+			tasks: [{
+				id: "1B333A3C1FA4B481"
+				item: "gtceu:mv_chemical_reactor"
+				type: "item"
+			}]
+			x: -11.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["50628B5ADF9CC562"]
+			id: "0E8FDB4D7C6B1F5B"
+			tasks: [{
+				id: "39238001077B3692"
+				item: "gtceu:mv_extruder"
+				type: "item"
+			}]
+			x: -14.0d
+			y: -0.5d
+		}
+		{
+			dependencies: ["50628B5ADF9CC562"]
+			id: "5B261784857DF9C3"
+			tasks: [{
+				id: "3CAA90A39CD56874"
+				item: "gtceu:mv_lathe"
+				type: "item"
+			}]
+			x: -13.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["50628B5ADF9CC562"]
+			id: "70E85D4381E31214"
+			tasks: [{
+				id: "5576195C71331322"
+				item: "gtceu:mv_centrifuge"
+				type: "item"
+			}]
+			x: -12.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["50628B5ADF9CC562"]
+			id: "4CE2BF2E43070088"
+			tasks: [{
+				id: "184C7494FB2E7824"
+				item: "gtceu:mv_ore_washer"
+				type: "item"
+			}]
+			x: -10.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["50628B5ADF9CC562"]
+			id: "01A4616263A9824C"
+			tasks: [{
+				id: "5F44ED4EA90B8DD9"
+				item: "gtceu:mv_mixer"
+				type: "item"
+			}]
+			x: -11.5d
+			y: 4.5d
+		}
+		{
+			dependencies: ["48A98BD994BA2054"]
+			id: "6BAA2FD0628F17DC"
+			tasks: [{
+				id: "4238D812AE29B09C"
+				item: "gtceu:light_fuel_bucket"
+				type: "item"
+			}]
+			x: -12.5d
+			y: 3.5d
+		}
+		{
+			dependencies: ["48A98BD994BA2054"]
+			id: "09D80EE7AEA658A1"
+			tasks: [{
+				id: "42AE409F98E7DC27"
+				item: "gtceu:heavy_fuel_bucket"
+				type: "item"
+			}]
+			x: -13.5d
+			y: 3.5d
+		}
+		{
+			dependencies: [
+				"6BAA2FD0628F17DC"
+				"09D80EE7AEA658A1"
+				"01A4616263A9824C"
+			]
+			description: ["{gte.tier_2_mv.quests.722072470416CDCE.description0}"]
+			id: "722072470416CDCE"
+			tasks: [{
+				id: "7E3D77CB84B063B0"
+				item: "gtceu:diesel_bucket"
+				type: "item"
+			}]
+			x: -13.0d
+			y: 4.5d
+		}
+		{
+			dependencies: [
+				"6A93C0BAAD6ACC1D"
+				"7156BFF905EB4DAC"
+			]
+			id: "655B298B66C1A738"
+			tasks: [{
+				id: "13E0DA223F68EC32"
+				item: "gtceu:kanthal_ingot"
+				type: "item"
+			}]
+			x: -13.0d
+			y: 7.5d
+		}
+		{
+			dependencies: ["1CDA8D38FD14E3E0"]
+			id: "45DE5742C36441FC"
+			tasks: [{
+				id: "0A7E92AFA312DD42"
+				item: "gtceu:hot_kanthal_ingot"
+				type: "item"
+			}]
+			x: -11.5d
+			y: 6.0d
+		}
+		{
+			dependencies: ["45DE5742C36441FC"]
+			id: "6A93C0BAAD6ACC1D"
+			tasks: [{
+				id: "51034FBDA528E460"
+				item: "gtceu:mv_chemical_bath"
+				type: "item"
+			}]
+			x: -13.0d
+			y: 6.0d
+		}
+		{
+			dependencies: [
+				"01A4616263A9824C"
+				"5D2AF811F6A27029"
+				"4F5939B389C7E8D3"
+				"0B77D273D2F0BBC4"
+			]
+			hide_dependency_lines: false
+			id: "1CDA8D38FD14E3E0"
+			tasks: [{
+				id: "42CCB2B6AA80E3AF"
+				item: "gtceu:kanthal_dust"
+				type: "item"
+			}]
+			x: -10.0d
+			y: 6.0d
+		}
+		{
+			id: "5D2AF811F6A27029"
+			tasks: [{
+				id: "51F98D118DB53CE7"
+				item: "gtceu:aluminium_dust"
+				type: "item"
+			}]
+			x: -10.5d
+			y: 3.0d
+		}
+		{
+			id: "4F5939B389C7E8D3"
+			tasks: [{
+				id: "3BE472A36FAC7217"
+				item: "gtceu:iron_dust"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 3.0d
+		}
+		{
+			dependencies: ["134C731EC3267179"]
+			id: "0B77D273D2F0BBC4"
+			tasks: [{
+				id: "56C85EC8C342DDD3"
+				item: "gtceu:chromium_dust"
+				type: "item"
+			}]
+			x: -8.5d
+			y: 6.0d
+		}
+		{
+			id: "4ED12C137FBB0758"
+			tasks: [{
+				id: "69FE8A1A6FC156D5"
+				item: "gtceu:ruby_dust"
+				type: "item"
+			}]
+			x: -8.5d
+			y: 1.5d
+		}
+		{
+			dependencies: [
+				"655B298B66C1A738"
+				"215FF18EDFC3E5E9"
+			]
+			id: "0972D6D3DE3F7D0A"
+			tasks: [{
+				id: "6009C4B5FD4B2B93"
+				item: "gtceu:kanthal_coil_block"
+				type: "item"
+			}]
+			x: -14.5d
+			y: 7.5d
+		}
+		{
+			dependencies: ["50628B5ADF9CC562"]
+			id: "215FF18EDFC3E5E9"
+			tasks: [{
+				id: "6E75DE8869DDAA93"
+				item: "gtceu:mv_assembler"
+				type: "item"
+			}]
+			x: -14.5d
+			y: 2.5d
+		}
+		{
+			id: "1C24E45E3372E16C"
+			tasks: [{
+				id: "4E45A7F09CAC352A"
+				item: "gtceu:bentonite_dust"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 1.5d
+		}
+		{
+			dependencies: [
+				"134C731EC3267179"
+				"1C24E45E3372E16C"
+			]
+			id: "5084495B96BE77D8"
+			tasks: [{
+				id: "67AC3DE9438BF3ED"
+				item: "gtceu:silicon_dust"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 3.0d
+		}
+		{
+			dependencies: [
+				"5084495B96BE77D8"
+				"7BDE150F0B6AE81A"
+			]
+			id: "5085C2118F79A4C9"
+			tasks: [{
+				id: "77F16031A5FD45A5"
+				item: "gtceu:silicon_boule"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 4.5d
+		}
+		{
+			id: "7BDE150F0B6AE81A"
+			tasks: [{
+				id: "258D8443ACF42F69"
+				item: "gtceu:gallium_arsenide_dust"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 6.0d
+		}
+		{
+			dependencies: ["50628B5ADF9CC562"]
+			id: "141C6C2AC97E2BD4"
+			tasks: [{
+				id: "1BCF6F92D5970C0C"
+				item: "gtceu:mv_cutter"
+				type: "item"
+			}]
+			x: -5.5d
+			y: 0.5d
+		}
+		{
+			dependencies: [
+				"141C6C2AC97E2BD4"
+				"5085C2118F79A4C9"
+				"615B161C633B648E"
+			]
+			id: "2BB833E3E697F444"
+			tasks: [{
+				id: "0507604C6633C28A"
+				item: "gtceu:silicon_wafer"
+				type: "item"
+			}]
+			x: -5.5d
+			y: 4.5d
+		}
+		{
+			description: ["{gte.tier_2_mv.quests.621D316EE66F51C7.description0}"]
+			id: "621D316EE66F51C7"
+			tasks: [{
+				id: "5A7976B0DAE7A743"
+				item: "gtceu:lubricant_bucket"
+				type: "item"
+			}]
+			title: "{gte.tier_2_mv.quests.621D316EE66F51C7.title}"
+			x: -2.5d
+			y: 3.0d
+		}
+		{
+			description: ["{gte.tier_2_mv.quests.4D1A81D266B14D46.description0}"]
+			id: "4D1A81D266B14D46"
+			tasks: [{
+				id: "7C7F7A14DADA7F62"
+				item: "minecraft:water_bucket"
+				type: "item"
+			}]
+			title: "{gte.tier_2_mv.quests.4D1A81D266B14D46.title}"
+			x: -2.5d
+			y: 6.0d
+		}
+		{
+			dependencies: [
+				"621D316EE66F51C7"
+				"1914889AE31B751D"
+				"4D1A81D266B14D46"
+			]
+			id: "615B161C633B648E"
+			tasks: [{
+				id: "352966057575E1C2"
+				title: "{gte.tier_2_mv.quests.615B161C633B648E.tasks.352966057575E1C2.title}"
+				type: "checkmark"
+			}]
+			x: -4.0d
+			y: 4.5d
+		}
+		{
+			description: [
+				"{gte.tier_2_mv.quests.1914889AE31B751D.description0}"
+				""
+				"{gte.tier_2_mv.quests.1914889AE31B751D.description1}"
+			]
+			id: "1914889AE31B751D"
+			tasks: [{
+				id: "69B3207E20DE2C97"
+				item: "gtceu:distilled_water_bucket"
+				type: "item"
+			}]
+			title: "{gte.tier_2_mv.quests.1914889AE31B751D.title}"
+			x: -2.5d
+			y: 4.5d
+		}
+		{
+			dependencies: ["2BB833E3E697F444"]
+			id: "2D5D55B87B03C915"
+			tasks: [{
+				id: "1377B2F3D09F224B"
+				item: "gtceu:mv_laser_engraver"
+				type: "item"
+			}]
+			x: -5.5d
+			y: 6.0d
+		}
+		{
+			dependencies: ["2D5D55B87B03C915"]
+			id: "7337A79C21A9AE6F"
+			tasks: [{
+				id: "3894BE8610BCFE42"
+				item: "gtceu:ram_wafer"
+				type: "item"
+			}]
+			x: -4.0d
+			y: 7.5d
+		}
+		{
+			dependencies: ["2D5D55B87B03C915"]
+			id: "56EB266A4DF8A7DE"
+			tasks: [{
+				id: "06C31F1F67721B90"
+				item: "gtceu:ulpic_wafer"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 7.5d
+		}
+		{
+			dependencies: ["7337A79C21A9AE6F"]
+			id: "2F40B243719A84D1"
+			tasks: [{
+				id: "770503C8227E5D29"
+				item: "gtceu:ram_chip"
+				type: "item"
+			}]
+			x: -4.0d
+			y: 9.0d
+		}
+		{
+			dependencies: ["56EB266A4DF8A7DE"]
+			id: "4DB40D961EA128C8"
+			tasks: [{
+				id: "5802B0C6C8788BB2"
+				item: "gtceu:ulpic_chip"
+				type: "item"
+			}]
+			x: -8.5d
+			y: 7.5d
+		}
+		{
+			dependencies: [
+				"21F100261EB28C08"
+				"28F72D864759CADE"
+				"0F335FB5496D052A"
+				"5A1D921F18141098"
+				"117028E7EB6BC2AB"
+				"2F8CA47410C3B0C9"
+			]
+			id: "106400C019B85BA3"
+			tasks: [{
+				count: 2L
+				id: "7DD3F6128DE4264E"
+				item: "gtceu:basic_integrated_circuit"
+				type: "item"
+			}]
+			x: -8.5d
+			y: 10.5d
+		}
+		{
+			dependencies: ["7E7F9AAFA6ABDB35"]
+			id: "2F8CA47410C3B0C9"
+			tasks: [{
+				id: "08D2FD075C52F06F"
+				item: "gtceu:ilc_chip"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 9.0d
+		}
+		{
+			dependencies: ["2D5D55B87B03C915"]
+			id: "7E7F9AAFA6ABDB35"
+			tasks: [{
+				id: "40BFDB4059D245FD"
+				item: "gtceu:ilc_wafer"
+				type: "item"
+			}]
+			x: -5.5d
+			y: 7.5d
+		}
+		{
+			id: "21F100261EB28C08"
+			tasks: [{
+				id: "65FFD89DEBF5F7BC"
+				item: "gtceu:resin_printed_circuit_board"
+				type: "item"
+			}]
+			x: -10.0d
+			y: 10.5d
+		}
+		{
+			id: "28F72D864759CADE"
+			tasks: [{
+				count: 2L
+				id: "0B2FAAC3A7E3469F"
+				item: "gtceu:resistor"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 11.0d
+		}
+		{
+			id: "0F335FB5496D052A"
+			tasks: [{
+				count: 2L
+				id: "39333D55F8AF5518"
+				item: "gtceu:diode"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 10.0d
+		}
+		{
+			id: "5A1D921F18141098"
+			tasks: [{
+				count: 2L
+				id: "68285897F46CC2A5"
+				item: "gtceu:fine_copper_wire"
+				type: "item"
+			}]
+			x: -8.5d
+			y: 9.0d
+		}
+		{
+			id: "117028E7EB6BC2AB"
+			tasks: [{
+				count: 2L
+				id: "0FA6C81951F4A678"
+				item: "gtceu:tin_bolt"
+				type: "item"
+			}]
+			x: -8.5d
+			y: 12.0d
+		}
+		{
+			dependencies: [
+				"08D850EC8A9385C1"
+				"106400C019B85BA3"
+				"28F72D864759CADE"
+				"0F335FB5496D052A"
+				"3987466C540981A9"
+			]
+			id: "3488A7766FC44C1B"
+			tasks: [{
+				count: 2L
+				id: "1F5CD4E2105DAD7F"
+				item: "gtceu:good_integrated_circuit"
+				type: "item"
+			}]
+			x: -5.5d
+			y: 10.5d
+		}
+		{
+			id: "08D850EC8A9385C1"
+			tasks: [{
+				id: "03BC2F776EF018BF"
+				item: "gtceu:phenolic_printed_circuit_board"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 12.0d
+		}
+		{
+			id: "3033CC485B4907E5"
+			tasks: [{
+				count: 4L
+				id: "0F754428AF24B317"
+				item: "gtceu:fine_gold_wire"
+				type: "item"
+			}]
+			x: -2.5d
+			y: 7.5d
+		}
+		{
+			id: "3987466C540981A9"
+			tasks: [{
+				count: 4L
+				id: "1A97524CB0CED466"
+				item: "gtceu:silver_bolt"
+				type: "item"
+			}]
+			x: -5.5d
+			y: 12.0d
+		}
+		{
+			dependencies: [
+				"3488A7766FC44C1B"
+				"2F8CA47410C3B0C9"
+				"2F40B243719A84D1"
+				"32F342D90E7ABB7B"
+				"0F97C16978176F0F"
+				"559830BE3E2777E1"
+			]
+			id: "745ADDE0FBB07CEB"
+			tasks: [{
+				id: "6178CB6F88A77948"
+				item: "gtceu:advanced_integrated_circuit"
+				type: "item"
+			}]
+			x: -4.0d
+			y: 10.5d
+		}
+		{
+			id: "32F342D90E7ABB7B"
+			tasks: [{
+				count: 4L
+				id: "67052631ECA714FF"
+				item: "gtceu:transistor"
+				type: "item"
+			}]
+			x: -4.0d
+			y: 12.0d
+		}
+		{
+			id: "0F97C16978176F0F"
+			tasks: [{
+				count: 8L
+				id: "40222F678C490871"
+				item: "gtceu:fine_electrum_wire"
+				type: "item"
+			}]
+			x: -5.5d
+			y: 9.0d
+		}
+		{
+			id: "559830BE3E2777E1"
+			tasks: [{
+				count: 8L
+				id: "5C8F49E03E8C05CC"
+				item: "gtceu:annealed_copper_bolt"
+				type: "item"
+			}]
+			x: -2.5d
+			y: 12.0d
+		}
+		{
+			dependencies: [
+				"15A79A0E1A3B3B08"
+				"4DB40D961EA128C8"
+				"25EF1506346A0CE7"
+			]
+			id: "7156BFF905EB4DAC"
+			tasks: [{
+				id: "18D94C887B006E42"
+				item: "gtceu:mv_energy_input_hatch"
+				type: "item"
+			}]
+			x: -10.0d
+			y: 7.5d
+		}
+		{
+			id: "15A79A0E1A3B3B08"
+			tasks: [{
+				id: "34E66DEBC5B00D41"
+				item: "gtceu:mv_voltage_coil"
+				type: "item"
+			}]
+			x: -11.5d
+			y: 9.0d
+		}
+		{
+			id: "25EF1506346A0CE7"
+			tasks: [{
+				count: 2L
+				id: "4AF1ABA67391B6DB"
+				item: "gtceu:copper_single_cable"
+				type: "item"
+			}]
+			x: -10.0d
+			y: 9.0d
+		}
+		{
+			dependencies: ["566A1DE541BC7E64"]
+			id: "63C73D5738992600"
+			tasks: [{
+				id: "705AE23430369BE5"
+				item: "gtceu:stainless_steel_ingot"
+				type: "item"
+			}]
+			x: -16.0d
+			y: 2.5d
+		}
+		{
+			dependencies: ["50628B5ADF9CC562"]
+			id: "60D57850EECCE621"
+			tasks: [{
+				id: "56D026FC8AB999D6"
+				item: "gtceu:mv_mixer"
+				type: "item"
+			}]
+			x: -14.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["60D57850EECCE621"]
+			id: "566A1DE541BC7E64"
+			tasks: [{
+				id: "1B21CFA29DD2F197"
+				item: "gtceu:stainless_steel_dust"
+				type: "item"
+			}]
+			x: -16.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["63C73D5738992600"]
+			id: "4C2E3A43D3F286FD"
+			size: 2.0d
+			tasks: [{
+				id: "6BD15E231877895C"
+				item: "gtceu:hv_machine_hull"
+				type: "item"
+			}]
+			x: -16.0d
+			y: 5.0d
+		}
+		{
+			dependencies: [
+				"745ADDE0FBB07CEB"
+				"40694915A48C13A3"
+				"6CB56EC58FF8C4D8"
+			]
+			dependency_requirement: "one_completed"
+			id: "20D288D1F83971EA"
+			tasks: [{
+				id: "4BC38186031E785D"
+				item: "gtceu:mv_circuit_assembler"
+				type: "item"
+			}]
+			x: -2.5d
+			y: 10.5d
+		}
+		{
+			id: "40694915A48C13A3"
+			tasks: [{
+				id: "3515CE217DF41F0A"
+				item: "gtceu:mv_emitter"
+				type: "item"
+			}]
+			x: -2.5d
+			y: 9.0d
+		}
+		{
+			dependencies: ["2AD9D77D88691B11"]
+			id: "6CB56EC58FF8C4D8"
+			tasks: [{
+				id: "1BCB7CDD9D5AFDAC"
+				item: "gtceu:advanced_integrated_circuit"
+				type: "item"
+			}]
+			title: "{gte.tier_2_mv.quests.6CB56EC58FF8C4D8.title}"
+			x: -1.0d
+			y: 10.5d
+		}
+		{
+			id: "2AD9D77D88691B11"
+			tasks: [{
+				id: "1A873CA874DF573E"
+				item: "mekanism:elite_control_circuit"
+				type: "item"
+			}]
+			x: -1.0d
+			y: 9.0d
+		}
+	]
+	title: "{gte.tier_2_mv.title}"
+}
