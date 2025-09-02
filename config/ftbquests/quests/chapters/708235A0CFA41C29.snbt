@@ -8,12 +8,12 @@
 	quest_links: [ ]
 	quests: [
 		{
-			description: ["你好，新员工! 格雷科技无限公司最近研发出了黑科技蒸汽设备，最高支持1024并行，欢迎使用。"]
+			description: ["{gte.708235A0CFA41C29.quests.074AD733062ACD47.description0}"]
 			id: "074AD733062ACD47"
-			subtitle: "这真的是蒸汽科技吗"
+			subtitle: "{gte.708235A0CFA41C29.quests.074AD733062ACD47.subtitle}"
 			tasks: [{
 				id: "5F9DC12BDB9A6BC0"
-				title: "蒸汽时代多方块结构"
+				title: "{gte.708235A0CFA41C29.quests.074AD733062ACD47.tasks.5F9DC12BDB9A6BC0.title}"
 				type: "checkmark"
 			}]
 			x: -13.5d
@@ -21,7 +21,7 @@
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
-			description: ["有了它，熔炼合金不再缓慢!"]
+			description: ["{gte.708235A0CFA41C29.quests.0C78B3C957878EC0.description0}"]
 			id: "0C78B3C957878EC0"
 			tasks: [{
 				id: "697369992A40CE5D"
@@ -33,7 +33,7 @@
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
-			description: ["有了它，矿物处理不在困难!"]
+			description: ["{gte.708235A0CFA41C29.quests.600A276DA7D64035.description0}"]
 			id: "600A276DA7D64035"
 			tasks: [{
 				id: "1255FA3C6FAD79F8"
@@ -56,7 +56,7 @@
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
-			description: ["搭建好多方块结构后放入煤炭和铁就可以开始炼钢了"]
+			description: ["{gte.708235A0CFA41C29.quests.1A8EF42B527CC110.description0}"]
 			icon_scale: 2.0d
 			id: "1A8EF42B527CC110"
 			tasks: [{
@@ -80,9 +80,9 @@
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
-			description: ["          有了它，源源不断的从未知的地方抽水"]
+			description: ["{gte.708235A0CFA41C29.quests.0CAE8F212C92CAB5.description0}"]
 			id: "0CAE8F212C92CAB5"
-			subtitle: "一点也不原始"
+			subtitle: "{gte.708235A0CFA41C29.quests.0CAE8F212C92CAB5.subtitle}"
 			tasks: [{
 				id: "337C0962BDADCCFD"
 				item: "gtceu:primitive_pump"
@@ -95,16 +95,16 @@
 			id: "19F084F853F742EA"
 			tasks: [{
 				id: "7B948BE6651E32E1"
-				title: "LV时代多方块结构"
+				title: "{gte.708235A0CFA41C29.quests.19F084F853F742EA.tasks.7B948BE6651E32E1.title}"
 				type: "checkmark"
 			}]
-			title: "LV时代多方块结构"
+			title: "{gte.708235A0CFA41C29.quests.19F084F853F742EA.title}"
 			x: -8.0d
 			y: -6.0d
 		}
 		{
 			dependencies: ["19F084F853F742EA"]
-			description: ["          有了电力高炉，即可开始烧铝了"]
+			description: ["{gte.708235A0CFA41C29.quests.537EAE26BE1C2760.description0}"]
 			icon_scale: 2.0d
 			id: "537EAE26BE1C2760"
 			tasks: [{
@@ -165,17 +165,17 @@
 		{
 			dependencies: ["537EAE26BE1C2760"]
 			description: [
-				"如何在没有指引的情况下搭建多方块结构?"
-				"对着多方块结构的主机(比如电力高炉)按住U键，在JEI页面上选中多方块结构信息即可获得这个多方块结构给如何建造的信息。"
+				"{gte.708235A0CFA41C29.quests.09D8C672BB492C54.description0}"
+				"{gte.708235A0CFA41C29.quests.09D8C672BB492C54.description1}"
 				""
-				"然后准备好材料放下主机，手持终端对着主机按Shift+右键，多方块结构即可初步成型"
-				"请注意：多方块结构有多种多样的搭建方式，自动搭建的多方块结构可能并不是你需要的，你很有可能微调，比如添加输入仓，输出仓，"
-				"输入总线，输出总线，输入总成，输出总成，能源仓，维护仓，同一个多方块结构可能有不同的等级，不同等级的多方块结构可能需要不同的结构方块，如有更多疑问可以观看有关格雷科技现代版多方块结构的教学视频。GregTechEasy制作组也非常欢迎萌新通过各种渠道来提问。"
+				"{gte.708235A0CFA41C29.quests.09D8C672BB492C54.description2}"
+				"{gte.708235A0CFA41C29.quests.09D8C672BB492C54.description3}"
+				"{gte.708235A0CFA41C29.quests.09D8C672BB492C54.description4}"
 			]
 			id: "09D8C672BB492C54"
 			tasks: [{
 				id: "7188EFDB1D2FCB11"
-				title: "多方块结构建造指南"
+				title: "{gte.708235A0CFA41C29.quests.09D8C672BB492C54.tasks.7188EFDB1D2FCB11.title}"
 				type: "checkmark"
 			}]
 			x: -13.0d
@@ -239,21 +239,21 @@
 		{
 			dependencies: ["537EAE26BE1C2760"]
 			description: [
-				"在LV时代，由于电缆损耗原因，如果你的电缆放置不当，那么将会导致你4个LV发电机发的电无法供应电力高炉。"
-				"这时候通常有几种解决方法。"
-				"1: 增加发电机数量"
-				"2:使用超导线缆"
-				"3:使用电池仓来缓冲"
-				"4:合理的放置电缆，非常推荐通过合理的放置电缆来解决此问题，成本最低，当然，其他的办法也是可行的。"
-				"此外电力高炉和别的多方块机器不太一样，有这独特的线圈和炉温机制，使用不同的线圈会导致其基础熔炼温度的变化，"
-				"你的电力高炉的最终炉温必须要大于等于配方的需求炉温，电压等级超过配方需求的等级会导致炉温上升，使用超配方需求的炉温会导致"
-				"配方更快。简单来说就是线圈越好，电压越高，配方执行速度越快。"
-				"另外，为了Make GregTech Easy。本整合包把所有的多方块机器的速度都加快了20倍。"
+				"{gte.708235A0CFA41C29.quests.1492AF86ABE961A2.description0}"
+				"{gte.708235A0CFA41C29.quests.1492AF86ABE961A2.description1}"
+				"{gte.708235A0CFA41C29.quests.1492AF86ABE961A2.description2}"
+				"{gte.708235A0CFA41C29.quests.1492AF86ABE961A2.description3}"
+				"{gte.708235A0CFA41C29.quests.1492AF86ABE961A2.description4}"
+				"{gte.708235A0CFA41C29.quests.1492AF86ABE961A2.description5}"
+				"{gte.708235A0CFA41C29.quests.1492AF86ABE961A2.description6}"
+				"{gte.708235A0CFA41C29.quests.1492AF86ABE961A2.description7}"
+				"{gte.708235A0CFA41C29.quests.1492AF86ABE961A2.description8}"
+				"{gte.708235A0CFA41C29.quests.1492AF86ABE961A2.description9}"
 			]
 			id: "1492AF86ABE961A2"
 			tasks: [{
 				id: "6894074C03D331E7"
-				title: "使用多方块机器还需要注意的"
+				title: "{gte.708235A0CFA41C29.quests.1492AF86ABE961A2.tasks.6894074C03D331E7.title}"
 				type: "checkmark"
 			}]
 			x: -14.0d
@@ -261,7 +261,7 @@
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
-			description: ["                        剩下的材料我相信你自己能凑齐哟"]
+			description: ["{gte.708235A0CFA41C29.quests.372DF6CC299D3258.description0}"]
 			id: "372DF6CC299D3258"
 			rewards: [
 				{
@@ -282,7 +282,7 @@
 					type: "item"
 				}
 			]
-			subtitle: "简单之盒，让你从此以后不用挖矿"
+			subtitle: "{gte.708235A0CFA41C29.quests.372DF6CC299D3258.subtitle}"
 			tasks: [{
 				id: "014A231851F73975"
 				item: "gtceu:easy_box"
@@ -309,7 +309,7 @@
 			id: "2273DC38F788F572"
 			tasks: [{
 				id: "4E1EA87C2646621C"
-				title: "MV时代多方块结构"
+				title: "{gte.708235A0CFA41C29.quests.2273DC38F788F572.tasks.4E1EA87C2646621C.title}"
 				type: "checkmark"
 			}]
 			x: -4.0d
@@ -328,7 +328,7 @@
 		}
 		{
 			dependencies: ["074AD733062ACD47"]
-			description: ["                 通过钢制多方块储罐，可以储存水和蒸汽"]
+			description: ["{gte.708235A0CFA41C29.quests.2AE266C9A656295F.description0}"]
 			id: "2AE266C9A656295F"
 			tasks: [{
 				id: "5EC0E77D8B9C3F7B"
@@ -351,7 +351,7 @@
 		}
 		{
 			dependencies: ["2273DC38F788F572"]
-			description: ["                      一键产出材料的所有可制造的零件!"]
+			description: ["{gte.708235A0CFA41C29.quests.06FD08EFBF585EE1.description0}"]
 			id: "06FD08EFBF585EE1"
 			tasks: [{
 				id: "128A497B2DFB94CF"
@@ -465,7 +465,7 @@
 			id: "38EB046626D5399C"
 			tasks: [{
 				id: "4C2E9A8765552810"
-				title: "HV时代多方块结构"
+				title: "{gte.708235A0CFA41C29.quests.38EB046626D5399C.tasks.4C2E9A8765552810.title}"
 				type: "checkmark"
 			}]
 			x: -0.5d
@@ -558,7 +558,7 @@
 			id: "037C1C6396106B89"
 			tasks: [{
 				id: "00A15A3C90388B42"
-				title: "EV时代多方块结构"
+				title: "{gte.708235A0CFA41C29.quests.037C1C6396106B89.tasks.00A15A3C90388B42.title}"
 				type: "checkmark"
 			}]
 			x: 3.0d
@@ -647,7 +647,7 @@
 			id: "24FD09E6B8A693B3"
 			tasks: [{
 				id: "09B40C32A2C73FE8"
-				title: "IV时代多方块结构"
+				title: "{gte.708235A0CFA41C29.quests.24FD09E6B8A693B3.tasks.09B40C32A2C73FE8.title}"
 				type: "checkmark"
 			}]
 			x: -8.0d
@@ -756,7 +756,7 @@
 			id: "02615C97199FE825"
 			tasks: [{
 				id: "172CC0FBA5AB4217"
-				title: "Luv时代多方块结构"
+				title: "{gte.708235A0CFA41C29.quests.02615C97199FE825.tasks.172CC0FBA5AB4217.title}"
 				type: "checkmark"
 			}]
 			x: -4.0d
@@ -784,6 +784,39 @@
 			x: -2.5d
 			y: -2.0d
 		}
+		{
+			dependencies: ["02615C97199FE825"]
+			id: "10B30F852296E7E6"
+			tasks: [{
+				id: "5E59814860C93256"
+				item: "gtecore:chemistry_terminator"
+				type: "item"
+			}]
+			x: -2.5d
+			y: -0.5d
+		}
+		{
+			dependencies: ["02615C97199FE825"]
+			id: "71EFE10B25C85EC6"
+			tasks: [{
+				id: "05421080CE0A1B0A"
+				item: "gtceu:network_switch"
+				type: "item"
+			}]
+			x: -4.0d
+			y: 1.0d
+		}
+		{
+			dependencies: ["02615C97199FE825"]
+			id: "63E6C66EF03971AA"
+			tasks: [{
+				id: "75EA8FF58D832C1D"
+				item: "gtceu:data_bank"
+				type: "item"
+			}]
+			x: -2.5d
+			y: 1.0d
+		}
 	]
-	title: "多方块结构"
+	title: "{gte.708235A0CFA41C29.title}"
 }

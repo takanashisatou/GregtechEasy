@@ -38,7 +38,7 @@
 					type: "item"
 				}
 			]
-			title: "HV时代的老五样"
+			title: "{gte.tier_3_hv.quests.434A56021519D107.title}"
 			x: -15.0d
 			y: -4.5d
 		}
@@ -325,7 +325,7 @@
 					type: "item"
 				}
 			]
-			title: "贴片元件系列"
+			title: "{gte.tier_3_hv.quests.297AE6F35CDA8FAC.title}"
 			x: -13.5d
 			y: -6.0d
 		}
@@ -562,5 +562,5 @@
 			y: 0.0d
 		}
 	]
-	title: "[Tier 3] HV"
+	title: "{gte.tier_3_hv.title}"
 }

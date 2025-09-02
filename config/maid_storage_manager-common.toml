@@ -109,6 +109,9 @@ debug_msg = false
 	#The way to select the correct crafting path.
 	#Allowed Values: NONE, STEPS, CRAFT_GUIDES, ITEMS, ITEMS_COSTED
 	shortest_path_evaluator = "CRAFT_GUIDES"
+	#Max layer count limit when calculating plan. Increasing this value may cause a large lagging in some cases.
+	#Range: > 100
+	max_layer_limit = 10000
 
 	[crafting.loop_solver]
 		#Max length to calculate in loop solver.

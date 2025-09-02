@@ -3,12 +3,15 @@
 
 	[mekanism.crushing]
 		enable = true
+		factory_parallel = true
 
 	[mekanism.sawing]
 		enable = true
+		factory_parallel = true
 
 	[mekanism.enriching]
 		enable = true
+		factory_parallel = true
 
 	[mekanism.metallurgic_infusing]
 		enable = true
@@ -18,10 +21,12 @@
 
 	[mekanism.combining]
 		enable = true
+		factory_parallel = true
 
 	[mekanism.smelting]
 		enable = true
 		replace_furnace = true
+		factory_parallel = true
 
 [maid_storage_manager]
 
