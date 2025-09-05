@@ -10,7 +10,7 @@
 	quests: [
 		{
 			dependencies: ["4E23F7802FD82D2B"]
-			description: ["{gte.tier_2_mv.quests.48A98BD994BA2054.description0}"]
+			description: ["  MV时代你同样也需要这五种零件，很多机器需要它们"]
 			icon: "gtceu:mv_electric_motor"
 			id: "48A98BD994BA2054"
 			rewards: [{
@@ -20,7 +20,7 @@
 				type: "item"
 			}]
 			size: 1.5d
-			subtitle: "{gte.tier_2_mv.quests.48A98BD994BA2054.subtitle}"
+			subtitle: "每个阶段都要造"
 			tasks: [
 				{
 					id: "24CBC574E5749D0C"
@@ -48,7 +48,7 @@
 					type: "item"
 				}
 			]
-			title: "{gte.tier_2_mv.quests.48A98BD994BA2054.title}"
+			title: "MV时代的老五样"
 			x: -13.0d
 			y: 2.5d
 		}
@@ -57,7 +57,7 @@
 			id: "50628B5ADF9CC562"
 			tasks: [{
 				id: "1AB3F25F7F31528B"
-				title: "{gte.tier_2_mv.quests.50628B5ADF9CC562.tasks.1AB3F25F7F31528B.title}"
+				title: "造一些电力机器"
 				type: "checkmark"
 			}]
 			x: -11.5d
@@ -76,9 +76,9 @@
 		}
 		{
 			dependencies: ["4ED12C137FBB0758"]
-			description: ["{gte.tier_2_mv.quests.134C731EC3267179.description0}"]
+			description: ["使用电解机可以电解盐水出氯气，氢气和氢氧化钠，电解糖制造氧气，电解红宝石粉出铬"]
 			id: "134C731EC3267179"
-			subtitle: "{gte.tier_2_mv.quests.134C731EC3267179.subtitle}"
+			subtitle: "来自格雷科技的黑科技"
 			tasks: [{
 				id: "78410E585FC66FA5"
 				item: "gtceu:mv_electrolyzer"
@@ -181,7 +181,7 @@
 				"09D80EE7AEA658A1"
 				"01A4616263A9824C"
 			]
-			description: ["{gte.tier_2_mv.quests.722072470416CDCE.description0}"]
+			description: ["                强烈推荐用柴油发电！ 简单，易造，耐烧。"]
 			id: "722072470416CDCE"
 			tasks: [{
 				id: "7E3D77CB84B063B0"
@@ -385,26 +385,26 @@
 			y: 4.5d
 		}
 		{
-			description: ["{gte.tier_2_mv.quests.621D316EE66F51C7.description0}"]
+			description: ["润滑油虽然造起来稍微麻烦一点，但是它的效率比水快一倍，效率就是王道!"]
 			id: "621D316EE66F51C7"
 			tasks: [{
 				id: "5A7976B0DAE7A743"
 				item: "gtceu:lubricant_bucket"
 				type: "item"
 			}]
-			title: "{gte.tier_2_mv.quests.621D316EE66F51C7.title}"
+			title: "切割机的好助手"
 			x: -2.5d
 			y: 3.0d
 		}
 		{
-			description: ["{gte.tier_2_mv.quests.4D1A81D266B14D46.description0}"]
+			description: ["直接用免费的水就可以切割单晶硅了，稍微慢点无所谓，方便才是王道"]
 			id: "4D1A81D266B14D46"
 			tasks: [{
 				id: "7C7F7A14DADA7F62"
 				item: "minecraft:water_bucket"
 				type: "item"
 			}]
-			title: "{gte.tier_2_mv.quests.4D1A81D266B14D46.title}"
+			title: "直接用水多方便"
 			x: -2.5d
 			y: 6.0d
 		}
@@ -417,7 +417,7 @@
 			id: "615B161C633B648E"
 			tasks: [{
 				id: "352966057575E1C2"
-				title: "{gte.tier_2_mv.quests.615B161C633B648E.tasks.352966057575E1C2.title}"
+				title: "水或者润滑油?这是一个问题"
 				type: "checkmark"
 			}]
 			x: -4.0d
@@ -425,9 +425,9 @@
 		}
 		{
 			description: [
-				"{gte.tier_2_mv.quests.1914889AE31B751D.description0}"
+				"          蒸馏水也能加速切割机，虽然没有润滑油快。"
 				""
-				"{gte.tier_2_mv.quests.1914889AE31B751D.description1}"
+				"         也是一种不错的选择。"
 			]
 			id: "1914889AE31B751D"
 			tasks: [{
@@ -435,7 +435,7 @@
 				item: "gtceu:distilled_water_bucket"
 				type: "item"
 			}]
-			title: "{gte.tier_2_mv.quests.1914889AE31B751D.title}"
+			title: "蒸馏水也可以"
 			x: -2.5d
 			y: 4.5d
 		}
@@ -805,7 +805,7 @@
 				item: "gtceu:advanced_integrated_circuit"
 				type: "item"
 			}]
-			title: "{gte.tier_2_mv.quests.6CB56EC58FF8C4D8.title}"
+			title: "另外一种HV电路制作方式"
 			x: -1.0d
 			y: 10.5d
 		}
@@ -820,5 +820,5 @@
 			y: 9.0d
 		}
 	]
-	title: "{gte.tier_2_mv.title}"
+	title: "[Tier 2] MV"
 }

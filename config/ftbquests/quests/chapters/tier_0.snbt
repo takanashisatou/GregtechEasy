@@ -10,7 +10,7 @@
 	quests: [
 		{
 			dependencies: ["454E75E87ACFE4C6"]
-			description: ["{gte.tier_0.quests.11101BDC46C78EE0.description0}"]
+			description: ["恭喜你进入到了蒸汽时代，接下来你会体验到格雷科技更多的乐趣"]
 			icon: "gtceu:lp_steam_solid_boiler"
 			id: "11101BDC46C78EE0"
 			shape: "circle"
@@ -18,33 +18,33 @@
 				id: "682086BFC68D6134"
 				type: "checkmark"
 			}]
-			title: "{gte.tier_0.quests.11101BDC46C78EE0.title}"
+			title: "蒸汽时代"
 			x: -21.5d
 			y: 0.5d
 		}
 		{
 			dependencies: ["2D2FF11CE840C1E3"]
-			description: ["{gte.tier_0.quests.42986F653B4D6E85.description0}"]
+			description: ["是否发觉了手动往锅炉里添加水非常麻烦，那么通过原始水泵你即可源源不断的获取水资源"]
 			id: "42986F653B4D6E85"
-			subtitle: "{gte.tier_0.quests.42986F653B4D6E85.subtitle}"
+			subtitle: "原始水泵其实是一种黑科技"
 			tasks: [{
 				id: "0CABEAC0A52DD242"
 				item: "gtceu:primitive_pump"
 				type: "item"
 			}]
-			title: "{gte.tier_0.quests.42986F653B4D6E85.title}"
+			title: "水资源危机"
 			x: -23.0d
 			y: -2.5d
 		}
 		{
 			dependencies: ["11101BDC46C78EE0"]
 			description: [
-				"{gte.tier_0.quests.2D2FF11CE840C1E3.description0}"
-				"{gte.tier_0.quests.2D2FF11CE840C1E3.description1}"
-				"{gte.tier_0.quests.2D2FF11CE840C1E3.description2}"
+				"           是否缺少木炭，那么你只需要焦炉即可获得源源不断的木炭!"
+				"                     好吧，我相信你应该会挖煤矿来获取煤炭。"
+				"                     不过没关系，你仍然需要杂酚油来制作原始水泵"
 			]
 			id: "2D2FF11CE840C1E3"
-			subtitle: "{gte.tier_0.quests.2D2FF11CE840C1E3.subtitle}"
+			subtitle: "你其实用不到木炭"
 			tasks: [
 				{
 					id: "216D826011821990"
@@ -58,15 +58,15 @@
 					type: "item"
 				}
 			]
-			title: "{gte.tier_0.quests.2D2FF11CE840C1E3.title}"
+			title: "源源不断的木炭"
 			x: -21.5d
 			y: -1.0d
 		}
 		{
 			dependencies: ["2D2FF11CE840C1E3"]
-			description: ["{gte.tier_0.quests.03C7DA50DF1F604D.description0}"]
+			description: ["手持终端,Shift+右键多方块机器的主结构方块(比如焦炉)就可以一键搭建多方块机器"]
 			id: "03C7DA50DF1F604D"
-			subtitle: "{gte.tier_0.quests.03C7DA50DF1F604D.subtitle}"
+			subtitle: "搭建多方块结构的利器"
 			tasks: [{
 				id: "707CA4DF1E0884D8"
 				item: "gtceu:terminal"
@@ -78,7 +78,7 @@
 		{
 			dependencies: ["2D2FF11CE840C1E3"]
 			id: "2D7E9F60F8054210"
-			subtitle: "{gte.tier_0.quests.2D7E9F60F8054210.subtitle}"
+			subtitle: "是时候让你的焦炉仓自动化生产木炭和杂酚油了"
 			tasks: [{
 				id: "323CA5356B34D38E"
 				item: "gtceu:coke_oven_hatch"
@@ -89,21 +89,21 @@
 		}
 		{
 			dependencies: ["11101BDC46C78EE0"]
-			description: ["{gte.tier_0.quests.7CBF18C9CD0B2D4E.description0}"]
+			description: ["如何传输液体?在蒸汽时代最好的解决办法就是利用管道"]
 			id: "7CBF18C9CD0B2D4E"
 			tasks: [{
 				id: "587E487E9E5489CF"
 				item: "gtceu:bronze_normal_fluid_pipe"
 				type: "item"
 			}]
-			title: "{gte.tier_0.quests.7CBF18C9CD0B2D4E.title}"
+			title: "流体的传输"
 			x: -20.0d
 			y: 0.5d
 		}
 		{
 			can_repeat: true
 			dependencies: ["7CBF18C9CD0B2D4E"]
-			description: ["{gte.tier_0.quests.28C397777C1D6470.description0}"]
+			description: ["          让你再也不用手搓一组又一组的管道"]
 			icon: "gtceu:neutronium_huge_fluid_pipe"
 			id: "28C397777C1D6470"
 			rewards: [{
@@ -112,18 +112,18 @@
 				item: "gtceu:neutronium_huge_fluid_pipe"
 				type: "item"
 			}]
-			subtitle: "{gte.tier_0.quests.28C397777C1D6470.subtitle}"
+			subtitle: "管道就是工业中的血管"
 			tasks: [{
 				id: "41A3F653F7667511"
 				type: "checkmark"
 			}]
-			title: "{gte.tier_0.quests.28C397777C1D6470.title}"
+			title: "免费的管道"
 			x: -20.0d
 			y: -1.0d
 		}
 		{
 			dependencies: ["11101BDC46C78EE0"]
-			description: ["{gte.tier_0.quests.7166F780DC2DB2E0.description0}"]
+			description: ["手持扳手，对准管道的一个面可以看到九个格子，这分别代表了管道的六种方向，对准格子后右键可以更改管道的链接状态，我相信你能弄懂这九个格子分别代表了哪六种方向"]
 			icon: {
 				Count: 1
 				id: "gtceu:sterling_silver_wrench"
@@ -146,13 +146,13 @@
 				id: "6A77C9AAD3A48CD6"
 				type: "checkmark"
 			}]
-			title: "{gte.tier_0.quests.7166F780DC2DB2E0.title}"
+			title: "工具的使用"
 			x: -23.0d
 			y: 0.5d
 		}
 		{
 			dependencies: ["7CBF18C9CD0B2D4E"]
-			description: ["{gte.tier_0.quests.3DF529D0A04AE364.description0}"]
+			description: ["有了蒸汽合金炉，可以更高效率的合成青铜合金了，请注意蒸汽合金炉需要耗费大量蒸汽"]
 			id: "3DF529D0A04AE364"
 			rewards: [{
 				count: 192
@@ -160,23 +160,23 @@
 				item: "gtceu:bronze_ingot"
 				type: "item"
 			}]
-			subtitle: "{gte.tier_0.quests.3DF529D0A04AE364.subtitle}"
+			subtitle: "自动化的开端"
 			tasks: [{
 				id: "263430D5E074B29B"
 				item: "gtceu:lp_steam_alloy_smelter"
 				type: "item"
 			}]
-			title: "{gte.tier_0.quests.3DF529D0A04AE364.title}"
+			title: "第一个蒸汽机器"
 			x: -18.5d
 			y: 0.5d
 		}
 		{
 			dependencies: ["3DF529D0A04AE364"]
-			description: ["{gte.tier_0.quests.6EC9D0556AA06521.description0}"]
+			description: ["在蒸汽时代，你还会需要很多很多很多的蒸汽机器"]
 			id: "6EC9D0556AA06521"
 			tasks: [{
 				id: "7E3F69CD036AB643"
-				title: "{gte.tier_0.quests.6EC9D0556AA06521.tasks.7E3F69CD036AB643.title}"
+				title: "成堆的蒸汽机器"
 				type: "checkmark"
 			}]
 			x: -17.0d
@@ -217,15 +217,15 @@
 		}
 		{
 			dependencies: ["6EC9D0556AA06521"]
-			description: ["{gte.tier_0.quests.64F6CF8A3BB36778.description0}"]
+			description: ["多方块结构里土高炉一栏可以告诉你如何炼钢"]
 			id: "64F6CF8A3BB36778"
-			subtitle: "{gte.tier_0.quests.64F6CF8A3BB36778.subtitle}"
+			subtitle: "工业的根基"
 			tasks: [{
 				id: "5988EAD222FA009D"
 				item: "gtceu:steel_ingot"
 				type: "item"
 			}]
-			title: "{gte.tier_0.quests.64F6CF8A3BB36778.title}"
+			title: "第一块钢"
 			x: -15.5d
 			y: 0.5d
 		}
@@ -234,7 +234,7 @@
 			id: "126FDAA764244991"
 			tasks: [{
 				id: "74252AA7BF4B216E"
-				title: "{gte.tier_0.quests.126FDAA764244991.tasks.74252AA7BF4B216E.title}"
+				title: "高压蒸汽机器"
 				type: "checkmark"
 			}]
 			x: -14.0d
@@ -311,14 +311,14 @@
 				"7AD973912F3478F4"
 				"66FB847047D31EAE"
 			]
-			description: ["{gte.tier_0.quests.4C5F33B7369C4AC7.description0}"]
+			description: ["在蒸汽时代，橡胶末加硫粉即可合成橡胶条。"]
 			id: "4C5F33B7369C4AC7"
 			tasks: [{
 				id: "49B3D85C13443B20"
 				item: "gtceu:rubber_ingot"
 				type: "item"
 			}]
-			title: "{gte.tier_0.quests.4C5F33B7369C4AC7.title}"
+			title: "第一块橡胶"
 			x: -8.0d
 			y: 0.5d
 		}
@@ -342,7 +342,7 @@
 		{
 			can_repeat: true
 			dependencies: ["7276B98169F59D4C"]
-			description: ["{gte.tier_0.quests.4C6C4B854C98A0E0.description0}"]
+			description: ["种橡胶树等待的过程太烦人了，因此我给你无穷的骨粉让你快速种橡胶"]
 			id: "4C6C4B854C98A0E0"
 			rewards: [{
 				count: 64
@@ -352,7 +352,7 @@
 			}]
 			tasks: [{
 				id: "69F389536F60ED09"
-				title: "{gte.tier_0.quests.4C6C4B854C98A0E0.tasks.69F389536F60ED09.title}"
+				title: "免费的骨粉"
 				type: "checkmark"
 			}]
 			x: -12.5d
@@ -367,7 +367,7 @@
 				item: "gtceu:sticky_resin"
 				type: "item"
 			}]
-			title: "{gte.tier_0.quests.16361C3DC202F727.title}"
+			title: "获取一些黏性树脂"
 			x: -11.0d
 			y: 0.5d
 		}
@@ -405,7 +405,7 @@
 				item: "gtceu:tin_single_wire"
 				type: "item"
 			}]
-			title: "{gte.tier_0.quests.109F982F0812CE09.title}"
+			title: "一些导线"
 			x: -6.5d
 			y: 0.5d
 		}
@@ -418,7 +418,7 @@
 				item: "gtceu:rubber_plate"
 				type: "item"
 			}]
-			title: "{gte.tier_0.quests.69D3A68A2EF415DD.title}"
+			title: "一些橡胶片"
 			x: -6.5d
 			y: 2.0d
 		}
@@ -434,7 +434,7 @@
 				item: "gtceu:tin_single_cable"
 				type: "item"
 			}]
-			title: "{gte.tier_0.quests.1DC48BCC4B0F45DF.title}"
+			title: "一些线缆"
 			x: -5.0d
 			y: 0.5d
 		}
@@ -444,7 +444,7 @@
 				"03B90CA607E4A98B"
 				"0400B639F2F8A89C"
 			]
-			description: ["{gte.tier_0.quests.37CF6D39A54DFA94.description0}"]
+			description: ["恭喜你进入LV时代,别忘了领取我给你的太阳能板"]
 			id: "37CF6D39A54DFA94"
 			rewards: [{
 				count: 4
@@ -458,7 +458,7 @@
 				item: "gtceu:lv_machine_hull"
 				type: "item"
 			}]
-			title: "{gte.tier_0.quests.37CF6D39A54DFA94.title}"
+			title: "前往LV时代"
 			x: -5.0d
 			y: 5.0d
 		}
@@ -480,7 +480,7 @@
 				"68365AC6EE7B4E65"
 				"1128478D69ECA0EA"
 			]
-			description: ["{gte.tier_0.quests.55B532170C29E600.description0}"]
+			description: ["手搓电路板当然很累，给你一组LV电路板作为你的礼物"]
 			id: "55B532170C29E600"
 			rewards: [{
 				count: 64
@@ -530,13 +530,13 @@
 				item: "gtceu:copper_single_wire"
 				type: "item"
 			}]
-			title: "{gte.tier_0.quests.38DAE11E8C0B7F48.title}"
+			title: "一些铜导线"
 			x: -10.5d
 			y: 2.0d
 		}
 		{
 			id: "324A5F61107EDE51"
-			subtitle: "{gte.tier_0.quests.324A5F61107EDE51.subtitle}"
+			subtitle: "MEK的钢也可以当作格雷的钢用"
 			tasks: [{
 				id: "513C3F57AE7C10FF"
 				item: "gtceu:steel_plate"
@@ -577,7 +577,7 @@
 			y: -1.0d
 		}
 		{
-			description: ["{gte.tier_0.quests.5D79054CFE0C35E0.description0}"]
+			description: ["你知道吗，一个MEK的基础控制电路是可以合成一个格雷的LV电路的，想偷懒强烈推荐!"]
 			id: "5D79054CFE0C35E0"
 			tasks: [{
 				id: "57B06CA705D12C6E"
@@ -589,7 +589,7 @@
 		}
 		{
 			dependencies: ["5D79054CFE0C35E0"]
-			description: ["{gte.tier_0.quests.4D0BEE77280B0E03.description0}"]
+			description: ["                   一个基础控制电路即可合成微芯片处理器! "]
 			id: "4D0BEE77280B0E03"
 			tasks: [{
 				id: "46A1E7C0B5FDC160"
@@ -608,12 +608,12 @@
 			id: "0400B639F2F8A89C"
 			tasks: [{
 				id: "15AF01180936BA3C"
-				title: "{gte.tier_0.quests.0400B639F2F8A89C.tasks.15AF01180936BA3C.title}"
+				title: "电路二选一，制作MEK电路或是格雷电路"
 				type: "checkmark"
 			}]
 			x: -9.0d
 			y: 5.0d
 		}
 	]
-	title: "{gte.tier_0.title}"
+	title: "[Tier 0] 蒸汽时代"
 }
