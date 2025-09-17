@@ -1,3 +1,0 @@
-toml
-requests
-ftb-snbt-lib
