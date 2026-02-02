@@ -1,0 +1,725 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: "rsquare"
+	default_quest_size: 1.2d
+	filename: "7449BE3D67D11FAD"
+	group: "277796EFA601375B"
+	icon: "minecraft:oak_log"
+	id: "7449BE3D67D11FAD"
+	order_index: 11
+	quest_links: [ ]
+	quests: [
+		{
+			id: "7278E6DE06931011"
+			tasks: [{
+				id: "5A71656F2A4A4690"
+				item: "gtceu:nand_chip"
+				type: "item"
+			}]
+			x: -8.5d
+			y: -5.0d
+		}
+		{
+			dependencies: ["7278E6DE06931011"]
+			id: "5DBA8A4BB00B892A"
+			tasks: [{
+				id: "1FA0ADA8741ED274"
+				item: "gtceu:microchip_processor"
+				type: "item"
+			}]
+			x: -8.5d
+			y: -4.0d
+		}
+		{
+			id: "66B9F0EF688A8FDA"
+			tasks: [{
+				id: "6D50B87EE9B3C81F"
+				item: "gtceu:basic_electronic_circuit"
+				type: "item"
+			}]
+			x: -7.5d
+			y: -4.0d
+		}
+		{
+			id: "3A1397D06ACB968A"
+			tasks: [{
+				id: "0CC34F1C6C620856"
+				item: "gtceu:vacuum_tube"
+				type: "item"
+			}]
+			x: -7.5d
+			y: -5.0d
+		}
+		{
+			id: "357350000D063C16"
+			tasks: [{
+				id: "5685885FCCCF4DF9"
+				item: "gtceu:good_electronic_circuit"
+				type: "item"
+			}]
+			x: -7.5d
+			y: -3.0d
+		}
+		{
+			id: "4BEA181B93BD48C9"
+			tasks: [{
+				id: "50772BC191445A32"
+				item: "gtceu:basic_integrated_circuit"
+				type: "item"
+			}]
+			x: -6.5d
+			y: -4.0d
+		}
+		{
+			id: "0A0F018D1AD8C8CB"
+			tasks: [{
+				id: "60CA30EB352877B4"
+				item: "gtceu:good_integrated_circuit"
+				type: "item"
+			}]
+			x: -6.5d
+			y: -3.0d
+		}
+		{
+			id: "61453FF25B8AF0CF"
+			tasks: [{
+				id: "06988EA9666FF8D3"
+				item: "gtceu:advanced_integrated_circuit"
+				type: "item"
+			}]
+			x: -6.5d
+			y: -2.0d
+		}
+		{
+			id: "4AB933F03C33E2A5"
+			tasks: [{
+				id: "249E966D14601485"
+				item: "gtceu:micro_processor"
+				type: "item"
+			}]
+			x: -5.5d
+			y: -3.0d
+		}
+		{
+			id: "1F6219618D22BB6B"
+			tasks: [{
+				id: "0DAC8DD7F906A716"
+				item: "gtceu:micro_processor_assembly"
+				type: "item"
+			}]
+			x: -5.5d
+			y: -2.0d
+		}
+		{
+			id: "7E84F61F7708886B"
+			tasks: [{
+				id: "50131A98220A4FE2"
+				item: "gtceu:micro_processor_computer"
+				type: "item"
+			}]
+			x: -5.5d
+			y: -1.0d
+		}
+		{
+			id: "1262E336ED9A7084"
+			tasks: [{
+				id: "1AA57B300297EB00"
+				item: "gtceu:micro_processor_mainframe"
+				type: "item"
+			}]
+			x: -5.5d
+			y: 0.0d
+		}
+		{
+			id: "46F7700B67D485A9"
+			tasks: [{
+				id: "017B5E55862B5A4D"
+				item: "gtceu:nano_processor"
+				type: "item"
+			}]
+			x: -4.5d
+			y: -2.0d
+		}
+		{
+			id: "3F76EA120BB524A0"
+			tasks: [{
+				id: "7BCDF57839D43BB8"
+				item: "gtceu:nano_processor_assembly"
+				type: "item"
+			}]
+			x: -4.5d
+			y: -1.0d
+		}
+		{
+			id: "6B6330A039EF2CB0"
+			tasks: [{
+				id: "265C541A9B5EBDDE"
+				item: "gtceu:nano_processor_computer"
+				type: "item"
+			}]
+			x: -4.5d
+			y: 0.0d
+		}
+		{
+			id: "59926703A18D268F"
+			tasks: [{
+				id: "5F8CA3A7E00AF7DC"
+				item: "gtceu:nano_processor_mainframe"
+				type: "item"
+			}]
+			x: -4.5d
+			y: 1.0d
+		}
+		{
+			id: "175AC59A4CEE4857"
+			tasks: [{
+				id: "5087A5480614FB5E"
+				item: "gtceu:quantum_processor"
+				type: "item"
+			}]
+			x: -3.5d
+			y: -1.0d
+		}
+		{
+			id: "648CEC6ED3F2F970"
+			tasks: [{
+				id: "332017A174BF019F"
+				item: "gtceu:quantum_processor_assembly"
+				type: "item"
+			}]
+			x: -3.5d
+			y: 0.0d
+		}
+		{
+			id: "624ABC5BB0B48979"
+			tasks: [{
+				id: "7D86B4112F22B540"
+				item: "gtceu:quantum_processor_computer"
+				type: "item"
+			}]
+			x: -3.5d
+			y: 1.0d
+		}
+		{
+			id: "7443CFDE1DAB3A54"
+			tasks: [{
+				id: "35E34DC18EC4ECF3"
+				item: "gtceu:quantum_processor_mainframe"
+				type: "item"
+			}]
+			x: -3.5d
+			y: 2.0d
+		}
+		{
+			id: "4E58B55A1607F6C8"
+			tasks: [{
+				id: "6D20CAB6E41F40A4"
+				item: "gtceu:crystal_processor"
+				type: "item"
+			}]
+			x: -2.5d
+			y: 0.0d
+		}
+		{
+			id: "7DBD338C0D4C44B8"
+			tasks: [{
+				id: "17BB160CFE298EFD"
+				item: "gtceu:crystal_processor_assembly"
+				type: "item"
+			}]
+			x: -2.5d
+			y: 1.0d
+		}
+		{
+			id: "3FB34D03ED1B97D9"
+			tasks: [{
+				id: "731A88A668418842"
+				item: "gtceu:crystal_processor_computer"
+				type: "item"
+			}]
+			x: -2.5d
+			y: 2.0d
+		}
+		{
+			id: "52D76316D7712555"
+			tasks: [{
+				id: "289F6F3634FE3721"
+				item: "gtceu:crystal_processor_mainframe"
+				type: "item"
+			}]
+			x: -2.5d
+			y: 3.0d
+		}
+		{
+			id: "7FC2992428B0C8D0"
+			tasks: [{
+				id: "5E9A79A963F6A1E2"
+				item: "gtceu:wetware_processor"
+				type: "item"
+			}]
+			x: -1.5d
+			y: 1.0d
+		}
+		{
+			id: "6AD78655579216EE"
+			tasks: [{
+				id: "3EC8EFBB14C99D45"
+				item: "gtceu:wetware_processor_assembly"
+				type: "item"
+			}]
+			x: -1.5d
+			y: 2.0d
+		}
+		{
+			id: "561A995718F565D2"
+			tasks: [{
+				id: "6DD3570ED6F2F163"
+				item: "gtceu:wetware_processor_computer"
+				type: "item"
+			}]
+			x: -1.5d
+			y: 3.0d
+		}
+		{
+			id: "0DE6ABD5B43D0E3A"
+			tasks: [{
+				id: "4E4A836E1C5371E4"
+				item: "gtceu:wetware_processor_mainframe"
+				type: "item"
+			}]
+			x: -1.5d
+			y: 4.0d
+		}
+		{
+			id: "3C5840A4D6E0CDCD"
+			tasks: [{
+				id: "4D2397F22919E34B"
+				item: "gtecore:super_string_processor"
+				type: "item"
+			}]
+			x: -0.5d
+			y: 2.0d
+		}
+		{
+			id: "44B64B0C1F3240E8"
+			tasks: [{
+				id: "7EA75B071E7B9407"
+				item: "gtecore:super_string_processor_assembly"
+				type: "item"
+			}]
+			x: -0.5d
+			y: 3.0d
+		}
+		{
+			id: "0A21FA32C8B1C7BD"
+			tasks: [{
+				id: "5DA825C2AA2E45A1"
+				item: "gtecore:super_string_processor_computer"
+				type: "item"
+			}]
+			x: -0.5d
+			y: 4.0d
+		}
+		{
+			id: "4B1F089D5195A406"
+			tasks: [{
+				id: "2D03920976FCDE64"
+				item: "gtecore:super_string_processor_mainframe"
+				type: "item"
+			}]
+			x: -0.5d
+			y: 5.0d
+		}
+		{
+			id: "0D45EFD67FCEDFB7"
+			tasks: [{
+				id: "125BAA1842174FFA"
+				item: "gtecore:yin_yang_processor"
+				type: "item"
+			}]
+			x: 0.5d
+			y: 3.0d
+		}
+		{
+			id: "3EF1B34E0144FC27"
+			tasks: [{
+				id: "31BC7C936AACB28E"
+				item: "gtecore:yin_yang_processor_assembly"
+				type: "item"
+			}]
+			x: 0.5d
+			y: 4.0d
+		}
+		{
+			id: "273C2B10F7D1F25C"
+			tasks: [{
+				id: "26A0E4805E285F4D"
+				item: "gtecore:yin_yang_processor_computer"
+				type: "item"
+			}]
+			x: 0.5d
+			y: 5.0d
+		}
+		{
+			id: "50A1AF78374E3655"
+			tasks: [{
+				id: "465348672B5D74EE"
+				item: "gtecore:yin_yang_processor_mainframe"
+				type: "item"
+			}]
+			x: 0.5d
+			y: 6.0d
+		}
+		{
+			id: "0CD2115BC9EAAAF1"
+			tasks: [{
+				id: "4CD13DC7DB82B433"
+				item: "mekanism:basic_control_circuit"
+				type: "item"
+			}]
+			x: -5.5d
+			y: -4.0d
+		}
+		{
+			id: "4E9375A0F55F1DA7"
+			tasks: [{
+				id: "4136F2954F1B6CC3"
+				item: "mekanism:advanced_control_circuit"
+				type: "item"
+			}]
+			x: -4.5d
+			y: -3.0d
+		}
+		{
+			id: "02356D5D05C85FAC"
+			tasks: [{
+				id: "10291A69668CBB1D"
+				item: "mekanism:elite_control_circuit"
+				type: "item"
+			}]
+			x: -3.5d
+			y: -2.0d
+		}
+		{
+			id: "480A1CE07BFB7AAC"
+			tasks: [{
+				id: "7F3C6E29E16ADB0E"
+				item: "mekanism:ultimate_control_circuit"
+				type: "item"
+			}]
+			x: -2.5d
+			y: -1.0d
+		}
+		{
+			id: "2363B1084375034A"
+			tasks: [{
+				id: "06BA4EE232EC9E74"
+				item: "mekanism_extras:absolute_control_circuit"
+				type: "item"
+			}]
+			x: -1.5d
+			y: 0.0d
+		}
+		{
+			id: "011CF87020408F77"
+			tasks: [{
+				id: "3E6AC850AA012042"
+				item: "mekanism_extras:supreme_control_circuit"
+				type: "item"
+			}]
+			x: -0.5d
+			y: 1.0d
+		}
+		{
+			id: "7AD91025ABC3B156"
+			tasks: [{
+				id: "41A8DCC96F504999"
+				item: "mekanism_extras:cosmic_control_circuit"
+				type: "item"
+			}]
+			x: 0.5d
+			y: 2.0d
+		}
+		{
+			id: "40602271DAF16E31"
+			tasks: [{
+				id: "28090ACDF24CCC6F"
+				item: "mekanism_extras:infinite_control_circuit"
+				type: "item"
+			}]
+			x: 1.5d
+			y: 3.0d
+		}
+		{
+			id: "5496580E1BC7E2E6"
+			tasks: [{
+				id: "2B39FA4301900C2C"
+				item: "universal_circuit:ulv_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: -5.0d
+		}
+		{
+			id: "21F8200672381252"
+			tasks: [{
+				id: "2B979A43FE932908"
+				item: "universal_circuit:lv_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: -4.0d
+		}
+		{
+			id: "4E90F1F21B8D150A"
+			tasks: [{
+				id: "0E527EB0FC758564"
+				item: "universal_circuit:mv_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: -3.0d
+		}
+		{
+			id: "7584E184D039A83D"
+			tasks: [{
+				id: "3770F65FF689117B"
+				item: "universal_circuit:hv_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: -2.0d
+		}
+		{
+			id: "0FAE802E765F7C8D"
+			tasks: [{
+				id: "507512BD2354B97E"
+				item: "universal_circuit:ev_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: -1.0d
+		}
+		{
+			id: "465D9F57D56FAFF1"
+			tasks: [{
+				id: "6F0EB2867A62323D"
+				item: "universal_circuit:iv_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 0.0d
+		}
+		{
+			id: "46E9A0B1DF61203E"
+			tasks: [{
+				id: "338D4272D93470FC"
+				item: "universal_circuit:luv_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 1.0d
+		}
+		{
+			id: "32ED3CDEF914B3CE"
+			tasks: [{
+				id: "436821D5A4D69937"
+				item: "universal_circuit:zpm_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 2.0d
+		}
+		{
+			id: "6EE0D19C8F7CD9AA"
+			tasks: [{
+				id: "0536BCDB9D65B14D"
+				item: "universal_circuit:uv_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 3.0d
+		}
+		{
+			id: "77BEA1E179038125"
+			tasks: [{
+				id: "692D9298688445CF"
+				item: "universal_circuit:uhv_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 4.0d
+		}
+		{
+			id: "36805FD668BF0305"
+			tasks: [{
+				id: "03C9A09E0F6EA81D"
+				item: "universal_circuit:uev_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 5.0d
+		}
+		{
+			id: "182D5633A977E874"
+			tasks: [{
+				id: "615BF18B1FEB51CC"
+				item: "universal_circuit:uiv_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 6.0d
+		}
+		{
+			id: "5BC870529A323469"
+			tasks: [{
+				id: "52285EF124A27D3D"
+				item: "universal_circuit:uxv_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 7.0d
+		}
+		{
+			id: "5D10DB3054538F6F"
+			tasks: [{
+				id: "5B291E3B6509C2E9"
+				item: "universal_circuit:opv_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 8.0d
+		}
+		{
+			id: "4D3A184D10C3B5B6"
+			tasks: [{
+				id: "503B580556482FC4"
+				item: "universal_circuit:max_universal_circuit"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 9.0d
+		}
+		{
+			id: "6FB727CD76381C85"
+			tasks: [{
+				id: "1A91F5A447149AB8"
+				item: "universal_circuit:uhv_universal_circuit"
+				type: "item"
+			}]
+			x: 1.5d
+			y: 4.0d
+		}
+		{
+			id: "48FD6C082E10A7B4"
+			tasks: [{
+				id: "471A6EF51D43AA51"
+				item: "universal_circuit:uev_universal_circuit"
+				type: "item"
+			}]
+			x: 1.5d
+			y: 5.0d
+		}
+		{
+			id: "27F2571CA05BDC33"
+			tasks: [{
+				id: "2F555490CEC2D206"
+				item: "universal_circuit:uiv_universal_circuit"
+				type: "item"
+			}]
+			x: 1.5d
+			y: 6.0d
+		}
+		{
+			id: "0817474F31B34844"
+			tasks: [{
+				id: "75377DB79894462F"
+				item: "universal_circuit:uxv_universal_circuit"
+				type: "item"
+			}]
+			x: 1.5d
+			y: 7.0d
+		}
+		{
+			id: "58A7EF2B9A087219"
+			tasks: [{
+				id: "5229CAAE38F68380"
+				item: "universal_circuit:uev_universal_circuit"
+				type: "item"
+			}]
+			x: 2.5d
+			y: 5.0d
+		}
+		{
+			id: "3E2730313BA1DF36"
+			tasks: [{
+				id: "2013F3088300AE38"
+				item: "universal_circuit:uiv_universal_circuit"
+				type: "item"
+			}]
+			x: 2.5d
+			y: 6.0d
+		}
+		{
+			id: "6BEFC9C24EDF8C18"
+			tasks: [{
+				id: "152EED88A888FF52"
+				item: "universal_circuit:uxv_universal_circuit"
+				type: "item"
+			}]
+			x: 2.5d
+			y: 7.0d
+		}
+		{
+			id: "331244AD57F15915"
+			tasks: [{
+				id: "7A368D08301632DA"
+				item: "universal_circuit:opv_universal_circuit"
+				type: "item"
+			}]
+			x: 2.5d
+			y: 8.0d
+		}
+		{
+			id: "54F6BE5262CA1BFE"
+			tasks: [{
+				id: "0D797133CDCED4D6"
+				item: "universal_circuit:uiv_universal_circuit"
+				type: "item"
+			}]
+			x: 3.5d
+			y: 6.0d
+		}
+		{
+			id: "32750BFA2D5238A6"
+			tasks: [{
+				id: "259861B8E0386896"
+				item: "universal_circuit:uxv_universal_circuit"
+				type: "item"
+			}]
+			x: 3.5d
+			y: 7.0d
+		}
+		{
+			id: "4B80E08A3C87C8FE"
+			tasks: [{
+				id: "526A422E547A860F"
+				item: "universal_circuit:opv_universal_circuit"
+				type: "item"
+			}]
+			x: 3.5d
+			y: 8.0d
+		}
+		{
+			id: "051EFCA77D3B7771"
+			tasks: [{
+				id: "767A7785B2961682"
+				item: "universal_circuit:max_universal_circuit"
+				type: "item"
+			}]
+			x: 3.5d
+			y: 9.0d
+		}
+	]
+	title: "科技树"
+}

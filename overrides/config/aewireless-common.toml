@@ -1,0 +1,5 @@
+#the background color（ARGB！）
+highlight_color = "0x3300FF00"
+#the border color（ARGB！）
+highlight_border_color = "0xFF006600"
+

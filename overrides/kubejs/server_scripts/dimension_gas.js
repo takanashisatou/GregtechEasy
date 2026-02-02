@@ -1,0 +1,18 @@
+ServerEvents.recipes((event) => {
+    const gtr = event.recipes.gtceu
+    gtr.gas_collector('gtceu:air_in_everywhere')
+    .circuit(4)
+    .EUt(16)
+    .duration(200)
+    .outputFluids('gtceu:air 10000')
+    gtr.gas_collector('gtceu:nether_air_in_everywhere')
+    .circuit(5)
+    .EUt(64)
+    .duration(200)
+    .outputFluids('gtceu:nether_air 10000')
+    gtr.gas_collector('gtceu:ender_air_in_everywhere')
+    .circuit(6)
+    .EUt(256)
+    .duration(200)
+    .outputFluids('gtceu:ender_air 10000')
+})

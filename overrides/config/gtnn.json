@@ -1,0 +1,22 @@
+{
+  "Client": {
+    "items": {
+      "perfRomanSubscript": true
+    },
+    "enabledVoltageBorder": true,
+    "extraHeartRenderer": false,
+    "killToast": false,
+    "addChatAnimation": false
+  },
+  "Server": {
+    "enableHarderPlatinumLine": false,
+    "enableHarderNaquadahLine": false,
+    "banCreateFanBlasting": false,
+    "makesEMIBetter": true,
+    "isTurnOnEnderFluidCover": true,
+    "isTurnOnEnderItemCover": true,
+    "skyblock": false,
+    "gtOresMultiplyNum": 1.0,
+    "timesOreVeins": 1
+  }
+}
