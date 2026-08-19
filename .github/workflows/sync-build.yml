@@ -117,7 +117,7 @@ jobs:
           # Patch manifest.json: set javaVersion to 21
           MANIFEST="$TMP_DIR/manifest.json"
           if [ -f "$MANIFEST" ]; then
-            python3 - <<'EOF'
+            env MANIFEST_PATH="$MANIFEST" python3 - <<'EOF'
           import json, os, sys
           path = os.environ.get("MANIFEST_PATH")
           with open(path, "r", encoding="utf-8") as f:
