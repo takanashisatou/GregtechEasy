@@ -1,6 +1,7 @@
 import os
 
 bat_code = r"""@echo off
+chcp 65001 >nul
 setlocal enabledelayedexpansion
 title GTE Game Dev Runtime
 
@@ -145,6 +146,25 @@ echo Game Directory : gte\overrides
 echo Java 21 Runtime: %JAVA_HOME%
 echo.
 
+REM Auto-detect local hardware for Gradle workers and game heap
+set "CPU_CORES=%NUMBER_OF_PROCESSORS%"
+if not defined CPU_CORES set "CPU_CORES=4"
+set /a WORKERS=%CPU_CORES%/2
+if %WORKERS% LSS 2 set "WORKERS=2"
+if %WORKERS% GTR 16 set "WORKERS=16"
+
+set "TOTAL_RAM_GB=16"
+for /f "delims=" %%M in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "try { [int][math]::Ceiling((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory/1GB) } catch { 16 }"') do set "TOTAL_RAM_GB=%%M"
+if not defined TOTAL_RAM_GB set "TOTAL_RAM_GB=16"
+
+set "RUNTIME_XMX=8G"
+if %TOTAL_RAM_GB% LSS 8 ( set "RUNTIME_XMX=4G" ) else if %TOTAL_RAM_GB% LSS 16 ( set "RUNTIME_XMX=6G" ) else if %TOTAL_RAM_GB% LSS 32 ( set "RUNTIME_XMX=8G" ) else ( set "RUNTIME_XMX=12G" )
+set "GTE_RUNTIME_XMX=%RUNTIME_XMX%"
+
+echo Hardware: %CPU_CORES% logical cores / ~%TOTAL_RAM_GB% GB RAM
+echo Gradle workers: %WORKERS% | Game heap: %GTE_RUNTIME_XMX%
+echo.
+
 REM Auto-detect local proxy for ultrafast dependency downloads
 set "GRADLE_PROXY_OPTS="
 set "DETECTED_PROXY_PORT="
@@ -177,7 +197,7 @@ echo.
 echo Starting Minecraft client [hot compiling gtecore + gtm-reborn]...
 echo.
 
-call "%ROOT_DIR%gradlew.bat" -I "%ROOT_DIR%gradle\init.d\cn-mirrors.gradle" !GRADLE_PROXY_OPTS! :modules:gte-dev-runtime:runClient
+call "%ROOT_DIR%gradlew.bat" -I "%ROOT_DIR%gradle\init.d\cn-mirrors.gradle" !GRADLE_PROXY_OPTS! --max-workers=!WORKERS! :modules:gte-dev-runtime:runClient
 
 if %errorlevel% neq 0 (
     echo.

@@ -202,6 +202,35 @@ fi
 export JAVA_HOME="${FOUND_JDK}"
 export PATH="${FOUND_JDK}/bin:${PATH}"
 
+# Auto-detect local hardware for Gradle workers and game heap
+CPU_CORES="$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)"
+TOTAL_RAM_GB=""
+if command -v free >/dev/null 2>&1; then
+    TOTAL_RAM_GB="$(free -g 2>/dev/null | awk '/Mem:/{print $2; exit}')"
+elif command -v sysctl >/dev/null 2>&1; then
+    TOTAL_RAM_GB="$(sysctl -n hw.memsize 2>/dev/null | awk '{print int($1/1073741824)}')"
+fi
+[ -z "${TOTAL_RAM_GB}" ] && TOTAL_RAM_GB=16
+
+WORKERS=$((CPU_CORES / 2))
+[ "${WORKERS}" -lt 2 ] && WORKERS=2
+[ "${WORKERS}" -gt 16 ] && WORKERS=16
+
+if [ "${TOTAL_RAM_GB}" -lt 8 ]; then
+    RUNTIME_XMX=4
+elif [ "${TOTAL_RAM_GB}" -lt 16 ]; then
+    RUNTIME_XMX=6
+elif [ "${TOTAL_RAM_GB}" -lt 32 ]; then
+    RUNTIME_XMX=8
+else
+    RUNTIME_XMX=12
+fi
+export GTE_RUNTIME_XMX="${RUNTIME_XMX}G"
+
+echo "Hardware: ${CPU_CORES} logical cores / ~${TOTAL_RAM_GB} GB RAM"
+echo "Gradle workers: ${WORKERS} | Game heap: ${GTE_RUNTIME_XMX}"
+echo ""
+
 # Auto-detect local proxy for ultrafast dependency downloads
 GRADLE_PROXY_OPTS=""
 DETECTED_PROXY_PORT=""
@@ -224,4 +253,4 @@ echo "Starting Minecraft client (hot compiling gtecore + gtm-reborn)..."
 echo ""
 
 chmod +x "${ROOT_DIR}/gradlew"
-"${ROOT_DIR}/gradlew" -I "${ROOT_DIR}/gradle/init.d/cn-mirrors.gradle" ${GRADLE_PROXY_OPTS} :modules:gte-dev-runtime:runClient
+"${ROOT_DIR}/gradlew" -I "${ROOT_DIR}/gradle/init.d/cn-mirrors.gradle" ${GRADLE_PROXY_OPTS} --max-workers="${WORKERS}" :modules:gte-dev-runtime:runClient

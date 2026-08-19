@@ -78,6 +78,13 @@ def main():
         zf.writestr("README_启动必看.txt", README_CN)
         zf.writestr(".minecraft/README_启动必看.txt", README_CN)
 
+        # 携带可选的本地启动脚本
+        for script_name in ["run_game.bat", "run_game.sh"]:
+            script_path = ROOT / script_name
+            if script_path.exists():
+                zf.write(script_path, script_name)
+                print(f"  + {script_name}")
+
         # 打包 overrides 目录下的所有内容到 .minecraft/
         if overrides_dir.exists():
             for item in overrides_dir.rglob("*"):

@@ -1,23 +1,102 @@
 #!/usr/bin/env python3
 """
-OpenCode AI Translation Script for GTE-Multi
-Translates FTB Quests, GTECore and GTM-Reborn mod language files using OpenCode platform deepseek-v4-flash.
+GTE AI Translation Script
+Translates FTB Quests, GTECore and GTM-Reborn mod language files through an
+OpenAI-compatible chat API. Supports DeepSeek, OpenAI, Gemini, Qwen
+(DashScope), Kimi (Moonshot), Zhipu GLM, and the legacy OpenCode platform via
+environment keys.
 """
 
 import os
 import re
 import json
-import glob
 import logging
 from pathlib import Path
-from typing import Dict, List, Any
+from typing import Dict, List
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-logger = logging.getLogger("OpenCodeTranslate")
+logger = logging.getLogger("GTETranslate")
 
-OPENCODE_API_KEY = os.environ.get("OPENCODE_API_KEY", "").strip()
-OPENCODE_BASE_URL = os.environ.get("OPENCODE_BASE_URL", "https://api.opencode.ai/v1").rstrip("/")
-MODEL_NAME = os.environ.get("OPENCODE_MODEL", "deepseek-v4-flash")
+PROVIDERS = {
+    "deepseek": {
+        "key_env": "DEEPSEEK_API_KEY",
+        "base_url_env": "DEEPSEEK_BASE_URL",
+        "model_env": "DEEPSEEK_MODEL",
+        "default_base_url": "https://api.deepseek.com/v1",
+        "default_model": "deepseek-chat",
+    },
+    "openai": {
+        "key_env": "OPENAI_API_KEY",
+        "base_url_env": "OPENAI_BASE_URL",
+        "model_env": "OPENAI_MODEL",
+        "default_base_url": "https://api.openai.com/v1",
+        "default_model": "gpt-4o-mini",
+    },
+    "dashscope": {
+        "key_env": "DASHSCOPE_API_KEY",
+        "base_url_env": "DASHSCOPE_BASE_URL",
+        "model_env": "DASHSCOPE_MODEL",
+        "default_base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+        "default_model": "qwen-plus",
+    },
+    "moonshot": {
+        "key_env": "MOONSHOT_API_KEY",
+        "base_url_env": "MOONSHOT_BASE_URL",
+        "model_env": "MOONSHOT_MODEL",
+        "default_base_url": "https://api.moonshot.cn/v1",
+        "default_model": "moonshot-v1-8k",
+    },
+    "zhipu": {
+        "key_env": "ZHIPU_API_KEY",
+        "base_url_env": "ZHIPU_BASE_URL",
+        "model_env": "ZHIPU_MODEL",
+        "default_base_url": "https://open.bigmodel.cn/api/paas/v4",
+        "default_model": "glm-4-flash",
+    },
+    "gemini": {
+        "key_env": "GEMINI_API_KEY",
+        "base_url_env": "GEMINI_BASE_URL",
+        "model_env": "GEMINI_MODEL",
+        "default_base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+        "default_model": "gemini-3.5-flash",
+    },
+    "opencode": {
+        "key_env": "OPENCODE_API_KEY",
+        "base_url_env": "OPENCODE_BASE_URL",
+        "model_env": "OPENCODE_MODEL",
+        "default_base_url": "https://api.opencode.ai/v1",
+        "default_model": "deepseek-v4-flash",
+    },
+}
+
+
+def resolve_provider() -> Dict[str, str]:
+    """Return the first configured provider, preferring the generic LLM_* override."""
+    generic_key = os.environ.get("LLM_API_KEY", "").strip()
+    if generic_key:
+        return {
+            "name": "generic",
+            "api_key": generic_key,
+            "base_url": os.environ.get(
+                "LLM_BASE_URL", "https://api.openai.com/v1"
+            ).strip().rstrip("/"),
+            "model": os.environ.get("LLM_MODEL", "gpt-4o-mini").strip(),
+        }
+    for name, spec in PROVIDERS.items():
+        api_key = os.environ.get(spec["key_env"], "").strip()
+        if not api_key:
+            continue
+        base_url = os.environ.get(
+            spec["base_url_env"], spec["default_base_url"]
+        ).strip().rstrip("/")
+        model = os.environ.get(spec["model_env"], spec["default_model"]).strip()
+        return {
+            "name": name,
+            "api_key": api_key,
+            "base_url": base_url or spec["default_base_url"],
+            "model": model or spec["default_model"],
+        }
+    return {}
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 FTB_QUESTS_DIR = PROJECT_ROOT / "gte" / "overrides" / "config" / "ftbquests" / "quests"
@@ -42,14 +121,20 @@ def save_cache(cache: Dict[str, str]):
     except Exception as e:
         logger.warning(f"Failed to save cache: {e}")
 
-def call_opencode_translate(texts: List[str], target_lang: str = "zh_cn", source_lang: str = "en_us") -> Dict[str, str]:
+def call_translate(texts: List[str], target_lang: str = "zh_cn", source_lang: str = "en_us") -> Dict[str, str]:
     """
-    Translates a batch of texts using OpenCode deepseek-v4-flash.
+    Translates a batch of texts using the configured provider.
     """
     if not texts:
         return {}
-    if not OPENCODE_API_KEY:
-        logger.warning("OPENCODE_API_KEY is not set. Skipping API translation calls.")
+    provider = resolve_provider()
+    if not provider:
+        logger.warning(
+            "No API key configured. Set LLM_API_KEY, DEEPSEEK_API_KEY, "
+            "OPENAI_API_KEY, GEMINI_API_KEY, DASHSCOPE_API_KEY, "
+            "MOONSHOT_API_KEY, ZHIPU_API_KEY or OPENCODE_API_KEY. "
+            "Skipping API translation calls."
+        )
         return {t: t for t in texts}
 
     try:
@@ -67,11 +152,11 @@ def call_opencode_translate(texts: List[str], target_lang: str = "zh_cn", source
     )
 
     headers = {
-        "Authorization": f"Bearer {OPENCODE_API_KEY}",
+        "Authorization": f"Bearer {provider['api_key']}",
         "Content-Type": "application/json",
     }
     payload = {
-        "model": MODEL_NAME,
+        "model": provider["model"],
         "messages": [
             {"role": "system", "content": prompt},
             {"role": "user", "content": json.dumps(texts, ensure_ascii=False)}
@@ -80,8 +165,11 @@ def call_opencode_translate(texts: List[str], target_lang: str = "zh_cn", source
     }
 
     try:
-        url = f"{OPENCODE_BASE_URL}/chat/completions"
-        logger.info(f"Requesting translation for {len(texts)} entries from OpenCode API ({MODEL_NAME})...")
+        url = f"{provider['base_url']}/chat/completions"
+        logger.info(
+            f"Requesting translation for {len(texts)} entries "
+            f"from {provider['name']} API ({provider['model']})..."
+        )
         resp = requests.post(url, headers=headers, json=payload, timeout=60)
         resp.raise_for_status()
         res_json = resp.json()
@@ -94,7 +182,7 @@ def call_opencode_translate(texts: List[str], target_lang: str = "zh_cn", source
         translated_map = json.loads(content)
         return translated_map
     except Exception as e:
-        logger.error(f"OpenCode API translation error: {e}")
+        logger.error(f"{provider['name']} API translation error: {e}")
         return {t: t for t in texts}
 
 def extract_ftb_quest_strings() -> Dict[str, str]:
@@ -129,12 +217,13 @@ def translate_and_save_ftbquests(cache: Dict[str, str]):
     logger.info(f"Found {len(quest_strings)} translatable strings in FTB Quests.")
     
     needed = [k for k in quest_strings if k not in cache]
-    if needed and OPENCODE_API_KEY:
+    provider = resolve_provider()
+    if needed and provider:
         # Batch in chunks of 50
         chunk_size = 50
         for i in range(0, len(needed), chunk_size):
             chunk = needed[i:i + chunk_size]
-            translations = call_opencode_translate(chunk, target_lang="zh_cn")
+            translations = call_translate(chunk, target_lang="zh_cn")
             cache.update(translations)
         save_cache(cache)
 
@@ -182,11 +271,12 @@ def translate_json_lang_file(json_path: Path, target_json_path: Path, cache: Dic
     needed_keys = [k for k, v in src_data.items() if k not in dest_data and v not in cache]
     needed_values = list({src_data[k] for k in needed_keys if src_data[k]})
 
-    if needed_values and OPENCODE_API_KEY:
+    provider = resolve_provider()
+    if needed_values and provider:
         chunk_size = 50
         for i in range(0, len(needed_values), chunk_size):
             chunk = needed_values[i:i + chunk_size]
-            translations = call_opencode_translate(chunk, target_lang="zh_cn")
+            translations = call_translate(chunk, target_lang="zh_cn")
             cache.update(translations)
         save_cache(cache)
 

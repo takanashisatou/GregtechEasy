@@ -46,17 +46,20 @@ jobs:
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
+      - name: Resolve pack version
+        id: version
+        run: |
+          if [ "${{ github.ref_type }}" = "tag" ]; then
+            echo "version=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=${GITHUB_SHA::8}" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Sync Blockbench Art Assets
         run: ./gradlew syncBlockbenchAssets
 
-      - name: Build GTM-Reborn Submodule
-        run: ./gradlew :modules:gtm-reborn:build -x test
-
-      - name: Build GTECore Mod
-        run: ./gradlew :modules:gtecore:build -x test
-
-      - name: Build GT-- (Community Edition) Module
-        run: ./gradlew :modules:gt--:build -x test
+      - name: Build All Modules & Run Tests
+        run: ./gradlew :modules:gtm-reborn:build :modules:gtecore:build :modules:gt--:build :modules:gtm-reborn:runGameTestServer --parallel --build-cache --console=plain
 
       - name: Copy Built Jars to Modpack Overrides
         run: |
@@ -71,8 +74,14 @@ jobs:
           echo "Listing gte/overrides/mods contents:"
           ls -la gte/overrides/mods/
 
-      - name: Run OpenCode DeepSeek v4 Flash Translation
+      - name: Run AI Language Translation
         env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          MOONSHOT_API_KEY: ${{ secrets.MOONSHOT_API_KEY }}
+          ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           OPENCODE_MODEL: 'deepseek-v4-flash'
         run: python scripts/opencode_translate.py
@@ -96,12 +105,12 @@ jobs:
       - name: "[Pack 1] Export CurseForge Pack"
         working-directory: ./gte
         run: |
-          packwiz curseforge export -o ../build/artifacts/GTE-CurseForge-${{ github.ref_name }}.zip \
-            || (cd .. && zip -r build/artifacts/GTE-CurseForge-${{ github.ref_name }}.zip gte/)
+          packwiz curseforge export -o ../build/artifacts/GTE-CurseForge-${{ steps.version.outputs.version }}.zip \
+            || (cd .. && zip -r build/artifacts/GTE-CurseForge-${{ steps.version.outputs.version }}.zip gte/)
 
       - name: "[Pack 1] Patch manifest.json - enforce Java 21"
         run: |
-          ZIP="build/artifacts/GTE-CurseForge-${{ github.ref_name }}.zip"
+          ZIP="build/artifacts/GTE-CurseForge-${{ steps.version.outputs.version }}.zip"
           TMP_DIR=$(mktemp -d)
           unzip -q "$ZIP" -d "$TMP_DIR"
 
@@ -144,7 +153,7 @@ jobs:
           echo "CurseForge pack ready: $ZIP"
 
       - name: "[Pack 2] Build Full Player Lazy Pack (.minecraft)"
-        run: python scripts/build_lazy_pack.py ${{ github.ref_name }}
+        run: python scripts/build_lazy_pack.py ${{ steps.version.outputs.version }}
 
       # ──────────────────────────────────────────────
       # Pack 3: Server Pack
@@ -152,8 +161,8 @@ jobs:
       - name: "[Pack 3] Export Server Pack"
         working-directory: ./gte
         run: |
-          packwiz server export -o ../build/artifacts/GTE-Server-${{ github.ref_name }}.zip \
-            || (cd .. && zip -r build/artifacts/GTE-Server-${{ github.ref_name }}.zip gte/overrides/)
+          packwiz server export -o ../build/artifacts/GTE-Server-${{ steps.version.outputs.version }}.zip \
+            || (cd .. && zip -r build/artifacts/GTE-Server-${{ steps.version.outputs.version }}.zip gte/overrides/)
 
       - name: List all artifacts
         run: ls -lh build/artifacts/
@@ -164,7 +173,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: GTE-Artifacts-${{ github.ref_name }}-${{ github.sha }}
+          name: GTE-Artifacts-${{ steps.version.outputs.version }}-${{ github.sha }}
           path: build/artifacts/
           retention-days: 30
 
