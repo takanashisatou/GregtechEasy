@@ -1,0 +1,94 @@
+name: Manual Publish Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version, e.g. 2.3.0'
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-and-tag-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout dev
+        uses: actions/checkout@v4
+        with:
+          ref: dev
+          fetch-depth: 0
+
+      - name: Validate version
+        run: |
+          VERSION="${{ inputs.version }}"
+          if [[ ! "${VERSION}" =~ ^[0-9]+\.[0-9]+\.[0-9]+([-.][0-9A-Za-z.-]+)?$ ]]; then
+            echo "Version must look like 2.3.0 or 2.3.0-beta.1, got: ${VERSION}"
+            exit 1
+          fi
+
+      - name: Ensure dev and release branches exist
+        run: |
+          git fetch origin dev:refs/remotes/origin/dev || true
+          git fetch origin release:refs/remotes/origin/release || true
+          git fetch origin main:refs/remotes/origin/main || true
+          if ! git rev-parse --verify origin/dev >/dev/null 2>&1; then
+            git push origin HEAD:dev
+            git fetch origin dev:refs/remotes/origin/dev
+          fi
+          if ! git rev-parse --verify origin/release >/dev/null 2>&1; then
+            if git rev-parse --verify origin/main >/dev/null 2>&1; then
+              git push origin origin/main:release
+            else
+              git push origin HEAD:release
+            fi
+            git fetch origin release:refs/remotes/origin/release
+          fi
+
+      - name: Create dev -> release PR
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          PR_URL="$(gh pr create \
+            --repo "${{ github.repository }}" \
+            --base release \
+            --head dev \
+            --title "v${{ inputs.version }}" \
+            --body "Release v${{ inputs.version }}" 2>/dev/null || true)"
+          if [ -z "${PR_URL}" ]; then
+            PR_NUMBER="$(gh pr list \
+              --repo "${{ github.repository }}" \
+              --base release \
+              --head dev \
+              --json number \
+              --jq '.[0].number')"
+          else
+            PR_NUMBER="${PR_URL##*/}"
+          fi
+          if [ -z "${PR_NUMBER}" ]; then
+            echo "Could not create or find the dev -> release PR."
+            exit 1
+          fi
+          echo "pr_number=${PR_NUMBER}" >> "$GITHUB_OUTPUT"
+
+      - name: Squash merge release PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh pr merge "${{ steps.pr.outputs.pr_number }}" \
+            --repo "${{ github.repository }}" \
+            --squash
+
+      - name: Tag and push release
+        run: |
+          VERSION="v${{ inputs.version }}"
+          git fetch origin release
+          if git rev-parse -q --verify "refs/tags/${VERSION}" >/dev/null 2>&1; then
+            echo "Tag ${VERSION} already exists."
+            exit 0
+          fi
+          git tag "${VERSION}" origin/release
+          git push origin "${VERSION}"
