@@ -1,0 +1,102 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'BMCLAPI-Forge'
+            url = 'https://bmclapi2.bangbang93.com/maven/'
+            content {
+                includeGroup 'net.minecraftforge'
+                includeGroup 'net.minecraftforge.gradle'
+                includeGroup 'cpw.mods'
+                includeGroup 'de.oceanlabs.mcp'
+            }
+        }
+        maven {
+            name = 'MinecraftForge'
+            url = 'https://maven.minecraftforge.net/'
+        }
+        maven {
+            name = 'NeoForged'
+            url = 'https://maven.neoforged.net/releases'
+        }
+        maven {
+            name = 'ParchmentMC'
+            url = 'https://maven.parchmentmc.org'
+        }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+    plugins {
+        id 'org.jetbrains.kotlin.jvm' version '2.0.21'
+        id 'com.matthewprenger.cursegradle' version '1.4.0'
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_PROJECT)
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { name = 'MojangLibraries'; url = 'https://libraries.minecraft.net/' }
+        maven { name = 'MinecraftForge'; url = 'https://maven.minecraftforge.net/' }
+        maven { name = 'NeoForged'; url = 'https://maven.neoforged.net/releases' }
+        maven { name = 'ParchmentMC'; url = 'https://maven.parchmentmc.org' }
+        maven { name = 'CurseMaven'; url = 'https://cursemaven.com' }
+        maven { name = 'Modrinth'; url = 'https://api.modrinth.com/maven' }
+        maven { name = 'BlameJared'; url = 'https://maven.blamejared.com/' }
+        maven { name = 'ModMaven'; url = 'https://modmaven.dev' }
+        maven { name = 'Sponge'; url = 'https://repo.spongepowered.org/repository/maven-public/' }
+        maven { name = 'Cleanroom'; url = 'https://maven.cleanroommc.com' }
+        maven { name = 'SBL'; url = 'https://maven.shedaniel.me' }
+        maven { name = 'Architectury'; url = 'https://maven.architectury.dev' }
+        maven { name = 'SmartBrainLib'; url = 'https://dl.cloudsmith.io/public/tslat/sbl/maven/' }
+        // LDLib, Shimmer
+        maven { name = 'FirstDarkDev'; url = 'https://maven.firstdark.dev/snapshots' }
+        maven { name = 'FirstDarkDevXYZ'; url = 'https://maven.firstdarkdev.xyz/snapshots' }
+        // Registrate (tterrag)
+        maven { name = 'tterrag'; url = 'https://maven.tterrag.com/' }
+        // Create, Ponder, Flywheel
+        maven { name = 'CreateMod'; url = 'https://maven.createmod.net' }
+        // KubeJS, Rhino
+        maven { name = 'Latvian'; url = 'https://maven.latvian.dev/releases' }
+        // FTB Quests
+        maven { name = 'FTB'; url = 'https://maven.ftb.dev/releases' }
+        // The One Probe
+        maven { name = 'K4U'; url = 'https://maven.k-4u.nl' }
+        // JourneyMap
+        maven { name = 'JourneyMap'; url = 'https://jm.gserv.me/repository/maven-public/' }
+        // EMI
+        maven { name = 'TerraformersMC'; url = 'https://maven.terraformersmc.com/releases/' }
+        // Curios
+        maven { name = 'TheIllusiveC4'; url = 'https://maven.theillusivec4.top/' }
+        // KotlinForForge
+        maven { name = 'KotlinForForge'; url = 'https://thedarkcolour.github.io/KotlinForForge/' }
+        // CC: Tweaked
+        maven { name = 'SquidDev'; url = 'https://maven.squiddev.cc' }
+        // Configuration (Toma)
+        maven { name = 'Configuration'; url = 'https://api.repsy.io/mvn/toma/public/' }
+        // TeamResourceful
+        maven { name = 'TeamResourceful'; url = 'https://maven.teamresourceful.com/repository/maven-public/' }
+        // Fuzss modresources
+        maven {
+            name = 'FuzssModresources'
+            url = 'https://raw.githubusercontent.com/Fuzss/modresources/main/maven/'
+            content {
+                includeGroup 'fuzs'
+            }
+        }
+        // GuideME (AE2 guidebook)
+        maven { name = 'GuideME'; url = 'https://modmaven.dev' }
+    }
+    versionCatalogs {
+        forge {
+            from(files("gradle/forge.versions.toml"))
+        }
+    }
+}
+
+rootProject.name = 'gte-multi'
+
+include 'modules:gtm-reborn'
+include 'modules:gt--'
+include 'modules:gtecore'
+include 'modules:gte-dev-runtime'

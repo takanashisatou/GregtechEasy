@@ -1,0 +1,387 @@
+{
+	autofocus_id: "53C77FF035E5F109"
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "tier_7_zpm"
+	group: "277796EFA601375B"
+	icon: "gtceu:zpm_machine_hull"
+	id: "50DC7619BF3E0C52"
+	images: [{
+		click: "https://liteyuki.feishu.cn/wiki/CiLTwR1WDiksUHklqKvcNFAAn2d"
+		height: 2.75d
+		hover: ["点击查看教程"]
+		image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_zpm.png"
+		rotation: 0.0d
+		width: 3.85d
+		x: 0.0d
+		y: -3.0d
+	}]
+	order_index: 7
+	quest_links: [ ]
+	quests: [
+		{
+			description: [""]
+			icon: "gtceu:zpm_electric_motor"
+			id: "53C77FF035E5F109"
+			rewards: [{
+				id: "6C25041D4F8DB473"
+				type: "xp"
+				xp: 100
+			}]
+			shape: "gear"
+			size: 2.0d
+			subtitle: "恭喜你, 快要成功了"
+			tasks: [
+				{
+					id: "5F3247131F5475BB"
+					item: "gtceu:zpm_electric_motor"
+					type: "item"
+				}
+				{
+					id: "6F54600EFC818243"
+					item: "gtceu:zpm_electric_piston"
+					type: "item"
+				}
+				{
+					id: "67A90CBD066E2C42"
+					item: "gtceu:zpm_robot_arm"
+					type: "item"
+				}
+				{
+					id: "14433E87EE97623C"
+					item: "gtceu:zpm_conveyor_module"
+					type: "item"
+				}
+				{
+					id: "5B3A7C1A36FD8FDC"
+					item: "gtceu:zpm_electric_pump"
+					type: "item"
+				}
+			]
+			title: "ZPM阶段的五件套"
+			x: 0.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["53C77FF035E5F109"]
+			icon: "gtceu:bacteria_bucket"
+			id: "388D152B2C599071"
+			tasks: [{
+				id: "60E4501C47D94C09"
+				title: "{gte.tier_7_zpm.quests.388D152B2C599071.tasks.60E4501C47D94C09.title}"
+				type: "checkmark"
+			}]
+			x: -2.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["388D152B2C599071"]
+			icon: "gtceu:bacterial_sludge_bucket"
+			id: "10F77F4B6168C36C"
+			tasks: [{
+				id: "058D9D81976BA84D"
+				title: "{gte.tier_7_zpm.quests.10F77F4B6168C36C.tasks.058D9D81976BA84D.title}"
+				type: "checkmark"
+			}]
+			x: -3.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["10F77F4B6168C36C"]
+			icon: "gtceu:enriched_bacterial_sludge_bucket"
+			id: "0683041A55AFC84F"
+			tasks: [{
+				id: "4E3D0CFB33DB0112"
+				title: "{gte.tier_7_zpm.quests.0683041A55AFC84F.tasks.4E3D0CFB33DB0112.title}"
+				type: "checkmark"
+			}]
+			x: -5.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["0683041A55AFC84F"]
+			id: "63933040C63059EF"
+			tasks: [{
+				id: "4651BEAFFCC8E0DB"
+				item: "gtceu:mutagen_bucket"
+				type: "item"
+			}]
+			x: -6.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["63933040C63059EF"]
+			dependency_requirement: "one_completed"
+			icon: "gtceu:sterilized_growth_medium_bucket"
+			id: "40C9E9FB0C7C6FC8"
+			rewards: [{
+				id: "0B70B246F44C9321"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "32EA08286F8F9266"
+				title: "{gte.tier_7_zpm.quests.40C9E9FB0C7C6FC8.tasks.32EA08286F8F9266.title}"
+				type: "checkmark"
+			}]
+			x: -6.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["40C9E9FB0C7C6FC8"]
+			id: "7011F9A15AED3CFE"
+			rewards: [{
+				id: "1E3D2F5F86D36312"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "生物学顶刊"
+			tasks: [{
+				id: "59872129D86E282A"
+				item: "gtceu:stem_cells"
+				type: "item"
+			}]
+			x: -5.5d
+			y: 1.5d
+		}
+		{
+			dependencies: ["40C9E9FB0C7C6FC8"]
+			id: "0F5FE9ECDB7B01D0"
+			rewards: [{
+				id: "136188C9059838D3"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "3C674F1A1FA87EF3"
+				item: "gtceu:wetware_circuit_board"
+				type: "item"
+			}]
+			x: -7.5d
+			y: 1.5d
+		}
+		{
+			dependencies: ["0F5FE9ECDB7B01D0"]
+			id: "7F76415AE0B133E0"
+			rewards: [{
+				id: "1263F59A4BE0C17F"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "培养环境"
+			tasks: [{
+				id: "7813B963EF169D48"
+				item: "gtceu:wetware_printed_circuit_board"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 2.5d
+		}
+		{
+			dependencies: [
+				"7F76415AE0B133E0"
+				"7011F9A15AED3CFE"
+			]
+			dependency_requirement: "one_completed"
+			id: "6596BCABBA5D66FA"
+			rewards: [{
+				id: "0329614ABD6C486D"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "干细胞培育"
+			tasks: [{
+				id: "114420AE3387A786"
+				item: "gtceu:neuro_processing_unit"
+				type: "item"
+			}]
+			x: -6.0d
+			y: 2.5d
+		}
+		{
+			dependencies: ["6596BCABBA5D66FA"]
+			id: "7F7442D83CE799A0"
+			rewards: [{
+				id: "4A3AD9E5697A3CCC"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "他在看我吗?"
+			tasks: [{
+				id: "0A11742B99FEB3B5"
+				item: "gtceu:wetware_processor"
+				type: "item"
+			}]
+			x: -6.5d
+			y: 3.5d
+		}
+		{
+			dependencies: ["7F7442D83CE799A0"]
+			id: "5682CCC66A79BECF"
+			rewards: [{
+				id: "4824CC2611FA100D"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "活的!"
+			tasks: [{
+				id: "039B837FA2178AA0"
+				item: "gtceu:wetware_processor_assembly"
+				type: "item"
+			}]
+			x: -6.5d
+			y: 5.0d
+		}
+		{
+			dependencies: [
+				"5682CCC66A79BECF"
+				"7862735AEB102C50"
+			]
+			dependency_requirement: "one_completed"
+			id: "440BE9384F3CCE69"
+			rewards: [{
+				id: "74FF8938A6E4F8C9"
+				type: "xp"
+				xp: 100
+			}]
+			shape: "pentagon"
+			subtitle: "他在看什么?"
+			tasks: [{
+				id: "708C7126B2DEED8D"
+				item: "gtceu:wetware_processor_computer"
+				type: "item"
+			}]
+			x: -4.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["440BE9384F3CCE69"]
+			id: "447076AC0307B54D"
+			rewards: [{
+				id: "4408C2944A87B496"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "生物科技!"
+			tasks: [{
+				id: "0DC864D2C13D420E"
+				item: "gtceu:wetware_processor_mainframe"
+				type: "item"
+			}]
+			x: -2.5d
+			y: 5.0d
+		}
+		{
+			dependencies: ["53C77FF035E5F109"]
+			id: "6D847DD45E559949"
+			shape: "hexagon"
+			size: 2.0d
+			tasks: [{
+				id: "5B223995A7E6B875"
+				item: "gtceu:zpm_fusion_reactor"
+				type: "item"
+			}]
+			x: 3.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["3675BF5AB0DEEECF"]
+			id: "27A60741764CF168"
+			size: 2.0d
+			tasks: [{
+				id: "735B587325FF6CF9"
+				item: "gtceu:uv_machine_hull"
+				type: "item"
+			}]
+			x: 6.0d
+			y: 4.0d
+		}
+		{
+			dependencies: ["6D847DD45E559949"]
+			description: ["这一步经常找错方向, 请注意, 这一步需要你拿MKII的聚变生成&e&l液态𫟼&r而不是熔融态𫟼!!!"]
+			id: "3675BF5AB0DEEECF"
+			size: 1.0d
+			subtitle: "注意!使用流体固化器!"
+			tasks: [{
+				id: "0CAE8D455173FF73"
+				item: "gtceu:darmstadtium_plate"
+				type: "item"
+			}]
+			x: 6.0d
+			y: 1.5d
+		}
+		{
+			dependencies: ["6D847DD45E559949"]
+			id: "346D831DC8AEC872"
+			size: 1.0d
+			tasks: [{
+				id: "0AAB0E658987F0E4"
+				item: "gtceu:americium_ingot"
+				type: "item"
+			}]
+			x: 6.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["6D847DD45E559949"]
+			id: "48848D60400673C4"
+			size: 1.0d
+			tasks: [{
+				id: "688CEA26195CDDBD"
+				item: "gtceu:tritanium_ingot"
+				type: "item"
+			}]
+			x: 6.0d
+			y: -1.5d
+		}
+		{
+			id: "7862735AEB102C50"
+			rewards: [{
+				id: "6219A580DCF5E028"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "偷懒, 不是吗?"
+			tasks: [{
+				id: "5479A7B5876B560D"
+				item: "mekanism_extras:infinite_control_circuit"
+				type: "item"
+			}]
+			x: -4.5d
+			y: 3.5d
+		}
+		{
+			dependencies: ["447076AC0307B54D"]
+			id: "123E19329229B3CA"
+			rewards: [{
+				id: "44E4250E5894AF02"
+				type: "xp"
+				xp: 100
+			}]
+			shape: "octagon"
+			size: 2.0d
+			subtitle: "恭喜你, 得到了个效率高一点的反应堆"
+			tasks: [{
+				id: "267487FF8B766612"
+				item: "gtecore:super_fusion_reactor"
+				type: "item"
+			}]
+			x: 0.0d
+			y: 5.0d
+		}
+		{
+			dependencies: ["6D847DD45E559949"]
+			id: "630A74E10A712DDD"
+			subtitle: "很显然你用不到锭"
+			tasks: [{
+				id: "3D0E6CA199C198C3"
+				item: "gtceu:duranium_ingot"
+				type: "item"
+			}]
+			x: 6.0d
+			y: -3.0d
+		}
+	]
+	subtitle: ["零点压"]
+	title: "&c{gte.tier_7_zpm.title}&r"
+}

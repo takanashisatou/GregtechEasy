@@ -1,0 +1,1199 @@
+{
+	autofocus_id: "2BBD7C335742BCBE"
+	default_hide_dependency_lines: false
+	default_quest_shape: "diamond"
+	disable_toast: true
+	filename: "09334612BFDE9DD6"
+	group: "57A2B47B4CC0577F"
+	icon: "minecraft:chest"
+	id: "09334612BFDE9DD6"
+	order_index: 5
+	quest_links: [ ]
+	quests: [
+		{
+			icon: "enderio:ender_fluid_conduit"
+			id: "1B306D342D8E9C38"
+			optional: true
+			size: 2.0d
+			tasks: [{
+				id: "7032CAD5CE0695F1"
+				title: "{gte.72E4956FD9B3E490.quests.1B306D342D8E9C38.tasks.7032CAD5CE0695F1.title}"
+				type: "checkmark"
+			}]
+			x: -8.0d
+			y: 0.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1B306D342D8E9C38"]
+			icon: "enderio:ender_fluid_conduit"
+			id: "7D7AE03F6B7A60C5"
+			optional: true
+			rewards: [{
+				count: 64
+				id: "0601B3E2065F26AD"
+				item: "enderio:ender_fluid_conduit"
+				type: "item"
+			}]
+			tasks: [{
+				id: "65C8977660D21795"
+				title: "{gte.72E4956FD9B3E490.quests.7D7AE03F6B7A60C5.tasks.65C8977660D21795.title}"
+				type: "checkmark"
+			}]
+			x: -7.0d
+			y: 0.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1B306D342D8E9C38"]
+			icon: {
+				Count: 1
+				id: "enderio:staff_of_travelling"
+				tag: {
+					Energy: {
+						EnergyStored: 100000
+						MaxEnergyStored: 100000
+						MaxEnergyUse: 100000
+					}
+				}
+			}
+			id: "259A2B1BB828637A"
+			optional: true
+			rewards: [{
+				id: "155394C3243D26D3"
+				item: {
+					Count: 1
+					id: "enderio:staff_of_travelling"
+					tag: {
+						Energy: {
+							EnergyStored: 100000000
+							MaxEnergyStored: 100000000
+							MaxEnergyUse: 100000000
+						}
+					}
+				}
+				type: "item"
+			}]
+			tasks: [{
+				id: "5F0DEBD9688E9660"
+				title: "{gte.72E4956FD9B3E490.quests.259A2B1BB828637A.tasks.5F0DEBD9688E9660.title}"
+				type: "checkmark"
+			}]
+			x: -8.5d
+			y: 1.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1B306D342D8E9C38"]
+			id: "5F9C7C92E816729E"
+			optional: true
+			tasks: [{
+				count: 64L
+				id: "6C63A4ECCE17B3E1"
+				item: "enderio:ender_chemical_conduit"
+				type: "item"
+			}]
+			title: "免费的末影化学品导管"
+			x: -8.0d
+			y: 2.5d
+		}
+		{
+			can_repeat: true
+			description: [""]
+			icon: "pipez:universal_pipe"
+			id: "7EAE7F4267D2EFB5"
+			optional: true
+			rewards: [
+				{
+					count: 64
+					id: "6D36BB80BFE867DB"
+					item: "pipez:item_pipe"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "6713DA0426DEFB24"
+					item: "pipez:fluid_pipe"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "73BA34AB8F5F18FE"
+					item: "pipez:energy_pipe"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "7726AF492999EF34"
+					item: "pipez:universal_pipe"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "499CF422533C339E"
+					item: "pipez:gas_pipe"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "7F03FF816007FC66"
+					item: "pipez:basic_upgrade"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "59C4CD654470F831"
+					item: "pipez:improved_upgrade"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "33A8C010ADFDA4BC"
+					item: "pipez:advanced_upgrade"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "48BC07FE37BA8287"
+					item: "pipez:ultimate_upgrade"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "3D7E8D181BD0D119"
+					item: "pipez:infinity_upgrade"
+					type: "item"
+				}
+			]
+			size: 2.0d
+			subtitle: "{gte.pipez.quests.7EAE7F4267D2EFB5.subtitle}"
+			tasks: [{
+				id: "4E925F6147D6A787"
+				title: "{gte.pipez.quests.7EAE7F4267D2EFB5.tasks.4E925F6147D6A787.title}"
+				type: "checkmark"
+			}]
+			x: -7.0d
+			y: -1.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1B306D342D8E9C38"]
+			icon: "enderio:redstone_conduit"
+			id: "7CB0D7BD2B60618E"
+			optional: true
+			rewards: [{
+				count: 64
+				id: "143368727C2E7417"
+				item: "enderio:redstone_conduit"
+				type: "item"
+			}]
+			tasks: [{
+				id: "20BB6F7744D68156"
+				title: "领取"
+				type: "checkmark"
+			}]
+			title: "免费的红石导管"
+			x: -7.5d
+			y: 1.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1B306D342D8E9C38"]
+			id: "7150FB65E40AE324"
+			optional: true
+			tasks: [{
+				count: 64L
+				id: "1583FE5CCCCDCDBB"
+				item: "enderio:item_conduit"
+				type: "item"
+			}]
+			x: -8.0d
+			y: 1.5d
+		}
+		{
+			description: [
+				"{gte.47AB9034BB01D142.quests.2BBD7C335742BCBE.description0}"
+				"{gte.47AB9034BB01D142.quests.2BBD7C335742BCBE.description1}"
+			]
+			icon: "ae2:blank_pattern"
+			id: "2BBD7C335742BCBE"
+			rewards: [
+				{
+					id: "7FA913205A31D7AD"
+					item: "ae2:controller"
+					type: "item"
+				}
+				{
+					id: "6279FE0FBDD74974"
+					item: "ae2:creative_energy_cell"
+					type: "item"
+				}
+				{
+					id: "1664D5F9CDF329D6"
+					item: {
+						Count: 1
+						id: "expatternprovider:infinity_cell"
+						tag: {
+							record: {
+								"#c": "ae2:f"
+								id: "minecraft:water"
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "65E3ED21C4CE511D"
+					item: {
+						Count: 1
+						id: "expatternprovider:infinity_cell"
+						tag: {
+							record: {
+								"#c": "ae2:i"
+								id: "minecraft:cobblestone"
+							}
+						}
+					}
+					type: "item"
+				}
+			]
+			size: 2.0d
+			tasks: [{
+				id: "136123CE5ED8482A"
+				type: "checkmark"
+			}]
+			title: "{gte.47AB9034BB01D142.quests.2BBD7C335742BCBE.title}"
+			x: -8.0d
+			y: -2.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "ae2:blank_pattern"
+			id: "5E1887D05D76E7AE"
+			rewards: [{
+				count: 64
+				id: "3E21A6E900399541"
+				item: "ae2:blank_pattern"
+				type: "item"
+			}]
+			tasks: [{
+				id: "5B2E62CD5C08E3B4"
+				title: "{gte.47AB9034BB01D142.quests.5E1887D05D76E7AE.tasks.5B2E62CD5C08E3B4.title}"
+				type: "checkmark"
+			}]
+			x: -9.0d
+			y: -2.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "ae2:white_smart_cable"
+			id: "30941A7DE06A6E68"
+			rewards: [
+				{
+					count: 64
+					id: "052FFC9A7468707B"
+					item: "ae2:blue_covered_dense_cable"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "2B30663769CF6710"
+					item: "ae2:gray_smart_dense_cable"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "5EC87A1898DCF0E9"
+					item: "ae2:quartz_fiber"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "1E295FFFAE9E7417"
+					item: "ae2:cable_anchor"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "4CF4134EA4D67289"
+					item: "ae2:fluix_glass_cable"
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "287CB77DADE884CD"
+				title: "{gte.47AB9034BB01D142.quests.30941A7DE06A6E68.tasks.287CB77DADE884CD.title}"
+				type: "checkmark"
+			}]
+			x: -8.5d
+			y: -3.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "ae2:pattern_encoding_terminal"
+			id: "4FA214D2E4741D2C"
+			rewards: [
+				{
+					id: "3F0FCDDE310DCF32"
+					item: {
+						Count: 1
+						id: "expatternprovider:wireless_ex_pat"
+						tag: {
+							internalCurrentPower: 1600000.0d
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "2A70250F034B9E68"
+					item: {
+						Count: 1
+						id: "ae2:wireless_crafting_terminal"
+						tag: {
+							internalCurrentPower: 1600000.0d
+						}
+					}
+					type: "item"
+				}
+				{
+					count: 4
+					id: "4FB99E922A3FA94A"
+					item: "expatternprovider:ex_pattern_access_part"
+					type: "item"
+				}
+				{
+					count: 4
+					id: "7C4526B6A375BB0E"
+					item: "ae2:crafting_terminal"
+					type: "item"
+				}
+				{
+					count: 4
+					id: "46F17EF4CB0FE7F6"
+					item: "ae2:pattern_encoding_terminal"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "401CD85ACA95F4B0"
+					item: "ae2:wireless_access_point"
+					type: "item"
+				}
+				{
+					id: "4DE9DF3531BA35C5"
+					item: {
+						Count: 1
+						id: "ae2wtlib:wireless_pattern_encoding_terminal"
+						tag: {
+							internalCurrentPower: 1600000.0d
+						}
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "5B131E23666C6D18"
+				title: "{gte.47AB9034BB01D142.quests.4FA214D2E4741D2C.tasks.5B131E23666C6D18.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.47AB9034BB01D142.quests.4FA214D2E4741D2C.title}"
+			x: -7.5d
+			y: -3.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "ae2:quantum_ring"
+			id: "5539606B8C636E42"
+			rewards: [
+				{
+					count: 8
+					id: "436E9918FFF4BB84"
+					item: "ae2:quantum_ring"
+					type: "item"
+				}
+				{
+					id: "4AEF148DF790BC4C"
+					item: "ae2:quantum_link"
+					type: "item"
+				}
+				{
+					id: "5DE454863886BF42"
+					item: "ae2:singularity"
+					type: "item"
+				}
+				{
+					id: "4201FA6BBF7E5643"
+					item: "minecraft:ender_pearl"
+					type: "item"
+				}
+				{
+					id: "5994E02ABAE03A9D"
+					item: "ae2:tiny_tnt"
+					type: "item"
+				}
+				{
+					id: "2E710470131C2F05"
+					item: {
+						Count: 1
+						id: "minecraft:flint_and_steel"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "654D8C55103A4DD4"
+					item: "ae2wtlib:quantum_bridge_card"
+					type: "item"
+				}
+				{
+					count: 128
+					id: "0F311DEF9257B2C8"
+					item: "aewireless:wireless_transceiver"
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "2EC938202F4786DC"
+				title: "{gte.47AB9034BB01D142.quests.5539606B8C636E42.tasks.2EC938202F4786DC.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.47AB9034BB01D142.quests.5539606B8C636E42.title}"
+			x: -8.5d
+			y: -4.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "expatternprovider:ex_pattern_provider"
+			id: "27CE31735E0EA29B"
+			rewards: [
+				{
+					count: 16
+					id: "1232B5EBABFABEA3"
+					item: "expatternprovider:ex_pattern_provider"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "56B14441F8DD0769"
+					item: "expatternprovider:ex_molecular_assembler"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "2F69269829655C13"
+					item: "expatternprovider:ex_interface"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "17854D11A0477768"
+					item: "ae2:drive"
+					type: "item"
+				}
+				{
+					count: 4
+					id: "0D0114EC768096E5"
+					item: {
+						Count: 1
+						id: "megacells:fluid_storage_cell_256m"
+						tag: { }
+					}
+					type: "item"
+				}
+				{
+					count: 4
+					id: "7A0F28C3A7B279A5"
+					item: {
+						Count: 1
+						id: "megacells:item_storage_cell_256m"
+						tag: { }
+					}
+					type: "item"
+				}
+				{
+					count: 16
+					id: "1CF10B39CF258E04"
+					item: "expatternprovider:ex_drive"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "21793BF7673A287D"
+					item: {
+						Count: 1
+						id: "megacells:bulk_item_cell"
+						tag: { }
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "25B6124C673157C5"
+				title: "{gte.47AB9034BB01D142.quests.27CE31735E0EA29B.tasks.25B6124C673157C5.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.47AB9034BB01D142.quests.27CE31735E0EA29B.title}"
+			x: -7.0d
+			y: -2.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "ae2:import_bus"
+			id: "7A6DA401F24F83CB"
+			rewards: [
+				{
+					count: 16
+					id: "2C7C8B4731C395FF"
+					item: "ae2:import_bus"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "047E3C91189D7DE8"
+					item: "ae2:export_bus"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "59EE4BF1BA9EC810"
+					item: "expatternprovider:ex_import_bus_part"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "17EF030BBFA3719A"
+					item: "expatternprovider:ex_export_bus_part"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "763C4313861BF5C6"
+					item: "expatternprovider:tag_export_bus"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "701D0A693FA69688"
+					item: "expatternprovider:mod_export_bus"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "7D01645DBA3A7E27"
+					item: "expatternprovider:precise_export_bus"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "0E8E33DAD5FCCA94"
+					item: "ae2:storage_bus"
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "0A683090982009B7"
+				title: "{gte.47AB9034BB01D142.quests.7A6DA401F24F83CB.tasks.0A683090982009B7.title}"
+				type: "checkmark"
+			}]
+			x: -9.0d
+			y: -3.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "ae2:advanced_card"
+			id: "69E53F5C3470EA20"
+			rewards: [
+				{
+					count: 64
+					id: "43AD4DEEA9E32578"
+					item: "ae2:advanced_card"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "6895F35A90D3EA2F"
+					item: "ae2:redstone_card"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "54F84EE715308D4B"
+					item: "ae2:capacity_card"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "53D05222EE7DBE9B"
+					item: "ae2:void_card"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "7891B4DE8ACF633C"
+					item: "ae2:fuzzy_card"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "64307050FBDD83C2"
+					item: "ae2:speed_card"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "6D117071D869823C"
+					item: "ae2:inverter_card"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "33DA00E077B13C86"
+					item: "ae2:crafting_card"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "227A1B4F07EC8900"
+					item: "ae2:equal_distribution_card"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "3D03FEE0DBECF5AD"
+					item: "ae2:energy_card"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "1F3A00828A486A59"
+					item: {
+						Count: 1
+						id: "extendedae_plus:entity_speed_card"
+						tag: {
+							"EAS:mult": 16
+						}
+					}
+					type: "item"
+				}
+				{
+					count: 32
+					id: "4C2D5ADB2BD8D15A"
+					item: "extendedae_plus:entity_speed_ticker"
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "785CEEB13C525C73"
+				title: "{gte.47AB9034BB01D142.quests.69E53F5C3470EA20.tasks.785CEEB13C525C73.title}"
+				type: "checkmark"
+			}]
+			x: -6.5d
+			y: -3.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "megacells:256m_crafting_storage"
+			id: "1070E84FE5B10F94"
+			rewards: [
+				{
+					count: 64
+					id: "5C5782BB82D7F8A8"
+					item: "megacells:256m_crafting_storage"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "2D2EE05100177B5B"
+					item: "megacells:mega_crafting_accelerator"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "2BE0B5B19FD411E7"
+					item: "ae2:crafting_unit"
+					type: "item"
+				}
+			]
+			subtitle: "{gte.47AB9034BB01D142.quests.1070E84FE5B10F94.subtitle}"
+			tasks: [{
+				id: "628373B1EC3B4375"
+				title: "{gte.47AB9034BB01D142.quests.1070E84FE5B10F94.tasks.628373B1EC3B4375.title}"
+				type: "checkmark"
+			}]
+			x: -7.0d
+			y: -4.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "gtmthings:programmable_cover"
+			id: "670922914762F5F9"
+			rewards: [
+				{
+					count: 64
+					id: "3AC04E2BAA0ADDAE"
+					item: "gtmthings:programmable_cover"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "6625FF75587CA5B7"
+					item: "gtmthings:max_programmablec_hatch"
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "4A1DEE306E30BB8C"
+				title: "{gte.47AB9034BB01D142.quests.670922914762F5F9.tasks.4A1DEE306E30BB8C.title}"
+				type: "checkmark"
+			}]
+			x: -7.0d
+			y: -3.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: {
+				Count: 1
+				id: "gtmthings:virtual_item_provider"
+				tag: { }
+			}
+			id: "1BBA5F76E5055FAD"
+			rewards: [{
+				count: 64
+				id: "51E2645925788351"
+				item: {
+					Count: 1
+					id: "gtmthings:virtual_item_provider"
+					tag: { }
+				}
+				type: "item"
+			}]
+			tasks: [{
+				id: "75C26A2503DDE086"
+				title: "{gte.47AB9034BB01D142.quests.1BBA5F76E5055FAD.tasks.75C26A2503DDE086.title}"
+				type: "checkmark"
+			}]
+			x: -8.0d
+			y: -4.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "gtmthings:virtual_item_provider_cell"
+			id: "76B6FADF4C537E8D"
+			rewards: [{
+				count: 64
+				id: "67BB6E310AAEA4EC"
+				item: "gtmthings:virtual_item_provider_cell"
+				type: "item"
+			}]
+			tasks: [{
+				id: "1865AF33E6CDB9B0"
+				type: "checkmark"
+			}]
+			title: "{gte.47AB9034BB01D142.quests.76B6FADF4C537E8D.title}"
+			x: -8.0d
+			y: -3.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			description: [
+				"{gte.47AB9034BB01D142.quests.3B8E9AA0F9E36A45.description0}"
+				"{gte.47AB9034BB01D142.quests.3B8E9AA0F9E36A45.description1}"
+			]
+			icon: "gtceu:me_pattern_buffer"
+			id: "3B8E9AA0F9E36A45"
+			rewards: [
+				{
+					count: 64
+					id: "1FF578C1B69E1046"
+					item: "gtceu:me_input_bus"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "0D88F85397E1E764"
+					item: "gtceu:me_output_bus"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "36BEDD811856B476"
+					item: "gtceu:me_input_hatch"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "434060502D9EABCE"
+					item: "gtceu:me_output_hatch"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "14A3C58CC4ABFBF6"
+					item: "gtmthings:me_export_buffer"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "207289E2F840917F"
+					item: "gtceu:me_pattern_buffer"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "306CF0366DD79780"
+					item: "gtceu:me_pattern_buffer_proxy"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "3CED75077F34719D"
+					item: {
+						Count: 1
+						id: "gtceu:data_stick"
+						tag: { }
+					}
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "0135496AF844C589"
+				title: "{gte.47AB9034BB01D142.quests.3B8E9AA0F9E36A45.tasks.0135496AF844C589.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.47AB9034BB01D142.quests.3B8E9AA0F9E36A45.title}"
+			x: -9.5d
+			y: -3.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			description: ["最大7*7*7, 5速度1上传20样板99合成"]
+			icon: "expatternprovider:assembler_matrix_frame"
+			id: "0254CAB58571538A"
+			rewards: [
+				{
+					count: 64
+					id: "1821101BBF5F9D0B"
+					item: "expatternprovider:assembler_matrix_frame"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "761AFA5802194C3E"
+					item: "expatternprovider:assembler_matrix_wall"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "39B9813E57112F89"
+					item: "expatternprovider:assembler_matrix_pattern"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "047ECC4E15542CA5"
+					item: "expatternprovider:assembler_matrix_crafter"
+					type: "item"
+				}
+				{
+					count: 64
+					id: "7E2A4D903BB92AEB"
+					item: "expatternprovider:assembler_matrix_speed"
+					type: "item"
+				}
+				{
+					id: "4C2755C33CA8A3FB"
+					item: "extendedae_plus:assembler_matrix_upload_core"
+					type: "item"
+				}
+			]
+			tasks: [{
+				id: "6C9A1FA87E410604"
+				type: "checkmark"
+			}]
+			title: "{gte.47AB9034BB01D142.quests.0254CAB58571538A.title}"
+			x: -7.5d
+			y: -4.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["2BBD7C335742BCBE"]
+			icon: "infinitestoragecell:infinity_item_cell"
+			id: "04790EF8523BE4BA"
+			rewards: [
+				{
+					id: "637533FA787B3248"
+					item: "infinitestoragecell:infinity_item_cell"
+					type: "item"
+				}
+				{
+					id: "1969A9A99E390BB3"
+					item: "infinitestoragecell:infinity_fluid_cell"
+					type: "item"
+				}
+				{
+					id: "6C8EE0730E1A8BB0"
+					item: "infinitestoragecell:infinity_chemical_cell"
+					type: "item"
+				}
+				{
+					id: "6E62452A279C06B4"
+					item: "extendedae_plus:infinity_biginteger_cell"
+					type: "item"
+				}
+			]
+			subtitle: "{gte.47AB9034BB01D142.quests.04790EF8523BE4BA.subtitle}"
+			tasks: [{
+				id: "50D1696C51CF0B21"
+				title: "{gte.47AB9034BB01D142.quests.04790EF8523BE4BA.tasks.50D1696C51CF0B21.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.47AB9034BB01D142.quests.04790EF8523BE4BA.title}"
+			x: -9.0d
+			y: -4.5d
+		}
+		{
+			can_repeat: true
+			icon: "kubejs:infinite_programmed_circuit"
+			id: "7DA14C0B64B977E3"
+			rewards: [{
+				id: "6A74C0AFFA034AD7"
+				item: "kubejs:infinite_programmed_circuit"
+				type: "item"
+			}]
+			tasks: [{
+				id: "582BE49E466EAF66"
+				type: "checkmark"
+			}]
+			title: "无限电路元件"
+			x: -7.5d
+			y: -6.0d
+		}
+		{
+			can_repeat: true
+			icon: "kubejs:infinities_sfm"
+			id: "12EEB78E50AFA984"
+			rewards: [{
+				id: "4A464B8E218A2B5B"
+				item: "kubejs:infinities_sfm"
+				type: "item"
+			}]
+			subtitle: "也许会有用的"
+			tasks: [{
+				id: "0752AD7FBE8493EB"
+				type: "checkmark"
+			}]
+			title: "ME无限SFM元件"
+			x: -8.5d
+			y: -5.0d
+		}
+		{
+			can_repeat: true
+			icon: "kubejs:infinities_pipez"
+			id: "1B4B703F36A8E5C3"
+			rewards: [{
+				id: "7F1ADD015245F982"
+				item: "kubejs:infinities_pipez"
+				type: "item"
+			}]
+			tasks: [{
+				id: "14B4FFAE345BBCAA"
+				type: "checkmark"
+			}]
+			title: "ME无限Pipez元件"
+			x: -7.0d
+			y: -5.5d
+		}
+		{
+			can_repeat: true
+			icon: "kubejs:infinities_mc"
+			id: "55B4D699F176008C"
+			rewards: [{
+				id: "083456CCCA85DE90"
+				item: "kubejs:infinities_mc"
+				type: "item"
+			}]
+			tasks: [{
+				id: "15A77CE46390CCEE"
+				type: "checkmark"
+			}]
+			title: "ME无限基础元件"
+			x: -7.5d
+			y: -5.0d
+		}
+		{
+			can_repeat: true
+			icon: "kubejs:infinities_laserio"
+			id: "5B54D53490FCD584"
+			rewards: [{
+				id: "07564E6D70146172"
+				item: "kubejs:infinities_laserio"
+				type: "item"
+			}]
+			tasks: [{
+				id: "36A2844DDEECC370"
+				type: "checkmark"
+			}]
+			title: "ME无限LaserIO元件"
+			x: -9.0d
+			y: -5.5d
+		}
+		{
+			can_repeat: true
+			icon: "kubejs:infinities_ae"
+			id: "65D2523102846DA1"
+			rewards: [{
+				id: "5C73F75039E313BB"
+				item: "kubejs:infinities_ae"
+				type: "item"
+			}]
+			tasks: [{
+				id: "535AC114CFA7E319"
+				type: "checkmark"
+			}]
+			title: "ME无限AE元件"
+			x: -8.5d
+			y: -6.0d
+		}
+		{
+			can_repeat: true
+			icon: "kubejs:infinities_water_lava"
+			id: "146E295E2D935DE4"
+			rewards: [{
+				id: "41CEA78F5EAC441E"
+				item: "kubejs:infinities_water_lava"
+				type: "item"
+			}]
+			tasks: [{
+				id: "164C386F67067DFD"
+				type: "checkmark"
+			}]
+			title: "ME无限水/熔岩元件"
+			x: -8.0d
+			y: -5.5d
+		}
+		{
+			can_repeat: true
+			icon: "laserio:laser_node"
+			id: "7854DC6CCBA4AD76"
+			optional: true
+			rewards: [
+				{
+					count: 128
+					id: "25EE6D9C3FC5E008"
+					item: "laserio:laser_node"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "1277CC3FEA1C75E7"
+					item: "laserio:laser_connector"
+					type: "item"
+				}
+				{
+					id: "63E28E6FE54CA850"
+					item: "laserio:laser_wrench"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "07D36AA64171A07C"
+					item: "laserio:card_item"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "2852205D3659E8FA"
+					item: "laserio:card_fluid"
+					type: "item"
+				}
+				{
+					id: "1A94908465166AF9"
+					item: {
+						Count: 1
+						id: "patchouli:guide_book"
+						tag: {
+							"patchouli:book": "laserio:laseriobook"
+						}
+					}
+					type: "item"
+				}
+				{
+					count: 16
+					id: "69241DBB4DAAE804"
+					item: "laserio:filter_basic"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "4AD0CE5869053120"
+					item: "laserio:filter_count"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "35AABE5E7F573028"
+					item: "laserio:filter_tag"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "26D0E9A704B2ECC0"
+					item: "laserio:filter_mod"
+					type: "item"
+				}
+				{
+					count: 16
+					id: "70E725E996F8E7D5"
+					item: "laserio:laser_connector_advanced"
+					type: "item"
+				}
+			]
+			size: 2.0d
+			tasks: [{
+				id: "6E904126EB81B30F"
+				type: "checkmark"
+			}]
+			title: "{gte.laserio.quests.7854DC6CCBA4AD76.title}"
+			x: -9.0d
+			y: -1.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["1B306D342D8E9C38"]
+			id: "49392D2694707C00"
+			optional: true
+			rewards: [{
+				count: 64
+				id: "14083FEC07B6C04D"
+				item: "enderio:heat_conduit"
+				type: "item"
+			}]
+			tasks: [{
+				id: "41E359BD54DBB7CF"
+				title: "领取"
+				type: "checkmark"
+			}]
+			title: "免费的热量导管"
+			x: -9.0d
+			y: 0.5d
+		}
+	]
+	subtitle: ["免费的谁不爱"]
+	tags: ["kits"]
+	title: "&e免费补给"
+}

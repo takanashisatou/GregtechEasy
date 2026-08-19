@@ -1,0 +1,14 @@
+# If enabled, the wireless transceiver will consume energy for transmission.
+isEnergy: true
+
+# Allow cross-dimensional connection
+crossDimensional: true
+
+baseEnergy: 100.0
+
+# Maximum transmission distance between Sub and Main wireless transceivers(0 for unlimited).
+maxDistance: 0.0
+
+# Sub energy consumption = Distance between Main and Sub ¡Á Energy multiplier.
+batteryMultiplier: 1.0
+

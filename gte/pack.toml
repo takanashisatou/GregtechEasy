@@ -1,0 +1,18 @@
+name = "GregTech Easy"
+author = "satou"
+version = "2.2.5"
+description = "GregTech Easy Modpack with JDK 21 and GTECore + GTM-Reborn Dual Core"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+
+[versions]
+minecraft = "1.20.1"
+forge = "47.3.0"
+java = "21"
+
+[options]
+meta-folder = "mods"
+meta-folder-type = "toml"

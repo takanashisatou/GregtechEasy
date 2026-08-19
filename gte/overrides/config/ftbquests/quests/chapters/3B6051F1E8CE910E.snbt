@@ -1,0 +1,119 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	disable_toast: true
+	filename: "3B6051F1E8CE910E"
+	group: "57A2B47B4CC0577F"
+	icon: "gtceu:neutronium_credit"
+	id: "3B6051F1E8CE910E"
+	order_index: 7
+	quest_links: [ ]
+	quests: [
+		{
+			can_repeat: true
+			icon: "gtceu:bronze_ingot"
+			id: "5254DF58CEDC897C"
+			optional: true
+			rewards: [{
+				count: 32
+				id: "41C415F59D2E1A18"
+				item: "gtceu:bronze_ingot"
+				type: "item"
+			}]
+			tasks: [{
+				consume_items: true
+				id: "46E048AE1C4A765A"
+				item: "gtceu:cupronickel_credit"
+				type: "item"
+			}]
+			title: "一些青铜"
+			x: -12.5d
+			y: -1.0d
+		}
+		{
+			can_repeat: true
+			icon: "minecraft:iron_ingot"
+			id: "4EA5F320BDCA0139"
+			optional: true
+			rewards: [{
+				count: 32
+				id: "52D69B6E4CDA1AF0"
+				item: "minecraft:iron_ingot"
+				type: "item"
+			}]
+			tasks: [{
+				consume_items: true
+				id: "35606440C6040295"
+				item: "gtceu:cupronickel_credit"
+				type: "item"
+			}]
+			title: "一些铁锭"
+			x: -11.0d
+			y: -1.0d
+		}
+		{
+			can_repeat: true
+			icon: "gtceu:steel_ingot"
+			id: "1030FF31C14407E0"
+			optional: true
+			rewards: [{
+				count: 32
+				id: "6722B0052744619D"
+				item: "gtceu:steel_ingot"
+				type: "item"
+			}]
+			tasks: [{
+				consume_items: true
+				id: "1EE2DC999AB2D2D4"
+				item: "gtceu:copper_credit"
+				type: "item"
+			}]
+			title: "一些钢锭"
+			x: -9.5d
+			y: -1.0d
+		}
+		{
+			can_repeat: true
+			icon: "mekanismgenerators:heat_generator"
+			id: "71C952BC3AB9BCB7"
+			optional: true
+			rewards: [{
+				id: "26AA9E89D56F804F"
+				item: "mekanismgenerators:heat_generator"
+				type: "item"
+			}]
+			subtitle: "不如风力"
+			tasks: [{
+				consume_items: true
+				count: 6L
+				id: "18DAF439FF165031"
+				item: "gtceu:copper_credit"
+				type: "item"
+			}]
+			title: "MEK热力发电机"
+			x: -8.0d
+			y: -1.0d
+		}
+		{
+			can_repeat: true
+			id: "1E873E6EDAA2D929"
+			optional: true
+			rewards: [{
+				id: "0EB4CFB0756054CC"
+				item: "minecraft:netherite_block"
+				type: "item"
+			}]
+			subtitle: "为了解决v220出现的无法合成下界合金块的问题"
+			tasks: [{
+				count: 9L
+				id: "3FC47F67752414EB"
+				item: "minecraft:netherite_ingot"
+				type: "item"
+			}]
+			x: -12.5d
+			y: 0.0d
+		}
+	]
+	subtitle: ["一点也不万能"]
+	title: "&e万能商店"
+}

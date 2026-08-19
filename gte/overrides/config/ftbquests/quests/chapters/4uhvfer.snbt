@@ -1,0 +1,265 @@
+{
+	autofocus_id: "55F22A8062B3812F"
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	disable_toast: true
+	filename: "4uhvfer"
+	group: "131B6AB47AA51F9B"
+	icon: "gtecore:taichi_five_elements_separation_array"
+	id: "5C363122C4005DDB"
+	images: [
+		{
+			click: "command:execute as @p run tellraw @p {\"text\":\"请使用高级终端并配置如下:\\n--------\\n\\u00A77替换线圈: \\u00A7a0\\n\\u00A77重复结构: \\u00A7a0\\n\\u00A77无仓室模式: \\u00A7a1\\n\\u00A77使用AE物品: \\u00A7a0\\n\\u00A77线圈等级: \\u00A7e随意\"}"
+			height: 1.0d
+			hover: [
+				"请使用高级终端并配置如下"
+				""
+				"替换线圈: 0"
+				"重复结构: 0"
+				"无仓室模式: 1"
+				"使用AE物品: 0"
+				"线圈等级: 随意"
+				"(可点击展示在聊天栏)"
+			]
+			image: "fancymenu:textures/contextmenu/icons/info.png"
+			rotation: 0.0d
+			width: 1.0d
+			x: -3.0d
+			y: 0.0d
+		}
+		{
+			click: "command:execute as @p run tellraw @p {\"text\":\"是否存在结构特殊要求:\\n--------\\n\\u00A7c否\"}"
+			height: 1.0d
+			hover: [
+				"是否存在特殊结构要求?"
+				""
+				"否"
+			]
+			image: "fancymenu:textures/contextmenu/icons/info.png"
+			rotation: 0.0d
+			width: 1.0d
+			x: 1.5d
+			y: 0.0d
+		}
+	]
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			description: [
+				"## &l基本信息"
+				""
+				"名称: 太极五行剥离阵列"
+				"作用:"
+				"- &l太极五行剥离&r: 用于将五行元素从起源之弦中剥离出来"
+				"- &l热力离心机&r"
+				"- &l离心机&r"
+				""
+				"最简多方块结构材料清单:"
+				"- 1x 太极五行剥离阵列"
+				"- 1x 任意等级能源仓或无线能源仓"
+				"- 236x 阴阳立场约束方块"
+				"- 138x 八卦机械方块"
+				"- 91x 无尽框架"
+				"- 146x 高能机械方块"
+				"- 576x 超净间玻璃"
+				""
+				"{@pagebreak}"
+				""
+				"{image:kubejs:textures/ftbquests/guide/uhv/tai_ji_wu_xing_bo_li_zhen_lie/preview.png width:150 height:250 align:center}"
+				""
+				"{@pagebreak}"
+				""
+				"{image:kubejs:textures/ftbquests/guide/uhv/tai_ji_wu_xing_bo_li_zhen_lie/gui.png width:125 height:150 align:center}"
+				""
+				"{@pagebreak}"
+				""
+				"{image:kubejs:textures/ftbquests/guide/uhv/tai_ji_wu_xing_bo_li_zhen_lie/mode_selection.png width:200 height:100 align:center}"
+			]
+			icon: "gtecore:taichi_five_elements_separation_array"
+			id: "396CE720186A84D8"
+			subtitle: "简单信息"
+			tags: ["guide"]
+			tasks: [{
+				id: "577A00E49084223B"
+				title: "教程"
+				type: "checkmark"
+			}]
+			title: "太极五行剥离阵列"
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			can_repeat: true
+			id: "55F22A8062B3812F"
+			optional: true
+			rewards: [{
+				id: "61FE8E4AF887D01E"
+				item: {
+					Count: 1
+					id: "ae2:processing_pattern"
+					tag: {
+						encodePlayer: "NanaLoveyuki"
+						in: [
+							{
+								"#": 1L
+								"#c": "ae2:i"
+								id: "gtecore:taichi_five_elements_separation_array"
+							}
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{
+								"#": 236L
+								"#c": "ae2:i"
+								id: "gtecore:yin_yang_field_restriction"
+							}
+							{
+								"#": 139L
+								"#c": "ae2:i"
+								id: "gtecore:eight_trigmas_casing"
+							}
+							{
+								"#": 91L
+								"#c": "ae2:i"
+								id: "gtceu:infinity_frame"
+							}
+							{
+								"#": 140L
+								"#c": "ae2:i"
+								id: "gtceu:high_power_casing"
+							}
+							{
+								"#": 576L
+								"#c": "ae2:i"
+								id: "gtceu:cleanroom_glass"
+							}
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+						]
+						out: [
+							{
+								"#": 1L
+								"#c": "ae2:i"
+								id: "sfm:disk"
+								tag: {
+									RepairCost: 0
+									display: {
+										Name: "{\"text\":\"太极五行剥离阵列\"}"
+									}
+								}
+							}
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+							{ }
+						]
+					}
+				}
+				type: "item"
+			}]
+			subtitle: "快夸我"
+			tasks: [{
+				id: "515DBB6817C94BDB"
+				title: "假合成样板"
+				type: "checkmark"
+			}]
+			x: -1.5d
+			y: 0.0d
+		}
+	]
+	subtitle: ["&4UHV&f多方块结构&r"]
+	title: "&4UHV&f-&e太极五行剥离阵列&r"
+}

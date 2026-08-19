@@ -1,0 +1,201 @@
+{
+	autofocus_id: "78470C0BB1DE1697"
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "6_er"
+	group: ""
+	icon: "minecraft:writable_book"
+	id: "27066FAC6A75B6F7"
+	images: [
+		{
+			click: "https://liteyuki.feishu.cn/wiki/MwWJwLMu5ibkR4keeD8clG2nnSh"
+			height: 3.0d
+			hover: [
+				"点击查看教程"
+				"(仅有部分)"
+			]
+			image: "kubejs:textures/ftbquests/guide/ae2/ae2_logo.png"
+			rotation: 0.0d
+			width: 12.0d
+			x: -9.5d
+			y: -3.0d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/UkQLwGp0liWc8Pkn9tzchn9bnzi"
+			height: 2.75d
+			hover: ["点击查看教程"]
+			image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_ulv.png"
+			rotation: 0.0d
+			width: 3.85d
+			x: 3.5d
+			y: -3.5d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/K7LewqYNEihlgvkqxUUc5xBMnYf"
+			height: 2.75d
+			hover: ["点击查看教程"]
+			image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_lv.png"
+			rotation: 0.0d
+			width: 3.85d
+			x: 3.5d
+			y: -1.5d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/Ws7OwRoTKi2X2Jkv3egcCjh9nu9"
+			height: 2.75d
+			hover: ["点击查看教程"]
+			image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_mv.png"
+			rotation: 0.0d
+			width: 3.85d
+			x: 3.5d
+			y: 0.5d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/F5R5wHsTHiNRR8kKrOccl1WJnyR"
+			height: 2.75d
+			hover: ["点击查看教程"]
+			image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_hv.png"
+			order: 1000
+			rotation: 0.0d
+			width: 3.85d
+			x: 3.5d
+			y: 2.5d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/HYnmwQDeJiPYJTk95SCcxQETnF8"
+			height: 2.75d
+			hover: ["点击查看教程"]
+			image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_ev.png"
+			rotation: 0.0d
+			width: 3.85d
+			x: 10.5d
+			y: -3.5d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/ARXxwhDkNiubGskd7DPcqH2Inwf"
+			height: 2.75d
+			hover: ["点击查看教程"]
+			image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_iv.png"
+			rotation: 0.0d
+			width: 3.85d
+			x: 10.5d
+			y: -1.5d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/S6ClwjsliioWaukQpz2cYaZmndA"
+			height: 2.75d
+			hover: ["点击查看教程"]
+			image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_luv.png"
+			rotation: 0.0d
+			width: 3.85d
+			x: 10.5d
+			y: 0.5d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/CiLTwR1WDiksUHklqKvcNFAAn2d"
+			height: 2.75d
+			hover: ["点击查看教程"]
+			image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_zpm.png"
+			rotation: 0.0d
+			width: 3.85d
+			x: 10.5d
+			y: 2.5d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/QUoYwXZzniY0TBkIp6zckc8UnCe"
+			height: 2.75d
+			hover: ["点击查看教程"]
+			image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_uv.png"
+			rotation: 0.0d
+			width: 3.85d
+			x: 17.5d
+			y: -3.5d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/ClHrwvA1jivg5Vkn7DqcJLXFnqe"
+			height: 2.75d
+			hover: ["点击查看教程"]
+			image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_uhv.png"
+			rotation: 0.0d
+			width: 3.85d
+			x: 17.5d
+			y: -1.5d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/GfPfwSBq2indyqkQBTBcrZBqnkc"
+			height: 3.0d
+			hover: [
+				"Mekanism通用机械"
+				"点击查看教程"
+				"(尚未完成)"
+			]
+			image: "kubejs:textures/ftbquests/guide/mek/mek_logo.png"
+			rotation: 0.0d
+			width: 12.0d
+			x: -9.5d
+			y: 1.0d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/PA6uwGtE3iDck0k9UYhcNzoHndf"
+			height: 2.0d
+			hover: ["各阶段矿石处理流程"]
+			image: "minecraft:block/diamond_ore"
+			rotation: 0.0d
+			width: 2.0d
+			x: -2.5d
+			y: -6.5d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/UwCFwqv8hiZGLCks8mec7uBGnHa"
+			height: 2.0d
+			hover: ["如何检查存档卡顿"]
+			image: "touhou_little_maid:item/spawn_lightning_bolt"
+			rotation: 0.0d
+			width: 2.0d
+			x: -5.0d
+			y: -6.5d
+		}
+		{
+			height: 4.0d
+			hover: ["文档主页"]
+			image: "minecraft:item/writable_book"
+			rotation: 0.0d
+			width: 4.0d
+			x: -1.5d
+			y: -10.0d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/IPvWwXny7i2o2ckEK06cz0OHnTd"
+			height: 2.0d
+			hover: [
+				"多方块结构教程"
+				"(尚未完成)"
+			]
+			image: "gtceu:block/material_sets/infinity/frame_gt"
+			rotation: 0.0d
+			width: 2.0d
+			x: 0.5d
+			y: -6.5d
+		}
+	]
+	order_index: 4
+	quest_links: [ ]
+	quests: [{
+		description: ["使用飞书文档, 所以是外链, 碍于时间缘故, 大部分电压内容只有思维导图可以看"]
+		id: "78470C0BB1DE1697"
+		rewards: [{
+			id: "0B1C2298F3DE58DC"
+			type: "xp_levels"
+			xp_levels: 5
+		}]
+		subtitle: "在这里可以快速跳转本整合包的相关内容文档"
+		tasks: [{
+			id: "52B2E571D25C5698"
+			type: "checkmark"
+		}]
+		title: "了解"
+		x: -1.5d
+		y: -1.0d
+	}]
+	title: "&6[帮助] &e文档\\&知识库&r"
+}

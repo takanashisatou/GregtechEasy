@@ -1,0 +1,1912 @@
+{
+	autofocus_id: "7AC928F321C75E9B"
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "450B4E83018489AA"
+	group: ""
+	icon: "minecraft:grass_block"
+	id: "450B4E83018489AA"
+	images: [
+		{
+			click: "https://qun.qq.com/universal-share/share?ac=1&authKey=5%2B%2FUlyE91xyFrHtXHbODbGZzEp4PM5e%2FFgrYcOivEL6Fx1j6kQUi6NEi0gBmRmm4&busi_data=eyJncm91cENvZGUiOiIxMzI3MzM2MzMiLCJ0b2tlbiI6IkNXTTI3TTZEU2pyeVBOV1pnanVlb0lzbzNKK3B6R3Exd1dNS29kY2hGMFM3eDdqQXpKTzFUQTkrNTREYkgydGIiLCJ1aW4iOiIzNTQxNzY2NzU4In0%3D&data=L84chSD5f1-fpNg6aa55wxsAnDLu2O5KZX9twzHLW3oelufxluuGGCOrl2wwUY8i7NegkFCwwJzJPUo4ItfIzg&svctype=4&tempid=h5_group_info"
+			height: 2.0d
+			hover: [
+				"QQ: 132733633"
+				"gte.can_click"
+			]
+			image: "voicechat:icons/group"
+			rotation: 0.0d
+			width: 2.0d
+			x: -18.0d
+			y: -2.0d
+		}
+		{
+			height: 2.0d
+			hover: ["gte.we_need_eat"]
+			image: "fancymenu:textures/buddy/food.png"
+			rotation: 0.0d
+			width: 2.0d
+			x: -15.5d
+			y: -2.0d
+		}
+		{
+			height: 2.0d
+			image: "minecraft:block/crafting_table_top"
+			rotation: 0.0d
+			width: 2.0d
+			x: -13.0d
+			y: -2.0d
+		}
+		{
+			height: 2.0d
+			image: "ae2:item/creative_item_cell"
+			rotation: 0.0d
+			width: 2.0d
+			x: -18.5d
+			y: 0.5d
+		}
+		{
+			height: 1.0d
+			image: "minecraft:item/raw_iron"
+			rotation: 0.0d
+			width: 1.0d
+			x: -18.5d
+			y: 3.0d
+		}
+		{
+			height: 1.0d
+			image: "gtceu:item/material_sets/shiny/raw_ore"
+			rotation: 0.0d
+			width: 1.0d
+			x: -18.0d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "minecraft:item/raw_gold"
+			rotation: 0.0d
+			width: 1.0d
+			x: -18.0d
+			y: 3.0d
+		}
+		{
+			height: 1.0d
+			image: "minecraft:item/raw_copper"
+			rotation: 0.0d
+			width: 1.0d
+			x: -17.5d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "mekanism:item/raw_uranium"
+			rotation: 0.0d
+			width: 1.0d
+			x: -17.0d
+			y: 3.0d
+		}
+		{
+			height: 1.0d
+			image: "mekanism:item/raw_osmium"
+			rotation: 0.0d
+			width: 1.0d
+			x: -17.5d
+			y: 3.0d
+		}
+		{
+			height: 1.0d
+			image: "minecraft:item/brick"
+			rotation: 0.0d
+			width: 1.0d
+			x: -16.0d
+			y: 3.0d
+		}
+		{
+			height: 1.0d
+			image: "gtceu:item/coke_oven_brick"
+			rotation: 0.0d
+			width: 1.0d
+			x: -15.5d
+			y: 3.0d
+		}
+		{
+			height: 1.0d
+			image: "minecraft:item/nether_brick"
+			rotation: 0.0d
+			width: 1.0d
+			x: -15.0d
+			y: 3.0d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -7.0d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -6.5d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -6.0d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -5.5d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -5.0d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -2.5d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -2.0d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -1.5d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -1.0d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtceu:block/casings/firebox/machine_casing_firebox_bronze"
+			rotation: 0.0d
+			width: 1.0d
+			x: -2.5d
+			y: 0.5d
+		}
+		{
+			height: 1.0d
+			image: "gtceu:block/casings/firebox/machine_casing_firebox_bronze"
+			rotation: 0.0d
+			width: 1.0d
+			x: -1.5d
+			y: 0.5d
+		}
+		{
+			height: 1.0d
+			image: "gtceu:block/casings/firebox/machine_casing_firebox_bronze"
+			rotation: 0.0d
+			width: 1.0d
+			x: -3.5d
+			y: 0.5d
+		}
+		{
+			height: 1.0d
+			image: "gtceu:block/casings/firebox/machine_casing_firebox_bronze"
+			rotation: 0.0d
+			width: 1.0d
+			x: -4.5d
+			y: 0.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -4.0d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -4.5d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -3.0d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "gtecore:block/casings/steam/bricked_bronze/bottom"
+			rotation: 0.0d
+			width: 1.0d
+			x: -3.5d
+			y: 2.5d
+		}
+		{
+			height: 1.0d
+			image: "minecraft:block/campfire_fire"
+			rotation: 0.0d
+			width: 1.0d
+			x: -0.9642857142857366d
+			y: 1.625d
+		}
+		{
+			height: 1.0d
+			image: "minecraft:block/furnace_front"
+			rotation: 0.0d
+			width: 1.0d
+			x: -6.964285714285722d
+			y: 1.6607142857142776d
+		}
+		{
+			height: 1.0d
+			image: "gtceu:item/tools/mortar_base"
+			rotation: 0.0d
+			width: 1.0d
+			x: -3.5714285714285907d
+			y: 1.7678571428571388d
+		}
+		{
+			height: 1.0d
+			image: "gtceu:item/tools/mortar"
+			rotation: 0.0d
+			width: 1.0d
+			x: -3.535714285714299d
+			y: 1.7678571428571388d
+		}
+		{
+			height: 1.0d
+			image: "minecraft:item/stick"
+			rotation: -45.0d
+			width: 1.0d
+			x: -1.4821428571428754d
+			y: 1.625d
+		}
+		{
+			height: 1.0d
+			image: "minecraft:item/stick"
+			rotation: -45.0d
+			width: 1.0d
+			x: -0.5892857142857437d
+			y: 1.625d
+		}
+		{
+			height: 1.0d
+			image: "minecraft:item/stick"
+			rotation: 45.0d
+			width: 1.0d
+			x: -0.9464285714285978d
+			y: 1.1964285714285694d
+		}
+		{
+			height: 1.0d
+			image: "minecraft:item/cooked_rabbit"
+			rotation: 0.0d
+			width: 1.0d
+			x: -1.0178571428571743d
+			y: 1.3392857142857153d
+		}
+		{
+			height: 0.4d
+			image: "minecraft:item/stick"
+			rotation: 0.0d
+			width: 0.4d
+			x: -12.951530612244937d
+			y: -2.005102040816329d
+		}
+		{
+			height: 0.4d
+			image: "minecraft:item/stick"
+			rotation: 0.0d
+			width: 0.4d
+			x: -12.971938775510239d
+			y: -1.6785714285714306d
+		}
+		{
+			height: 0.4d
+			image: "minecraft:item/diamond"
+			rotation: 0.0d
+			width: 0.4d
+			x: -13.298469387755134d
+			y: -2.3520408163265287d
+		}
+		{
+			height: 0.4d
+			image: "minecraft:item/diamond"
+			rotation: 0.0d
+			width: 0.4d
+			x: -12.971938775510239d
+			y: -2.3520408163265287d
+		}
+		{
+			height: 1.0d
+			image: "configuration:icons/warning"
+			rotation: 0.0d
+			width: 1.0d
+			x: -17.96989795918372d
+			y: 0.7622448979591852d
+		}
+		{
+			click: "https://liteyuki.feishu.cn/wiki/UkQLwGp0liWc8Pkn9tzchn9bnzi"
+			height: 2.75d
+			hover: ["gte.review_tur"]
+			image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_ulv.png"
+			rotation: 0.0d
+			width: 3.85d
+			x: -0.5d
+			y: 3.5d
+		}
+		{
+			click: "#09334612BFDE9DD6"
+			height: 1.0d
+			hover: [
+				"gte.rsupply"
+				"gte.djtz"
+			]
+			image: "fancymenu:textures/contextmenu/icons/info.png"
+			rotation: 0.0d
+			width: 1.0d
+			x: -11.0d
+			y: 0.5d
+		}
+		{
+			height: 4.0d
+			hover: ["gte.doc_main"]
+			image: "minecraft:item/writable_book"
+			rotation: 0.0d
+			width: 4.0d
+			x: -23.5d
+			y: 0.5d
+		}
+	]
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			description: [
+				"{gte.450B4E83018489AA.quests.7AC928F321C75E9B.description0}"
+				"{gte.450B4E83018489AA.quests.7AC928F321C75E9B.description1}"
+			]
+			icon: "minecraft:grass_block"
+			id: "7AC928F321C75E9B"
+			rewards: [{
+				count: 8
+				id: "78A0061841EDB1AB"
+				item: "gtceu:cupronickel_credit"
+				type: "item"
+			}]
+			tasks: [{
+				id: "048CBDA2602237A6"
+				title: "{gte.450B4E83018489AA.quests.7AC928F321C75E9B.tasks.048CBDA2602237A6.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.7AC928F321C75E9B.title}"
+			x: -15.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			description: [
+				"{gte.tips_1}"
+				""
+				"{gte.tips_2}"
+				""
+				"{gte.tips_3}"
+				""
+				"{gte.tips_4}"
+			]
+			icon: "minecraft:chest"
+			id: "13E908447331858E"
+			rewards: [
+				{
+					id: "0FFEB1F76F462ED8"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_mining_hammer"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								AoEColumn: 1
+								AoELayer: 0
+								AoERow: 1
+								MaxAoEColumn: 1
+								MaxAoELayer: 0
+								MaxAoERow: 1
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+								TorchPlacing: 1b
+							}
+							GT.Tool: {
+								HarvestLevel: 6
+								MaxDamage: 196604
+								ToolSpeed: 76.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					count: 64
+					id: "2BA143384D58DDCA"
+					item: "minecraft:golden_carrot"
+					type: "item"
+				}
+				{
+					id: "6B809C1E43EC879A"
+					item: {
+						Count: 1
+						id: "gtceu:prospector.luv"
+						tag: {
+							Charge: 1000000000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "18511BCB1337CF46"
+					item: {
+						Count: 1
+						id: "megacells:portable_item_cell_256m"
+						tag: {
+							internalCurrentPower: 160000.0d
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "5F8C21FB2BD4147F"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_helmet"
+						tag: {
+							Charge: 26843545600000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "74B92D3249908DDE"
+					item: {
+						Count: 1
+						id: "gtceu:advanced_nanomuscle_chestplate"
+						tag: {
+							Charge: 53687091200000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7C58E81048ED1DFC"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_leggings"
+						tag: {
+							Charge: 26843545600000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "35935C68D7485578"
+					item: {
+						Count: 1
+						id: "gtceu:nanomuscle_boots"
+						tag: {
+							Charge: 26843545600000L
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "3DA151C1101224D9"
+					item: {
+						Count: 1
+						id: "useless_mod:endless_beaf_item"
+						tag: { }
+					}
+					type: "item"
+				}
+			]
+			subtitle: "{gte.you_will_use}"
+			tags: ["kits"]
+			tasks: [{
+				id: "78F6F8B3C16A6905"
+				title: "{gte.450B4E83018489AA.quests.13E908447331858E.tasks.78F6F8B3C16A6905.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.13E908447331858E.title}"
+			x: -12.5d
+			y: 0.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["7AC928F321C75E9B"]
+			dependency_requirement: "one_completed"
+			description: ["{gte.why_peace}"]
+			disable_toast: true
+			icon: "minecraft:bread"
+			id: "0C1192A74BBBA469"
+			optional: true
+			rewards: [{
+				count: 64
+				id: "77F8E6F10F44FB62"
+				item: "minecraft:golden_carrot"
+				type: "item"
+			}]
+			subtitle: "{gte.to_eat_food}"
+			tags: ["once_kits"]
+			tasks: [{
+				id: "1E93798C3ADA5547"
+				title: "{gte.450B4E83018489AA.quests.0C1192A74BBBA469.tasks.1E93798C3ADA5547.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.food_supply}"
+			x: -15.5d
+			y: -1.0d
+		}
+		{
+			dependencies: ["13E908447331858E"]
+			description: ["{gte.450B4E83018489AA.quests.2EF82D2485FD5033.description0}"]
+			icon: "minecraft:raw_iron"
+			id: "2EF82D2485FD5033"
+			rewards: [
+				{
+					count: 64
+					id: "2AAAE6BDDA4F705D"
+					item: "minecraft:blast_furnace"
+					type: "item"
+				}
+				{
+					count: 8
+					id: "415688BCE57387DC"
+					item: "gtceu:cupronickel_credit"
+					type: "item"
+				}
+			]
+			subtitle: "{gte.450B4E83018489AA.quests.2EF82D2485FD5033.subtitle}"
+			tasks: [
+				{
+					id: "4A4037EE11F76621"
+					item: "minecraft:iron_ingot"
+					type: "item"
+				}
+				{
+					id: "0F17167FD709D4C4"
+					item: "minecraft:copper_ingot"
+					type: "item"
+				}
+				{
+					id: "2AB0B7AAA0A862A4"
+					item: "gtceu:tin_ingot"
+					type: "item"
+				}
+			]
+			title: "{gte.450B4E83018489AA.quests.2EF82D2485FD5033.title}"
+			x: -9.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["2EF82D2485FD5033"]
+			description: [
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description0}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description1}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description2}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description3}"
+				"{gte.450B4E83018489AA.quests.1A130A4134836DFB.description4}"
+			]
+			icon: {
+				Count: 1
+				id: "gtceu:iron_hammer"
+				tag: {
+					Damage: 0
+					DisallowContainerItem: 0b
+					GT.Behaviours: { }
+					GT.Tool: {
+						DefaultEnchantments: [ ]
+						HarvestLevel: 2
+						MaxDamage: 255
+						ToolSpeed: 6.0f
+					}
+					HideFlags: 2
+				}
+			}
+			id: "1A130A4134836DFB"
+			optional: true
+			rewards: [
+				{
+					id: "4A5D9059AFB9BC8F"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_hammer"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "78EDA5FE6BFB1F25"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_wrench"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								Mode: 2b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "54E50289349FF8A8"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_file"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					count: 16
+					id: "3E273C67870C791B"
+					item: "gtceu:cupronickel_credit"
+					type: "item"
+				}
+			]
+			subtitle: "{gte.450B4E83018489AA.quests.1A130A4134836DFB.subtitle}"
+			tasks: [
+				{
+					id: "76C800A672BE6CFF"
+					item: {
+						Count: 1
+						id: "gtceu:iron_hammer"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "17ED76320275F11C"
+					item: {
+						Count: 1
+						id: "gtceu:iron_wrench"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								Mode: 2b
+							}
+							GT.Tool: {
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "30E649A83C6305D4"
+					item: {
+						Count: 1
+						id: "gtceu:iron_file"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "{gte.450B4E83018489AA.quests.1A130A4134836DFB.title}"
+			x: -8.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			dependency_requirement: "one_completed"
+			description: [
+				"{gte.zzb_1}"
+				""
+				"{gte.zzb_2}"
+				""
+				"{gte.zzb_3}"
+			]
+			icon: "expatternprovider:pattern_terminal_upgrade"
+			id: "66EF24234DD8A278"
+			optional: true
+			rewards: [{
+				id: "00C7E7C22039B7DF"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.subtitle}"
+			tags: ["on_start"]
+			tasks: [{
+				id: "3A7D1ED17EA25F53"
+				title: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.tasks.3A7D1ED17EA25F53.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.66EF24234DD8A278.title}"
+			x: -14.0d
+			y: -1.0d
+		}
+		{
+			dependencies: ["1A130A4134836DFB"]
+			description: [""]
+			icon: {
+				Count: 1
+				id: "gtceu:iron_screwdriver"
+				tag: {
+					Damage: 0
+					DisallowContainerItem: 0b
+					GT.Behaviours: { }
+					GT.Tool: {
+						DefaultEnchantments: [ ]
+						MaxDamage: 255
+					}
+					HideFlags: 2
+				}
+			}
+			id: "6C03035896A297CC"
+			optional: true
+			rewards: [
+				{
+					id: "53CEA2B4BC640DB7"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_wire_cutter"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "79A2552F22096152"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_screwdriver"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "59CCDAF6660CCAB5"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_crowbar"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "29AE39E0AD8069F4"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_saw"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								HarvestIce: 1b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "1692F965935E4443"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_knife"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								AttackDamage: 100.0f
+								AttackSpeed: 3.5f
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "0337918F60FC0D4C"
+					item: {
+						Count: 1
+						id: "gtceu:infinite_mortar"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								MaxDamage: 79999999
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "723073399D3EA532"
+					item: {
+						Count: 1
+						id: "gtceu:polybenzimidazole_mallet"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								DefaultEnchantments: [ ]
+								MaxDamage: 1023
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+			]
+			subtitle: "{gte.450B4E83018489AA.quests.6C03035896A297CC.subtitle}"
+			tasks: [
+				{
+					id: "19478BBB90FF5FF0"
+					item: {
+						Count: 1
+						id: "gtceu:iron_wire_cutter"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "17F97B46D79D1A3B"
+					item: {
+						Count: 1
+						id: "gtceu:iron_screwdriver"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7A0EE98F88908131"
+					item: {
+						Count: 1
+						id: "gtceu:iron_crowbar"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								HarvestLevel: 2
+								MaxDamage: 255
+								ToolSpeed: 6.0f
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "111377D7B403B1FC"
+					item: {
+						Count: 1
+						id: "gtceu:iron_saw"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								HarvestIce: 1b
+							}
+							GT.Tool: {
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "047B680620DB5EB9"
+					item: {
+						Count: 1
+						id: "gtceu:iron_knife"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								AttackDamage: 2.0f
+								AttackSpeed: 3.0f
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4E4B453A43A97F3F"
+					item: {
+						Count: 1
+						id: "gtceu:iron_mortar"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								MaxDamage: 255
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "2561A7CE89B97D32"
+					item: {
+						Count: 1
+						id: "gtceu:wood_mallet"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								DefaultEnchantments: [ ]
+								MaxDamage: 127
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+			]
+			title: "{gte.450B4E83018489AA.quests.6C03035896A297CC.title}"
+			x: -8.0d
+			y: 1.5d
+		}
+		{
+			dependencies: [
+				"6C03035896A297CC"
+				"31C67649C61385B2"
+			]
+			dependency_requirement: "one_completed"
+			id: "47DDDD0BB3FAF8C6"
+			rewards: [{
+				id: "62229C76F4165767"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "{gte.moremore}"
+			tasks: [{
+				id: "6529060DA3596E5D"
+				item: "gtceu:copper_dust"
+				type: "item"
+			}]
+			x: -5.5d
+			y: 0.0d
+		}
+		{
+			dependencies: [
+				"6C03035896A297CC"
+				"31C67649C61385B2"
+			]
+			dependency_requirement: "one_completed"
+			id: "5FA070D57A03E897"
+			rewards: [{
+				id: "57118E0F3398C48E"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "{gte.moremore}"
+			tasks: [{
+				id: "034B5D5BCAC76B34"
+				item: "gtceu:tin_dust"
+				type: "item"
+			}]
+			x: -5.5d
+			y: 1.0d
+		}
+		{
+			dependencies: [
+				"47DDDD0BB3FAF8C6"
+				"5FA070D57A03E897"
+			]
+			id: "38DFB362E98E750B"
+			rewards: [{
+				id: "72D46E8903B3AFAE"
+				type: "xp_levels"
+				xp_levels: 3
+			}]
+			subtitle: "{gte.bs}"
+			tasks: [{
+				id: "64557346E158E921"
+				item: "gtceu:bronze_dust"
+				type: "item"
+			}]
+			x: -4.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["38DFB362E98E750B"]
+			id: "3EDFD3C66D10EC35"
+			rewards: [{
+				count: 2
+				id: "5EF7B26EE1D7A1A9"
+				item: "gtceu:copper_credit"
+				type: "item"
+			}]
+			subtitle: "{gte.apw}"
+			tasks: [{
+				id: "72788194128D5741"
+				item: "gtceu:bronze_ingot"
+				type: "item"
+			}]
+			x: -3.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["3EDFD3C66D10EC35"]
+			id: "787EC074263C1BA6"
+			rewards: [{
+				count: 4
+				id: "23EFF4CB07145E27"
+				item: "gtceu:copper_credit"
+				type: "item"
+			}]
+			subtitle: "{gte.spower}"
+			tasks: [{
+				id: "6A0EF5C027282A36"
+				item: "gtceu:bronze_plate"
+				type: "item"
+			}]
+			x: -2.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["787EC074263C1BA6"]
+			id: "454E75E87ACFE4C6"
+			rewards: [{
+				count: 8
+				id: "740503F4E3AD5277"
+				item: "gtceu:copper_credit"
+				type: "item"
+			}]
+			subtitle: "{gte.yzz}"
+			tasks: [{
+				id: "7BCC2F4EBBC4CB9F"
+				item: "gtceu:lp_steam_solid_boiler"
+				type: "item"
+			}]
+			title: "{gte.450B4E83018489AA.quests.454E75E87ACFE4C6.title}"
+			x: -1.5d
+			y: 0.5d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			dependency_requirement: "one_completed"
+			description: [
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description0}"
+				""
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description1}"
+				""
+				"{gte.450B4E83018489AA.quests.34ABC0B777C13083.description2}"
+			]
+			icon: {
+				Count: 1
+				id: "gtceu:data_module"
+				tag: { }
+			}
+			id: "34ABC0B777C13083"
+			optional: true
+			rewards: [{
+				id: "6E9BE2E9CFB0CFB6"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "{gte.xyabc}"
+			tags: ["on_start"]
+			tasks: [{
+				id: "3CEF638AA6A7CBA6"
+				title: "{gte.450B4E83018489AA.quests.34ABC0B777C13083.tasks.3CEF638AA6A7CBA6.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.use_backup}"
+			x: -17.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["7AC928F321C75E9B"]
+			dependency_requirement: "one_completed"
+			description: [
+				""
+				"{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.description0}"
+				"{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.description1}"
+			]
+			disable_toast: true
+			icon: "minecraft:writable_book"
+			id: "7E5B87ADA50A4371"
+			optional: true
+			rewards: [{
+				id: "4E77BD98A12F6FF1"
+				type: "xp"
+				xp: 100
+			}]
+			shape: "heart"
+			subtitle: "{gte.to_look}"
+			tasks: [{
+				id: "42B8D973E0D8FC44"
+				title: "{gte.450B4E83018489AA.quests.7E5B87ADA50A4371.tasks.42B8D973E0D8FC44.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.chapter_0.qq_or_discord}"
+			x: -17.0d
+			y: -1.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["13E908447331858E"]
+			description: ["{gte.rtp}"]
+			icon: "javd:portal_block"
+			id: "6B6452584D88263D"
+			optional: true
+			rewards: [{
+				id: "405E06E91B52374A"
+				item: "javd:portal_block"
+				type: "item"
+			}]
+			subtitle: "{gte.dont_fall}"
+			tasks: [{
+				id: "0241122990FD5D55"
+				title: "{gte.450B4E83018489AA.quests.6B6452584D88263D.tasks.0241122990FD5D55.title}"
+				type: "checkmark"
+			}]
+			x: -13.0d
+			y: 2.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["7AC928F321C75E9B"]
+			dependency_requirement: "one_completed"
+			description: [
+				""
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description0}"
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description1}"
+				"{gte.450B4E83018489AA.quests.140646D9977DFB73.description2}"
+			]
+			disable_toast: true
+			icon: "minecraft:iron_ore"
+			id: "140646D9977DFB73"
+			optional: true
+			rewards: [{
+				command: "/ftbultimine serverconfig"
+				id: "7B983C16DB64207E"
+				type: "command"
+			}]
+			subtitle: "{gte.ftbu_1}"
+			tasks: [{
+				id: "6789B89C0E9BACB9"
+				title: "{gte.450B4E83018489AA.quests.140646D9977DFB73.tasks.6789B89C0E9BACB9.title}"
+				type: "checkmark"
+			}]
+			title: "{gte.ftbu}"
+			x: -17.0d
+			y: 2.0d
+		}
+		{
+			can_repeat: true
+			dependencies: [
+				"6B6452584D88263D"
+				"7C7E7C6A0F050964"
+				"13E908447331858E"
+			]
+			dependency_requirement: "one_started"
+			description: ["{gte.450B4E83018489AA.quests.1871D68EB938A5C5.description0}"]
+			icon: "minecraft:grass_block"
+			id: "1871D68EB938A5C5"
+			optional: true
+			rewards: [{
+				command: "/execute in minecraft:overworld run tp 0 120 0"
+				icon: "minecraft:grass_block"
+				id: "5F9CE722E7598B26"
+				type: "command"
+			}]
+			tags: [
+				"teleport"
+				"on_command"
+			]
+			tasks: [{
+				id: "6D3E1ED182F6FE74"
+				title: "{gte.450B4E83018489AA.quests.1871D68EB938A5C5.tasks.6D3E1ED182F6FE74.title}"
+				type: "checkmark"
+			}]
+			x: -12.5d
+			y: 4.5d
+		}
+		{
+			can_repeat: true
+			dependencies: ["7AC928F321C75E9B"]
+			icon: "buildinggadgets2:gadget_building"
+			id: "283E6EE3D126D688"
+			rewards: [
+				{
+					id: "2773D5507251C04E"
+					item: {
+						Count: 1
+						id: "buildinggadgets2:gadget_building"
+						tag: {
+							energy: 5000000
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "585C1EFC732AC973"
+					item: {
+						Count: 1
+						id: "buildinggadgets2:gadget_exchanging"
+						tag: {
+							energy: 5000000
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "36E3A4B7967AEB6F"
+					item: {
+						Count: 1
+						id: "buildinggadgets2:gadget_copy_paste"
+						tag: {
+							energy: 5000000
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "63E9F86AEEC86FEA"
+					item: {
+						Count: 1
+						id: "buildinggadgets2:gadget_cut_paste"
+						tag: {
+							energy: 5000000
+							pastereplace: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7D0B9E8B4349E173"
+					item: {
+						Count: 1
+						id: "buildinggadgets2:gadget_destruction"
+						tag: {
+							energy: 5000000
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4272F93E4ACA677D"
+					item: {
+						Count: 1
+						id: "wands:creative_wand"
+						tag: {
+							Damage: 0
+						}
+					}
+					type: "item"
+				}
+			]
+			subtitle: "{gte.ps_look}"
+			tasks: [{
+				id: "1EAD63363FD78044"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.283E6EE3D126D688.title}"
+			x: -15.5d
+			y: 2.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["13E908447331858E"]
+			icon: {
+				Count: 1
+				id: "sophisticatedstorage:diamond_barrel"
+				tag: {
+					woodType: "oak"
+				}
+			}
+			id: "6E92A1D6CF61C86D"
+			optional: true
+			rewards: [{
+				exclude_from_claim_all: true
+				id: "327ED2E2739C4B90"
+				table_id: 7156568337474541803L
+				type: "choice"
+			}]
+			tasks: [{
+				id: "26CC16A7F12DD5D4"
+				type: "checkmark"
+			}]
+			title: "{gte.450B4E83018489AA.quests.6E92A1D6CF61C86D.title}"
+			x: -9.5d
+			y: -1.0d
+		}
+		{
+			can_repeat: true
+			dependencies: ["13E908447331858E"]
+			description: ["{gte.desxx}"]
+			icon: "minecraft:dirt"
+			id: "7C7E7C6A0F050964"
+			optional: true
+			rewards: [{
+				count: 40
+				id: "37632C420F9877B6"
+				item: "minecraft:crying_obsidian"
+				type: "item"
+			}]
+			subtitle: "{gte.random1}"
+			tags: [
+				"teleport"
+				"on_command"
+			]
+			tasks: [{
+				id: "3295E11EE2358C7E"
+				type: "checkmark"
+			}]
+			title: "{gte.tp_to_flat}"
+			x: -12.0d
+			y: 2.5d
+		}
+		{
+			dependencies: ["2EF82D2485FD5033"]
+			description: ["{gte.no_god}"]
+			icon: {
+				Count: 1
+				id: "useless_mod:endless_beaf_item"
+				tag: { }
+			}
+			id: "31C67649C61385B2"
+			optional: true
+			rewards: [
+				{
+					id: "28F0BAF7F9C82B7B"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_wire_cutter"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4E2EBFE9A051FD00"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_screwdriver"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "56FAB1088426CA62"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_crowbar"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "0229A219A90CE4A4"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_saw"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								HarvestIce: 1b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "0BB9177BDEFD159C"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_knife"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								AttackDamage: 100.0f
+								AttackSpeed: 3.5f
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "0AF65B5371D023FF"
+					item: {
+						Count: 1
+						id: "gtceu:infinite_mortar"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								MaxDamage: 79999999
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7DABAA336798EEB8"
+					item: {
+						Count: 1
+						id: "gtceu:polybenzimidazole_mallet"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: { }
+							GT.Tool: {
+								DefaultEnchantments: [ ]
+								MaxDamage: 1023
+							}
+							HideFlags: 2
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "125594347A6128B9"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_file"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								DefaultEnchantments: [ ]
+								MaxDamage: 65534
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "5B29B30EC81D8355"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_wrench"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								Mode: 2b
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								DefaultEnchantments: [ ]
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "22A2931D65918FA4"
+					item: {
+						Count: 1
+						id: "gtceu:neutronium_hammer"
+						tag: {
+							Damage: 0
+							DisallowContainerItem: 0b
+							GT.Behaviours: {
+								RelocateMinedBlocks: 1b
+								RelocateMobDrops: 1b
+							}
+							GT.Tool: {
+								DefaultEnchantments: [ ]
+								HarvestLevel: 6
+								MaxDamage: 65534
+								ToolSpeed: 184.0f
+							}
+							HideFlags: 2
+							Unbreakable: 1b
+						}
+					}
+					type: "item"
+				}
+				{
+					count: 8
+					id: "02CFCAE296971BC8"
+					item: {
+						Count: 1
+						id: "useless_mod:endless_beaf_item"
+						tag: { }
+					}
+					type: "item"
+				}
+			]
+			subtitle: "{gte.ecd}"
+			tasks: [{
+				id: "5EFAF85FAE77D096"
+				title: "{gte.ecdf}"
+				type: "checkmark"
+			}]
+			title: "{gte.ec}"
+			x: -8.0d
+			y: -0.5d
+		}
+		{
+			dependencies: ["13E908447331858E"]
+			id: "0F9A50B0B1BFE540"
+			rewards: [
+				{
+					id: "7F067C09818DEE20"
+					item: {
+						Count: 1
+						id: "advanced_ae:quantum_helmet"
+						tag: {
+							Damage: 0
+							charging_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 1
+							}
+							internalCurrentPower: 2.0E8d
+							luck_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 2
+							}
+							magnet_tag: {
+								enabled: 0b
+								extra: 1b
+								filter: [ ]
+								value: 12
+							}
+							night_vision_on: 1b
+							night_vision_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 1
+							}
+							water_breathing_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 1
+							}
+							workbench_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 1
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "0970211C3F776080"
+					item: {
+						Count: 1
+						id: "advanced_ae:quantum_chestplate"
+						tag: {
+							Damage: 0
+							charging_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 1
+							}
+							flight_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 10
+							}
+							internalCurrentPower: 3.0E8d
+							pick_craft_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 1
+							}
+							regeneration_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 1
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "4FE8622CF63BB189"
+					item: {
+						Count: 1
+						id: "advanced_ae:quantum_leggings"
+						tag: {
+							Damage: 0
+							charging_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 1
+							}
+							internalCurrentPower: 2.5E8d
+							reach_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 5
+							}
+						}
+					}
+					type: "item"
+				}
+				{
+					id: "7B52599DBC919A87"
+					item: {
+						Count: 1
+						id: "advanced_ae:quantum_boots"
+						tag: {
+							Damage: 0
+							charging_tag: {
+								enabled: 1b
+								filter: [ ]
+								value: 1
+							}
+							internalCurrentPower: 2.0E8d
+						}
+					}
+					type: "item"
+				}
+			]
+			subtitle: "{gte.ohohno}"
+			tasks: [{
+				id: "1331E97E43EAF157"
+				type: "checkmark"
+			}]
+			title: "{gte.oh_no}"
+			x: -9.5d
+			y: 2.0d
+		}
+		{
+			id: "1BDFCEA0A9450F3D"
+			rewards: [{
+				id: "4B548B2EFF92225D"
+				type: "xp_levels"
+				xp_levels: 5
+			}]
+			subtitle: "{gte.chapter_0.abcd}"
+			tasks: [{
+				id: "627A354DACDADDF7"
+				type: "checkmark"
+			}]
+			title: "{gte.meow}"
+			x: -21.5d
+			y: 0.5d
+		}
+	]
+	subtitle: ["{gte.chapter_0.abcde}"]
+	title: "{gte.chapter_0.abcdef}"
+}

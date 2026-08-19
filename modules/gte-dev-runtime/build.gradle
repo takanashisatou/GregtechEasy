@@ -1,0 +1,144 @@
+plugins {
+    id 'java'
+    id 'idea'
+    alias libs.plugins.modDevGradle
+}
+
+evaluationDependsOn(':modules:gtm-reborn')
+evaluationDependsOn(':modules:gt--')
+evaluationDependsOn(':modules:gtecore')
+
+
+group = 'org.satou.gtecore'
+version = '1.0.0-DEV-RUNTIME'
+
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(21)
+}
+
+configurations {
+    localRuntime
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+obfuscation {
+    createRemappingConfiguration(configurations.localRuntime)
+}
+
+dependencies {
+    implementation(project(':modules:gtm-reborn')) { transitive = false }
+    implementation(project(':modules:gt--')) { transitive = false }
+    implementation(project(':modules:gtecore')) { transitive = false }
+
+    modLocalRuntime("blank:gtmthings:1.5.4")
+    modLocalRuntime(forge.ldlib)
+    modLocalRuntime(forge.registrate)
+    modLocalRuntime(forge.configuration)
+    modLocalRuntime(forge.ae2)
+    modLocalRuntime(forge.guideme)
+    modLocalRuntime(forge.bundles.jei)
+    modLocalRuntime(forge.jade)
+    modLocalRuntime(forge.curios)
+    modLocalRuntime(forge.architectury)
+    modLocalRuntime(forge.kubejs)
+    modLocalRuntime(forge.rhino)
+    modLocalRuntime(forge.kotlinforforge)
+    modLocalRuntime(forge.ponder)
+    modLocalRuntime(forge.flywheel.forge)
+
+    // Local flatDir pack mods: resolve from the bundled jars so no network is needed.
+    def packLibsDir = file("${rootDir}/modules/gtecore/gradle/libs")
+    def alreadyProvided = [
+        'appliedenergistics2-forge', 'architectury-', 'curios-forge',
+        'gtmthings', 'guideme', 'jade-', 'jei-1.20.1-forge',
+        'kotlinforforge', 'kubejs-forge', 'rhino-forge'
+    ]
+    def devUnsafe = [
+        'gtm-reborn', 'gtecore', 'gtnn-',
+        'oculus', 'embeddium', 'modernfix', 'modern-ui', 'modernui'
+    ]
+    if (packLibsDir.exists()) {
+        packLibsDir.eachFileMatch(~/.*\.jar/) { jar ->
+            def name = jar.name.toLowerCase()
+            if (alreadyProvided.any { name.contains(it) }) {
+                return
+            }
+            if (devUnsafe.any { name.contains(it) }) {
+                return
+            }
+
+            def base = jar.name.replaceAll(/\.jar$/, '')
+            def parts = base.split('-')
+            def versionStart = -1
+            for (int i = parts.length - 1; i >= 0; i--) {
+                if (parts[i] ==~ /^\d.*/) {
+                    versionStart = i
+                    break
+                }
+            }
+            if (versionStart < 0) {
+                versionStart = parts.length - 1
+            }
+            def artifact = parts[0..<versionStart].join('-')
+            def version = parts[versionStart..-1].join('-')
+            modLocalRuntime("dev:${artifact}:${version}")
+        }
+    }
+}
+
+legacyForge {
+    version = libs.versions.minecraftForge.get()
+    parchment {
+        minecraftVersion = libs.versions.minecraft.get()
+        mappingsVersion = libs.versions.parchment.get()
+    }
+
+    mods {
+        gtceu {
+            sourceSet(project(':modules:gtm-reborn').sourceSets.main)
+            sourceSet(project(':modules:gtm-reborn').sourceSets.client)
+            sourceSet(project(':modules:gtm-reborn').sourceSets.extra)
+        }
+        gtnn {
+            sourceSet(project(':modules:gt--').sourceSets.main)
+        }
+        gtecore {
+            sourceSet(project(':modules:gtecore').sourceSets.main)
+            sourceSet(project(':modules:gtecore').sourceSets.client)
+        }
+    }
+
+    runs {
+        client {
+            client()
+            ideName = "Run GTE Full Pack (Client - Hot Debug)"
+            gameDirectory.set(file("${rootDir}/run/client"))
+            systemProperty('forge.logging.markers', 'REGISTRIES')
+            systemProperty('forge.logging.console.level', 'info')
+            def runtimeXmx = System.getenv('GTE_RUNTIME_XMX') ?: '8G'
+            jvmArguments.addAll("-Xmx${runtimeXmx}", '-XX:+UseG1GC')
+        }
+
+        server {
+            server()
+            ideName = "Run GTE Full Pack (Server - Hot Debug)"
+            gameDirectory.set(file("${rootDir}/run/server"))
+            programArguments.addAll('--nogui')
+            jvmArguments.addAll('-Xmx6G', '-XX:+UseG1GC')
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            systemProperty 'mixin.config', 'gtceu.mixins.json,gtecore.mixins.json,gtnn.mixins.json'
+            logLevel = org.slf4j.event.Level.INFO
+        }
+    }
+}
+
+// Disable maven publishing and archive production for this shadow dev module
+tasks.withType(Jar).configureEach {
+    enabled = false
+}
+tasks.withType(PublishToMavenRepository).configureEach {
+    enabled = false
+}

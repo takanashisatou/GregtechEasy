@@ -1,0 +1,143 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.21' apply false
+}
+
+allprojects {
+    group = 'org.satou.gtecore'
+    
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = 'UTF-8'
+        options.compilerArgs << "-Xlint:-removal"
+        options.compilerArgs << "-Aquiet=true"
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply from: "${rootDir}/gradle/scripts/repositories.gradle"
+
+    java {
+        toolchain.languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Blockbench Art Assets Synchronization Task
+// ---------------------------------------------------------------------------
+tasks.register('syncBlockbenchAssets') {
+    group = 'build'
+    description = 'Automatically synchronize Blockbench models (.json/.bbmodel) and textures (.png) to gtecore resources'
+
+    def artAssetsDir = file("${rootDir}/art_assets")
+    def gtecoreAssetsDir = file("${rootDir}/modules/gtecore/src/main/resources/assets/gtecore")
+
+    inputs.dir(artAssetsDir)
+    outputs.dir(gtecoreAssetsDir)
+
+    doLast {
+        if (!artAssetsDir.exists()) {
+            logger.warn("art_assets directory does not exist, skipping asset synchronization.")
+            return
+        }
+
+        int syncedCount = 0
+        fileTree(artAssetsDir).visit { element ->
+            if (element.directory) return
+            def name = element.name
+            File targetFile = null
+
+            // Texture assets (.png / .mcmeta)
+            if (name.endsWith('.png') || name.endsWith('.png.mcmeta') || name.endsWith('.mcmeta')) {
+                if (name.contains('processor') || name.contains('string') || name.contains('symbol') || 
+                    name.contains('paper') || name.contains('wafer') || name.contains('chip') || 
+                    name.contains('god') || name.contains('rune') || name.contains('yin') || name.contains('yang')) {
+                    targetFile = new File(gtecoreAssetsDir, "textures/item/${name}")
+                } else if (name.contains('casing') || name.contains('module') || name.contains('concrete') || 
+                           name.contains('coil') || name.contains('zhenfa') || name.contains('matrix') || 
+                           name.contains('buffer') || name.contains('generator') || name.contains('machine')) {
+                    targetFile = new File(gtecoreAssetsDir, "textures/block/${name}")
+                } else {
+                    targetFile = new File(gtecoreAssetsDir, "textures/item/${name}")
+                }
+            } 
+            // Model assets (.json, excluding .bbmodel metadata)
+            else if (name.endsWith('.json') && !name.endsWith('.bbmodel')) {
+                if (name.contains('casing') || name.contains('module') || name.contains('block') || name.contains('matrix')) {
+                    targetFile = new File(gtecoreAssetsDir, "models/block/${name}")
+                } else {
+                    targetFile = new File(gtecoreAssetsDir, "models/item/${name}")
+                }
+            }
+
+            if (targetFile != null) {
+                targetFile.parentFile.mkdirs()
+                element.file.withInputStream { ins ->
+                    targetFile.withOutputStream { outs ->
+                        outs << ins
+                    }
+                }
+                syncedCount++
+            }
+        }
+        logger.lifecycle(">> [Blockbench Sync] Successfully synchronized ${syncedCount} art assets into gtecore resources.")
+    }
+}
+
+// ---------------------------------------------------------------------------
+// Aggregated Lifecycle Tasks
+// ---------------------------------------------------------------------------
+tasks.register('buildAll') {
+    group = 'build'
+    description = 'Build all submodules in order (gtm-reborn -> gt-- -> gtecore)'
+    dependsOn ':modules:gtm-reborn:build'
+    dependsOn ':modules:gt--:build'
+    dependsOn ':modules:gtecore:build'
+}
+
+tasks.register('copyOutputJars') {
+    group = 'build'
+    description = 'Copy built core jars to gte/overrides/mods/'
+    dependsOn 'buildAll'
+
+    doLast {
+        def overridesModsDir = file("${rootDir}/gte/overrides/mods")
+        overridesModsDir.mkdirs()
+
+        copy {
+            from project(':modules:gtm-reborn').layout.buildDirectory.dir('libs')
+            from project(':modules:gt--').layout.buildDirectory.dir('libs')
+            from project(':modules:gtecore').layout.buildDirectory.dir('libs')
+            from file("${rootDir}/modules/gtecore/gradle/libs")
+            include '*.jar'
+            exclude '*-sources.jar', '*-dev.jar', '*-all.jar'
+            into overridesModsDir
+        }
+        logger.lifecycle(">> Successfully copied latest mod jars and runtime libs to ${overridesModsDir.absolutePath}")
+    }
+}
+
+tasks.register('publishAllToMaven') {
+    group = 'publishing'
+    description = 'Publish all submodules to local build/maven directory (for GitHub Pages deploy)'
+    dependsOn ':modules:gt--:publish'
+    dependsOn ':modules:gtecore:publish'
+    dependsOn ':modules:gtm-reborn:publish'
+}
+
+tasks.register('publishAllToMavenLocal') {
+    group = 'publishing'
+    description = 'Publish all submodules to user local ~/.m2/repository/'
+    dependsOn ':modules:gt--:publishToMavenLocal'
+    dependsOn ':modules:gtecore:publishToMavenLocal'
+    dependsOn ':modules:gtm-reborn:publishToMavenLocal'
+}

@@ -1,50 +1,62 @@
-/crash-reports/
-/backups/
-/ldlib/
-/logs/
-/local/
-/modernfix/
-/saves/
-/screenshots/
-/shaderpacks/
-/*-natives/
-/natives-*/
-/coremods/
-/server-resource-packs/
-/texturepacks/
-/log4j2.xml
-/servers.dat
-/rhino.local.properties
-/servers.dat_old
-/usercache.json
-/usernamecache.json
-/*.jar
-/*.json
-/config/asyncparticles/asyncparticles-mixin.properties
-/config/embeddium-fingerprint.json
-/config/oculus.properties
-/config/spark/
-/config/fabric/
-/mods/.index/
-/mods/*.jar
-/gtceu/
-/patchouli_books/
-/knownkeys.txt
-/options.txt
-/data/
-/resourcepacks/
-/shaderpacks/*.txt
-.idea/
-.cache
-.DS_Store
-/packwiz
-.direnv
-.envrc
-/*.zip
-/*.mrpack
-/result
-packwiz.exe
+# Gradle & Build Artifacts
+.gradle/
+.kotlin/
+build/
+out/
+bin/
+*.class
+spotless/
+**/spotless/
 
-!gtecore-*.jar
-config/flywheel-client.toml
-config/embeddium-options.json
+# IDE & Editor files
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+*.swp
+*~
+
+# Minecraft Runtime & Logs
+run/
+**/run/
+gte/overrides/logs/
+gte/overrides/crash-reports/
+gte/overrides/saves/
+gte/overrides/backups/
+gte/overrides/server_run/
+gte/overrides/local/
+gte/overrides/modernfix/
+*.log
+*.log.gz
+
+# System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Python & Translation Cache
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+
+# Large temporary exports
+*.zip
+*.tar.gz
+*.7z
+
+# Local Portable JDK & User Config
+.jdk/
+.jdk_path
+scripts/launcher_path.txt
+
+# 1.21.1 experimental / backup directories
+*1.21*
+GregTech-Modern-Reborn-1.21.1/
+GregTechModernReborn-1.21.1/
+GregTechModernReborn 1.21.1/
+
+# Local test instances & Launchers
+GTETest/
+*.exe
