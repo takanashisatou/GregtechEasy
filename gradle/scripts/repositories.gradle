@@ -17,16 +17,6 @@ repositories {
         url = "https://takanashisatou.github.io/gtecore/"
     }
     maven {
-        name = "BMCLAPI-Forge"
-        url = "https://bmclapi2.bangbang93.com/maven/"
-        content {
-            includeGroup "net.minecraftforge"
-            includeGroup "net.minecraftforge.gradle"
-            includeGroup "cpw.mods"
-            includeGroup "de.oceanlabs.mcp"
-        }
-    }
-    maven {
         name = "MinecraftForge"
         url = "https://maven.minecraftforge.net/"
     }
@@ -115,5 +105,15 @@ repositories {
     maven {
         name = "SquidDev"
         url = "https://maven.squiddev.cc"
+    }
+    maven {
+        name = "BMCLAPI-Forge"
+        url = "https://bmclapi2.bangbang93.com/maven/"
+        content {
+            includeGroup "net.minecraftforge"
+            includeGroup "net.minecraftforge.gradle"
+            includeGroup "cpw.mods"
+            includeGroup "de.oceanlabs.mcp"
+        }
     }
 }
