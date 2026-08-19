@@ -1,0 +1,2077 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	disable_toast: true
+	filename: "1261C93B9F66AF81"
+	group: "57A2B47B4CC0577F"
+	icon: "gtceu:hydrofluoric_acid_bucket"
+	id: "1261C93B9F66AF81"
+	order_index: 2
+	quest_links: [ ]
+	quests: [
+		{
+			id: "5B8AA05B5A3F6A00"
+			rewards: [{
+				id: "20FAF67B270C216A"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "元素单质能量密度最高"
+			tasks: [{
+				id: "2EF538BA668340B6"
+				item: "gtceu:hydrogen_bucket"
+				type: "item"
+			}]
+			x: -10.0d
+			y: -7.0d
+		}
+		{
+			id: "656410B936A6D7D0"
+			subtitle: "消毒榜首"
+			tasks: [{
+				id: "13F448A864F38E3F"
+				item: "gtceu:chlorine_bucket"
+				type: "item"
+			}]
+			x: 6.0d
+			y: -5.0d
+		}
+		{
+			id: "03B1836F0F6BEC8E"
+			tasks: [{
+				id: "27774902FC27CDF3"
+				item: "gtceu:propene_bucket"
+				type: "item"
+			}]
+			x: -4.0d
+			y: 3.5d
+		}
+		{
+			id: "28C6AA5E2BF0D1C1"
+			tasks: [{
+				id: "53F5882F05FF0FB8"
+				item: "gtceu:carbon_monoxide_bucket"
+				type: "item"
+			}]
+			x: 3.0d
+			y: 3.5d
+		}
+		{
+			id: "52DEEFAF65814934"
+			tasks: [{
+				id: "60F6171DB42DC76F"
+				item: "gtceu:butyraldehyde_bucket"
+				type: "item"
+			}]
+			x: 0.0d
+			y: 3.5d
+		}
+		{
+			id: "6C0F8C0D9DE6BFF3"
+			tasks: [{
+				id: "1E7FFE1196D84A57"
+				item: "gtceu:vinyl_acetate_bucket"
+				type: "item"
+			}]
+			x: 7.0d
+			y: 3.5d
+		}
+		{
+			id: "2EE569B0D1368F99"
+			tasks: [{
+				id: "283E28B649A812E0"
+				item: "gtceu:polyvinyl_butyral_bucket"
+				type: "item"
+			}]
+			x: 5.0d
+			y: 3.5d
+		}
+		{
+			id: "7305B6C6AF9C94FE"
+			tasks: [{
+				id: "01CBA493764F7C39"
+				item: "gtceu:polybenzimidazole_bucket"
+				type: "item"
+			}]
+			x: -8.0d
+			y: 3.5d
+		}
+		{
+			id: "1A1C6C38B8B72CB6"
+			tasks: [{
+				id: "52D24554C2F83BFA"
+				item: "gtceu:fluoroantimonic_acid_bucket"
+				type: "item"
+			}]
+			x: 4.0d
+			y: 3.5d
+		}
+		{
+			id: "1FF392BEB7AB297F"
+			tasks: [{
+				id: "4FCCBFB77050BC2B"
+				item: "gtceu:impure_enriched_naquadah_solution_bucket"
+				type: "item"
+			}]
+			x: -12.0d
+			y: 1.5d
+		}
+		{
+			id: "14C4D1BBC9E467B3"
+			tasks: [{
+				id: "22CD38D6EF68C99F"
+				item: "gtceu:impure_naquadria_solution_bucket"
+				type: "item"
+			}]
+			x: -12.0d
+			y: -0.5d
+		}
+		{
+			id: "50C4963C1019DB83"
+			tasks: [{
+				id: "6174537CEB668C2A"
+				item: "gtceu:enriched_naquadah_solution_bucket"
+				type: "item"
+			}]
+			x: -12.0d
+			y: -4.5d
+		}
+		{
+			id: "2A6C4706ADF8853B"
+			tasks: [{
+				id: "14C49E0835E32667"
+				item: "gtceu:enriched_naquadah_waste_bucket"
+				type: "item"
+			}]
+			x: -12.0d
+			y: 3.5d
+		}
+		{
+			id: "67983B3B0EC1FDBF"
+			tasks: [{
+				id: "7FE57CA307D00FCF"
+				item: "gtceu:acidic_enriched_naquadah_solution_bucket"
+				type: "item"
+			}]
+			x: -12.0d
+			y: 2.5d
+		}
+		{
+			id: "77AB7810F505EEBC"
+			tasks: [{
+				id: "67765C6B971DCB68"
+				item: "gtceu:acidic_naquadria_solution_bucket"
+				type: "item"
+			}]
+			x: -12.0d
+			y: 0.5d
+		}
+		{
+			id: "315D0E8D669C35B4"
+			tasks: [{
+				id: "08D054F710328D2E"
+				item: "gtceu:naquadria_waste_bucket"
+				type: "item"
+			}]
+			x: -12.0d
+			y: -5.5d
+		}
+		{
+			id: "6D0A4AB0DB2B65EA"
+			tasks: [{
+				id: "230AA5C2CFFF5118"
+				item: "gtceu:europium_bucket"
+				type: "item"
+			}]
+			x: -1.0d
+			y: 3.5d
+		}
+		{
+			id: "308C1B9E48F24B6C"
+			tasks: [{
+				id: "0CB6A0C9D08DB9D5"
+				item: "gtceu:bacteria_bucket"
+				type: "item"
+			}]
+			x: -2.0d
+			y: 3.5d
+		}
+		{
+			id: "47791E565C464BC9"
+			tasks: [{
+				id: "41DD17BDD1AABF7A"
+				item: "gtceu:bacterial_sludge_bucket"
+				type: "item"
+			}]
+			x: -3.0d
+			y: 3.5d
+		}
+		{
+			id: "40C6C9C29AFEE546"
+			tasks: [{
+				id: "421525BC0899F26B"
+				item: "gtceu:enriched_bacterial_sludge_bucket"
+				type: "item"
+			}]
+			x: -12.0d
+			y: -6.5d
+		}
+		{
+			id: "695888243D84E3F8"
+			tasks: [{
+				id: "4AB654FEE42E108B"
+				item: "gtceu:mutagen_bucket"
+				type: "item"
+			}]
+			x: 2.0d
+			y: 3.5d
+		}
+		{
+			id: "38F12D662F302E31"
+			tasks: [{
+				id: "0AE976F50B50AF5D"
+				item: "gtceu:sterilized_growth_medium_bucket"
+				type: "item"
+			}]
+			x: -9.0d
+			y: 3.5d
+		}
+		{
+			id: "53C36F55FD374758"
+			tasks: [{
+				id: "47B2EAE1D406A1DB"
+				item: "gtceu:element_710_bucket"
+				type: "item"
+			}]
+			x: -12.0d
+			y: -2.5d
+		}
+		{
+			id: "196C35DE22FCAD9D"
+			tasks: [{
+				id: "0733D67D39828A12"
+				item: "gtceu:dark_fluid_bucket"
+				type: "item"
+			}]
+			x: -11.0d
+			y: 3.5d
+		}
+		{
+			id: "2CDABF00423BF0CD"
+			tasks: [{
+				id: "6EC395CDFB04D966"
+				item: "gtceu:element_711_bucket"
+				type: "item"
+			}]
+			x: -12.0d
+			y: -3.5d
+		}
+		{
+			id: "36B3FDFB1361B06F"
+			tasks: [{
+				id: "699F698E329DC358"
+				item: "gtceu:quantum_ca_raw_bucket"
+				type: "item"
+			}]
+			x: 9.0d
+			y: 3.5d
+		}
+		{
+			id: "5572BE26738B34FF"
+			tasks: [{
+				id: "62AE260FC2BDCE82"
+				item: "gtceu:dimension_c_raw_bucket"
+				type: "item"
+			}]
+			x: 1.0d
+			y: 3.5d
+		}
+		{
+			id: "13F74875E7195BF4"
+			tasks: [{
+				id: "2DBD392B6C8ED7B5"
+				item: "gtceu:quantum_ca_bucket"
+				type: "item"
+			}]
+			x: -10.0d
+			y: 3.5d
+		}
+		{
+			id: "2BB85F9CE33745BF"
+			tasks: [{
+				id: "3CF0ACE6A1061B2B"
+				item: "gtceu:dimension_c_bucket"
+				type: "item"
+			}]
+			x: 8.0d
+			y: 3.5d
+		}
+		{
+			id: "3DBCCF9A588A20F2"
+			tasks: [{
+				id: "35C5559AECEA4758"
+				item: "gtceu:element_710_bromide_bucket"
+				type: "item"
+			}]
+			x: -12.0d
+			y: -1.5d
+		}
+		{
+			id: "11990B2075D0078B"
+			tasks: [{
+				id: "275C6EB9BCFAD4C5"
+				item: "gtceu:bromine_bucket"
+				type: "item"
+			}]
+			x: 6.0d
+			y: 3.5d
+		}
+		{
+			id: "1822E73D6CDBA4DE"
+			tasks: [{
+				id: "53F4D00FFA14E232"
+				item: "gtceu:super_string_catalyst_bucket"
+				type: "item"
+			}]
+			x: -6.0d
+			y: 3.5d
+		}
+		{
+			id: "5F8B37EB44C01A5D"
+			tasks: [{
+				id: "319E76A3EF83D6FB"
+				item: "gtceu:meow_meow_matter_bucket"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 3.5d
+		}
+		{
+			id: "7157E6C64D664EF2"
+			tasks: [{
+				id: "46E2E5F6DFDC0ABE"
+				item: "gtceu:singularity_bucket"
+				type: "item"
+			}]
+			x: -5.0d
+			y: 3.5d
+		}
+		{
+			id: "5C816FB3A9EB9269"
+			tasks: [{
+				id: "431A46C4CBDDBB03"
+				item: "gtceu:jinyuansu_bucket"
+				type: "item"
+			}]
+			x: -10.5d
+			y: 0.5d
+		}
+		{
+			id: "1D56F5F230A6FE95"
+			tasks: [{
+				id: "379A94BAA40D6FBB"
+				item: "gtceu:muyuansu_bucket"
+				type: "item"
+			}]
+			x: -9.5d
+			y: 0.5d
+		}
+		{
+			id: "48D7BF63AD383645"
+			tasks: [{
+				id: "34D09CFA60554054"
+				item: "gtceu:shuiyuansu_bucket"
+				type: "item"
+			}]
+			x: -8.5d
+			y: 0.5d
+		}
+		{
+			id: "5E47BA41048496E5"
+			tasks: [{
+				id: "78C754A60BD79BD8"
+				item: "gtceu:huo_bucket"
+				type: "item"
+			}]
+			x: -10.0d
+			y: 1.5d
+		}
+		{
+			id: "470D788770D15362"
+			tasks: [{
+				id: "08BA6E41E47D95AA"
+				item: "gtceu:tuyuansu_bucket"
+				type: "item"
+			}]
+			x: -9.0d
+			y: 1.5d
+		}
+		{
+			id: "683561FC3C083355"
+			rewards: [{
+				id: "429AF00A2CC208AB"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "锂电池, 好用"
+			tasks: [{
+				id: "21091F5B4D9CDC63"
+				item: "gtceu:lithium_dust"
+				type: "item"
+			}]
+			x: -10.0d
+			y: -6.0d
+		}
+		{
+			id: "0F1A64E70CEBE5F6"
+			rewards: [{
+				id: "798007878D75A06E"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "想要嗓子变声吗"
+			tasks: [{
+				id: "35010A20A9E5796F"
+				item: "gtceu:liquid_helium_bucket"
+				type: "item"
+			}]
+			x: 7.0d
+			y: -7.0d
+		}
+		{
+			id: "782CD95101E90FD5"
+			rewards: [{
+				id: "62F58F96140CCCF9"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "我看你又铍了"
+			tasks: [{
+				id: "4AE8B0AFE3BA5CDB"
+				item: "gtceu:beryllium_dust"
+				type: "item"
+			}]
+			x: -9.0d
+			y: -6.0d
+		}
+		{
+			id: "46FFFDDE1D9796B2"
+			rewards: [{
+				id: "46B5E57B138BB1F2"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "盐的组成成分有哪些?"
+			tasks: [{
+				id: "3F2A5689799A3996"
+				item: "gtceu:sodium_dust"
+				type: "item"
+			}]
+			x: -10.0d
+			y: -5.0d
+		}
+		{
+			id: "57427C393C4A8BDC"
+			rewards: [{
+				id: "1B981492A32899B0"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "仙女棒"
+			tasks: [{
+				id: "7F4F84554975BE38"
+				item: "gtceu:magnesium_dust"
+				type: "item"
+			}]
+			x: -9.0d
+			y: -5.0d
+		}
+		{
+			id: "3C8F246C7CCFEEB2"
+			rewards: [{
+				id: "695893268017FF7F"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "钠钾泵"
+			tasks: [{
+				id: "416D4D3642A42ACC"
+				item: "gtceu:potassium_dust"
+				type: "item"
+			}]
+			x: -10.0d
+			y: -4.0d
+		}
+		{
+			id: "7AC006B872219D14"
+			rewards: [{
+				id: "00C95EEF85CE9512"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "喝点汽水补补钙"
+			tasks: [{
+				id: "4F76D3E6606DB827"
+				item: "gtceu:calcium_dust"
+				type: "item"
+			}]
+			x: -9.0d
+			y: -4.0d
+		}
+		{
+			id: "5B9885F7DBBCE76C"
+			subtitle: "没加入进格雷"
+			tasks: [{
+				id: "4FE9880350F43FCB"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "钪"
+			x: -8.0d
+			y: -4.0d
+		}
+		{
+			id: "0FEB1D669C98C7BA"
+			rewards: [{
+				id: "40DF1D958A4B74C5"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "24K钛合金"
+			tasks: [{
+				id: "1372AD1393F47342"
+				item: "gtceu:titanium_dust"
+				type: "item"
+			}]
+			x: -7.0d
+			y: -4.0d
+		}
+		{
+			id: "551EB4687A8F6ECD"
+			rewards: [{
+				id: "004C967DECD57298"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "1EE9D8D9445A2B56"
+				item: "gtceu:vanadium_dust"
+				type: "item"
+			}]
+			x: -6.0d
+			y: -4.0d
+		}
+		{
+			id: "6996DA4F2F6ED6E6"
+			rewards: [{
+				id: "1A2526E39CD2E805"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "某些钢里会加入"
+			tasks: [{
+				id: "4FCFB1CFDA5FD552"
+				item: "gtceu:chromium_dust"
+				type: "item"
+			}]
+			x: -5.0d
+			y: -4.0d
+		}
+		{
+			id: "0E71228244AAADBD"
+			rewards: [{
+				id: "42F99CE846FC57B6"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "提升钢的品质"
+			tasks: [{
+				id: "1DF425234A0128A1"
+				item: "gtceu:manganese_dust"
+				type: "item"
+			}]
+			x: -4.0d
+			y: -4.0d
+		}
+		{
+			id: "5C94BA4665775EDB"
+			rewards: [{
+				id: "240676711C8C23A2"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "用于演示磁场"
+			tasks: [{
+				id: "1DE67CAA96E511D4"
+				item: "gtceu:iron_dust"
+				type: "item"
+			}]
+			x: -3.0d
+			y: -4.0d
+		}
+		{
+			id: "33E6FE114E6CF9D4"
+			rewards: [{
+				id: "7C0FE46D417020B3"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "钴蓝色"
+			tasks: [{
+				id: "6DD256DD369401EE"
+				item: "gtceu:cobalt_dust"
+				type: "item"
+			}]
+			x: -2.0d
+			y: -4.0d
+		}
+		{
+			id: "5F26E9190F1A38B7"
+			rewards: [{
+				id: "1A36861098F6BB43"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "41523FEEB4648B85"
+				item: "gtceu:nickel_dust"
+				type: "item"
+			}]
+			x: -1.0d
+			y: -4.0d
+		}
+		{
+			id: "196B6872D0EFFDA6"
+			rewards: [{
+				id: "2D557EE4F7DC4C7D"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "人类在公元前8000年就已经认识到这种元素了"
+			tasks: [{
+				id: "39A1F1551FAC5CB5"
+				item: "gtceu:copper_dust"
+				type: "item"
+			}]
+			x: 0.0d
+			y: -4.0d
+		}
+		{
+			id: "3619562FD6C4898E"
+			rewards: [{
+				id: "50987E0758916A8A"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "395E22C3B6FBB9B1"
+				item: "gtceu:zinc_dust"
+				type: "item"
+			}]
+			x: 1.0d
+			y: -4.0d
+		}
+		{
+			id: "78B29EA0D99F67F1"
+			rewards: [{
+				id: "25D09A6F6952C954"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "其实这东西很危险来着"
+			tasks: [{
+				id: "7CBA105790605EC4"
+				item: "gtceu:aluminium_dust"
+				type: "item"
+			}]
+			x: 2.0d
+			y: -5.0d
+		}
+		{
+			id: "34D2875491C3A2E5"
+			rewards: [{
+				id: "1940BEF9F0A62B3F"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "现代科技离不开的元素之一"
+			tasks: [{
+				id: "51F8F17D9D320930"
+				item: "gtceu:gallium_dust"
+				type: "item"
+			}]
+			x: 2.0d
+			y: -4.0d
+		}
+		{
+			id: "52958FFA39F96768"
+			rewards: [{
+				id: "206B75CD12A36175"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "可以和碳形成B6C6的类石墨烯结构"
+			tasks: [{
+				id: "08AAA46883996686"
+				item: "gtceu:boron_dust"
+				type: "item"
+			}]
+			x: 2.0d
+			y: -6.0d
+		}
+		{
+			id: "709C633BF3E2D18A"
+			rewards: [{
+				id: "17BC1BFF9F4E71DF"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "很神奇的元素, 当然, 前提忽略掉有机化学"
+			tasks: [{
+				id: "355CE47F27A12347"
+				item: "gtceu:carbon_dust"
+				type: "item"
+			}]
+			x: 3.0d
+			y: -6.0d
+		}
+		{
+			id: "5C49891D434FB66C"
+			rewards: [{
+				id: "527A7E590F27B535"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "6E7213683C6DA467"
+				item: "gtceu:nitrogen_bucket"
+				type: "item"
+			}]
+			x: 4.0d
+			y: -6.0d
+		}
+		{
+			id: "356EE496341C3110"
+			rewards: [{
+				id: "4FA595353F2FA51A"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "氧气是剧毒的"
+			tasks: [{
+				id: "557374E4F8B098DC"
+				item: "mekanism:oxygen_bucket"
+				type: "item"
+			}]
+			x: 5.0d
+			y: -6.0d
+		}
+		{
+			id: "48A895884FBD806D"
+			rewards: [{
+				id: "494132FEE7A2F347"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "电负性的爷"
+			tasks: [{
+				id: "3527E8207B363C49"
+				item: "gtceu:fluorine_bucket"
+				type: "item"
+			}]
+			x: 6.0d
+			y: -6.0d
+		}
+		{
+			id: "7B77CBA74D7CE775"
+			rewards: [{
+				id: "5E9BC413DC87E984"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "69F21C484AE62217"
+				item: "gtceu:neon_bucket"
+				type: "item"
+			}]
+			x: 7.0d
+			y: -6.0d
+		}
+		{
+			id: "1166310D3D1C8FCD"
+			rewards: [{
+				id: "4B2A4178463B4D72"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "地壳里全是这玩意"
+			tasks: [{
+				id: "407B0991616D6C49"
+				item: "gtceu:silicon_dust"
+				type: "item"
+			}]
+			x: 3.0d
+			y: -5.0d
+		}
+		{
+			id: "10CBB718FB8641E1"
+			rewards: [{
+				id: "29D255FCDCC57C14"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "4495FD7CCD77CC93"
+				item: "gtceu:phosphorus_dust"
+				type: "item"
+			}]
+			x: 4.0d
+			y: -5.0d
+		}
+		{
+			id: "4CB204953B1A10B0"
+			rewards: [{
+				id: "2C0B9D02E9137328"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "硫酸饮料其实有人尝试过"
+			tasks: [{
+				id: "167026E61DB29B8C"
+				item: "gtceu:sulfur_dust"
+				type: "item"
+			}]
+			x: 5.0d
+			y: -5.0d
+		}
+		{
+			id: "149B73F52AC31B15"
+			rewards: [{
+				id: "5251003785917C72"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "5B03283A36C5C481"
+				item: "gtceu:argon_bucket"
+				type: "item"
+			}]
+			x: 7.0d
+			y: -5.0d
+		}
+		{
+			id: "6DAD26D23F077040"
+			subtitle: "半导体"
+			tasks: [{
+				id: "0C8DF934D874A1A8"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "锗"
+			x: 3.0d
+			y: -4.0d
+		}
+		{
+			id: "5F2B60A5951F3061"
+			rewards: [{
+				id: "2C6A50DD735E772B"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "老寿星吃砒霜"
+			tasks: [{
+				id: "02FC0FF30580DB20"
+				item: "gtceu:arsenic_dust"
+				type: "item"
+			}]
+			x: 4.0d
+			y: -4.0d
+		}
+		{
+			id: "6A4D57F6880BE447"
+			tasks: [{
+				id: "3B46FDC799DABDE0"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "硒"
+			x: 5.0d
+			y: -4.0d
+		}
+		{
+			id: "326E57F6F78F15FC"
+			rewards: [{
+				id: "4C2F8A830C9EB046"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "盐水提纯实验"
+			tasks: [{
+				id: "72A405E564B1C881"
+				item: "gtceu:bromine_bucket"
+				type: "item"
+			}]
+			x: 6.0d
+			y: -4.0d
+		}
+		{
+			id: "6C369DA5A61653AF"
+			rewards: [{
+				id: "0E9D895F69FAF092"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "没有存在感"
+			tasks: [{
+				id: "17C6941FF829DB0B"
+				item: "gtceu:krypton_bucket"
+				type: "item"
+			}]
+			x: 7.0d
+			y: -4.0d
+		}
+		{
+			id: "1B2B89F0125AADEA"
+			subtitle: "极限反应"
+			tasks: [{
+				id: "566C9AF0FCB17494"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "铷"
+			x: -10.0d
+			y: -3.0d
+		}
+		{
+			id: "2A74BC5116025A14"
+			subtitle: "其实GT--有个碳酸锶"
+			tasks: [{
+				id: "42A17852C0C4C693"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "锶"
+			x: -9.0d
+			y: -3.0d
+		}
+		{
+			id: "708DD058E78D1CE0"
+			rewards: [{
+				id: "2F0E027BA272FD71"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "超导可能会用到"
+			tasks: [{
+				id: "55C962B6C39E50C4"
+				item: "gtceu:yttrium_dust"
+				type: "item"
+			}]
+			x: -8.0d
+			y: -3.0d
+		}
+		{
+			id: "5402F1B1C9E3C450"
+			subtitle: "GT--有氧化锆"
+			tasks: [{
+				id: "1FC2313C3BFAD74F"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "锆"
+			x: -7.0d
+			y: -3.0d
+		}
+		{
+			id: "3CAA553168C331FA"
+			rewards: [{
+				id: "313CBDFABE5760BD"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "缺氧玩家都馋哭了"
+			tasks: [{
+				id: "36B40CE3325BE8D8"
+				item: "gtceu:niobium_dust"
+				type: "item"
+			}]
+			x: -6.0d
+			y: -3.0d
+		}
+		{
+			id: "122FC15674F7964B"
+			rewards: [{
+				id: "258A57CA25543471"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "7EE0F59572382348"
+				item: "gtceu:molybdenum_dust"
+				type: "item"
+			}]
+			x: -5.0d
+			y: -3.0d
+		}
+		{
+			id: "15571B9CAB351DE1"
+			tasks: [{
+				id: "1D36077BA3F526D9"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "锝"
+			x: -4.0d
+			y: -3.0d
+		}
+		{
+			id: "5AB2BDAA81686E4F"
+			rewards: [{
+				id: "54F3DABB9B976125"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "天下何人不通钌?"
+			tasks: [{
+				id: "08C73BED2C8160DA"
+				item: "gtceu:ruthenium_dust"
+				type: "item"
+			}]
+			x: -3.0d
+			y: -3.0d
+		}
+		{
+			id: "792C6BE87C9C50BB"
+			rewards: [{
+				id: "737DC99724E2911E"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "欢迎GT大铑"
+			tasks: [{
+				id: "633C963203BE7FE8"
+				item: "gtceu:rhodium_dust"
+				type: "item"
+			}]
+			x: -2.0d
+			y: -3.0d
+		}
+		{
+			id: "11A253C1A7D6A212"
+			rewards: [{
+				id: "143A4C97027FE31F"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "21A9A05B6FE5D3AF"
+				item: "gtceu:palladium_dust"
+				type: "item"
+			}]
+			x: -1.0d
+			y: -3.0d
+		}
+		{
+			id: "387FBAF5FF397437"
+			rewards: [{
+				id: "0F6D88972B9BC793"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "做最优质的导体"
+			tasks: [{
+				id: "106835678AC82FCF"
+				item: "gtceu:silver_dust"
+				type: "item"
+			}]
+			x: 0.0d
+			y: -3.0d
+		}
+		{
+			id: "68A5FAEB6976B880"
+			rewards: [{
+				id: "3EBF41AA0D6CEC47"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "638B91D5470AAFD4"
+				item: "gtceu:cadmium_dust"
+				type: "item"
+			}]
+			x: 1.0d
+			y: -3.0d
+		}
+		{
+			id: "47ABD18B8EDF84ED"
+			rewards: [{
+				id: "2E9C05A5752E3059"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "1803B4F5004DB0E0"
+				item: "gtceu:indium_dust"
+				type: "item"
+			}]
+			x: 2.0d
+			y: -3.0d
+		}
+		{
+			id: "4C666A7B3072C68C"
+			rewards: [{
+				id: "39CFCBAFCC00B735"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "熔点很低"
+			tasks: [{
+				id: "6348A1EDAC6E9320"
+				item: "gtceu:tin_dust"
+				type: "item"
+			}]
+			x: 3.0d
+			y: -3.0d
+		}
+		{
+			id: "1AE4D7D92F046290"
+			rewards: [{
+				id: "52256B5F30A3D076"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "鼎鼎大名氟锑酸"
+			tasks: [{
+				id: "298F349F7F46E22A"
+				item: "gtceu:antimony_dust"
+				type: "item"
+			}]
+			x: 4.0d
+			y: -3.0d
+		}
+		{
+			id: "3C9B2B8BF2ACFEE7"
+			rewards: [{
+				id: "53F76FD3822BB441"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "裂变买一送一"
+			tasks: [{
+				id: "32AB2012A24AEC04"
+				item: "gtceu:xenon_bucket"
+				type: "item"
+			}]
+			x: 7.0d
+			y: -3.0d
+		}
+		{
+			id: "6C89DFF0E49383B5"
+			rewards: [{
+				id: "47AE9A6091D37988"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "加碘盐"
+			tasks: [{
+				id: "2C362A5A2C559DB7"
+				item: "gtceu:iodine_dust"
+				type: "item"
+			}]
+			x: 6.0d
+			y: -3.0d
+		}
+		{
+			id: "4123DDC029AEA74D"
+			tasks: [{
+				id: "01BB93ADEB857BD2"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "碲"
+			x: 5.0d
+			y: -3.0d
+		}
+		{
+			id: "0A80FCA5F5FB23D7"
+			rewards: [{
+				id: "64E262C7E456105C"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "扔在水里小型炸弹"
+			tasks: [{
+				id: "6A3D68F3C120CB6F"
+				item: "gtceu:caesium_dust"
+				type: "item"
+			}]
+			x: -10.0d
+			y: -2.0d
+		}
+		{
+			id: "43EE8FFA719F07A1"
+			rewards: [{
+				id: "380A41DCE30B2E3E"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "2D74B9DD031D53B9"
+				item: "gtceu:barium_dust"
+				type: "item"
+			}]
+			x: -9.0d
+			y: -2.0d
+		}
+		{
+			id: "498F80FA5077A53F"
+			tasks: [{
+				id: "23D237A3B9021BAC"
+				item: "gtceu:lanthanum_dust"
+				type: "item"
+			}]
+			title: "镧系元素"
+			x: -8.0d
+			y: -2.0d
+		}
+		{
+			id: "1CA1782BB1B4F6B1"
+			rewards: [{
+				id: "6F0E64E5FA335099"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "772BAE452441916F"
+				item: "gtceu:lanthanum_dust"
+				type: "item"
+			}]
+			x: -7.0d
+			y: 1.0d
+		}
+		{
+			id: "1ABAA4FACB4A61D2"
+			subtitle: "铪?"
+			tasks: [{
+				id: "4DDCB279F92062D3"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "铪"
+			x: -7.0d
+			y: -2.0d
+		}
+		{
+			id: "1F0E8B78206CA5EA"
+			rewards: [{
+				id: "39857E446DE6FE4D"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "6E413485EDB27A7C"
+				item: "gtceu:tantalum_dust"
+				type: "item"
+			}]
+			x: -6.0d
+			y: -2.0d
+		}
+		{
+			id: "6D9A14AE707F6F93"
+			rewards: [{
+				id: "49C19874B75DB723"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "熔点相当的高"
+			tasks: [{
+				id: "52B3716746F99EDF"
+				item: "gtceu:tungsten_dust"
+				type: "item"
+			}]
+			x: -5.0d
+			y: -2.0d
+		}
+		{
+			id: "036D3A3430B42943"
+			tasks: [{
+				id: "4082631E4DC345F6"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "铼"
+			x: -4.0d
+			y: -2.0d
+		}
+		{
+			id: "0AE217F1AEE254E2"
+			rewards: [{
+				id: "10A5554FC51D91BB"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "Os!"
+			tasks: [{
+				id: "72D6C0E87AF01FEB"
+				item: "gtceu:osmium_dust"
+				type: "item"
+			}]
+			x: -3.0d
+			y: -2.0d
+		}
+		{
+			id: "19B6B5E54FB9DFF0"
+			rewards: [{
+				id: "0CAE004784DC4B5F"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "IC2玩家都馋哭了"
+			tasks: [{
+				id: "2E3446838C818A96"
+				item: "gtceu:iridium_dust"
+				type: "item"
+			}]
+			x: -2.0d
+			y: -2.0d
+		}
+		{
+			id: "065A208B9D6DC5A0"
+			rewards: [{
+				id: "5F3B34F8D0A6BBE2"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "白色黄金"
+			tasks: [{
+				id: "50F599BA0D497023"
+				item: "gtceu:platinum_dust"
+				type: "item"
+			}]
+			x: -1.0d
+			y: -2.0d
+		}
+		{
+			id: "35250159DC6B0AA5"
+			rewards: [{
+				id: "47BA84171C466B27"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "问曰: 今金价几何?"
+			tasks: [{
+				id: "6734A14A81F2D3BE"
+				item: "gtceu:gold_dust"
+				type: "item"
+			}]
+			x: 0.0d
+			y: -2.0d
+		}
+		{
+			id: "17F2BCD4005261D9"
+			rewards: [{
+				id: "3FD03C2B3594239D"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "据野史记载, 秦始皇喜欢让赵高品尝他做的水银美食"
+			tasks: [{
+				id: "702076B360B2B08E"
+				item: "gtceu:mercury_bucket"
+				type: "item"
+			}]
+			x: 1.0d
+			y: -2.0d
+		}
+		{
+			id: "1B974B18BC94AC5F"
+			tasks: [{
+				id: "78FA0F9F81301E02"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "铊"
+			x: 2.0d
+			y: -2.0d
+		}
+		{
+			id: "0A813862B2814FE0"
+			rewards: [{
+				id: "74C742C907CACEDB"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "相当重的元素"
+			tasks: [{
+				id: "2D146D7A731AC1DB"
+				item: "gtceu:lead_dust"
+				type: "item"
+			}]
+			x: 3.0d
+			y: -2.0d
+		}
+		{
+			id: "607B2105EBC78ACB"
+			rewards: [{
+				id: "3FE08391F406442D"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "人类发现该元素的历史比氢还早"
+			tasks: [{
+				id: "253E21A01831CF1C"
+				item: "gtceu:bismuth_dust"
+				type: "item"
+			}]
+			x: 4.0d
+			y: -2.0d
+		}
+		{
+			id: "70D9BD8E130BD544"
+			rewards: [{
+				id: "74799739F026F48D"
+				type: "xp_levels"
+				xp_levels: 5
+			}]
+			subtitle: "难为你了"
+			tasks: [{
+				id: "3A003FB98C77B218"
+				item: "mekanism:pellet_polonium"
+				type: "item"
+			}]
+			x: 5.0d
+			y: -2.0d
+		}
+		{
+			id: "46DB1BDDFD6FC95B"
+			subtitle: "不要砹声叹气"
+			tasks: [{
+				id: "223AA0BE45CB72ED"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "砹"
+			x: 6.0d
+			y: -2.0d
+		}
+		{
+			id: "2EA280BB24EE14C7"
+			rewards: [{
+				id: "5E699E0E6DABA0E5"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "氡天到了"
+			tasks: [{
+				id: "23F6B724AB5D0BF9"
+				item: "gtceu:radon_bucket"
+				type: "item"
+			}]
+			x: 7.0d
+			y: -2.0d
+		}
+		{
+			id: "706196141F46180C"
+			subtitle: "取自France"
+			tasks: [{
+				id: "549F0825D761ED44"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "钫"
+			x: -10.0d
+			y: -1.0d
+		}
+		{
+			id: "7E0EEC7D626D25D9"
+			subtitle: "镭打不动"
+			tasks: [{
+				id: "74D7953A956E3744"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "镭"
+			x: -9.0d
+			y: -1.0d
+		}
+		{
+			description: ["其实是我找不到锕"]
+			id: "0A8078019A558683"
+			tasks: [{
+				id: "1129D024D7688A18"
+				item: "gtnn:enriched_uranium"
+				type: "item"
+			}]
+			title: "锕"
+			x: -8.0d
+			y: -1.0d
+		}
+		{
+			description: ["其实是我找不到锕"]
+			id: "5EE86368C0F115A9"
+			tasks: [{
+				id: "5648CE9415C3C68F"
+				item: "gtnn:enriched_uranium"
+				type: "item"
+			}]
+			title: "锕"
+			x: -7.0d
+			y: 2.0d
+		}
+		{
+			id: "75257BE1BB47FEC4"
+			tasks: [{
+				id: "4BFD3553018BAE44"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "𬬻"
+			x: -7.0d
+			y: -1.0d
+		}
+		{
+			id: "418BEC70C795EBB4"
+			tasks: [{
+				id: "3EBF86ECB19457A2"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "𬭊"
+			x: -6.0d
+			y: -1.0d
+		}
+		{
+			id: "512C923495753114"
+			tasks: [{
+				id: "04C49884AA9692F1"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "𬭳"
+			x: -5.0d
+			y: -1.0d
+		}
+		{
+			id: "6A16368AB5FD1BA7"
+			subtitle: "𬭛𬭛𬭛"
+			tasks: [{
+				id: "352AD570AA1C2387"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "𬭛"
+			x: -4.0d
+			y: -1.0d
+		}
+		{
+			id: "7E007F6EFB48B7AD"
+			tasks: [{
+				id: "01740FC8D272C939"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "𬭶"
+			x: -3.0d
+			y: -1.0d
+		}
+		{
+			id: "44CD14E138AB378E"
+			tasks: [{
+				id: "6770B255997586D2"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "鿏"
+			x: -2.0d
+			y: -1.0d
+		}
+		{
+			id: "64005D541DE8C625"
+			tasks: [{
+				id: "7BF5ED98EA5A0EA5"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "𫟼"
+			x: -1.0d
+			y: -1.0d
+		}
+		{
+			id: "080E38D4D2E08F9A"
+			tasks: [{
+				id: "3C80751B430B5064"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "𬬭"
+			x: 0.0d
+			y: -1.0d
+		}
+		{
+			id: "5C00786E981578ED"
+			tasks: [{
+				id: "4A0E4B5B41EC121D"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "鿔"
+			x: 1.0d
+			y: -1.0d
+		}
+		{
+			id: "5DC5EC572B623493"
+			tasks: [{
+				id: "6F07B003766935FD"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "鿭"
+			x: 2.0d
+			y: -1.0d
+		}
+		{
+			id: "6C06A2667B2D6B2C"
+			tasks: [{
+				id: "5DB4B39902CCFB9F"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "𫓧"
+			x: 3.0d
+			y: -1.0d
+		}
+		{
+			id: "210C09748B3E7BE0"
+			subtitle: "MC"
+			tasks: [{
+				id: "779BD48DC97A3CA8"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "镆"
+			x: 4.0d
+			y: -1.0d
+		}
+		{
+			id: "4984E884F946497D"
+			tasks: [{
+				id: "5FAFC4517E82C9DD"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "𫟷"
+			x: 5.0d
+			y: -1.0d
+		}
+		{
+			id: "22AB4DE0E1A2C84B"
+			tasks: [{
+				id: "69957C1F5471F52F"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "鿬"
+			x: 6.0d
+			y: -1.0d
+		}
+		{
+			id: "773A9C032292F200"
+			subtitle: "很难说这是气体还是固体,又或是液体"
+			tasks: [{
+				id: "3B1400D83067D3BA"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "鿫"
+			x: 7.0d
+			y: -1.0d
+		}
+		{
+			id: "42054DFE41986A96"
+			rewards: [{
+				id: "24309610BA6E1DD2"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "0E02C6B619FA3B3E"
+				item: "gtceu:cerium_dust"
+				type: "item"
+			}]
+			x: -6.0d
+			y: 1.0d
+		}
+		{
+			id: "1912636AC74D7B5D"
+			rewards: [{
+				id: "592ADC39CB71CC8F"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "299DF1BB6636505E"
+				item: "gtceu:praseodymium_dust"
+				type: "item"
+			}]
+			x: -5.0d
+			y: 1.0d
+		}
+		{
+			id: "5B88A9B6C2AAD7B7"
+			rewards: [{
+				id: "69D11331C6123216"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "最强磁性材料"
+			tasks: [{
+				id: "47A2555F3BBBB219"
+				item: "gtceu:neodymium_dust"
+				type: "item"
+			}]
+			x: -4.0d
+			y: 1.0d
+		}
+		{
+			id: "164B4ECCDB8905BB"
+			tasks: [{
+				id: "628976193279A493"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "钷"
+			x: -3.0d
+			y: 1.0d
+		}
+		{
+			id: "1DF914431D09B84B"
+			rewards: [{
+				id: "62336F0B3A0E949B"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "2C4CC191535A14C8"
+				item: "gtceu:samarium_dust"
+				type: "item"
+			}]
+			x: -2.0d
+			y: 1.0d
+		}
+		{
+			id: "21965117934797F2"
+			rewards: [{
+				id: "4C44B7C5497AB651"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "5806C3CDEF690021"
+				item: "gtceu:europium_dust"
+				type: "item"
+			}]
+			x: -1.0d
+			y: 1.0d
+		}
+		{
+			id: "492575A8FE52D7CA"
+			tasks: [{
+				id: "11A04E3C07E25F7F"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "钆"
+			x: 0.0d
+			y: 1.0d
+		}
+		{
+			id: "40B10B1B355DC3BB"
+			tasks: [{
+				id: "2C5EAA6EFB6426A8"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "铽"
+			x: 1.0d
+			y: 1.0d
+		}
+		{
+			id: "698B5C8D212EA20E"
+			tasks: [{
+				id: "35AAA2E5066B4892"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "镝"
+			x: 2.0d
+			y: 1.0d
+		}
+		{
+			id: "560AD53F82285DA7"
+			tasks: [{
+				id: "2565FD0389E39A70"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "钬"
+			x: 3.0d
+			y: 1.0d
+		}
+		{
+			id: "3817D14845A63028"
+			tasks: [{
+				id: "4AA405755839069C"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "铒"
+			x: 4.0d
+			y: 1.0d
+		}
+		{
+			id: "6F178A15ED1F6806"
+			tasks: [{
+				id: "701DCC8F42A9593F"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "铥"
+			x: 5.0d
+			y: 1.0d
+		}
+		{
+			id: "420CC5FECBCAE9DF"
+			tasks: [{
+				id: "0C965CDC78DBE247"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "镱"
+			x: 6.0d
+			y: 1.0d
+		}
+		{
+			id: "45FC61C32B367634"
+			rewards: [{
+				id: "101FEFEC53AC3E7A"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "386CEDC86DC890D7"
+				item: "gtceu:lutetium_dust"
+				type: "item"
+			}]
+			x: 7.0d
+			y: 1.0d
+		}
+		{
+			id: "2A4CEF2D0639F1D9"
+			rewards: [{
+				id: "3B0151956637CA2D"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "39207C025B1200EE"
+				item: "gtceu:thorium_dust"
+				type: "item"
+			}]
+			x: -6.0d
+			y: 2.0d
+		}
+		{
+			id: "190095DC95D79147"
+			tasks: [{
+				id: "663B9EE6A0966A38"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "镤"
+			x: -5.0d
+			y: 2.0d
+		}
+		{
+			id: "5ECCA15D7B9A166E"
+			rewards: [{
+				id: "7858AEB36E393618"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "吃一斤铀, 这辈子都不用忍受吃饭痛苦了"
+			tasks: [{
+				id: "44B9E9433E7F6468"
+				item: "gtceu:uranium_dust"
+				type: "item"
+			}]
+			x: -4.0d
+			y: 2.0d
+		}
+		{
+			id: "7514A6C0A02F40A1"
+			tasks: [{
+				id: "11F96EF1EAC41E89"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "镎"
+			x: -3.0d
+			y: 2.0d
+		}
+		{
+			id: "23581790ACFED46F"
+			rewards: [{
+				id: "2EADB8B615FC76A2"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "20634FE4FE707DC1"
+				item: "gtceu:plutonium_dust"
+				type: "item"
+			}]
+			x: -2.0d
+			y: 2.0d
+		}
+		{
+			id: "122C5191F77B2438"
+			rewards: [{
+				id: "25726BF99CE8D29B"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "给你修修镅毛"
+			tasks: [{
+				id: "1869144F4B66587C"
+				item: "gtceu:americium_dust"
+				type: "item"
+			}]
+			x: -1.0d
+			y: 2.0d
+		}
+		{
+			id: "1050E29992F77633"
+			tasks: [{
+				id: "13EB9BB8F2F484AF"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "锔"
+			x: 0.0d
+			y: 2.0d
+		}
+		{
+			id: "5B8DE2585275C966"
+			tasks: [{
+				id: "6C021EEE21B61AFC"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "锫"
+			x: 1.0d
+			y: 2.0d
+		}
+		{
+			id: "44619484B3AAC4A2"
+			rewards: [{
+				id: "1A74064851D75B75"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "0AA2F0F136468520"
+				item: "gtceu:californium_bucket"
+				type: "item"
+			}]
+			x: 2.0d
+			y: 2.0d
+		}
+		{
+			id: "04EA28A198EF1823"
+			tasks: [{
+				id: "7B6E9E25422C47AA"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "锿"
+			x: 3.0d
+			y: 2.0d
+		}
+		{
+			id: "5D9C15EA55069AF7"
+			tasks: [{
+				id: "49F8B689CE444E37"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "镄"
+			x: 4.0d
+			y: 2.0d
+		}
+		{
+			id: "76526FA45B64DD0A"
+			tasks: [{
+				id: "4F97214D86F39717"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "钔"
+			x: 5.0d
+			y: 2.0d
+		}
+		{
+			id: "5BF2533780B0C223"
+			tasks: [{
+				id: "0F133D291D9260DE"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "锘"
+			x: 6.0d
+			y: 2.0d
+		}
+		{
+			id: "74653E43CC880E0A"
+			tasks: [{
+				id: "436075A4253C5A7A"
+				item: "minecraft:barrier"
+				type: "item"
+			}]
+			title: "铹"
+			x: 7.0d
+			y: 2.0d
+		}
+		{
+			id: "004804285D8D2349"
+			rewards: [{
+				id: "4C167196E33F98F0"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "228C6121810B6F16"
+				item: "gtecore:yin"
+				type: "item"
+			}]
+			x: 8.5d
+			y: 1.0d
+		}
+		{
+			id: "5DA2D4EA8CF813F4"
+			rewards: [{
+				id: "469C5F90760DA39A"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "0DDBFD337CB4595F"
+				item: "gtecore:yang"
+				type: "item"
+			}]
+			x: 8.5d
+			y: 2.0d
+		}
+	]
+	subtitle: ["里边放了个元素周期表"]
+	title: "&e化学物品收藏馆"
+}

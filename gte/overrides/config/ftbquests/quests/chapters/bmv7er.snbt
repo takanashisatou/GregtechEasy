@@ -1,0 +1,211 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "bmv7er"
+	group: "131B6AB47AA51F9B"
+	icon: "gtecore:component_factory"
+	id: "76F404D04285C29B"
+	images: [
+		{
+			click: "command:execute as @p run tellraw @p {\"text\":\"请使用高级终端并配置如下:\\n--------\\n\\u00A77替换线圈: \\u00A7a0\\n\\u00A77重复结构: \\u00A7a0\\n\\u00A77无仓室模式: \\u00A7a1\\n\\u00A77使用AE物品: \\u00A7a0\\n\\u00A77线圈等级: \\u00A7e随意\"}"
+			height: 1.0d
+			hover: [
+				"请使用高级终端并配置如下"
+				""
+				"替换线圈: 0"
+				"重复结构: 0"
+				"无仓室模式: 1"
+				"使用AE物品: 0"
+				"线圈等级: 随意"
+				"(可点击展示在聊天栏)"
+			]
+			image: "fancymenu:textures/contextmenu/icons/info.png"
+			rotation: 0.0d
+			width: 1.0d
+			x: -1.0d
+			y: 0.0d
+		}
+		{
+			click: "command:execute as @p run tellraw @p {\"text\":\"是否存在结构特殊要求:\\n--------\\n\\u00A7c否\"}"
+			height: 1.0d
+			hover: [
+				"是否存在特殊结构要求?"
+				""
+				"否"
+			]
+			image: "fancymenu:textures/contextmenu/icons/info.png"
+			rotation: 0.0d
+			width: 1.0d
+			x: 2.0d
+			y: 0.0d
+		}
+	]
+	order_index: 1
+	quest_links: [ ]
+	quests: [{
+		description: ["要成型需要一个维护仓和一个能源仓, 所以我多放了两个铝制机械方块, 你可以替换"]
+		id: "4D4029BAE0E397EA"
+		rewards: [{
+			id: "3A4DEF590AAF3297"
+			item: {
+				Count: 1
+				id: "ae2:processing_pattern"
+				tag: {
+					encodePlayer: "NanaLoveyuki"
+					in: [
+						{
+							"#": 1L
+							"#c": "ae2:i"
+							id: "gtecore:component_factory"
+						}
+						{ }
+						{ }
+						{ }
+						{ }
+						{
+							"#": 34L
+							"#c": "ae2:i"
+							id: "gtceu:aluminium_frame"
+						}
+						{
+							"#": 136L
+							"#c": "ae2:i"
+							id: "gtceu:cleanroom_glass"
+						}
+						{
+							"#": 16L
+							"#c": "ae2:i"
+							id: "gtceu:steel_pipe_casing"
+						}
+						{
+							"#": 85L
+							"#c": "ae2:i"
+							id: "gtceu:frostproof_machine_casing"
+						}
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+					]
+					out: [
+						{
+							"#": 1L
+							"#c": "ae2:i"
+							id: "sfm:disk"
+							tag: {
+								RepairCost: 0
+								display: {
+									Name: "{\"text\":\"零件工厂\"}"
+								}
+							}
+						}
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+						{ }
+					]
+				}
+			}
+			type: "item"
+		}]
+		subtitle: "嘿嘿"
+		tasks: [{
+			id: "69FBCFA702647C80"
+			type: "checkmark"
+		}]
+		title: "假合成样板"
+		x: 0.5d
+		y: 0.0d
+	}]
+	title: "&bMV&f-&e零件工厂&r"
+}

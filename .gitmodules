@@ -1,0 +1,12 @@
+[submodule "modules/gtm-reborn"]
+	path = modules/gtm-reborn
+	url = https://github.com/Gregtech-Modern-Reborn/GregTech-Modern-Reborn
+	branch = satou
+[submodule "modules/gtecore"]
+	path = modules/gtecore
+	url = https://github.com/takanashisatou/gtecore
+	branch = master
+[submodule "modules/gt--"]
+	path = modules/gt--
+	url = https://github.com/takanashisatou/GT---Community-Edition
+	branch = kotlin

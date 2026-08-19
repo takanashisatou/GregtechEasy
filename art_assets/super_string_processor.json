@@ -1,0 +1,8 @@
+{
+	"credit": "Made with Blockbench",
+	"parent": "minecraft:item/generated",
+	"textures": {
+		"0": "super_string_processor",
+		"particle": "super_string_processor"
+	}
+}

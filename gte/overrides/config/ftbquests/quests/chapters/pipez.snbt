@@ -1,0 +1,86 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "pipez"
+	group: ""
+	id: "2F43B57433E64F1F"
+	order_index: 6
+	quest_links: [ ]
+	quests: [{
+		description: [""]
+		icon: "pipez:universal_pipe"
+		id: "73DB631DCDD0D4B5"
+		rewards: [
+			{
+				count: 64
+				id: "392DACE409B103FE"
+				item: "pipez:item_pipe"
+				type: "item"
+			}
+			{
+				count: 64
+				id: "3C403BD34392468A"
+				item: "pipez:fluid_pipe"
+				type: "item"
+			}
+			{
+				count: 64
+				id: "241D89F0977D3DDB"
+				item: "pipez:energy_pipe"
+				type: "item"
+			}
+			{
+				count: 64
+				id: "36F1FAB8B634B6E1"
+				item: "pipez:universal_pipe"
+				type: "item"
+			}
+			{
+				count: 64
+				id: "20151233A487F724"
+				item: "pipez:gas_pipe"
+				type: "item"
+			}
+			{
+				count: 64
+				id: "1C836021F841C2C6"
+				item: "pipez:basic_upgrade"
+				type: "item"
+			}
+			{
+				count: 64
+				id: "2BDBE2F7859C2C1C"
+				item: "pipez:improved_upgrade"
+				type: "item"
+			}
+			{
+				count: 64
+				id: "2FB7EA704DC5BBF0"
+				item: "pipez:advanced_upgrade"
+				type: "item"
+			}
+			{
+				count: 64
+				id: "6CA6706B691F29F2"
+				item: "pipez:ultimate_upgrade"
+				type: "item"
+			}
+			{
+				count: 64
+				id: "4843F8FDBF604F60"
+				item: "pipez:infinity_upgrade"
+				type: "item"
+			}
+		]
+		size: 2.0d
+		subtitle: "{gte.pipez.quests.7EAE7F4267D2EFB5.subtitle}"
+		tasks: [{
+			id: "77575C4FFD2A229A"
+			title: "{gte.pipez.quests.7EAE7F4267D2EFB5.tasks.4E925F6147D6A787.title}"
+			type: "checkmark"
+		}]
+		x: 0.0d
+		y: -2.0d
+	}]
+	title: "{gte.pipez.title}"
+}

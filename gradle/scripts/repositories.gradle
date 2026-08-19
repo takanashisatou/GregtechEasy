@@ -1,0 +1,119 @@
+/**
+ * gradle/scripts/repositories.gradle
+ *
+ * 全局共享 Maven 仓库配置文件。
+ * 所有子模块 (gtm-reborn, gtecore, gte-dev-runtime 等) 统一共享此文件，
+ * 避免在多个子模块间重复复制粘贴仓库配置。
+ */
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    flatDir {
+        dir "${rootDir}/modules/gtecore/gradle/libs"
+    }
+    maven {
+        name = "GTE-GitHubPages"
+        url = "https://takanashisatou.github.io/gtecore/"
+    }
+    maven {
+        name = "BMCLAPI-Forge"
+        url = "https://bmclapi2.bangbang93.com/maven/"
+        content {
+            includeGroup "net.minecraftforge"
+            includeGroup "net.minecraftforge.gradle"
+            includeGroup "cpw.mods"
+            includeGroup "de.oceanlabs.mcp"
+        }
+    }
+    maven {
+        name = "MinecraftForge"
+        url = "https://maven.minecraftforge.net/"
+    }
+    maven {
+        name = "MojangLibraries"
+        url = "https://libraries.minecraft.net/"
+    }
+    maven {
+        name = "FuzssModresources"
+        url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven/"
+        content { includeGroup "fuzs" }
+    }
+    maven {
+        name = "CreateMod"
+        url = "https://maven.createmod.net"
+    }
+    maven {
+        name = "JaredsMaven"
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    maven {
+        name = "FirstDarkDev"
+        url = "https://maven.firstdark.dev/snapshots"
+    }
+    maven {
+        name = "FirstDarkDevXYZ"
+        url = "https://maven.firstdarkdev.xyz/snapshots"
+    }
+    maven {
+        name = "Configuration"
+        url = "https://api.repsy.io/mvn/toma/public/"
+    }
+    maven {
+        name = "TeamResourceful"
+        url = "https://maven.teamresourceful.com/repository/maven-public/"
+    }
+    maven {
+        name = "tterrag"
+        url = "https://maven.tterrag.com/"
+    }
+    maven {
+        name = "Latvian"
+        url = "https://maven.latvian.dev/releases"
+    }
+    maven {
+        name = "FTB"
+        url = "https://maven.ftb.dev/releases"
+    }
+    maven {
+        name = "TOP"
+        url = "https://maven.k-4u.nl"
+    }
+    maven {
+        name = "JourneyMap"
+        url = "https://jm.gserv.me/repository/maven-public/"
+    }
+    maven {
+        name = "Modrinth"
+        url = "https://api.modrinth.com/maven"
+    }
+    maven {
+        name = "CurseMaven"
+        url = "https://cursemaven.com"
+        content { includeGroup "curse.maven" }
+    }
+    maven {
+        name = "Terraformers"
+        url = "https://maven.terraformersmc.com/releases/"
+    }
+    maven {
+        name = "shedaniel"
+        url = "https://maven.shedaniel.me/"
+    }
+    maven {
+        name = "Curios"
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        name = "KotlinForForge"
+        url = "https://thedarkcolour.github.io/KotlinForForge/"
+    }
+    maven {
+        name = "SquidDev"
+        url = "https://maven.squiddev.cc"
+    }
+}

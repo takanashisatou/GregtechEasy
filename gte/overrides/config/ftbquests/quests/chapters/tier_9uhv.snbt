@@ -1,0 +1,687 @@
+{
+	autofocus_id: "62FD8E0CA756A7A4"
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "tier_9uhv"
+	group: "277796EFA601375B"
+	icon: "gtceu:uhv_machine_hull"
+	id: "03CA08D064CA1771"
+	images: [{
+		click: "https://liteyuki.feishu.cn/wiki/ClHrwvA1jivg5Vkn7DqcJLXFnqe"
+		height: 2.75d
+		hover: ["点击查看教程"]
+		image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_uhv.png"
+		rotation: 0.0d
+		width: 3.85d
+		x: -52.5d
+		y: -4.0d
+	}]
+	order_index: 9
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["403ED7A8579DAD2A"]
+			id: "62FD8E0CA756A7A4"
+			size: 1.5d
+			tasks: [
+				{
+					id: "0EC3969A39369A06"
+					item: "gtceu:uhv_electric_motor"
+					type: "item"
+				}
+				{
+					id: "4A8B7E8721F98AAA"
+					item: "gtceu:uhv_electric_pump"
+					type: "item"
+				}
+				{
+					id: "27FD1F39E350D8CE"
+					item: "gtceu:uhv_conveyor_module"
+					type: "item"
+				}
+				{
+					id: "007F5F8A5B083ECE"
+					item: "gtceu:uhv_robot_arm"
+					type: "item"
+				}
+				{
+					id: "435DEB9331B6C9E0"
+					item: "gtceu:uhv_electric_piston"
+					type: "item"
+				}
+			]
+			title: "UHV时代的老五样"
+			x: -54.0d
+			y: -1.5d
+		}
+		{
+			dependencies: [
+				"02593F3A091DB5FF"
+				"27F2E29BF534E93A"
+			]
+			id: "77D4992EA38DE4C5"
+			tasks: [{
+				id: "1C7E49A35FB74AC2"
+				item: "gtecore:taichi_five_elements_separation_array"
+				type: "item"
+			}]
+			x: -50.5d
+			y: -1.5d
+		}
+		{
+			dependencies: [
+				"5C816FB3A9EB9269"
+				"77D4992EA38DE4C5"
+			]
+			icon: "gtceu:jinyuansu_bucket"
+			id: "72322993708DD69D"
+			tasks: [{
+				id: "43D4CF77E4073A69"
+				title: "金: 五行之一"
+				type: "checkmark"
+			}]
+			title: "金元素:五行之一"
+			x: -48.0d
+			y: -3.5d
+		}
+		{
+			dependencies: [
+				"1D56F5F230A6FE95"
+				"77D4992EA38DE4C5"
+			]
+			icon: "gtceu:muyuansu_bucket"
+			id: "2B9C406FAF7CC0BA"
+			tasks: [{
+				id: "7888722635A7A5CE"
+				title: "木元素: 五行之二"
+				type: "checkmark"
+			}]
+			x: -48.0d
+			y: -2.5d
+		}
+		{
+			dependencies: [
+				"48D7BF63AD383645"
+				"77D4992EA38DE4C5"
+			]
+			icon: "gtceu:shuiyuansu_bucket"
+			id: "75FF1FFE060A8BB6"
+			tasks: [{
+				id: "0EC4603A338F62D7"
+				type: "checkmark"
+			}]
+			title: "水元素:五行之三"
+			x: -48.0d
+			y: -1.5d
+		}
+		{
+			dependencies: [
+				"5E47BA41048496E5"
+				"77D4992EA38DE4C5"
+			]
+			icon: "gtceu:huo_bucket"
+			id: "21D337EA5BA2B14E"
+			tasks: [{
+				id: "74691D69FB71D66C"
+				type: "checkmark"
+			}]
+			title: "火元素:五行之四"
+			x: -48.0d
+			y: -0.5d
+		}
+		{
+			dependencies: [
+				"470D788770D15362"
+				"77D4992EA38DE4C5"
+			]
+			icon: "gtceu:tuyuansu_bucket"
+			id: "4258448E93CF16B6"
+			tasks: [{
+				id: "2C0AEC8D74BB19F7"
+				type: "checkmark"
+			}]
+			title: "土元素:五行之五"
+			x: -48.0d
+			y: 0.5d
+		}
+		{
+			dependencies: ["62FD8E0CA756A7A4"]
+			id: "02593F3A091DB5FF"
+			tasks: [{
+				id: "1B365B02E602364A"
+				item: "gtecore:eight_trigmas_casing"
+				type: "item"
+			}]
+			x: -52.0d
+			y: -1.5d
+		}
+		{
+			dependencies: ["62FD8E0CA756A7A4"]
+			id: "27F2E29BF534E93A"
+			tasks: [{
+				id: "0D1931D47837349D"
+				item: "gtecore:god_nugget"
+				type: "item"
+			}]
+			x: -52.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["1695F8933C4B5848"]
+			id: "60D5413991C801EB"
+			tasks: [{
+				id: "082C236B97ACA423"
+				item: "gtecore:symbol_paper_gold"
+				type: "item"
+			}]
+			x: -44.5d
+			y: -1.5d
+		}
+		{
+			dependencies: ["37711213E0E6C7BE"]
+			id: "3936ACC1E6EEB000"
+			tasks: [{
+				id: "04B461D77C212EFF"
+				item: "gtecore:symbol_paper_wood"
+				type: "item"
+			}]
+			x: -37.0d
+			y: -2.5d
+		}
+		{
+			dependencies: ["37711213E0E6C7BE"]
+			id: "5FAAB250FB748770"
+			tasks: [{
+				id: "6B8B044FA297FF04"
+				item: "gtecore:symbol_paper_water"
+				type: "item"
+			}]
+			x: -34.0d
+			y: -2.5d
+		}
+		{
+			dependencies: ["7410AB203B3DCA25"]
+			id: "1D86744C3D272719"
+			tasks: [{
+				id: "0E93463A1FC61AE3"
+				item: "gtecore:symbol_paper_fire"
+				type: "item"
+			}]
+			x: -38.0d
+			y: -1.5d
+		}
+		{
+			dependencies: ["0C1AB98D6553CA1F"]
+			id: "4AE19A009842AA0E"
+			tasks: [{
+				id: "20C10FF5544A6032"
+				item: "gtecore:symbol_paper_earth"
+				type: "item"
+			}]
+			x: -41.5d
+			y: -1.5d
+		}
+		{
+			dependencies: [
+				"72322993708DD69D"
+				"2B9C406FAF7CC0BA"
+				"75FF1FFE060A8BB6"
+				"21D337EA5BA2B14E"
+				"4258448E93CF16B6"
+				"5CA73D2AE2FBAC2D"
+			]
+			id: "1695F8933C4B5848"
+			rewards: [{
+				id: "508A4633D298F7DC"
+				type: "xp_levels"
+				xp_levels: 5
+			}]
+			subtitle: "怎么我玩个MC还要会看风水"
+			tasks: [{
+				id: "4A0DEABCB634DF97"
+				item: "gtecore:yin_yang_eight_trigmas_blast_furnace"
+				type: "item"
+			}]
+			x: -46.0d
+			y: -1.5d
+		}
+		{
+			dependencies: ["4AE19A009842AA0E"]
+			description: [
+				""
+				"                                放在机器中心的西北方"
+				"{image:kubejs:textures/baihu_zhenfa.png width:100 height:100 align:center}"
+			]
+			id: "7410AB203B3DCA25"
+			tasks: [{
+				id: "620290FCAFAC59EC"
+				item: "gtecore:baihu_module"
+				type: "item"
+			}]
+			x: -40.0d
+			y: -1.5d
+		}
+		{
+			dependencies: [
+				"3936ACC1E6EEB000"
+				"5FAAB250FB748770"
+			]
+			description: [
+				"                                放在机器中心的东南方"
+				""
+				"{image:kubejs:textures/qinglong_zhenfa.png width:100 height:100 align:center}"
+			]
+			id: "693A12A80AC9C56E"
+			tasks: [{
+				id: "6FA0B23C5358A7C8"
+				item: "gtecore:qinglong_module"
+				type: "item"
+			}]
+			x: -35.5d
+			y: -3.5d
+		}
+		{
+			dependencies: ["60D5413991C801EB"]
+			description: [
+				""
+				"                                放在机器中心的西南方"
+				"{image:kubejs:textures/xuanwu_zhenfa.png width:100 height:100 align:center}"
+			]
+			id: "0C1AB98D6553CA1F"
+			subtitle: "以主机方块背面朝向的方向为北"
+			tasks: [{
+				id: "5D4F3FD5DDA7C5AE"
+				item: "gtecore:xuanwu_module"
+				type: "item"
+			}]
+			x: -43.0d
+			y: -1.5d
+		}
+		{
+			dependencies: ["1D86744C3D272719"]
+			description: [
+				""
+				"                                放在机器中心的东北方"
+				"{image:kubejs:textures/zhuque_zhenfa.png width:100 height:100 align:center}"
+			]
+			id: "37711213E0E6C7BE"
+			tasks: [{
+				id: "5B048E243B728682"
+				item: "gtecore:zhuque_module"
+				type: "item"
+			}]
+			x: -35.5d
+			y: -1.5d
+		}
+		{
+			dependencies: ["0C1AB98D6553CA1F"]
+			id: "1A25697B094BFA56"
+			tasks: [{
+				id: "323423962F10997E"
+				item: "gtecore:rune_dui"
+				type: "item"
+			}]
+			x: -43.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["0C1AB98D6553CA1F"]
+			id: "7360D289F3D77706"
+			tasks: [{
+				id: "6C7B06B6DA458701"
+				item: "gtecore:rune_gen"
+				type: "item"
+			}]
+			x: -43.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["7410AB203B3DCA25"]
+			id: "402CB3FC1F031039"
+			tasks: [{
+				id: "6F3BB6685D52A2EC"
+				item: "gtecore:rune_kan"
+				type: "item"
+			}]
+			x: -40.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["7410AB203B3DCA25"]
+			id: "2B3B84066036D692"
+			tasks: [{
+				id: "114393F32EB5D8BE"
+				item: "gtecore:rune_kun"
+				type: "item"
+			}]
+			x: -40.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["37711213E0E6C7BE"]
+			id: "59ED8F5C14557BC4"
+			tasks: [{
+				id: "7374546E310FAF69"
+				item: "gtecore:rune_li"
+				type: "item"
+			}]
+			x: -37.0d
+			y: -0.5d
+		}
+		{
+			dependencies: ["37711213E0E6C7BE"]
+			id: "3C1A8F61C93DE8B8"
+			tasks: [{
+				id: "69DA9EF0FFFF349A"
+				item: "gtecore:rune_qian"
+				type: "item"
+			}]
+			x: -34.0d
+			y: -0.5d
+		}
+		{
+			dependencies: ["693A12A80AC9C56E"]
+			id: "6FF9DAA44C2FACFE"
+			tasks: [{
+				id: "0E2B7621B23B373F"
+				item: "gtecore:rune_xun"
+				type: "item"
+			}]
+			x: -37.0d
+			y: -4.5d
+		}
+		{
+			dependencies: ["693A12A80AC9C56E"]
+			id: "09DE4B2CD6ECEDB1"
+			tasks: [{
+				id: "56378DEFB15973C9"
+				item: "gtecore:rune_zhen"
+				type: "item"
+			}]
+			x: -34.0d
+			y: -4.5d
+		}
+		{
+			dependencies: ["3DD89B8610553AD0"]
+			id: "435F2FD1997FE76B"
+			tasks: [{
+				id: "5B87C63617E40D36"
+				item: "gtecore:dui_chip"
+				type: "item"
+			}]
+			x: -40.0d
+			y: -7.0d
+		}
+		{
+			dependencies: ["4AD6A43305470814"]
+			id: "7B4987060705C801"
+			tasks: [{
+				id: "01F328A61F8EF9C4"
+				item: "gtecore:gen_chip"
+				type: "item"
+			}]
+			x: -43.0d
+			y: -7.0d
+		}
+		{
+			dependencies: [
+				"59ED8F5C14557BC4"
+				"3C1A8F61C93DE8B8"
+			]
+			id: "3375FF2C16942A44"
+			tasks: [{
+				id: "09740FA1B0C911BB"
+				item: "gtecore:red_sun_tao_core"
+				type: "item"
+			}]
+			x: -35.5d
+			y: 0.5d
+		}
+		{
+			dependencies: [
+				"2B3B84066036D692"
+				"7360D289F3D77706"
+			]
+			id: "3F05DD606DF7BD6B"
+			tasks: [{
+				id: "7868AEDC19E51E43"
+				item: "gtecore:kun_gen_star_hub"
+				type: "item"
+			}]
+			x: -41.5d
+			y: -4.5d
+		}
+		{
+			dependencies: ["304C5D4A5ECDC3D6"]
+			id: "3831687481A6BA73"
+			tasks: [{
+				id: "3361DC7B8E382799"
+				item: "gtecore:yin"
+				type: "item"
+			}]
+			x: -45.5d
+			y: -5.0d
+		}
+		{
+			dependencies: ["521440459E9F239F"]
+			id: "635046212F1D8ADE"
+			tasks: [{
+				id: "4F5F838FED76864C"
+				item: "gtecore:yang"
+				type: "item"
+			}]
+			x: -46.5d
+			y: -5.0d
+		}
+		{
+			id: "521440459E9F239F"
+			tasks: [{
+				id: "41A3A42FB25950E7"
+				item: "gtecore:alpha_string"
+				type: "item"
+			}]
+			x: -46.5d
+			y: -6.0d
+		}
+		{
+			id: "304C5D4A5ECDC3D6"
+			tasks: [{
+				id: "5456CD6F8700E0E9"
+				item: "gtecore:beta_string"
+				type: "item"
+			}]
+			x: -45.5d
+			y: -6.0d
+		}
+		{
+			dependencies: [
+				"3831687481A6BA73"
+				"635046212F1D8ADE"
+			]
+			id: "5CA73D2AE2FBAC2D"
+			tasks: [{
+				id: "0B16A5FB0F7C6E37"
+				item: "gtecore:yin_yang_coil_block"
+				type: "item"
+			}]
+			x: -46.0d
+			y: -3.5d
+		}
+		{
+			dependencies: ["3F05DD606DF7BD6B"]
+			id: "4AD6A43305470814"
+			tasks: [{
+				id: "316561C29C549581"
+				item: "gtceu:uhpic_chip"
+				type: "item"
+			}]
+			x: -43.0d
+			y: -5.0d
+		}
+		{
+			dependencies: ["3F05DD606DF7BD6B"]
+			id: "3DD89B8610553AD0"
+			tasks: [{
+				id: "38C059B4E59CBAD3"
+				item: "gtceu:highly_advanced_soc"
+				type: "item"
+			}]
+			x: -40.0d
+			y: -5.0d
+		}
+		{
+			dependencies: [
+				"693A12A80AC9C56E"
+				"6FF9DAA44C2FACFE"
+				"09DE4B2CD6ECEDB1"
+			]
+			id: "7E9A2166CA9CB464"
+			rewards: [{
+				id: "616C3E8781895CD7"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "像是熊猫"
+			tasks: [{
+				id: "424B84D26886D367"
+				item: "gtecore:yin_yang_boule"
+				type: "item"
+			}]
+			x: -35.5d
+			y: -5.5d
+		}
+		{
+			dependencies: ["7E9A2166CA9CB464"]
+			id: "099F94CFF9545A71"
+			rewards: [{
+				id: "48F6711D4009492B"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "我还以为你会动起来"
+			tasks: [{
+				id: "31FB52C25502B590"
+				item: "gtecore:yin_yang_circuit_chip"
+				type: "item"
+			}]
+			x: -35.5d
+			y: -7.5d
+		}
+		{
+			dependencies: ["099F94CFF9545A71"]
+			id: "67B31D0FBC971B65"
+			rewards: [{
+				id: "2FE7F3C7374EC17F"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "527DBA8D97303082"
+				item: "gtecore:yin_yang_circuit_board"
+				type: "item"
+			}]
+			x: -35.5d
+			y: -9.5d
+		}
+		{
+			dependencies: ["67B31D0FBC971B65"]
+			id: "23D4662E992BC941"
+			rewards: [{
+				id: "205C6D02844F0FE6"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "3EBFBF8CE1EE0CE2"
+				item: "gtecore:yin_yang_processor"
+				type: "item"
+			}]
+			x: -37.5d
+			y: -9.5d
+		}
+		{
+			dependencies: ["23D4662E992BC941"]
+			id: "0F6344E899EA264C"
+			rewards: [{
+				id: "0A8EA2222ECBDA72"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "4D1B697BD96BC971"
+				item: "gtecore:yin_yang_processor_assembly"
+				type: "item"
+			}]
+			x: -39.5d
+			y: -9.5d
+		}
+		{
+			dependencies: ["0F6344E899EA264C"]
+			id: "769C8F34627F32E0"
+			rewards: [{
+				id: "7D15F51F10BD8170"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "37D73295202EFB88"
+				item: "gtecore:yin_yang_processor_computer"
+				type: "item"
+			}]
+			x: -41.5d
+			y: -9.5d
+		}
+		{
+			dependencies: ["769C8F34627F32E0"]
+			id: "3199B7281B38A1EA"
+			rewards: [{
+				id: "1A9ECAF532F04034"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "2E92B8CC718B81B5"
+				item: "gtecore:yin_yang_processor_mainframe"
+				type: "item"
+			}]
+			x: -43.5d
+			y: -9.5d
+		}
+		{
+			dependencies: ["3199B7281B38A1EA"]
+			id: "0C19900931A3AA21"
+			rewards: [{
+				id: "37BC401EABAFA03D"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "说真的,我觉得这玩意是行星发动机"
+			tasks: [{
+				id: "10787B824A0A119A"
+				item: "gtecore:qian_qiong_engine"
+				type: "item"
+			}]
+			x: -45.0d
+			y: -10.5d
+		}
+		{
+			dependencies: ["3199B7281B38A1EA"]
+			id: "6B19735850595737"
+			rewards: [{
+				id: "07F63981CCE88F72"
+				type: "xp"
+				xp: 100
+			}]
+			subtitle: "将物质融为基本态"
+			tasks: [{
+				id: "5C5E12188FC3CDFA"
+				item: "gtecore:ashing_star_fusion_array"
+				type: "item"
+			}]
+			x: -45.0d
+			y: -8.5d
+		}
+	]
+	subtitle: ["极高压"]
+	title: "&4[Tier 9] UHV&r"
+}

@@ -1,0 +1,30 @@
+{
+	id: "4B78078173F629A8"
+	loot_size: 1
+	order_index: 4
+	rewards: [
+		{ item: "gtceu:sapphire_lens" }
+		{ item: "gtceu:emerald_lens" }
+		{ item: "gtceu:glass_lens" }
+		{ item: "gtceu:nether_star_lens" }
+		{ item: "gtceu:diamond_lens" }
+		{ item: "gtceu:ruby_lens" }
+		{ item: "gtceu:amethyst_lens" }
+		{ item: "gtceu:orange_glass_lens" }
+		{ item: "gtceu:magenta_glass_lens" }
+		{ item: "gtceu:light_blue_glass_lens" }
+		{ item: "gtceu:yellow_glass_lens" }
+		{ item: "gtceu:lime_glass_lens" }
+		{ item: "gtceu:pink_glass_lens" }
+		{ item: "gtceu:gray_glass_lens" }
+		{ item: "gtceu:light_gray_glass_lens" }
+		{ item: "gtceu:cyan_glass_lens" }
+		{ item: "gtceu:purple_glass_lens" }
+		{ item: "gtceu:blue_glass_lens" }
+		{ item: "gtceu:brown_glass_lens" }
+		{ item: "gtceu:green_glass_lens" }
+		{ item: "gtceu:red_glass_lens" }
+		{ item: "gtceu:black_glass_lens" }
+	]
+	title: "透镜"
+}

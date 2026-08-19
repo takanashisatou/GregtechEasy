@@ -1,0 +1,12 @@
+{
+	id: "2883C35C8461631D"
+	loot_size: 1
+	order_index: 2
+	rewards: [
+		{ count: 64, item: "enderio:ender_fluid_conduit" }
+		{ count: 64, item: "enderio:ender_chemical_conduit" }
+		{ count: 64, item: "enderio:item_conduit" }
+		{ count: 64, item: "enderio:redstone_conduit" }
+	]
+	title: "末影接口"
+}

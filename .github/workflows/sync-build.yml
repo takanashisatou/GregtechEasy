@@ -1,0 +1,205 @@
+name: GTE-Multi CI/CD Build & Sync
+
+on:
+  push:
+    branches:
+      - master
+      - main
+      - satou
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-and-sync:
+    name: Build Multi-Project, Translate & Package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: 'gradle'
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python Dependencies
+        run: pip install requests pydantic nbtlib
+
+      - name: Make gradlew executable
+        run: chmod +x ./gradlew
+
+      - name: Sync Blockbench Art Assets
+        run: ./gradlew syncBlockbenchAssets
+
+      - name: Build GTM-Reborn Submodule
+        run: ./gradlew :modules:gtm-reborn:build -x test
+
+      - name: Build GTECore Mod
+        run: ./gradlew :modules:gtecore:build -x test
+
+      - name: Build GT-- (Community Edition) Module
+        run: ./gradlew :modules:gt--:build -x test
+
+      - name: Copy Built Jars to Modpack Overrides
+        run: |
+          mkdir -p gte/overrides/mods
+          mkdir -p build/artifacts
+          find modules/gtm-reborn/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} gte/overrides/mods/ \;
+          find modules/gtecore/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} gte/overrides/mods/ \;
+          find modules/gt--/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} gte/overrides/mods/ \;
+          find modules/gtm-reborn/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} build/artifacts/ \;
+          find modules/gtecore/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} build/artifacts/ \;
+          find modules/gt--/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} build/artifacts/ \;
+          echo "Listing gte/overrides/mods contents:"
+          ls -la gte/overrides/mods/
+
+      - name: Run OpenCode DeepSeek v4 Flash Translation
+        env:
+          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          OPENCODE_MODEL: 'deepseek-v4-flash'
+        run: python scripts/opencode_translate.py
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Install Packwiz CLI
+        run: go install github.com/packwiz/packwiz@latest
+
+      - name: Refresh packwiz index
+        working-directory: ./gte
+        run: packwiz refresh
+
+      # ──────────────────────────────────────────────
+      # Pack 1: CurseForge 规范包 (PCL/HMCL 拖入即用)
+      # 包含 Java 21 requirement，防止 PCL 自动选 JDK 17
+      # ──────────────────────────────────────────────
+      - name: "[Pack 1] Export CurseForge Pack"
+        working-directory: ./gte
+        run: |
+          packwiz curseforge export -o ../build/artifacts/GTE-CurseForge-${{ github.ref_name }}.zip \
+            || (cd .. && zip -r build/artifacts/GTE-CurseForge-${{ github.ref_name }}.zip gte/)
+
+      - name: "[Pack 1] Patch manifest.json - enforce Java 21"
+        run: |
+          ZIP="build/artifacts/GTE-CurseForge-${{ github.ref_name }}.zip"
+          TMP_DIR=$(mktemp -d)
+          unzip -q "$ZIP" -d "$TMP_DIR"
+
+          # Patch manifest.json: set javaVersion to 21
+          MANIFEST="$TMP_DIR/manifest.json"
+          if [ -f "$MANIFEST" ]; then
+            python3 - <<'EOF'
+          import json, os, sys
+          path = os.environ.get("MANIFEST_PATH")
+          with open(path, "r", encoding="utf-8") as f:
+              m = json.load(f)
+          # Enforce Java 21 in minecraft block
+          if "minecraft" in m:
+              m["minecraft"]["javaVersion"] = 21
+          # Also write top-level javaVersion for newer CF launcher
+          m["javaVersion"] = 21
+          with open(path, "w", encoding="utf-8") as f:
+              json.dump(m, f, indent=2, ensure_ascii=False)
+          print("manifest.json patched: javaVersion=21")
+          EOF
+          fi
+          env MANIFEST_PATH="$MANIFEST" python3 - <<'PYEOF'
+          import json, os
+          path = os.environ.get("MANIFEST_PATH")
+          if path and os.path.exists(path):
+              with open(path, "r", encoding="utf-8") as f:
+                  m = json.load(f)
+              if "minecraft" in m:
+                  m["minecraft"]["javaVersion"] = 21
+              m["javaVersion"] = 21
+              with open(path, "w", encoding="utf-8") as f:
+                  json.dump(m, f, indent=2, ensure_ascii=False)
+              print("Patched:", path)
+          PYEOF
+
+          # Repack
+          rm "$ZIP"
+          (cd "$TMP_DIR" && zip -qr - .) > "$ZIP"
+          rm -rf "$TMP_DIR"
+          echo "CurseForge pack ready: $ZIP"
+
+      - name: "[Pack 2] Build Full Player Lazy Pack (.minecraft)"
+        run: python scripts/build_lazy_pack.py ${{ github.ref_name }}
+
+      # ──────────────────────────────────────────────
+      # Pack 3: Server Pack
+      # ──────────────────────────────────────────────
+      - name: "[Pack 3] Export Server Pack"
+        working-directory: ./gte
+        run: |
+          packwiz server export -o ../build/artifacts/GTE-Server-${{ github.ref_name }}.zip \
+            || (cd .. && zip -r build/artifacts/GTE-Server-${{ github.ref_name }}.zip gte/overrides/)
+
+      - name: List all artifacts
+        run: ls -lh build/artifacts/
+
+      # ──────────────────────────────────────────────
+      # Upload all artifacts for every push
+      # ──────────────────────────────────────────────
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: GTE-Artifacts-${{ github.ref_name }}-${{ github.sha }}
+          path: build/artifacts/
+          retention-days: 30
+
+      # ──────────────────────────────────────────────
+      # Publish Maven Repository to GitHub Pages
+      # ──────────────────────────────────────────────
+      - name: Build and Publish Maven Artifacts
+        run: |
+          mkdir -p build/maven
+          ./gradlew :modules:gtecore:publish :modules:gtm-reborn:publish :modules:gt--:publish -PmavenDir="${{ github.workspace }}/build/maven" -x test
+
+      - name: Deploy Maven to GitHub Pages (gh-pages)
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/maven
+          keep_files: true
+          cname: ''
+
+      # ──────────────────────────────────────────────
+      # Publish to CurseForge on version tags only
+      # ──────────────────────────────────────────────
+      - name: Publish CurseForge Pack (tag releases only)
+        if: startsWith(github.ref, 'refs/tags/v') && env.CURSEFORGE_TOKEN != ''
+        uses: Kir-Antipov/mc-publish@v3.3
+        env:
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+        with:
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-id: 1347911
+          files: build/artifacts/GTE-CurseForge-*.zip
+          name: GregTech Easy ${{ github.ref_name }}
+          version-type: release
+          loaders: forge
+          game-versions: |
+            1.20.1
+            Java 21
