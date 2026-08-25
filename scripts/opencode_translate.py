@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 GTE Industrial-Grade Unified AI + OpenCC Localization System
 ============================================================
@@ -140,7 +140,7 @@ def get_local_proxy() -> Optional[Dict[str, str]]:
     return None
 
 
-def resolve_provider() -> Dict[str, str]:
+def resolve_all_providers() -> List[Dict[str, str]]:
     local_env = {}
     for p in [PROJECT_ROOT / ".env", PROJECT_ROOT / "modules" / "docs" / ".env", Path("C:/actions-runner/.env")]:
         local_env.update(load_env_file(p))
@@ -148,27 +148,34 @@ def resolve_provider() -> Dict[str, str]:
     def get_val(name: str) -> str:
         return os.environ.get(name, "").strip() or local_env.get(name, "").strip()
 
+    active = []
     generic_key = get_val("LLM_API_KEY")
     if generic_key:
-        return {
+        active.append({
             "name": "generic",
             "api_key": generic_key,
             "base_url": get_val("LLM_BASE_URL") or "https://api.openai.com/v1",
             "model": get_val("LLM_MODEL") or "gpt-4o-mini",
-        }
+        })
+
     for name, spec in PROVIDERS.items():
         api_key = get_val(spec["key_env"])
         if not api_key:
             continue
         base_url = get_val(spec["base_url_env"]) or spec["default_base_url"]
         model = get_val(spec["model_env"]) or spec["default_model"]
-        return {
+        active.append({
             "name": name,
             "api_key": api_key,
             "base_url": base_url.strip().rstrip("/"),
             "model": model.strip(),
-        }
-    return {}
+        })
+    return active
+
+
+def resolve_provider() -> Dict[str, str]:
+    all_p = resolve_all_providers()
+    return all_p[0] if all_p else {}
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -215,9 +222,9 @@ def convert_opencc_markdown(text: str, config: str = "s2twp") -> str:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 4. LLM Universal API Caller
+# 4. LLM Universal API Caller with Automatic Failover
 # ─────────────────────────────────────────────────────────────────────────────
-def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 90) -> str:
+def call_single_provider(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 60) -> str:
     import requests
     proxies = get_local_proxy()
 
@@ -252,6 +259,24 @@ def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You ar
             raise RuntimeError(f"LLM API error {resp.status_code}: {resp.text}")
         data = resp.json()
         return data["choices"][0]["message"]["content"]
+
+
+def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 60) -> str:
+    providers = resolve_all_providers()
+    if not providers and provider:
+        providers = [provider]
+
+    last_error = None
+    for p in providers:
+        try:
+            return call_single_provider(prompt, p, system_prompt=system_prompt, timeout=timeout)
+        except Exception as e:
+            logger.warning(f"Provider '{p.get('name')}' failed ({e}). Falling back to next available provider...")
+            last_error = e
+
+    if last_error:
+        raise last_error
+    raise RuntimeError("No LLM provider available.")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
