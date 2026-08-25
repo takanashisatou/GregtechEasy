@@ -15,9 +15,9 @@ plugins {
 allprojects {
     group = 'org.satou.gtecore'
     
-    boolean enableWerror = project.hasProperty('werror') || 
+    def wprop = project.findProperty('werror')
+    boolean enableWerror = (wprop == 'true' || wprop == '' || (project.hasProperty('werror') && wprop == null)) || 
                            System.getenv('WERROR') == 'true' ||
-                           project.findProperty('werror') == 'true' ||
                            (System.getenv("GITHUB_REF_TYPE") == "tag" && System.getenv("GITHUB_REF_NAME")?.startsWith("v") && !System.getenv("GITHUB_REF_NAME")?.contains("alpha") && !System.getenv("GITHUB_REF_NAME")?.contains("beta"))
 
     tasks.withType(JavaCompile).configureEach {
