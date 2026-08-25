@@ -1,4 +1,4 @@
-name: "GTE-Multi CI/CD Build & Multi-Channel Release"
+﻿name: "GTE-Multi CI/CD Build & Multi-Channel Release"
 
 on:
   push:
@@ -62,7 +62,7 @@ jobs:
     runs-on: ${{ inputs.runner == 'ubuntu-latest' && 'ubuntu-latest' || inputs.runner == 'windows-latest' && 'windows-latest' || fromJSON('["self-hosted", "Windows", "X64"]') }}
     defaults:
       run:
-        shell: bash
+        shell: pwsh
     steps:
       - name: Checkout Repository & Submodules
         uses: actions/checkout@v4
@@ -88,65 +88,52 @@ jobs:
       - name: Install Python Dependencies
         run: pip install -r requirements.txt
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
       # ──────────────────────────────────────────────
       # Channel Resolution & Metadata
       # ──────────────────────────────────────────────
       - name: Resolve Release Channel & Version
         id: meta
         run: |
-          REF="${{ github.ref }}"
-          REF_NAME="${{ github.ref_name }}"
-          REF_TYPE="${{ github.ref_type }}"
-          INPUT_CHANNEL="${{ inputs.channel }}"
+          $REF = "${{ github.ref }}"
+          $REF_NAME = "${{ github.ref_name }}"
+          $REF_TYPE = "${{ github.ref_type }}"
+          $INPUT_CHANNEL = "${{ inputs.channel }}"
 
-          if [ -n "$INPUT_CHANNEL" ] && [ "$INPUT_CHANNEL" != "auto" ]; then
-            CHANNEL="$INPUT_CHANNEL"
-          elif [ "$REF_TYPE" = "tag" ]; then
-            if [[ "$REF_NAME" =~ ^alpha- || "$REF_NAME" =~ -alpha ]]; then
-              CHANNEL="alpha"
-            elif [[ "$REF_NAME" =~ ^beta- || "$REF_NAME" =~ -beta ]]; then
-              CHANNEL="beta"
-            elif [[ "$REF_NAME" =~ ^v[0-9] ]]; then
-              CHANNEL="release"
-            else
-              CHANNEL="beta"
-            fi
-          elif [ "${{ github.event_name }}" = "schedule" ]; then
-            CHANNEL="nightly"
-          else
-            CHANNEL="nightly"
-          fi
+          if ($INPUT_CHANNEL -and $INPUT_CHANNEL -ne "auto") {
+            $CHANNEL = $INPUT_CHANNEL
+          } elseif ($REF_TYPE -eq "tag") {
+            if ($REF_NAME -match "^alpha-|-alpha") { $CHANNEL = "alpha" }
+            elseif ($REF_NAME -match "^beta-|-beta") { $CHANNEL = "beta" }
+            elseif ($REF_NAME -match "^v[0-9]") { $CHANNEL = "release" }
+            else { $CHANNEL = "beta" }
+          } elseif ("${{ github.event_name }}" -eq "schedule") {
+            $CHANNEL = "nightly"
+          } else {
+            $CHANNEL = "nightly"
+          }
 
-          INPUT_VERSION="${{ inputs.version }}"
-          if [ -n "$INPUT_VERSION" ]; then
-            VERSION="$INPUT_VERSION"
-          elif [ "$REF_TYPE" = "tag" ]; then
-            VERSION="$REF_NAME"
-          else
-            VERSION="${CHANNEL}-${GITHUB_SHA::8}"
-          fi
+          $INPUT_VERSION = "${{ inputs.version }}"
+          if ($INPUT_VERSION) {
+            $VERSION = $INPUT_VERSION
+          } elseif ($REF_TYPE -eq "tag") {
+            $VERSION = $REF_NAME
+          } else {
+            $SHA8 = "${{ github.sha }}".Substring(0, 8)
+            $VERSION = "${CHANNEL}-${SHA8}"
+          }
 
-          case "$CHANNEL" in
-            alpha)
-              CF_TYPE="alpha"
-              ;;
-            beta)
-              CF_TYPE="beta"
-              ;;
-            *)
-              CF_TYPE="release"
-              ;;
-          esac
+          switch ($CHANNEL) {
+            "alpha" { $CF_TYPE = "alpha" }
+            "beta"  { $CF_TYPE = "beta" }
+            Default { $CF_TYPE = "release" }
+          }
 
-          echo "channel=$CHANNEL" >> "$GITHUB_OUTPUT"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "cf_type=$CF_TYPE" >> "$GITHUB_OUTPUT"
-          echo "=========================================================="
-          echo "🎯 GTE Build Channel: $CHANNEL (Version: $VERSION, CurseForge: $CF_TYPE)"
-          echo "=========================================================="
+          "channel=$CHANNEL" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "version=$VERSION" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          "cf_type=$CF_TYPE" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          Write-Host "=========================================================="
+          Write-Host "🎯 GTE Build Channel: $CHANNEL (Version: $VERSION, CurseForge: $CF_TYPE)"
+          Write-Host "=========================================================="
 
       # ──────────────────────────────────────────────
       # Gate 1: Submodule Lineage Lint (3s)
@@ -166,14 +153,9 @@ jobs:
       - name: "[Gate 3] Fail-Fast Strict Compilation Pre-Flight (-Pwerror)"
         if: steps.meta.outputs.channel == 'release' || inputs.werror == true
         run: |
-          echo "⚡ Running 5-second -Werror Fail-Fast Pre-Flight Check..."
-          ./gradlew \
-            :modules:gtecore:compileJava \
-            :modules:gt--:compileKotlin \
-            :modules:gtm-reborn:compileJava \
-            -Pwerror \
-            --build-cache \
-            --console=plain
+          Write-Host "⚡ Running 5-second -Werror Fail-Fast Pre-Flight Check..."
+          $gradlewCmd = if ($IsWindows -or $env:OS -like "*Windows*") { ".\gradlew.bat" } else { "./gradlew" }
+          & $gradlewCmd :modules:gtecore:compileJava :modules:gt--:compileKotlin :modules:gtm-reborn:compileJava -Pwerror --build-cache --console=plain
 
       # ──────────────────────────────────────────────
       # Art Assets & Parallel Build
@@ -184,44 +166,36 @@ jobs:
       - name: Build All Modules & GameTest in Parallel
         id: build_modules
         run: |
-          WERROR_FLAG=""
-          if [ "${{ steps.meta.outputs.channel }}" = "release" ] || [ "${{ inputs.werror }}" = "true" ]; then
-            WERROR_FLAG="-Pwerror"
-          fi
-
-          ./gradlew \
-            :modules:gtm-reborn:build \
-            :modules:gtm-reborn:runGameTestServer \
-            :modules:gtecore:build \
-            :modules:gt--:build \
-            $WERROR_FLAG \
-            --parallel \
-            --no-daemon \
-            2>&1 | tee build.log
+          $WERROR_FLAG = @()
+          if ("${{ steps.meta.outputs.channel }}" -eq "release" -or "${{ inputs.werror }}" -eq "true") {
+            $WERROR_FLAG = @("-Pwerror")
+          }
+          $gradlewCmd = if ($IsWindows -or $env:OS -like "*Windows*") { ".\gradlew.bat" } else { "./gradlew" }
+          & $gradlewCmd :modules:gtm-reborn:build :modules:gtm-reborn:runGameTestServer :modules:gtecore:build :modules:gt--:build @WERROR_FLAG --parallel --no-daemon 2>&1 | Tee-Object -FilePath build.log
 
       - name: Warning Countdown Summary (Beta / Dev Notice)
         if: steps.meta.outputs.channel != 'release'
         run: |
-          WARN_COUNT=$(grep -ci "warning:" build.log || true)
-          echo "### ⚠️ Build Quality Inspection" >> $GITHUB_STEP_SUMMARY
-          if [ "$WARN_COUNT" -gt "0" ]; then
-            echo "> ⚠️ **[Release 预警]** 检测到 **${WARN_COUNT}** 处代码 Warning。当前 **${{ steps.meta.outputs.channel }}** 阶段已放行，请在合入正式版前清理！" >> $GITHUB_STEP_SUMMARY
-          else
-            echo "> ✅ **[零警告]** 代码质量完美，0 Warning 通过！" >> $GITHUB_STEP_SUMMARY
-          fi
+          $warnLines = Select-String -Path build.log -Pattern "warning:" -AllMatches
+          $warnCount = if ($warnLines) { $warnLines.Count } else { 0 }
+          "### ⚠️ Build Quality Inspection" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          if ($warnCount -gt 0) {
+            "> ⚠️ **[Release 预警]** 检测到 **$warnCount** 处代码 Warning。当前 **${{ steps.meta.outputs.channel }}** 阶段已放行，请在合入正式版前清理！" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          } else {
+            "> ✅ **[零警告]** 代码质量完美，0 Warning 通过！" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }
 
       - name: Copy Built Mod Jars to Overrides and Artifacts
         run: |
-          mkdir -p gte/overrides/mods
-          mkdir -p build/artifacts
-          find modules/gtm-reborn/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} gte/overrides/mods/ \;
-          find modules/gtecore/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} gte/overrides/mods/ \;
-          find modules/gt--/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} gte/overrides/mods/ \;
-          find modules/gtm-reborn/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} build/artifacts/ \;
-          find modules/gtecore/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} build/artifacts/ \;
-          find modules/gt--/build/libs/ -maxdepth 1 -name "*.jar" ! -name "*-sources.jar" ! -name "*-dev.jar" ! -name "*-all.jar" -exec cp {} build/artifacts/ \;
-          echo "Listing gte/overrides/mods contents:"
-          ls -la gte/overrides/mods/
+          New-Item -ItemType Directory -Force -Path gte/overrides/mods, build/artifacts | Out-Null
+          Get-ChildItem -Path modules/*/build/libs -Filter "*.jar" -Recurse | Where-Object {
+            $_.Name -notlike "*-sources.jar" -and $_.Name -notlike "*-dev.jar" -and $_.Name -notlike "*-all.jar"
+          } | ForEach-Object {
+            Copy-Item $_.FullName -Destination gte/overrides/mods/ -Force
+            Copy-Item $_.FullName -Destination build/artifacts/ -Force
+          }
+          Write-Host "Listing gte/overrides/mods contents:"
+          Get-ChildItem gte/overrides/mods
 
       # ──────────────────────────────────────────────
       # Multi-Language Localization (OpenCC 0-Token + LLM)
@@ -256,8 +230,11 @@ jobs:
       - name: "[Pack 1] Export CurseForge Pack"
         working-directory: ./gte
         run: |
-          packwiz curseforge export -o ../build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip \
-            || (cd .. && zip -r build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip gte/)
+          try {
+            packwiz curseforge export -o ../build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip
+          } catch {
+            Compress-Archive -Path * -DestinationPath ../build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip -Force
+          }
 
       - name: "[Pack 1] Patch manifest.json - enforce Java 21"
         run: python scripts/patch_manifest.py build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip
@@ -268,11 +245,14 @@ jobs:
       - name: "[Pack 3] Export Server Pack"
         working-directory: ./gte
         run: |
-          packwiz server export -o ../build/artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip \
-            || (cd .. && zip -r build/artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip gte/overrides/)
+          try {
+            packwiz server export -o ../build/artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip
+          } catch {
+            Compress-Archive -Path overrides/* -DestinationPath ../build/artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip -Force
+          }
 
       - name: List Artifacts
-        run: ls -lh build/artifacts/
+        run: Get-ChildItem build/artifacts
 
       # ──────────────────────────────────────────────
       # Artifact Upload (30 Days)
@@ -292,16 +272,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          PRERELEASE_FLAG=""
-          if [ "${{ steps.meta.outputs.channel }}" != "release" ]; then
-            PRERELEASE_FLAG="--prerelease"
-          fi
-
-          gh release create "${{ steps.meta.outputs.version }}" \
-            build/artifacts/* \
-            --title "GregTech Easy ${{ steps.meta.outputs.version }} (${{ steps.meta.outputs.channel }})" \
-            --generate-notes \
-            $PRERELEASE_FLAG || echo "Release already exists or updated."
+          $prereleaseFlag = if ("${{ steps.meta.outputs.channel }}" -ne "release") { "--prerelease" } else { "" }
+          $files = (Get-ChildItem build/artifacts/*).FullName
+          gh release create "${{ steps.meta.outputs.version }}" $files --title "GregTech Easy ${{ steps.meta.outputs.version }} (${{ steps.meta.outputs.channel }})" --generate-notes $prereleaseFlag
 
       # ──────────────────────────────────────────────
       # Publish to CurseForge Platform (Release Channel Only)
@@ -327,8 +300,9 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Build Maven Artifacts
         run: |
-          mkdir -p build/maven
-          ./gradlew :modules:gtecore:publish :modules:gtm-reborn:publish :modules:gt--:publish -PmavenDir="${{ github.workspace }}/build/maven" -x test
+          New-Item -ItemType Directory -Force -Path build/maven | Out-Null
+          $gradlewCmd = if ($IsWindows -or $env:OS -like "*Windows*") { ".\gradlew.bat" } else { "./gradlew" }
+          & $gradlewCmd :modules:gtecore:publish :modules:gtm-reborn:publish :modules:gt--:publish -PmavenDir="${{ github.workspace }}/build/maven" -x test
 
       - name: Deploy Maven to GitHub Pages
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
