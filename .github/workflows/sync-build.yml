@@ -153,9 +153,14 @@ jobs:
       - name: "[Gate 3] Fail-Fast Strict Compilation Pre-Flight (-Pwerror)"
         if: steps.meta.outputs.channel == 'release' || inputs.werror == true
         run: |
+          $ErrorActionPreference = 'Continue'
           Write-Host "⚡ Running 5-second -Werror Fail-Fast Pre-Flight Check..."
-          $gradlewCmd = if ($IsWindows -or $env:OS -like "*Windows*") { ".\gradlew.bat" } else { "./gradlew" }
-          & $gradlewCmd :modules:gtecore:compileJava :modules:gt--:compileKotlin :modules:gtm-reborn:compileJava -Pwerror --build-cache --console=plain
+          if ($env:OS -like "*Windows*" -or $env:WINDIR) {
+            cmd.exe /c "gradlew.bat :modules:gtecore:compileJava :modules:gt--:compileKotlin :modules:gtm-reborn:compileJava -Pwerror --build-cache --console=plain"
+          } else {
+            ./gradlew :modules:gtecore:compileJava :modules:gt--:compileKotlin :modules:gtm-reborn:compileJava -Pwerror --build-cache --console=plain
+          }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       # ──────────────────────────────────────────────
       # Art Assets & Parallel Build
@@ -166,12 +171,17 @@ jobs:
       - name: Build All Modules & GameTest in Parallel
         id: build_modules
         run: |
-          $WERROR_FLAG = @()
+          $ErrorActionPreference = 'Continue'
+          $WERROR_FLAG = ""
           if ("${{ steps.meta.outputs.channel }}" -eq "release" -or "${{ inputs.werror }}" -eq "true") {
-            $WERROR_FLAG = @("-Pwerror")
+            $WERROR_FLAG = "-Pwerror"
           }
-          $gradlewCmd = if ($IsWindows -or $env:OS -like "*Windows*") { ".\gradlew.bat" } else { "./gradlew" }
-          & $gradlewCmd :modules:gtm-reborn:build :modules:gtm-reborn:runGameTestServer :modules:gtecore:build :modules:gt--:build @WERROR_FLAG --parallel --no-daemon 2>&1 | Tee-Object -FilePath build.log
+          if ($env:OS -like "*Windows*" -or $env:WINDIR) {
+            cmd.exe /c "gradlew.bat :modules:gtm-reborn:build :modules:gtm-reborn:runGameTestServer :modules:gtecore:build :modules:gt--:build $WERROR_FLAG --parallel --no-daemon"
+          } else {
+            ./gradlew :modules:gtm-reborn:build :modules:gtm-reborn:runGameTestServer :modules:gtecore:build :modules:gt--:build $WERROR_FLAG --parallel --no-daemon
+          }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Warning Countdown Summary (Beta / Dev Notice)
         if: steps.meta.outputs.channel != 'release'
@@ -300,9 +310,14 @@ jobs:
       # ──────────────────────────────────────────────
       - name: Build Maven Artifacts
         run: |
+          $ErrorActionPreference = 'Continue'
           New-Item -ItemType Directory -Force -Path build/maven | Out-Null
-          $gradlewCmd = if ($IsWindows -or $env:OS -like "*Windows*") { ".\gradlew.bat" } else { "./gradlew" }
-          & $gradlewCmd :modules:gtecore:publish :modules:gtm-reborn:publish :modules:gt--:publish -PmavenDir="${{ github.workspace }}/build/maven" -x test
+          if ($env:OS -like "*Windows*" -or $env:WINDIR) {
+            cmd.exe /c "gradlew.bat :modules:gtecore:publish :modules:gtm-reborn:publish :modules:gt--:publish -PmavenDir=""${{ github.workspace }}/build/maven"" -x test"
+          } else {
+            ./gradlew :modules:gtecore:publish :modules:gtm-reborn:publish :modules:gt--:publish -PmavenDir="${{ github.workspace }}/build/maven" -x test
+          }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Deploy Maven to GitHub Pages
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
