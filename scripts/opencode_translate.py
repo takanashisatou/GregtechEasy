@@ -1,12 +1,12 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 GTE Industrial-Grade Unified AI + OpenCC Localization System
 ============================================================
-Single unified localization and translation engine for the entire GTE ecosystem:
+Single unified localization engine for the entire GTE ecosystem:
 1. Submodule Mod Assets & Overrides: gtecore, gtm-reborn, gt--, KubeJS lang JSONs
 2. FTB Quests: SNBT quests and lang dictionaries
-3. Documentation & Wiki: 10-language Markdown chapters with format/link protection
-4. Supported AI Engines: OpenCode Go (deepseek-v4-flash), DeepSeek, Gemini, OpenAI, DashScope, Moonshot, Zhipu
+3. Documentation & Wiki: 10-language Markdown with SHA-256 incremental cache & rate-limit safety
+4. AI Engines: OpenCode Go (deepseek-v4-flash), DeepSeek, Gemini, OpenAI, DashScope, Moonshot, Zhipu
 5. 0-Token Offline Engine: OpenCC (s2twp, s2hk) for Traditional Chinese
 """
 
@@ -14,6 +14,7 @@ import os
 import re
 import sys
 import json
+import time
 import socket
 import logging
 import argparse
@@ -111,20 +112,22 @@ PROVIDERS = {
     },
 }
 
-FTB_QUESTS_DIR = PROJECT_ROOT / "gte" / "overrides" / "config" / "ftbquests" / "quests"
-FTB_LANG_DIR = FTB_QUESTS_DIR / "lang"
 CACHE_FILE = PROJECT_ROOT / ".translation_cache.json"
+DOCS_CACHE_FILE = PROJECT_ROOT / ".docs_translation_cache.json"
 
 
 def load_env_file(path: Path) -> dict:
     env_vars = {}
     if not path.exists():
         return env_vars
-    for line in path.read_text(encoding="utf-8-sig").splitlines():
-        line = line.strip()
-        if line and not line.startswith("#") and "=" in line:
-            k, v = line.split("=", 1)
-            env_vars[k.strip()] = v.strip().strip('"').strip("'")
+    try:
+        for line in path.read_text(encoding="utf-8-sig").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                env_vars[k.strip()] = v.strip().strip('"').strip("'")
+    except Exception:
+        pass
     return env_vars
 
 
@@ -222,9 +225,9 @@ def convert_opencc_markdown(text: str, config: str = "s2twp") -> str:
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 4. LLM Universal API Caller with Automatic Failover
+# 4. LLM Universal API Caller with Failover & Rate-Limit Backoff
 # ─────────────────────────────────────────────────────────────────────────────
-def call_single_provider(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 300) -> str:
+def call_single_provider(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 180) -> str:
     import requests
     proxies = get_local_proxy()
 
@@ -261,18 +264,22 @@ def call_single_provider(prompt: str, provider: Dict[str, str], system_prompt: s
         return data["choices"][0]["message"]["content"]
 
 
-def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 300) -> str:
+def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 180) -> str:
     providers = resolve_all_providers()
     if not providers and provider:
         providers = [provider]
 
     last_error = None
     for p in providers:
-        try:
-            return call_single_provider(prompt, p, system_prompt=system_prompt, timeout=timeout)
-        except Exception as e:
-            logger.warning(f"Provider '{p.get('name')}' encountered delay or error ({e}). Waiting and trying provider...")
-            last_error = e
+        for attempt in range(2):
+            try:
+                res = call_single_provider(prompt, p, system_prompt=system_prompt, timeout=timeout)
+                time.sleep(1.2) # Rate-limit gentle throttle
+                return res
+            except Exception as e:
+                logger.warning(f"Provider '{p.get('name')}' (attempt {attempt+1}/2) failed ({e}). Retrying/Switching...")
+                last_error = e
+                time.sleep(2.0)
 
     if last_error:
         raise last_error
@@ -280,26 +287,48 @@ def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You ar
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 5. Documentation Localization Engine (Markdown & Links)
+# 5. Documentation Localization with SHA-256 Incremental Cache
 # ─────────────────────────────────────────────────────────────────────────────
-def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, provider: Dict[str, str], force: bool = False):
+def load_docs_cache(docs_dir: Path) -> dict:
+    cache_path = docs_dir / ".docs_cache.json"
+    if cache_path.exists():
+        try:
+            return json.loads(cache_path.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
+    return {}
+
+
+def save_docs_cache(docs_dir: Path, cache: dict):
+    cache_path = docs_dir / ".docs_cache.json"
+    try:
+        cache_path.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+
+def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, provider: Dict[str, str], cache: dict, rel_key: str, force: bool = False) -> bool:
     text = src_path.read_text(encoding="utf-8")
+    src_hash = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    cache_entry_key = f"{rel_key}:{target_lang}"
+
     dst_path.parent.mkdir(parents=True, exist_ok=True)
 
     if target_lang == "zh-TW":
         translated = convert_opencc_markdown(text, "s2twp")
         dst_path.write_text(translated, encoding="utf-8")
+        cache[cache_entry_key] = src_hash
         logger.info(f"[OpenCC 0-Token] {src_path.name} -> {target_lang}")
-        return
+        return True
 
+    # Check incremental cache
     if not force and dst_path.exists() and dst_path.stat().st_size > 50:
-        existing_text = dst_path.read_text(encoding="utf-8")
-        if existing_text != text and not (target_lang != "zh" and "# GregTech Easy (GTE) 官方文档" in existing_text):
-            return
+        if cache.get(cache_entry_key) == src_hash:
+            return False # Skipped (already up to date)
 
     if not provider:
         dst_path.write_text(text, encoding="utf-8")
-        return
+        return False
 
     try:
         lang_name = DOCS_LANGUAGES.get(target_lang, {}).get("name", target_lang)
@@ -322,10 +351,13 @@ def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, pr
             translated_content = translated_content[len("```md"): -3].strip()
 
         dst_path.write_text(translated_content, encoding="utf-8")
+        cache[cache_entry_key] = src_hash
         logger.info(f"[LLM {provider['name']}] {src_path.name} -> {target_lang}")
+        return True
     except Exception as e:
         logger.warning(f"LLM translation failed for {src_path.name} to {target_lang}: {e}. Using fallback.")
         dst_path.write_text(text, encoding="utf-8")
+        return False
 
 
 def process_documentation(docs_dir: Path, provider: Dict[str, str], target_langs: Optional[List[str]] = None, force: bool = False):
@@ -334,23 +366,34 @@ def process_documentation(docs_dir: Path, provider: Dict[str, str], target_langs
         logger.warning(f"Documentation zh source directory not found at: {zh_dir}")
         return
 
-    zh_files = list(zh_dir.rglob("*.md"))
+    zh_files = sorted(list(zh_dir.rglob("*.md")))
     logger.info(f"=== Translating Documentation ({len(zh_files)} chapters in {docs_dir}) ===")
 
+    cache = load_docs_cache(docs_dir)
     langs = target_langs or [l for l in DOCS_LANGUAGES.keys() if l not in ("zh", "en")]
+    
+    total_translated = 0
+    total_skipped = 0
+
     for lang in langs:
         if lang == "zh":
             continue
-        logger.info(f"--> Synchronizing documentation language: {lang}")
+        logger.info(f"--> Checking documentation language: {lang}")
         dst_lang_dir = docs_dir / lang
         for src_file in zh_files:
             rel_path = src_file.relative_to(zh_dir)
             dst_file = dst_lang_dir / rel_path
+            rel_key = str(rel_path).replace("\\", "/")
             if lang == "en" and dst_file.exists() and dst_file.stat().st_size > 50:
                 continue
-            translate_markdown_file(src_file, dst_file, lang, provider, force=force)
+            did_trans = translate_markdown_file(src_file, dst_file, lang, provider, cache, rel_key, force=force)
+            if did_trans:
+                total_translated += 1
+            else:
+                total_skipped += 1
 
-    logger.info("=== Documentation Translation Complete ===")
+    save_docs_cache(docs_dir, cache)
+    logger.info(f"=== Documentation Translation Summary: {total_translated} updated, {total_skipped} cached/skipped ===")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
