@@ -50,6 +50,7 @@ on:
         options:
           - self-hosted
           - ubuntu-latest
+          - windows-latest
 
 permissions:
   contents: write
@@ -58,7 +59,10 @@ permissions:
 jobs:
   build-and-sync:
     name: "GTE-Multi Build, Test, Translate & Sync"
-    runs-on: ${{ inputs.runner == 'ubuntu-latest' && 'ubuntu-latest' || fromJSON('["self-hosted", "Linux", "X64"]') }}
+    runs-on: ${{ inputs.runner == 'ubuntu-latest' && 'ubuntu-latest' || inputs.runner == 'windows-latest' && 'windows-latest' || fromJSON('["self-hosted", "Windows", "X64"]') }}
+    defaults:
+      run:
+        shell: bash
     steps:
       - name: Checkout Repository & Submodules
         uses: actions/checkout@v4
