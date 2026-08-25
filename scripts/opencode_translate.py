@@ -376,7 +376,7 @@ def process_documentation(docs_dir: Path, provider: Dict[str, str], target_langs
     logger.info(f"=== Translating Documentation ({len(zh_files)} chapters in {docs_dir}, Workers: {max_workers}) ===")
 
     cache = load_docs_cache(docs_dir)
-    langs = target_langs or [l for l in DOCS_LANGUAGES.keys() if l not in ("zh", "en")]
+    langs = target_langs or [l for l in DOCS_LANGUAGES.keys() if l != "zh"]
     
     tasks = []
     for lang in langs:
@@ -387,8 +387,6 @@ def process_documentation(docs_dir: Path, provider: Dict[str, str], target_langs
             rel_path = src_file.relative_to(zh_dir)
             dst_file = dst_lang_dir / rel_path
             rel_key = str(rel_path).replace("\\", "/")
-            if lang == "en" and dst_file.exists() and dst_file.stat().st_size > 50:
-                continue
             tasks.append((src_file, dst_file, lang, rel_key))
 
     total_translated = 0
@@ -477,10 +475,18 @@ def process_submodule_lang_dir(lang_dir: Path, cache: dict, target_langs: List[s
     if not base_file.exists():
         return
 
+    # User Rule: In main project, gtecore's English (en_us) is author-maintained and must NOT be machine-translated
+    is_gtecore = "gtecore" in str(lang_dir).lower()
+
     base_data = json.loads(base_file.read_text(encoding="utf-8"))
     for lang in target_langs:
-        if lang in ("zh_cn", "en_us") and (lang_dir / f"{lang}.json").exists():
+        if lang == "zh_cn":
             continue
+        if lang == "en_us" and is_gtecore and en_file.exists():
+            continue
+        if lang == "en_us" and en_file.exists() and not zh_file.exists():
+            continue
+
         target_file = lang_dir / f"{lang}.json"
         target_data = json.loads(target_file.read_text(encoding="utf-8")) if target_file.exists() else {}
 
