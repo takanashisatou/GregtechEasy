@@ -1,4 +1,4 @@
-﻿name: "GTE-Multi CI/CD Build & Multi-Channel Release"
+name: "GTE-Multi CI/CD Build & Multi-Channel Release"
 
 on:
   push:
@@ -62,7 +62,7 @@ jobs:
     runs-on: ${{ inputs.runner == 'ubuntu-latest' && 'ubuntu-latest' || inputs.runner == 'windows-latest' && 'windows-latest' || fromJSON('["self-hosted", "Windows", "X64"]') }}
     defaults:
       run:
-        shell: pwsh
+        shell: powershell
     steps:
       - name: Checkout Repository & Submodules
         uses: actions/checkout@v4
