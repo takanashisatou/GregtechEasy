@@ -6,30 +6,6 @@ GTE is a modern Minecraft 1.20.1 modpack built upon the core philosophy of **"Si
 
 ---
 
-## 🧭 Architecture Overview
-
-```mermaid
-flowchart TD
-    subgraph Multi_Project [GTE-Multi Aggregated Architecture]
-        A[GTE-Multi Root Project] --> B[GTM Reborn Branch satou<br/>Core Tech & Material System]
-        A --> C[GT-- Community Edition<br/>Kotlin Assembly Lines & Large Reactors]
-        A --> D[GTECore Mod<br/>Yin-Yang, Four Symbols, Superstring, AE2 Plus]
-        A --> E[gte-dev-runtime<br/>Shadow Hot-Debug Environment]
-    end
-
-    subgraph Modpack_Layer [Modpack & Release Deliverables]
-        D & B & C --> F[gte/overrides Game Directory]
-        F --> G[KubeJS Custom Scripts<br/>Fluid Veins / Dimension Gases / Recipes]
-        F --> H[FTB Quests Quest System<br/>Automated AI Translation]
-        F --> I[Packwiz Standards Packaging]
-        I --> J[Zero-Compile Player Lazy Pack .minecraft]
-        I --> K[CurseForge Standard Pack]
-        I --> L[Server Deployment Pack]
-    end
-```
-
----
-
 ## ⚡ Quick Navigation
 
 <div class="grid cards" markdown>

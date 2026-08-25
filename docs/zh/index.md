@@ -6,30 +6,6 @@ GTE 是一个以 **“简单、好玩、有趣、耗时短”** 为核心理念�
 
 ---
 
-## 🧭 架构导览图
-
-```mermaid
-flowchart TD
-    subgraph Multi_Project [GTE-Multi 多项目聚合架构]
-        A[GTE-Multi 根工程] --> B[GTM Reborn 分支 satou<br/>底层科技与材料系统]
-        A --> C[GT-- Community Edition<br/>Kotlin 组装线与大型反应堆]
-        A --> D[GTECore 核心模组<br/>阴阳八卦、四象阵法、超弦系统、AE2 Plus]
-        A --> E[gte-dev-runtime<br/>影子热重载调试环境]
-    end
-
-    subgraph Modpack_Layer [整合包与玩家产物]
-        D & B & C --> F[gte/overrides 游戏目录]
-        F --> G[KubeJS 魔改脚本<br/>流体矿脉/气体/配方]
-        F --> H[FTB Quests 任务系统<br/>多语言自动翻译]
-        F --> I[Packwiz 规范打包]
-        I --> J[Zero-Compile 懒人包 .minecraft]
-        I --> K[CurseForge 规范包]
-        I --> L[Server 服务端部署包]
-    end
-```
-
----
-
 ## ⚡ 快速跳转索引
 
 <div class="grid cards" markdown>
