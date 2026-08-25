@@ -89,7 +89,7 @@ PROVIDERS = {
         "key_env": "OPENCODE_API_KEY",
         "base_url_env": "OPENCODE_BASE_URL",
         "model_env": "OPENCODE_MODEL",
-        "default_base_url": "https://api.opencode.ai/v1",
+        "default_base_url": "https://opencode.ai/zen/go/v1",
         "default_model": "deepseek-v4-flash",
     },
 }

@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python3
+#!/usr/bin/env python3
 """
 GTE 10-Language Documentation Localization Engine
 ==================================================
@@ -24,6 +24,8 @@ import argparse
 from pathlib import Path
 from typing import Dict, List, Set, Any, Optional
 
+ROOT = Path(__file__).resolve().parent.parent
+
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
 logger = logging.getLogger("GTEDocsLocalize")
 
@@ -41,33 +43,48 @@ DOCS_LANGUAGES = {
 }
 
 PROVIDERS = {
+    "opencode": {"key_env": "OPENCODE_API_KEY", "base_url": "https://opencode.ai/zen/go/v1", "model": "deepseek-v4-flash"},
     "deepseek": {"key_env": "DEEPSEEK_API_KEY", "base_url": "https://api.deepseek.com/v1", "model": "deepseek-chat"},
-    "gemini": {"key_env": "GEMINI_API_KEY", "base_url": "https://generativelanguage.googleapis.com/v1beta/openai", "model": "gemini-2.5-flash"},
-    "openai": {"key_env": "OPENAI_API_KEY", "base_url": "https://api.openai.com/v1", "model": "gpt-4o-mini"},
-    "dashscope": {"key_env": "DASHSCOPE_API_KEY", "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1", "model": "qwen-plus"},
-    "moonshot": {"key_env": "MOONSHOT_API_KEY", "base_url": "https://api.moonshot.cn/v1", "model": "moonshot-v1-8k"},
-    "zhipu": {"key_env": "ZHIPU_API_KEY", "base_url": "https://open.bigmodel.cn/api/paas/v4", "model": "glm-4-flash"},
-    "opencode": {"key_env": "OPENCODE_API_KEY", "base_url": "https://api.opencode.ai/v1", "model": "deepseek-v4-flash"},
 }
 
 
+def load_env_file(path: Path) -> dict:
+    env_vars = {}
+    if not path.exists():
+        return env_vars
+    for line in path.read_text(encoding="utf-8-sig").splitlines():
+        line = line.strip()
+        if line and not line.startswith("#") and "=" in line:
+            k, v = line.split("=", 1)
+            env_vars[k.strip()] = v.strip().strip('"').strip("'")
+    return env_vars
+
+
 def resolve_provider() -> Dict[str, str]:
-    generic_key = os.environ.get("LLM_API_KEY", "").strip()
+    # Check local .env first
+    local_env = {}
+    for p in [ROOT / ".env", ROOT / "modules" / "docs" / ".env", Path("C:/actions-runner/.env")]:
+        local_env.update(load_env_file(p))
+
+    def get_val(name: str) -> str:
+        return os.environ.get(name, "").strip() or local_env.get(name, "").strip()
+
+    generic_key = get_val("LLM_API_KEY")
     if generic_key:
         return {
             "name": "generic",
             "api_key": generic_key,
-            "base_url": os.environ.get("LLM_BASE_URL", "https://api.openai.com/v1").strip().rstrip("/"),
-            "model": os.environ.get("LLM_MODEL", "gpt-4o-mini").strip(),
+            "base_url": get_val("LLM_BASE_URL") or "https://api.openai.com/v1",
+            "model": get_val("LLM_MODEL") or "gpt-4o-mini",
         }
     for name, spec in PROVIDERS.items():
-        api_key = os.environ.get(spec["key_env"], "").strip()
+        api_key = get_val(spec["key_env"])
         if api_key:
             return {
                 "name": name,
                 "api_key": api_key,
-                "base_url": os.environ.get(f"{name.upper()}_BASE_URL", spec["base_url"]).strip().rstrip("/"),
-                "model": os.environ.get(f"{name.upper()}_MODEL", spec["model"]).strip(),
+                "base_url": get_val(f"{name.upper()}_BASE_URL") or spec["base_url"],
+                "model": get_val(f"{name.upper()}_MODEL") or spec["model"],
             }
     return {}
 
@@ -106,7 +123,7 @@ def convert_opencc_markdown(text: str, config: str = "s2twp") -> str:
     return "".join(out_lines)
 
 
-def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, provider: Dict[str, str]):
+def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, provider: Dict[str, str], force: bool = False):
     text = src_path.read_text(encoding="utf-8")
     dst_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -116,15 +133,18 @@ def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, pr
         logger.info(f"[OpenCC 0-Token] {src_path.name} -> {target_lang}")
         return
 
-    if dst_path.exists() and dst_path.stat().st_size > 50:
-        return
+    # If destination exists, has content and is not identical to Chinese source, skip unless force
+    if not force and dst_path.exists() and dst_path.stat().st_size > 50:
+        existing_text = dst_path.read_text(encoding="utf-8")
+        if existing_text != text and not (target_lang != "zh" and "# GregTech Easy (GTE) 官方文档" in existing_text):
+            return
 
     if not provider:
         dst_path.write_text(text, encoding="utf-8")
         return
 
     try:
-        import urllib.request
+        import requests
         lang_name = DOCS_LANGUAGES.get(target_lang, {}).get("name", target_lang)
         prompt = (
             f"You are a professional technical and Minecraft mod documentation translator.\n"
@@ -134,38 +154,60 @@ def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, pr
             f"2. Keep code blocks (```...```) and inline code (`...`) 100% untouched.\n"
             f"3. In markdown links [Text](URL), translate 'Text' but NEVER modify 'URL'.\n"
             f"4. Keep technical abbreviations untouched (EU/t, UHV, AE2, GT--, KubeJS, Packwiz, JVM).\n"
-            f"5. Output ONLY the translated Markdown text without conversational remarks.\n\n"
+            f"5. Output ONLY the translated Markdown text without conversational remarks or wrap in code blocks.\n\n"
             f"Content to translate:\n\n{text}"
         )
-        
-        req_data = {
-            "model": provider["model"],
-            "messages": [
-                {"role": "system", "content": "You are a professional Markdown documentation translator."},
-                {"role": "user", "content": prompt}
-            ],
-            "temperature": 0.2
-        }
-        
-        req = urllib.request.Request(
-            f"{provider['base_url']}/chat/completions",
-            data=json.dumps(req_data).encode("utf-8"),
-            headers={
+
+        proxies = None
+        local_proxy = os.environ.get("HTTP_PROXY") or os.environ.get("http_proxy")
+        if not local_proxy:
+            # Check if local proxy is listening
+            import socket
+            try:
+                with socket.create_connection(("127.0.0.1", 10808), timeout=0.5):
+                    proxies = {"http": "http://127.0.0.1:10808", "https": "http://127.0.0.1:10808"}
+            except Exception:
+                pass
+
+        if provider.get("name") == "gemini":
+            model = provider.get("model") or "gemini-3.6-flash"
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={provider['api_key']}"
+            payload = {
+                "contents": [{"parts": [{"text": prompt}]}],
+                "generationConfig": {"temperature": 0.2}
+            }
+            resp = requests.post(url, json=payload, proxies=proxies, timeout=90)
+            if resp.status_code != 200:
+                raise RuntimeError(f"Gemini API error {resp.status_code}: {resp.text}")
+            data = resp.json()
+            translated_content = data["candidates"][0]["content"]["parts"][0]["text"]
+        else:
+            url = f"{provider['base_url']}/chat/completions"
+            payload = {
+                "model": provider["model"],
+                "messages": [
+                    {"role": "system", "content": "You are a professional Markdown documentation translator."},
+                    {"role": "user", "content": prompt}
+                ],
+                "temperature": 0.2
+            }
+            headers = {
                 "Authorization": f"Bearer {provider['api_key']}",
                 "Content-Type": "application/json"
             }
-        )
-        
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            data = json.loads(resp.read().decode("utf-8"))
+            resp = requests.post(url, json=payload, headers=headers, proxies=proxies, timeout=90)
+            if resp.status_code != 200:
+                raise RuntimeError(f"LLM API error {resp.status_code}: {resp.text}")
+            data = resp.json()
             translated_content = data["choices"][0]["message"]["content"]
-            if translated_content.startswith("```markdown") and translated_content.endswith("```"):
-                translated_content = translated_content[len("```markdown"): -3].strip()
-            elif translated_content.startswith("```md") and translated_content.endswith("```"):
-                translated_content = translated_content[len("```md"): -3].strip()
-            
-            dst_path.write_text(translated_content, encoding="utf-8")
-            logger.info(f"[LLM {provider['name']}] {src_path.name} -> {target_lang}")
+
+        if translated_content.startswith("```markdown") and translated_content.endswith("```"):
+            translated_content = translated_content[len("```markdown"): -3].strip()
+        elif translated_content.startswith("```md") and translated_content.endswith("```"):
+            translated_content = translated_content[len("```md"): -3].strip()
+
+        dst_path.write_text(translated_content, encoding="utf-8")
+        logger.info(f"[LLM {provider['name']}] {src_path.name} -> {target_lang}")
     except Exception as e:
         logger.warning(f"LLM translation failed for {src_path.name} to {target_lang}: {e}. Using fallback.")
         dst_path.write_text(text, encoding="utf-8")
