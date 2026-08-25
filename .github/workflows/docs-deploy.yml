@@ -65,9 +65,9 @@ jobs:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: |
           if [ -d "modules/docs/docs" ]; then
-            python scripts/translate_docs.py --docs-dir modules/docs/docs
+            python scripts/opencode_translate.py --docs-dir modules/docs/docs
           else
-            python scripts/translate_docs.py --docs-dir docs
+            python scripts/opencode_translate.py --docs-dir docs
           fi
 
       - name: "[Gate 1] Documentation Cleanliness & Symmetry Audit (0.5s)"
