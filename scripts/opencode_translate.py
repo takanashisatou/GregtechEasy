@@ -224,7 +224,7 @@ def convert_opencc_markdown(text: str, config: str = "s2twp") -> str:
 # ─────────────────────────────────────────────────────────────────────────────
 # 4. LLM Universal API Caller with Automatic Failover
 # ─────────────────────────────────────────────────────────────────────────────
-def call_single_provider(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 60) -> str:
+def call_single_provider(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 300) -> str:
     import requests
     proxies = get_local_proxy()
 
@@ -261,7 +261,7 @@ def call_single_provider(prompt: str, provider: Dict[str, str], system_prompt: s
         return data["choices"][0]["message"]["content"]
 
 
-def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 60) -> str:
+def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 300) -> str:
     providers = resolve_all_providers()
     if not providers and provider:
         providers = [provider]
@@ -271,7 +271,7 @@ def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You ar
         try:
             return call_single_provider(prompt, p, system_prompt=system_prompt, timeout=timeout)
         except Exception as e:
-            logger.warning(f"Provider '{p.get('name')}' failed ({e}). Falling back to next available provider...")
+            logger.warning(f"Provider '{p.get('name')}' encountered delay or error ({e}). Waiting and trying provider...")
             last_error = e
 
     if last_error:
