@@ -2,6 +2,7 @@
 .gradle/
 .kotlin/
 build/
+site/
 out/
 bin/
 *.class
@@ -59,4 +60,10 @@ GregTechModernReborn 1.21.1/
 
 # Local test instances & Launchers
 GTETest/
+GTETextures/
 *.exe
+
+# Local Secrets & Environment
+.env
+.env.*
+.translation_cache.json

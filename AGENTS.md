@@ -50,6 +50,8 @@ client without a launcher.
    `compileOnly` for compile-time dependencies.
 4. Preserve existing uncommitted changes. Work with them; do not revert them.
 5. Keep edits scoped to the submodule that owns the feature.
+6. Never set `remap = false` on Mixin targets targeting `net.minecraft.*` or
+   `net.minecraftforge.*` classes. It will pass dev runs but crash in production.
 
 ## Game Tests
 

@@ -10,3 +10,7 @@
 	path = modules/gt--
 	url = https://github.com/takanashisatou/GT---Community-Edition
 	branch = kotlin
+[submodule "modules/docs"]
+	path = modules/docs
+	url = https://github.com/takanashisatou/GregtechEasy-Docs
+	branch = main

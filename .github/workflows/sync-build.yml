@@ -1,27 +1,58 @@
-name: GTE-Multi CI/CD Build & Sync
+name: "GTE-Multi CI/CD Build & Multi-Channel Release"
 
 on:
   push:
     branches:
       - master
       - main
+      - dev
       - satou
     tags:
       - 'v*'
+      - 'alpha-*'
+      - 'beta-*'
   pull_request:
     branches:
       - master
       - main
+      - dev
+      - satou
+  schedule:
+    - cron: '0 2 * * *' # Daily Nightly build at 02:00 UTC
   workflow_dispatch:
+    inputs:
+      channel:
+        description: "Release Channel"
+        required: false
+        default: "auto"
+        type: choice
+        options:
+          - auto
+          - nightly
+          - alpha
+          - beta
+          - release
+      version:
+        description: "Custom Version (e.g. 3.0.0, nightly-3.0.0)"
+        required: false
+        default: ""
+        type: string
+      werror:
+        description: "Force -Werror (Warning as Error)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
   build-and-sync:
-    name: Build Multi-Project, Translate & Package
+    name: "GTE-Multi Build, Test, Translate & Sync"
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
-      - name: Checkout repository and submodules
+      - name: Checkout Repository & Submodules
         uses: actions/checkout@v4
         with:
           submodules: recursive
@@ -41,27 +72,131 @@ jobs:
           cache: 'pip'
 
       - name: Install Python Dependencies
-        run: pip install requests pydantic nbtlib
+        run: pip install -r requirements.txt
 
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
-      - name: Resolve pack version
-        id: version
+      # ──────────────────────────────────────────────
+      # Channel Resolution & Metadata
+      # ──────────────────────────────────────────────
+      - name: Resolve Release Channel & Version
+        id: meta
         run: |
-          if [ "${{ github.ref_type }}" = "tag" ]; then
-            echo "version=${{ github.ref_name }}" >> "$GITHUB_OUTPUT"
+          REF="${{ github.ref }}"
+          REF_NAME="${{ github.ref_name }}"
+          REF_TYPE="${{ github.ref_type }}"
+          INPUT_CHANNEL="${{ inputs.channel }}"
+
+          if [ -n "$INPUT_CHANNEL" ] && [ "$INPUT_CHANNEL" != "auto" ]; then
+            CHANNEL="$INPUT_CHANNEL"
+          elif [ "$REF_TYPE" = "tag" ]; then
+            if [[ "$REF_NAME" =~ ^alpha- || "$REF_NAME" =~ -alpha ]]; then
+              CHANNEL="alpha"
+            elif [[ "$REF_NAME" =~ ^beta- || "$REF_NAME" =~ -beta ]]; then
+              CHANNEL="beta"
+            elif [[ "$REF_NAME" =~ ^v[0-9] ]]; then
+              CHANNEL="release"
+            else
+              CHANNEL="beta"
+            fi
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            CHANNEL="nightly"
           else
-            echo "version=${GITHUB_SHA::8}" >> "$GITHUB_OUTPUT"
+            CHANNEL="nightly"
           fi
 
-      - name: Sync Blockbench Art Assets
-        run: ./gradlew syncBlockbenchAssets
+          INPUT_VERSION="${{ inputs.version }}"
+          if [ -n "$INPUT_VERSION" ]; then
+            VERSION="$INPUT_VERSION"
+          elif [ "$REF_TYPE" = "tag" ]; then
+            VERSION="$REF_NAME"
+          else
+            VERSION="${CHANNEL}-${GITHUB_SHA::8}"
+          fi
 
-      - name: Build All Modules & Run Tests
-        run: ./gradlew :modules:gtm-reborn:build :modules:gtecore:build :modules:gt--:build :modules:gtm-reborn:runGameTestServer --parallel --build-cache --console=plain
+          case "$CHANNEL" in
+            alpha)
+              CF_TYPE="alpha"
+              ;;
+            beta)
+              CF_TYPE="beta"
+              ;;
+            *)
+              CF_TYPE="release"
+              ;;
+          esac
 
-      - name: Copy Built Jars to Modpack Overrides
+          echo "channel=$CHANNEL" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "cf_type=$CF_TYPE" >> "$GITHUB_OUTPUT"
+          echo "=========================================================="
+          echo "🎯 GTE Build Channel: $CHANNEL (Version: $VERSION, CurseForge: $CF_TYPE)"
+          echo "=========================================================="
+
+      # ──────────────────────────────────────────────
+      # Gate 1: Submodule Lineage Lint (3s)
+      # ──────────────────────────────────────────────
+      - name: "[Gate 1] Submodule Lineage Lint (Anti-Wild Pointer)"
+        run: python scripts/audit_submodules.py
+
+      # ──────────────────────────────────────────────
+      # Gate 2: Mixin Anti-Crash AST Lint (0.3s)
+      # ──────────────────────────────────────────────
+      - name: "[Gate 2] Mixin Anti-Crash AST Lint"
+        run: python scripts/audit_mixins.py
+
+      # ──────────────────────────────────────────────
+      # Gate 3: 5-Second Fail-Fast Pre-Flight Check
+      # ──────────────────────────────────────────────
+      - name: "[Gate 3] Fail-Fast Strict Compilation Pre-Flight (-Pwerror)"
+        if: steps.meta.outputs.channel == 'release' || inputs.werror == true
+        run: |
+          echo "⚡ Running 5-second -Werror Fail-Fast Pre-Flight Check..."
+          ./gradlew \
+            :modules:gtecore:compileJava \
+            :modules:gt--:compileKotlin \
+            :modules:gtm-reborn:compileJava \
+            -Pwerror \
+            --build-cache \
+            --console=plain
+
+      # ──────────────────────────────────────────────
+      # Art Assets & Parallel Build
+      # ──────────────────────────────────────────────
+      - name: Synchronize Blockbench Models & Art Assets
+        run: python scripts/sync_art_assets.py
+
+      - name: Build All Modules & GameTest in Parallel
+        id: build_modules
+        run: |
+          WERROR_FLAG=""
+          if [ "${{ steps.meta.outputs.channel }}" = "release" ] || [ "${{ inputs.werror }}" = "true" ]; then
+            WERROR_FLAG="-Pwerror"
+          fi
+
+          ./gradlew \
+            :modules:gtm-reborn:build \
+            :modules:gtm-reborn:runGameTestServer \
+            :modules:gtecore:build \
+            :modules:gt--:build \
+            $WERROR_FLAG \
+            --parallel \
+            --no-daemon \
+            2>&1 | tee build.log
+
+      - name: Warning Countdown Summary (Beta / Dev Notice)
+        if: steps.meta.outputs.channel != 'release'
+        run: |
+          WARN_COUNT=$(grep -ci "warning:" build.log || true)
+          echo "### ⚠️ Build Quality Inspection" >> $GITHUB_STEP_SUMMARY
+          if [ "$WARN_COUNT" -gt "0" ]; then
+            echo "> ⚠️ **[Release 预警]** 检测到 **${WARN_COUNT}** 处代码 Warning。当前 **${{ steps.meta.outputs.channel }}** 阶段已放行，请在合入正式版前清理！" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "> ✅ **[零警告]** 代码质量完美，0 Warning 通过！" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Copy Built Mod Jars to Overrides and Artifacts
         run: |
           mkdir -p gte/overrides/mods
           mkdir -p build/artifacts
@@ -74,7 +209,10 @@ jobs:
           echo "Listing gte/overrides/mods contents:"
           ls -la gte/overrides/mods/
 
-      - name: Run AI Language Translation
+      # ──────────────────────────────────────────────
+      # Multi-Language Localization (OpenCC 0-Token + LLM)
+      # ──────────────────────────────────────────────
+      - name: Run Global Multi-Language Localization (AI + OpenCC)
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
@@ -83,9 +221,12 @@ jobs:
           MOONSHOT_API_KEY: ${{ secrets.MOONSHOT_API_KEY }}
           ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          OPENCODE_MODEL: 'deepseek-v4-flash'
+          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: python scripts/opencode_translate.py
 
+      # ──────────────────────────────────────────────
+      # Modpack Packaging Pipeline
+      # ──────────────────────────────────────────────
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
@@ -94,111 +235,65 @@ jobs:
       - name: Install Packwiz CLI
         run: go install github.com/packwiz/packwiz@latest
 
-      - name: Refresh packwiz index
+      - name: Refresh Packwiz Index
         working-directory: ./gte
         run: packwiz refresh
 
-      # ──────────────────────────────────────────────
-      # Pack 1: CurseForge 规范包 (PCL/HMCL 拖入即用)
-      # 包含 Java 21 requirement，防止 PCL 自动选 JDK 17
-      # ──────────────────────────────────────────────
       - name: "[Pack 1] Export CurseForge Pack"
         working-directory: ./gte
         run: |
-          packwiz curseforge export -o ../build/artifacts/GTE-CurseForge-${{ steps.version.outputs.version }}.zip \
-            || (cd .. && zip -r build/artifacts/GTE-CurseForge-${{ steps.version.outputs.version }}.zip gte/)
+          packwiz curseforge export -o ../build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip \
+            || (cd .. && zip -r build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip gte/)
 
       - name: "[Pack 1] Patch manifest.json - enforce Java 21"
-        run: |
-          ZIP="build/artifacts/GTE-CurseForge-${{ steps.version.outputs.version }}.zip"
-          TMP_DIR=$(mktemp -d)
-          unzip -q "$ZIP" -d "$TMP_DIR"
-
-          # Patch manifest.json: set javaVersion to 21
-          MANIFEST="$TMP_DIR/manifest.json"
-          if [ -f "$MANIFEST" ]; then
-            env MANIFEST_PATH="$MANIFEST" python3 - <<'EOF'
-          import json, os, sys
-          path = os.environ.get("MANIFEST_PATH")
-          with open(path, "r", encoding="utf-8") as f:
-              m = json.load(f)
-          # Enforce Java 21 in minecraft block
-          if "minecraft" in m:
-              m["minecraft"]["javaVersion"] = 21
-          # Also write top-level javaVersion for newer CF launcher
-          m["javaVersion"] = 21
-          with open(path, "w", encoding="utf-8") as f:
-              json.dump(m, f, indent=2, ensure_ascii=False)
-          print("manifest.json patched: javaVersion=21")
-          EOF
-          fi
-          env MANIFEST_PATH="$MANIFEST" python3 - <<'PYEOF'
-          import json, os
-          path = os.environ.get("MANIFEST_PATH")
-          if path and os.path.exists(path):
-              with open(path, "r", encoding="utf-8") as f:
-                  m = json.load(f)
-              if "minecraft" in m:
-                  m["minecraft"]["javaVersion"] = 21
-              m["javaVersion"] = 21
-              with open(path, "w", encoding="utf-8") as f:
-                  json.dump(m, f, indent=2, ensure_ascii=False)
-              print("Patched:", path)
-          PYEOF
-
-          # Repack
-          rm "$ZIP"
-          (cd "$TMP_DIR" && zip -qr - .) > "$ZIP"
-          rm -rf "$TMP_DIR"
-          echo "CurseForge pack ready: $ZIP"
+        run: python scripts/patch_manifest.py build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip
 
       - name: "[Pack 2] Build Full Player Lazy Pack (.minecraft)"
-        run: python scripts/build_lazy_pack.py ${{ steps.version.outputs.version }}
+        run: python scripts/build_lazy_pack.py ${{ steps.meta.outputs.version }}
 
-      # ──────────────────────────────────────────────
-      # Pack 3: Server Pack
-      # ──────────────────────────────────────────────
       - name: "[Pack 3] Export Server Pack"
         working-directory: ./gte
         run: |
-          packwiz server export -o ../build/artifacts/GTE-Server-${{ steps.version.outputs.version }}.zip \
-            || (cd .. && zip -r build/artifacts/GTE-Server-${{ steps.version.outputs.version }}.zip gte/overrides/)
+          packwiz server export -o ../build/artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip \
+            || (cd .. && zip -r build/artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip gte/overrides/)
 
-      - name: List all artifacts
+      - name: List Artifacts
         run: ls -lh build/artifacts/
 
       # ──────────────────────────────────────────────
-      # Upload all artifacts for every push
+      # Artifact Upload (30 Days)
       # ──────────────────────────────────────────────
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: GTE-Artifacts-${{ steps.version.outputs.version }}-${{ github.sha }}
+          name: GTE-${{ steps.meta.outputs.channel }}-${{ steps.meta.outputs.version }}
           path: build/artifacts/
           retention-days: 30
 
       # ──────────────────────────────────────────────
-      # Publish Maven Repository to GitHub Pages
+      # GitHub Releases & Tag Publishing
       # ──────────────────────────────────────────────
-      - name: Build and Publish Maven Artifacts
+      - name: Create GitHub Release
+        if: github.ref_type == 'tag'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          mkdir -p build/maven
-          ./gradlew :modules:gtecore:publish :modules:gtm-reborn:publish :modules:gt--:publish -PmavenDir="${{ github.workspace }}/build/maven" -x test
+          PRERELEASE_FLAG=""
+          if [ "${{ steps.meta.outputs.channel }}" != "release" ]; then
+            PRERELEASE_FLAG="--prerelease"
+          fi
 
-      - name: Deploy Maven to GitHub Pages (gh-pages)
-        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/tags/v')
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/maven
-          keep_files: true
-          cname: ''
+          gh release create "${{ steps.meta.outputs.version }}" \
+            build/artifacts/* \
+            --title "GregTech Easy ${{ steps.meta.outputs.version }} (${{ steps.meta.outputs.channel }})" \
+            --generate-notes \
+            $PRERELEASE_FLAG || echo "Release already exists or updated."
 
       # ──────────────────────────────────────────────
-      # Publish to CurseForge on version tags only
+      # Publish to CurseForge Platform (Release Channel Only)
       # ──────────────────────────────────────────────
-      - name: Publish CurseForge Pack (tag releases only)
-        if: startsWith(github.ref, 'refs/tags/v') && env.CURSEFORGE_TOKEN != ''
+      - name: Publish to CurseForge Platform (Release Only)
+        if: steps.meta.outputs.channel == 'release' && env.CURSEFORGE_TOKEN != ''
         uses: Kir-Antipov/mc-publish@v3.3
         env:
           CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
@@ -206,9 +301,33 @@ jobs:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           curseforge-id: 1347911
           files: build/artifacts/GTE-CurseForge-*.zip
-          name: GregTech Easy ${{ github.ref_name }}
+          name: GregTech Easy ${{ steps.meta.outputs.version }}
           version-type: release
           loaders: forge
           game-versions: |
             1.20.1
             Java 21
+
+      # ──────────────────────────────────────────────
+      # Build Multi-Lingual Documentation & Deploy to GitHub Pages
+      # ──────────────────────────────────────────────
+      - name: Build and Publish Maven Artifacts
+        run: |
+          mkdir -p build/maven
+          ./gradlew :modules:gtecore:publish :modules:gtm-reborn:publish :modules:gt--:publish -PmavenDir="${{ github.workspace }}/build/maven" -x test
+
+      - name: Build Multi-Lingual Documentation (MkDocs)
+        run: |
+          mkdocs build -d build/site
+          cp -rn build/maven/* build/site/ || cp -r build/maven/* build/site/
+          echo "Site and Maven artifacts merged:"
+          ls -la build/site/
+
+      - name: Deploy Docs & Maven to GitHub Pages
+        if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build/site
+          keep_files: true
+          cname: ''

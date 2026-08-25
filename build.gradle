@@ -15,10 +15,27 @@ plugins {
 allprojects {
     group = 'org.satou.gtecore'
     
+    boolean enableWerror = project.hasProperty('werror') || 
+                           System.getenv('WERROR') == 'true' ||
+                           project.findProperty('werror') == 'true' ||
+                           (System.getenv("GITHUB_REF_TYPE") == "tag" && System.getenv("GITHUB_REF_NAME")?.startsWith("v") && !System.getenv("GITHUB_REF_NAME")?.contains("alpha") && !System.getenv("GITHUB_REF_NAME")?.contains("beta"))
+
     tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
-        options.compilerArgs << "-Xlint:-removal"
+
+        if (enableWerror) {
+            options.compilerArgs << "-Werror"
+        }
+
         options.compilerArgs << "-Aquiet=true"
+    }
+
+    plugins.withId('org.jetbrains.kotlin.jvm') {
+        tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+            compilerOptions {
+                allWarningsAsErrors.set(enableWerror)
+            }
+        }
     }
 }
 
@@ -34,15 +51,15 @@ subprojects {
 // ---------------------------------------------------------------------------
 // Blockbench Art Assets Synchronization Task
 // ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// Blockbench Art Assets Synchronization Task
+// ---------------------------------------------------------------------------
 tasks.register('syncBlockbenchAssets') {
     group = 'build'
-    description = 'Automatically synchronize Blockbench models (.json/.bbmodel) and textures (.png) to gtecore resources'
+    description = 'Multi-namespace synchronization of 3D models and textures from art_assets/'
 
     def artAssetsDir = file("${rootDir}/art_assets")
-    def gtecoreAssetsDir = file("${rootDir}/modules/gtecore/src/main/resources/assets/gtecore")
-
     inputs.dir(artAssetsDir)
-    outputs.dir(gtecoreAssetsDir)
 
     doLast {
         if (!artAssetsDir.exists()) {
@@ -50,46 +67,16 @@ tasks.register('syncBlockbenchAssets') {
             return
         }
 
-        int syncedCount = 0
-        fileTree(artAssetsDir).visit { element ->
-            if (element.directory) return
-            def name = element.name
-            File targetFile = null
-
-            // Texture assets (.png / .mcmeta)
-            if (name.endsWith('.png') || name.endsWith('.png.mcmeta') || name.endsWith('.mcmeta')) {
-                if (name.contains('processor') || name.contains('string') || name.contains('symbol') || 
-                    name.contains('paper') || name.contains('wafer') || name.contains('chip') || 
-                    name.contains('god') || name.contains('rune') || name.contains('yin') || name.contains('yang')) {
-                    targetFile = new File(gtecoreAssetsDir, "textures/item/${name}")
-                } else if (name.contains('casing') || name.contains('module') || name.contains('concrete') || 
-                           name.contains('coil') || name.contains('zhenfa') || name.contains('matrix') || 
-                           name.contains('buffer') || name.contains('generator') || name.contains('machine')) {
-                    targetFile = new File(gtecoreAssetsDir, "textures/block/${name}")
-                } else {
-                    targetFile = new File(gtecoreAssetsDir, "textures/item/${name}")
-                }
-            } 
-            // Model assets (.json, excluding .bbmodel metadata)
-            else if (name.endsWith('.json') && !name.endsWith('.bbmodel')) {
-                if (name.contains('casing') || name.contains('module') || name.contains('block') || name.contains('matrix')) {
-                    targetFile = new File(gtecoreAssetsDir, "models/block/${name}")
-                } else {
-                    targetFile = new File(gtecoreAssetsDir, "models/item/${name}")
-                }
-            }
-
-            if (targetFile != null) {
-                targetFile.parentFile.mkdirs()
-                element.file.withInputStream { ins ->
-                    targetFile.withOutputStream { outs ->
-                        outs << ins
-                    }
-                }
-                syncedCount++
-            }
+        exec {
+            commandLine 'python', "${rootDir}/scripts/sync_art_assets.py"
+            ignoreExitValue = true
         }
-        logger.lifecycle(">> [Blockbench Sync] Successfully synchronized ${syncedCount} art assets into gtecore resources.")
+    }
+}
+
+subprojects {
+    tasks.matching { it.name == 'processResources' }.configureEach {
+        dependsOn rootProject.tasks.named('syncBlockbenchAssets')
     }
 }
 

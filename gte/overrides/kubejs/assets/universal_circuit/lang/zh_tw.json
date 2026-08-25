@@ -1,0 +1,17 @@
+{
+  "item.universal_circuit.uhv_universal_circuit": "UHV通用電路",
+  "item.universal_circuit.uev_universal_circuit": "UEV通用電路",
+  "item.universal_circuit.uiv_universal_circuit": "UIV通用電路",
+  "item.universal_circuit.uxv_universal_circuit": "UXV通用電路",
+  "item.universal_circuit.opv_universal_circuit": "OPV通用電路",
+  "item.universal_circuit.max_universal_circuit": "MAX通用電路",
+  "item.universal_circuit.ulv_universal_circuit": "ULV通用電路",
+  "item.universal_circuit.lv_universal_circuit": "LV通用電路",
+  "item.universal_circuit.mv_universal_circuit": "MV通用電路",
+  "item.universal_circuit.hv_universal_circuit": "HV通用電路",
+  "item.universal_circuit.ev_universal_circuit": "EV通用電路",
+  "item.universal_circuit.iv_universal_circuit": "IV通用電路",
+  "item.universal_circuit.luv_universal_circuit": "LUV通用電路",
+  "item.universal_circuit.zpm_universal_circuit": "ZPM通用電路",
+  "item.universal_circuit.uv_universal_circuit": "UV通用電路"
+}

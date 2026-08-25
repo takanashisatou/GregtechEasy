@@ -160,7 +160,7 @@ if %TOTAL_RAM_GB% LSS 8 ( set "RUNTIME_XMX=4G" ) else if %TOTAL_RAM_GB% LSS 16 (
 set "GTE_RUNTIME_XMX=%RUNTIME_XMX%"
 
 echo Hardware: %CPU_CORES% logical cores / ~%TOTAL_RAM_GB% GB RAM
-echo Gradle workers: %WORKERS% | Game heap: %GTE_RUNTIME_XMX%
+echo Gradle workers: %WORKERS% ^| Game heap: %GTE_RUNTIME_XMX%
 echo.
 
 REM Auto-detect local proxy for ultrafast dependency downloads

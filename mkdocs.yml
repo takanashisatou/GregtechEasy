@@ -1,0 +1,129 @@
+site_name: GregTech Easy (GTE) 文档
+site_description: GregTech Easy (GTE-Multi) 官方人类可读多语言开发与游玩指南文档
+site_author: takanashisatou & GTE Team
+site_url: https://takanashisatou.github.io/GregtechEasy/
+
+repo_name: takanashisatou/GregtechEasy
+repo_url: https://github.com/takanashisatou/GregtechEasy
+edit_uri: blob/main/docs/
+
+docs_dir: docs
+
+theme:
+  name: material
+  custom_dir: docs/overrides
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  language: zh
+  palette:
+    # 浅色模式 / Light Scheme
+    - scheme: default
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/weather-sunny
+        name: 切换至深色模式 / Switch to Dark Mode
+    # 深色模式 / Dark Scheme
+    - scheme: slate
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/weather-night
+        name: 切换至浅色模式 / Switch to Light Mode
+  features:
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.action.view
+    - content.action.edit
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: folder
+      reconfigure_material: true
+      languages:
+        - locale: zh
+          name: 简体中文
+          build: true
+          default: true
+          site_name: GregTech Easy (GTE) 官方文档
+        - locale: en
+          name: English
+          build: true
+          site_name: GregTech Easy (GTE) Official Docs
+
+nav:
+  - 概览 / Overview: index.md
+  - 整合包下载与玩家指南 / Download & Play:
+      - 玩家免编译懒人包 / Zero-Compile Lazy Pack: download-and-play/lazy-pack.md
+      - CurseForge与服务端部署 / CurseForge & Server: download-and-play/curseforge-and-server.md
+  - GTECore 核心模组 / GTECore:
+      - 模组概览 / Overview: gtecore/overview.md
+      - 多方块机器图鉴 / Multiblocks: gtecore/machines-and-multiblocks.md
+      - 阴阳八卦与四象阵法 / Yin-Yang & Formations: gtecore/yin-yang-and-four-symbols.md
+      - AE2 深度集成 / AE2 Integration: gtecore/ae2-integration.md
+      - 超弦与阴阳高阶电路 / Circuits & Materials: gtecore/circuits-and-materials.md
+  - GTM Reborn 模组分支 / GTM Reborn: gtm-reborn/index.md
+  - GT-- Community Edition / GT-- CE: gt-minus-minus/index.md
+  - KubeJS 魔改与联动 / KubeJS:
+      - 脚本开发指南 / Scripting Guide: kubejs/scripting-guide.md
+      - 结构导出器与工具集 / Utilities & Multiblock Exporter: kubejs/tools-and-utilities.md
+  - 界面材质与美术 / Art & UI: art-and-ui/blockbench-workflow.md
+  - 开发者与防崩溃手册 / Dev & Anti-Crash:
+      - 开发者快速上手 / Quick Start: development/quick-start.md
+      - 本地热联调与启动脚本 / Runtimes & Launchers: development/runtime-and-launchers.md
+      - 防崩溃守则与实战排错 / Anti-Crash Guide: development/anti-crash-guide.md
+  - CI/CD 流水线与 AI 翻译 / CI/CD & Translation:
+      - 自动化构建发布流水线 / CI/CD Pipeline: ci-cd-and-translation/ci-pipeline.md
+      - AI 国际化翻译引擎 / AI Translation: ci-cd-and-translation/ai-translation.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - tables
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.tilde
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.details
+  - pymdownx.inlinehilite
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/takanashisatou/GregtechEasy
+    - icon: simple/curseforge
+      link: https://www.curseforge.com/minecraft/modpacks/gregtech-easy
+    - icon: fontawesome/solid/cube
+      link: https://takanashisatou.github.io/GregtechEasy/

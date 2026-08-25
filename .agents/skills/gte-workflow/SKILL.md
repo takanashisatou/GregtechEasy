@@ -64,6 +64,12 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
 - **Why**: Plain `localRuntime` or `fileTree` does NOT trigger ModDevGradle's deobfuscation remapper.
 - **Policy**: In `modules/gte-dev-runtime/build.gradle`, declare runtime dependencies with `modLocalRuntime(...)` and ensure `obfuscation.createRemappingConfiguration(configurations.localRuntime)` is defined.
 
+### Rule 4: Never Set `remap = false` on Vanilla Minecraft / Forge Targets
+- **Why**: In development, Minecraft is deobfuscated so `remap = false` appears to work. But in production, Vanilla methods are SRG-obfuscated (`m_xxxx_`). Setting `remap = false` skips Refmap generation and causes instant fatal crashes (`InvalidInjectionException: Could not find target`) when players start the game.
+- **Policy**:
+  - Targets in `net.minecraft.*` or `net.minecraftforge.*` **MUST** keep `remap = true` (default; do not specify `remap = false`).
+  - Only set `remap = false` on third-party non-obfuscated Java libraries (e.g. `Gson`, `Netty`, `LWJGL`) or synthetic mod-injected interface accessors.
+
 ---
 
 ## 3. Real-World Crash Post-Mortems & Fix Recipes (实战排错经验库)
