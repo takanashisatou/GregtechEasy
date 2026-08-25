@@ -273,13 +273,11 @@ def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You ar
     for p in providers:
         for attempt in range(2):
             try:
-                res = call_single_provider(prompt, p, system_prompt=system_prompt, timeout=timeout)
-                time.sleep(1.2) # Rate-limit gentle throttle
-                return res
+                return call_single_provider(prompt, p, system_prompt=system_prompt, timeout=timeout)
             except Exception as e:
                 logger.warning(f"Provider '{p.get('name')}' (attempt {attempt+1}/2) failed ({e}). Retrying/Switching...")
                 last_error = e
-                time.sleep(2.0)
+                time.sleep(1.0)
 
     if last_error:
         raise last_error
@@ -287,8 +285,13 @@ def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You ar
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 5. Documentation Localization with SHA-256 Incremental Cache
+# 5. Documentation Localization with ThreadPool Parallelism & SHA-256 Cache
 # ─────────────────────────────────────────────────────────────────────────────
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+_cache_lock = threading.Lock()
+
 def load_docs_cache(docs_dir: Path) -> dict:
     cache_path = docs_dir / ".docs_cache.json"
     if cache_path.exists():
@@ -317,14 +320,16 @@ def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, pr
     if target_lang == "zh-TW":
         translated = convert_opencc_markdown(text, "s2twp")
         dst_path.write_text(translated, encoding="utf-8")
-        cache[cache_entry_key] = src_hash
+        with _cache_lock:
+            cache[cache_entry_key] = src_hash
         logger.info(f"[OpenCC 0-Token] {src_path.name} -> {target_lang}")
         return True
 
     # Check incremental cache
     if not force and dst_path.exists() and dst_path.stat().st_size > 50:
-        if cache.get(cache_entry_key) == src_hash:
-            return False # Skipped (already up to date)
+        with _cache_lock:
+            if cache.get(cache_entry_key) == src_hash:
+                return False # Skipped (already up to date)
 
     if not provider:
         dst_path.write_text(text, encoding="utf-8")
@@ -351,7 +356,8 @@ def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, pr
             translated_content = translated_content[len("```md"): -3].strip()
 
         dst_path.write_text(translated_content, encoding="utf-8")
-        cache[cache_entry_key] = src_hash
+        with _cache_lock:
+            cache[cache_entry_key] = src_hash
         logger.info(f"[LLM {provider['name']}] {src_path.name} -> {target_lang}")
         return True
     except Exception as e:
@@ -360,25 +366,22 @@ def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, pr
         return False
 
 
-def process_documentation(docs_dir: Path, provider: Dict[str, str], target_langs: Optional[List[str]] = None, force: bool = False):
+def process_documentation(docs_dir: Path, provider: Dict[str, str], target_langs: Optional[List[str]] = None, force: bool = False, max_workers: int = 5):
     zh_dir = docs_dir / "zh"
     if not zh_dir.exists():
         logger.warning(f"Documentation zh source directory not found at: {zh_dir}")
         return
 
     zh_files = sorted(list(zh_dir.rglob("*.md")))
-    logger.info(f"=== Translating Documentation ({len(zh_files)} chapters in {docs_dir}) ===")
+    logger.info(f"=== Translating Documentation ({len(zh_files)} chapters in {docs_dir}, Workers: {max_workers}) ===")
 
     cache = load_docs_cache(docs_dir)
     langs = target_langs or [l for l in DOCS_LANGUAGES.keys() if l not in ("zh", "en")]
     
-    total_translated = 0
-    total_skipped = 0
-
+    tasks = []
     for lang in langs:
         if lang == "zh":
             continue
-        logger.info(f"--> Checking documentation language: {lang}")
         dst_lang_dir = docs_dir / lang
         for src_file in zh_files:
             rel_path = src_file.relative_to(zh_dir)
@@ -386,11 +389,25 @@ def process_documentation(docs_dir: Path, provider: Dict[str, str], target_langs
             rel_key = str(rel_path).replace("\\", "/")
             if lang == "en" and dst_file.exists() and dst_file.stat().st_size > 50:
                 continue
-            did_trans = translate_markdown_file(src_file, dst_file, lang, provider, cache, rel_key, force=force)
-            if did_trans:
-                total_translated += 1
-            else:
-                total_skipped += 1
+            tasks.append((src_file, dst_file, lang, rel_key))
+
+    total_translated = 0
+    total_skipped = 0
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_map = {
+            executor.submit(translate_markdown_file, src, dst, lang, provider, cache, key, force): (src, lang)
+            for src, dst, lang, key in tasks
+        }
+        for future in as_completed(future_map):
+            try:
+                did_trans = future.result()
+                if did_trans:
+                    total_translated += 1
+                else:
+                    total_skipped += 1
+            except Exception as e:
+                logger.error(f"Task failed: {e}")
 
     save_docs_cache(docs_dir, cache)
     logger.info(f"=== Documentation Translation Summary: {total_translated} updated, {total_skipped} cached/skipped ===")
