@@ -332,8 +332,13 @@ jobs:
 
       - name: Build Multi-Lingual Documentation (MkDocs)
         run: |
-          mkdocs build -d build/site
-          cp -rn build/maven/* build/site/ || cp -r build/maven/* build/site/
+          if [ -f "modules/docs/mkdocs.yml" ]; then
+            mkdocs build -f modules/docs/mkdocs.yml -d ../../build/site
+          else
+            mkdocs build -d build/site
+          fi
+          mkdir -p build/site
+          cp -rn build/maven/* build/site/ || cp -r build/maven/* build/site/ || true
           echo "Site and Maven artifacts merged:"
           ls -la build/site/
 
