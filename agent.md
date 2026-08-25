@@ -11,6 +11,7 @@ It aggregates several git repositories as submodules:
 - `modules/gtm-reborn` - GregTech Modern Reborn fork, branch `satou`
 - `modules/gt--` - GT-- Community Edition addon, branch `kotlin`
 - `modules/gtecore` - GTE Core mod, branch `master`
+- `modules/docs` - GregTech Easy Docs & Wiki, branch `main`
 - `modules/gte-dev-runtime` - local hot-debug runtime (not published)
 - `gte/` - Packwiz modpack root and overrides
 
