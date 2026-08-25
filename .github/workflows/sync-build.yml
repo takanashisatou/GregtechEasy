@@ -42,6 +42,14 @@ on:
         required: false
         default: false
         type: boolean
+      runner:
+        description: "Runner environment"
+        required: false
+        default: "self-hosted"
+        type: choice
+        options:
+          - self-hosted
+          - ubuntu-latest
 
 permissions:
   contents: write
@@ -50,7 +58,7 @@ permissions:
 jobs:
   build-and-sync:
     name: "GTE-Multi Build, Test, Translate & Sync"
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runner == 'ubuntu-latest' && 'ubuntu-latest' || fromJSON('["self-hosted", "Linux", "X64"]') }}
     steps:
       - name: Checkout Repository & Submodules
         uses: actions/checkout@v4
@@ -60,6 +68,7 @@ jobs:
 
       - name: Set up JDK 21
         uses: actions/setup-java@v4
+        continue-on-error: true
         with:
           java-version: '21'
           distribution: 'temurin'
@@ -67,6 +76,7 @@ jobs:
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
+        continue-on-error: true
         with:
           python-version: '3.11'
           cache: 'pip'
