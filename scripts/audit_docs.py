@@ -43,22 +43,22 @@ def audit_cleanliness(docs_dir: Path) -> list:
     return violations
 
 
-def audit_symmetry(zh_dir: Path, en_dir: Path) -> list:
-    """Verifies that zh/ and en/ directories have 100% mirrored structure."""
+def audit_symmetry(zh_dir: Path, target_dir: Path, target_lang: str) -> list:
+    """Verifies that zh/ and target_dir have 100% mirrored structure."""
     violations = []
-    if not zh_dir.exists() or not en_dir.exists():
-        return [f"Language directories missing: zh_dir={zh_dir.exists()}, en_dir={en_dir.exists()}"]
+    if not zh_dir.exists() or not target_dir.exists():
+        return [f"Language directory missing: {target_dir}"]
 
     zh_files = {p.relative_to(zh_dir).as_posix() for p in zh_dir.rglob("*.md")}
-    en_files = {p.relative_to(en_dir).as_posix() for p in en_dir.rglob("*.md")}
+    target_files = {p.relative_to(target_dir).as_posix() for p in target_dir.rglob("*.md")}
 
-    missing_in_en = zh_files - en_files
-    missing_in_zh = en_files - zh_files
+    missing_in_target = zh_files - target_files
+    missing_in_zh = target_files - zh_files
 
-    for f in sorted(missing_in_en):
-        violations.append(f"ASYMMETRY: '{f}' exists in zh/ but missing in en/")
+    for f in sorted(missing_in_target):
+        violations.append(f"ASYMMETRY: '{f}' exists in zh/ but missing in {target_lang}/")
     for f in sorted(missing_in_zh):
-        violations.append(f"ASYMMETRY: '{f}' exists in en/ but missing in zh/")
+        violations.append(f"ASYMMETRY: '{f}' exists in {target_lang}/ but missing in zh/")
 
     return violations
 
@@ -76,16 +76,20 @@ def main():
 
     # Check both root docs and modules/docs/docs
     check_dirs = [ROOT / "docs", ROOT / "modules" / "docs" / "docs"]
+    target_langs = ["en", "zh-TW", "ja", "ko", "ru", "de", "fr", "es", "pt"]
+
     for d in check_dirs:
         if d.exists():
             clean_errs = audit_cleanliness(d)
             all_violations.extend(clean_errs)
 
             zh_d = d / "zh"
-            en_d = d / "en"
-            if zh_d.exists() and en_d.exists():
-                sym_errs = audit_symmetry(zh_d, en_d)
-                all_violations.extend(sym_errs)
+            if zh_d.exists():
+                for lang in target_langs:
+                    lang_d = d / lang
+                    if lang_d.exists():
+                        sym_errs = audit_symmetry(zh_d, lang_d, lang)
+                        all_violations.extend(sym_errs)
 
     if all_violations:
         print(f"\n[FAILED] Found {len(all_violations)} documentation audit violation(s):\n")
