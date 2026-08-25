@@ -2,6 +2,9 @@ name: "GTE Art Assets Pipeline & Test Pack"
 
 on:
   push:
+    branches:
+      - main
+      - master
     paths:
       - "art_assets/**"
       - "scripts/sync_art_assets.py"

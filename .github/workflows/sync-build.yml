@@ -55,10 +55,6 @@ permissions:
   contents: write
   pull-requests: write
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}-${{ github.event_name == 'workflow_dispatch' && github.run_id || 'stream' }}
-  cancel-in-progress: false
-
 jobs:
   build-and-sync:
     name: "GTE-Multi Build, Test, Translate & Sync"
