@@ -183,17 +183,9 @@ jobs:
           }
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - name: Warning Countdown Summary (Beta / Dev Notice)
+      - name: Build Summary Report
         if: steps.meta.outputs.channel != 'release'
-        run: |
-          $warnLines = Select-String -Path build.log -Pattern "warning:" -AllMatches
-          $warnCount = if ($warnLines) { $warnLines.Count } else { 0 }
-          "### ⚠️ Build Quality Inspection" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
-          if ($warnCount -gt 0) {
-            "> ⚠️ **[Release 预警]** 检测到 **$warnCount** 处代码 Warning。当前 **${{ steps.meta.outputs.channel }}** 阶段已放行，请在合入正式版前清理！" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
-          } else {
-            "> ✅ **[零警告]** 代码质量完美，0 Warning 通过！" | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
-          }
+        run: python scripts/summary_report.py "${{ steps.meta.outputs.channel }}"
 
       - name: Copy Built Mod Jars to Overrides and Artifacts
         run: |
