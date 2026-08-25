@@ -323,30 +323,19 @@ jobs:
             Java 21
 
       # ──────────────────────────────────────────────
-      # Build Multi-Lingual Documentation & Deploy to GitHub Pages
+      # Publish Maven Artifacts to GitHub Pages
       # ──────────────────────────────────────────────
-      - name: Build and Publish Maven Artifacts
+      - name: Build Maven Artifacts
         run: |
           mkdir -p build/maven
           ./gradlew :modules:gtecore:publish :modules:gtm-reborn:publish :modules:gt--:publish -PmavenDir="${{ github.workspace }}/build/maven" -x test
 
-      - name: Build Multi-Lingual Documentation (MkDocs)
-        run: |
-          if [ -f "modules/docs/mkdocs.yml" ]; then
-            mkdocs build -f modules/docs/mkdocs.yml -d ../../build/site
-          else
-            mkdocs build -d build/site
-          fi
-          mkdir -p build/site
-          cp -rn build/maven/* build/site/ || cp -r build/maven/* build/site/ || true
-          echo "Site and Maven artifacts merged:"
-          ls -la build/site/
-
-      - name: Deploy Docs & Maven to GitHub Pages
+      - name: Deploy Maven to GitHub Pages
         if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/site
+          publish_dir: ./build/maven
+          destination_dir: maven
           keep_files: true
           cname: ''
