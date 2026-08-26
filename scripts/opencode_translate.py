@@ -329,7 +329,12 @@ def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, pr
     if not force and dst_path.exists() and dst_path.stat().st_size > 50:
         with _cache_lock:
             if cache.get(cache_entry_key) == src_hash:
-                return False # Skipped (already up to date)
+                try:
+                    dst_content = dst_path.read_text(encoding="utf-8")
+                    if target_lang == "zh-TW" or dst_content.strip() != text.strip():
+                        return False # Skipped (already translated & up to date)
+                except Exception:
+                    pass
 
     if not provider:
         dst_path.write_text(text, encoding="utf-8")
@@ -339,13 +344,15 @@ def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, pr
         lang_name = DOCS_LANGUAGES.get(target_lang, {}).get("name", target_lang)
         prompt = (
             f"You are a professional technical and Minecraft mod documentation translator.\n"
-            f"Translate the following Markdown documentation into {lang_name} ({target_lang}).\n"
-            f"Strict Rules:\n"
-            f"1. Preserve ALL Markdown syntax, headers (#, ##), tables, bold, italics.\n"
-            f"2. Keep code blocks (```...```) and inline code (`...`) 100% untouched.\n"
-            f"3. In markdown links [Text](URL), translate 'Text' but NEVER modify 'URL'.\n"
-            f"4. Keep technical abbreviations untouched (EU/t, UHV, AE2, GT--, KubeJS, Packwiz, JVM).\n"
-            f"5. Output ONLY the translated Markdown text without conversational remarks or wrapping in code blocks.\n\n"
+            f"Translate the following Markdown documentation completely into {lang_name} ({target_lang}).\n"
+            f"Strict Localization Rules:\n"
+            f"1. Preserve ALL Markdown structural syntax, headers (#, ##), tables, bold, italics.\n"
+            f"2. Translate all UI text, headings, badges, table column headers, and callout texts.\n"
+            f"3. In Mermaid diagrams (```mermaid ... ```), translate all node text labels (e.g. A[Label] --> B[Label]) into {lang_name}, while keeping flowchart syntax keywords (graph TD, -->, subgraph, etc.) untouched.\n"
+            f"4. Keep code blocks syntax intact, but translate code comments (e.g. # or // comments) into {lang_name}.\n"
+            f"5. In markdown links [Text](URL), translate 'Text' into {lang_name} but NEVER modify 'URL'.\n"
+            f"6. Keep technical abbreviations and system names untouched (EU/t, UHV, AE2, GT--, KubeJS, Packwiz, JVM).\n"
+            f"7. Output ONLY the translated Markdown content directly without conversational remarks or wrapping in extra code blocks.\n\n"
             f"Content to translate:\n\n{text}"
         )
 
