@@ -47,6 +47,43 @@ on:
         default: false
         type: boolean
 
+  # Allow other workflows (e.g. sync-build.yml) to call this workflow
+  workflow_call:
+    inputs:
+      target_langs:
+        type: string
+        required: false
+        default: "all"
+      translate_docs:
+        type: boolean
+        required: false
+        default: true
+      force:
+        type: boolean
+        required: false
+        default: false
+      create_pr:
+        type: boolean
+        required: false
+        default: false
+    secrets:
+      DEEPSEEK_API_KEY:
+        required: false
+      GEMINI_API_KEY:
+        required: false
+      OPENAI_API_KEY:
+        required: false
+      DASHSCOPE_API_KEY:
+        required: false
+      MOONSHOT_API_KEY:
+        required: false
+      ZHIPU_API_KEY:
+        required: false
+      OPENCODE_API_KEY:
+        required: false
+      LLM_API_KEY:
+        required: false
+
 permissions:
   contents: write
   pull-requests: write
@@ -84,12 +121,12 @@ jobs:
           OPENCODE_API_KEY: ${{ inputs.custom_api_key || secrets.OPENCODE_API_KEY }}
           LLM_API_KEY: ${{ inputs.custom_api_key || secrets.LLM_API_KEY }}
         run: |
-          ARGS="--langs ${{ inputs.target_langs }}"
+          ARGS="--langs ${{ inputs.target_langs || 'all' }}"
           if [ "${{ inputs.opencc_only }}" = "true" ]; then
             ARGS="$ARGS --opencc-only"
           fi
           if [ "${{ inputs.translate_docs }}" = "true" ]; then
-            ARGS="$ARGS --docs-dir docs"
+            ARGS="$ARGS --docs-dir modules/docs/docs"
           fi
           if [ "${{ inputs.force }}" = "true" ]; then
             ARGS="$ARGS --force"
@@ -107,7 +144,7 @@ jobs:
           fi
 
       - name: Commit and Create PR
-        if: steps.git_status.outputs.has_changes == 'true' && inputs.create_pr == true
+        if: steps.git_status.outputs.has_changes == 'true' && (inputs.create_pr == true || inputs.create_pr == '')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

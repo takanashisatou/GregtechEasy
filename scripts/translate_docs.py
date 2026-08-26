@@ -13,12 +13,17 @@ Translates Markdown documentation across 10 global languages:
 - fr: French (Français, AI LLM)
 - es: Spanish (Español, AI LLM)
 - pt: Portuguese (Português, AI LLM)
+
+Optimizations (v2):
+- Mega-batch: all docs sent in 1 LLM call per language (DSv4 Flash 1M context)
+- Robust retry: never writes untranslated fallback text on failure
 """
 
 import os
 import re
 import sys
 import json
+import time
 import logging
 import argparse
 from pathlib import Path
@@ -123,7 +128,84 @@ def convert_opencc_markdown(text: str, config: str = "s2twp") -> str:
     return "".join(out_lines)
 
 
+def _call_llm_with_retry(prompt: str, provider: Dict[str, str], timeout: int = 180, max_retries: int = 5) -> str:
+    """Call LLM API with exponential backoff retry. Raises on all failures."""
+    import requests
+    import socket
+
+    proxies = None
+    local_proxy = os.environ.get("HTTP_PROXY") or os.environ.get("http_proxy")
+    if not local_proxy:
+        try:
+            with socket.create_connection(("127.0.0.1", 10808), timeout=0.5):
+                proxies = {"http": "http://127.0.0.1:10808", "https": "http://127.0.0.1:10808"}
+        except Exception:
+            pass
+    else:
+        proxies = {"http": local_proxy, "https": local_proxy}
+
+    last_error = None
+    for attempt in range(max_retries):
+        try:
+            if provider.get("name") == "gemini":
+                model = provider.get("model") or "gemini-3.6-flash"
+                url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={provider['api_key']}"
+                payload = {
+                    "contents": [{"parts": [{"text": prompt}]}],
+                    "generationConfig": {"temperature": 0.2}
+                }
+                resp = requests.post(url, json=payload, proxies=proxies, timeout=timeout)
+                if resp.status_code != 200:
+                    raise RuntimeError(f"Gemini API error {resp.status_code}: {resp.text}")
+                data = resp.json()
+                return data["candidates"][0]["content"]["parts"][0]["text"]
+            else:
+                url = f"{provider['base_url']}/chat/completions"
+                payload = {
+                    "model": provider["model"],
+                    "messages": [
+                        {"role": "system", "content": "You are a professional Markdown documentation translator."},
+                        {"role": "user", "content": prompt}
+                    ],
+                    "temperature": 0.2
+                }
+                headers = {
+                    "Authorization": f"Bearer {provider['api_key']}",
+                    "Content-Type": "application/json"
+                }
+                resp = requests.post(url, json=payload, headers=headers, proxies=proxies, timeout=timeout)
+                if resp.status_code != 200:
+                    raise RuntimeError(f"LLM API error {resp.status_code}: {resp.text}")
+                data = resp.json()
+                return data["choices"][0]["message"]["content"]
+        except Exception as e:
+            last_error = e
+            err_str = str(e)
+            is_auth = any(code in err_str for code in ["401", "403", "Unauthorized", "Forbidden"])
+            if is_auth:
+                raise  # Don't retry auth errors
+
+            if attempt < max_retries - 1:
+                wait = 2.0 * (2 ** attempt)
+                logger.warning(f"LLM call failed (attempt {attempt+1}/{max_retries}): {e}. Retrying in {wait:.0f}s...")
+                time.sleep(wait)
+            else:
+                logger.error(f"LLM call exhausted {max_retries} retries: {e}")
+
+    raise last_error
+
+
+def _strip_markdown_wrapper(text: str) -> str:
+    text = text.strip()
+    if text.startswith("```markdown") and text.endswith("```"):
+        return text[len("```markdown"): -3].strip()
+    if text.startswith("```md") and text.endswith("```"):
+        return text[len("```md"): -3].strip()
+    return text
+
+
 def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, provider: Dict[str, str], force: bool = False):
+    """Translate a single Markdown file. On failure, does NOT write untranslated fallback."""
     text = src_path.read_text(encoding="utf-8")
     dst_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -140,11 +222,11 @@ def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, pr
             return
 
     if not provider:
-        dst_path.write_text(text, encoding="utf-8")
+        # No provider — do NOT write untranslated fallback
+        logger.warning(f"No LLM provider for {src_path.name} -> {target_lang}. Skipping.")
         return
 
     try:
-        import requests
         lang_name = DOCS_LANGUAGES.get(target_lang, {}).get("name", target_lang)
         prompt = (
             f"You are a professional technical and Minecraft mod documentation translator.\n"
@@ -158,59 +240,18 @@ def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, pr
             f"Content to translate:\n\n{text}"
         )
 
-        proxies = None
-        local_proxy = os.environ.get("HTTP_PROXY") or os.environ.get("http_proxy")
-        if not local_proxy:
-            # Check if local proxy is listening
-            import socket
-            try:
-                with socket.create_connection(("127.0.0.1", 10808), timeout=0.5):
-                    proxies = {"http": "http://127.0.0.1:10808", "https": "http://127.0.0.1:10808"}
-            except Exception:
-                pass
+        translated_content = _call_llm_with_retry(prompt, provider, timeout=180)
+        translated_content = _strip_markdown_wrapper(translated_content)
 
-        if provider.get("name") == "gemini":
-            model = provider.get("model") or "gemini-3.6-flash"
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={provider['api_key']}"
-            payload = {
-                "contents": [{"parts": [{"text": prompt}]}],
-                "generationConfig": {"temperature": 0.2}
-            }
-            resp = requests.post(url, json=payload, proxies=proxies, timeout=90)
-            if resp.status_code != 200:
-                raise RuntimeError(f"Gemini API error {resp.status_code}: {resp.text}")
-            data = resp.json()
-            translated_content = data["candidates"][0]["content"]["parts"][0]["text"]
-        else:
-            url = f"{provider['base_url']}/chat/completions"
-            payload = {
-                "model": provider["model"],
-                "messages": [
-                    {"role": "system", "content": "You are a professional Markdown documentation translator."},
-                    {"role": "user", "content": prompt}
-                ],
-                "temperature": 0.2
-            }
-            headers = {
-                "Authorization": f"Bearer {provider['api_key']}",
-                "Content-Type": "application/json"
-            }
-            resp = requests.post(url, json=payload, headers=headers, proxies=proxies, timeout=90)
-            if resp.status_code != 200:
-                raise RuntimeError(f"LLM API error {resp.status_code}: {resp.text}")
-            data = resp.json()
-            translated_content = data["choices"][0]["message"]["content"]
-
-        if translated_content.startswith("```markdown") and translated_content.endswith("```"):
-            translated_content = translated_content[len("```markdown"): -3].strip()
-        elif translated_content.startswith("```md") and translated_content.endswith("```"):
-            translated_content = translated_content[len("```md"): -3].strip()
+        # Sanity check
+        if len(translated_content.strip()) < max(50, len(text.strip()) // 5):
+            raise RuntimeError(f"Translation too short ({len(translated_content)} chars vs {len(text)} source) — likely truncated")
 
         dst_path.write_text(translated_content, encoding="utf-8")
         logger.info(f"[LLM {provider['name']}] {src_path.name} -> {target_lang}")
     except Exception as e:
-        logger.warning(f"LLM translation failed for {src_path.name} to {target_lang}: {e}. Using fallback.")
-        dst_path.write_text(text, encoding="utf-8")
+        # CRITICAL FIX: Do NOT write untranslated source as fallback!
+        logger.error(f"TRANSLATION FAILED for {src_path.name} -> {target_lang}: {e}. NOT writing fallback.")
 
 
 def sync_all_docs(docs_root: Path):

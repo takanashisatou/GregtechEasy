@@ -24,6 +24,12 @@ on:
       - "scripts/audit_docs.py"
   workflow_dispatch:
 
+  # Allow other workflows to trigger docs deploy
+  workflow_call:
+    secrets:
+      GH_PAT:
+        required: false
+
 permissions:
   contents: write
 
@@ -61,7 +67,7 @@ jobs:
         run: mkdocs build --strict -d build/site
 
       - name: Deploy to takanashisatou.github.io (root site)
-        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call'
         uses: peaceiris/actions-gh-pages@v4
         with:
           personal_token: ${{ secrets.GH_PAT }}

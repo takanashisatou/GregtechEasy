@@ -214,7 +214,8 @@ jobs:
           Get-ChildItem gte/overrides/mods
 
       # ──────────────────────────────────────────────
-      # Multi-Language Localization (OpenCC 0-Token + LLM)
+      # Multi-Language Localization (OpenCC 0-Token + LLM Mega-Batch)
+      # Uses DSv4 Flash 1M context: all docs packed in 1 request/language
       # ──────────────────────────────────────────────
       - name: Run Global Multi-Language Localization (AI + OpenCC)
         env:
@@ -226,7 +227,32 @@ jobs:
           ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-        run: python scripts/opencode_translate.py
+        run: python scripts/opencode_translate.py --all
+
+      - name: Commit Translation Updates
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          $status = git status --porcelain
+          if ($status) {
+            git commit -m "i18n: Auto-update multi-language assets and wiki translations"
+            git pull --rebase origin ${{ github.ref_name }}
+            git push
+            Write-Host "✅ Translation updates committed and pushed."
+          } else {
+            Write-Host "ℹ️ No translation changes to commit."
+          }
+
+      - name: Trigger Docs Deploy Workflow
+        if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          Write-Host "🚀 Triggering docs-deploy workflow..."
+          gh workflow run docs-deploy.yml --ref ${{ github.ref_name }}
+          Write-Host "✅ Docs deploy workflow triggered successfully."
 
       # ──────────────────────────────────────────────
       # Modpack Packaging Pipeline
