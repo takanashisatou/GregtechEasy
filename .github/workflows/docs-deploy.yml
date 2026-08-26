@@ -63,6 +63,9 @@ jobs:
       - name: "[Gate 1] Documentation Cleanliness & Symmetry Audit (0.5s)"
         run: python scripts/audit_docs.py
 
+      - name: "[Gate 1.5] Translation Completeness Audit — all 10 languages 100%"
+        run: python scripts/audit_translations.py
+
       - name: "[Gate 2] Build MkDocs Site with Strict 404 Checks"
         # Build from the submodule's mkdocs.yml — modules/docs/docs/ is the source of truth
         # for documentation and receives AI translations from the CI pipeline.
