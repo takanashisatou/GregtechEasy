@@ -1,28 +1,28 @@
 # Guide de modding et de développement de scripts KubeJS
 
-GTE délègue la plupart de l'enregistrement des matériaux, les ajustements de recettes et la logique d'intégration multi-mods à **KubeJS** (répertoire situé dans `gte/overrides/kubejs/`).
+GTE confie la plupart de l'enregistrement des matériaux, des ajustements de recettes et de la logique d'intégration multi-modules à **KubeJS** (répertoire situé dans `gte/overrides/kubejs/`).
 
 ---
 
-## 📁 Architecture des répertoires de scripts et cycle de vie
+## 📁 Architecture et cycle de vie des répertoires de scripts
 
 ```
 gte/overrides/kubejs/
-├── startup_scripts/     # 【Scripts de démarrage】Exécutés au tout début du jeu, utilisés pour enregistrer matériaux, fluides, blocs, objets
-├── server_scripts/      # 【Scripts serveur】Exécutés lors de l'entrée dans une sauvegarde / connexion au serveur, utilisés pour enregistrer/modifier recettes et tags
-├── client_scripts/      # 【Scripts client】Exécutés côté client, utilisés pour modifier les infobulles, l'affichage JEI/EMI
+├── startup_scripts/     # Scripts de démarrage : exécutés au tout début du jeu, pour enregistrer matériaux, fluides, blocs, objets
+├── server_scripts/      # Scripts serveur : exécutés lors de l'entrée dans une sauvegarde/connexion au serveur, pour enregistrer/modifier recettes et tags
+├── client_scripts/      # Scripts client : exécutés côté client, pour modifier les infobulles, l'affichage de l'interface JEI/EMI
 └── assets/ & data/      # Fichiers de localisation statiques, textures et packs de données
 ```
 
 ---
 
-## 🧪 Phase de démarrage : Enregistrement de matériaux personnalisés (`startup_scripts/`)
+## 🧪 Phase de démarrage : enregistrement de matériaux personnalisés (`startup_scripts/`)
 
 Utilisez `GTCEuStartupEvents.registry('gtceu:material', ...)` pour enregistrer des éléments et matériaux personnalisés :
 
 ```javascript
 GTCEuStartupEvents.registry('gtceu:material', event => {
-    // 1. Enregistrer le métal infini (Infinite)
+    // 1. Enregistrement du métal infini (Infinite)
     event.create('infinite')
         .color(0xed1661)
         .ingot()
@@ -32,7 +32,7 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
             GTToolType.AXE, GTToolType.PICKAXE, GTToolType.SWORD, GTToolType.MORTAR
         ]))
 
-    // 2. Enregistrer le métal fluide sombre (Dark Fluid)
+    // 2. Enregistrement du métal fluide sombre (Dark Fluid)
     event.create('dark_fluid')
         .color(0xb156d8)
         .fluid()
@@ -45,7 +45,7 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
             GTMaterialFlags.GENERATE_LONG_ROD
         )
 
-    // 3. Enregistrer la matière miaou miaou (Meow Meow Matter) et l'antimatière (Antimatter)
+    // 3. Enregistrement de la matière Meow Meow (Meow Meow Matter) et de l'antimatière (Antimatter)
     event.create('meow_meow_matter')
         .color(0x483D8B)
         .dust()
@@ -69,7 +69,7 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
 
 ---
 
-## ⚙️ Phase serveur : Recettes personnalisées et écriture de recettes de machines (`server_scripts/`)
+## ⚙️ Côté serveur : écriture de recettes personnalisées et de recettes de machines (`server_scripts/`)
 
 Dans l'événement `ServerEvents.recipes`, vous pouvez directement appeler `event.recipes.gtceu` et `event.recipes.gtecore` :
 
@@ -80,7 +80,7 @@ ServerEvents.recipes(event => {
     const gtr = event.recipes.gtceu
     const gte = event.recipes.gtecore
 
-    // Supprimer les anciennes recettes inefficaces
+    // Suppression des recettes inefficaces existantes
     event.remove({ input: 'gtceu:raw_platinum' })
     event.remove({ id: 'gtceu:coke_oven/log_to_charcoal' })
 
@@ -97,7 +97,7 @@ ServerEvents.recipes(event => {
         .itemOutputs('5x gtceu:steel_ingot')
         .duration(1)
 
-    // Presse à former pour processeur logique imprimé
+    // Presse à former pour processeur logique
     gtr.forming_press('gtecore:printed_logic_processor')
         .EUt(26)
         .duration(2 * 20)
@@ -113,7 +113,7 @@ ServerEvents.recipes(event => {
 ServerEvents.recipes(event => {
     const gte = event.recipes.gtecore
 
-    // Recette de production de minerais en masse pour la boîte facile (Easy Box)
+    // Recette de production en masse de minerais pour la boîte facile (Easy Box)
     gte.easy_box('easy_test')
         .circuit(1)
         .duration(20 * 20)
@@ -134,13 +134,13 @@ ServerEvents.recipes(event => {
 
 ## ⚡ Commandes de rechargement à chaud en jeu
 
-Testez vos modifications de scripts en temps réel sans redémarrer le client :
+Sans redémarrer le client, vous pouvez tester vos modifications de scripts en temps réel :
 
-- **Recharger les recettes et les scripts serveur** :
+- **Recharger les recettes et les scripts serveur :**
   ```mcfunction
   /kubejs reload server_scripts
   ```
-- **Recharger les matériaux et les scripts client** :
+- **Recharger les matériaux et les scripts client :**
   ```mcfunction
   /kubejs reload client_scripts
   ```

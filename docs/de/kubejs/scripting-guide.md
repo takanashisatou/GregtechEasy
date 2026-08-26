@@ -1,6 +1,6 @@
-# KubeJS Modifikations- und Skriptentwicklungsleitfaden
+# KubeJS-Modding- und Skriptentwicklungsleitfaden
 
-GTE überlässt den Großteil der Materialregistrierung, Rezeptanpassung und Multi-Mod-Interaktionslogik **KubeJS** (Verzeichnis unter `gte/overrides/kubejs/`).
+GTE überlässt den Großteil der Materialregistrierung, Rezeptanpassungen und Multi-Mod-Interaktionslogik **KubeJS** (Verzeichnis unter `gte/overrides/kubejs/`).
 
 ---
 
@@ -8,17 +8,17 @@ GTE überlässt den Großteil der Materialregistrierung, Rezeptanpassung und Mul
 
 ```
 gte/overrides/kubejs/
-├── startup_scripts/     # Startup-Skripte: Werden in der frühesten Phase des Spiels ausgeführt, um Materialien, Flüssigkeiten, Blöcke und Gegenstände zu registrieren.
-├── server_scripts/      # Server-Skripte: Werden beim Betreten einer Welt/Verbinden mit einem Server ausgeführt, um Rezepte und Tags zu registrieren/ändern.
-├── client_scripts/      # Client-Skripte: Werden auf dem Client ausgeführt, um Tooltips, JEI/EMI-Anzeigen zu ändern.
-└── assets/ & data/      # Statische Lokalisierung, Texturen und Datenpaketdateien.
+├── startup_scripts/     # 【Startskripte】werden in der frühesten Phase des Spiels ausgeführt, um Materialien, Flüssigkeiten, Blöcke und Gegenstände zu registrieren
+├── server_scripts/      # 【Serverskripte】werden beim Betreten einer Welt/Verbinden mit einem Server ausgeführt, um Rezepte und Tags zu registrieren/ändern
+├── client_scripts/      # 【Clientskripte】werden auf dem Client ausgeführt, um Tooltips, JEI/EMI-Anzeigen zu ändern
+└── assets/ & data/      # Statische Lokalisierung, Texturen und Datenpaketdateien
 ```
 
 ---
 
 ## 🧪 Startphase: Benutzerdefinierte Materialregistrierung (`startup_scripts/`)
 
-Verwende `GTCEuStartupEvents.registry('gtceu:material', ...)`, um benutzerdefinierte Elemente und Materialien zu registrieren:
+Verwenden Sie `GTCEuStartupEvents.registry('gtceu:material', ...)`, um benutzerdefinierte Elemente und Materialien zu registrieren:
 
 ```javascript
 GTCEuStartupEvents.registry('gtceu:material', event => {
@@ -45,7 +45,7 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
             GTMaterialFlags.GENERATE_LONG_ROD
         )
 
-    // 3. Registriere Meow Meow Materie und Antimaterie
+    // 3. Registriere Miau-Miau-Materie (Meow Meow Matter) und Antimaterie (Antimatter)
     event.create('meow_meow_matter')
         .color(0x483D8B)
         .dust()
@@ -69,35 +69,35 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
 
 ---
 
-## ⚙️ Server: Benutzerdefinierte Rezepte und Maschinenrezepte schreiben (`server_scripts/`)
+## ⚙️ Serverseite: Benutzerdefinierte Rezepte und Maschinenrezepte schreiben (`server_scripts/`)
 
-Im `ServerEvents.recipes`-Event kannst du direkt `event.recipes.gtceu` und `event.recipes.gtecore` aufrufen:
+Im `ServerEvents.recipes`-Event können Sie direkt `event.recipes.gtceu` und `event.recipes.gtecore` aufrufen:
 
-### 1. Basis-Maschinen- und Hochofenrezepte
+### 1. Grundlegende Maschinen- und Hochofenrezepte
 
 ```javascript
 ServerEvents.recipes(event => {
     const gtr = event.recipes.gtceu
     const gte = event.recipes.gtecore
 
-    // Entferne alte ineffiziente Rezepte
+    // Entferne ursprüngliche ineffiziente Rezepte
     event.remove({ input: 'gtceu:raw_platinum' })
     event.remove({ id: 'gtceu:coke_oven/log_to_charcoal' })
 
-    // Schnelles Koksofen-Rezept
+    // Schnellkoksofen-Rezept
     gtr.coke_oven('fast_coke_oven')
         .itemInputs('#minecraft:logs_that_burn')
         .itemOutputs('minecraft:charcoal')
         .outputFluids('gtceu:creosote 1000')
         .duration(20)
 
-    // Primärer Hochofen: 1 Eisen + 1 Kohle -> 5 Stahlbarren (1 Tick)
+    // Primitiver Hochofen: 1 Eisen + 1 Kohle -> 5 Stahlbarren (1 Tick)
     gtr.primitive_blast_furnace('easy_steel_from_coal')
         .itemInputs('1x minecraft:iron_ingot', '1x minecraft:coal')
         .itemOutputs('5x gtceu:steel_ingot')
         .duration(1)
 
-    // Formpresse für gedruckten Logikprozessor
+    // Formpresse für logischen Prozessor
     gtr.forming_press('gtecore:printed_logic_processor')
         .EUt(26)
         .duration(2 * 20)
@@ -107,13 +107,13 @@ ServerEvents.recipes(event => {
 })
 ```
 
-### 2. GTECore Benutzerdefinierte Maschinenrezepte
+### 2. GTECore-Benutzerdefinierte Maschinenrezepte
 
 ```javascript
 ServerEvents.recipes(event => {
     const gte = event.recipes.gtecore
 
-    // Einfache Box (Easy Box) Rezept für Massenmineralausbeute
+    // Einfache Box (Easy Box) Massenerz-Ausbeute-Rezept
     gte.easy_box('easy_test')
         .circuit(1)
         .duration(20 * 20)
@@ -132,15 +132,15 @@ ServerEvents.recipes(event => {
 
 ---
 
-## ⚡ In-Game Hot-Reload-Befehle
+## ⚡ In-Game-Hot-Reload-Befehle
 
-Teste Skriptänderungen in Echtzeit, ohne den Client neu zu starten:
+Sie können Skriptänderungen in Echtzeit testen, ohne den Client neu zu starten:
 
-- **Rezepte und Server-Skripte neu laden**:
+- **Rezepte und Serverskripte neu laden**:
   ```mcfunction
   /kubejs reload server_scripts
   ```
-- **Materialien und Client-Skripte neu laden**:
+- **Materialien und Clientskripte neu laden**:
   ```mcfunction
   /kubejs reload client_scripts
   ```

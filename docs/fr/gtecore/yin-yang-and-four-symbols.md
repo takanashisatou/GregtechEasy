@@ -1,69 +1,69 @@
-# 阴阳八卦炼仙炉与四象阵法系统
+# Système de Fourneau de Raffinage Immortel Yin-Yang et de Formation des Quatre Symboles
 
-GTECore 独创了结合东方道家哲学与现代重工业工程的 **“太极八卦与四象阵法体系”**。这一体系构成了游戏中后期冶金、超导物质合成与仙道科技跃迁的核心枢纽。
+GTECore a créé de manière originale un **« Système de Taiji, Bagua et des Quatre Symboles »** combinant la philosophie taoïste orientale et l'ingénierie industrielle moderne. Ce système constitue le cœur central de la métallurgie, de la synthèse de matériaux supraconducteurs et du saut technologique de la voie immortelle en milieu et fin de jeu.
 
 ---
 
-## 🌌 阴阳八卦炼仙炉 (`yin_yang_eight_trigmas_blast_furnace`)
+## 🌌 Fourneau de Raffinage Immortel Yin-Yang Bagua (`yin_yang_eight_trigmas_blast_furnace`)
 
-**紫薇八卦炼仙炉** 是目前科技模组界规模最宏大、机制最精密的多方块结构之一（占地超过 55×55 方块）：
+**Le Fourneau de Raffinage Immortel Bagua Ziwei** est l'une des structures multi-blocs les plus vastes et les plus précises de la scène des mods technologiques (occupant plus de 55×55 blocs) :
 
 ```mermaid
 graph TD
-    A[紫薇八卦炼仙炉 控制器] --> B[中央炉芯: 离火/坎水/坤艮机械方块 & 阴阳线圈]
-    A --> C[东方: 青龙阵法模块 Azure Dragon]
-    A --> D[西方: 白虎阵法模块 White Tiger]
-    A --> E[南方: 朱雀阵法模块 Vermilion Bird]
-    A --> F[北方: 玄武阵法模块 Black Tortoise]
+    A[Contrôleur du Fourneau de Raffinage Immortel Bagua] --> B[Noyau central du four : blocs mécaniques Li Huo / Kan Shui / Kun Gen & bobines Yin-Yang]
+    A --> C[Est : Module de Formation du Dragon Azure]
+    A --> D[Ouest : Module de Formation du Tigre Blanc]
+    A --> E[Sud : Module de Formation de l'Oiseau Vermillon]
+    A --> F[Nord : Module de Formation de la Tortue Noire]
 ```
 
-### 🧭 风水朝向法则（关键机制）
+### 🧭 Règle d'orientation Feng Shui (mécanisme clé)
 > [!IMPORTANT]
-> **风水方位律**：由于风水与磁场约束原因，**炼仙炉主控制器必须正面朝南放置**，才能与天地阴阳之气贯通并正常成型运转！
+> **Loi de l'orientation Feng Shui** : En raison des contraintes du Feng Shui et du champ magnétique, **le contrôleur principal du four de raffinage doit être placé face au sud** pour s'harmoniser avec le souffle Yin-Yang du ciel et de la terre et se former et fonctionner correctement !
 
-### 炉体基础能力
-- **支持配方库**：原生兼容常规高炉配方 (`blast_recipes`)、熔炼炉配方 (`furnace_recipes`)、合金炉配方 (`alloy_smelter_recipes`)、GCYM 巨型合金高炉配方 (`alloy_blast_recipes`) 以及专属的 **阴阳八卦配方 (`yin_yang_eight_trigmas_blast`)**。
-- **超频特性**：完美支持 **1T Subtick 瞬时超频** 与 **批处理模式 (Batch Mode)**。
+### Capacités de base du four
+- **Bibliothèque de recettes prise en charge** : Compatible nativement avec les recettes de haut fourneau standard (`blast_recipes`), les recettes de four (`furnace_recipes`), les recettes de fusion d'alliages (`alloy_smelter_recipes`), les recettes de haut fourneau géant d'alliage GCYM (`alloy_blast_recipes`) ainsi que les recettes exclusives **Yin-Yang Bagua (`yin_yang_eight_trigmas_blast`)**.
+- **Caractéristique de surcadençage** : Prend parfaitement en charge le **surcadençage instantané 1T Subtick** et le **mode de traitement par lots (Batch Mode)**.
 
 ---
 
-## 🐉 四象阵法子模块与动态条件检测
+## 🐉 Sous-modules de Formation des Quatre Symboles et détection dynamique des conditions
 
-炼仙炉四周可分别延伸搭建出 **东青龙、西白虎、南朱雀、北玄武** 四大阵法翼：
+Autour du four de raffinage, on peut étendre respectivement les quatre ailes de formation : **Dragon Azure à l'Est, Tigre Blanc à l'Ouest, Oiseau Vermillon au Sud, Tortue Noire au Nord** :
 
-| 阵法模块 | 阵法方位 | 阵法方块 | 配方条件 (`RecipeCondition`) | 开启后的增益与作用 |
+| Module de formation | Orientation de la formation | Bloc de formation | Condition de recette (`RecipeCondition`) | Bonus et effets une fois activés |
 | :--- | :--- | :--- | :--- | :--- |
-| **青龙阵法** (`Qing Long`) | **东方 (East)** | `qinglong_module` | `QING_LONG_CONDITION` | 激活木生火之势，大幅度降低超高温冶炼能耗，解锁生生不息的高阶催化配方 |
-| **白虎阵法** (`Bai Hu`) | **西方 (West)** | `baihu_module` | `BAI_HU_CONDITION` | 金煞主伐，解锁高硬度神金、超密重核元素裂解与量子金属蜕变配方 |
-| **朱雀阵法** (`Zhu Que`) | **南方 (South)** | `zhuque_module` | `ZHU_QUE_CONDITION` | 南明离火，提供无上限极限炉温，解锁恒星级等离子熔铸与神丹炼制配方 |
-| **玄武阵法** (`Xuan Wu`) | **北方 (North)** | `xuanwu_module` | `XUAN_WU_CONDITION` | 坎水镇守，极速冷却超高温产物，解锁瞬时固化与反物质稳定化配方 |
+| **Formation du Dragon Azure** (`Qing Long`) | **Est (East)** | `qinglong_module` | `QING_LONG_CONDITION` | Active la tendance du bois générant le feu, réduit considérablement la consommation d'énergie pour la fusion à ultra-haute température, débloque des recettes de catalyse avancées de régénération continue |
+| **Formation du Tigre Blanc** (`Bai Hu`) | **Ouest (West)** | `baihu_module` | `BAI_HU_CONDITION` | Le métal maléfique domine la destruction, débloque des recettes de métal divin à haute dureté, de fission d'éléments à noyau super-dense et de transmutation de métaux quantiques |
+| **Formation de l'Oiseau Vermillon** (`Zhu Que`) | **Sud (South)** | `zhuque_module` | `ZHU_QUE_CONDITION` | Feu de l'éclat du sud, fournit une température de four maximale sans limite, débloque la fusion plasma stellaire et les recettes de raffinage de pilules divines |
+| **Formation de la Tortue Noire** (`Xuan Wu`) | **Nord (North)** | `xuanwu_module` | `XUAN_WU_CONDITION` | L'eau de Kan garde, refroidit extrêmement rapidement les produits à ultra-haute température, débloque des recettes de solidification instantanée et de stabilisation de l'antimatière |
 
-### 动态检测与状态反馈
-- 控制器在每次扫描结构与配方匹配时，会自动调用 `checkModule()` 计算四方偏移坐标上的阵法方块是否就绪。
-- 使用 **Jade** 悬浮对准控制器，可直观查看当前四个阵法的激活状态（绿色表示激活，红色表示未就绪）。
+### Détection dynamique et retour d'état
+- Le contrôleur, à chaque analyse de la structure et correspondance des recettes, appelle automatiquement `checkModule()` pour calculer si les blocs de formation aux coordonnées décalées des quatre directions sont prêts.
+- En utilisant **Jade** pour viser le contrôleur, on peut visualiser directement l'état d'activation des quatre formations (vert pour activé, rouge pour non prêt).
 
 ---
 
-## 🔮 衍生道道核心与群星矩阵
+## 🔮 Noyaux dérivés de la Voie et Matrice des Étoiles
 
-在八卦炼仙炉的基础上，GTECore 进一步延伸出系列星天道法多方块：
+Sur la base du four de raffinage Bagua, GTECore étend davantage une série de multi-blocs de la Voie Céleste Stellaire :
 
 ```
-GTE 高阶阵列工业群
-├── 太极五行剥离阵列 (Tai Chi Five Elements Separation Array)
-├── 坤艮星枢 (Kun Gen Star Hub)
-├── 谦穹引擎 (Qian Qiong Engine)
-├── 赤阳道核 (Red Sun Tao Core)
-└── 烬星聚变阵 (Ashing Star Fusion Array)
+Groupe industriel avancé GTE
+├── Matrice de Séparation des Cinq Éléments Taiji (Tai Chi Five Elements Separation Array)
+├── Pivot Stellaire Kun Gen (Kun Gen Star Hub)
+├── Moteur Qian Qiong (Qian Qiong Engine)
+├── Noyau de la Voie du Soleil Rouge (Red Sun Tao Core)
+└── Matrice de Fusion de l'Étoile Cendrée (Ashing Star Fusion Array)
 ```
 
-1. **太极五行剥离阵列 (`taichi_five_elements_separation_array`)**：
-   - 将现实与幻想中的任何矿物和化学物质剥离解析为纯粹的 **金、木、水、火、土** 五行本源元素。
-2. **坤艮星枢 (`kun_gen_star_hub`)**：
-   - 勾连大地与星辰重力波，用于汇聚微观引力子与构筑微型黑洞。
-3. **谦穹引擎 (`qian_qiong_engine`)**：
-   - 虚空取能引擎，从虚无量子涨落中提取浩瀚无际的虚空能量。
-4. **赤阳道核 (`red_sun_tao_core`)**：
-   - 人造超微型恒星核心，模拟恒星日冕层万亿度极端物理条件。
-5. **烬星聚变阵 (`ashing_star_fusion_array`)**：
-   - 超新星遗迹湮灭聚变矩阵，用于重构暗物质与反物质平衡态。
+1. **Matrice de Séparation des Cinq Éléments Taiji (`taichi_five_elements_separation_array`)** :
+   - Sépare et analyse tout minerai et substance chimique, réel ou fantastique, en éléments fondamentaux purs des **Cinq Éléments : Métal, Bois, Eau, Feu, Terre**.
+2. **Pivot Stellaire Kun Gen (`kun_gen_star_hub`)** :
+   - Connecte les ondes gravitationnelles de la terre et des étoiles, utilisé pour concentrer les gravitons microscopiques et construire des micro-trous noirs.
+3. **Moteur Qian Qiong (`qian_qiong_engine`)** :
+   - Moteur d'extraction d'énergie du vide, extrait une énergie du vide immense et illimitée des fluctuations quantiques du néant.
+4. **Noyau de la Voie du Soleil Rouge (`red_sun_tao_core`)** :
+   - Noyau stellaire artificiel ultra-miniature, simulant les conditions physiques extrêmes de la couronne solaire à des billions de degrés.
+5. **Matrice de Fusion de l'Étoile Cendrée (`ashing_star_fusion_array`)** :
+   - Matrice de fusion d'annihilation des vestiges de supernova, utilisée pour reconstruire l'équilibre de la matière noire et de l'antimatière.

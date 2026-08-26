@@ -14,9 +14,9 @@ GTE is a modern Minecraft 1.20.1 modpack centered around the core philosophy of 
 
     ---
 
-    Download the ready-to-use **zero-compilation complete lazy pack**, CurseForge standard pack, and server, and learn about **Java 21** runtime configuration and launcher import tutorials.
+    Download the ready-to-use **0-compilation complete lazy pack**, CurseForge standard pack, and server, and learn about **Java 21** runtime configuration and launcher import tutorials.
 
-    [:octicons-arrow-right-24: Go now](download-and-play/lazy-pack.md)
+    [:octicons-arrow-right-24: Go Now](download-and-play/lazy-pack.md)
 
 -   :material-chip: __[GTECore Core Mod Details](gtecore/overview.md)__
 
@@ -24,15 +24,15 @@ GTE is a modern Minecraft 1.20.1 modpack centered around the core philosophy of 
 
     Dive deep into core content such as the **Yin-Yang Bagua Alchemy Furnace**, **Four Symbols Formation**, **Ore Processing Center**, **Ring of Miracles**, **Superstring and Yin-Yang Circuits**, **AE2 Pattern Assembly Plus**, and more.
 
-    [:octicons-arrow-right-24: Go now](gtecore/overview.md)
+    [:octicons-arrow-right-24: Go Now](gtecore/overview.md)
 
 -   :material-cog: __[GTM Reborn Mod Branch](gtm-reborn/index.md)__
 
     ---
 
-    Learn about the multi-amp recipes, batch processing mode, 1-tick Subtick overclocking, GameTest automated testing, and fluid range output features introduced by the `satou` branch.
+    Learn about the features brought by the `satou` branch: multi-amp recipes, batch processing mode, 1t Subtick overclocking, GameTest automated testing, and fluid interval output.
 
-    [:octicons-arrow-right-24: Go now](gtm-reborn/index.md)
+    [:octicons-arrow-right-24: Go Now](gtm-reborn/index.md)
 
 -   :material-code-tags: __[KubeJS Modding and Development Tools](kubejs/scripting-guide.md)__
 
@@ -40,23 +40,23 @@ GTE is a modern Minecraft 1.20.1 modpack centered around the core philosophy of 
 
     Learn how to register materials, write recipes in KubeJS, and use the built-in `/dumpmultiblock` wooden axe selection tool to export multiblock structure code with one click.
 
-    [:octicons-arrow-right-24: Go now](kubejs/scripting-guide.md)
+    [:octicons-arrow-right-24: Go Now](kubejs/scripting-guide.md)
 
--   :material-hammer-wrench: __[Developer and Crash-Proofing Practical Handbook](development/quick-start.md)__
+-   :material-hammer-wrench: __[Developer and Crash-Prevention Practical Handbook](development/quick-start.md)__
 
     ---
 
     Master the `run_game.bat` launcher-free instant startup, `link_to_launcher.bat` zero-copy directory mapping, and the golden rules to prevent Mixin Accessor crashes.
 
-    [:octicons-arrow-right-24: Go now](development/quick-start.md)
+    [:octicons-arrow-right-24: Go Now](development/quick-start.md)
 
 -   :material-robot: __[CI/CD Pipeline and AI Translation](ci-cd-and-translation/ci-pipeline.md)__
 
     ---
 
-    Learn about the automated multi-module parallel builds based on GitHub Actions, Packwiz packaging, Maven publishing, and the `opencode_translate.py` AI internationalization script.
+    Learn about GitHub Actions-based automated multi-module parallel builds, Packwiz packaging, Maven publishing, and the `opencode_translate.py` AI internationalization script.
 
-    [:octicons-arrow-right-24: Go now](ci-cd-and-translation/ci-pipeline.md)
+    [:octicons-arrow-right-24: Go Now](ci-cd-and-translation/ci-pipeline.md)
 
 </div>
 

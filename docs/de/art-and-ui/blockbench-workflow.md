@@ -1,29 +1,29 @@
 # Benutzeroberfläche, Texturen und Blockbench-Artwork-Workflow
 
-Das GTE-Projekt hat eine automatisierte, verlustfreie Pipeline für die Verarbeitung von Kunst-Assets etabliert. Modell-Designer müssen nur **Blockbench** verwenden, um Modelle zu erstellen und sie im Originalverzeichnis zu speichern. Gradle-Aufgaben übernehmen automatisch die Asset-Klassifizierung, Formatvalidierung und inkrementelle Synchronisierung.
+Das GTE-Projekt hat eine automatisierte, verlustfreie Asset-Verarbeitungspipeline etabliert. Modelldesigner müssen lediglich Modelle mit **Blockbench** erstellen und im Quellverzeichnis speichern. Gradle-Aufgaben übernehmen automatisch die Asset-Klassifizierung, Formatvalidierung und inkrementelle Synchronisierung.
 
 ---
 
-## 🎨 Kunst-Quelldatei-Verzeichnis (`art_assets/`)
+## 🎨 Kunst-Quellverzeichnis (`art_assets/`)
 
-Das `art_assets/`-Verzeichnis im Projektstamm ist das **einzige Arbeitsverzeichnis** für Kunst-Designer und wird streng von Git versioniert:
+Das `art_assets/`-Verzeichnis im Projektstamm ist das **einzige Arbeitsverzeichnis** für Kunstdesigner und wird streng von Git versioniert:
 
 ```
 art_assets/
-├── *.bbmodel                           # Blockbench-Projektquelldateien (Ebenen und Knochen beibehalten)
+├── *.bbmodel                           # Blockbench-Projektquelldateien (Ebenen und Knochen bleiben erhalten)
 ├── *.json                              # Von Blockbench exportierte Minecraft-Geometriemodelle
-├── *.png                               # Textur-Texturen (Gegenstände / Blockgehäuse / Formations-Texturen)
+├── *.png                               # Textur-Texturen (Gegenstände / Blockgehäuse / Array-Texturen)
 ├── *.png.mcmeta                        # Animations- und Material-Metadaten
-└── projectuhv/                         # Unterverzeichnis für spezielle Materialien der High-End-Schaltkreisserie
+└── projectuhv/                         # Unterverzeichnis für spezielle Texturen der Hochspannungs-Schaltkreisserie
 ```
 
 ---
 
 ## 🏷️ Namenskonventionen und automatische Routing-Regeln
 
-Die Gradle-Aufgabe `syncBlockbenchAssets` verteilt Dateien automatisch anhand von Dateinamen-Schlüsselwörtern an die entsprechenden Ressourcenpfade in `modules/gtecore`:
+Die Gradle-Aufgabe `syncBlockbenchAssets` verteilt Dateien basierend auf Namensschlüsselwörtern automatisch an die entsprechenden Ressourcenpfade in `modules/gtecore`:
 
-| Dateityp | Namens-Schlüsselwörter | Automatisches Synchronisierungszielverzeichnis (GTECore) |
+| Dateityp | Namensschlüsselwörter | Automatisches Synchronisierungsziel (GTECore) |
 | :--- | :--- | :--- |
 | **Gegenstandstexturen** (`.png`) | `processor`, `string`, `symbol`, `paper`, `wafer`, `chip`, `god`, `rune`, `yin`, `yang` | `src/main/resources/assets/gtecore/textures/item/` |
 | **Blockgehäuse-Texturen** (`.png`) | `casing`, `module`, `concrete`, `coil`, `zhenfa`, `matrix`, `buffer`, `generator`, `machine` | `src/main/resources/assets/gtecore/textures/block/` |
@@ -42,6 +42,6 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 ```
 
 ### Automatisierungsfunktionen
-1. **Automatische Auslösung**: Diese Aufgabe wurde an die Vorstufen von `buildAll`, `copyOutputJars` und dem CI-Build-Prozess angehängt und wird automatisch beim lokalen Kompilieren oder Starten des Spiels ausgeführt, ohne manuelles wiederholtes Kopieren.
+1. **Automatische Auslösung**: Diese Aufgabe ist an die Vorstufen von `buildAll`, `copyOutputJars` und den CI-Build-Prozess angehängt. Sie wird automatisch beim lokalen Kompilieren oder Starten des Spiels ausgeführt, ohne manuelles Kopieren.
 2. **Inkrementelle Sicherheit**: Verwendet binäres Streaming-Überschreiben und ergänzt automatisch fehlende übergeordnete Verzeichnisse im Zielressourcenverzeichnis.
-3. **Git sauber halten**: `.bbmodel`-Dateien bleiben nur in `art_assets/` als Quellprojekt erhalten; die generierten JAR-Pakete enthalten keine redundanten Blockbench-Projektmetadaten.
+3. **Git sauber halten**: `.bbmodel`-Dateien bleiben nur in `art_assets/` als Quellprojekt erhalten. Die generierten JAR-Pakete enthalten keine redundanten Blockbench-Projektmetadaten.

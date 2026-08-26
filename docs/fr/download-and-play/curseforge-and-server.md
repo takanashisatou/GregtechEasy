@@ -1,10 +1,10 @@
 # Guide d'importation CurseForge et de déploiement serveur
 
-En plus du pack prêt à l'emploi sans compilation, GTE fournit des packs conformes CurseForge et des packs serveur construits automatiquement avec **Packwiz**.
+En plus du pack prêt à l'emploi sans compilation, GTE fournit un pack standard CurseForge et un pack serveur construits automatiquement avec **Packwiz**.
 
 ---
 
-## 📦 Importation du pack conforme CurseForge
+## 📦 Importation du pack standard CurseForge
 
 Le fichier du pack d'intégration au format CurseForge est nommé `GTE-CurseForge-<version>.zip`.
 
@@ -12,18 +12,18 @@ Le fichier du pack d'intégration au format CurseForge est nommé `GTE-CurseForg
 
 === "Importation PCL2 / HMCL"
 
-    1. Ouvrez le lanceur, sélectionnez **Installer une nouvelle version du jeu / Importer un pack d'intégration**.
+    1. Ouvrez le lanceur, sélectionnez **Installer une nouvelle version de jeu / Importer un pack d'intégration**.
     2. Sélectionnez le fichier `GTE-CurseForge-<version>.zip` téléchargé.
     3. Le lanceur analysera automatiquement `manifest.json` et téléchargera les mods dépendants en parallèle à grande vitesse.
-    4. Une fois l'importation terminée, accédez aux paramètres de version et définissez le runtime Java sur **Java 21**.
+    4. Après l'importation, accédez aux paramètres de version et définissez le runtime Java sur **Java 21**.
     5. Définissez la mémoire allouée (recommandé 8 Go à 12 Go), puis lancez le jeu.
 
 === "Importation via l'application CurseForge"
 
-    1. Ouvrez le client de l'application CurseForge.
+    1. Ouvrez le client CurseForge App.
     2. Cliquez sur l'icône **Minecraft** à gauche, puis accédez à **My Modpacks**.
-    3. Dans le menu des paramètres en haut à droite, cliquez sur **Create Custom Profile** ➜ **Import**.
-    4. Sélectionnez `GTE-CurseForge-<version>.zip`, attendez le téléchargement automatique et l'installation.
+    3. Cliquez sur **Create Custom Profile** ➜ **Import** dans le menu des paramètres en haut à droite.
+    4. Sélectionnez `GTE-CurseForge-<version>.zip`, attendez le téléchargement automatique et la fin de l'installation.
 
 === "Importation via Prism Launcher"
 
@@ -98,9 +98,9 @@ Il est recommandé d'utiliser les paramètres d'optimisation Aikar pour démarre
 
 ## ⚙️ Dépannage des problèmes courants (FAQ)
 
-### Q1 : Le démarrage du serveur affiche `UnsupportedClassVersionError: ... class file version 65.0`
+### Q1 : Le serveur affiche `UnsupportedClassVersionError: ... class file version 65.0` au démarrage
 > **Cause** : La version de Java utilisée par le serveur est inférieure à Java 21 (la version 65.0 correspond à JDK 21).  
-> **Solution** : Sur Linux, utilisez `sudo update-alternatives --config java` pour basculer vers OpenJDK 21.
+> **Solution** : Sur Linux, basculez vers OpenJDK 21 avec `sudo update-alternatives --config java`.
 
-### Q2 : Les joueurs entrant sur le serveur signalent une incompatibilité de la liste des mods
+### Q2 : Les joueurs signalent une incompatibilité de la liste des mods en entrant sur le serveur
 > **Solution** : Assurez-vous que la version du client et celle du serveur sont exactement identiques. Chaque build CI du projet principal génère simultanément les artefacts Client et Server correspondants.

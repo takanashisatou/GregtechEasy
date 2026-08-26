@@ -12,7 +12,7 @@ The CurseForge format modpack file is named `GTE-CurseForge-<version>.zip`.
 
 === "PCL2 / HMCL Import"
 
-    1. Open the launcher and select **Install new game version / Import modpack**.
+    1. Open the launcher and select **Install New Game Version / Import Modpack**.
     2. Select the downloaded `GTE-CurseForge-<version>.zip` file.
     3. The launcher will automatically parse `manifest.json` and download dependent mods concurrently at high speed.
     4. After import, go to version settings and set the Java runtime to **Java 21**.
@@ -22,7 +22,7 @@ The CurseForge format modpack file is named `GTE-CurseForge-<version>.zip`.
 
     1. Open the CurseForge App client.
     2. Click the **Minecraft** icon on the left and go to **My Modpacks**.
-    3. In the settings menu at the top right, click **Create Custom Profile** ➜ **Import**.
+    3. Click **Create Custom Profile** ➜ **Import** in the settings menu at the top right.
     4. Select `GTE-CurseForge-<version>.zip` and wait for automatic download and installation.
 
 === "Prism Launcher Import"
@@ -39,8 +39,8 @@ The server pack file is named `GTE-Server-<version>.zip`.
 
 ### 1. Environment Preparation
 - Operating System: Linux (Ubuntu 22.04+ / Debian 12+) or Windows Server 2022+
-- **JDK 21 must be ready**: Run `java -version` in the terminal to confirm the output is `openjdk version "21..."`.
-- Recommended configuration: 4+ core CPU, 16GB physical memory (allocate 10G ~ 14G to the Minecraft server).
+- **JDK 21 must be ready**: Run `java -version` in the terminal and confirm the output is `openjdk version "21..."`.
+- Recommended configuration: 4+ CPU cores, 16GB physical memory (allocate 10G ~ 14G to the Minecraft server).
 
 ### 2. Deployment Steps
 
@@ -52,10 +52,10 @@ mkdir -p /opt/gte-server && cd /opt/gte-server
 unzip GTE-Server-*.zip -d .
 
 # 3. Install Forge 1.20.1-47.3.0 / 47.4.4 server core (if not pre-installed)
-# Run installer script to download minecraft_server and forge libraries
+# Run the installer script to download minecraft_server and forge libraries
 java -jar forge-1.20.1-*-installer.jar --installServer
 
-# 4. Accept Minecraft EULA
+# 4. Accept Minecraft EULA agreement
 echo "eula=true" > eula.txt
 ```
 
@@ -99,8 +99,8 @@ It is recommended to use Aikar's optimized parameters to start the server:
 ## ⚙️ Common Issues Troubleshooting (FAQ)
 
 ### Q1: Server startup shows `UnsupportedClassVersionError: ... class file version 65.0`
-> **Cause**: The Java version at server runtime is lower than Java 21 (version 65.0 represents JDK 21).  
-> **Solution**: On Linux, switch to OpenJDK 21 via `sudo update-alternatives --config java`.
+> **Cause**: The Java version at server runtime is lower than Java 21 (version 65.0 corresponds to JDK 21).  
+> **Solution**: On Linux, switch to OpenJDK 21 using `sudo update-alternatives --config java`.
 
-### Q2: Players entering the server get a mod list mismatch message
-> **Solution**: Ensure the client version number exactly matches the server version number. Each CI build of the main project generates matching Client and Server artifacts.
+### Q2: Players joining the server get a mod list mismatch message
+> **Solution**: Ensure the client version and server version are exactly the same. Each CI build of the main project generates matching Client and Server artifacts.

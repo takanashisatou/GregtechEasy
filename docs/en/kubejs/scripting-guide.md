@@ -10,19 +10,19 @@ GTE delegates most material registration, recipe adjustments, and multi-mod inte
 gte/overrides/kubejs/
 ├── startup_scripts/     # [Startup Scripts] Executed at the earliest stage of the game, used to register materials, fluids, blocks, and items
 ├── server_scripts/      # [Server Scripts] Executed when entering a world/connecting to a server, used to register/modify recipes and tags
-├── client_scripts/      # [Client Scripts] Executed on the client, used to modify tooltips, JEI/EMI interface display
+├── client_scripts/      # [Client Scripts] Executed on the client, used to modify Tooltips, JEI/EMI interface displays
 └── assets/ & data/      # Static localization, textures, and datapack files
 ```
 
 ---
 
-## 🧪 Startup Phase: Custom Material Registration (`startup_scripts/`)
+## 🧪 Startup: Custom Material Registration (`startup_scripts/`)
 
 Use `GTCEuStartupEvents.registry('gtceu:material', ...)` to register custom elements and materials:
 
 ```javascript
 GTCEuStartupEvents.registry('gtceu:material', event => {
-    // 1. Register Infinite Metal (Infinite)
+    // 1. Register Infinite Metal
     event.create('infinite')
         .color(0xed1661)
         .ingot()
@@ -32,7 +32,7 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
             GTToolType.AXE, GTToolType.PICKAXE, GTToolType.SWORD, GTToolType.MORTAR
         ]))
 
-    // 2. Register Dark Fluid Metal (Dark Fluid)
+    // 2. Register Dark Fluid Metal
     event.create('dark_fluid')
         .color(0xb156d8)
         .fluid()
@@ -69,7 +69,7 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
 
 ---
 
-## ⚙️ Server Phase: Custom Recipes and Machine Recipe Writing (`server_scripts/`)
+## ⚙️ Server: Custom Recipes and Machine Recipe Writing (`server_scripts/`)
 
 In the `ServerEvents.recipes` event, you can directly call `event.recipes.gtceu` and `event.recipes.gtecore`:
 
@@ -113,7 +113,7 @@ ServerEvents.recipes(event => {
 ServerEvents.recipes(event => {
     const gte = event.recipes.gtecore
 
-    // Easy Box bulk ore output recipe
+    // Easy Box batch ore output recipe
     gte.easy_box('easy_test')
         .circuit(1)
         .duration(20 * 20)
@@ -134,7 +134,7 @@ ServerEvents.recipes(event => {
 
 ## ⚡ In-Game Hot Reload Commands
 
-Test script changes in real time without restarting the client:
+Test script changes in real-time without restarting the client:
 
 - **Reload recipes and server scripts**:
   ```mcfunction

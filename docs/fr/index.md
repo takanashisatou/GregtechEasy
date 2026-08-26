@@ -14,7 +14,7 @@ GTE est un pack de mods moderne pour Minecraft 1.20.1, conçu autour des princip
 
     ---
 
-    Téléchargez le **pack complet prêt à l'emploi sans compilation**, le pack standard CurseForge et le serveur, et apprenez à configurer l'environnement d'exécution **Java 21** et à importer le lanceur.
+    Téléchargez le **pack complet prêt à l'emploi sans compilation**, le pack standard CurseForge et le serveur, et découvrez la configuration de l'environnement d'exécution **Java 21** ainsi que le tutoriel d'importation dans le lanceur.
 
     [:octicons-arrow-right-24: Aller directement](download-and-play/lazy-pack.md)
 
@@ -22,7 +22,7 @@ GTE est un pack de mods moderne pour Minecraft 1.20.1, conçu autour des princip
 
     ---
 
-    Découvrez en profondeur le **Fourneau de raffinage Yin-Yang Bagua**, les **Formations des Quatre Symboles**, le **Centre de traitement du minerai**, l'**Anneau des Merveilles**, les **Circuits Supercordes et Yin-Yang**, le **AE2 Sample Assembly Plus**, et bien plus encore.
+    Explorez en profondeur le **Fourneau de raffinage Yin-Yang Bagua**, les **Formations des Quatre Symboles**, le **Centre de traitement du minerai**, l'**Anneau des Merveilles**, les **Circuits Supercordes et Yin-Yang**, le **AE2 Sample Assembly Plus**, et bien plus encore.
 
     [:octicons-arrow-right-24: Aller directement](gtecore/overview.md)
 
@@ -30,15 +30,15 @@ GTE est un pack de mods moderne pour Minecraft 1.20.1, conçu autour des princip
 
     ---
 
-    Découvrez les recettes multi-ampères, le mode traitement par lots, l'overclocking 1t Subtick, les tests automatisés GameTest et les fonctionnalités de sortie de fluide par intervalles apportées par la branche `satou`.
+    Découvrez les fonctionnalités de la branche `satou` : recettes multi-ampères, mode par lots, overclocking 1t Subtick, tests automatisés GameTest et sortie de fluide par intervalles.
 
     [:octicons-arrow-right-24: Aller directement](gtm-reborn/index.md)
 
--   :material-code-tags: __[KubeJS et outils de développement](kubejs/scripting-guide.md)__
+-   :material-code-tags: __[KubeJS : personnalisation et outils de développement](kubejs/scripting-guide.md)__
 
     ---
 
-    Apprenez à enregistrer des matériaux, écrire des recettes dans KubeJS, et utilisez l'outil intégré `/dumpmultiblock` (hache en bois) pour sélectionner et exporter en un clic le code de structure multi-bloc.
+    Apprenez à enregistrer des matériaux, écrire des recettes dans KubeJS, et utilisez l'outil intégré `/dumpmultiblock` (hache en bois) pour sélectionner et exporter en un clic le code de structure des machines multi-blocs.
 
     [:octicons-arrow-right-24: Aller directement](kubejs/scripting-guide.md)
 
@@ -46,7 +46,7 @@ GTE est un pack de mods moderne pour Minecraft 1.20.1, conçu autour des princip
 
     ---
 
-    Maîtrisez le lancement en quelques secondes sans lanceur avec `run_game.bat`, le mappage de répertoire sans copie avec `link_to_launcher.bat`, et les règles d'or pour éviter les crashs Mixin Accessor.
+    Maîtrisez le lancement en quelques secondes sans lanceur avec `run_game.bat`, le mappage de répertoire sans copie avec `link_to_launcher.bat`, et la règle d'or pour éviter les crashs liés aux Mixin Accessor.
 
     [:octicons-arrow-right-24: Aller directement](development/quick-start.md)
 
@@ -54,7 +54,7 @@ GTE est un pack de mods moderne pour Minecraft 1.20.1, conçu autour des princip
 
     ---
 
-    Découvrez la construction parallèle automatisée multi-modules basée sur GitHub Actions, l'empaquetage Packwiz, la publication Maven et le script d'internationalisation IA `opencode_translate.py`.
+    Comprenez la construction parallèle automatisée multi-modules basée sur GitHub Actions, l'empaquetage Packwiz, la publication Maven et le script d'internationalisation IA `opencode_translate.py`.
 
     [:octicons-arrow-right-24: Aller directement](ci-cd-and-translation/ci-pipeline.md)
 
@@ -67,7 +67,7 @@ GTE est un pack de mods moderne pour Minecraft 1.20.1, conçu autour des princip
 | Élément de configuration | Description |
 | :--- | :--- |
 | **Nom du projet** | `GregtechEasy` (`gte-multi`) |
-| **Chaîne d'outils d'exécution et de compilation** | **JDK 21** (Toolchain Java 21 obligatoire, strictement unifié pour tous les sous-modules) |
+| **Chaîne d'outils d'exécution et de compilation** | **JDK 21** (Toolchain Java 21 obligatoire, tous les sous-modules strictement unifiés) |
 | **Version du jeu** | Minecraft `1.20.1` (Forge `47.3.0` / `47.4.4`) |
 | **Licence open source** | LGPL-3.0 / MIT |
-| **Branche par défaut** | Dépôt principal `main` / `master`, GTM-Reborn `satou`, GT-- `kotlin`, GTECore `master` |
+| **Branches par défaut** | Dépôt principal `main` / `master`, GTM-Reborn `satou`, GT-- `kotlin`, GTECore `master` |

@@ -1,6 +1,6 @@
 # Руководство по модификации и разработке скриптов KubeJS
 
-GTE передает большую часть логики регистрации материалов, настройки рецептов и интеграции с другими модами в **KubeJS** (каталог находится в `gte/overrides/kubejs/`).
+GTE передает большую часть логики регистрации материалов, настройки рецептов и интеграции с другими модами на **KubeJS** (каталог находится в `gte/overrides/kubejs/`).
 
 ---
 
@@ -16,7 +16,7 @@ gte/overrides/kubejs/
 
 ---
 
-## 🧪 Фаза запуска: регистрация пользовательских материалов (`startup_scripts/`)
+## 🧪 Этап запуска: регистрация пользовательских материалов (`startup_scripts/`)
 
 Используйте `GTCEuStartupEvents.registry('gtceu:material', ...)` для регистрации пользовательских элементов и материалов:
 
@@ -45,7 +45,7 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
             GTMaterialFlags.GENERATE_LONG_ROD
         )
 
-    // 3. Регистрация вещества Мяу-Мяу (Meow Meow Matter) и антиматерии (Antimatter)
+    // 3. Регистрация вещества Мяу-Мяу (Meow Meow Matter) и антивещества (Antimatter)
     event.create('meow_meow_matter')
         .color(0x483D8B)
         .dust()
@@ -69,7 +69,7 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
 
 ---
 
-## ⚙️ Серверная часть: пользовательские рецепты и рецепты машин (`server_scripts/`)
+## ⚙️ Серверный этап: написание пользовательских рецептов и рецептов машин (`server_scripts/`)
 
 В событии `ServerEvents.recipes` можно напрямую вызывать `event.recipes.gtceu` и `event.recipes.gtecore`:
 

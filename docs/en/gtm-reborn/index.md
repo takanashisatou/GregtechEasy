@@ -10,30 +10,30 @@ Compared to the upstream original, GTM-Reborn has achieved multiple revolutionar
 
 ```mermaid
 graph TD
-    A[GTM-Reborn satou branch] --> B[Multi-Amp and Extreme Speed: Multi-Amp Recipes & Subtick 1t OC]
-    A --> C[Ultra-large Batch Processing: 64-bit Long Parallel Computing and Batch Mode]
-    A --> D[Full Automation Quality Assurance: GameTest Server-side Testing Suite]
+    A[GTM-Reborn satou branch] --> B[Multi-Amp and Extreme Speed Calculation: Multi-Amp Recipes & Subtick 1t OC]
+    A --> C[Ultra-large Batch Processing: 64-bit Long Parallel Calculation and Batch Mode]
+    A --> D[Full Automation Quality Assurance: GameTest Server-side Real-machine Test Suite]
     A --> E[External Integration: CC:Tweaked Computer Interface & EMI/JEI Deep Display]
-    A --> F[Fluids and Pipe Networks: Ranged Fluid Outputs & Wireless Cover Plates]
+    A --> F[Fluid and Pipe Network: Ranged Fluid Output & Wireless Cover Plate]
 ```
 
 ### 1. 64-bit Long Integer Parallelism and Batch Mode
-- **Breaking the 32-bit integer limit**: Parallel computing fully adopts the `long` data type, completely solving the problem of numerical overflow or calculation truncation in ultra-large industrial clusters under extremely high parallelism.
-- **Intelligent Batch Mode**: When raw materials are extremely abundant, the machine can pack hundreds or thousands of tiny recipes into a single cycle, greatly reducing server tick load.
+- **Breaking the 32-bit integer limit**: Parallel computation fully adopts the `long` data type, completely solving the problem of numerical overflow or calculation truncation in ultra-large industrial clusters under extremely high parallelism.
+- **Smart Batch Mode**: When raw materials are extremely abundant, the machine can pack hundreds or thousands of tiny recipes into a single cycle, greatly reducing server tick load.
 
 ### 2. 1T Subtick Instant Overclocking (OC_PERFECT_SUBTICK)
 - Optimized the machine's Recipe Logic execution pipeline, allowing designated advanced machines to complete multiple recipe iterations within 1 tick, unleashing the pure industrial production limit.
 
 ### 3. Multi-Amp Input and Recipe Support (Multi-Amp)
-- Machine recipes support multi-ampere (Amperes) current consumption/output per recipe, and support EMI/JEI interfaces to intuitively render multi-ampere values and wire specification hints.
+- Machine recipes support consuming/outputting multiple amperes (Amperes) of current per recipe, and support EMI/JEI interfaces to intuitively render multi-amp values and wire specification hints.
 
 ### 4. Ranged Fluid Outputs
 - Allows advanced distillation towers and chemical reactors to output fluid products with a range of fluctuations based on different temperature and pressure conditions.
 
 ### 5. CC:Tweaked (ComputerCraft) Modern Peripheral Integration
 - All standard machines expose peripheral interfaces to ComputerCraft:
-  - Real-time query of recipe progress, remaining time, and current EU/t consumption.
-  - Dynamically start, pause machines, or switch working modes via Lua scripts.
+  - Query recipe progress, remaining time, and current EU/t consumption in real time.
+  - Dynamically start, pause, or switch working modes of machines via Lua scripts.
 
 ---
 
@@ -66,7 +66,7 @@ git add .
 git commit -m "feat: optimize multiblock recipe logic"
 git push origin satou
 
-# Return to the main project and update the submodule pointer
+# Return to the main project to update the submodule pointer
 cd ../..
 git add modules/gtm-reborn
 git commit -m "chore: bump gtm-reborn submodule pointer"

@@ -6,13 +6,13 @@
 
 ## 💻 1. 開発環境の準備
 
-### JDK 21 必須要件
-このプロジェクトの全モジュールは統一して **JDK 21** を使用します。推奨インストール先：
+### JDK 21 の必須要件
+このプロジェクトの全モジュールは統一して **JDK 21** を使用します。推奨インストール：
 - [Azul Zulu JDK 21](https://www.azul.com/downloads/?version=java-21-lts)
 - [Eclipse Temurin JDK 21](https://adoptium.net/temurin/releases/?version=21)
 
 ### IDE の推奨とプラグイン
-**IntelliJ IDEA 2023.3+** を推奨し、以下の公式プラグインをインストールしてください：
+**IntelliJ IDEA 2023.3+** の使用を推奨し、以下の公式プラグインをインストールします：
 - **Minecraft Development**：Mixin コードヒント、AT アクセストランスフォーマー認識、イベントハイライトを提供します。
 - **Lombok**：`@Getter`, `@Setter`, `@NoArgsConstructor` などのアノテーションをサポートします。
 - **Kotlin**：GT-- CE モジュール開発をサポートします。
@@ -28,7 +28,7 @@
 git clone --recurse-submodules https://github.com/takanashisatou/GregtechEasy.git GTEGroup
 cd GTEGroup
 
-# 2. 以前にクローン済みの場合は、サブモジュールを更新して初期化
+# 2. 以前にクローンした場合は、サブモジュールを更新して初期化
 git submodule update --init --recursive
 ```
 
@@ -41,17 +41,17 @@ git submodule update --init --recursive
 
 ## 🛠️ 3. よく使う Gradle ビルドコマンド
 
-Windows PowerShell で実行します（事前に `JAVA_HOME` を設定してください）：
+Windows PowerShell で実行します（事前に `JAVA_HOME` を設定する必要があります）：
 
 ```powershell
 $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 
-# 1. 指定したサブモジュールのみをコンパイル
+# 1. 指定したサブモジュールを個別にコンパイル
 .\gradlew.bat :modules:gtecore:compileJava
 .\gradlew.bat :modules:gt--:compileKotlin
 .\gradlew.bat :modules:gtm-reborn:compileJava
 
-# 2. GTM-Reborn GameTest サーバーで実機テストを実行
+# 2. GTM-Reborn GameTest サーバー実機テストを実行
 .\gradlew.bat :modules:gtm-reborn:runGameTestServer
 
 # 3. コードフォーマットを実行
@@ -60,12 +60,12 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 # 4. 全モジュールを一括コンパイルして Jar をパッケージング
 .\gradlew.bat buildAll -x test
 
-# 5. コンパイル済み Jar を gte/overrides/mods/ に同期
+# 5. コンパイルで生成された Jar を gte/overrides/mods/ に同期
 .\gradlew.bat copyOutputJars
 
 # 6. 全モジュールをローカル Maven リポジトリ (~/.m2/repository/) に公開
 .\gradlew.bat publishAllToMavenLocal
 
-# 7. 全モジュールの静的成果物を build/maven に公開 (GitHub Pages Maven 用)
+# 7. 全モジュールの静的アーティファクトを build/maven に公開 (GitHub Pages Maven 用)
 .\gradlew.bat publishAllToMaven
 ```

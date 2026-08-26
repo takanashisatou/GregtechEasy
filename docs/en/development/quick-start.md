@@ -1,6 +1,6 @@
 # Developer Quick Start Guide
 
-This guide is intended for Java/Kotlin programmers and modpack authors involved in the development of the GTE-Multi cross-module project.
+This guide is intended for Java/Kotlin programmers and modpack authors involved in the GTE-Multi cross-module project development.
 
 ---
 
@@ -21,7 +21,7 @@ It is recommended to use **IntelliJ IDEA 2023.3+** and install the following off
 
 ## 📥 2. Repository Cloning and Project Import
 
-Because this project includes multiple Git submodules, **recursive cloning is mandatory**:
+Because this project includes multiple Git submodules, **recursive cloning is required**:
 
 ```bash
 # 1. Recursively clone the main repository and all submodules
@@ -51,7 +51,7 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 .\gradlew.bat :modules:gt--:compileKotlin
 .\gradlew.bat :modules:gtm-reborn:compileJava
 
-# 2. Run GTM-Reborn GameTest server-side real-machine test
+# 2. Run GTM-Reborn GameTest server for real-machine testing
 .\gradlew.bat :modules:gtm-reborn:runGameTestServer
 
 # 3. Run code formatting

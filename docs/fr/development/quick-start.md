@@ -7,13 +7,13 @@ Ce guide s'adresse aux programmeurs Java/Kotlin et aux auteurs de packs de mods 
 ## 💻 1. Préparation de l'environnement de développement
 
 ### Exigence obligatoire : JDK 21
-Tous les modules de ce projet utilisent **JDK 21**. Installation recommandée :
+Ce projet utilise uniformément **JDK 21** pour tous les modules. Installations recommandées :
 - [Azul Zulu JDK 21](https://www.azul.com/downloads/?version=java-21-lts)
 - [Eclipse Temurin JDK 21](https://adoptium.net/temurin/releases/?version=21)
 
 ### IDE recommandé et plugins
 Il est recommandé d'utiliser **IntelliJ IDEA 2023.3+** et d'installer les plugins officiels suivants :
-- **Minecraft Development** : fournit l'indication du code Mixin, la reconnaissance des access transformers (AT) et la mise en évidence des événements.
+- **Minecraft Development** : fournit l'indication de code Mixin, la reconnaissance des access transformers (AT) et la mise en évidence des événements.
 - **Lombok** : prend en charge les annotations `@Getter`, `@Setter`, `@NoArgsConstructor`, etc.
 - **Kotlin** : prend en charge le développement du module GT-- CE.
 
@@ -24,16 +24,16 @@ Il est recommandé d'utiliser **IntelliJ IDEA 2023.3+** et d'installer les plugi
 Comme ce projet contient plusieurs sous-modules Git (Submodules), **le clonage doit être récursif** :
 
 ```bash
-# 1. Clonage récursif du dépôt principal et de tous les sous-modules
+# 1. Cloner récursivement le dépôt principal et tous les sous-modules
 git clone --recurse-submodules https://github.com/takanashisatou/GregtechEasy.git GTEGroup
 cd GTEGroup
 
-# 2. Si déjà cloné, mise à jour et initialisation des sous-modules
+# 2. Si déjà cloné, mettre à jour et initialiser les sous-modules
 git submodule update --init --recursive
 ```
 
-### Instructions d'importation dans IDEA
-1. Dans IDEA, cliquez sur **File ➜ Open**, sélectionnez le fichier `build.gradle` à la racine pour ouvrir le projet.
+### Guide d'importation dans IDEA
+1. Dans IDEA, cliquez sur **File ➜ Open**, sélectionnez le fichier `build.gradle` à la racine pour l'ouvrir en tant que projet.
 2. Allez dans les paramètres : `Settings` ➜ `Build, Execution, Deployment` ➜ `Build Tools` ➜ `Gradle`.
 3. Définissez **Gradle JVM** sur **JDK 21**.
 
@@ -41,31 +41,31 @@ git submodule update --init --recursive
 
 ## 🛠️ 3. Commandes Gradle courantes
 
-Exécutez dans Windows PowerShell (avec `JAVA_HOME` préalablement défini) :
+Exécutez dans Windows PowerShell (avec `JAVA_HOME` défini au préalable) :
 
 ```powershell
 $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 
-# 1. Compilation d'un sous-module spécifique
+# 1. Compiler uniquement un module spécifique
 .\gradlew.bat :modules:gtecore:compileJava
 .\gradlew.bat :modules:gt--:compileKotlin
 .\gradlew.bat :modules:gtm-reborn:compileJava
 
-# 2. Exécution du serveur de test GameTest de GTM-Reborn
+# 2. Exécuter le serveur de test GameTest de GTM-Reborn
 .\gradlew.bat :modules:gtm-reborn:runGameTestServer
 
-# 3. Exécution du formatage du code
+# 3. Exécuter le formatage du code
 .\gradlew.bat :modules:gtm-reborn:spotlessApply
 
-# 4. Compilation de tous les modules et création des Jars en une commande
+# 4. Compiler tous les modules et empaqueter les Jars en une seule commande
 .\gradlew.bat buildAll -x test
 
-# 5. Synchronisation des Jars compilés vers gte/overrides/mods/
+# 5. Synchroniser les Jars compilés vers gte/overrides/mods/
 .\gradlew.bat copyOutputJars
 
-# 6. Publication de tous les modules dans le dépôt Maven local (~/.m2/repository/)
+# 6. Publier tous les modules dans le dépôt Maven local (~/.m2/repository/)
 .\gradlew.bat publishAllToMavenLocal
 
-# 7. Publication des artefacts statiques de tous les modules dans build/maven (pour GitHub Pages Maven)
+# 7. Publier les artefacts statiques de tous les modules dans build/maven (pour GitHub Pages Maven)
 .\gradlew.bat publishAllToMaven
 ```
