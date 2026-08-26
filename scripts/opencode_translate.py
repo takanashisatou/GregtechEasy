@@ -391,39 +391,66 @@ def translate_markdown_single_file(src_path: Path, dst_path: Path, target_lang: 
         logger.warning(f"No LLM provider available for {src_path.name} -> {target_lang}. Skipping (not writing fallback).")
         return False
 
-    try:
-        lang_name = DOCS_LANGUAGES.get(target_lang, {}).get("name", target_lang)
-        prompt = (
-            f"You are a professional technical and Minecraft mod documentation translator.\n"
-            f"Translate the following Markdown documentation completely into {lang_name} ({target_lang}).\n"
-            f"Strict Localization Rules:\n"
-            f"1. Preserve ALL Markdown structural syntax, headers (#, ##), tables, bold, italics.\n"
-            f"2. Translate all UI text, headings, badges, table column headers, and callout texts.\n"
-            f"3. In Mermaid diagrams (```mermaid ... ```), translate all node text labels (e.g. A[Label] --> B[Label]) into {lang_name}, while keeping flowchart syntax keywords (graph TD, -->, subgraph, etc.) untouched.\n"
-            f"4. Keep code blocks syntax intact, but translate code comments (e.g. # or // comments) into {lang_name}.\n"
-            f"5. In markdown links [Text](URL), translate 'Text' into {lang_name} but NEVER modify 'URL'.\n"
-            f"6. Keep technical abbreviations and system names untouched (EU/t, UHV, AE2, GT--, KubeJS, Packwiz, JVM).\n"
-            f"7. Output ONLY the translated Markdown content directly without conversational remarks or wrapping in extra code blocks.\n\n"
-            f"Content to translate:\n\n{text}"
+    def _try_translate(prompt_text: str, fallback: bool = False) -> str:
+        """Attempt LLM translation. On failure, returns empty string (never raises)."""
+        try:
+            result = call_llm(prompt_text, provider)
+            result = _strip_markdown_wrapper(result)
+            if len(result.strip()) < max(50, len(text.strip()) // 5):
+                raise RuntimeError(f"Translation too short ({len(result)} chars vs {len(text)} source)")
+            if not fallback and result.strip().replace("\r\n", "\n") == text.strip().replace("\r\n", "\n"):
+                raise RuntimeError("Translation identical to source")
+            return result
+        except Exception as e:
+            logger.warning(f"{'Fallback' if fallback else 'Primary'} translation attempt failed for {src_path.name} -> {target_lang}: {e}")
+            return ""
+
+    lang_name = DOCS_LANGUAGES.get(target_lang, {}).get("name", target_lang)
+
+    # Primary prompt: full rules including mermaid diagram translation
+    primary_prompt = (
+        f"You are a professional technical and Minecraft mod documentation translator.\n"
+        f"Translate the following Markdown documentation completely into {lang_name} ({target_lang}).\n"
+        f"Strict Localization Rules:\n"
+        f"1. Preserve ALL Markdown structural syntax, headers (#, ##), tables, bold, italics.\n"
+        f"2. Translate all UI text, headings, badges, table column headers, and callout texts.\n"
+        f"3. In Mermaid diagrams (```mermaid ... ```), translate all node text labels (e.g. A[Label] --> B[Label]) into {lang_name}, while keeping flowchart syntax keywords (graph TD, -->, subgraph, etc.) untouched.\n"
+        f"4. Keep code blocks syntax intact, but translate code comments (e.g. # or // comments) into {lang_name}.\n"
+        f"5. In markdown links [Text](URL), translate 'Text' into {lang_name} but NEVER modify 'URL'.\n"
+        f"6. Keep technical abbreviations and system names untouched (EU/t, UHV, AE2, GT--, KubeJS, Packwiz, JVM).\n"
+        f"7. Output ONLY the translated Markdown content directly without conversational remarks or wrapping in extra code blocks.\n\n"
+        f"Content to translate:\n\n{text}"
+    )
+
+    translated_content = _try_translate(primary_prompt)
+
+    # Fallback: if primary fails, retry with a simpler prompt (no mermaid rules)
+    # This handles files where mermaid translation confuses the LLM
+    if not translated_content:
+        logger.info(f"Retrying {src_path.name} -> {target_lang} with simplified fallback prompt...")
+        fallback_prompt = (
+            f"Translate the following Markdown documentation into {lang_name} ({target_lang}).\n"
+            f"Rules:\n"
+            f"1. Preserve ALL Markdown syntax, code blocks, links, and formatting exactly as-is.\n"
+            f"2. Translate only the human-readable text (headings, paragraphs, table cells, callouts).\n"
+            f"3. NEVER modify URLs, code, or HTML tags.\n"
+            f"4. Keep technical abbreviations untouched (EU/t, UHV, AE2, GT--, KubeJS, Packwiz, JVM).\n"
+            f"5. Output ONLY the translated Markdown, no extra text.\n\n"
+            f"Content:\n\n{text}"
         )
+        translated_content = _try_translate(fallback_prompt, fallback=True)
 
-        translated_content = call_llm(prompt, provider)
-        translated_content = _strip_markdown_wrapper(translated_content)
-
-        # Sanity check: translation must not be empty or too short relative to source
-        if len(translated_content.strip()) < max(50, len(text.strip()) // 5):
-            raise RuntimeError(f"Translation too short ({len(translated_content)} chars vs {len(text)} source chars) — likely truncated or garbage")
-
+    if translated_content:
         dst_path.write_text(translated_content, encoding="utf-8")
         with _cache_lock:
             cache[cache_entry_key] = src_hash
         logger.info(f"[LLM {provider['name']}] {src_path.name} -> {target_lang}")
         return True
-    except Exception as e:
+    else:
         # CRITICAL FIX: Do NOT write untranslated source text as fallback!
         # Leave the destination file unchanged so the next CI run will retry.
-        logger.error(f"TRANSLATION FAILED for {src_path.name} -> {target_lang}: {e}. "
-                     f"NOT writing fallback — file will be retried on next run.")
+        logger.error(f"TRANSLATION FAILED for {src_path.name} -> {target_lang}. "
+                     f"Both primary and fallback prompts exhausted. NOT writing fallback — file will be retried on next run.")
         return False
 
 translate_markdown_file = translate_markdown_single_file
