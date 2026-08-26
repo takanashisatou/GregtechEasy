@@ -81,11 +81,12 @@ jobs:
             mkdocs build --strict -d build/site
           fi
 
-      - name: Deploy to GitHub Pages (gh-pages)
+      - name: Deploy to takanashisatou.github.io (root site)
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          personal_token: ${{ secrets.GH_PAT }}
+          external_repository: takanashisatou/takanashisatou.github.io
+          publish_branch: master
           publish_dir: ./build/site
           keep_files: false
-          cname: ''
