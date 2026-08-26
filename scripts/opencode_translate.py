@@ -270,14 +270,36 @@ def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You ar
         providers = [provider]
 
     last_error = None
+    MAX_RETRIES = 5          # per-provider retry attempts for transient errors
+    BASE_BACKOFF = 2.0       # seconds, doubles each retry: 2, 4, 8, 16, 32
+
     for p in providers:
-        for attempt in range(2):
+        for attempt in range(MAX_RETRIES):
             try:
                 return call_single_provider(prompt, p, system_prompt=system_prompt, timeout=timeout)
             except Exception as e:
-                logger.warning(f"Provider '{p.get('name')}' (attempt {attempt+1}/2) failed ({e}). Retrying/Switching...")
+                err_str = str(e)
                 last_error = e
-                time.sleep(1.0)
+
+                # Check if error is transient (500/502/503/504/429)
+                is_transient = any(code in err_str for code in ["500", "502", "503", "504", "429", "rate limit", "overloaded", "Internal server error"])
+                # Check if error is auth-related — no point retrying
+                is_auth_error = any(code in err_str for code in ["401", "403", "Unauthorized", "Forbidden"])
+
+                if is_auth_error:
+                    logger.warning(f"Provider '{p.get('name')}' auth error ({e}). Switching provider...")
+                    break  # skip remaining retries, try next provider
+
+                if attempt < MAX_RETRIES - 1:
+                    wait = BASE_BACKOFF * (2 ** attempt)  # 2, 4, 8, 16, 32 seconds
+                    logger.warning(
+                        f"Provider '{p.get('name')}' (attempt {attempt+1}/{MAX_RETRIES}) "
+                        f"{'transient' if is_transient else 'unknown'} error ({e}). "
+                        f"Retrying in {wait:.0f}s..."
+                    )
+                    time.sleep(wait)
+                else:
+                    logger.warning(f"Provider '{p.get('name')}' exhausted {MAX_RETRIES} retries ({e}). Switching provider...")
 
     if last_error:
         raise last_error
