@@ -1,29 +1,86 @@
 #!/usr/bin/env python3
 """
-GTE AI Translation Script
-Translates FTB Quests, GTECore and GTM-Reborn mod language files through an
-OpenAI-compatible chat API. Supports DeepSeek, OpenAI, Gemini, Qwen
-(DashScope), Kimi (Moonshot), Zhipu GLM, and the legacy OpenCode platform via
-environment keys.
+GTE Industrial-Grade Unified AI + OpenCC Localization System
+============================================================
+Single unified localization engine for the entire GTE ecosystem:
+1. Submodule Mod Assets & Overrides: gtecore, gtm-reborn, gt--, KubeJS lang JSONs
+2. FTB Quests: SNBT quests and lang dictionaries
+3. Documentation & Wiki: 10-language Markdown with SHA-256 incremental cache & rate-limit safety
+4. AI Engines: OpenCode Go (deepseek-v4-flash), DeepSeek, Gemini, OpenAI, DashScope, Moonshot, Zhipu
+5. 0-Token Offline Engine: OpenCC (s2twp, s2hk) for Traditional Chinese
 """
 
 import os
 import re
+import sys
 import json
+import time
+import socket
 import logging
+import argparse
+import hashlib
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Set, Any, Optional
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(levelname)s] %(message)s")
-logger = logging.getLogger("GTETranslate")
+logger = logging.getLogger("GTELocalize")
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. Global Language Matrices
+# ─────────────────────────────────────────────────────────────────────────────
+ASSET_LANGUAGES = {
+    "zh_cn": {"name": "Simplified Chinese", "engine": "source"},
+    "en_us": {"name": "English (US)", "engine": "source"},
+    "zh_tw": {"name": "Traditional Chinese (Taiwan)", "engine": "opencc", "opencc_config": "s2twp"},
+    "zh_hk": {"name": "Traditional Chinese (Hong Kong)", "engine": "opencc", "opencc_config": "s2hk"},
+    "ru_ru": {"name": "Russian", "engine": "llm"},
+    "ja_jp": {"name": "Japanese", "engine": "llm"},
+    "de_de": {"name": "German", "engine": "llm"},
+    "es_es": {"name": "Spanish", "engine": "llm"},
+    "fr_fr": {"name": "French", "engine": "llm"},
+    "it_it": {"name": "Italian", "engine": "llm"},
+    "ko_kr": {"name": "Korean", "engine": "llm"},
+}
+
+DOCS_LANGUAGES = {
+    "zh": {"name": "Simplified Chinese", "engine": "source"},
+    "en": {"name": "English", "engine": "source"},
+    "zh-TW": {"name": "Traditional Chinese", "engine": "opencc", "opencc_config": "s2twp"},
+    "ja": {"name": "Japanese", "engine": "llm"},
+    "ko": {"name": "Korean", "engine": "llm"},
+    "ru": {"name": "Russian", "engine": "llm"},
+    "de": {"name": "German", "engine": "llm"},
+    "fr": {"name": "French", "engine": "llm"},
+    "es": {"name": "Spanish", "engine": "llm"},
+    "pt": {"name": "Portuguese", "engine": "llm"},
+}
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 2. LLM Providers Configuration (Prioritizing OpenCode Go / DeepSeek)
+# ─────────────────────────────────────────────────────────────────────────────
 PROVIDERS = {
+    "opencode": {
+        "key_env": "OPENCODE_API_KEY",
+        "base_url_env": "OPENCODE_BASE_URL",
+        "model_env": "OPENCODE_MODEL",
+        "default_base_url": "https://opencode.ai/zen/v1",
+        "default_model": "deepseek-v4-flash",
+    },
     "deepseek": {
         "key_env": "DEEPSEEK_API_KEY",
         "base_url_env": "DEEPSEEK_BASE_URL",
         "model_env": "DEEPSEEK_MODEL",
         "default_base_url": "https://api.deepseek.com/v1",
         "default_model": "deepseek-chat",
+    },
+    "gemini": {
+        "key_env": "GEMINI_API_KEY",
+        "base_url_env": "GEMINI_BASE_URL",
+        "model_env": "GEMINI_MODEL",
+        "default_base_url": "https://generativelanguage.googleapis.com/v1beta/models",
+        "default_model": "gemini-3.6-flash",
     },
     "openai": {
         "key_env": "OPENAI_API_KEY",
@@ -53,266 +110,452 @@ PROVIDERS = {
         "default_base_url": "https://open.bigmodel.cn/api/paas/v4",
         "default_model": "glm-4-flash",
     },
-    "gemini": {
-        "key_env": "GEMINI_API_KEY",
-        "base_url_env": "GEMINI_BASE_URL",
-        "model_env": "GEMINI_MODEL",
-        "default_base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
-        "default_model": "gemini-3.5-flash",
-    },
-    "opencode": {
-        "key_env": "OPENCODE_API_KEY",
-        "base_url_env": "OPENCODE_BASE_URL",
-        "model_env": "OPENCODE_MODEL",
-        "default_base_url": "https://api.opencode.ai/v1",
-        "default_model": "deepseek-v4-flash",
-    },
 }
+
+CACHE_FILE = PROJECT_ROOT / ".translation_cache.json"
+DOCS_CACHE_FILE = PROJECT_ROOT / ".docs_translation_cache.json"
+
+
+def load_env_file(path: Path) -> dict:
+    env_vars = {}
+    if not path.exists():
+        return env_vars
+    try:
+        for line in path.read_text(encoding="utf-8-sig").splitlines():
+            line = line.strip()
+            if line and not line.startswith("#") and "=" in line:
+                k, v = line.split("=", 1)
+                env_vars[k.strip()] = v.strip().strip('"').strip("'")
+    except Exception:
+        pass
+    return env_vars
+
+
+def get_local_proxy() -> Optional[Dict[str, str]]:
+    local_proxy = os.environ.get("HTTP_PROXY") or os.environ.get("http_proxy")
+    if local_proxy:
+        return {"http": local_proxy, "https": local_proxy}
+    try:
+        with socket.create_connection(("127.0.0.1", 10808), timeout=0.3):
+            return {"http": "http://127.0.0.1:10808", "https": "http://127.0.0.1:10808"}
+    except Exception:
+        pass
+    return None
+
+
+def resolve_all_providers() -> List[Dict[str, str]]:
+    local_env = {}
+    for p in [PROJECT_ROOT / ".env", PROJECT_ROOT / "modules" / "docs" / ".env", Path("C:/actions-runner/.env")]:
+        local_env.update(load_env_file(p))
+
+    def get_val(name: str) -> str:
+        return os.environ.get(name, "").strip() or local_env.get(name, "").strip()
+
+    active = []
+    generic_key = get_val("LLM_API_KEY")
+    if generic_key:
+        active.append({
+            "name": "generic",
+            "api_key": generic_key,
+            "base_url": get_val("LLM_BASE_URL") or "https://api.openai.com/v1",
+            "model": get_val("LLM_MODEL") or "gpt-4o-mini",
+        })
+
+    for name, spec in PROVIDERS.items():
+        api_key = get_val(spec["key_env"])
+        if not api_key:
+            continue
+        base_url = get_val(spec["base_url_env"]) or spec["default_base_url"]
+        model = get_val(spec["model_env"]) or spec["default_model"]
+        active.append({
+            "name": name,
+            "api_key": api_key,
+            "base_url": base_url.strip().rstrip("/"),
+            "model": model.strip(),
+        })
+    return active
 
 
 def resolve_provider() -> Dict[str, str]:
-    """Return the first configured provider, preferring the generic LLM_* override."""
-    generic_key = os.environ.get("LLM_API_KEY", "").strip()
-    if generic_key:
-        return {
-            "name": "generic",
-            "api_key": generic_key,
-            "base_url": os.environ.get(
-                "LLM_BASE_URL", "https://api.openai.com/v1"
-            ).strip().rstrip("/"),
-            "model": os.environ.get("LLM_MODEL", "gpt-4o-mini").strip(),
-        }
-    for name, spec in PROVIDERS.items():
-        api_key = os.environ.get(spec["key_env"], "").strip()
-        if not api_key:
+    all_p = resolve_all_providers()
+    return all_p[0] if all_p else {}
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 3. OpenCC Offline Converter
+# ─────────────────────────────────────────────────────────────────────────────
+_opencc_instances: Dict[str, Any] = {}
+
+def get_opencc(config: str = "s2twp"):
+    if config in _opencc_instances:
+        return _opencc_instances[config]
+    try:
+        import opencc
+        cc = opencc.OpenCC(config)
+        _opencc_instances[config] = cc
+        return cc
+    except Exception as e:
+        logger.warning(f"OpenCC initialization failed ({config}): {e}")
+        return None
+
+
+def convert_traditional_chinese(text: str, target_lang: str) -> str:
+    config = "s2hk" if "hk" in target_lang.lower() else "s2twp"
+    cc = get_opencc(config)
+    return cc.convert(text) if cc else text
+
+
+def convert_opencc_markdown(text: str, config: str = "s2twp") -> str:
+    cc = get_opencc(config)
+    if not cc:
+        return text
+    lines = text.splitlines(keepends=True)
+    out_lines = []
+    in_code_block = False
+    for line in lines:
+        if line.strip().startswith("```") or line.strip().startswith("~~~"):
+            in_code_block = not in_code_block
+            out_lines.append(line)
             continue
-        base_url = os.environ.get(
-            spec["base_url_env"], spec["default_base_url"]
-        ).strip().rstrip("/")
-        model = os.environ.get(spec["model_env"], spec["default_model"]).strip()
-        return {
-            "name": name,
-            "api_key": api_key,
-            "base_url": base_url or spec["default_base_url"],
-            "model": model or spec["default_model"],
+        if in_code_block:
+            out_lines.append(line)
+        else:
+            out_lines.append(cc.convert(line))
+    return "".join(out_lines)
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 4. LLM Universal API Caller with Failover & Rate-Limit Backoff
+# ─────────────────────────────────────────────────────────────────────────────
+def call_single_provider(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 180) -> str:
+    import requests
+    proxies = get_local_proxy()
+
+    if provider.get("name") == "gemini":
+        model = provider.get("model") or "gemini-3.6-flash"
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={provider['api_key']}"
+        payload = {
+            "contents": [{"parts": [{"text": prompt}]}],
+            "generationConfig": {"temperature": 0.2}
         }
+        resp = requests.post(url, json=payload, proxies=proxies, timeout=timeout)
+        if resp.status_code != 200:
+            raise RuntimeError(f"Gemini API error {resp.status_code}: {resp.text}")
+        data = resp.json()
+        return data["candidates"][0]["content"]["parts"][0]["text"]
+    else:
+        url = f"{provider['base_url']}/chat/completions"
+        payload = {
+            "model": provider["model"],
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": prompt}
+            ],
+            "temperature": 0.2
+        }
+        headers = {
+            "Authorization": f"Bearer {provider['api_key']}",
+            "Content-Type": "application/json"
+        }
+        resp = requests.post(url, json=payload, headers=headers, proxies=proxies, timeout=timeout)
+        if resp.status_code != 200:
+            raise RuntimeError(f"LLM API error {resp.status_code}: {resp.text}")
+        data = resp.json()
+        return data["choices"][0]["message"]["content"]
+
+
+def call_llm(prompt: str, provider: Dict[str, str], system_prompt: str = "You are a professional translator.", timeout: int = 180) -> str:
+    providers = resolve_all_providers()
+    if not providers and provider:
+        providers = [provider]
+
+    last_error = None
+    for p in providers:
+        for attempt in range(2):
+            try:
+                return call_single_provider(prompt, p, system_prompt=system_prompt, timeout=timeout)
+            except Exception as e:
+                logger.warning(f"Provider '{p.get('name')}' (attempt {attempt+1}/2) failed ({e}). Retrying/Switching...")
+                last_error = e
+                time.sleep(1.0)
+
+    if last_error:
+        raise last_error
+    raise RuntimeError("No LLM provider available.")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 5. Documentation Localization with ThreadPool Parallelism & SHA-256 Cache
+# ─────────────────────────────────────────────────────────────────────────────
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+_cache_lock = threading.Lock()
+
+def load_docs_cache(docs_dir: Path) -> dict:
+    cache_path = docs_dir / ".docs_cache.json"
+    if cache_path.exists():
+        try:
+            return json.loads(cache_path.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
     return {}
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent
-FTB_QUESTS_DIR = PROJECT_ROOT / "gte" / "overrides" / "config" / "ftbquests" / "quests"
-FTB_LANG_DIR = FTB_QUESTS_DIR / "lang"
-GTECORE_LANG_DIR = PROJECT_ROOT / "modules" / "gtecore" / "src" / "main" / "resources" / "assets" / "gtecore" / "lang"
-GTM_LANG_DIR = PROJECT_ROOT / "modules" / "gtm-reborn" / "src" / "main" / "resources" / "assets" / "gtceu" / "lang"
-CACHE_FILE = PROJECT_ROOT / ".translation_cache.json"
 
-def load_cache() -> Dict[str, str]:
+def save_docs_cache(docs_dir: Path, cache: dict):
+    cache_path = docs_dir / ".docs_cache.json"
+    try:
+        cache_path.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+
+def translate_markdown_file(src_path: Path, dst_path: Path, target_lang: str, provider: Dict[str, str], cache: dict, rel_key: str, force: bool = False) -> bool:
+    text = src_path.read_text(encoding="utf-8")
+    src_hash = hashlib.sha256(text.encode("utf-8")).hexdigest()
+    cache_entry_key = f"{rel_key}:{target_lang}"
+
+    dst_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if target_lang == "zh-TW":
+        translated = convert_opencc_markdown(text, "s2twp")
+        dst_path.write_text(translated, encoding="utf-8")
+        with _cache_lock:
+            cache[cache_entry_key] = src_hash
+        logger.info(f"[OpenCC 0-Token] {src_path.name} -> {target_lang}")
+        return True
+
+    # Check incremental cache
+    if not force and dst_path.exists() and dst_path.stat().st_size > 50:
+        with _cache_lock:
+            if cache.get(cache_entry_key) == src_hash:
+                try:
+                    dst_content = dst_path.read_text(encoding="utf-8")
+                    if target_lang == "zh-TW" or dst_content.strip() != text.strip():
+                        return False # Skipped (already translated & up to date)
+                except Exception:
+                    pass
+
+    if not provider:
+        dst_path.write_text(text, encoding="utf-8")
+        return False
+
+    try:
+        lang_name = DOCS_LANGUAGES.get(target_lang, {}).get("name", target_lang)
+        prompt = (
+            f"You are a professional technical and Minecraft mod documentation translator.\n"
+            f"Translate the following Markdown documentation completely into {lang_name} ({target_lang}).\n"
+            f"Strict Localization Rules:\n"
+            f"1. Preserve ALL Markdown structural syntax, headers (#, ##), tables, bold, italics.\n"
+            f"2. Translate all UI text, headings, badges, table column headers, and callout texts.\n"
+            f"3. In Mermaid diagrams (```mermaid ... ```), translate all node text labels (e.g. A[Label] --> B[Label]) into {lang_name}, while keeping flowchart syntax keywords (graph TD, -->, subgraph, etc.) untouched.\n"
+            f"4. Keep code blocks syntax intact, but translate code comments (e.g. # or // comments) into {lang_name}.\n"
+            f"5. In markdown links [Text](URL), translate 'Text' into {lang_name} but NEVER modify 'URL'.\n"
+            f"6. Keep technical abbreviations and system names untouched (EU/t, UHV, AE2, GT--, KubeJS, Packwiz, JVM).\n"
+            f"7. Output ONLY the translated Markdown content directly without conversational remarks or wrapping in extra code blocks.\n\n"
+            f"Content to translate:\n\n{text}"
+        )
+
+        translated_content = call_llm(prompt, provider)
+        if translated_content.startswith("```markdown") and translated_content.endswith("```"):
+            translated_content = translated_content[len("```markdown"): -3].strip()
+        elif translated_content.startswith("```md") and translated_content.endswith("```"):
+            translated_content = translated_content[len("```md"): -3].strip()
+
+        dst_path.write_text(translated_content, encoding="utf-8")
+        with _cache_lock:
+            cache[cache_entry_key] = src_hash
+        logger.info(f"[LLM {provider['name']}] {src_path.name} -> {target_lang}")
+        return True
+    except Exception as e:
+        logger.warning(f"LLM translation failed for {src_path.name} to {target_lang}: {e}. Using fallback.")
+        dst_path.write_text(text, encoding="utf-8")
+        return False
+
+
+def process_documentation(docs_dir: Path, provider: Dict[str, str], target_langs: Optional[List[str]] = None, force: bool = False, max_workers: int = 5):
+    zh_dir = docs_dir / "zh"
+    if not zh_dir.exists():
+        logger.warning(f"Documentation zh source directory not found at: {zh_dir}")
+        return
+
+    zh_files = sorted(list(zh_dir.rglob("*.md")))
+    logger.info(f"=== Translating Documentation ({len(zh_files)} chapters in {docs_dir}, Workers: {max_workers}) ===")
+
+    cache = load_docs_cache(docs_dir)
+    langs = target_langs or [l for l in DOCS_LANGUAGES.keys() if l != "zh"]
+    
+    tasks = []
+    for lang in langs:
+        if lang == "zh":
+            continue
+        dst_lang_dir = docs_dir / lang
+        for src_file in zh_files:
+            rel_path = src_file.relative_to(zh_dir)
+            dst_file = dst_lang_dir / rel_path
+            rel_key = str(rel_path).replace("\\", "/")
+            tasks.append((src_file, dst_file, lang, rel_key))
+
+    total_translated = 0
+    total_skipped = 0
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_map = {
+            executor.submit(translate_markdown_file, src, dst, lang, provider, cache, key, force): (src, lang)
+            for src, dst, lang, key in tasks
+        }
+        for future in as_completed(future_map):
+            try:
+                did_trans = future.result()
+                if did_trans:
+                    total_translated += 1
+                else:
+                    total_skipped += 1
+            except Exception as e:
+                logger.error(f"Task failed: {e}")
+
+    save_docs_cache(docs_dir, cache)
+    logger.info(f"=== Documentation Translation Summary: {total_translated} updated, {total_skipped} cached/skipped ===")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 6. Mod Asset JSON & FTB Quest Translation Logic
+# ─────────────────────────────────────────────────────────────────────────────
+def find_all_lang_dirs() -> List[Path]:
+    dirs: Set[Path] = set()
+    modules_dir = PROJECT_ROOT / "modules"
+    if modules_dir.exists():
+        for module_dir in modules_dir.iterdir():
+            if module_dir.is_dir():
+                for p in module_dir.glob("**/assets/*/lang"):
+                    if p.is_dir() and not any(part in (".git", "build", ".gradle", "bin", "out") for part in p.parts):
+                        dirs.add(p)
+    overrides_dir = PROJECT_ROOT / "gte" / "overrides"
+    if overrides_dir.exists():
+        for p in overrides_dir.glob("**/assets/*/lang"):
+            if p.is_dir() and not any(part in (".git", "build") for part in p.parts):
+                dirs.add(p)
+    return sorted(list(dirs))
+
+
+def load_cache() -> dict:
     if CACHE_FILE.exists():
         try:
-            with open(CACHE_FILE, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception as e:
-            logger.warning(f"Failed to load cache: {e}")
+            return json.loads(CACHE_FILE.read_text(encoding="utf-8"))
+        except Exception:
+            return {}
     return {}
 
-def save_cache(cache: Dict[str, str]):
-    try:
-        with open(CACHE_FILE, "w", encoding="utf-8") as f:
-            json.dump(cache, f, ensure_ascii=False, indent=2)
-    except Exception as e:
-        logger.warning(f"Failed to save cache: {e}")
 
-def call_translate(texts: List[str], target_lang: str = "zh_cn", source_lang: str = "en_us") -> Dict[str, str]:
-    """
-    Translates a batch of texts using the configured provider.
-    """
-    if not texts:
-        return {}
-    provider = resolve_provider()
-    if not provider:
-        logger.warning(
-            "No API key configured. Set LLM_API_KEY, DEEPSEEK_API_KEY, "
-            "OPENAI_API_KEY, GEMINI_API_KEY, DASHSCOPE_API_KEY, "
-            "MOONSHOT_API_KEY, ZHIPU_API_KEY or OPENCODE_API_KEY. "
-            "Skipping API translation calls."
-        )
-        return {t: t for t in texts}
+def save_cache(cache: dict):
+    CACHE_FILE.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    try:
-        import requests
-    except ImportError:
-        logger.error("requests library is missing. Run `pip install requests`.")
-        return {t: t for t in texts}
 
+def translate_texts_batch(texts: List[str], target_lang: str, provider: Dict[str, str]) -> List[str]:
+    if not texts or not provider:
+        return texts
+    lang_name = ASSET_LANGUAGES.get(target_lang, {}).get("name", target_lang)
     prompt = (
-        f"You are a professional Minecraft Modpack localization expert specializing in GregTech and tech modpacks.\n"
-        f"Translate the following text items from {source_lang} to {target_lang}.\n"
-        f"Preserve all Minecraft color formatting codes (e.g. §a, §c, &4), placeholder formatting (%s, %d, {0}), "
-        f"and technical GregTech terms (e.g. UHV, EU/t, Amps, Voltage, Overclock, Subtick).\n"
-        f"Input is a JSON list of strings. Return ONLY a valid JSON object mapping original text to translated text, without markdown fencing.\n"
+        f"Translate the following Minecraft/GregTech localization strings into {lang_name} ({target_lang}).\n"
+        f"Strict Rules:\n"
+        f"1. Preserve formatting codes (§a, &e, %s, {{0}}, etc.).\n"
+        f"2. Keep technical abbreviations untouched (EU/t, UHV, AE2, GT--, KubeJS, Packwiz, JVM).\n"
+        f"3. Return ONLY a valid JSON array of translated strings matching input length exactly.\n\n"
+        f"Input:\n{json.dumps(texts, ensure_ascii=False)}"
     )
-
-    headers = {
-        "Authorization": f"Bearer {provider['api_key']}",
-        "Content-Type": "application/json",
-    }
-    payload = {
-        "model": provider["model"],
-        "messages": [
-            {"role": "system", "content": prompt},
-            {"role": "user", "content": json.dumps(texts, ensure_ascii=False)}
-        ],
-        "temperature": 0.2,
-    }
-
     try:
-        url = f"{provider['base_url']}/chat/completions"
-        logger.info(
-            f"Requesting translation for {len(texts)} entries "
-            f"from {provider['name']} API ({provider['model']})..."
-        )
-        resp = requests.post(url, headers=headers, json=payload, timeout=60)
-        resp.raise_for_status()
-        res_json = resp.json()
-        content = res_json["choices"][0]["message"]["content"].strip()
-        
-        # Strip potential markdown fences
-        content = re.sub(r"^```(json)?\s*", "", content, flags=re.MULTILINE)
-        content = re.sub(r"\s*```$", "", content, flags=re.MULTILINE)
-        
-        translated_map = json.loads(content)
-        return translated_map
+        res = call_llm(prompt, provider, system_prompt="You are a precise JSON Minecraft localization translator.")
+        match = re.search(r"\[.*\]", res, re.DOTALL)
+        if match:
+            parsed = json.loads(match.group(0))
+            if len(parsed) == len(texts):
+                return parsed
     except Exception as e:
-        logger.error(f"{provider['name']} API translation error: {e}")
-        return {t: t for t in texts}
+        logger.warning(f"Batch LLM translation failed for {target_lang}: {e}")
+    return texts
 
-def extract_ftb_quest_strings() -> Dict[str, str]:
-    """
-    Extracts all translatable quest strings from chapters.
-    """
-    entries = {}
-    chapters_dir = FTB_QUESTS_DIR / "chapters"
-    if not chapters_dir.exists():
-        logger.warning(f"FTB chapters directory not found at {chapters_dir}")
-        return entries
 
-    for snbt_path in chapters_dir.glob("*.snbt"):
-        try:
-            with open(snbt_path, "r", encoding="utf-8") as f:
-                content = f.read()
-
-            # Regex for quest keys, titles, descriptions
-            titles = re.findall(r'title:\s*"([^"]+)"', content)
-            subtitles = re.findall(r'subtitle:\s*"([^"]+)"', content)
-            descriptions = re.findall(r'"([^"]+)"', re.sub(r'id:\s*"[^"]+"', '', content))
-
-            for t in titles + subtitles:
-                if t.strip() and not t.startswith("{") and not t.startswith("item.") and not t.startswith("block."):
-                    entries[t] = t
-        except Exception as e:
-            logger.warning(f"Failed to parse {snbt_path}: {e}")
-    return entries
-
-def translate_and_save_ftbquests(cache: Dict[str, str]):
-    quest_strings = extract_ftb_quest_strings()
-    logger.info(f"Found {len(quest_strings)} translatable strings in FTB Quests.")
-    
-    needed = [k for k in quest_strings if k not in cache]
-    provider = resolve_provider()
-    if needed and provider:
-        # Batch in chunks of 50
-        chunk_size = 50
-        for i in range(0, len(needed), chunk_size):
-            chunk = needed[i:i + chunk_size]
-            translations = call_translate(chunk, target_lang="zh_cn")
-            cache.update(translations)
-        save_cache(cache)
-
-    FT_LANG_DIR = FTB_QUESTS_DIR / "lang"
-    FT_LANG_DIR.mkdir(parents=True, exist_ok=True)
-
-    zh_snbt_path = FT_LANG_DIR / "zh_cn.snbt"
-    en_snbt_path = FT_LANG_DIR / "en_us.snbt"
-
-    with open(zh_snbt_path, "w", encoding="utf-8") as f:
-        f.write("{\n")
-        for orig in quest_strings:
-            trans = cache.get(orig, orig).replace('"', '\\"')
-            orig_esc = orig.replace('"', '\\"')
-            f.write(f'  "{orig_esc}": "{trans}",\n')
-        f.write("}\n")
-
-    with open(en_snbt_path, "w", encoding="utf-8") as f:
-        f.write("{\n")
-        for orig in quest_strings:
-            orig_esc = orig.replace('"', '\\"')
-            f.write(f'  "{orig_esc}": "{orig_esc}",\n')
-        f.write("}\n")
-
-    logger.info(f"Saved FTB Quests language files to {FT_LANG_DIR}")
-
-def translate_json_lang_file(json_path: Path, target_json_path: Path, cache: Dict[str, str]):
-    if not json_path.exists():
-        return
-    try:
-        with open(json_path, "r", encoding="utf-8") as f:
-            src_data: Dict[str, str] = json.load(f)
-    except Exception as e:
-        logger.warning(f"Could not read {json_path}: {e}")
+def process_submodule_lang_dir(lang_dir: Path, cache: dict, target_langs: List[str], provider: Dict[str, str], opencc_only: bool = False):
+    zh_file = lang_dir / "zh_cn.json"
+    en_file = lang_dir / "en_us.json"
+    base_file = zh_file if zh_file.exists() else en_file
+    if not base_file.exists():
         return
 
-    dest_data = {}
-    if target_json_path.exists():
-        try:
-            with open(target_json_path, "r", encoding="utf-8") as f:
-                dest_data = json.load(f)
-        except Exception:
-            dest_data = {}
+    # User Rule: In main project, gtecore's English (en_us) is author-maintained and must NOT be machine-translated
+    is_gtecore = "gtecore" in str(lang_dir).lower()
 
-    needed_keys = [k for k, v in src_data.items() if k not in dest_data and v not in cache]
-    needed_values = list({src_data[k] for k in needed_keys if src_data[k]})
-
-    provider = resolve_provider()
-    if needed_values and provider:
-        chunk_size = 50
-        for i in range(0, len(needed_values), chunk_size):
-            chunk = needed_values[i:i + chunk_size]
-            translations = call_translate(chunk, target_lang="zh_cn")
-            cache.update(translations)
-        save_cache(cache)
-
-    for k, v in src_data.items():
-        if k in dest_data:
+    base_data = json.loads(base_file.read_text(encoding="utf-8"))
+    for lang in target_langs:
+        if lang == "zh_cn":
             continue
-        dest_data[k] = cache.get(v, v)
+        if lang == "en_us" and is_gtecore and en_file.exists():
+            continue
+        if lang == "en_us" and en_file.exists() and not zh_file.exists():
+            continue
 
-    target_json_path.parent.mkdir(parents=True, exist_ok=True)
-    with open(target_json_path, "w", encoding="utf-8") as f:
-        json.dump(dest_data, f, ensure_ascii=False, indent=2)
-    logger.info(f"Updated language file: {target_json_path}")
+        target_file = lang_dir / f"{lang}.json"
+        target_data = json.loads(target_file.read_text(encoding="utf-8")) if target_file.exists() else {}
 
+        missing_keys = [k for k in base_data if k not in target_data or not target_data[k]]
+        if lang in ("zh_tw", "zh_hk"):
+            for k in base_data:
+                target_data[k] = convert_traditional_chinese(base_data[k], lang)
+        elif not opencc_only and provider and missing_keys:
+            to_trans = [base_data[k] for k in missing_keys]
+            translated = translate_texts_batch(to_trans, lang, provider)
+            for k, val in zip(missing_keys, translated):
+                target_data[k] = val
+        else:
+            for k in missing_keys:
+                target_data[k] = base_data[k]
+
+        target_file.write_text(json.dumps(target_data, ensure_ascii=False, indent=2), encoding="utf-8")
+        logger.info(f"  -> [{lang}] {target_file.name} synchronized in {lang_dir.parent.name}")
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 7. Main Unified CLI
+# ─────────────────────────────────────────────────────────────────────────────
 def main():
-    logger.info("=== Starting GTE OpenCode AI Translation ===")
-    cache = load_cache()
+    if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
+        try:
+            sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
 
-    # 1. Translate FTB Quests
-    translate_and_save_ftbquests(cache)
+    parser = argparse.ArgumentParser(description="GTE Unified AI + OpenCC Multi-Language Localization Engine")
+    parser.add_argument("--langs", type=str, default="all", help="Comma-separated target languages")
+    parser.add_argument("--docs-dir", type=str, default="", help="Directory containing Markdown docs to translate")
+    parser.add_argument("--docs", action="store_true", help="Translate Markdown documentation")
+    parser.add_argument("--all", action="store_true", help="Translate both assets and documentation")
+    parser.add_argument("--force", action="store_true", help="Force re-translation of existing files")
+    parser.add_argument("--opencc-only", action="store_true", help="Run only OpenCC Traditional Chinese conversion")
+    args = parser.parse_args()
 
-    # 2. Translate GTECore lang
-    if GTECORE_LANG_DIR.exists():
-        en_file = GTECORE_LANG_DIR / "en_us.json"
-        zh_file = GTECORE_LANG_DIR / "zh_cn.json"
-        if en_file.exists():
-            translate_json_lang_file(en_file, zh_file, cache)
+    provider = resolve_provider()
+    logger.info(f"=== GTE Unified Localization Engine ===")
+    if provider:
+        logger.info(f"Active LLM Provider: {provider['name']} (Model: {provider['model']}, Endpoint: {provider['base_url']})")
+    else:
+        logger.info("No active LLM API Key detected. Running OpenCC 0-Token & structural synchronization.")
 
-    # 3. Translate GTM-Reborn lang
-    if GTM_LANG_DIR.exists():
-        en_file = GTM_LANG_DIR / "en_us.json"
-        zh_file = GTM_LANG_DIR / "zh_cn.json"
-        if en_file.exists():
-            translate_json_lang_file(en_file, zh_file, cache)
+    # 1. Translate Documentation if requested
+    if args.docs or args.docs_dir or args.all:
+        docs_path = Path(args.docs_dir) if args.docs_dir else (PROJECT_ROOT / "modules" / "docs" / "docs" if (PROJECT_ROOT / "modules" / "docs" / "docs").exists() else PROJECT_ROOT / "docs")
+        process_documentation(docs_path, provider, force=args.force)
 
-    save_cache(cache)
-    logger.info("=== Translation completed successfully ===")
+    # 2. Translate Mod Assets & FTB Quests if requested (or default when not docs-only)
+    if not (args.docs or args.docs_dir) or args.all:
+        logger.info("=== Translating Mod Assets & Overrides ===")
+        cache = load_cache()
+        target_langs = list(ASSET_LANGUAGES.keys()) if args.langs == "all" else [l.strip() for l in args.langs.split(",")]
+        for lang_dir in find_all_lang_dirs():
+            process_submodule_lang_dir(lang_dir, cache, target_langs, provider, opencc_only=args.opencc_only)
+        save_cache(cache)
+
+    logger.info("=== GTE Localization Completed Successfully ===")
+
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,66 @@
+name: "Submodule Auto-Sync & Lineage Audit"
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: submodule-sync
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  sync-submodules:
+    name: "Sync Tracked Submodules"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Update Submodules to Remote Tracked Branches
+        run: |
+          git submodule sync --recursive
+          git submodule update --remote --recursive
+
+      - name: Audit Submodule Lineage (Anti-Wild Pointer Gate)
+        run: python scripts/audit_submodules.py
+
+      - name: Check for Pointer Changes
+        id: check_diff
+        run: |
+          if git diff --quiet modules/; then
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            echo "=============================================================="
+            echo "[NO-OP] All submodules are already up to date with upstreams."
+            echo "Exiting immediately with 0 commits and 0 downstream triggers."
+            echo "=============================================================="
+          else
+            echo "has_changes=true" >> "$GITHUB_OUTPUT"
+            echo "Submodule pointer changes detected:"
+            git status --short modules/
+          fi
+
+      - name: Audit Mixin Annotations (Anti-Crash Guard)
+        if: steps.check_diff.outputs.has_changes == 'true'
+        run: python scripts/audit_mixins.py
+
+      - name: Commit and Push Directly to Main
+        if: steps.check_diff.outputs.has_changes == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add modules/
+          git commit -m "chore(submodules): Auto-sync submodule pointers to latest upstream branches"
+          git push origin main

@@ -1,0 +1,86 @@
+name: "GTE Art Assets Pipeline & Test Pack"
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - "art_assets/**"
+      - "scripts/sync_art_assets.py"
+      - "scripts/audit_art.py"
+      - "scripts/optimize_png.py"
+      - ".github/workflows/art-pipeline.yml"
+  pull_request:
+    paths:
+      - "art_assets/**"
+      - "scripts/sync_art_assets.py"
+      - "scripts/audit_art.py"
+      - "scripts/optimize_png.py"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: art-pipeline
+  cancel-in-progress: true
+
+jobs:
+  art-pipeline:
+    name: "Art Lint, Oxipng & Test Pack"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository & Submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Oxipng Lossless Engine
+        run: |
+          sudo apt-get update && sudo apt-get install -y oxipng || echo "Oxipng not available in apt, falling back to PIL"
+
+      - name: "[Gate 1] Texture Power-of-Two & Model Syntax Audit"
+        run: python scripts/audit_art.py
+
+      - name: "[Gate 2] Lossless Texture Compression (Oxipng)"
+        run: python scripts/optimize_png.py
+
+      - name: "[Gate 3] Multi-Namespace Art Assets Routing"
+        run: python scripts/sync_art_assets.py
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.22"
+
+      - name: Install Packwiz CLI
+        run: go install github.com/packwiz/packwiz@latest
+
+      - name: Refresh Packwiz Index
+        working-directory: ./gte
+        run: packwiz refresh
+
+      - name: Export Lazy Pack for Artist Verification
+        run: |
+          mkdir -p build/artifacts
+          python scripts/build_lazy_pack.py art-test-${{ github.sha }}
+
+      - name: Upload Art Test Pack Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GTE-LazyPack-Art-Test-${{ github.sha }}
+          path: build/artifacts/*.zip
+          retention-days: 14
