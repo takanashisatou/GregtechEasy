@@ -1,4 +1,4 @@
-# Guía de inicio rápido para desarrolladores
+﻿# Guía de inicio rápido para desarrolladores
 
 Esta guía está dirigida a programadores de Java/Kotlin y autores de modpacks que participan en el desarrollo del proyecto de ingeniería de módulos cruzados GTE-Multi.
 

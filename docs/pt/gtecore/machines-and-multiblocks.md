@@ -1,4 +1,4 @@
-# GTECore Guia de Máquinas Multibloco
+﻿# GTECore Guia de Máquinas Multibloco
 
 O GTECore foi projetado para lidar com as complexas linhas de produção do meio ao fim do jogo tecnológico, oferecendo uma vasta gama de máquinas multibloco com **capacidade de processamento paralelo extremamente alta** e **lógica de produção agregada**.
 

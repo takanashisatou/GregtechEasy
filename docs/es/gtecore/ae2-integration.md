@@ -1,4 +1,4 @@
-# Integración Profunda de AE2 y Sistema Plus de Ensamblaje de Patrones
+﻿# Integración Profunda de AE2 y Sistema Plus de Ensamblaje de Patrones
 
 GTECore establece un puente de datos extremadamente potente y directo entre Applied Energistics 2 (AE2) y las estructuras multibloque de GregTech.
 

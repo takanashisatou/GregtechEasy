@@ -1,4 +1,4 @@
-# Depuración local en caliente y ejecución rápida sin lanzador
+﻿# Depuración local en caliente y ejecución rápida sin lanzador
 
 GTE ha diseñado un sistema de depuración sin fricciones extremadamente amigable para planificadores de modpacks, escritores de misiones y programadores de mods.
 

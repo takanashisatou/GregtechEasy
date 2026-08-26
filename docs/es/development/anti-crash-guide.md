@@ -1,4 +1,4 @@
-# 防崩溃开发守则与实战排错经验库 (Guía Anti-Crash)
+﻿# 防崩溃开发守则与实战排错经验库 (Guía Anti-Crash)
 
 En entornos de desarrollo de Minecraft con múltiples módulos, múltiples Classloaders y compleja mejora de bytecode Mixin, algunas escrituras descuidadas pueden provocar fallos catastróficos en tiempo de ejecución.
 

@@ -1,22 +1,22 @@
 # KubeJS Modding and Script Development Guide
 
-GTE delegates most material registration, recipe adjustments, and multi-mod integration logic to **KubeJS** (located in the `gte/overrides/kubejs/` directory).
+GTE delegates most material registration, recipe adjustments, and cross-mod integration logic to **KubeJS** (located in `gte/overrides/kubejs/`).
 
 ---
 
-## 📁 Script Directory Structure and Lifecycle
+## 📁 Script Directory Architecture and Lifecycle
 
 ```
 gte/overrides/kubejs/
-├── startup_scripts/     # [Startup Scripts] Executed at the earliest stage of the game, used to register materials, fluids, blocks, and items
-├── server_scripts/      # [Server Scripts] Executed when entering a world/connecting to a server, used to register/modify recipes and tags
-├── client_scripts/      # [Client Scripts] Executed on the client, used to modify Tooltips, JEI/EMI interface displays
+├── startup_scripts/     # [Startup Scripts] Execute at the earliest stage of the game, used for registering materials, fluids, blocks, items
+├── server_scripts/      # [Server Scripts] Execute when entering a world/connecting to a server, used for registering/modifying recipes and tags
+├── client_scripts/      # [Client Scripts] Execute on the client, used for modifying tooltips, JEI/EMI interface display
 └── assets/ & data/      # Static localization, textures, and datapack files
 ```
 
 ---
 
-## 🧪 Startup: Custom Material Registration (`startup_scripts/`)
+## 🧪 Startup Phase: Custom Material Registration (`startup_scripts/`)
 
 Use `GTCEuStartupEvents.registry('gtceu:material', ...)` to register custom elements and materials:
 
@@ -69,7 +69,7 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
 
 ---
 
-## ⚙️ Server: Custom Recipes and Machine Recipe Writing (`server_scripts/`)
+## ⚙️ Server Phase: Custom Recipe and Machine Recipe Writing (`server_scripts/`)
 
 In the `ServerEvents.recipes` event, you can directly call `event.recipes.gtceu` and `event.recipes.gtecore`:
 
@@ -97,7 +97,7 @@ ServerEvents.recipes(event => {
         .itemOutputs('5x gtceu:steel_ingot')
         .duration(1)
 
-    // Forming press to press logic processor
+    // Forming press for printed logic processor
     gtr.forming_press('gtecore:printed_logic_processor')
         .EUt(26)
         .duration(2 * 20)
@@ -113,7 +113,7 @@ ServerEvents.recipes(event => {
 ServerEvents.recipes(event => {
     const gte = event.recipes.gtecore
 
-    // Easy Box batch ore output recipe
+    // Easy Box batch mineral output recipe
     gte.easy_box('easy_test')
         .circuit(1)
         .duration(20 * 20)
@@ -134,13 +134,13 @@ ServerEvents.recipes(event => {
 
 ## ⚡ In-Game Hot Reload Commands
 
-Test script changes in real-time without restarting the client:
+Test script modifications in real-time without restarting the client:
 
 - **Reload recipes and server scripts**:
   ```mcfunction
   /kubejs reload server_scripts
   ```
-- **Reload assets and client scripts**:
+- **Reload textures and client scripts**:
   ```mcfunction
   /kubejs reload client_scripts
   ```

@@ -1,4 +1,4 @@
-# Guía de descarga del paquete integrado y paquete perezoso para jugadores
+﻿# Guía de descarga del paquete integrado y paquete perezoso para jugadores
 
 GTE (GregTech Easy) ofrece tres formatos de entrega listos para usar para jugadores y administradores de servidores con diferentes niveles técnicos:
 

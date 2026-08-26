@@ -1,4 +1,4 @@
-# GTECore Kernmodul Übersicht
+﻿# GTECore Kernmodul Übersicht
 
 **GTECore** ist das maßgeschneiderte Java-Kernmodul des GregTech Easy Projekts. Es basiert direkt auf dem `gtm-reborn` Quellcode und erweitert großflächige multiblockindustrielle Strukturen, hochstufige Formationstechnologie, tiefe AE2-Interaktionen sowie das Super-Schaltkreis-Herstellungssystem.
 

@@ -1,4 +1,4 @@
-# Integrationspaket-Download und Spieler-Lazy-Pack-Anleitung
+﻿# Integrationspaket-Download und Spieler-Lazy-Pack-Anleitung
 
 GTE (GregTech Easy) bietet Spielern und Serverbetreibern mit unterschiedlichem technischem Hintergrund drei sofort einsatzbereite Lieferformen:
 

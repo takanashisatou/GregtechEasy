@@ -1,4 +1,4 @@
-# Interface, textures et flux de travail artistique Blockbench
+﻿# Interface, textures et flux de travail artistique Blockbench
 
 Le projet GTE a établi un pipeline automatisé de traitement des actifs artistiques sans perte. Les concepteurs de modèles n'ont qu'à utiliser **Blockbench** pour créer des modèles et les enregistrer dans le répertoire source, et les tâches Gradle automatisent la classification des actifs, la validation du format et la synchronisation incrémentale.
 

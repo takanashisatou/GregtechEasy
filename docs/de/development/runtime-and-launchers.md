@@ -1,4 +1,4 @@
-# Lokales Hot-Debugging und schneller Start ohne Launcher
+﻿# Lokales Hot-Debugging und schneller Start ohne Launcher
 
 GTE hat ein äußerst benutzerfreundliches, nahtloses Debugging-System für Modpack-Planer, Quest-Autoren und Mod-Programmierer entwickelt.
 

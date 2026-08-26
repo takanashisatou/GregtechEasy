@@ -1,8 +1,8 @@
 # GregTech Easy (GTE) Official Documentation
 
-Welcome to the official comprehensive guide for the **GregTech Easy (GTE)** modpack!
+Welcome to the comprehensive all-in-one guide for the **GregTech Easy (GTE)** modpack!
 
-GTE is a modern Minecraft 1.20.1 modpack centered around the core philosophy of **"simple, fun, interesting, and time-efficient"**.
+GTE is a modern Minecraft 1.20.1 modpack built around the core philosophy of **"Simple, Fun, Interesting, Short Playtime"**.
 
 ---
 
@@ -10,47 +10,47 @@ GTE is a modern Minecraft 1.20.1 modpack centered around the core philosophy of 
 
 <div class="grid cards" markdown>
 
--   :material-download: __[Player and Modpack Guide](download-and-play/lazy-pack.md)__
+-   :material-download: __[Player & Modpack Guide](download-and-play/lazy-pack.md)__
 
     ---
 
-    Download the ready-to-use **0-compilation complete lazy pack**, CurseForge standard pack, and server, and learn about **Java 21** runtime configuration and launcher import tutorials.
+    Download the ready-to-play **0-compilation complete lazy pack**, CurseForge standard pack, and server files. Learn about **Java 21** runtime environment configuration and launcher import tutorials.
 
     [:octicons-arrow-right-24: Go Now](download-and-play/lazy-pack.md)
 
--   :material-chip: __[GTECore Core Mod Details](gtecore/overview.md)__
+-   :material-chip: __[GTECore Core Mod Detailed Guide](gtecore/overview.md)__
 
     ---
 
-    Dive deep into core content such as the **Yin-Yang Bagua Alchemy Furnace**, **Four Symbols Formation**, **Ore Processing Center**, **Ring of Miracles**, **Superstring and Yin-Yang Circuits**, **AE2 Pattern Assembly Plus**, and more.
+    Deep dive into **Yin-Yang Eight Trigrams Blast Furnace**, **Four Symbols Formations**, **Ore Processing Center**, **Miracle Ring**, **Super String & Yin-Yang Circuits**, **AE2 Pattern Assembly Plus**, and more core content.
 
     [:octicons-arrow-right-24: Go Now](gtecore/overview.md)
 
--   :material-cog: __[GTM Reborn Mod Branch](gtm-reborn/index.md)__
+-   :material-cog: __[GTM Reborn Mod Fork](gtm-reborn/index.md)__
 
     ---
 
-    Learn about the features brought by the `satou` branch: multi-amp recipes, batch processing mode, 1t Subtick overclocking, GameTest automated testing, and fluid interval output.
+    Learn about the multi-amp recipes, batch mode, 1t Subtick overclocking, GameTest automated testing, and ranged fluid output features brought by the `satou` branch.
 
     [:octicons-arrow-right-24: Go Now](gtm-reborn/index.md)
 
--   :material-code-tags: __[KubeJS Modding and Development Tools](kubejs/scripting-guide.md)__
+-   :material-code-tags: __[KubeJS Modding & Development Tools](kubejs/scripting-guide.md)__
 
     ---
 
-    Learn how to register materials, write recipes in KubeJS, and use the built-in `/dumpmultiblock` wooden axe selection tool to export multiblock structure code with one click.
+    Learn how to register materials, write recipes in KubeJS, and use the built-in `/dumpmultiblock` wooden axe selection tool to one-click export multiblock structure code.
 
     [:octicons-arrow-right-24: Go Now](kubejs/scripting-guide.md)
 
--   :material-hammer-wrench: __[Developer and Crash-Prevention Practical Handbook](development/quick-start.md)__
+-   :material-hammer-wrench: __[Developer & Crash-Proofing Practical Handbook](development/quick-start.md)__
 
     ---
 
-    Master the `run_game.bat` launcher-free instant startup, `link_to_launcher.bat` zero-copy directory mapping, and the golden rules to prevent Mixin Accessor crashes.
+    Master `run_game.bat` launcher-free instant startup, `link_to_launcher.bat` zero-copy directory mapping, and the golden rules for preventing Mixin Accessor crashes.
 
     [:octicons-arrow-right-24: Go Now](development/quick-start.md)
 
--   :material-robot: __[CI/CD Pipeline and AI Translation](ci-cd-and-translation/ci-pipeline.md)__
+-   :material-robot: __[CI/CD Pipeline & AI Translation](ci-cd-and-translation/ci-pipeline.md)__
 
     ---
 
@@ -67,7 +67,7 @@ GTE is a modern Minecraft 1.20.1 modpack centered around the core philosophy of 
 | Configuration Item | Description |
 | :--- | :--- |
 | **Project Name** | `GregtechEasy` (`gte-multi`) |
-| **Runtime and Build Toolchain** | **JDK 21** (Java 21 Toolchain is mandatory, strictly unified across all submodules) |
+| **Runtime & Build Toolchain** | **JDK 21** (Java 21 Toolchain mandatory, strictly unified across all sub-modules) |
 | **Game Version** | Minecraft `1.20.1` (Forge `47.3.0` / `47.4.4`) |
 | **Open Source License** | LGPL-3.0 / MIT |
-| **Default Branches** | Main repository `main` / `master`, GTM-Reborn `satou`, GT-- `kotlin`, GTECore `master` |
+| **Default Branches** | Main repo `main` / `master`, GTM-Reborn `satou`, GT-- `kotlin`, GTECore `master` |

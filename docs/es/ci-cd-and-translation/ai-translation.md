@@ -1,4 +1,4 @@
-# Motor de traducción internacional con IA (`opencode_translate.py`)
+﻿# Motor de traducción internacional con IA (`opencode_translate.py`)
 
 El proyecto GTE implementa un sistema de traducción internacional multilingüe de nivel industrial impulsado por un script unificado, que cubre tres áreas: activos de mods, libros de misiones de FTB y documentación en Markdown.
 

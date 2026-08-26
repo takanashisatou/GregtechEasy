@@ -1,4 +1,4 @@
-# Guide de téléchargement du pack et pack de joueur simplifié
+﻿# Guide de téléchargement du pack et pack de joueur simplifié
 
 GTE (GregTech Easy) propose trois formats de livraison prêts à l'emploi pour les joueurs et les administrateurs de serveurs de différents niveaux techniques :
 

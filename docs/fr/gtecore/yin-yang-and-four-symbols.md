@@ -1,4 +1,4 @@
-# Système de Fourneau de Raffinage Immortel Yin-Yang et de Formation des Quatre Symboles
+﻿# Système de Fourneau de Raffinage Immortel Yin-Yang et de Formation des Quatre Symboles
 
 GTECore a créé de manière originale un **« Système de Taiji, Bagua et des Quatre Symboles »** combinant la philosophie taoïste orientale et l'ingénierie industrielle moderne. Ce système constitue le cœur central de la métallurgie, de la synthèse de matériaux supraconducteurs et du saut technologique de la voie immortelle en milieu et fin de jeu.
 

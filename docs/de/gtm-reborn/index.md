@@ -1,4 +1,4 @@
-# GregTech Modern Reborn (GTM Reborn)
+﻿# GregTech Modern Reborn (GTM Reborn)
 
 `modules/gtm-reborn` ist ein unabhängiger Zweig von GregTech Modern, der von GTE-Multi tief angepasst wurde (Zweigname: `satou`).
 

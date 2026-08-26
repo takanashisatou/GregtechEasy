@@ -1,18 +1,18 @@
 # 開発者クイックスタートガイド
 
-本ガイドは、GTE-Multi クロスモジュールエンジニアリング開発に参加する Java/Kotlin プログラマーと Modpack 作成者を対象としています。
+このガイドは、GTE-Multi クロスモジュールプロジェクト開発に参加する Java/Kotlin プログラマーと Modpack 制作者を対象としています。
 
 ---
 
 ## 💻 1. 開発環境の準備
 
 ### JDK 21 の必須要件
-このプロジェクトの全モジュールは統一して **JDK 21** を使用します。推奨インストール：
+このプロジェクトの全モジュールは統一して **JDK 21** を使用します。推奨インストール先：
 - [Azul Zulu JDK 21](https://www.azul.com/downloads/?version=java-21-lts)
 - [Eclipse Temurin JDK 21](https://adoptium.net/temurin/releases/?version=21)
 
-### IDE の推奨とプラグイン
-**IntelliJ IDEA 2023.3+** の使用を推奨し、以下の公式プラグインをインストールします：
+### 推奨IDEとプラグイン
+**IntelliJ IDEA 2023.3+** の使用を推奨し、以下の公式プラグインをインストールしてください：
 - **Minecraft Development**：Mixin コードヒント、AT アクセストランスフォーマー認識、イベントハイライトを提供します。
 - **Lombok**：`@Getter`, `@Setter`, `@NoArgsConstructor` などのアノテーションをサポートします。
 - **Kotlin**：GT-- CE モジュール開発をサポートします。
@@ -21,14 +21,14 @@
 
 ## 📥 2. リポジトリのクローンとプロジェクトのインポート
 
-このプロジェクトには複数の Git サブモジュールが含まれているため、**再帰的に取得する必要があります**：
+このプロジェクトには複数の Git サブモジュール (Submodules) が含まれているため、**再帰的に取得する必要があります**：
 
 ```bash
-# 1. メインリポジトリとすべてのサブモジュールを再帰的にクローン
+# 1. 递归克隆主仓库与所有子模块
 git clone --recurse-submodules https://github.com/takanashisatou/GregtechEasy.git GTEGroup
 cd GTEGroup
 
-# 2. 以前にクローンした場合は、サブモジュールを更新して初期化
+# 2. 若之前已克隆，更新并初始化子模块
 git submodule update --init --recursive
 ```
 
@@ -46,26 +46,26 @@ Windows PowerShell で実行します（事前に `JAVA_HOME` を設定する必
 ```powershell
 $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 
-# 1. 指定したサブモジュールを個別にコンパイル
+# 1. 单独编译指定子模块
 .\gradlew.bat :modules:gtecore:compileJava
 .\gradlew.bat :modules:gt--:compileKotlin
 .\gradlew.bat :modules:gtm-reborn:compileJava
 
-# 2. GTM-Reborn GameTest サーバー実機テストを実行
+# 2. 运行 GTM-Reborn GameTest 服务端实机测试
 .\gradlew.bat :modules:gtm-reborn:runGameTestServer
 
-# 3. コードフォーマットを実行
+# 3. 运行代码格式化
 .\gradlew.bat :modules:gtm-reborn:spotlessApply
 
-# 4. 全モジュールを一括コンパイルして Jar をパッケージング
+# 4. 一键全模块编译并打包 Jar
 .\gradlew.bat buildAll -x test
 
-# 5. コンパイルで生成された Jar を gte/overrides/mods/ に同期
+# 5. 将编译生成的 Jar 同步至 gte/overrides/mods/
 .\gradlew.bat copyOutputJars
 
-# 6. 全モジュールをローカル Maven リポジトリ (~/.m2/repository/) に公開
+# 6. 发布全模块至本地 Maven 仓库 (~/.m2/repository/)
 .\gradlew.bat publishAllToMavenLocal
 
-# 7. 全モジュールの静的アーティファクトを build/maven に公開 (GitHub Pages Maven 用)
+# 7. 发布全模块静态构件至 build/maven (用于 GitHub Pages Maven)
 .\gradlew.bat publishAllToMaven
 ```

@@ -1,4 +1,4 @@
-# Guía de Modificación y Desarrollo de Scripts de KubeJS
+﻿# Guía de Modificación y Desarrollo de Scripts de KubeJS
 
 GTE delega la mayor parte del registro de materiales, ajustes de recetas y lógica de integración multimod en **KubeJS** (directorio en `gte/overrides/kubejs/`).
 

@@ -1,4 +1,4 @@
-# Anti-Crash-Entwicklungsrichtlinien und praktische Fehlerbehebungs-Bibliothek (Anti-Crash-Leitfaden)
+﻿# Anti-Crash-Entwicklungsrichtlinien und praktische Fehlerbehebungs-Bibliothek (Anti-Crash-Leitfaden)
 
 In einer Minecraft-Entwicklungsumgebung mit mehreren Modulen, mehreren Classloadern und komplexer Mixin-Bytecode-Verstärkung können unbedachte Schreibweisen zu katastrophalen Laufzeitabstürzen führen.
 

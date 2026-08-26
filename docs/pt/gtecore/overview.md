@@ -1,4 +1,4 @@
-# Visão Geral do Núcleo do Mod GTECore
+﻿# Visão Geral do Núcleo do Mod GTECore
 
 **GTECore** é o núcleo Java personalizado do projeto GregTech Easy. Ele depende diretamente do código-fonte do `gtm-reborn`, expandindo estruturas industriais multibloco em grande escala, tecnologia de matrizes de alto nível, interações profundas com AE2 e sistemas de fabricação de circuitos super avançados.
 

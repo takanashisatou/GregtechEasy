@@ -1,4 +1,4 @@
-# Guide d'importation CurseForge et de déploiement serveur
+﻿# Guide d'importation CurseForge et de déploiement serveur
 
 En plus du pack prêt à l'emploi sans compilation, GTE fournit un pack standard CurseForge et un pack serveur construits automatiquement avec **Packwiz**.
 

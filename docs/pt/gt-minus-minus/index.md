@@ -1,4 +1,4 @@
-# GT-- Edição Comunitária (GTNN)
+﻿# GT-- Edição Comunitária (GTNN)
 
 `modules/gt--` (nome do pacote `dev.arbor.gtnn`) é um mod da Edição Comunitária oficial do GT-- construído com arquitetura híbrida **Kotlin + Java** (branch de desenvolvimento `kotlin`).
 

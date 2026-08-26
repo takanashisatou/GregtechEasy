@@ -1,4 +1,4 @@
-# Sistema de Integração Profunda AE2 e Montagem de Padrões Plus
+﻿# Sistema de Integração Profunda AE2 e Montagem de Padrões Plus
 
 O GTECore estabelece uma ponte de dados extremamente poderosa e direta entre o Applied Energistics 2 (AE2) e as estruturas multibloco do GregTech.
 

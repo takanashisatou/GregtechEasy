@@ -1,4 +1,4 @@
-# Pipeline de CI/CD de construcción, empaquetado y publicación Maven automatizados
+﻿# Pipeline de CI/CD de construcción, empaquetado y publicación Maven automatizados
 
 GTE ha establecido un **pipeline de CI/CD de GitHub Actions** altamente automatizado y con múltiples artefactos en paralelo (los archivos de configuración se encuentran en `.github/workflows/sync-build.yml` y `release-publish.yml`).
 

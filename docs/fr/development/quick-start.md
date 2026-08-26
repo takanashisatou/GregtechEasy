@@ -1,4 +1,4 @@
-# Guide de démarrage rapide pour développeurs
+﻿# Guide de démarrage rapide pour développeurs
 
 Ce guide s'adresse aux programmeurs Java/Kotlin et aux auteurs de packs de mods participant au développement du projet multi-modules GTE-Multi.
 

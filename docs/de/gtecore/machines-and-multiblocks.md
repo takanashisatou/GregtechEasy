@@ -1,4 +1,4 @@
-# GTECore Mehrblock-Maschinen-Enzyklopädie
+﻿# GTECore Mehrblock-Maschinen-Enzyklopädie
 
 GTECore wurde entwickelt, um die komplexen Pipeline-Stapel in der mittleren bis späten Technologiephase zu bewältigen, und bietet eine Vielzahl von Mehrblock-Maschinen mit **extrem hoher Parallelverarbeitung** und **aggregierter Produktionslogik**.
 

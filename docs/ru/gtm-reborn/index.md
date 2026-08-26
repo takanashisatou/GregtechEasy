@@ -1,4 +1,4 @@
-# GregTech Modern Reborn (GTM Reborn)
+﻿# GregTech Modern Reborn (GTM Reborn)
 
 `modules/gtm-reborn` — это независимая ветка GregTech Modern, глубоко настроенная GTE-Multi (ветка называется `satou`).
 

@@ -1,4 +1,4 @@
-# Superstring- und Yin-Yang-Hochschaltkreis- und Materialsysteme
+﻿# Superstring- und Yin-Yang-Hochschaltkreis- und Materialsysteme
 
 GTECore erweitert zwei Hochschaltkreis-Zweige über den gesamten Zyklus von ZPM bis MAX – das **Superstring-Schaltkreissystem** und das **Yin-Yang-Taiji-Schaltkreissystem** – und realisiert zusammen mit dem Erzverarbeitungszentrum einen automatisierten Materialkreislauf.
 

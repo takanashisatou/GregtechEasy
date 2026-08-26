@@ -1,4 +1,4 @@
-# Démarrage rapide sans lanceur et débogage à chaud local
+﻿# Démarrage rapide sans lanceur et débogage à chaud local
 
 GTE propose un système de débogage à chaud extrêmement convivial pour les concepteurs de packs, les rédacteurs de quêtes et les programmeurs de mods.
 

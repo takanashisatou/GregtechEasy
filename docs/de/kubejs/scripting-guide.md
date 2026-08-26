@@ -1,4 +1,4 @@
-# KubeJS-Modding- und Skriptentwicklungsleitfaden
+﻿# KubeJS-Modding- und Skriptentwicklungsleitfaden
 
 GTE überlässt den Großteil der Materialregistrierung, Rezeptanpassungen und Multi-Mod-Interaktionslogik **KubeJS** (Verzeichnis unter `gte/overrides/kubejs/`).
 

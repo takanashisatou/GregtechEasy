@@ -1,4 +1,4 @@
-# Conjunto de herramientas KubeJS y exportador de multibloques (`/dumpmultiblock`)
+﻿# Conjunto de herramientas KubeJS y exportador de multibloques (`/dumpmultiblock`)
 
 GTE incorpora en los scripts de servidor KubeJS herramientas de desarrollo dedicadas a la construcción automatizada de multibloques y extracción de estructuras, liberando por completo el proceso de diseño de estructuras multibloque.
 

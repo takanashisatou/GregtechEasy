@@ -1,4 +1,4 @@
-# GT-- Community Edition (GTNN)
+﻿# GT-- Community Edition (GTNN)
 
 `modules/gt--` (nom du package `dev.arbor.gtnn`) est le module officiel de la communauté GT-- Community Edition, construit sur une architecture hybride **Kotlin + Java** (branche de développement `kotlin`).
 

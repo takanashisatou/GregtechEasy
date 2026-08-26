@@ -1,4 +1,4 @@
-# KubeJS Boîte à outils et exportateur de multiblocs (`/dumpmultiblock`)
+﻿# KubeJS Boîte à outils et exportateur de multiblocs (`/dumpmultiblock`)
 
 GTE intègre dans les scripts serveur KubeJS des outils de développement dédiés à la construction automatisée et à l'extraction de structures multiblocs, libérant ainsi entièrement le processus de conception de structures multiblocs.
 

@@ -1,4 +1,4 @@
-# Système d'intégration approfondie AE2 et d'assemblage de modèles Plus
+﻿# Système d'intégration approfondie AE2 et d'assemblage de modèles Plus
 
 GTECore établit un pont de données direct extrêmement puissant entre Applied Energistics 2 (AE2) et les structures multi-blocs de GregTech.
 

@@ -1,4 +1,4 @@
-# Guide de modding et de développement de scripts KubeJS
+﻿# Guide de modding et de développement de scripts KubeJS
 
 GTE confie la plupart de l'enregistrement des matériaux, des ajustements de recettes et de la logique d'intégration multi-modules à **KubeJS** (répertoire situé dans `gte/overrides/kubejs/`).
 

@@ -1,4 +1,4 @@
-# Benutzeroberfläche, Texturen und Blockbench-Artwork-Workflow
+﻿# Benutzeroberfläche, Texturen und Blockbench-Artwork-Workflow
 
 Das GTE-Projekt hat eine automatisierte, verlustfreie Asset-Verarbeitungspipeline etabliert. Modelldesigner müssen lediglich Modelle mit **Blockbench** erstellen und im Quellverzeichnis speichern. Gradle-Aufgaben übernehmen automatisch die Asset-Klassifizierung, Formatvalidierung und inkrementelle Synchronisierung.
 

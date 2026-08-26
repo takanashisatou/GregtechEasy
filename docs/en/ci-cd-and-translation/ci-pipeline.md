@@ -1,6 +1,6 @@
-# CI/CD Automated Build, Packaging, and Maven Release Pipeline
+# CI/CD Automated Build, Packaging, and Maven Publishing Pipeline
 
-GTE has established a highly automated, multi-target parallel **GitHub Actions CI/CD pipeline** (configuration files located in `.github/workflows/sync-build.yml` and `release-publish.yml`).
+GTE has established a highly automated, multi-target artifact parallel **GitHub Actions CI/CD pipeline** (configuration files located at `.github/workflows/sync-build.yml` and `release-publish.yml`).
 
 ---
 
@@ -10,34 +10,34 @@ Whenever code is pushed to the `master` / `main` / `satou` branches, a PR is sub
 
 ```mermaid
 flowchart TD
-    A[Code Push / Tag Trigger] --> B[Checkout recursive submodules & configure JDK 21 / Python 3.11 / Go]
-    B --> C[Gradle incremental sync Blockbench art assets syncBlockbenchAssets]
-    C --> D[Multi-module high-concurrency compilation & GameTest automated real-machine testing]
+    A[Code push / Tag trigger] --> B[Checkout recursive submodules & configure JDK 21 / Python 3.11 / Go]
+    B --> C[Gradle incremental sync of Blockbench art assets syncBlockbenchAssets]
+    C --> D[Multi-module high-concurrency compilation & GameTest automated in-game testing]
     D --> E[Copy generated Jars to overrides/mods & collect to build/artifacts]
     E --> F[Run opencode_translate.py full/incremental AI internationalization translation]
-    F --> G[Packwiz standard packaging: CurseForge pack + patch Java 21 manifest]
+    F --> G[Packwiz standard packaging: CurseForge pack + patched Java 21 manifest]
     G --> H[Python builds Zero-Compile player complete lazy pack .minecraft]
-    H --> I[Packwiz exports clean server pack]
+    H --> I[Packwiz exports clean server Server pack]
     I --> J[Upload all Release artifacts to Actions Artifacts storage]
     J --> K[Build static Maven repository and deploy to GitHub Pages (gh-pages)]
-    J --> L[When Tag triggers: automatically publish to CurseForge platform]
+    J --> L[On Tag trigger: automatically publish to CurseForge platform]
 ```
 
 ---
 
-## 📦 Detailed Explanation of Three Core Packaging Tasks
+## 📦 Detailed Breakdown of the Three Core Packaging Tasks
 
 ### 1. CurseForge Standard Pack and Java 21 Patch
 - **Packwiz Export**: Run `packwiz curseforge export` to generate a standard pack.
-- **Automatic manifest.json Patch**: To address the issue where some third-party launchers default to Java 17 when parsing CurseForge packs, CI automatically unzips the zip, uses a Python script to **hardcode force-write 21** into `minecraft.javaVersion` and the top-level `javaVersion` in `manifest.json`, then repackages it.
+- **Automatic manifest.json Patch**: To address the issue where some third-party launchers default to Java 17 when parsing CurseForge packs, the CI automatically extracts the zip, uses a Python script to **hardcode-force write** `minecraft.javaVersion` and the top-level `javaVersion` in `manifest.json` to **21**, and then repackages it.
 
 ### 2. Player No-Compile Complete Lazy Pack (`build_lazy_pack.py`)
-- Python script automatically extracts the latest core Jars from each module's `build/libs/`.
-- Automatically merges key extension mods under `modules/gtecore/gradle/libs/`.
-- Packs all configurations, KubeJS scripts, and Patchouli manuals into a ready-to-use `.minecraft` archive, with a built-in Chinese startup guide.
+- The Python script automatically extracts the latest core Jars from each module's `build/libs/`.
+- Automatically merges key extension Mods from `modules/gtecore/gradle/libs/`.
+- Packages all configurations, KubeJS scripts, and Patchouli manuals into a ready-to-use `.minecraft` archive, including a built-in Chinese startup guide.
 
 ### 3. Server Export Pack (`packwiz server export`)
-- Automatically removes client-specific optimization mods (such as 3D skin layers, shaders, key bindings, etc.) to generate a clean server that can be directly deployed on Linux/Windows production servers.
+- Automatically removes client-only optimization Mods (such as 3D skin layers, shaders, key bindings, etc.) and generates a clean server pack that can be directly deployed on Linux/Windows production servers.
 
 ---
 
@@ -46,7 +46,7 @@ flowchart TD
 The pipeline uses Gradle's `publish` task to build all submodules (`gtecore`, `gtm-reborn`, `gt--`) as standard Maven artifacts and deploy them to the `gh-pages` branch:
 
 ```groovy
-// Directly reference the GTE Maven repository in third-party mods or development projects
+// Reference the GTE Maven repository directly in third-party Mods or development projects
 repositories {
     maven {
         name = "GTE GitHub Pages Maven"
@@ -63,8 +63,10 @@ dependencies {
 
 ## 🏷️ Manual Release and Version Tagging Workflow (`release-publish.yml`)
 
-The project adopts a standardized Git Release process:
-1. Manually trigger **Manual Publish Release** on the GitHub Actions page, enter the version number (e.g., `2.3.0`).
-2. The workflow automatically creates a `dev -> release` PR, runs CI checks, and automatically Squash Merges.
+The project follows a standardized Git Release process:
+1. Manually trigger **Manual Publish Release** on the GitHub Actions page and enter a version number (e.g., `2.3.0`).
+2. The workflow automatically creates a `dev -> release` PR, runs CI validation, and automatically performs a Squash Merge.
 3. Automatically tags the `release` branch with `v2.3.0` Git Tag and pushes it.
-4. The Tag push event automatically triggers `sync-build.yml`, finally completing the all-channel artifact release.
+4. The Tag push event automatically triggers `sync-build.yml`, ultimately completing the all-channel artifact release.
+
+<<<<<FILE_END: ci-cd-and-translation/ci-pipeline.md>>>>

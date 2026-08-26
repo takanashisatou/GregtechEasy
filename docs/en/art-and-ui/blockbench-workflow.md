@@ -1,12 +1,12 @@
-# Interface, Textures, and Blockbench Art Workflow
+# UI, Textures, and Blockbench Art Workflow
 
-The GTE project has established an automated, zero-loss art asset processing pipeline. Model designers only need to use **Blockbench** to create models and save them in the source directory; the Gradle task automatically handles asset classification, format validation, and incremental synchronization.
+The GTE project has established an automated, zero-loss art asset processing pipeline. Model designers only need to create models using **Blockbench** and save them in the source directory; Gradle tasks automatically handle asset classification, format validation, and incremental synchronization.
 
 ---
 
 ## 🎨 Art Source Directory (`art_assets/`)
 
-The `art_assets/` directory at the project root is the **only working directory** for art designers, strictly version-tracked by Git:
+The `art_assets/` directory at the project root is the **sole working directory** for art designers and is strictly version-tracked by Git:
 
 ```
 art_assets/
@@ -14,16 +14,16 @@ art_assets/
 ├── *.json                              # Minecraft geometry models exported from Blockbench
 ├── *.png                               # Texture maps (items / block casings / formation textures)
 ├── *.png.mcmeta                        # Animation and material metadata
-└── projectuhv/                         # Subdirectory for high-tier circuit series materials
+└── projectuhv/                         # Dedicated texture subdirectory for the high-tier circuit series
 ```
 
 ---
 
 ## 🏷️ Naming Conventions and Automatic Routing Rules
 
-The Gradle task `syncBlockbenchAssets` automatically distributes files to the corresponding resource paths in `modules/gtecore` based on file naming keywords:
+The Gradle task `syncBlockbenchAssets` automatically distributes files to the corresponding resource paths in `modules/gtecore` based on naming keywords in the file names:
 
-| File Type | Naming Keywords | Auto-sync Target Directory (GTECore) |
+| File Type | Naming Keywords | Automatic Sync Target Directory (GTECore) |
 | :--- | :--- | :--- |
 | **Item Textures** (`.png`) | `processor`, `string`, `symbol`, `paper`, `wafer`, `chip`, `god`, `rune`, `yin`, `yang` | `src/main/resources/assets/gtecore/textures/item/` |
 | **Block Casing Textures** (`.png`) | `casing`, `module`, `concrete`, `coil`, `zhenfa`, `matrix`, `buffer`, `generator`, `machine` | `src/main/resources/assets/gtecore/textures/block/` |
@@ -34,7 +34,7 @@ The Gradle task `syncBlockbenchAssets` automatically distributes files to the co
 
 ## 🔄 One-Click Asset Sync Task (`syncBlockbenchAssets`)
 
-After exporting models or modifying textures, run in the terminal:
+After exporting models or modifying textures, run the following in the terminal:
 
 ```powershell
 $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
@@ -42,6 +42,8 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 ```
 
 ### Automation Features
-1. **Automatic Trigger**: This task is mounted to the pre-nodes of `buildAll`, `copyOutputJars`, and CI build pipelines. It runs automatically during local compilation or game startup, eliminating the need for manual repeated copying.
-2. **Incremental Safety**: Uses binary streaming overwrite, automatically creating missing parent directories in the target resource directory.
-3. **Keep Git Clean**: `.bbmodel` files are kept only in `art_assets/` as source projects; the compiled jar package will not include redundant Blockbench project metadata.
+1. **Automatic Trigger**: This task is hooked into the prerequisite nodes of `buildAll`, `copyOutputJars`, and the CI build pipeline. It executes automatically during local compilation or game startup, eliminating the need for manual repeated copying.
+2. **Incremental Safety**: Uses binary streaming overwrite and automatically creates any missing parent directories in the target resource directory.
+3. **Keeps Git Clean**: `.bbmodel` files are retained only in `art_assets/` as source projects; the compiled jar packages will not contain redundant Blockbench project metadata.
+
+<<<<<FILE_END: art-and-ui/blockbench-workflow.md>>>>

@@ -1,4 +1,4 @@
-# GregTech Modern Reborn (GTM Reborn)
+﻿# GregTech Modern Reborn (GTM Reborn)
 
 `modules/gtm-reborn` est une branche indépendante de GregTech Modern profondément personnalisée par GTE-Multi (nom de branche `satou`).
 

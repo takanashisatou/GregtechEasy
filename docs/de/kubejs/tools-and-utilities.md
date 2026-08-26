@@ -1,4 +1,4 @@
-# KubeJS-Werkzeugsatz und Multiblock-Exporter (`/dumpmultiblock`)
+﻿# KubeJS-Werkzeugsatz und Multiblock-Exporter (`/dumpmultiblock`)
 
 GTE integriert in KubeJS-Serverskripten entwicklerspezifische Werkzeuge zur automatisierten Erstellung und Strukturextraktion von Multiblocks, die den Designprozess von Multiblock-Strukturen völlig revolutionieren.
 

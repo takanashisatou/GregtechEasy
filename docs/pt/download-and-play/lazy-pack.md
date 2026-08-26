@@ -1,4 +1,4 @@
-# Guia de Download do Modpack e Pacote para Jogadores
+﻿# Guia de Download do Modpack e Pacote para Jogadores
 
 GTE (GregTech Easy) oferece três formas de entrega prontas para uso, para jogadores e administradores de servidores com diferentes níveis de conhecimento técnico:
 

@@ -1,4 +1,4 @@
-# GregTech Easy (GTE) 文档ación oficial
+﻿# GregTech Easy (GTE) 文档ación oficial
 
 Bienvenido a la guía oficial completa del modpack **GregTech Easy (GTE)**.
 

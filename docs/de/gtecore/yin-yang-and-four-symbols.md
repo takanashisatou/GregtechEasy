@@ -1,4 +1,4 @@
-# Yin-Yang-Acht-Trigramme-Alchemieofen und Vier-Symbole-Formationssystem
+﻿# Yin-Yang-Acht-Trigramme-Alchemieofen und Vier-Symbole-Formationssystem
 
 GTECore hat ein einzigartiges **„Taiji-Acht-Trigramme- und Vier-Symbole-Formationssystem“** entwickelt, das östliche daoistische Philosophie mit moderner Schwerindustrie-Technik verbindet. Dieses System bildet den zentralen Knotenpunkt für Metallurgie, Synthese supraleitender Materialien und den technologischen Sprung der daoistischen Wissenschaft in der mittleren bis späten Spielphase.
 

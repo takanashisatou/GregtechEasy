@@ -1,4 +1,4 @@
-# Aperçu du mod principal GTECore
+﻿# Aperçu du mod principal GTECore
 
 **GTECore** est le mod principal Java personnalisé du projet GregTech Easy. Il dépend directement du code source de `gtm-reborn` et étend les structures industrielles multi-blocs à grande échelle, les technologies de formations avancées, les interactions profondes avec AE2 ainsi que le système de fabrication de circuits suprêmes.
 

@@ -1,10 +1,10 @@
-# KubeJS 魔改与脚本开发指南
+# KubeJS 모드 개조 및 스크립트 개발 가이드
 
-GTE 将大部分材料注册、配方调整与多模组联动逻辑交由 **KubeJS** 处理（目录位于 `gte/overrides/kubejs/`）。
+GTE는 대부분의 재료 등록, 레시피 조정 및 다중 모드 연동 로직을 **KubeJS**가 처리하도록 합니다 (디렉토리는 `gte/overrides/kubejs/`에 위치).
 
 ---
 
-## 📁 脚本目录架构与生命周期
+## 📁 스크립트 디렉토리 구조와 수명 주기
 
 ```
 gte/overrides/kubejs/
@@ -16,9 +16,9 @@ gte/overrides/kubejs/
 
 ---
 
-## 🧪 启动期：自定义材料注册 (`startup_scripts/`)
+## 🧪 시작 단계: 사용자 정의 재료 등록 (`startup_scripts/`)
 
-使用 `GTCEuStartupEvents.registry('gtceu:material', ...)` 注册自定义元素与材料：
+`GTCEuStartupEvents.registry('gtceu:material', ...)`를 사용하여 사용자 정의 원소와 재료를 등록합니다:
 
 ```javascript
 GTCEuStartupEvents.registry('gtceu:material', event => {
@@ -69,11 +69,11 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
 
 ---
 
-## ⚙️ 服务端：自定义配方与机器配方编写 (`server_scripts/`)
+## ⚙️ 서버: 사용자 정의 레시피 및 기계 레시피 작성 (`server_scripts/`)
 
-在 `ServerEvents.recipes` 事件中，可直接调用 `event.recipes.gtceu` 与 `event.recipes.gtecore`：
+`ServerEvents.recipes` 이벤트에서 `event.recipes.gtceu` 및 `event.recipes.gtecore`를 직접 호출할 수 있습니다:
 
-### 1. 基础机器与高炉配方
+### 1. 기본 기계 및 용광로 레시피
 
 ```javascript
 ServerEvents.recipes(event => {
@@ -107,7 +107,7 @@ ServerEvents.recipes(event => {
 })
 ```
 
-### 2. GTECore 自定义机器配方
+### 2. GTECore 사용자 정의 기계 레시피
 
 ```javascript
 ServerEvents.recipes(event => {
@@ -132,15 +132,15 @@ ServerEvents.recipes(event => {
 
 ---
 
-## ⚡ 游戏内热重载指令
+## ⚡ 게임 내 핫 리로드 명령어
 
-无需重启客户端即可实时测试脚本修改：
+클라이언트를 재시작하지 않고 스크립트 변경 사항을 실시간으로 테스트할 수 있습니다:
 
-- **重载配方与服务端脚本**：
+- **레시피 및 서버 스크립트 리로드**:
   ```mcfunction
   /kubejs reload server_scripts
   ```
-- **重载材质与客户端脚本**：
+- **텍스처 및 클라이언트 스크립트 리로드**:
   ```mcfunction
   /kubejs reload client_scripts
   ```

@@ -1,4 +1,4 @@
-# Système de circuits avancés et de matériaux Super String et Yin-Yang
+﻿# Système de circuits avancés et de matériaux Super String et Yin-Yang
 
 GTECore étend deux branches de circuits avancés couvrant tout le cycle de ZPM à MAX — **Système de circuits Super String** et **Système de circuits Yin-Yang Taiji**, accompagnés d'un centre de traitement intégré des minerais pour un cycle automatisé des matériaux.
 

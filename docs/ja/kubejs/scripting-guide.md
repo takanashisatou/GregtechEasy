@@ -1,17 +1,17 @@
-# KubeJS 魔改造とスクリプト開発ガイド
+# KubeJS 改造とスクリプト開発ガイド
 
-GTE は、材料登録、レシピ調整、マルチモッド連携ロジックの大部分を **KubeJS** に任せています（ディレクトリは `gte/overrides/kubejs/` にあります）。
+GTE は、材料登録、レシピ調整、マルチモッド連携ロジックの大部分を **KubeJS** に委ねています（ディレクトリは `gte/overrides/kubejs/` にあります）。
 
 ---
 
-## 📁 スクリプトディレクトリ構造とライフサイクル
+## 📁 スクリプトディレクトリ構成とライフサイクル
 
 ```
 gte/overrides/kubejs/
-├── startup_scripts/     # 【起動期スクリプト】ゲームの最早期に実行され、材料、流体、ブロック、アイテムを登録する
-├── server_scripts/      # 【サーバースクリプト】ワールドに入る/サーバーに接続するときに実行され、レシピとタグを登録/変更する
-├── client_scripts/      # 【クライアントスクリプト】クライアントで実行され、Tooltips、JEI/EMI インターフェース表示を変更する
-└── assets/ & data/      # 静的ローカライズ、テクスチャ素材、データパックファイル
+├── startup_scripts/     # 【启动期脚本】在游戏最早期执行，用于注册材料、流体、方块、物品
+├── server_scripts/      # 【服务端脚本】在进入存档/连接服务器时执行，用于注册/修改配方与标签
+├── client_scripts/      # 【客户端脚本】在客户端执行，用于修改 Tooltips、JEI/EMI 界面显示
+└── assets/ & data/      # 静态本地化、贴图材质与数据包文件
 ```
 
 ---
@@ -22,7 +22,7 @@ gte/overrides/kubejs/
 
 ```javascript
 GTCEuStartupEvents.registry('gtceu:material', event => {
-    // 1. 無限金属 (Infinite) を登録
+    // 1. 注册无尽金属 (Infinite)
     event.create('infinite')
         .color(0xed1661)
         .ingot()
@@ -32,7 +32,7 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
             GTToolType.AXE, GTToolType.PICKAXE, GTToolType.SWORD, GTToolType.MORTAR
         ]))
 
-    // 2. ダークフルイド金属 (Dark Fluid) を登録
+    // 2. 注册暗流体金属 (Dark Fluid)
     event.create('dark_fluid')
         .color(0xb156d8)
         .fluid()
@@ -45,7 +45,7 @@ GTCEuStartupEvents.registry('gtceu:material', event => {
             GTMaterialFlags.GENERATE_LONG_ROD
         )
 
-    // 3. ニャーニャー物質 (Meow Meow Matter) と 反物質 (Antimatter) を登録
+    // 3. 注册喵喵物质 (Meow Meow Matter) 与 反物质 (Antimatter)
     event.create('meow_meow_matter')
         .color(0x483D8B)
         .dust()
@@ -80,24 +80,24 @@ ServerEvents.recipes(event => {
     const gtr = event.recipes.gtceu
     const gte = event.recipes.gtecore
 
-    // 元の非効率なレシピを削除
+    // 移除原有低效配方
     event.remove({ input: 'gtceu:raw_platinum' })
     event.remove({ id: 'gtceu:coke_oven/log_to_charcoal' })
 
-    // 超高速コークス炉レシピ
+    // 极速焦炉配方
     gtr.coke_oven('fast_coke_oven')
         .itemInputs('#minecraft:logs_that_burn')
         .itemOutputs('minecraft:charcoal')
         .outputFluids('gtceu:creosote 1000')
         .duration(20)
 
-    // 原始高炉：鉄1 + 石炭1 -> 鋼インゴット5 (1 tick)
+    // 原始高炉：1 铁 + 1 煤炭 -> 5 钢锭 (1 tick)
     gtr.primitive_blast_furnace('easy_steel_from_coal')
         .itemInputs('1x minecraft:iron_ingot', '1x minecraft:coal')
         .itemOutputs('5x gtceu:steel_ingot')
         .duration(1)
 
-    // プレス機でロジックプロセッサを成型
+    // 压模机压制逻辑处理器
     gtr.forming_press('gtecore:printed_logic_processor')
         .EUt(26)
         .duration(2 * 20)
@@ -113,7 +113,7 @@ ServerEvents.recipes(event => {
 ServerEvents.recipes(event => {
     const gte = event.recipes.gtecore
 
-    // イージーボックス (Easy Box) のバルク鉱石産出レシピ
+    // 简单之盒 (Easy Box) 批量矿物产出配方
     gte.easy_box('easy_test')
         .circuit(1)
         .duration(20 * 20)
@@ -136,7 +136,7 @@ ServerEvents.recipes(event => {
 
 クライアントを再起動せずにスクリプトの変更をリアルタイムでテストできます：
 
-- **レシピとサーバースクリプトをリロード**：
+- **レシピとサーバー側スクリプトをリロード**：
   ```mcfunction
   /kubejs reload server_scripts
   ```

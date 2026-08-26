@@ -1,4 +1,4 @@
-# Documentation officielle de GregTech Easy (GTE)
+﻿# Documentation officielle de GregTech Easy (GTE)
 
 Bienvenue dans le guide complet officiel du pack de mods **GregTech Easy (GTE)** !
 

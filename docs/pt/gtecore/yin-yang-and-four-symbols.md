@@ -1,4 +1,4 @@
-# Sistema de Fornalha de Refino Alquímico Yin-Yang e Formação dos Quatro Símbolos
+﻿# Sistema de Fornalha de Refino Alquímico Yin-Yang e Formação dos Quatro Símbolos
 
 O GTECore criou exclusivamente o **"Sistema de Taiji Bagua e Formação dos Quatro Símbolos"**, que combina a filosofia taoista oriental com a engenharia pesada industrial moderna. Este sistema constitui o núcleo central para a metalurgia, síntese de materiais supercondutores e a transição tecnológica imortal no meio e fim do jogo.
 

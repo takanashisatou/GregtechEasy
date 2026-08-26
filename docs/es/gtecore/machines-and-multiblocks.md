@@ -1,4 +1,4 @@
-# GTECore Enciclopedia de Máquinas Multibloque
+﻿# GTECore Enciclopedia de Máquinas Multibloque
 
 GTECore ha diseñado una gran cantidad de máquinas multibloque con **capacidad de paralelismo ultra alto** y **lógica de producción agregada** para abordar las tediosas cadenas de producción de las etapas media y tardía de la línea tecnológica.
 

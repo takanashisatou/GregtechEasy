@@ -1,4 +1,4 @@
-# CurseForge-Import und Server-Bereitstellungsanleitung
+﻿# CurseForge-Import und Server-Bereitstellungsanleitung
 
 Neben dem vorkompilierten All-in-One-Paket bietet GTE CurseForge-konforme Pakete und Serverpakete, die automatisch mit **Packwiz** erstellt werden.
 

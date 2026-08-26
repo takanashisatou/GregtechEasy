@@ -1,61 +1,61 @@
 # GT-- Community Edition (GTNN)
 
-`modules/gt--` (包名 `dev.arbor.gtnn`) 是基于 **Kotlin + Java** 混合架构构建的 GT-- Community Edition 官方社区版模组（开发分支为 `kotlin`）。
+`modules/gt--` (nombre del paquete `dev.arbor.gtnn`) es un mod oficial de la edición comunitaria de GT-- Community Edition construido sobre una arquitectura híbrida **Kotlin + Java** (la rama de desarrollo es `kotlin`).
 
 ---
 
-## 🏗️ 架构与技术栈
+## 🏗️ Arquitectura y pila tecnológica
 
-- **开发语言**：Kotlin 2.0.21 + Java 21。
-- **定位**：引入了经典 GT 5.09 及现代扩展中深受玩家喜爱的巨型组装线、重核反应堆、脱水机体系与太空探索工业。
+- **Lenguaje de desarrollo**: Kotlin 2.0.21 + Java 21.
+- **Posicionamiento**: introduce las líneas de ensamblaje masivas, reactores de núcleo pesado, sistemas de deshidratadores y la industria de exploración espacial, muy apreciados por los jugadores en el clásico GT 5.09 y las extensiones modernas.
 
 ```mermaid
 graph TD
-    A[GT-- CE / GTNN] --> B[高阶组装线: 电路组装线 / 元件组装线 / 精密组装线]
-    A --> C[重核与宇宙能源: 硅岩反应堆 / 火箭引擎 / 太空电梯]
-    A --> D[微观粒子活化: 中子活化器 / 中子加速器 / 中子传感器]
-    A --> E[重工业联合体: 埃克森美孚化工厂 / 大型脱水机 / 人造基岩矿机]
+    A[GT-- CE / GTNN] --> B[Líneas de ensamblaje avanzadas: Línea de ensamblaje de circuitos / Línea de ensamblaje de componentes / Línea de ensamblaje de precisión]
+    A --> C[Energía de núcleo pesado y cósmica: Reactor de naquadah / Motor de cohete / Ascensor espacial]
+    A --> D[Activación de partículas microscópicas: Activador de neutrones / Acelerador de neutrones / Sensor de neutrones]
+    A --> E[Complejo de industria pesada: Planta química de ExxonMobil / Deshidratador grande / Máquina de mineral de lecho rocoso artificial]
 ```
 
 ---
 
-## 🏭 核心多方块机器与设施
+## 🏭 Máquinas e instalaciones multibloque principales
 
-### 1. 组装流水线阵列
-- **电路组装线 (`circuit_assembly_line`)**：专门用于高效量产中高阶芯片与复合电路，支持多级精密机壳。
-- **元件组装线 (`component_assembly_line`)**：根据电压等级（LV 到 MAX）采用对应阶级的机壳，批量装配核心电机与传感器。
-- **精密组装线 (`precision_assembly_line`)**：生产最高精度的纳米光刻掩模与超算总线。
+### 1. Matriz de líneas de ensamblaje
+- **Línea de ensamblaje de circuitos (`circuit_assembly_line`)**: diseñada específicamente para la producción en masa eficiente de chips de nivel medio-alto y circuitos compuestos, compatible con carcasas de precisión de múltiples niveles.
+- **Línea de ensamblaje de componentes (`component_assembly_line`)**: utiliza carcasas de la clase correspondiente según el nivel de voltaje (de LV a MAX) para ensamblar en masa motores y sensores centrales.
+- **Línea de ensamblaje de precisión (`precision_assembly_line`)**: produce máscaras de nanolitografía de máxima precisión y buses de supercomputación.
 
-### 2. 粒子加速与中子活化系统
-- **中子活化器 (`neutron_activator`)** 与 **中子加速器 (`neutron_accelerator`)**：
-  - 模拟高能对撞机与快中子俘获反应，将普通稳定同位素活化为放射性重核材料或超重超导元素。
-- **中子传感器 (`neutron_sensor`)**：实时检测反应腔体内的中子动能通量，提供红石或电脑信号反馈。
+### 2. Sistema de aceleración de partículas y activación de neutrones
+- **Activador de neutrones (`neutron_activator`)** y **Acelerador de neutrones (`neutron_accelerator`)**:
+  - Simula colisionadores de alta energía y reacciones de captura de neutrones rápidos, activando isótopos estables comunes en materiales de núcleo pesado radiactivos o elementos superconductores superpesados.
+- **Sensor de neutrones (`neutron_sensor`)**: detecta en tiempo real el flujo de energía cinética de neutrones dentro de la cámara de reacción, proporcionando retroalimentación de señal de redstone o computadora.
 
-### 3. 重核能源与航天工业
-- **大型硅岩反应堆 (`large_naquadah_reactor`)**：以硅岩合金与富集燃料为动力，提供平稳、高密度的 EU 能源输出。
-- **火箭引擎 (`rocket_engine`)**：消耗高级火箭燃料，为高载荷设备提供脉冲动力。
-- **太空电梯 (`space_elevator`)**：贯通近地轨道，实现天基矿物采集与微重力工业制造。
+### 3. Energía de núcleo pesado e industria aeroespacial
+- **Reactor de naquadah grande (`large_naquadah_reactor`)**: impulsado por aleación de naquadah y combustible enriquecido, proporciona una salida de energía EU estable y de alta densidad.
+- **Motor de cohete (`rocket_engine`)**: consume combustible de cohete avanzado, proporciona potencia de pulso para equipos de alta carga.
+- **Ascensor espacial (`space_elevator`)**: conecta la órbita terrestre baja, permitiendo la recolección de minerales desde el espacio y la fabricación industrial en microgravedad.
 
-### 4. 化工与矿业联合设施
-- **埃克森美孚化工厂 (`exxonmobil_chemical_plant`)**：超大型石油深加工联合装置，单机完成裂解、重整、芳构化与聚合全工序。
-- **大型脱水机 (`large_dehydrator`)**：高效脱除流体或化学矿物中的结晶水与游离水分。
-- **人造基岩矿机 (`homemade_bedrock_ore_machine`)**：在基岩层部署人造钻头，源源不断提取深层无限矿脉。
+### 4. Instalaciones combinadas de química y minería
+- **Planta química de ExxonMobil (`exxonmobil_chemical_plant`)**: una instalación combinada de procesamiento profundo de petróleo a gran escala que realiza craqueo, reformado, aromatización y polimerización en una sola máquina.
+- **Deshidratador grande (`large_dehydrator`)**: elimina eficientemente el agua cristalina y el agua libre de fluidos o minerales químicos.
+- **Máquina de mineral de lecho rocoso artificial (`homemade_bedrock_ore_machine`)**: despliega brocas artificiales en la capa de lecho rocoso para extraer continuamente vetas minerales infinitas en las profundidades.
 
 ---
 
-## 🌿 子模块 Git 工作流规范
+## 🌿 Especificaciones del flujo de trabajo de Git para submódulos
 
-`modules/gt--` 对应独立 Git 仓库 `takanashisatou/GT---Community-Edition`，开发分支为 `kotlin`：
+`modules/gt--` corresponde al repositorio Git independiente `takanashisatou/GT---Community-Edition`, con la rama de desarrollo `kotlin`:
 
 ```bash
-# 独立在子模块中开发与提交
+# Desarrollar y confirmar de forma independiente en el submódulo
 cd modules/gt--
 git checkout kotlin
 git add .
 git commit -m "feat: add precision assembly line recipes"
 git push origin kotlin
 
-# 回到主工程更新 submodule 指针
+# Volver al proyecto principal y actualizar el puntero del submódulo
 cd ../..
 git add modules/gt--
 git commit -m "chore: bump gt-- submodule pointer"

@@ -1,4 +1,4 @@
-# Sistema de Horno de Refinación de Inmortales de Ocho Trigramas Yin-Yang y Formación de Cuatro Símbolos
+﻿# Sistema de Horno de Refinación de Inmortales de Ocho Trigramas Yin-Yang y Formación de Cuatro Símbolos
 
 GTECore ha creado de forma única el **“Sistema de Formación de Ocho Trigramas Taiji y Cuatro Símbolos”**, que combina la filosofía taoísta oriental con la ingeniería industrial moderna. Este sistema constituye el núcleo central para la metalurgia, la síntesis de materiales superconductores y la transición tecnológica inmortal en las etapas media y tardía del juego.
 

@@ -1,4 +1,4 @@
-# Sistema de Circuitos Avanzados de Supercuerdas y Yin-Yang y Materiales
+﻿# Sistema de Circuitos Avanzados de Supercuerdas y Yin-Yang y Materiales
 
 GTECore expande dos ramas principales de circuitos avanzados a lo largo de todo el ciclo de ZPM a MAX: el **Sistema de Circuitos de Supercuerdas** y el **Sistema de Circuitos de Yin-Yang Taiji**, junto con el Centro de Procesamiento Integral de Minerales para lograr un ciclo automático de materiales.
 

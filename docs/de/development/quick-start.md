@@ -1,4 +1,4 @@
-# Schnellstartanleitung für Entwickler
+﻿# Schnellstartanleitung für Entwickler
 
 Dieser Leitfaden richtet sich an Java/Kotlin-Programmierer und Modpack-Autoren, die an der GTE-Multi-Modul-Entwicklung beteiligt sind.
 

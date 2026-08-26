@@ -1,4 +1,4 @@
-# KI-Übersetzungs-Engine für Internationalisierung (`opencode_translate.py`)
+﻿# KI-Übersetzungs-Engine für Internationalisierung (`opencode_translate.py`)
 
 Das GTE-Projekt implementiert ein industrielles, mehrsprachiges Internationalisierungs-Übersetzungssystem, das von einem einheitlichen Skript gesteuert wird und die drei Bereiche Mod-Assets, FTB-Questbücher und Markdown-Dokumentation abdeckt.
 
