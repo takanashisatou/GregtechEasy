@@ -229,7 +229,27 @@ jobs:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: python scripts/opencode_translate.py --all
 
-      - name: Commit Translation Updates
+      - name: Commit Submodule Translation Changes (modules/docs)
+        if: github.event_name != 'pull_request'
+        run: |
+          Push-Location modules/docs
+          try {
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add -A
+            $subStatus = git status --porcelain
+            if ($subStatus) {
+              git commit -m "i18n: Auto-update multi-language wiki translations"
+              git push origin HEAD:main
+              Write-Host "✅ Docs submodule changes committed and pushed."
+            } else {
+              Write-Host "ℹ️ No docs submodule changes."
+            }
+          } finally {
+            Pop-Location
+          }
+
+      - name: Commit Root Translation Updates
         if: github.event_name != 'pull_request'
         run: |
           git config user.name "github-actions[bot]"
@@ -240,9 +260,9 @@ jobs:
             git commit -m "i18n: Auto-update multi-language assets and wiki translations"
             git pull --rebase origin ${{ github.ref_name }}
             git push
-            Write-Host "✅ Translation updates committed and pushed."
+            Write-Host "✅ Root translation updates committed and pushed."
           } else {
-            Write-Host "ℹ️ No translation changes to commit."
+            Write-Host "ℹ️ No root translation changes to commit."
           }
 
       - name: Trigger Docs Deploy Workflow

@@ -64,7 +64,9 @@ jobs:
         run: python scripts/audit_docs.py
 
       - name: "[Gate 2] Build MkDocs Site with Strict 404 Checks"
-        run: mkdocs build --strict -d build/site
+        # Build from the submodule's mkdocs.yml — modules/docs/docs/ is the source of truth
+        # for documentation and receives AI translations from the CI pipeline.
+        run: mkdocs build -f modules/docs/mkdocs.yml --strict -d build/site
 
       - name: Deploy to takanashisatou.github.io (root site)
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call'

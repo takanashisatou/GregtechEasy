@@ -568,12 +568,15 @@ def create_markdown_batches(items: List[Dict[str, Any]], max_chars: int = 500000
     return batches
 
 
-def process_documentation(docs_dir: Path, provider: Dict[str, str], target_langs: Optional[List[str]] = None, force: bool = False, max_workers: int = 8, batch_chars: int = 500000, batch_files: int = 50):
+def process_documentation(docs_dir: Path, provider: Dict[str, str], target_langs: Optional[List[str]] = None, force: bool = False, max_workers: int = 8, batch_chars: int = 500000, batch_files: int = 50, opencc_only: bool = False):
     """Process documentation translation using mega-batch strategy.
     
     With DSv4 Flash (1M context), all ~18 files (~40K chars total) are packed into
     a single LLM call per language. 8 languages are translated concurrently via ThreadPool.
     Total: 8 API calls instead of 100+ in the old chunked approach.
+    
+    When opencc_only is True, only zh-TW (Traditional Chinese via OpenCC) is processed;
+    all LLM languages are skipped to avoid API costs.
     """
     zh_dir = docs_dir / "zh"
     if not zh_dir.exists():
@@ -613,6 +616,11 @@ def process_documentation(docs_dir: Path, provider: Dict[str, str], target_langs
                 cache[cache_entry_key] = src_hash
                 total_translated += 1
             logger.info(f"[OpenCC 0-Token] Synchronized all {len(zh_files)} files -> zh-TW")
+            continue
+
+        # When opencc_only is set, skip all LLM languages (only zh-TW is processed above)
+        if opencc_only:
+            logger.info(f"[{lang}] Skipping — opencc-only mode (no LLM)")
             continue
 
         # For LLM languages: check cache and collect files needing translation
@@ -784,7 +792,100 @@ def process_submodule_lang_dir(lang_dir: Path, cache: dict, target_langs: List[s
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# 7. Main Unified CLI
+# 7. Submodule → Root Docs Sync
+# ─────────────────────────────────────────────────────────────────────────────
+def _sync_docs_from_submodule(submodule_docs: Path, root_docs: Path):
+    """Two-way sync between submodule (source of truth) and root docs/ (deploy source).
+
+    1. Submodule → Root: Copy actual translations (content differs from zh/ source).
+       Skips untranslated fallback files so root keeps its existing good translations.
+    2. Root → Submodule (reverse heal): If root has a good translation but submodule
+       still has untranslated Chinese, copy the root translation back to the submodule.
+       This heals the submodule after LLM failures without waiting for a re-run.
+    3. zh/ source files are always synced from submodule to root unconditionally.
+    """
+    if not submodule_docs.exists():
+        logger.warning(f"Submodule docs not found at {submodule_docs}, skipping sync.")
+        return
+
+    logger.info(f"Syncing docs between submodule and root ({submodule_docs} <-> {root_docs})...")
+
+    # Merge caches: keep entries from both, with submodule taking precedence
+    sub_cache = load_docs_cache(submodule_docs)
+    root_cache = load_docs_cache(root_docs)
+    merged_cache = {**root_cache, **sub_cache}  # submodule wins on conflict
+
+    root_docs.parent.mkdir(parents=True, exist_ok=True)
+
+    # Read zh/ source files from submodule to compare against translations
+    zh_dir = submodule_docs / "zh"
+    zh_texts: Dict[str, str] = {}
+    if zh_dir.exists():
+        for f in zh_dir.rglob("*.md"):
+            rel = str(f.relative_to(zh_dir)).replace("\\", "/")
+            zh_texts[rel] = f.read_text(encoding="utf-8")
+
+    # Identify language directories (subdirectories containing .md files)
+    lang_dirs = []
+    for d in submodule_docs.iterdir():
+        if d.is_dir() and d.name != ".git":
+            if list(d.rglob("*.md")):
+                lang_dirs.append(d)
+
+    synced_to_root = 0
+    healed_to_sub = 0
+    skipped_files = 0
+
+    for lang_dir in lang_dirs:
+        lang = lang_dir.name
+        for src_file in lang_dir.rglob("*.md"):
+            rel = str(src_file.relative_to(lang_dir)).replace("\\", "/")
+            root_file = root_docs / lang / rel
+
+            if lang == "zh":
+                # Always sync zh/ source files: submodule → root
+                root_file.parent.mkdir(parents=True, exist_ok=True)
+                root_file.write_text(src_file.read_text(encoding="utf-8"), encoding="utf-8")
+                synced_to_root += 1
+            else:
+                sub_text = src_file.read_text(encoding="utf-8")
+                zh_text = zh_texts.get(rel, "")
+                sub_is_translated = bool(zh_text) and sub_text.strip() != zh_text.strip()
+
+                # Check if root has a good translation for this file
+                root_has_translation = False
+                root_text = ""
+                if root_file.exists():
+                    root_text = root_file.read_text(encoding="utf-8")
+                    root_has_translation = bool(zh_text) and root_text.strip() != zh_text.strip()
+
+                if sub_is_translated:
+                    # Submodule has a real translation → copy to root
+                    root_file.parent.mkdir(parents=True, exist_ok=True)
+                    root_file.write_text(sub_text, encoding="utf-8")
+                    synced_to_root += 1
+                elif root_has_translation:
+                    # Submodule has untranslated Chinese but root has a good translation
+                    # → reverse-heal: copy root translation back to submodule
+                    src_file.write_text(root_text, encoding="utf-8")
+                    logger.info(f"Reverse-healed {lang}/{rel} (root translation → submodule)")
+                    healed_to_sub += 1
+                else:
+                    skipped_files += 1
+
+    # Write merged cache to both locations
+    save_docs_cache(root_docs, merged_cache)
+    save_docs_cache(submodule_docs, merged_cache)
+    logger.info(
+        f"Docs sync complete: {synced_to_root} files sub→root, "
+        f"{healed_to_sub} files root→sub (reverse-healed), "
+        f"{skipped_files} untranslated files skipped "
+        f"({sum(1 for _ in root_docs.rglob('*.md'))} total markdown files)."
+    )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 8. Main Unified CLI
 # ─────────────────────────────────────────────────────────────────────────────
 def main():
     if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
@@ -811,8 +912,30 @@ def main():
 
     # 1. Translate Documentation if requested
     if args.docs or args.docs_dir or args.all:
-        docs_path = Path(args.docs_dir) if args.docs_dir else (PROJECT_ROOT / "modules" / "docs" / "docs" if (PROJECT_ROOT / "modules" / "docs" / "docs").exists() else PROJECT_ROOT / "docs")
-        process_documentation(docs_path, provider, force=args.force)
+        # Determine which doc directories to translate.
+        # The submodule (modules/docs/docs/) is the source of truth; root docs/ mirrors it
+        # for mkdocs deployment. We translate the submodule first, then sync root from it.
+        docs_dirs_to_process = []
+
+        if args.docs_dir:
+            # User specified an explicit docs directory
+            docs_dirs_to_process.append(Path(args.docs_dir))
+        else:
+            # Default: translate submodule docs (modules/docs/docs)
+            submodule_docs = PROJECT_ROOT / "modules" / "docs" / "docs"
+            if submodule_docs.exists():
+                docs_dirs_to_process.append(submodule_docs)
+
+        for docs_path in docs_dirs_to_process:
+            logger.info(f"--- Processing documentation in: {docs_path} ---")
+            process_documentation(docs_path, provider, force=args.force, opencc_only=args.opencc_only)
+
+        # After translating the submodule, sync root docs/ from it so the deploy source
+        # (root docs/) stays current. Uses a simple recursive copy.
+        root_docs = PROJECT_ROOT / "docs"
+        submodule_docs = PROJECT_ROOT / "modules" / "docs" / "docs"
+        if root_docs.exists() and submodule_docs.exists() and root_docs not in docs_dirs_to_process:
+            _sync_docs_from_submodule(submodule_docs, root_docs)
 
     # 2. Translate Mod Assets & FTB Quests if requested (or default when not docs-only)
     if not (args.docs or args.docs_dir) or args.all:
