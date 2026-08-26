@@ -66,7 +66,8 @@ jobs:
       - name: "[Gate 2] Build MkDocs Site with Strict 404 Checks"
         # Build from the submodule's mkdocs.yml — modules/docs/docs/ is the source of truth
         # for documentation and receives AI translations from the CI pipeline.
-        run: mkdocs build -f modules/docs/mkdocs.yml --strict -d build/site
+        # NOTE: -d is relative to the config file, so we use absolute path for publish_dir compatibility.
+        run: mkdocs build -f modules/docs/mkdocs.yml --strict -d "$(pwd)/build/site"
 
       - name: Deploy to takanashisatou.github.io (root site)
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_call'
