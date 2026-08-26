@@ -11,7 +11,6 @@ docs_dir: docs
 
 theme:
   name: material
-  custom_dir: docs/overrides
   logo: assets/logo.png
   favicon: assets/favicon.png
   language: zh
