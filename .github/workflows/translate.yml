@@ -84,7 +84,7 @@ jobs:
             ARGS="$ARGS --opencc-only"
           fi
           if [ "${{ inputs.translate_docs }}" = "true" ]; then
-            ARGS="$ARGS --docs"
+            ARGS="$ARGS --docs-dir docs"
           fi
           python scripts/opencode_translate.py $ARGS
 
