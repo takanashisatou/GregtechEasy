@@ -1,54 +1,54 @@
-# 联调本地热与启动器快速运行
+# Depuração local a quente e execução rápida sem launcher
 
-GTE 设计了一套对整合包策划、任务编写者与模组程序员极其友好的无感联调系统。
+O GTE projetou um sistema de depuração integrada extremamente amigável para planejadores de modpacks, escritores de missões e programadores de mods.
 
 ---
 
-## ⚡ 1. 免启动器极速启动脚本 (`run_game.bat` / `run_game.sh`)
+## ⚡ 1. Script de inicialização ultrarrápida sem launcher (`run_game.bat` / `run_game.sh`)
 
-对于任务书作者（FTB Quests）和 KubeJS 配方策划人员，**无需打开 IntelliJ IDEA，也无需安装任何第三方启动器**，直接双击项目根目录下的 **`run_game.bat`** 即可极速进入游戏！
+Para autores de livros de missões (FTB Quests) e planejadores de receitas do KubeJS, **não é necessário abrir o IntelliJ IDEA nem instalar qualquer launcher de terceiros** — basta clicar duas vezes no **`run_game.bat`** na raiz do projeto para entrar no jogo em altíssima velocidade!
 
 ```mermaid
 graph TD
-    A[双击 run_game.bat] --> B[自动扫描本地 JDK 21 路径并持久化]
-    B --> C[自动探测系统物理内存与 CPU 核心数]
-    C --> D[动态计算最优 JVM 内存分配与 GC 线程]
-    D --> E[直接挂载 gte/overrides 为游戏工作目录]
-    E --> F[启动游戏: 实时读写 Git 追踪的 quests 与 scripts]
+    A[Clique duplo em run_game.bat] --> B[Varredura automática do caminho do JDK 21 local e persistência]
+    B --> C[Detecção automática da memória física do sistema e número de núcleos da CPU]
+    C --> D[Cálculo dinâmico da alocação ideal de memória JVM e threads de GC]
+    D --> E[Montagem direta de gte/overrides como diretório de trabalho do jogo]
+    E --> F[Iniciar jogo: leitura/gravação em tempo real de quests e scripts rastreados pelo Git]
 ```
 
-### 核心特性
-1. **全自动 JDK 21 探测**：自动检索 `.jdks`、`Adoptium`、`Zulu`、`Program Files` 下安装的 Java 21，并自动记忆于 `.jdk_path`。
-2. **硬件自适应优化**：根据当前电脑的 RAM 总量自动按最优比例（50%~60% 可用物理内存）分配 JVM 堆大小，自动配置并行 GC 线程。
-3. **零挪动工作流**：游戏内修改任务（`/ftbquests editing_mode true`）并保存，修改直接实时保存在 Git 仓库对应的 `config/ftbquests/` 中，打开 GitHub Desktop 即可一键提交！
+### Características principais
+1. **Detecção totalmente automática do JDK 21**: busca automaticamente por Java 21 instalado em `.jdks`, `Adoptium`, `Zulu`, `Program Files` e memoriza automaticamente em `.jdk_path`.
+2. **Otimização adaptativa ao hardware**: aloca automaticamente o tamanho do heap da JVM na proporção ideal (50%~60% da memória física disponível) de acordo com a RAM total do computador atual e configura automaticamente threads de GC paralelas.
+3. **Fluxo de trabalho sem deslocamento**: modifique missões dentro do jogo (`/ftbquests editing_mode true`) e salve — as alterações são salvas diretamente em tempo real no diretório `config/ftbquests/` correspondente no repositório Git. Abra o GitHub Desktop e faça commit com um clique!
 
 ---
 
-## 🔗 2. 外部启动器零复制映射工具 (`link_to_launcher.bat`)
+## 🔗 2. Ferramenta de mapeamento sem cópia para launchers externos (`link_to_launcher.bat`)
 
-如果你习惯使用自己配置好皮肤、按键习惯的启动器（如 PCL2 / HMCL / Prism Launcher）：
+Se você está acostumado a usar um launcher já configurado com skins e atalhos personalizados (como PCL2 / HMCL / Prism Launcher):
 
-1. 双击运行根目录的 **`link_to_launcher.bat`**。
-2. 按提示将你的启动器游戏目录（例如 `D:\PCL2\.minecraft\versions\GTE-Dev\.minecraft\`）拖入控制台中并回车。
-3. 脚本会自动建立 Windows 目录软链接 (Directory Junctions)：
+1. Execute **`link_to_launcher.bat`** na raiz do projeto com um duplo clique.
+2. Siga as instruções para arrastar o diretório do jogo do seu launcher (por exemplo, `D:\PCL2\.minecraft\versions\GTE-Dev\.minecraft\`) para o console e pressione Enter.
+3. O script criará automaticamente junções de diretório (Directory Junctions) do Windows:
    - `config` ➜ `gte/overrides/config`
    - `kubejs` ➜ `gte/overrides/kubejs`
    - `ftbquests` ➜ `gte/overrides/config/ftbquests`
    - `defaultconfigs` ➜ `gte/overrides/defaultconfigs`
-4. 无论在启动器中如何修改任务或配方，**物理数据实时同步保存在主 Git 仓库中**！
+4. Independentemente de como você modificar missões ou receitas no launcher, **os dados físicos são sincronizados e salvos em tempo real no repositório Git principal**!
 
 ---
 
-## ☕ 3. 模组代码热编译影子环境 (`gte-dev-runtime`)
+## ☕ 3. Ambiente sombra de compilação a quente para código de mods (`gte-dev-runtime`)
 
-对于 Java/Kotlin 程序员，`modules/gte-dev-runtime` 是专用的影子调试模块：
+Para programadores Java/Kotlin, `modules/gte-dev-runtime` é o módulo de depuração sombra dedicado:
 
-### 工作原理与设计考量
-- **定位**：纯本地热编译联调沙盒，**禁止打包发布，不会出现在任何玩家构件中**。
-- **ModDevGradle 动态重映射**：自动将 `gtm-reborn` 与 `gtecore` 的最新源码热编译并挂载进 Mojang 反混淆命名空间。
-- **启动方式**：
-  - 在 IDEA 中选择运行配置 **`Run GTE Full Pack (Client - Hot Debug)`**。
-  - 或命令行执行：
+### Princípio de funcionamento e considerações de design
+- **Posicionamento**: sandbox puramente local para depuração integrada com compilação a quente, **proibido empacotar para distribuição e não aparecerá em nenhum artefato de jogador**.
+- **Remapeamento dinâmico com ModDevGradle**: compila automaticamente o código-fonte mais recente de `gtm-reborn` e `gtecore` a quente e monta no namespace de desofuscação Mojang.
+- **Métodos de inicialização**:
+  - No IDEA, selecione a configuração de execução **`Run GTE Full Pack (Client - Hot Debug)`**.
+  - Ou execute via linha de comando:
     ```powershell
     .\gradlew.bat :modules:gte-dev-runtime:runClient
     ```

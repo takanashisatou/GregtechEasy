@@ -1,71 +1,71 @@
-﻿# 开发者快速上手指南
+# Guia de Início Rápido para Desenvolvedores
 
-本指南面向参与 GTE-Multi 跨模块工程开发的 Java/Kotlin 程序员与整合包作者。
+Este guia é destinado a programadores Java/Kotlin e autores de modpacks que participam do desenvolvimento do projeto multi-módulo GTE-Multi.
 
 ---
 
-## 💻 1. 开发环境准备
+## 💻 1. Preparação do Ambiente de Desenvolvimento
 
-### JDK 21 强制要求
-本项目全模块统一使用 **JDK 21**。推荐安装：
+### Requisito Obrigatório: JDK 21
+Este projeto utiliza **JDK 21** em todos os módulos. Instalações recomendadas:
 - [Azul Zulu JDK 21](https://www.azul.com/downloads/?version=java-21-lts)
 - [Eclipse Temurin JDK 21](https://adoptium.net/temurin/releases/?version=21)
 
-### IDE 推荐与插件
-推荐使用 **IntelliJ IDEA 2023.3+**，并安装以下官方插件：
-- **Minecraft Development**：提供 Mixin 代码提示、AT 访问转换器识别与事件高亮。
-- **Lombok**：支持 `@Getter`, `@Setter`, `@NoArgsConstructor` 等注解。
-- **Kotlin**：支持 GT-- CE 模块开发。
+### IDE Recomendada e Plugins
+Recomenda-se o uso do **IntelliJ IDEA 2023.3+** com os seguintes plugins oficiais:
+- **Minecraft Development**: Fornece sugestões de código Mixin, reconhecimento de AT (Access Transformers) e destaque de eventos.
+- **Lombok**: Suporta anotações como `@Getter`, `@Setter`, `@NoArgsConstructor`.
+- **Kotlin**: Suporte ao desenvolvimento do módulo GT-- CE.
 
 ---
 
-## 📥 2. 仓库克隆与工程导入
+## 📥 2. Clonagem do Repositório e Importação do Projeto
 
-因为本项目包含了多个 Git 子模块 (Submodules)，**必须递归拉取**：
+Como este projeto contém vários submódulos Git, **é necessário clonar recursivamente**:
 
 ```bash
-# 1. 递归克隆主仓库与所有子模块
+# 1. Clonar recursivamente o repositório principal e todos os submódulos
 git clone --recurse-submodules https://github.com/takanashisatou/GregtechEasy.git GTEGroup
 cd GTEGroup
 
-# 2. 若之前已克隆，更新并初始化子模块
+# 2. Se já clonou anteriormente, atualize e inicialize os submódulos
 git submodule update --init --recursive
 ```
 
-### IDEA 导入指引
-1. 在 IDEA 中点击 **文件 ➜ 打开**，选中根目录的 `build.gradle` 打开为工程。
-2. 前往设置：`设置` ➜ `构建、执行、部署` ➜ `构建工具` ➜ `Gradle`。
-3. 将 **Gradle JVM** 指定为 **JDK 21**。
+### Guia de Importação no IDEA
+1. No IDEA, clique em **File ➜ Open**, selecione o `build.gradle` na raiz e abra como projeto.
+2. Vá para as configurações: `Settings` ➜ `Build, Execution, Deployment` ➜ `Build Tools` ➜ `Gradle`.
+3. Defina o **Gradle JVM** como **JDK 21**.
 
 ---
 
-## 🛠️ 3. 常用 Gradle 构建指令
+## 🛠️ 3. Comandos Gradle Comuns
 
-在 Windows PowerShell 中执行（需预先设置 `JAVA_HOME`）：
+Execute no Windows PowerShell (é necessário definir `JAVA_HOME` previamente):
 
 ```powershell
 $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 
-# 1. 单独编译指定子模块
+# 1. Compilar um submódulo específico
 .\gradlew.bat :modules:gtecore:compileJava
 .\gradlew.bat :modules:gt--:compileKotlin
 .\gradlew.bat :modules:gtm-reborn:compileJava
 
-# 2. 运行 GTM-Reborn GameTest 服务端实机测试
+# 2. Executar teste de servidor GameTest do GTM-Reborn
 .\gradlew.bat :modules:gtm-reborn:runGameTestServer
 
-# 3. 运行代码格式化
+# 3. Executar formatação de código
 .\gradlew.bat :modules:gtm-reborn:spotlessApply
 
-# 4. 一键全模块编译并打包 Jar
+# 4. Compilar todos os módulos e empacotar Jar com um comando
 .\gradlew.bat buildAll -x test
 
-# 5. 将编译生成的 Jar 同步至 gte/overrides/mods/
+# 5. Sincronizar os Jars gerados para gte/overrides/mods/
 .\gradlew.bat copyOutputJars
 
-# 6. 发布全模块至本地 Maven 仓库 (~/.m2/repository/)
+# 6. Publicar todos os módulos no repositório Maven local (~/.m2/repository/)
 .\gradlew.bat publishAllToMavenLocal
 
-# 7. 发布全模块静态构件至 build/maven (用于 GitHub Pages Maven)
+# 7. Publicar artefatos estáticos de todos os módulos em build/maven (para GitHub Pages Maven)
 .\gradlew.bat publishAllToMaven
 ```
