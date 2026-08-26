@@ -1,37 +1,37 @@
-# KubeJS Utilities & Multiblock Pattern Exporter (`/dumpmultiblock`)
+# KubeJS Toolset and Multiblock Exporter (`/dumpmultiblock`)
 
-GTE provides developer utilities inside KubeJS server scripts to streamline multiblock design and dimension automation.
+GTE includes developer-exclusive automated multiblock construction and structure extraction tools in KubeJS server scripts, completely liberating the multiblock structure design process.
 
 ---
 
-## 🪓 Visual Multiblock Pattern Exporter (`/dumpmultiblock`)
+## 🪓 Multiblock Visual Exporter (`/dumpmultiblock`)
 
-When developing custom multiblocks (in Java or KubeJS), manually transcribing multi-layered character arrays for `FactoryBlockPattern.aisle(...)` is tedious and error-prone.
+When developing custom multiblocks (whether in Java code or KubeJS scripts), manually writing `FactoryBlockPattern.aisle(...)` composed of dozens of character layers is extremely time-consuming and error-prone.
 
-GTE features a built-in **`/dumpmultiblock` wooden axe exporter** (`server_scripts/easymultiblock.js`):
+GTE includes the **`/dumpmultiblock` wooden axe selection exporter** (`server_scripts/easymultiblock.js`):
 
 ```mermaid
 graph LR
-    A[Hold Wooden Axe] -->|Left Click| B[Select Pos1 Corner]
-    A -->|Right Click| C[Select Pos2 Opposite Corner]
-    B & C --> D[Execute /dumpmultiblock in Chat]
-    D --> E[Console & Chat output fully formed FactoryBlockPattern Java Code]
+    A[Hold wooden axe] -->|Left click| B[Select Pos1 corner]
+    A -->|Right click| C[Select Pos2 opposite corner]
+    B & C --> D[Execute /dumpmultiblock in game]
+    D --> E[Console and chat output complete FactoryBlockPattern Java code]
 ```
 
-### Usage Instructions
+### Usage Steps
 
-1. Enter Creative Mode and hold a **Wooden Axe (`minecraft:wooden_axe`)**.
-2. Physically build your complete multiblock structure in the world (casings, hatches, coils, controller).
-3. **Left-click** a bottom corner block of the structure (chat confirms `Pos1 set: x, y, z`).
-4. **Right-click** the opposite top corner block of the structure (chat confirms `Pos2 set: x, y, z`).
-5. Run the command:
+1. Enter creative mode in game, hold a **wooden axe (`minecraft:wooden_axe`)**.
+2. Build the complete multiblock physical structure directly in the world according to your design (including casing, hatches, coils, and the main controller).
+3. Use the wooden axe to **left-click** a bottom corner block of the structure (chat message: `Pos1 set: x, y, z`).
+4. Use the wooden axe to **right-click** the opposite top corner block of the structure (chat message: `Pos2 set: x, y, z`).
+5. Enter the command in the chat box:
    ```mcfunction
    /dumpmultiblock
    ```
-6. The script scans the 3D bounding box, establishes a character mapping (`.` for air, `A-Z/a-z/0-9` for blocks), and generates ready-to-paste pattern code directly in logs:
+6. The script automatically scans all block types within the 3D bounding box, assigns character mappings (`.` for air, `A-Z/a-z/0-9` for specific blocks), and directly generates structure code in the server log and client chat:
 
 ```java
-// Auto-generated FactoryBlockPattern boilerplate
+// Auto-exported FactoryBlockPattern template
 .pattern(definition -> FactoryBlockPattern.start()
     .aisle("BBB", "BBB", "BBB")
     .aisle("BBB", "BAB", "BBB")
@@ -45,14 +45,16 @@ graph LR
 
 ---
 
-## 🌌 Dimensional Gases & Universal Circuits
+## 🌌 Dimensional Gas and Fluid Vein Configuration
 
-### 1. Universal Atmospheric Extraction (`dimension_gas.js`)
-Using the Gas Collector (`gas_collector`) with designated circuit numbers allows extracting dimension-specific atmospheres anywhere:
-- **Overworld Air**: `circuit(4)` ➜ Outputs `gtceu:air 10000`
-- **Nether Air**: `circuit(5)` ➜ Outputs `gtceu:nether_air 10000`
-- **Ender Air**: `circuit(6)` ➜ Outputs `gtceu:ender_air 10000`
+GTE extends fluid and gas collection across all dimensions via KubeJS:
 
-### 2. Universal Circuit Unification (`universal_circuit.js`)
-To simplify cross-mod circuit juggling, GTE provides the **Universal Circuit** system:
-- In a Packer machine (`packer`), convert any circuit of a given tier (ULV through MAX) into a standardized Universal Circuit item at **1 EU / 1 tick** cost.
+### 1. Dimensional Gas Extraction (`dimension_gas.js`)
+Using the large gas collector (`gas_collector`) with different circuit numbers, you can extract the dimension-specific atmosphere in any dimension:
+- **Overworld Air**: `circuit(4)` ➜ outputs `gtceu:air 10000`
+- **Nether Hellish Air**: `circuit(5)` ➜ outputs `gtceu:nether_air 10000`
+- **End Void Air**: `circuit(6)` ➜ outputs `gtceu:ender_air 10000`
+
+### 2. Universal Circuit Converter (`universal_circuit.js`)
+To solve the complex recipe stacking across mods and various circuit tiers, GTE introduces the **universal circuit (`universal_circuit`)** system:
+- Allows converting any circuit of the same voltage tier (ULV to MAX) into a unified universal circuit item in the packer (`packer`) at **1 EU / 1 tick** without loss.

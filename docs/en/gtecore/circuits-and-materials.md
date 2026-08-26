@@ -1,58 +1,58 @@
-# Superstring, Yin-Yang Circuits & Material Systems
+# Super String and Yin-Yang Advanced Circuitry and Material System
 
-GTECore introduces two hyper-tier circuit branches covering ZPM through UIV+ voltages — the **Superstring Circuit Line** and the **Yin-Yang Daoist Circuit Line** — paired with the Ore Processing Center for automated material synthesis.
+GTECore expands two major advanced circuitry branches spanning the full cycle from ZPM to MAX — **Super String Circuitry** and **Yin-Yang Taiji Circuitry**, complemented by an Ore Comprehensive Processing Center for automated material recycling.
 
 ---
 
-## 🌌 Superstring Circuit Line (ZPM ➜ UEV)
+## 🌌 Super String Circuitry
 
-Superstring circuits harvest computational harmonics from multidimensional vibrating strings:
+Super String circuitry derives superluminal computing power from high-dimensional oscillating strings, primarily covering the **ZPM ➜ UEV** voltage gradient:
 
 ```mermaid
 graph LR
-    A[Superstring Substrates / PCBs] --> B[Superstring Processor ZPM]
-    B --> C[Superstring Processor Assembly UV]
-    C --> D[Superstring Processor Computer UHV]
-    D --> E[Superstring Processor Mainframe UEV]
+    A[Super String Substrate / Printed Board] --> B[Super String Processor ZPM]
+    B --> C[Super String Processor Cluster UV]
+    C --> D[Super String Processor Supercomputer UHV]
+    D --> E[Super String Processor Mainframe UEV]
 ```
 
-### Superstring Materials & Resonators
-- **Original String (`item.gtecore.original_string`)**: Primary singularity string filament.
-- **α, β, γ Strings (`alpha_string`, `beta_string`, `gamma_string`)**: Distinct vibrational eigenstate string polymers.
-- **Superstring Mixer (`super_string_mixer`)**, **String of Creation (`string_of_creation`)**, and **Superstring Oscillator Array (`super_string_oscillator_array`)**: Multiblock structures for string polarization and dimensional stabilization.
+### Super String Materials and String Substances
+- **String of Origin (`item.gtecore.original_string`)**: The oscillating origin of the high-dimensional universe.
+- **α-string / β-string / γ-string (`alpha_string`, `beta_string`, `gamma_string`)**: Super string polymers of different energy levels and polarization states.
+- **Super String Mixer (`super_string_mixer`)**, **String of Creation (`string_of_creation`)**, and **Super String Oscillator Array (`super_string_oscillator_array`)**: Used for splitting, tuning, and high-order solidification of super string matter.
 
 ---
 
-## ☯️ Yin-Yang Daoist Circuit Line (UV ➜ UIV+)
+## ☯️ Yin-Yang Taiji Circuitry
 
-The Yin-Yang line embodies the continuous transformation of complementary cosmic forces (**"Yin gives rise to Yang, and Yang gives rise to Yin"**):
+The Yin-Yang circuitry system follows the cyclical philosophy of **"Yin generates Yang, Yang generates Yin, endless generation"**, covering **UV ➜ UIV** and beyond:
 
 ```mermaid
 graph LR
-    A[Yin-Yang Boules / Wafers] --> B[Yin-Yang Processor UV]
-    B --> C[Yin-Yang Processor Assembly UHV]
-    C --> D[Yin-Yang Processor Computer UEV]
+    A[Yin-Yang Monocrystalline Silicon / Wafer] --> B[Yin-Yang Processor UV]
+    B --> C[Yin-Yang Processor Cluster UHV]
+    C --> D[Yin-Yang Processor Supercomputer UEV]
     D --> E[Yin-Yang Processor Mainframe UIV]
 ```
 
-### Five Elements & Eight Trigrams Components
-- **Five Elements**: Gold (`jinyuansu`), Wood (`muyuansu`), Water (`shuiyuansu`), Fire (`huo`), and Earth (`tuyuansu`).
-- **Elemental Talismans**: Paper Talismans of Gold, Wood, Water, Fire, and Earth.
-- **Eight Trigrams Runes & Chips**: Qian, Kun, Zhen, Xun, Kan, Li, Gen, and Dui runes and specialized chips.
-- **God Nugget (`god_nugget`)**: Pure distilled cosmic catalyst.
+### Bagua and Five Elements Exclusive Talismans
+- **Five Elements**: Metal Element (`jinyuansu`), Wood Element (`muyuansu`), Water Element (`shuiyuansu`), Fire Element (`huo`), Earth Element (`tuyuansu`).
+- **Five Elements Talismans**: Metal Talisman, Wood Talisman, Water Talisman, Fire Talisman, Earth Talisman.
+- **Bagua Symbols and Chips**: The eight trigram symbol stones and core chips of Qian, Kun, Zhen, Xun, Kan, Li, Gen, and Dui.
+- **Three Pure Nugget (`god_nugget`)**: A top-tier synthesis medium condensing the essence of heaven and earth.
 
 ---
 
-## 💎 Ore Processing Center Circuit Modes
+## 💎 Ore Comprehensive Processing Center Recipe Modes
 
-The **Ore Processing Center (`ore_process_center`)** features 7 standardized programmed circuit configurations:
+**Ore Comprehensive Processing Center (`ore_process_center`)** has 7 preset standardized circuit modes, switchable by setting the programming circuit number in the machine:
 
-| Circuit # | Processing Route | Targeted Ore Types & Characteristics | Multiplier |
+| Circuit Number | Process Route | Applicable Mineral Types and Product Features | Output Multiplier |
 | :---: | :--- | :--- | :---: |
-| **Circuit 1** | Crush ➜ Crush ➜ Wash | Basic industrial ores (Iron, Copper, Tin) | 5x Main + Byproducts |
-| **Circuit 2** | Crush ➜ Crush ➜ Centrifuge | Precious light-metal associations | 5x Main + High-purity byproduct |
-| **Circuit 3** | Crush ➜ Wash ➜ Thermal Sep ➜ Crush | Refractory ores and platinum-group precious metals | 5~6x + Pure dusts |
-| **Circuit 4** | Crush ➜ Thermal Sep ➜ Crush | Complex sulfides and embedded heavy matrices | 5x + Thermal byproducts |
-| **Circuit 5** | Crush ➜ Wash ➜ Crush ➜ Wash | Rare earths and multi-stage soluble salts | 6x + Dual wash byproducts |
-| **Circuit 6** | Crush ➜ Wash ➜ Crush ➜ Centrifuge | Radioactive heavy ores (Uranium, Thorium, Plutonium) | 6x + Centrifuged heavy dusts |
-| **Circuit 8** | Crush ➜ Wash ➜ Crush ➜ EM Separation | Ferromagnetic / Paramagnetic ores (Magnetite, Chrome) | 6~8x + Magnetic pure dusts |
+| **Circuit 1** | Crushing ➜ Crushing ➜ Washing | Rapid mass production of basic metal ores (iron, copper, tin, etc.) | 5x main product + byproducts |
+| **Circuit 2** | Crushing ➜ Crushing ➜ Centrifuging | Associated high-value rare light metal ores | 5x main product + centrifuged pure byproducts |
+| **Circuit 3** | Crushing ➜ Washing ➜ Thermal Separation ➜ Crushing | High-temperature refractory ores, precious metal ores (platinum group, gold, silver, etc.) | 5-6x + pure metal powder |
+| **Circuit 4** | Crushing ➜ Thermal Separation ➜ Crushing | Sulfides and heavily complex disseminated ores | 5x + special thermal separation byproducts |
+| **Circuit 5** | Crushing ➜ Washing ➜ Crushing ➜ Washing | Rare earth ores and multi-stage soluble salt ores | 6x + double washing byproducts |
+| **Circuit 6** | Crushing ➜ Washing ➜ Crushing ➜ Centrifuging | Radioactive heavy ores (uranium, thorium, plutonium series) and rare earths | 6x + fine centrifuged heavy metals |
+| **Circuit 8** | Crushing ➜ Washing ➜ Crushing ➜ Electromagnetic Separation | Strongly magnetic and paramagnetic minerals (magnetite, chromium, titanium, etc.) | 6-8x + electromagnetic pure powder |

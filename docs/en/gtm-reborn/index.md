@@ -1,72 +1,72 @@
 # GregTech Modern Reborn (GTM Reborn)
 
-`modules/gtm-reborn` is a heavily customized fork of GregTech Modern maintained in the GTE-Multi ecosystem on branch `satou`.
+`modules/gtm-reborn` is a deeply customized independent branch of GregTech Modern for GTE-Multi (branch name `satou`).
 
 ---
 
-## 🚀 Key Features in the `satou` Branch
+## 🚀 Core Enhancements of the `satou` Branch
 
-Compared to upstream GT Modern, GTM-Reborn introduces several modern architectural upgrades on Minecraft 1.20.1:
+Compared to the upstream original, GTM-Reborn has achieved multiple revolutionary technological advancements and industrial experience upgrades on modern high-version Minecraft 1.20.1:
 
 ```mermaid
 graph TD
-    A[GTM-Reborn satou Branch] --> B[Multi-Amp & Instant Calculation: Multi-Amp Recipes & Subtick 1t OC]
-    A --> C[Massive Parallelism: 64-bit Long Math & Batch Mode]
-    A --> D[Automated Quality Assurance: GameTest Server Automated Test Suite]
-    A --> E[External Integrations: CC:Tweaked Peripherals & EMI/JEI Enhancements]
-    A --> F[Fluids & Networking: Ranged Fluid Outputs & Wireless Covers]
+    A[GTM-Reborn satou branch] --> B[Multi-Amp and Extreme Speed: Multi-Amp Recipes & Subtick 1t OC]
+    A --> C[Ultra-large Batch Processing: 64-bit Long Parallel Computing and Batch Mode]
+    A --> D[Full Automation Quality Assurance: GameTest Server-side Testing Suite]
+    A --> E[External Integration: CC:Tweaked Computer Interface & EMI/JEI Deep Display]
+    A --> F[Fluids and Pipe Networks: Ranged Fluid Outputs & Wireless Cover Plates]
 ```
 
-### 1. 64-Bit Long Parallelism & Batch Mode
-- **Beyond 32-Bit Limits**: Recipe parallel calculations utilize `long` primitives, preventing integer overflow during billion-scale parallel operations.
-- **Smart Batch Mode**: Batches multiple iterations of identical recipes into a single consolidated compute tick when ingredients are abundant, drastically reducing server tick lag.
+### 1. 64-bit Long Integer Parallelism and Batch Mode
+- **Breaking the 32-bit integer limit**: Parallel computing fully adopts the `long` data type, completely solving the problem of numerical overflow or calculation truncation in ultra-large industrial clusters under extremely high parallelism.
+- **Intelligent Batch Mode**: When raw materials are extremely abundant, the machine can pack hundreds or thousands of tiny recipes into a single cycle, greatly reducing server tick load.
 
-### 2. 1T Subtick Instant Overclock (`OC_PERFECT_SUBTICK`)
-- Streamlines recipe execution pipelines, allowing designated high-tier machines to process multiple recipe batches in a single game tick.
+### 2. 1T Subtick Instant Overclocking (OC_PERFECT_SUBTICK)
+- Optimized the machine's Recipe Logic execution pipeline, allowing designated advanced machines to complete multiple recipe iterations within 1 tick, unleashing the pure industrial production limit.
 
-### 3. Multi-Amp Recipe Engine
-- Native support for recipes that consume or generate multiple Amperes of current, with clear EMI/JEI rendering and wire thickness tooltips.
+### 3. Multi-Amp Input and Recipe Support (Multi-Amp)
+- Machine recipes support multi-ampere (Amperes) current consumption/output per recipe, and support EMI/JEI interfaces to intuitively render multi-ampere values and wire specification hints.
 
 ### 4. Ranged Fluid Outputs
-- Allows high-tier distillation towers and chemical reactors to output variable fluid quantities depending on internal temperature and pressure conditions.
+- Allows advanced distillation towers and chemical reactors to output fluid products with a range of fluctuations based on different temperature and pressure conditions.
 
-### 5. ComputerCraft / CC:Tweaked Integration
-- Exposes comprehensive peripheral methods to ComputerCraft computers:
-  - Query recipe progress, time remaining, and current EU/t draw in real-time.
-  - Dynamically enable, pause, or configure machine logic via Lua scripts.
+### 5. CC:Tweaked (ComputerCraft) Modern Peripheral Integration
+- All standard machines expose peripheral interfaces to ComputerCraft:
+  - Real-time query of recipe progress, remaining time, and current EU/t consumption.
+  - Dynamically start, pause machines, or switch working modes via Lua scripts.
 
 ---
 
-## 🧪 Automated Testing with GameTest
+## 🧪 Automated Testing and GameTest Verification
 
-GTM-Reborn comes with a native Minecraft GameTest suite (located under `src/test`):
+GTM-Reborn includes a complete Minecraft native GameTest automated test suite (located in `src/test`):
 
 ```powershell
-# Run the GameTest Server automated verification
+# Run GameTest automated server-side tests
 $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 .\gradlew.bat :modules:gtm-reborn:runGameTestServer
 ```
 
-### Test Scope
-- **Cover Mechanics**: Verifies fluid pump, item conveyor, and energy cover throughput and leak prevention.
-- **Machine Logic**: Audits multi-amp calculations, batch processing, and recipe overclock accuracy.
-- **Multiblock Formations**: Asserts pattern recognition across all 6 directional orientations.
+### Test Coverage Scope
+- **Cover System**: Tests the throughput and leak-proof logic of fluid pump covers, item transport covers, and energy conduit covers.
+- **Machine Recipe Logic**: Tests multi-amp, batch processing, cross-recipe parallelism, and overclocking calculations.
+- **Multiblock Formation and Rotation**: Tests structural validation of various casings and hatches under different orientations.
 
 ---
 
-## 🌿 Submodule Git Workflow
+## 🌿 Submodule Git Workflow Specification
 
-`modules/gtm-reborn` links to `takanashisatou/GregTech-Modern-Reborn` on branch `satou`:
+`modules/gtm-reborn` corresponds to the independent Git repository `takanashisatou/GregTech-Modern-Reborn`, with the default development branch `satou`:
 
 ```bash
-# Develop and commit inside the submodule
+# Develop and commit independently in the submodule
 cd modules/gtm-reborn
 git checkout satou
 git add .
 git commit -m "feat: optimize multiblock recipe logic"
 git push origin satou
 
-# Return to root repository and update pointer
+# Return to the main project and update the submodule pointer
 cd ../..
 git add modules/gtm-reborn
 git commit -m "chore: bump gtm-reborn submodule pointer"

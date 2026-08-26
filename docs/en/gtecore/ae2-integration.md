@@ -1,48 +1,48 @@
-# AE2 Deep Integration & Pattern Buffer Plus
+# AE2 Deep Integration & Pattern Buffer Plus System
 
-GTECore constructs a high-throughput direct interconnect between Applied Energistics 2 (AE2) and GregTech multiblock machines.
+GTECore establishes an extremely powerful direct data interconnection bridge between Applied Energistics 2 (AE2) and GregTech multiblock structures.
 
 ---
 
 ## 🧩 ME Pattern Buffer Plus (`me_pattern_buffer_plus`)
 
-In traditional tech setups, connecting AE2 pattern providers to multiblock machines often faces bottlenecks such as **limited pattern slots, inability to mix item and fluid inputs, and lack of pattern sharing across machines**.
+In traditional tech mods, connecting an AE2 Pattern Provider to a multiblock machine often faces pain points such as **insufficient slots, inability to mix fluid and item outputs, and difficulty sharing patterns across multiple machines**.
 
-GTECore's **ME Pattern Buffer Plus** resolves all these pain points:
+The **ME Pattern Buffer Plus** developed by GTECore completely solves this problem:
 
 ```mermaid
 graph TD
-    A[AE2 ME Network] --> B[ME Pattern Buffer Plus Master<br/>81 Pattern Slots / Shared Inventory / Programmable Storage]
-    B -->|Linked via Datastick| C[ME Pattern Buffer Proxy Plus #1<br/>Mounted on Machine A]
-    B -->|Linked via Datastick| D[ME Pattern Buffer Proxy Plus #2<br/>Mounted on Machine B]
-    B -->|Linked via Datastick| E[ME Pattern Buffer Proxy Plus #3<br/>Mounted on Machine C]
+    A[AE2 ME Network] --> B[ME Pattern Buffer Plus Host<br/>81 Pattern Slots / Shared Inventory / Programmable Storage]
+    B -->|Datastick Binding| C[ME Pattern Buffer Proxy Plus #1<br/>Attached to Multiblock Machine A]
+    B -->|Datastick Binding| D[ME Pattern Buffer Proxy Plus #2<br/>Attached to Multiblock Machine B]
+    B -->|Datastick Binding| E[ME Pattern Buffer Proxy Plus #3<br/>Attached to Multiblock Machine C]
 ```
 
 ### Core Features
-1. **Massive Pattern Capacity**: Each buffer block contains **81 pattern slots** (equivalent to 9 standard AE2 pattern providers combined).
-2. **Unified Omnipotent Ability**: Possesses `IMPORT_ITEMS`, `IMPORT_FLUIDS`, `EXPORT_ITEMS`, and `EXPORT_FLUIDS` simultaneously, enabling seamless hybrid fluid/item automation.
-3. **Programmable Storage**: Integrated smart inventory widgets prevent ingredient jamming and handle complex recipe batching.
+1. **Massive Pattern Capacity**: A single Buffer Host features **81 pattern slots** (equivalent to the combined capacity of 9 standard AE2 Pattern Providers).
+2. **Omnidirectional Hatch Capabilities**: Simultaneously possesses `IMPORT_ITEMS`, `IMPORT_FLUIDS`, `EXPORT_ITEMS`, and `EXPORT_FLUIDS` capabilities, supporting mixed fluid and item interactions within the same hatch.
+3. **Programmable Storage Support**: Integrates the Programmable Storage mechanism internally, supporting precise ingredient insertion and buffering for complex recipes.
 
 ---
 
 ## 🪞 ME Pattern Buffer Proxy Plus (`me_pattern_buffer_proxy_plus`)
 
-The **Pattern Buffer Proxy Plus** is a distributed automation component:
+**Pattern Buffer Proxy Plus** is a revolutionary distributed automation structural component:
 
-### Linking & Multi-Machine Pattern Sharing
-- Mount proxy buffers onto any number of identical multiblock machines.
-- Right-click the master **ME Pattern Buffer Plus** with a **Datastick**, then right-click the **Pattern Buffer Proxy Plus** to link them.
-- **All connected proxies immediately share and execute all 81 patterns inside the master buffer**!
-- Auto-crafting jobs dispatched from ME terminals will load-balance across all available proxy machines.
+### Working Principle & Cross-Machine Sharing
+- Install the Proxy Buffer onto the hatch position of any multiblock machine.
+- Hold a **Datastick** and right-click the main **ME Pattern Buffer Plus** to read its coordinates, then right-click the **Pattern Buffer Proxy Plus** to bind them.
+- **All bound proxies will share all 81 patterns placed within the main Buffer in real-time!**
+- When the AE2 network initiates an automated crafting task, the network automatically load-balances and distributes the tasks to all idle proxy machines for parallel processing!
 
-### Real-Time Jade Information
-Aiming at buffer components displays:
-- Master Buffer: `Buffer Proxies Plus Bound: X`
-- Proxy Buffer: `Bound To - X: ..., Y: ..., Z: ...`
+### Jade Hover Status Display
+When looking at the Buffer or Proxy, Jade will automatically display:
+- Main Buffer: `Connected Proxies: X`
+- Proxy Component: `Bound to - X: ..., Y: ..., Z: ...`
 
 ---
 
 ## 💨 ME Steam Hatch (`me_steam_hatch`)
 
-- **Function**: Direct bridge between AE2 fluid storage networks and steam multiblocks.
-- **Advantage**: Bypasses physical steam pipe bandwidth caps, extracting high-pressure steam directly from ME storage with zero transfer latency.
+- **Function**: Directly connects the AE2 fluid network to steam multiblock structures.
+- **Purpose**: Steam multiblock structures no longer require complex high-speed steam piping and tanks externally; they can instantly draw steam from the ME network at maximum throughput for power generation, eliminating piping transmission bottlenecks.

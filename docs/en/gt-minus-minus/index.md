@@ -1,61 +1,61 @@
 # GT-- Community Edition (GTNN)
 
-`modules/gt--` (package `dev.arbor.gtnn`) is the official GT-- Community Edition addon built with a modern **Kotlin + Java** architecture on branch `kotlin`.
+`modules/gt--` (package name `dev.arbor.gtnn`) is the official community edition mod of GT-- Community Edition built on a **Kotlin + Java** hybrid architecture (development branch `kotlin`).
 
 ---
 
-## 🏗️ Architecture & Tech Stack
+## 🏗️ Architecture and Tech Stack
 
-- **Languages**: Kotlin 2.0.21 + Java 21.
-- **Positioning**: Re-implements beloved endgame infrastructure from classic GT 5.09 and modern addons, including assembly line arrays, naquadah reactors, dehydrators, and orbital space facilities.
+- **Development language**: Kotlin 2.0.21 + Java 21.
+- **Positioning**: Introduces the massive assembly lines, heavy nuclear reactors, dehydrator systems, and space exploration industry beloved by players from classic GT 5.09 and modern expansions.
 
 ```mermaid
 graph TD
-    A[GT-- CE / GTNN] --> B[High-Tier Assembly Lines: Circuit Assline / Component Assline / Precision Assline]
-    A --> C[Heavy Nuclear & Space Power: Naquadah Reactor / Rocket Engine / Space Elevator]
-    A --> D[Particle Activation: Neutron Activator / Accelerator / Sensor]
-    A --> E[Heavy Chemical Complexes: ExxonMobil Chemical Plant / Large Dehydrator / Bedrock Ore Machine]
+    A[GT-- CE / GTNN] --> B[High-tier assembly lines: Circuit Assembly Line / Component Assembly Line / Precision Assembly Line]
+    A --> C[Heavy nuclear and cosmic energy: Naquadah Reactor / Rocket Engine / Space Elevator]
+    A --> D[Micro-particle activation: Neutron Activator / Neutron Accelerator / Neutron Sensor]
+    A --> E[Heavy industry complex: ExxonMobil Chemical Plant / Large Dehydrator / Homemade Bedrock Ore Machine]
 ```
 
 ---
 
-## 🏭 Core Multiblock Machinery
+## 🏭 Core Multiblock Machines and Facilities
 
-### 1. Advanced Assembly Lines
-- **Circuit Assembly Line (`circuit_assembly_line`)**: Specialized in mass-producing complex microchips and integrated circuits using tiered casings.
-- **Component Assembly Line (`component_assembly_line`)**: Utilizes tier-specific casings (LV through MAX) to mass-assemble precision motors, pumps, and field generators.
-- **Precision Assembly Line (`precision_assembly_line`)**: High-accuracy fabrication of sub-nanometer lithography masks and mainframe buses.
+### 1. Assembly Line Array
+- **Circuit Assembly Line (`circuit_assembly_line`)**: Specifically used for efficient mass production of mid-to-high-tier chips and composite circuits, supporting multi-level precision casings.
+- **Component Assembly Line (`component_assembly_line`)**: Uses corresponding tier casings based on voltage level (LV to MAX) to batch assemble core motors and sensors.
+- **Precision Assembly Line (`precision_assembly_line`)**: Produces the highest precision nanolithography masks and supercomputing buses.
 
-### 2. Particle Acceleration & Neutron Activation
-- **Neutron Activator (`neutron_activator`)** & **Neutron Accelerator (`neutron_accelerator`)**:
-  - Replicates fast neutron capture dynamics, transmuting stable isotopes into radioactive heavy nuclei and exotic superconductors.
-- **Neutron Sensor (`neutron_sensor`)**: Monitors internal neutron kinetic flux and provides redstone/computer telemetry.
+### 2. Particle Acceleration and Neutron Activation System
+- **Neutron Activator (`neutron_activator`)** and **Neutron Accelerator (`neutron_accelerator`)**:
+  - Simulates high-energy colliders and fast neutron capture reactions, activating ordinary stable isotopes into radioactive heavy nuclear materials or superheavy superconducting elements.
+- **Neutron Sensor (`neutron_sensor`)**: Real-time detection of neutron kinetic energy flux inside the reaction chamber, providing redstone or computer signal feedback.
 
-### 3. Nuclear Energy & Space Logistics
-- **Large Naquadah Reactor (`large_naquadah_reactor`)**: Generates stable, ultra-dense EU output from enriched naquadah fuels.
-- **Rocket Engine (`rocket_engine`)**: High-thrust pulse engine for spacefaring logistical platforms.
-- **Space Elevator (`space_elevator`)**: Links planetary ground operations to orbital asteroid mining and zero-gravity manufacturing.
+### 3. Heavy Nuclear Energy and Aerospace Industry
+- **Large Naquadah Reactor (`large_naquadah_reactor`)**: Powered by naquadah alloys and enriched fuel, providing stable, high-density EU energy output.
+- **Rocket Engine (`rocket_engine`)**: Consumes advanced rocket fuel to provide pulse power for high-load equipment.
+- **Space Elevator (`space_elevator`)**: Connects to low Earth orbit, enabling space-based mineral collection and microgravity industrial manufacturing.
 
-### 4. Chemical & Bedrock Extraction Complexes
-- **ExxonMobil Chemical Plant (`exxonmobil_chemical_plant`)**: Heavy petrochemical megaplant handling catalytic cracking, reforming, and polymer synthesis.
-- **Large Dehydrator (`large_dehydrator`)**: Eliminates hydration and crystal moisture from complex mineral solutions.
-- **Homemade Bedrock Ore Machine (`homemade_bedrock_ore_machine`)**: Deploys deep-bore artificial drill heads to tap into limitless bedrock mineral beds.
+### 4. Chemical and Mining Complex Facilities
+- **ExxonMobil Chemical Plant (`exxonmobil_chemical_plant`)**: Ultra-large petroleum deep processing complex, completing cracking, reforming, aromatization, and polymerization processes in a single machine.
+- **Large Dehydrator (`large_dehydrator`)**: Efficiently removes crystalline and free water from fluids or chemical minerals.
+- **Homemade Bedrock Ore Machine (`homemade_bedrock_ore_machine`)**: Deploys artificial drill bits in the bedrock layer to continuously extract deep infinite ore veins.
 
 ---
 
-## 🌿 Submodule Git Workflow
+## 🌿 Submodule Git Workflow Specification
 
-`modules/gt--` is tracked in `takanashisatou/GT---Community-Edition` on branch `kotlin`:
+`modules/gt--` corresponds to the independent Git repository `takanashisatou/GT---Community-Edition`, with the development branch `kotlin`:
 
 ```bash
-# Work inside the submodule
+# Develop and commit independently in the submodule
 cd modules/gt--
 git checkout kotlin
 git add .
 git commit -m "feat: add precision assembly line recipes"
 git push origin kotlin
 
-# Return to root repository and update pointer
+# Return to the main project and update the submodule pointer
 cd ../..
 git add modules/gt--
 git commit -m "chore: bump gt-- submodule pointer"

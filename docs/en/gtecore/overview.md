@@ -1,58 +1,58 @@
-# GTECore Mod Overview
+# GTECore Core Mod Overview
 
-**GTECore** is the custom core Java mod of the GregTech Easy project. Directly depending on `gtm-reborn` source code, it introduces massive multiblock industrial complexes, esoteric Daoist oriental engineering, deep Applied Energistics 2 integration, and ultra-high-tier circuit systems.
+**GTECore** is the custom Java core mod for the GregTech Easy project. It directly depends on the `gtm-reborn` source code, expanding large-scale multiblock industrial structures, high-tier formation technology, deep AE2 interactions, and a super circuit manufacturing system.
 
 ---
 
-## 🏛️ Architecture & Design Positioning
+## 🏛️ Mod Architecture and Design Positioning
 
 ```mermaid
 graph TD
-    A[GTM-Reborn Foundation] --> B[GTECore Mod]
-    B --> C[Oriental Industrial Wonders: Yin-Yang Eight Trigrams Furnace / Four Symbols / Tai Chi]
-    B --> D[Extreme Industrial Scaling: Miracle Ring / Ore Processing Center / General Fuel Engine]
-    B --> E[Deep AE2 Extensions: ME Pattern Buffer Plus & Proxies / ME Steam Hatch]
-    B --> F[Hyperdimensional Circuits: Superstring Circuit Line / Yin-Yang Circuit Line]
-    B --> G[Automation & Tooling: Native Jade Integration / Structure Testing Terminal / Datagen I18n]
+    A[GTM-Reborn Base Framework] --> B[GTECore Core Mod]
+    B --> C[Eastern Mystical Industry: Yin-Yang Bagua Alchemy Furnace / Four Symbols Formations / Taiji Five Elements]
+    B --> D[Industrial Extreme Optimization: Ring of Miracles / Comprehensive Ore Processing / Universal Fuel Engine]
+    B --> E[AE2 Deep Expansion: ME Pattern Assembler Plus & Mirror / ME Steam Hatch]
+    B --> F[Hyperdimensional Circuit System: Superstring Circuit System / Yin-Yang Circuit System]
+    B --> G[Automation and Development: Jade Real-time Integration / Structure Testing Terminal / Datagen Internationalization]
 ```
 
 ---
 
-## 📦 Creative Mode Tabs & Organization
+## 📦 Creative Mode Tabs and Categories
 
-GTECore registers dedicated creative mode tabs:
+GTECore registers its own creative mode tabs in-game:
 
 1. **GregTech Easy Machines (`itemGroup.gtecore.gtecore_machines`)**:
-   - Contains all GTE original multiblock controllers (Yin-Yang Blast Furnace, Miracle Ring, Ore Processing Center, Chemistry Terminator, etc.).
-   - Contains tiered battery buffers (Max Super Battery Buffer), ME Steam Hatch, ME Pattern Buffer Plus, and Proxies.
+   - Contains all GTE original multiblock controllers (Yin-Yang Bagua Blast Furnace, Ring of Miracles, Ore Processing Center, Chemical Terminator, etc.).
+   - Contains multi-tier super battery buffers (Max Super Battery Buffer), ME Steam Hatches, ME Pattern Assembler Plus and Mirror.
 2. **GregTech Easy Items (`itemGroup.gtecore.gtecore_items`)**:
-   - Contains Superstring and Yin-Yang circuit items (Processors, Assemblies, Computers, Mainframes).
-   - Contains Five Elements talismans, Eight Trigrams chips, God Nuggets, and Structure Testing Terminals.
+   - Contains Superstring and Yin-Yang circuit series items (processors, clusters, supercomputers, mainframes).
+   - Contains Five Elements Talismans, Bagua Chips, Three Pure Particles, Structure Testing Terminal, and other specialized tools.
 
 ---
 
-## ⚙️ Global Configuration (`GTEConfig`)
+## ⚙️ Mod Global Configuration (`GTEConfig`)
 
-GTECore provides rich in-game and config file options (`config/gtecore-common.toml` or in-game mod config menu):
+GTECore provides extensive in-game and file configuration options (located in `config/gtecore-common.toml` or via the in-game configuration menu):
 
-| Config Option | Default | Description |
+| Configuration Option | Default Value | Detailed Description |
 | :--- | :--- | :--- |
-| `superPeace` (Super Peace Mode) | `false` | Completely disables hostile mob spawning to ensure an uninterrupted factory building experience |
-| `durationMultiplier` (Recipe Duration Multiplier) | `1.0` | Globally adjusts recipe execution duration for GTECore recipes |
+| `superPeace` (Super Peace Mode) | `false` | When enabled, completely disables hostile mob spawning, providing an absolutely clean environment for tech building |
+| `durationMultiplier` (Recipe Time Multiplier) | `1.0` | Globally adjusts the duration multiplier for GTECore custom recipes |
 
 ---
 
 ## 🔍 Jade / TOP Native Integration
 
-GTECore includes native **`GTEJadePlugin`** support:
-- **ME Pattern Buffer Plus Status**: Displays stored pattern count, item/fluid output mode, and active jobs.
-- **ME Pattern Buffer Proxy Plus Link Info**: Hovering directly reveals the linked master buffer coordinates `(X, Y, Z)` and connection status.
-- **Formation Array Readiness**: Displays real-time status of Azure Dragon, White Tiger, Vermilion Bird, and Black Tortoise modules on the Yin-Yang Eight Trigrams Furnace.
+GTECore includes built-in support for the **`GTEJadePlugin`** plugin:
+- **ME Pattern Assembler Plus Status**: Displays in real-time the number of patterns bound to the current assembler, as well as fluid and item output modes.
+- **ME Pattern Assembler Mirror Plus Binding Info**: Hovering directly shows the bound main assembler coordinates `(X, Y, Z)` and network connectivity status.
+- **Formation Activation Indicator**: On the Yin-Yang Bagua Alchemy Furnace, displays the readiness status of the Azure Dragon, White Tiger, Vermilion Bird, and Black Tortoise Four Symbols formations in real-time.
 
 ---
 
-## 🛠️ Structure Testing Terminal (`Structure Testing Terminal`)
+## 🛠️ Structure Testing Terminal
 
-GTECore includes a dedicated handheld diagnostic tool — the **Structure Testing Terminal** (`item.gtecore.check_structure_terminal`):
-- **Right-click Multiblock Controller**: Instantly audits the physical structure against the registered `FactoryBlockPattern`.
-- **Accurate Error Localization**: If incomplete, precisely outputs the **mismatched block coordinates and incorrect block types** directly in chat/tooltip for rapid multiblock assembly.
+GTECore provides a dedicated handheld tool — the **Structure Testing Terminal** (`item.gtecore.check_structure_terminal`):
+- **Right-click a multiblock controller**: Scans structure integrity in real-time.
+- **Error diagnostic hints**: If the structure is not formed, the terminal will precisely indicate **the wrong block coordinates and positions that should not be placed** in both the chat and hover tooltip, greatly accelerating the construction and troubleshooting of large multiblocks.

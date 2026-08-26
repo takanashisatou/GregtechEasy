@@ -1,71 +1,71 @@
 # Developer Quick Start Guide
 
-This guide is intended for Java/Kotlin developers and modpack designers contributing to the GTE-Multi aggregated repository.
+This guide is intended for Java/Kotlin programmers and modpack authors involved in the development of the GTE-Multi cross-module project.
 
 ---
 
-## 💻 1. Development Environment
+## 💻 1. Development Environment Preparation
 
-### Mandatory JDK 21
-The entire multi-module project enforces **JDK 21**. Recommended distributions:
+### JDK 21 Mandatory Requirement
+This project uniformly uses **JDK 21** across all modules. Recommended installations:
 - [Azul Zulu JDK 21](https://www.azul.com/downloads/?version=java-21-lts)
 - [Eclipse Temurin JDK 21](https://adoptium.net/temurin/releases/?version=21)
 
-### Recommended IDE & Plugins
-We recommend **IntelliJ IDEA 2023.3+** with the following plugins:
-- **Minecraft Development**: Provides Mixin assistance, Access Transformer mapping, and Forge event highlighting.
-- **Lombok**: Supports `@Getter`, `@Setter`, `@NoArgsConstructor`, etc.
-- **Kotlin**: Required for GT-- CE submodule development.
+### Recommended IDE and Plugins
+It is recommended to use **IntelliJ IDEA 2023.3+** and install the following official plugins:
+- **Minecraft Development**: Provides Mixin code hints, AT access transformer recognition, and event highlighting.
+- **Lombok**: Supports annotations such as `@Getter`, `@Setter`, `@NoArgsConstructor`.
+- **Kotlin**: Supports GT-- CE module development.
 
 ---
 
-## 📥 2. Repository Cloning & Project Import
+## 📥 2. Repository Cloning and Project Import
 
-Because this repository aggregates several Git submodules, **recursive cloning is mandatory**:
+Because this project includes multiple Git submodules, **recursive cloning is mandatory**:
 
 ```bash
-# 1. Clone recursively with all submodules
+# 1. Recursively clone the main repository and all submodules
 git clone --recurse-submodules https://github.com/takanashisatou/GregtechEasy.git GTEGroup
 cd GTEGroup
 
-# 2. If cloned previously without submodules, initialize them
+# 2. If already cloned, update and initialize submodules
 git submodule update --init --recursive
 ```
 
-### IDEA Import Steps
-1. In IDEA, click **File ➜ Open**, and choose the root `build.gradle`.
-2. Open Settings: `Settings` ➜ `Build, Execution, Deployment` ➜ `Build Tools` ➜ `Gradle`.
+### IDEA Import Guide
+1. In IDEA, click **File ➜ Open** and select the root `build.gradle` to open as a project.
+2. Go to Settings: `Settings` ➜ `Build, Execution, Deployment` ➜ `Build Tools` ➜ `Gradle`.
 3. Set **Gradle JVM** to **JDK 21**.
 
 ---
 
-## 🛠️ 3. Key Gradle Build Commands
+## 🛠️ 3. Common Gradle Build Commands
 
-On Windows PowerShell (ensure `JAVA_HOME` is set):
+Execute in Windows PowerShell (requires `JAVA_HOME` to be set beforehand):
 
 ```powershell
 $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 
-# 1. Compile individual submodules
+# 1. Compile a specific submodule individually
 .\gradlew.bat :modules:gtecore:compileJava
 .\gradlew.bat :modules:gt--:compileKotlin
 .\gradlew.bat :modules:gtm-reborn:compileJava
 
-# 2. Run GameTest Server automated integration tests
+# 2. Run GTM-Reborn GameTest server-side real-machine test
 .\gradlew.bat :modules:gtm-reborn:runGameTestServer
 
-# 3. Apply Spotless code formatting
+# 3. Run code formatting
 .\gradlew.bat :modules:gtm-reborn:spotlessApply
 
-# 4. Build all modules and assemble jars
+# 4. One-click compile all modules and package Jars
 .\gradlew.bat buildAll -x test
 
-# 5. Synchronize built jars into gte/overrides/mods/
+# 5. Sync compiled Jars to gte/overrides/mods/
 .\gradlew.bat copyOutputJars
 
-# 6. Publish to local user Maven repository (~/.m2/repository/)
+# 6. Publish all modules to local Maven repository (~/.m2/repository/)
 .\gradlew.bat publishAllToMavenLocal
 
-# 7. Publish static Maven repository to build/maven (for GitHub Pages Maven)
+# 7. Publish all modules' static artifacts to build/maven (for GitHub Pages Maven)
 .\gradlew.bat publishAllToMaven
 ```
