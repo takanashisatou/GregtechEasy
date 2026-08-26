@@ -11,7 +11,6 @@ It aggregates several git repositories as submodules:
 - `modules/gtm-reborn` - GregTech Modern Reborn fork, branch `satou`
 - `modules/gt--` - GT-- Community Edition addon, branch `kotlin`
 - `modules/gtecore` - GTE Core mod, branch `master`
-- `modules/docs` - GregTech Easy Docs & Wiki, branch `main`
 - `modules/gte-dev-runtime` - local hot-debug runtime (not published)
 - `gte/` - Packwiz modpack root and overrides
 
@@ -51,8 +50,6 @@ client without a launcher.
    `compileOnly` for compile-time dependencies.
 4. Preserve existing uncommitted changes. Work with them; do not revert them.
 5. Keep edits scoped to the submodule that owns the feature.
-6. Never set `remap = false` on Mixin targets targeting `net.minecraft.*` or
-   `net.minecraftforge.*` classes. It will pass dev runs but crash in production.
 
 ## Game Tests
 
