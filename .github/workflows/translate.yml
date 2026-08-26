@@ -41,6 +41,11 @@ on:
         required: false
         default: false
         type: boolean
+      force:
+        description: "Force re-translation of all files (ignores SHA cache, use when previous run wrote untranslated fallback)"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -85,6 +90,9 @@ jobs:
           fi
           if [ "${{ inputs.translate_docs }}" = "true" ]; then
             ARGS="$ARGS --docs-dir docs"
+          fi
+          if [ "${{ inputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
           fi
           python scripts/opencode_translate.py $ARGS
 
