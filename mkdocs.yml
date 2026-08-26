@@ -61,6 +61,30 @@ plugins:
           name: English
           build: true
           site_name: GregTech Easy (GTE) Official Docs
+          nav_translations:
+            概览 / Overview: Overview
+            整合包下载与玩家指南 / Download & Play: Download & Play
+            玩家免编译懒人包 / Zero-Compile Lazy Pack: Zero-Compile Lazy Pack
+            CurseForge与服务端部署 / CurseForge & Server: CurseForge & Server Deploy
+            GTECore 核心模组 / GTECore: GTECore Core Mod
+            模组概览 / Overview: Overview
+            多方块机器图鉴 / Multiblocks: Multiblock Machines
+            阴阳八卦与四象阵法 / Yin-Yang & Formations: Yin-Yang & Four Symbols
+            AE2 深度集成 / AE2 Integration: AE2 Integration
+            超弦与阴阳高阶电路 / Circuits & Materials: Circuits & Materials
+            GTM Reborn 模组分支 / GTM Reborn: GTM Reborn Fork
+            GT-- Community Edition / GT-- CE: GT-- Community Edition
+            KubeJS 魔改与联动 / KubeJS: KubeJS Scripting
+            脚本开发指南 / Scripting Guide: Scripting Guide
+            结构导出器与工具集 / Utilities & Multiblock Exporter: Utilities & Multiblock Exporter
+            界面材质与美术 / Art & UI: Art & UI
+            开发者与防崩溃手册 / Dev & Anti-Crash: Dev & Anti-Crash
+            开发者快速上手 / Quick Start: Quick Start
+            本地热联调与启动脚本 / Runtimes & Launchers: Runtimes & Launchers
+            防崩溃守则与实战排错 / Anti-Crash Guide: Anti-Crash Guide
+            CI/CD 流水线与 AI 翻译 / CI/CD & Translation: CI/CD & AI Translation
+            自动化构建发布流水线 / CI/CD Pipeline: CI/CD Pipeline
+            AI 国际化翻译引擎 / AI Translation: AI Translation Engine
 
 nav:
   - 概览 / Overview: index.md

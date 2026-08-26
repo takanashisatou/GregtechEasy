@@ -36,6 +36,11 @@ on:
         required: false
         default: true
         type: boolean
+      translate_docs:
+        description: "Also translate Markdown documentation (docs/zh/ -> docs/en/ and other locales)"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -77,6 +82,9 @@ jobs:
           ARGS="--langs ${{ inputs.target_langs }}"
           if [ "${{ inputs.opencc_only }}" = "true" ]; then
             ARGS="$ARGS --opencc-only"
+          fi
+          if [ "${{ inputs.translate_docs }}" = "true" ]; then
+            ARGS="$ARGS --docs"
           fi
           python scripts/opencode_translate.py $ARGS
 
