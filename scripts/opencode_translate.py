@@ -6,12 +6,16 @@ Single unified localization engine for the entire GTE ecosystem:
 1. Submodule Mod Assets & Overrides: gtecore, gtm-reborn, gt--, KubeJS lang JSONs
 2. FTB Quests: SNBT quests and lang dictionaries
 3. Documentation & Wiki: 10-language Markdown with SHA-256 incremental cache & rate-limit safety
-4. AI Engines: OpenCode Go (deepseek-v4-flash), DeepSeek, Gemini, OpenAI, DashScope, Moonshot, Zhipu
+4. AI Engines: OpenCode Zen (deepseek-v4-pro default; override via OPENCODE_MODEL env),
+   DeepSeek, Gemini, OpenAI, DashScope, Moonshot, Zhipu
 5. 0-Token Offline Engine: OpenCC (s2twp, s2hk) for Traditional Chinese
 
-Optimizations (v2):
+Optimizations (v3):
 - Mega-batch translation: packs ALL docs into a single LLM request per language
-  (DSv4 Flash has 1M context; entire docs corpus is ~40K chars ≈ 20K tokens)
+- Primary + fallback prompt: retries with simplified prompt if primary fails
+  (handles mermaid-heavy files that confuse weaker models)
+- Two-way sync + reverse-heal: root docs/ and submodule stay in sync;
+  good translations propagate back to submodule after LLM failures
 - Robust retry: failed translations are retried with exponential backoff,
   never falls back to writing untranslated source text
 - Per-language parallelism: all 8 LLM languages are translated concurrently
@@ -73,7 +77,9 @@ PROVIDERS = {
         "base_url_env": "OPENCODE_BASE_URL",
         "model_env": "OPENCODE_MODEL",
         "default_base_url": "https://opencode.ai/zen/v1",
-        "default_model": "deepseek-v4-flash",
+        # deepseek-v4-pro handles mermaid diagrams and complex Markdown reliably;
+        # fallback candidates: claude-sonnet-5 (best instruction following), gpt-5.6-sol
+        "default_model": "deepseek-v4-pro",
     },
     "deepseek": {
         "key_env": "DEEPSEEK_API_KEY",

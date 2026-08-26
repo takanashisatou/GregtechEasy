@@ -215,7 +215,8 @@ jobs:
 
       # ──────────────────────────────────────────────
       # Multi-Language Localization (OpenCC 0-Token + LLM Mega-Batch)
-      # Uses DSv4 Flash 1M context: all docs packed in 1 request/language
+      # Uses deepseek-v4-pro via OpenCode Zen; set OPENCODE_MODEL secret to override
+      # (e.g. claude-sonnet-5 for best mermaid diagram translation fidelity)
       # ──────────────────────────────────────────────
       - name: Run Global Multi-Language Localization (AI + OpenCC)
         env:
@@ -226,6 +227,7 @@ jobs:
           MOONSHOT_API_KEY: ${{ secrets.MOONSHOT_API_KEY }}
           ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
+          OPENCODE_MODEL: ${{ secrets.OPENCODE_MODEL }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
         run: python scripts/opencode_translate.py --all
 
