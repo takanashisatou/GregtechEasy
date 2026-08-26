@@ -87,5 +87,5 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/site
-          keep_files: true
+          keep_files: false
           cname: ''
