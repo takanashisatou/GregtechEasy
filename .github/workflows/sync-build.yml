@@ -549,14 +549,46 @@ jobs:
       - name: Install Packwiz CLI
         run: go install github.com/packwiz/packwiz@latest
 
+      # packwiz has no notion of an "overrides" directory: everything in the pack
+      # root that is not a metafile IS an override. Exporting from gte/ therefore
+      # treated the literal `overrides/` folder as one more override and produced
+      # overrides/overrides/mods/..., which no launcher reads -- CurseForge, PCL2,
+      # HMCL and MultiMC all install from overrides/<gamedir-relative-path>. The
+      # exported packs looked plausible (right size, right manifest, 17 mods) and
+      # installed to a modless instance.
+      #
+      # So stage a flat pack root: pack.toml + index.toml beside the CONTENTS of
+      # overrides/. Also drop logs/ and crash-reports/, which are local dev debris
+      # that is not tracked in git but does sit in the working tree on the
+      # self-hosted runner, and would otherwise be shipped to players.
+      - name: Stage Flat Packwiz Root
+        run: |
+          $stage = "build/packwiz"
+          if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
+          New-Item -ItemType Directory -Force -Path $stage | Out-Null
+          Copy-Item gte/pack.toml, gte/index.toml $stage -Force
+          Get-ChildItem gte/overrides -Force | Where-Object {
+            $_.Name -notin @('logs', 'crash-reports', 'saves')
+          } | ForEach-Object {
+            Copy-Item $_.FullName -Destination $stage -Recurse -Force
+          }
+          Write-Host "Flat packwiz root:"
+          Get-ChildItem $stage | ForEach-Object { Write-Host "  $($_.Name)" }
+          $mods = @(Get-ChildItem "$stage/mods" -Filter *.jar -ErrorAction SilentlyContinue)
+          Write-Host "mods staged: $($mods.Count)"
+          if ($mods.Count -eq 0) {
+            Write-Host "::error::No mod jars staged; the exported packs would be empty."
+            exit 1
+          }
+
       - name: Refresh Packwiz Index
-        working-directory: ./gte
+        working-directory: ./build/packwiz
         run: packwiz refresh
 
       - name: "[Pack 1] Export CurseForge Pack"
-        working-directory: ./gte
+        working-directory: ./build/packwiz
         run: |
-          $out = "../build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip"
+          $out = "../artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip"
           packwiz curseforge export -y -s client -o $out
           if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out)) {
             Write-Host "::warning::packwiz client export failed (exit $LASTEXITCODE); falling back to a plain archive."
@@ -577,18 +609,45 @@ jobs:
       # binary does not raise a PowerShell exception, so the Compress-Archive
       # fallback never ran and the step just failed.
       - name: "[Pack 3] Export Server Pack"
-        working-directory: ./gte
+        working-directory: ./build/packwiz
         run: |
-          $out = "../build/artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip"
+          $out = "../artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip"
           packwiz curseforge export -y -s server -o $out
           if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out)) {
             Write-Host "::warning::packwiz server export failed (exit $LASTEXITCODE); falling back to an overrides archive."
-            Compress-Archive -Path overrides/* -DestinationPath $out -Force
+            Compress-Archive -Path * -DestinationPath $out -Force
           }
 
-      # packwiz refresh/export rewrites index.toml hashes and pack.toml. That churn
-      # is a build artifact, not an intentional change, and leaving it staged would
-      # let it ride along into a later i18n commit.
+      # Both exported packs must place mods at overrides/mods/*.jar. Getting this
+      # wrong yields a zip that installs cleanly into an instance with no mods, so
+      # assert it here rather than discovering it from a player report.
+      - name: Verify Exported Pack Layout
+        run: |
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $bad = $false
+          foreach ($zip in Get-ChildItem "build/artifacts/GTE-CurseForge-*.zip", "build/artifacts/GTE-Server-*.zip") {
+            $archive = [System.IO.Compression.ZipFile]::OpenRead($zip.FullName)
+            try {
+              $mods = @($archive.Entries | Where-Object { $_.FullName -match '^overrides/mods/[^/]+\.jar$' })
+              $nested = @($archive.Entries | Where-Object { $_.FullName -like 'overrides/overrides/*' })
+              Write-Host "$($zip.Name): overrides/mods/*.jar=$($mods.Count) nested-overrides=$($nested.Count)"
+              if ($mods.Count -eq 0) {
+                Write-Host "::error::$($zip.Name) has no mods at overrides/mods/; launchers would install an empty instance."
+                $bad = $true
+              }
+              if ($nested.Count -gt 0) {
+                Write-Host "::error::$($zip.Name) contains overrides/overrides/; the pack root was not flattened."
+                $bad = $true
+              }
+            } finally {
+              $archive.Dispose()
+            }
+          }
+          if ($bad) { exit 1 }
+
+      # packwiz refresh/export rewrites index.toml hashes and pack.toml. Exports now
+      # run against build/packwiz, so gte/ is untouched; this stays as a cheap guard
+      # in case a future step reintroduces an in-place refresh.
       - name: Discard Packwiz Index Churn
         continue-on-error: true
         run: |
