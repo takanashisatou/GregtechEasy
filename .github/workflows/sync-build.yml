@@ -230,13 +230,52 @@ jobs:
       - name: Synchronize Blockbench Models & Art Assets
         run: python scripts/sync_art_assets.py
 
+      # Gradle/Java does NOT honour the HTTP_PROXY / HTTPS_PROXY environment
+      # variables - it only reads systemProp.http(s).proxyHost/proxyPort. On a
+      # self-hosted runner behind a proxy that means every maven request goes out
+      # directly, and hosts such as cdn-alt.modrinth.com then time out
+      # ("Connection timed out: getsockopt") even though curl through the proxy
+      # fetches the same artifact in about a second. Translate the env vars into
+      # Gradle system properties in GRADLE_USER_HOME so resolution actually uses
+      # the proxy. No proxy configured means this step writes nothing.
+      - name: Configure Gradle Network Proxy
+        if: runner.environment == 'self-hosted'
+        continue-on-error: true
+        run: |
+          $proxy = if ($env:HTTPS_PROXY) { $env:HTTPS_PROXY } else { $env:HTTP_PROXY }
+          if (-not $proxy) {
+            Write-Host "No HTTP_PROXY/HTTPS_PROXY set; Gradle will connect directly."
+            exit 0
+          }
+          $uri = [uri]$proxy
+          $noProxy = if ($env:NO_PROXY) { $env:NO_PROXY } else { "localhost,127.0.0.1" }
+          $nonHosts = ($noProxy -split ',' | ForEach-Object { $_.Trim() } | Where-Object { $_ }) -join '|'
+          $gradleHome = if ($env:GRADLE_USER_HOME) { $env:GRADLE_USER_HOME } else { "$env:USERPROFILE\.gradle" }
+          New-Item -ItemType Directory -Force -Path $gradleHome | Out-Null
+          $props = Join-Path $gradleHome "gradle.properties"
+          $keep = @()
+          if (Test-Path $props) {
+            $keep = Get-Content $props | Where-Object { $_ -notmatch '^\s*systemProp\.(http|https)\.(proxyHost|proxyPort|nonProxyHosts)\s*=' }
+          }
+          $keep += @(
+            "systemProp.http.proxyHost=$($uri.Host)",
+            "systemProp.http.proxyPort=$($uri.Port)",
+            "systemProp.http.nonProxyHosts=$nonHosts",
+            "systemProp.https.proxyHost=$($uri.Host)",
+            "systemProp.https.proxyPort=$($uri.Port)",
+            "systemProp.https.nonProxyHosts=$nonHosts"
+          )
+          Set-Content -Path $props -Value $keep -Encoding utf8
+          Write-Host "Gradle proxy configured in $props -> $($uri.Host):$($uri.Port) (bypass: $nonHosts)"
+
       # Dependency resolution is the slowest and least reliable part of this build:
-      # ~30 third-party maven hosts, several of which intermittently hang mid-stream
-      # behind a proxy. Resolve them up front, off the critical path, with a bounded
-      # timeout and one retry so a hung mirror surfaces here instead of stalling the
-      # 30-minute build step with no output.
+      # ~30 third-party maven hosts, several of which intermittently hang or time
+      # out mid-stream. Resolve them up front, off the critical path, with a bounded
+      # timeout and one retry so a bad mirror surfaces here instead of stalling the
+      # long build step with no output.
       - name: Warm Dependency Resolution
         timeout-minutes: 25
+        continue-on-error: true
         run: |
           $ErrorActionPreference = 'Continue'
           for ($attempt = 1; $attempt -le 2; $attempt++) {
@@ -255,19 +294,31 @@ jobs:
 
       - name: Build All Modules & GameTest in Parallel
         id: build_modules
-        timeout-minutes: 90
+        timeout-minutes: 120
         run: |
           $ErrorActionPreference = 'Continue'
           $WERROR_FLAG = ""
           if ("${{ steps.meta.outputs.channel }}" -eq "release" -or "${{ inputs.werror }}" -eq "true") {
             $WERROR_FLAG = "-Pwerror"
           }
-          if ($env:OS -like "*Windows*" -or $env:WINDIR) {
-            cmd.exe /c "gradlew.bat :modules:gtm-reborn:build :modules:gtm-reborn:runGameTestServer :modules:gtecore:build :modules:gt--:build $WERROR_FLAG --parallel --no-daemon"
-          } else {
-            ./gradlew :modules:gtm-reborn:build :modules:gtm-reborn:runGameTestServer :modules:gtecore:build :modules:gt--:build $WERROR_FLAG --parallel --no-daemon
+          $TASKS = ":modules:gtm-reborn:build :modules:gtm-reborn:runGameTestServer :modules:gtecore:build :modules:gt--:build"
+          # Retry once: artifact downloads from third-party maven hosts fail
+          # intermittently, and a whole nightly should not be lost to one flaky CDN.
+          for ($attempt = 1; $attempt -le 2; $attempt++) {
+            Write-Host "=== Build attempt $attempt/2 ==="
+            if ($env:OS -like "*Windows*" -or $env:WINDIR) {
+              cmd.exe /c "gradlew.bat $TASKS $WERROR_FLAG --parallel --no-daemon"
+            } else {
+              ./gradlew $TASKS.Split(' ') $WERROR_FLAG --parallel --no-daemon
+            }
+            if ($LASTEXITCODE -eq 0) { break }
+            if ($attempt -eq 2) { exit $LASTEXITCODE }
+            Write-Host "::warning::Build attempt $attempt failed (exit $LASTEXITCODE); retrying once."
+            Get-CimInstance Win32_Process -Filter "Name='java.exe'" |
+              Where-Object { $_.CommandLine -match 'GradleDaemon|GradleWrapperMain' } |
+              ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
+            Start-Sleep -Seconds 10
           }
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Build Summary Report
         if: steps.meta.outputs.channel != 'release'
