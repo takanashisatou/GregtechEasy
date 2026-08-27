@@ -641,14 +641,30 @@ jobs:
           }
           Write-Host "Nightly prerelease published: https://github.com/${{ github.repository }}/releases/tag/nightly"
 
-          # Surface assets that this run did not produce. They are left in place on
-          # purpose -- deleting release assets is not reversible -- but a rolling
-          # nightly carrying jars from an old version is misleading, so say so.
+          # `gh release upload --clobber` replaces same-named assets but never removes
+          # ones this run did not produce, so the rolling release accumulated files
+          # from the 1.9.1 era next to current jars — users saw ancient packs
+          # presented as the newest nightly. A rolling tag must show exactly one
+          # build, so anything not produced by this run is deleted.
+          #
+          # This only ever touches the `nightly` prerelease. Versioned releases
+          # (v1.9.1, v1.9.5, v2.2.3.5, ...) are never modified, and each stale file
+          # here also exists on its own version tag, so no last copy is destroyed.
           $current = $files | ForEach-Object { Split-Path $_ -Leaf }
           $existing = gh release view nightly --repo ${{ github.repository }} --json assets --jq '.assets[].name'
-          $stale = $existing | Where-Object { $current -notcontains $_ }
-          if ($stale) {
-            Write-Host "::warning::The 'nightly' release still carries $($stale.Count) asset(s) from earlier builds: $($stale -join ', ')"
+          $stale = @($existing | Where-Object { $current -notcontains $_ })
+          if ($stale.Count -gt 0) {
+            Write-Host "Pruning $($stale.Count) asset(s) not produced by this build:"
+            foreach ($name in $stale) {
+              gh release delete-asset nightly $name --repo ${{ github.repository }} --yes
+              if ($LASTEXITCODE -eq 0) {
+                Write-Host "  removed $name"
+              } else {
+                Write-Host "::warning::Could not remove stale asset $name (exit $LASTEXITCODE)."
+              }
+            }
+          } else {
+            Write-Host "No stale assets on the nightly release."
           }
 
       # ──────────────────────────────────────────────
