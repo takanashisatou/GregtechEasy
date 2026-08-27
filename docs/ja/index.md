@@ -68,6 +68,6 @@ GTE は、**「シンプル、楽しい、面白い、短時間」** を核心�
 | :--- | :--- |
 | **プロジェクト名** | `GregtechEasy` (`gte-multi`) |
 | **実行・コンパイルツールチェーン** | **JDK 21**（Java 21 Toolchain を必須とし、すべてのサブモジュールで厳密に統一） |
-| **ゲームバージョン** | Minecraft `1.20.1` (Forge `47.3.0` / `47.4.4`) |
+| **ゲームバージョン** | Minecraft `1.20.1` (Forge `47.4.1`) |
 | **オープンソースライセンス** | LGPL-3.0 / MIT |
 | **デフォルトブランチ** | メインリポジトリ `main` / `master`、GTM-Reborn `satou`、GT-- `kotlin`、GTECore `master` |

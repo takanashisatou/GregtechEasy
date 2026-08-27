@@ -68,6 +68,6 @@ GTE is a modern Minecraft 1.20.1 modpack built around the core philosophy of **"
 | :--- | :--- |
 | **Project Name** | `GregtechEasy` (`gte-multi`) |
 | **Runtime & Build Toolchain** | **JDK 21** (Java 21 Toolchain mandatory, strictly unified across all sub-modules) |
-| **Game Version** | Minecraft `1.20.1` (Forge `47.3.0` / `47.4.4`) |
+| **Game Version** | Minecraft `1.20.1` (Forge `47.4.1`) |
 | **Open Source License** | LGPL-3.0 / MIT |
 | **Default Branches** | Main repo `main` / `master`, GTM-Reborn `satou`, GT-- `kotlin`, GTECore `master` |

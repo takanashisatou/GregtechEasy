@@ -1,4 +1,4 @@
-﻿# GregTech Easy (GTE) Offizielle Dokumentation
+# GregTech Easy (GTE) Offizielle Dokumentation
 
 Willkommen zum offiziellen umfassenden Leitfaden für das **GregTech Easy (GTE)** Modpack!
 
@@ -68,6 +68,6 @@ GTE ist ein modernes Minecraft 1.20.1 Modpack, dessen Kernphilosophie **„einfa
 | :--- | :--- |
 | **Projektname** | `GregtechEasy` (`gte-multi`) |
 | **Laufzeit- und Kompilierungstoolchain** | **JDK 21** (Java 21 Toolchain wird erzwungen, alle Untermodule sind strikt einheitlich) |
-| **Spielversion** | Minecraft `1.20.1` (Forge `47.3.0` / `47.4.4`) |
+| **Spielversion** | Minecraft `1.20.1` (Forge `47.4.1`) |
 | **Open-Source-Lizenz** | LGPL-3.0 / MIT |
 | **Standard-Branch** | Haupt-Repository `main` / `master`, GTM-Reborn `satou`, GT-- `kotlin`, GTECore `master` |

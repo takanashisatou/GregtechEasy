@@ -1,4 +1,4 @@
-﻿# Guia de Importação CurseForge e Implantação de Servidor
+# Guia de Importação CurseForge e Implantação de Servidor
 
 Além do pacote pronto para uso sem compilação, o GTE fornece pacotes padrão CurseForge e pacotes de servidor construídos automaticamente com base no **Packwiz**.
 
@@ -51,7 +51,7 @@ mkdir -p /opt/gte-server && cd /opt/gte-server
 # 2. Descompacte o pacote do servidor
 unzip GTE-Server-*.zip -d .
 
-# 3. Instale o núcleo do servidor Forge 1.20.1-47.3.0 / 47.4.4 (se não estiver pré-instalado)
+# 3. Instale o núcleo do servidor Forge 1.20.1-47.4.1 (se não estiver pré-instalado)
 # Execute o script de instalação para baixar o minecraft_server e as bibliotecas do forge
 java -jar forge-1.20.1-*-installer.jar --installServer
 
@@ -78,7 +78,7 @@ Recomenda-se usar os parâmetros de otimização Aikar para iniciar o servidor:
       -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 \
       -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1"
 
-    $JAVA_CMD $FLAGS @libraries/net/minecraftforge/forge/1.20.1-47.3.0/unix_args.txt nogui
+    $JAVA_CMD $FLAGS @libraries/net/minecraftforge/forge/1.20.1-47.4.1/unix_args.txt nogui
     ```
 
 === "Windows (`run_server.bat`)"
@@ -90,7 +90,7 @@ Recomenda-se usar os parâmetros de otimização Aikar para iniciar o servidor:
 
     set FLAGS=-Xms%MEMORY% -Xmx%MEMORY% -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch
 
-    %JAVA_CMD% %FLAGS% @libraries/net/minecraftforge/forge/1.20.1-47.3.0/win_args.txt nogui
+    %JAVA_CMD% %FLAGS% @libraries/net/minecraftforge/forge/1.20.1-47.4.1/win_args.txt nogui
     pause
     ```
 
