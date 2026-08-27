@@ -236,9 +236,9 @@ jobs:
         run: python scripts/audit_mixins.py
 
       # ──────────────────────────────────────────────
-      # Gate 4: Packaging Dry Run (seconds)
+      # Gate 3: Packaging Dry Run (seconds)
       # ──────────────────────────────────────────────
-      # Everything below Gate 3 costs ~40 minutes (dependency warm-up, the parallel
+      # Everything after Gate 4 costs ~40 minutes (dependency warm-up, the parallel
       # module build, then the AI localization pass) before packaging is even
       # attempted, so a trivial packaging bug is only discovered at minute 42 and
       # the whole 40 minutes has to be repaid to retest a one-line fix. Run the
@@ -248,8 +248,9 @@ jobs:
       # being smoke-tested is the packaging code, not the jar contents.
       #
       # This is what would have caught the UnicodeEncodeError on the CJK pack path
-      # in seconds instead of at minute 42.
-      - name: "[Gate 4] Packaging Scripts Dry Run"
+      # in seconds instead of at minute 42. It sits ahead of the -Pwerror
+      # pre-flight because it costs seconds while that one starts Gradle.
+      - name: "[Gate 3] Packaging Scripts Dry Run"
         run: |
           $ErrorActionPreference = 'Continue'
           python scripts/build_lazy_pack.py gate-dryrun
@@ -266,9 +267,9 @@ jobs:
           Write-Host "Packaging scripts ran clean against the current pack tree."
 
       # ──────────────────────────────────────────────
-      # Gate 3: 5-Second Fail-Fast Pre-Flight Check
+      # Gate 4: 5-Second Fail-Fast Pre-Flight Check
       # ──────────────────────────────────────────────
-      - name: "[Gate 3] Fail-Fast Strict Compilation Pre-Flight (-Pwerror)"
+      - name: "[Gate 4] Fail-Fast Strict Compilation Pre-Flight (-Pwerror)"
         if: steps.meta.outputs.channel == 'release' || inputs.werror == true
         run: |
           $ErrorActionPreference = 'Continue'
