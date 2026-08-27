@@ -14,33 +14,33 @@ The CurseForge format modpack file is named `GTE-CurseForge-<version>.zip`.
 
     1. Open the launcher and select **Install New Game Version / Import Modpack**.
     2. Select the downloaded `GTE-CurseForge-<version>.zip` file.
-    3. The launcher will automatically parse `manifest.json` and download the dependent mods concurrently at high speed.
-    4. After the import is complete, go to the version settings and set the Java runtime to **Java 21**.
-    5. Set the allocated memory (8GB ~ 12GB recommended) and launch the game.
+    3. The launcher will automatically parse `manifest.json` and download dependency mods concurrently at high speed.
+    4. After import completes, go to version settings and set the Java runtime to **Java 21**.
+    5. Set allocated memory (8GB ~ 12GB recommended) and launch the game.
 
 === "CurseForge App Import"
 
     1. Open the CurseForge App client.
     2. Click the **Minecraft** icon on the left and go to **My Modpacks**.
-    3. In the settings menu at the top right, click **Create Custom Profile** ➜ **Import**.
+    3. Click **Create Custom Profile** ➜ **Import** in the settings menu in the top-right corner.
     4. Select `GTE-CurseForge-<version>.zip` and wait for the automatic download and installation to complete.
 
 === "Prism Launcher Import"
 
     1. Click **Add Instance** ➜ **Import**.
-    2. Browse and select the `GTE-CurseForge-<version>.zip` file.
-    3. After the instance is created, set the Java path to **JDK 21** in the instance settings.
+    2. Browse and select `GTE-CurseForge-<version>.zip`.
+    3. After the instance is created, set Java to the **JDK 21** path in the instance properties.
 
 ---
 
 ## 🖥️ Server Deployment Guide
 
-The server file package is named `GTE-Server-<version>.zip`.
+The server pack file is named `GTE-Server-<version>.zip`.
 
 ### 1. Environment Preparation
 - Operating System: Linux (Ubuntu 22.04+ / Debian 12+) or Windows Server 2022+
 - **JDK 21 must be ready**: Run `java -version` in the terminal and confirm the output is `openjdk version "21..."`.
-- Recommended Configuration: 4+ CPU cores, 16GB of physical memory (allocate 10G ~ 14G to the Minecraft server).
+- Recommended configuration: 4+ core CPU, 16GB physical memory (allocate 10G ~ 14G to the Minecraft server).
 
 ### 2. Deployment Steps
 
@@ -48,20 +48,20 @@ The server file package is named `GTE-Server-<version>.zip`.
 # 1. Create the server working directory
 mkdir -p /opt/gte-server && cd /opt/gte-server
 
-# 2. Extract the server package
+# 2. Extract the server pack
 unzip GTE-Server-*.zip -d .
 
 # 3. Install the Forge 1.20.1-47.4.1 server core (if not pre-installed)
-# Run the installer script to download minecraft_server and forge libraries
+# Run the installation script to download minecraft_server and forge libraries
 java -jar forge-1.20.1-*-installer.jar --installServer
 
-# 4. Accept the Minecraft EULA
+# 4. Accept the Minecraft EULA agreement
 echo "eula=true" > eula.txt
 ```
 
 ### 3. Startup Script Configuration (`run_server.sh` / `run_server.bat`)
 
-It is recommended to use Aikar's optimized flags to start the server:
+It is recommended to use Aikar's optimized parameters to start the server:
 
 === "Linux (`run_server.sh`)"
 
@@ -96,11 +96,13 @@ It is recommended to use Aikar's optimized flags to start the server:
 
 ---
 
-## ⚙️ Troubleshooting (FAQ)
+## ⚙️ Common Issue Troubleshooting (FAQ)
 
-### Q1: Server startup shows `UnsupportedClassVersionError: ... class file version 65.0`
-> **Cause**: The Java version used to run the server is lower than Java 21 (version 65.0 corresponds to JDK 21).  
-> **Solution**: Switch to OpenJDK 21 on Linux using `sudo update-alternatives --config java`.
+### Q1: Server startup reports `UnsupportedClassVersionError: ... class file version 65.0`
+> **Cause**: The Java version running the server is lower than Java 21 (version 65.0 represents JDK 21).  
+> **Solution**: On Linux, switch to OpenJDK 21 using `sudo update-alternatives --config java`.
 
-### Q2: Players see a mod list mismatch when joining the server
-> **Solution**: Ensure the client version number exactly matches the server version number. Each main project CI build generates matching Client and Server artifacts simultaneously.
+### Q2: Players joining the server report a mod list mismatch
+> **Solution**: Ensure the client version number exactly matches the server version number. Every main project CI build generates matching Client and Server artifacts simultaneously.
+
+<<<<<FILE_END: download-and-play/curseforge-and-server.md>>>>
