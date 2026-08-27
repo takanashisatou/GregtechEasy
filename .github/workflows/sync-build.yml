@@ -66,6 +66,13 @@ on:
           - ubuntu-latest
           - self-hosted
 
+# One in-flight run per branch. Without this, pushing a fix to a PR branch left
+# the previous run building for another 40 minutes on a stale commit, so two runs
+# competed and the older, already-irrelevant one still reported into the PR.
+concurrency:
+  group: sync-build-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: write
   pull-requests: write
