@@ -59,12 +59,12 @@ on:
       runner:
         description: "Runner environment"
         required: false
-        default: "self-hosted"
+        default: "windows-latest"
         type: choice
         options:
-          - self-hosted
-          - ubuntu-latest
           - windows-latest
+          - ubuntu-latest
+          - self-hosted
 
 permissions:
   contents: write
@@ -77,7 +77,16 @@ permissions:
 jobs:
   build-and-sync:
     name: "GTE-Multi Build, Test, Translate & Sync"
-    runs-on: ${{ inputs.runner == 'ubuntu-latest' && 'ubuntu-latest' || inputs.runner == 'windows-latest' && 'windows-latest' || fromJSON('["self-hosted", "Windows", "X64"]') }}
+    # GitHub-hosted windows-latest by default. The self-hosted Windows runner is
+    # retired: it was a single machine, so every push and every PR to main queued
+    # behind whatever was already running, and its outbound link made the release
+    # upload step take ~70 minutes for 335 MB of assets (measured ~0.08 MB/s).
+    # It stays selectable via workflow_dispatch for local debugging only, and
+    # nothing schedules it.
+    #
+    # windows-latest is kept rather than ubuntu-latest because every `run:` block
+    # in this job is PowerShell and several shell out to cmd.exe /c gradlew.bat.
+    runs-on: ${{ inputs.runner == 'ubuntu-latest' && 'ubuntu-latest' || inputs.runner == 'self-hosted' && fromJSON('["self-hosted", "Windows", "X64"]') || 'windows-latest' }}
     defaults:
       run:
         shell: powershell
@@ -546,8 +555,24 @@ jobs:
         with:
           go-version: '1.22'
 
+      # `go install` drops the binary in $(go env GOPATH)/bin, which is NOT on PATH
+      # on hosted runners (it was on the self-hosted box only because a previous
+      # manual install had put it there). Add it explicitly, then prove packwiz is
+      # callable so a PATH problem fails here instead of three steps later inside
+      # an export.
       - name: Install Packwiz CLI
-        run: go install github.com/packwiz/packwiz@latest
+        run: |
+          go install github.com/packwiz/packwiz@latest
+          $gobin = Join-Path (go env GOPATH) 'bin'
+          $gobin | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+          $exe = Join-Path $gobin 'packwiz.exe'
+          if (-not (Test-Path $exe)) { $exe = Join-Path $gobin 'packwiz' }
+          if (-not (Test-Path $exe)) {
+            Write-Host "::error::packwiz was not installed under $gobin."
+            exit 1
+          }
+          & $exe --help *> $null
+          Write-Host "packwiz installed at $exe"
 
       # packwiz has no notion of an "overrides" directory: everything in the pack
       # root that is not a metafile IS an override. Exporting from gte/ therefore
@@ -601,46 +626,68 @@ jobs:
       - name: "[Pack 2] Build Full Player Lazy Pack (.minecraft)"
         run: python scripts/build_lazy_pack.py ${{ steps.meta.outputs.version }}
 
-      # `packwiz server export` does not exist. packwiz has no `server` command at
-      # all -- only `serve` (a dev HTTP server), which is what the shell resolved
-      # to, hence "unknown shorthand flag: 'o' in -o". Server packs are produced by
-      # the curseforge exporter with `-s server`, which filters mods by their side
-      # field. The try/catch was also dead code: a non-zero exit from a native
-      # binary does not raise a PowerShell exception, so the Compress-Archive
-      # fallback never ran and the step just failed.
-      - name: "[Pack 3] Export Server Pack"
-        working-directory: ./build/packwiz
-        run: |
-          $out = "../artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip"
-          packwiz curseforge export -y -s server -o $out
-          if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out)) {
-            Write-Host "::warning::packwiz server export failed (exit $LASTEXITCODE); falling back to an overrides archive."
-            Compress-Archive -Path * -DestinationPath $out -Force
-          }
+      # A server pack is NOT a CurseForge pack. `packwiz curseforge export -s server`
+      # emits manifest.json + overrides/, which is a launcher import format: it needs
+      # a launcher to read manifest.json and copy overrides/ into place. A Forge
+      # server has no launcher. The documented procedure is
+      #
+      #   unzip GTE-Server-*.zip -d .
+      #   java -jar forge-*-installer.jar --installServer
+      #   java @libraries/net/minecraftforge/forge/1.20.1-47.4.1/unix_args.txt nogui
+      #
+      # and Forge resolves mods/ and config/ relative to the server root, so an
+      # admin following those steps got a server root whose only content was a
+      # directory named `overrides` -- Forge booted with zero mods and every player
+      # was rejected for a mod-list mismatch.
+      #
+      # The `-s server` filter was also doing nothing: packwiz reads side from mod
+      # metafiles, and this pack ships mods through overrides/ (index.toml has a
+      # single pack.toml entry), so client and server exports were byte-identical
+      # in content -- 17 mods each, 569 entries each.
+      #
+      # So the server pack is built by its own script, which zips mods/, config/,
+      # defaultconfigs/ and kubejs/ at the TOP level -- exactly what --installServer
+      # expects to find next to it -- and also drops per-machine state that has no
+      # business on someone else's server (jei/world/local bookmarks named after the
+      # build machine's saves, worldedit sessions, logs, crash reports).
+      #
+      # It is Python rather than PowerShell on purpose: Compress-Archive writes zip
+      # entry names with backslashes ("mods\gtecore-....jar"), which is not a path
+      # separator in the zip spec, so consumers see one file literally named
+      # "mods\gtecore-....jar" at the archive root and no mods directory at all.
+      - name: "[Pack 3] Build Server Pack"
+        run: python scripts/build_server_pack.py ${{ steps.meta.outputs.version }}
 
-      # Both exported packs must place mods at overrides/mods/*.jar. Getting this
-      # wrong yields a zip that installs cleanly into an instance with no mods, so
-      # assert it here rather than discovering it from a player report.
+      # The CurseForge pack must place mods at overrides/mods/*.jar; the server pack
+      # must place them at mods/*.jar. Either mistake yields a zip that installs
+      # cleanly and then runs with no mods, so assert both rather than discovering it
+      # from a player report.
       - name: Verify Exported Pack Layout
         run: |
           Add-Type -AssemblyName System.IO.Compression.FileSystem
           $bad = $false
-          foreach ($zip in Get-ChildItem "build/artifacts/GTE-CurseForge-*.zip", "build/artifacts/GTE-Server-*.zip") {
-            $archive = [System.IO.Compression.ZipFile]::OpenRead($zip.FullName)
-            try {
-              $mods = @($archive.Entries | Where-Object { $_.FullName -match '^overrides/mods/[^/]+\.jar$' })
-              $nested = @($archive.Entries | Where-Object { $_.FullName -like 'overrides/overrides/*' })
-              Write-Host "$($zip.Name): overrides/mods/*.jar=$($mods.Count) nested-overrides=$($nested.Count)"
-              if ($mods.Count -eq 0) {
-                Write-Host "::error::$($zip.Name) has no mods at overrides/mods/; launchers would install an empty instance."
-                $bad = $true
+          $expected = @{
+            'GTE-CurseForge-*.zip' = '^overrides/mods/[^/]+\.jar$'
+            'GTE-Server-*.zip'     = '^mods/[^/]+\.jar$'
+          }
+          foreach ($pattern in $expected.Keys) {
+            foreach ($zip in Get-ChildItem "build/artifacts/$pattern") {
+              $archive = [System.IO.Compression.ZipFile]::OpenRead($zip.FullName)
+              try {
+                $mods = @($archive.Entries | Where-Object { $_.FullName -match $expected[$pattern] })
+                $nested = @($archive.Entries | Where-Object { $_.FullName -like 'overrides/overrides/*' })
+                Write-Host "$($zip.Name): mods=$($mods.Count) nested-overrides=$($nested.Count)"
+                if ($mods.Count -eq 0) {
+                  Write-Host "::error::$($zip.Name) has no mods matching $($expected[$pattern]); it would install/boot with no mods."
+                  $bad = $true
+                }
+                if ($nested.Count -gt 0) {
+                  Write-Host "::error::$($zip.Name) contains overrides/overrides/; the pack root was not flattened."
+                  $bad = $true
+                }
+              } finally {
+                $archive.Dispose()
               }
-              if ($nested.Count -gt 0) {
-                Write-Host "::error::$($zip.Name) contains overrides/overrides/; the pack root was not flattened."
-                $bad = $true
-              }
-            } finally {
-              $archive.Dispose()
             }
           }
           if ($bad) { exit 1 }
