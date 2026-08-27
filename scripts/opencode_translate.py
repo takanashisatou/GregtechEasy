@@ -6,8 +6,9 @@ Single unified localization engine for the entire GTE ecosystem:
 1. Submodule Mod Assets & Overrides: gtecore, gtm-reborn, gt--, KubeJS lang JSONs
 2. FTB Quests: SNBT quests and lang dictionaries
 3. Documentation & Wiki: 10-language Markdown with SHA-256 incremental cache & rate-limit safety
-4. AI Engines: OpenCode Zen (deepseek-v4-pro default; override via OPENCODE_MODEL env),
-   DeepSeek, Gemini, OpenAI, DashScope, Moonshot, Zhipu
+4. AI Engines: DeepSeek (DEEPSEEK_API), FREE_CLAUDE relay, OpenCode Zen,
+   Gemini, OpenAI, DashScope, Moonshot, Zhipu. Fast chat models are tried first;
+   reasoning models are fallbacks because asset localization is request-bound.
 5. 0-Token Offline Engine: OpenCC (s2twp, s2hk) for Traditional Chinese
 
 Optimizations (v3):
@@ -19,6 +20,13 @@ Optimizations (v3):
 - Robust retry: failed translations are retried with exponential backoff,
   never falls back to writing untranslated source text
 - Per-language parallelism: all 8 LLM languages are translated concurrently
+
+Optimizations (v4) — asset localization path:
+- Per-string cache is actually consulted and written (it was accepted as an
+  argument and then ignored, so every CI run re-translated all ~7000 keys)
+- Chunk requests run concurrently (TRANSLATE_ASSET_WORKERS, default 8)
+- Every completed chunk is flushed to disk and to the cache, so a timeout keeps
+  partial progress instead of discarding an hour of work
 """
 
 import os
@@ -71,7 +79,33 @@ DOCS_LANGUAGES = {
 # ─────────────────────────────────────────────────────────────────────────────
 # 2. LLM Providers Configuration (Prioritizing OpenCode Go / DeepSeek)
 # ─────────────────────────────────────────────────────────────────────────────
+# Order matters: resolve_all_providers() preserves it, and call_llm() fails over
+# down the list. Fast non-reasoning chat models come FIRST because asset
+# localization issues hundreds of small requests, where a reasoning model's
+# per-request latency dominates total runtime. Measured on the self-hosted
+# runner: opencode/deepseek-v4-pro takes ~49s for a 100-string batch, which is
+# why it is now a fallback rather than the primary.
+# Override the order with TRANSLATE_PROVIDER_ORDER="deepseek,freeclaude,...".
 PROVIDERS = {
+    "deepseek": {
+        # DEEPSEEK_API is the repository secret name; DEEPSEEK_API_KEY is the
+        # historical env name. Either works.
+        "key_env": "DEEPSEEK_API",
+        "key_env_aliases": ["DEEPSEEK_API_KEY"],
+        "base_url_env": "DEEPSEEK_BASE_URL",
+        "model_env": "DEEPSEEK_MODEL",
+        "default_base_url": "https://api.deepseek.com/v1",
+        "default_model": "deepseek-chat",
+    },
+    "freeclaude": {
+        # OpenAI-compatible (new-api) relay, /v1/chat/completions.
+        "key_env": "FREE_CLAUDE",
+        "key_env_aliases": ["FREE_CLAUDE_API_KEY"],
+        "base_url_env": "FREE_CLAUDE_BASE_URL",
+        "model_env": "FREE_CLAUDE_MODEL",
+        "default_base_url": "https://api.justwoker.icu/v1",
+        "default_model": "claude-opus-4-8",
+    },
     "opencode": {
         "key_env": "OPENCODE_API_KEY",
         "base_url_env": "OPENCODE_BASE_URL",
@@ -80,13 +114,6 @@ PROVIDERS = {
         # deepseek-v4-pro handles mermaid diagrams and complex Markdown reliably;
         # fallback candidates: claude-sonnet-5 (best instruction following), gpt-5.6-sol
         "default_model": "deepseek-v4-pro",
-    },
-    "deepseek": {
-        "key_env": "DEEPSEEK_API_KEY",
-        "base_url_env": "DEEPSEEK_BASE_URL",
-        "model_env": "DEEPSEEK_MODEL",
-        "default_base_url": "https://api.deepseek.com/v1",
-        "default_model": "deepseek-chat",
     },
     "gemini": {
         "key_env": "GEMINI_API_KEY",
@@ -176,6 +203,10 @@ def resolve_all_providers() -> List[Dict[str, str]]:
 
     for name, spec in PROVIDERS.items():
         api_key = get_val(spec["key_env"])
+        for alias in spec.get("key_env_aliases", []):
+            if api_key:
+                break
+            api_key = get_val(alias)
         if not api_key:
             continue
         base_url = get_val(spec["base_url_env"]) or spec["default_base_url"]
@@ -186,6 +217,13 @@ def resolve_all_providers() -> List[Dict[str, str]]:
             "base_url": base_url.strip().rstrip("/"),
             "model": model.strip(),
         })
+
+    # Explicit override, e.g. TRANSLATE_PROVIDER_ORDER="freeclaude,deepseek".
+    # Named providers move to the front in the given order; the rest keep theirs.
+    order = get_val("TRANSLATE_PROVIDER_ORDER")
+    if order:
+        wanted = [n.strip() for n in order.split(",") if n.strip()]
+        active.sort(key=lambda p: wanted.index(p["name"]) if p["name"] in wanted else len(wanted))
     return active
 
 
@@ -743,24 +781,80 @@ def find_all_lang_dirs() -> List[Path]:
 def load_cache() -> dict:
     if CACHE_FILE.exists():
         try:
-            return json.loads(CACHE_FILE.read_text(encoding="utf-8"))
+            data = json.loads(CACHE_FILE.read_text(encoding="utf-8"))
+            if isinstance(data, dict):
+                # Shape: {lang: {source_string: translated_string}}
+                return {k: v for k, v in data.items() if isinstance(v, dict)}
         except Exception:
             return {}
     return {}
 
 
 def save_cache(cache: dict):
-    CACHE_FILE.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
+    """Persist the asset cache. Written via a temp file so a killed job (or the
+    6-hour GitHub job ceiling) cannot leave a truncated, unparseable cache."""
+    with _cache_lock:
+        payload = json.dumps(cache, ensure_ascii=False, indent=2)
+    tmp = CACHE_FILE.with_suffix(".json.tmp")
+    tmp.write_text(payload, encoding="utf-8")
+    tmp.replace(CACHE_FILE)
 
 
-def translate_texts_batch(texts: List[str], target_lang: str, provider: Dict[str, str], max_batch_size: int = 100) -> List[str]:
-    if not texts or not provider:
+ASSET_MAX_WORKERS = int(os.environ.get("TRANSLATE_ASSET_WORKERS", "8"))
+
+
+def translate_texts_batch(
+    texts: List[str],
+    target_lang: str,
+    provider: Dict[str, str],
+    cache: dict,
+    max_batch_size: int = 100,
+    on_progress: Optional[Any] = None,
+) -> List[str]:
+    """Translate `texts` into `target_lang`, reusing a per-string cache.
+
+    Three properties this function must have, because asset localization issues
+    hundreds of requests and previously blew past the 6-hour job ceiling:
+
+    1. Cache is consulted per SOURCE STRING, so re-runs only pay for new keys.
+       (The cache argument used to be accepted and then never read or written.)
+    2. Chunks are dispatched concurrently. They are independent requests; running
+       them serially made a single 5951-key file take ~49 minutes.
+    3. `on_progress` fires as each chunk lands, so partial results are persisted
+       instead of being discarded if the step is cut short.
+    """
+    if not texts:
         return texts
-    lang_name = ASSET_LANGUAGES.get(target_lang, {}).get("name", target_lang)
 
-    results = []
-    for i in range(0, len(texts), max_batch_size):
-        chunk = texts[i:i + max_batch_size]
+    lang_cache = cache.setdefault(target_lang, {})
+
+    # Resolve what is already known; collect the unique misses only.
+    resolved: Dict[str, str] = {}
+    misses: List[str] = []
+    seen: Set[str] = set()
+    for t in texts:
+        hit = lang_cache.get(t)
+        if hit:
+            resolved[t] = hit
+        elif t not in seen:
+            seen.add(t)
+            misses.append(t)
+
+    if not misses:
+        logger.info(f"  [{target_lang}] {len(texts)} strings fully served from cache.")
+        return [resolved.get(t, t) for t in texts]
+
+    if not provider:
+        return [resolved.get(t, t) for t in texts]
+
+    lang_name = ASSET_LANGUAGES.get(target_lang, {}).get("name", target_lang)
+    chunks = [misses[i:i + max_batch_size] for i in range(0, len(misses), max_batch_size)]
+    logger.info(
+        f"  [{target_lang}] {len(resolved)} cached, {len(misses)} new strings "
+        f"-> {len(chunks)} request(s), {ASSET_MAX_WORKERS} concurrent."
+    )
+
+    def do_chunk(chunk: List[str]) -> Dict[str, str]:
         prompt = (
             f"Translate the following Minecraft/GregTech localization strings into {lang_name} ({target_lang}).\n"
             f"Strict Rules:\n"
@@ -775,14 +869,32 @@ def translate_texts_batch(texts: List[str], target_lang: str, provider: Dict[str
             if match:
                 parsed = json.loads(match.group(0))
                 if len(parsed) == len(chunk):
-                    results.extend(parsed)
-                    continue
-            logger.warning(f"Batch parse mismatch for {target_lang} chunk {i}:{i+len(chunk)}. Using fallback.")
-            results.extend(chunk)
+                    return {src: str(dst) for src, dst in zip(chunk, parsed)}
+            logger.warning(f"  [{target_lang}] batch parse mismatch ({len(chunk)} strings); leaving them for a later run.")
         except Exception as e:
-            logger.warning(f"Batch LLM translation failed for {target_lang}: {e}")
-            results.extend(chunk)
-    return results
+            logger.warning(f"  [{target_lang}] batch failed ({str(e)[:160]}); leaving them for a later run.")
+        return {}
+
+    done = 0
+    with ThreadPoolExecutor(max_workers=ASSET_MAX_WORKERS) as ex:
+        futures = {ex.submit(do_chunk, c): c for c in chunks}
+        for fut in as_completed(futures):
+            mapping = fut.result()
+            if mapping:
+                with _cache_lock:
+                    lang_cache.update(mapping)
+                resolved.update(mapping)
+            done += 1
+            if on_progress:
+                # Persist partial progress; never let a callback error abort translation.
+                try:
+                    on_progress(resolved, done, len(chunks))
+                except Exception as e:
+                    logger.warning(f"  [{target_lang}] progress callback failed: {str(e)[:120]}")
+
+    # Untranslated strings fall through as the source text so the file stays valid
+    # JSON with complete keys; the cache holds no entry, so the next run retries them.
+    return [resolved.get(t, t) for t in texts]
 
 
 def process_submodule_lang_dir(lang_dir: Path, cache: dict, target_langs: List[str], provider: Dict[str, str], opencc_only: bool = False):
@@ -813,7 +925,21 @@ def process_submodule_lang_dir(lang_dir: Path, cache: dict, target_langs: List[s
                 target_data[k] = convert_traditional_chinese(base_data[k], lang)
         elif not opencc_only and provider and missing_keys:
             to_trans = [base_data[k] for k in missing_keys]
-            translated = translate_texts_batch(to_trans, lang, provider)
+
+            def flush(resolved: Dict[str, str], done: int, total: int, _keys=missing_keys, _f=target_file, _d=target_data):
+                """Write what we have after every chunk. Previously the file was
+                written only after ALL chunks for the language completed, so a
+                5951-key file produced no output for ~49 minutes and lost
+                everything if the step was cut short."""
+                for key in _keys:
+                    val = resolved.get(base_data[key])
+                    if val:
+                        _d[key] = val
+                _f.write_text(json.dumps(_d, ensure_ascii=False, indent=2), encoding="utf-8")
+                save_cache(cache)
+                logger.info(f"  [{lang}] chunk {done}/{total} flushed to {_f.name}")
+
+            translated = translate_texts_batch(to_trans, lang, provider, cache, on_progress=flush)
             for k, val in zip(missing_keys, translated):
                 target_data[k] = val
         else:
@@ -974,10 +1100,18 @@ def main():
     if not (args.docs or args.docs_dir) or args.all:
         logger.info("=== Translating Mod Assets & Overrides ===")
         cache = load_cache()
+        cached_total = sum(len(v) for v in cache.values())
+        logger.info(f"Asset cache loaded: {len(cache)} languages, {cached_total} known strings.")
         target_langs = list(ASSET_LANGUAGES.keys()) if args.langs == "all" else [l.strip() for l in args.langs.split(",")]
-        for lang_dir in find_all_lang_dirs():
-            process_submodule_lang_dir(lang_dir, cache, target_langs, provider, opencc_only=args.opencc_only)
-        save_cache(cache)
+        try:
+            for lang_dir in find_all_lang_dirs():
+                process_submodule_lang_dir(lang_dir, cache, target_langs, provider, opencc_only=args.opencc_only)
+        finally:
+            # Always persist, even on Ctrl-C / step timeout, so the next run resumes
+            # instead of re-translating everything from scratch.
+            save_cache(cache)
+            now_total = sum(len(v) for v in cache.values())
+            logger.info(f"Asset cache saved: {now_total} strings (+{now_total - cached_total} new).")
 
     logger.info("=== GTE Localization Completed Successfully ===")
 
