@@ -337,12 +337,38 @@ jobs:
           Get-ChildItem gte/overrides/mods
 
       # ──────────────────────────────────────────────
-      # Multi-Language Localization (OpenCC 0-Token + LLM Mega-Batch)
-      # Uses deepseek-v4-pro via OpenCode Zen; set OPENCODE_MODEL secret to override
-      # (e.g. claude-sonnet-5 for best mermaid diagram translation fidelity)
+      # Multi-Language Localization (OpenCC 0-Token + LLM)
+      # Provider order is fast-chat-first: DEEPSEEK_API, then the FREE_CLAUDE
+      # relay, then OpenCode Zen and Gemini as fallbacks. Asset localization is
+      # request-bound (~7000 keys x 7 LLM languages), so a reasoning model as
+      # primary is what pushed this step past the 6-hour job ceiling before.
+      #
+      # This step is deliberately NOT a gate: the mod jars and modpack artifacts
+      # are already built by now, and a slow or degraded translation API must not
+      # discard them. It is bounded and advisory; the per-string cache in
+      # .translation_cache.json means an interrupted run resumes next time.
       # ──────────────────────────────────────────────
+      # .translation_cache.json is gitignored, so without this the per-string cache
+      # would be rebuilt from nothing on every hosted run and only survive on
+      # self-hosted by accident of workspace reuse. Restoring it is what turns a
+      # ~7000-key full translation into a small incremental delta.
+      - name: Restore Translation Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            .translation_cache.json
+            modules/docs/docs/.docs_cache.json
+            docs/.docs_cache.json
+          key: gte-translation-cache-${{ github.run_id }}
+          restore-keys: |
+            gte-translation-cache-
+
       - name: Run Global Multi-Language Localization (AI + OpenCC)
+        timeout-minutes: 60
+        continue-on-error: true
         env:
+          DEEPSEEK_API: ${{ secrets.DEEPSEEK_API }}
+          FREE_CLAUDE: ${{ secrets.FREE_CLAUDE }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -352,6 +378,7 @@ jobs:
           OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
           OPENCODE_MODEL: ${{ secrets.OPENCODE_MODEL }}
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
+          TRANSLATE_ASSET_WORKERS: '8'
         run: python scripts/opencode_translate.py --all
 
       - name: Commit Submodule Translation Changes (modules/docs)
