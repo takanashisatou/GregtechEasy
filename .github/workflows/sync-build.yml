@@ -534,10 +534,11 @@ jobs:
       - name: "[Pack 1] Export CurseForge Pack"
         working-directory: ./gte
         run: |
-          try {
-            packwiz curseforge export -o ../build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip
-          } catch {
-            Compress-Archive -Path * -DestinationPath ../build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip -Force
+          $out = "../build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip"
+          packwiz curseforge export -y -s client -o $out
+          if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out)) {
+            Write-Host "::warning::packwiz client export failed (exit $LASTEXITCODE); falling back to a plain archive."
+            Compress-Archive -Path * -DestinationPath $out -Force
           }
 
       - name: "[Pack 1] Patch manifest.json - enforce Java 21"
@@ -546,14 +547,31 @@ jobs:
       - name: "[Pack 2] Build Full Player Lazy Pack (.minecraft)"
         run: python scripts/build_lazy_pack.py ${{ steps.meta.outputs.version }}
 
+      # `packwiz server export` does not exist. packwiz has no `server` command at
+      # all -- only `serve` (a dev HTTP server), which is what the shell resolved
+      # to, hence "unknown shorthand flag: 'o' in -o". Server packs are produced by
+      # the curseforge exporter with `-s server`, which filters mods by their side
+      # field. The try/catch was also dead code: a non-zero exit from a native
+      # binary does not raise a PowerShell exception, so the Compress-Archive
+      # fallback never ran and the step just failed.
       - name: "[Pack 3] Export Server Pack"
         working-directory: ./gte
         run: |
-          try {
-            packwiz server export -o ../build/artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip
-          } catch {
-            Compress-Archive -Path overrides/* -DestinationPath ../build/artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip -Force
+          $out = "../build/artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip"
+          packwiz curseforge export -y -s server -o $out
+          if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out)) {
+            Write-Host "::warning::packwiz server export failed (exit $LASTEXITCODE); falling back to an overrides archive."
+            Compress-Archive -Path overrides/* -DestinationPath $out -Force
           }
+
+      # packwiz refresh/export rewrites index.toml hashes and pack.toml. That churn
+      # is a build artifact, not an intentional change, and leaving it staged would
+      # let it ride along into a later i18n commit.
+      - name: Discard Packwiz Index Churn
+        continue-on-error: true
+        run: |
+          git checkout -- gte/index.toml gte/pack.toml 2>$null
+          Write-Host "Packwiz index churn discarded."
 
       - name: List Artifacts
         run: Get-ChildItem build/artifacts
