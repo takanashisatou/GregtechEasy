@@ -381,40 +381,82 @@ jobs:
           TRANSLATE_ASSET_WORKERS: '8'
         run: python scripts/opencode_translate.py --all
 
+      # modules/docs is a SEPARATE repository (takanashisatou/GregtechEasy-Docs).
+      # actions/checkout persists the job's GITHUB_TOKEN for submodules, but that
+      # token is scoped to this repository only, so pushing the translated wiki
+      # failed with "Permission to ...GregtechEasy-Docs.git denied to
+      # github-actions[bot] / 403". A cross-repo push needs the GH_PAT secret.
+      #
+      # Also: the previous version printed the success message unconditionally and
+      # relied on the step's trailing exit code, so the log claimed the push had
+      # succeeded while the job failed. Status is now checked explicitly.
       - name: Commit Submodule Translation Changes (modules/docs)
         if: github.event_name != 'pull_request'
+        continue-on-error: true
+        env:
+          DOCS_PUSH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
+          if (-not $env:DOCS_PUSH_TOKEN) {
+            Write-Host "::warning::GH_PAT is not set; skipping the cross-repo docs push."
+            exit 0
+          }
           Push-Location modules/docs
           try {
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
             git add -A
             $subStatus = git status --porcelain
-            if ($subStatus) {
-              git commit -m "i18n: Auto-update multi-language wiki translations"
-              git push origin HEAD:main
-              Write-Host "✅ Docs submodule changes committed and pushed."
+            if (-not $subStatus) {
+              Write-Host "No docs submodule changes."
+              exit 0
+            }
+            git commit -m "i18n: Auto-update multi-language wiki translations"
+            if ($LASTEXITCODE -ne 0) {
+              Write-Host "::warning::git commit failed in modules/docs (exit $LASTEXITCODE)."
+              exit 0
+            }
+            $url = "https://x-access-token:$env:DOCS_PUSH_TOKEN@github.com/takanashisatou/GregtechEasy-Docs.git"
+            git push $url HEAD:main 2>&1 | ForEach-Object { $_ -replace [regex]::Escape($env:DOCS_PUSH_TOKEN), '***' }
+            if ($LASTEXITCODE -eq 0) {
+              Write-Host "Docs submodule changes committed and pushed."
             } else {
-              Write-Host "ℹ️ No docs submodule changes."
+              Write-Host "::warning::Docs submodule push failed (exit $LASTEXITCODE)."
             }
           } finally {
             Pop-Location
           }
 
+      # Root-repo push. Unlike the submodule above this one CAN use GITHUB_TOKEN,
+      # but it must not be a gate either: the mod jars and packs are already built
+      # at this point, and losing them to a transient push race would be worse
+      # than a missing translation commit.
       - name: Commit Root Translation Updates
         if: github.event_name != 'pull_request'
+        continue-on-error: true
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
           $status = git status --porcelain
-          if ($status) {
-            git commit -m "i18n: Auto-update multi-language assets and wiki translations"
-            git pull --rebase origin ${{ github.ref_name }}
-            git push
-            Write-Host "✅ Root translation updates committed and pushed."
+          if (-not $status) {
+            Write-Host "No root translation changes to commit."
+            exit 0
+          }
+          git commit -m "i18n: Auto-update multi-language assets and wiki translations"
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "::warning::Root i18n commit failed (exit $LASTEXITCODE)."
+            exit 0
+          }
+          git pull --rebase origin ${{ github.ref_name }}
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "::warning::Rebase onto origin/${{ github.ref_name }} failed; leaving the commit local."
+            exit 0
+          }
+          git push
+          if ($LASTEXITCODE -eq 0) {
+            Write-Host "Root translation updates committed and pushed."
           } else {
-            Write-Host "ℹ️ No root translation changes to commit."
+            Write-Host "::warning::Root translation push failed (exit $LASTEXITCODE)."
           }
 
       - name: Trigger Docs Deploy Workflow
