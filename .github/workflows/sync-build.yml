@@ -475,182 +475,32 @@ jobs:
           Get-ChildItem gte/overrides/mods
 
       # ──────────────────────────────────────────────
-      # Multi-Language Localization (OpenCC 0-Token + LLM)
-      # Provider order is fast-chat-first: DEEPSEEK_API, then the FREE_CLAUDE
-      # relay, then OpenCode Zen and Gemini as fallbacks. Asset localization is
-      # request-bound (~7000 keys x 7 LLM languages), so a reasoning model as
-      # primary is what pushed this step past the 6-hour job ceiling before.
-      #
-      # This step is deliberately NOT a gate: the mod jars and modpack artifacts
-      # are already built by now, and a slow or degraded translation API must not
-      # discard them. It is bounded and advisory; the per-string cache in
-      # .translation_cache.json means an interrupted run resumes next time.
+      # Localization is NOT part of this workflow
       # ──────────────────────────────────────────────
-      # .translation_cache.json is gitignored, so without this the per-string cache
-      # would be rebuilt from nothing on every hosted run and only survive on
-      # self-hosted by accident of workspace reuse. Restoring it is what turns a
-      # ~7000-key full translation into a small incremental delta.
-      - name: Restore Translation Cache
-        uses: actions/cache/restore@v4
-        with:
-          path: |
-            .translation_cache.json
-            modules/docs/docs/.docs_cache.json
-            docs/.docs_cache.json
-          key: gte-translation-cache-${{ github.run_id }}
-          restore-keys: |
-            gte-translation-cache-
-
-      - name: Run Global Multi-Language Localization (AI + OpenCC)
-        timeout-minutes: 60
-        continue-on-error: true
-        env:
-          DEEPSEEK_API: ${{ secrets.DEEPSEEK_API }}
-          FREE_CLAUDE: ${{ secrets.FREE_CLAUDE }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
-          MOONSHOT_API_KEY: ${{ secrets.MOONSHOT_API_KEY }}
-          ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
-          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          OPENCODE_MODEL: ${{ secrets.OPENCODE_MODEL }}
-          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-          TRANSLATE_ASSET_WORKERS: '8'
-        run: python scripts/opencode_translate.py --all
-
-      # Save immediately after translating, not in a post step, and with
-      # `always()` so a later failure cannot discard it. The run that died in
-      # [Pack 2] had just translated 74497 new strings and threw all of them away
-      # (its "Post Restore Translation Cache" step was skipped because the job had
-      # failed), so the next attempt re-translated the same 74497 strings and paid
-      # another ~17 minutes of API time.
+      # It used to run here on every event, and on a pull_request that was pure
+      # waste: 1029s of the 40.7-minute PR run (42%) went to translating ~7000 keys
+      # across 7 languages, and then both commit steps were gated on
+      # `github.event_name != 'pull_request'`, so every translated string was
+      # discarded. The cache did not rescue it either -- GitHub scopes a cache
+      # written on a PR ref to that PR alone, so it cannot be read by main after
+      # the merge.
       #
-      # The key is per-run, so each attempt writes its own entry and the newest is
-      # picked up by the `gte-translation-cache-` restore prefix on the next run.
-      - name: Save Translation Cache
-        if: always()
-        continue-on-error: true
-        uses: actions/cache/save@v4
-        with:
-          path: |
-            .translation_cache.json
-            modules/docs/docs/.docs_cache.json
-            docs/.docs_cache.json
-          key: gte-translation-cache-${{ github.run_id }}
-
-      # modules/docs is a SEPARATE repository (takanashisatou/GregtechEasy-Docs).
-      # actions/checkout persists the job's GITHUB_TOKEN for submodules, but that
-      # token is scoped to this repository only, so pushing the translated wiki
-      # failed with "Permission to ...GregtechEasy-Docs.git denied to
-      # github-actions[bot] / 403". A cross-repo push needs the GH_PAT secret.
+      # Translation now lives only in .github/workflows/translate.yml, dispatched
+      # manually. It is an API-cost decision, not a build step: a contributor's PR
+      # must not spend translation budget, and language files are content that
+      # belongs to main, not to a merge preview.
       #
-      # Embedding the PAT in the push URL is NOT enough: actions/checkout persists
-      # `http.https://github.com/.extraheader` with the job's GITHUB_TOKEN, and that
-      # Authorization header takes precedence over URL userinfo, so the push still
-      # authenticated as github-actions[bot]. The header is therefore removed for
-      # the duration of the push and restored afterwards.
-      #
-      # Also: the previous version printed the success message unconditionally and
-      # relied on the step's trailing exit code, so the log claimed the push had
-      # succeeded while the job failed. Status is now checked explicitly, and the
-      # outcome is exported so the root commit below refuses to record a submodule
-      # pointer that upstream does not have — that mismatch is exactly what Gate 1
-      # rejects as a wild pointer on the NEXT run.
-      - name: Commit Submodule Translation Changes (modules/docs)
-        id: docspush
-        if: github.event_name != 'pull_request'
-        continue-on-error: true
-        env:
-          DOCS_PUSH_TOKEN: ${{ secrets.GH_PAT }}
-        run: |
-          "pushed=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-          if (-not $env:DOCS_PUSH_TOKEN) {
-            Write-Host "::warning::GH_PAT is not set; skipping the cross-repo docs push."
-            exit 0
-          }
-          Push-Location modules/docs
-          try {
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add -A
-            $subStatus = git status --porcelain
-            if (-not $subStatus) {
-              Write-Host "No docs submodule changes."
-              "pushed=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-              exit 0
-            }
-            git commit -m "i18n: Auto-update multi-language wiki translations"
-            if ($LASTEXITCODE -ne 0) {
-              Write-Host "::warning::git commit failed in modules/docs (exit $LASTEXITCODE)."
-              exit 0
-            }
+      # Consequence: the packs built here contain the language files as committed.
+      # Run translate.yml first when a release needs fresh translations.
 
-            # Drop the inherited GITHUB_TOKEN Authorization header so the PAT in the
-            # push URL is actually the credential git presents.
-            $hdrKey = "http.https://github.com/.extraheader"
-            $savedHeader = git config --local --get $hdrKey
-            if ($savedHeader) { git config --local --unset-all $hdrKey }
-            try {
-              $url = "https://x-access-token:$env:DOCS_PUSH_TOKEN@github.com/takanashisatou/GregtechEasy-Docs.git"
-              git push $url HEAD:main 2>&1 | ForEach-Object { $_ -replace [regex]::Escape($env:DOCS_PUSH_TOKEN), '***' }
-              $pushCode = $LASTEXITCODE
-            } finally {
-              if ($savedHeader) { git config --local $hdrKey $savedHeader }
-            }
-
-            if ($pushCode -eq 0) {
-              Write-Host "Docs submodule changes committed and pushed to GregtechEasy-Docs@main."
-              "pushed=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-            } else {
-              Write-Host "::warning::Docs submodule push failed (exit $pushCode); the root repo will NOT record this pointer."
-            }
-          } finally {
-            Pop-Location
-          }
-
-      # Root-repo push. Unlike the submodule above this one CAN use GITHUB_TOKEN,
-      # but it must not be a gate either: the mod jars and packs are already built
-      # at this point, and losing them to a transient push race would be worse
-      # than a missing translation commit.
-      - name: Commit Root Translation Updates
-        if: github.event_name != 'pull_request'
-        continue-on-error: true
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-
-          # Never record a modules/docs pointer that GregtechEasy-Docs does not have.
-          # Committing an unpushed submodule commit is what made run 33071559366 fail
-          # Gate 1 with "Commit 5a5ddf27 is NOT merged into origin/main".
-          if ("${{ steps.docspush.outputs.pushed }}" -ne "true") {
-            git restore --staged modules/docs 2>$null
-            git checkout -- modules/docs 2>$null
-            Write-Host "::warning::Docs submodule was not pushed upstream; its pointer bump is excluded from this commit."
-          }
-
-          $status = git status --porcelain
-          if (-not $status) {
-            Write-Host "No root translation changes to commit."
-            exit 0
-          }
-          git commit -m "i18n: Auto-update multi-language assets and wiki translations"
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "::warning::Root i18n commit failed (exit $LASTEXITCODE)."
-            exit 0
-          }
-          git pull --rebase origin ${{ github.ref_name }}
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "::warning::Rebase onto origin/${{ github.ref_name }} failed; leaving the commit local."
-            exit 0
-          }
-          git push
-          if ($LASTEXITCODE -eq 0) {
-            Write-Host "Root translation updates committed and pushed."
-          } else {
-            Write-Host "::warning::Root translation push failed (exit $LASTEXITCODE)."
-          }
+      # The two i18n commit steps that used to live here (a cross-repo push to
+      # GregtechEasy-Docs and a root commit of the regenerated language files) went
+      # with the localization step. Nothing in this workflow writes translations
+      # any more, so they could only ever have produced empty commits. Their logic
+      # -- unsetting the persisted extraheader so GH_PAT is the credential git
+      # actually presents, and refusing to record a modules/docs pointer that
+      # upstream does not have (Gate 1's "wild pointer") -- lives in translate.yml,
+      # which is the workflow that now owns the change.
 
       # Same failure shape as the docs push: this printed "triggered
       # successfully" while gh had actually returned 403, and it gated the

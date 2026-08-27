@@ -110,8 +110,35 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      # The per-string cache is what turns a ~7000-key full pass into a small
+      # delta: a cold run translates 74497 strings and takes ~17 minutes, a warm
+      # one reports "+0 new" in about 30 seconds. .translation_cache.json is
+      # gitignored, so without this every manual dispatch would start from zero.
+      # Restore and save are separate so the save can run under always() -- a
+      # failed or cancelled run must not throw away the strings it already paid
+      # for.
+      - name: Restore Translation Cache
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            .translation_cache.json
+            modules/docs/docs/.docs_cache.json
+            docs/.docs_cache.json
+          key: gte-translation-cache-${{ github.run_id }}
+          restore-keys: |
+            gte-translation-cache-
+
       - name: Run Localization Engine
         env:
+          # These are the ACTUAL repository secret names. This workflow previously
+          # read only DEEPSEEK_API_KEY / GEMINI_API_KEY / ..., none of which exist
+          # here -- the configured secrets are DEEPSEEK_API and FREE_CLAUDE -- so a
+          # manual dispatch silently found no provider, logged "No active LLM API
+          # Key detected" and degraded to OpenCC-only. That was survivable while
+          # sync-build.yml did the real translating; now that this workflow is the
+          # only one that translates, it has to be able to authenticate.
+          DEEPSEEK_API: ${{ inputs.custom_api_key || secrets.DEEPSEEK_API }}
+          FREE_CLAUDE: ${{ secrets.FREE_CLAUDE }}
           DEEPSEEK_API_KEY: ${{ inputs.custom_api_key || secrets.DEEPSEEK_API_KEY }}
           GEMINI_API_KEY: ${{ inputs.custom_api_key || secrets.GEMINI_API_KEY }}
           OPENAI_API_KEY: ${{ inputs.custom_api_key || secrets.OPENAI_API_KEY }}
@@ -119,19 +146,38 @@ jobs:
           MOONSHOT_API_KEY: ${{ inputs.custom_api_key || secrets.MOONSHOT_API_KEY }}
           ZHIPU_API_KEY: ${{ inputs.custom_api_key || secrets.ZHIPU_API_KEY }}
           OPENCODE_API_KEY: ${{ inputs.custom_api_key || secrets.OPENCODE_API_KEY }}
+          OPENCODE_MODEL: ${{ secrets.OPENCODE_MODEL }}
           LLM_API_KEY: ${{ inputs.custom_api_key || secrets.LLM_API_KEY }}
+          TRANSLATE_ASSET_WORKERS: '8'
         run: |
           ARGS="--langs ${{ inputs.target_langs || 'all' }}"
           if [ "${{ inputs.opencc_only }}" = "true" ]; then
             ARGS="$ARGS --opencc-only"
           fi
-          if [ "${{ inputs.translate_docs }}" = "true" ]; then
-            ARGS="$ARGS --docs-dir modules/docs/docs"
-          fi
           if [ "${{ inputs.force }}" = "true" ]; then
             ARGS="$ARGS --force"
           fi
+          # opencode_translate.py skips mod assets when --docs-dir is given without
+          # --all (see its `if not (args.docs or args.docs_dir) or args.all`). With
+          # translate_docs defaulting to true, this workflow therefore translated
+          # the wiki and silently never touched the mod language files. Pass --all
+          # when both are wanted, and --docs-dir alone only for docs-only runs.
+          if [ "${{ inputs.translate_docs }}" = "true" ]; then
+            ARGS="$ARGS --all --docs-dir modules/docs/docs"
+          fi
+          echo "Running: python scripts/opencode_translate.py $ARGS"
           python scripts/opencode_translate.py $ARGS
+
+      - name: Save Translation Cache
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            .translation_cache.json
+            modules/docs/docs/.docs_cache.json
+            docs/.docs_cache.json
+          key: gte-translation-cache-${{ github.run_id }}
 
       - name: Check for Changes
         id: git_status
