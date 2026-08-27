@@ -46,6 +46,49 @@ def parse_gitmodules() -> List[Dict[str, str]]:
     return submodules
 
 
+def run_git(args: List[str], cwd: Path) -> subprocess.CompletedProcess:
+    """Runs a git command, tolerating non-UTF-8 output and never raising.
+
+    ``safe.directory=*`` is forced because self-hosted runners often execute as a
+    different account (LocalSystem) than the one owning ``_work``, which makes
+    git refuse every submodule worktree for "dubious ownership" and look
+    identical to a genuine lineage violation.
+    """
+    return subprocess.run(
+        ["git", "-c", "safe.directory=*", *args],
+        cwd=cwd,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+
+
+def ensure_safe_directory(path: Path) -> None:
+    """Reports (and persists) a safe.directory exemption when git refuses a repo."""
+    probe = subprocess.run(
+        ["git", "rev-parse", "--git-dir"],
+        cwd=path,
+        capture_output=True,
+        text=True,
+        encoding="utf-8",
+        errors="replace",
+    )
+    if probe.returncode == 0:
+        return
+    if "dubious ownership" not in (probe.stderr or ""):
+        return
+    for target in {str(path), str(path).replace("\\", "/")}:
+        subprocess.run(
+            ["git", "config", "--global", "--add", "safe.directory", target],
+            capture_output=True,
+            text=True,
+            encoding="utf-8",
+            errors="replace",
+        )
+    print(f"  [INFO] '{path}' had dubious ownership; registered as a git safe.directory.")
+
+
 def check_submodule(sub: Dict[str, str], auto_fetch: bool = True) -> Tuple[bool, str]:
     """Validates that a submodule's committed HEAD pointer is an ancestor of its tracked branch."""
     sub_path = ROOT / sub["path"]
@@ -54,73 +97,61 @@ def check_submodule(sub: Dict[str, str], auto_fetch: bool = True) -> Tuple[bool,
     if not sub_path.exists():
         return False, f"Submodule directory does not exist: {sub['path']}"
 
+    ensure_safe_directory(sub_path)
+
     # Get committed commit in parent repository
-    try:
-        res = subprocess.run(
-            ["git", "rev-parse", f"HEAD:{sub['path']}"],
-            cwd=ROOT,
-            capture_output=True,
-            text=True,
+    res = run_git(["rev-parse", f"HEAD:{sub['path']}"], ROOT)
+    if res.returncode != 0 or not res.stdout.strip():
+        # Fallback to HEAD inside submodule
+        res = run_git(["rev-parse", "HEAD"], sub_path)
+    commit_sha = res.stdout.strip()
+    if not commit_sha:
+        return False, (
+            f"Could not determine commit for {sub['path']}: "
+            f"{(res.stderr or '').strip() or 'git produced no output'}"
         )
-        if res.returncode != 0 or not res.stdout.strip():
-            # Fallback to HEAD inside submodule
-            res = subprocess.run(
-                ["git", "rev-parse", "HEAD"],
-                cwd=sub_path,
-                capture_output=True,
-                text=True,
-                check=True,
-            )
-        commit_sha = res.stdout.strip()
-    except Exception as e:
-        return False, f"Could not determine commit for {sub['path']}: {e}"
 
     # Get short commit message
-    try:
-        msg_res = subprocess.run(
-            ["git", "log", "-1", "--format=%h (%s, %an)", commit_sha],
-            cwd=sub_path,
-            capture_output=True,
-            text=True,
-        )
-        commit_info = msg_res.stdout.strip() if msg_res.returncode == 0 else commit_sha[:8]
-    except Exception:
-        commit_info = commit_sha[:8]
+    msg_res = run_git(["log", "-1", "--format=%h (%s, %an)", commit_sha], sub_path)
+    commit_info = msg_res.stdout.strip() if msg_res.returncode == 0 else commit_sha[:8]
 
     # In CI / automated environments, ensure remote refs are fetched
+    fetch_err = ""
     if auto_fetch:
-        subprocess.run(
-            ["git", "fetch", "origin", tracked_branch],
-            cwd=sub_path,
-            capture_output=True,
-            text=True,
-        )
+        fetch_res = run_git(["fetch", "origin", tracked_branch], sub_path)
+        if fetch_res.returncode != 0:
+            fetch_err = (fetch_res.stderr or "").strip()
 
     # Check if commit is an ancestor of origin/<tracked_branch>
-    check_targets = [f"origin/{tracked_branch}", tracked_branch]
+    check_targets = [f"origin/{tracked_branch}", tracked_branch, "FETCH_HEAD"]
     is_valid = False
     valid_target = ""
+    diagnostics: List[str] = []
 
     for target in check_targets:
-        res = subprocess.run(
-            ["git", "merge-base", "--is-ancestor", commit_sha, target],
-            cwd=sub_path,
-            capture_output=True,
-            text=True,
-        )
+        res = run_git(["merge-base", "--is-ancestor", commit_sha, target], sub_path)
         if res.returncode == 0:
             is_valid = True
             valid_target = target
             break
+        err = (res.stderr or "").strip()
+        if err:
+            diagnostics.append(f"{target}: {err}")
 
     if is_valid:
         return True, f"OK: {sub['path']} @ {commit_info} is merged in {valid_target}"
     else:
+        detail = ""
+        if fetch_err:
+            detail += f"\n   git fetch error: {fetch_err}"
+        if diagnostics:
+            detail += "\n   git diagnostics: " + " | ".join(diagnostics)
         return False, (
             f"[SUBMODULE LINEAGE ERROR] Submodule '{sub['path']}' pointer is INVALID!\n"
             f"   Pointer Commit: {commit_info}\n"
             f"   Target Branch:  origin/{tracked_branch}\n"
-            f"   Reason: Commit {commit_sha[:8]} is NOT merged into official upstream branch 'origin/{tracked_branch}'.\n"
+            f"   Reason: Commit {commit_sha[:8]} is NOT merged into official upstream branch 'origin/{tracked_branch}'."
+            f"{detail}\n"
             f"   Resolution: Ensure your changes are committed, pushed, and merged into upstream '{tracked_branch}' first!"
         )
 
@@ -134,6 +165,7 @@ def main():
             pass
 
     print("=== GTE Submodule Lineage & Pointer Audit ===")
+    ensure_safe_directory(ROOT)
     submodules = parse_gitmodules()
     if not submodules:
         print("[WARN] No submodules found in .gitmodules.")
