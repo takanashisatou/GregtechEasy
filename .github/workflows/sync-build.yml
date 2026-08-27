@@ -78,6 +78,31 @@ jobs:
       run:
         shell: powershell
     steps:
+      # A cancelled or timed-out run leaves its single-use Gradle daemon alive. That
+      # orphan keeps the file locks inside GRADLE_USER_HOME, so the NEXT run blocks
+      # forever in DefaultResourceLockCoordinationService with 0% CPU and no output.
+      # Hosted runners get a fresh VM and do not need this.
+      - name: Reap Orphaned Gradle Daemons (self-hosted only)
+        if: runner.environment == 'self-hosted'
+        continue-on-error: true
+        run: |
+          $orphans = Get-CimInstance Win32_Process -Filter "Name='java.exe'" |
+            Where-Object { $_.CommandLine -match 'GradleDaemon|GradleWrapperMain' }
+          if ($orphans) {
+            foreach ($p in $orphans) {
+              Write-Host "Killing orphaned Gradle process $($p.ProcessId)"
+              Stop-Process -Id $p.ProcessId -Force -ErrorAction SilentlyContinue
+            }
+            Start-Sleep -Seconds 3
+          } else {
+            Write-Host "No orphaned Gradle processes found."
+          }
+          $homes = @($env:GRADLE_USER_HOME, "$env:USERPROFILE\.gradle") | Where-Object { $_ -and (Test-Path $_) }
+          foreach ($h in $homes) {
+            Get-ChildItem $h -Recurse -Filter "*.lock" -ErrorAction SilentlyContinue |
+              ForEach-Object { Remove-Item $_.FullName -Force -ErrorAction SilentlyContinue }
+          }
+
       - name: Checkout Repository & Submodules
         uses: actions/checkout@v4
         with:
@@ -205,8 +230,32 @@ jobs:
       - name: Synchronize Blockbench Models & Art Assets
         run: python scripts/sync_art_assets.py
 
+      # Dependency resolution is the slowest and least reliable part of this build:
+      # ~30 third-party maven hosts, several of which intermittently hang mid-stream
+      # behind a proxy. Resolve them up front, off the critical path, with a bounded
+      # timeout and one retry so a hung mirror surfaces here instead of stalling the
+      # 30-minute build step with no output.
+      - name: Warm Dependency Resolution
+        timeout-minutes: 25
+        run: |
+          $ErrorActionPreference = 'Continue'
+          for ($attempt = 1; $attempt -le 2; $attempt++) {
+            Write-Host "=== Dependency resolution attempt $attempt/2 ==="
+            cmd.exe /c "gradlew.bat :modules:gtm-reborn:dependencies :modules:gtecore:dependencies :modules:gt--:dependencies --configuration compileClasspath --no-daemon --console=plain" > $null 2>&1
+            if ($LASTEXITCODE -eq 0) {
+              Write-Host "Dependencies resolved on attempt $attempt."
+              break
+            }
+            Write-Host "::warning::Dependency resolution attempt $attempt failed (exit $LASTEXITCODE)."
+            Get-CimInstance Win32_Process -Filter "Name='java.exe'" |
+              Where-Object { $_.CommandLine -match 'GradleDaemon|GradleWrapperMain' } |
+              ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
+            Start-Sleep -Seconds 5
+          }
+
       - name: Build All Modules & GameTest in Parallel
         id: build_modules
+        timeout-minutes: 90
         run: |
           $ErrorActionPreference = 'Continue'
           $WERROR_FLAG = ""
