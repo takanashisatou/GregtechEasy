@@ -51,7 +51,7 @@ mkdir -p /opt/gte-server && cd /opt/gte-server
 # 2. Extract the server pack
 unzip GTE-Server-*.zip -d .
 
-# 3. Install the Forge 1.20.1-47.3.0 / 47.4.4 server core (if not pre-installed)
+# 3. Install the Forge 1.20.1-47.4.1 server core (if not pre-installed)
 # Run the installation script to download minecraft_server and forge libraries
 java -jar forge-1.20.1-*-installer.jar --installServer
 
@@ -78,7 +78,7 @@ It is recommended to use Aikar's optimized parameters to start the server:
       -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 \
       -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1"
 
-    $JAVA_CMD $FLAGS @libraries/net/minecraftforge/forge/1.20.1-47.3.0/unix_args.txt nogui
+    $JAVA_CMD $FLAGS @libraries/net/minecraftforge/forge/1.20.1-47.4.1/unix_args.txt nogui
     ```
 
 === "Windows (`run_server.bat`)"
@@ -90,7 +90,7 @@ It is recommended to use Aikar's optimized parameters to start the server:
 
     set FLAGS=-Xms%MEMORY% -Xmx%MEMORY% -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch
 
-    %JAVA_CMD% %FLAGS% @libraries/net/minecraftforge/forge/1.20.1-47.3.0/win_args.txt nogui
+    %JAVA_CMD% %FLAGS% @libraries/net/minecraftforge/forge/1.20.1-47.4.1/win_args.txt nogui
     pause
     ```
 

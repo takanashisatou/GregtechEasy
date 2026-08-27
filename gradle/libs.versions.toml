@@ -1,7 +1,11 @@
 [versions]
 minecraft = "1.20.1"
-forge = "47.4.10"
-minecraftForge = "1.20.1-47.4.10"
+# Keep in sync with gradle.properties and gte/pack.toml. gtmthings 1.5.4 needs
+# forge "[47.4.1,)", and appliedenergistics2 15.4.9's mixins stop resolving on
+# 47.4.10 (ASM 9.8 / coremods 5.2.4), so 47.4.1 satisfies both. This is the
+# version gte-dev-runtime provisions, so dev runs match what players get.
+forge = "47.4.1"
+minecraftForge = "1.20.1-47.4.1"
 parchment = "2023.09.03" # https://parchmentmc.org/docs/getting-started
 shadow = "8.3.5"
 spotless = "7.0.2"

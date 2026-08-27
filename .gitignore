@@ -67,3 +67,15 @@ GTETextures/
 .env
 .env.*
 .translation_cache.json
+
+# Non-runnable jars must never be committed into the pack.
+# -slim / -dev-slim are built WITHOUT their jar-in-jar dependencies (ldlib,
+# configuration, Registrate, flywheel, ...) for Maven consumers. Inside mods/
+# they make Forge pick a dependency-less jar for modId "gtceu" and abort with
+# "Mod ID: 'ldlib', Requested by: 'gtceu' ... [MISSING]". They are still
+# published as release assets and Maven artifacts straight from build/libs.
+gte/overrides/mods/*-slim.jar
+gte/overrides/mods/*-dev-slim.jar
+
+# Player name chosen on first run of the Lazy Pack launcher
+.gte_username

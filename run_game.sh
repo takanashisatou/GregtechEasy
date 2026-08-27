@@ -202,6 +202,33 @@ fi
 export JAVA_HOME="${FOUND_JDK}"
 export PATH="${FOUND_JDK}/bin:${PATH}"
 
+# ---------------------------------------------------------------------------
+# Decide which mode we are in.
+#
+# This script ships in two places: the source checkout (Gradle wrapper present,
+# hot-compile the mods) and the distributed Lazy Pack (only a prepared
+# .minecraft, no sources). It used to always invoke ./gradlew, which inside the
+# Lazy Pack failed with "no such file or directory" and looked like the pack did
+# nothing at all. Pick the mode from what is actually on disk.
+# ---------------------------------------------------------------------------
+if [ -x "${ROOT_DIR}/gradlew" ] && [ -f "${ROOT_DIR}/settings.gradle" ]; then
+    GTE_MODE="dev"
+elif [ -f "${ROOT_DIR}/gradlew" ] && [ -f "${ROOT_DIR}/settings.gradle" ]; then
+    GTE_MODE="dev"
+elif [ -d "${ROOT_DIR}/.minecraft" ]; then
+    GTE_MODE="player"
+else
+    echo "========================================================"
+    echo "[Error] Cannot tell what to launch."
+    echo "========================================================"
+    echo "This folder has neither a Gradle wrapper (developer checkout)"
+    echo "nor a .minecraft folder (extracted Lazy Pack)."
+    echo ""
+    echo "If you downloaded GTE-LazyPack-*.zip, extract the WHOLE archive"
+    echo "and keep run_game.sh next to the .minecraft folder."
+    exit 1
+fi
+
 # Auto-detect local hardware for Gradle workers and game heap
 CPU_CORES="$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || echo 4)"
 TOTAL_RAM_GB=""
@@ -227,8 +254,7 @@ else
 fi
 export GTE_RUNTIME_XMX="${RUNTIME_XMX}G"
 
-echo "Hardware: ${CPU_CORES} logical cores / ~${TOTAL_RAM_GB} GB RAM"
-echo "Gradle workers: ${WORKERS} | Game heap: ${GTE_RUNTIME_XMX}"
+echo "Hardware: ${CPU_CORES} logical cores / ~${TOTAL_RAM_GB} GB RAM | Game heap: ${GTE_RUNTIME_XMX}"
 echo ""
 
 # Auto-detect local proxy for ultrafast dependency downloads
@@ -240,6 +266,83 @@ for port in 7890 7897 10809 10808 1080; do
         break
     fi
 done
+
+# ---------------------------------------------------------------------------
+# Player mode: standalone launch out of the extracted Lazy Pack
+# ---------------------------------------------------------------------------
+if [ "${GTE_MODE}" == "player" ]; then
+    echo "========================================================"
+    echo "       GTE Lazy Pack (Direct Start / No Launcher)"
+    echo "========================================================"
+    echo "Game Directory : ${ROOT_DIR}/.minecraft"
+    echo "Java 21 Runtime: ${JAVA_HOME}"
+    echo ""
+
+    LAUNCHER_PS1="${ROOT_DIR}/gte_launcher.ps1"
+    [ -f "${LAUNCHER_PS1}" ] || LAUNCHER_PS1="${ROOT_DIR}/scripts/gte_launcher.ps1"
+
+    # The provisioning launcher is PowerShell. pwsh is cross-platform but is not
+    # installed by default on Linux or macOS, so say plainly what to do instead
+    # of failing with an opaque "command not found".
+    if ! command -v pwsh >/dev/null 2>&1; then
+        echo "[!] The standalone launcher needs PowerShell 7 (pwsh), which is not installed."
+        echo ""
+        echo "    Either install it:"
+        echo "      Linux : https://learn.microsoft.com/powershell/scripting/install/install-ubuntu"
+        echo "      macOS : brew install --cask powershell"
+        echo ""
+        echo "    Or use a launcher instead (no extra software needed):"
+        echo "      HMCL / PrismLauncher / MultiMC -> point the game directory at"
+        echo "      ${ROOT_DIR}/.minecraft"
+        echo "      and set Java to a JDK 21 install."
+        exit 1
+    fi
+
+    if [ ! -f "${LAUNCHER_PS1}" ]; then
+        echo "[Error] gte_launcher.ps1 is missing from this pack."
+        echo "Re-download GTE-LazyPack-*.zip and extract it completely."
+        exit 1
+    fi
+
+    # Remember the player name so worlds keep the same player data.
+    GTE_USERNAME=""
+    [ -f "${ROOT_DIR}/.gte_username" ] && GTE_USERNAME="$(cat "${ROOT_DIR}/.gte_username")"
+    if [ -z "${GTE_USERNAME}" ]; then
+        read -p "Player name for offline play [Player]: " GTE_USERNAME
+        [ -z "${GTE_USERNAME}" ] && GTE_USERNAME="Player"
+        echo "${GTE_USERNAME}" > "${ROOT_DIR}/.gte_username"
+    fi
+    echo "Player name    : ${GTE_USERNAME}  (change it: delete .gte_username)"
+    echo ""
+
+    MIRROR_FLAG="-UseMirror"
+    [ -n "${DETECTED_PROXY_PORT}" ] && MIRROR_FLAG=""
+
+    pwsh -NoProfile -File "${LAUNCHER_PS1}" \
+        -PackRoot "${ROOT_DIR}" \
+        -JavaHome "${JAVA_HOME}" \
+        -Username "${GTE_USERNAME}" \
+        -MaxMemory "${GTE_RUNTIME_XMX}" \
+        ${MIRROR_FLAG}
+    GAME_EXIT=$?
+    if [ "${GAME_EXIT}" -ne 0 ]; then
+        echo ""
+        echo "[Info] Game exited with code ${GAME_EXIT}."
+        echo "Log: ${ROOT_DIR}/.minecraft/logs/latest.log"
+    fi
+    exit "${GAME_EXIT}"
+fi
+
+# ---------------------------------------------------------------------------
+# Developer mode: hot-compile the mods and run the dev runtime through Gradle
+# ---------------------------------------------------------------------------
+echo "========================================================"
+echo "       GTE Client Dev Runtime (hot compile)"
+echo "========================================================"
+echo "Game Directory : gte/overrides"
+echo "Java 21 Runtime: ${JAVA_HOME}"
+echo "Gradle workers : ${WORKERS}"
+echo ""
 
 if [ -n "${DETECTED_PROXY_PORT}" ]; then
     echo "[Network] Detected active proxy on port ${DETECTED_PROXY_PORT}, auto-accelerating Gradle..."

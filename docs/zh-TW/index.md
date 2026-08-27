@@ -68,6 +68,6 @@ GTE 是一個以 **“簡單、好玩、有趣、耗時短”** 為核心理念�
 | :--- | :--- |
 | **專案名稱** | `GregtechEasy` (`gte-multi`) |
 | **執行與編譯工具鏈** | **JDK 21**（強制使用 Java 21 Toolchain，所有子模組嚴格統一） |
-| **遊戲版本** | Minecraft `1.20.1` (Forge `47.3.0` / `47.4.4`) |
+| **遊戲版本** | Minecraft `1.20.1` (Forge `47.4.1`) |
 | **開源許可證** | LGPL-3.0 / MIT |
 | **預設分支** | 主倉庫 `main` / `master`，GTM-Reborn `satou`，GT-- `kotlin`，GTECore `master` |

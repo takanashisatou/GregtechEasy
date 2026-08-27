@@ -106,7 +106,15 @@ tasks.register('copyOutputJars') {
             from project(':modules:gtecore').layout.buildDirectory.dir('libs')
             from file("${rootDir}/modules/gtecore/gradle/libs")
             include '*.jar'
-            exclude '*-sources.jar', '*-dev.jar', '*-all.jar'
+            // -slim / -dev-slim are deliberately built WITHOUT their jar-in-jar
+            // dependencies (ldlib, configuration, Registrate, flywheel, ...).
+            // They exist for Maven consumers, not for a runnable pack. Shipping
+            // them into mods/ makes Forge see three files declaring modId
+            // "gtceu" / "gtecore", pick a slim one, and then abort with
+            //   Missing or unsupported mandatory dependencies:
+            //     Mod ID: 'ldlib', Requested by: 'gtceu' ... [MISSING]
+            // Only the fat jars belong in a playable pack.
+            exclude '*-sources.jar', '*-dev.jar', '*-all.jar', '*-slim.jar', '*-dev-slim.jar'
             into overridesModsDir
         }
         logger.lifecycle(">> Successfully copied latest mod jars and runtime libs to ${overridesModsDir.absolutePath}")

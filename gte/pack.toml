@@ -10,7 +10,14 @@ hash-format = "sha256"
 
 [versions]
 minecraft = "1.20.1"
-forge = "47.3.0"
+# gtmthings 1.5.4 declares forge "[47.4.1,)" and refuses to load on 47.3.0, so
+# 47.4.1 is the floor. It is also the ceiling in practice: 47.4.10 ships ASM 9.8
+# and coremods 5.2.4, under which appliedenergistics2 15.4.9's mixins stop
+# resolving ("@Shadow field player was not located in the target class
+# net.minecraft.client.Minecraft. Using refmap ae2.mixins.refmap.json") and the
+# client dies before the main menu. 47.4.1 is the one version that satisfies
+# gtmthings and still loads AE2.
+forge = "47.4.1"
 java = "21"
 
 [options]

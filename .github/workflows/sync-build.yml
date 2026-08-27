@@ -331,12 +331,34 @@ jobs:
       - name: Copy Built Mod Jars to Overrides and Artifacts
         run: |
           New-Item -ItemType Directory -Force -Path gte/overrides/mods, build/artifacts | Out-Null
-          Get-ChildItem -Path modules/*/build/libs -Filter "*.jar" -Recurse | Where-Object {
+
+          # Every publishable jar becomes a release asset...
+          $publishable = Get-ChildItem -Path modules/*/build/libs -Filter "*.jar" -Recurse | Where-Object {
             $_.Name -notlike "*-sources.jar" -and $_.Name -notlike "*-dev.jar" -and $_.Name -notlike "*-all.jar"
-          } | ForEach-Object {
-            Copy-Item $_.FullName -Destination gte/overrides/mods/ -Force
-            Copy-Item $_.FullName -Destination build/artifacts/ -Force
           }
+          $publishable | ForEach-Object { Copy-Item $_.FullName -Destination build/artifacts/ -Force }
+
+          # ...but only the fat jars may enter the pack. -slim / -dev-slim are
+          # built WITHOUT their jar-in-jar dependencies (ldlib, configuration,
+          # Registrate, flywheel, ...) on purpose, for Maven consumers. When they
+          # land in mods/, Forge sees three files declaring modId "gtceu", picks
+          # a slim one, and aborts before the main menu with:
+          #   Missing or unsupported mandatory dependencies:
+          #     Mod ID: 'ldlib', Requested by: 'gtceu' ... [MISSING]
+          $runnable = $publishable | Where-Object {
+            $_.Name -notlike "*-slim.jar" -and $_.Name -notlike "*-dev-slim.jar"
+          }
+          $runnable | ForEach-Object { Copy-Item $_.FullName -Destination gte/overrides/mods/ -Force }
+
+          # Two slim jars were committed to git by an earlier i18n step; drop any
+          # that are still lying around so the pack we ship is actually playable.
+          Get-ChildItem gte/overrides/mods -Filter "*.jar" | Where-Object {
+            $_.Name -like "*-slim.jar" -or $_.Name -like "*-dev-slim.jar"
+          } | ForEach-Object {
+            Write-Host "::warning::Removing non-runnable jar from pack: $($_.Name)"
+            Remove-Item $_.FullName -Force
+          }
+
           Write-Host "Listing gte/overrides/mods contents:"
           Get-ChildItem gte/overrides/mods
 

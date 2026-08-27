@@ -1,4 +1,4 @@
-﻿# Руководство по импорту CurseForge и развертыванию сервера
+# Руководство по импорту CurseForge и развертыванию сервера
 
 Помимо готового пакета без компиляции, GTE предоставляет пакеты CurseForge и серверные пакеты, автоматически собираемые на основе **Packwiz**.
 
@@ -51,7 +51,7 @@ mkdir -p /opt/gte-server && cd /opt/gte-server
 # 2. Распакуйте серверный пакет
 unzip GTE-Server-*.zip -d .
 
-# 3. Установите ядро сервера Forge 1.20.1-47.3.0 / 47.4.4 (если не предустановлено)
+# 3. Установите ядро сервера Forge 1.20.1-47.4.1 (если не предустановлено)
 # Запустите скрипт установки для загрузки minecraft_server и библиотек forge
 java -jar forge-1.20.1-*-installer.jar --installServer
 
@@ -78,7 +78,7 @@ echo "eula=true" > eula.txt
       -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 \
       -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1"
 
-    $JAVA_CMD $FLAGS @libraries/net/minecraftforge/forge/1.20.1-47.3.0/unix_args.txt nogui
+    $JAVA_CMD $FLAGS @libraries/net/minecraftforge/forge/1.20.1-47.4.1/unix_args.txt nogui
     ```
 
 === "Windows (`run_server.bat`)"
@@ -90,7 +90,7 @@ echo "eula=true" > eula.txt
 
     set FLAGS=-Xms%MEMORY% -Xmx%MEMORY% -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch
 
-    %JAVA_CMD% %FLAGS% @libraries/net/minecraftforge/forge/1.20.1-47.3.0/win_args.txt nogui
+    %JAVA_CMD% %FLAGS% @libraries/net/minecraftforge/forge/1.20.1-47.4.1/win_args.txt nogui
     pause
     ```
 

@@ -137,54 +137,109 @@ exit /b 0
 set "JAVA_HOME=%FOUND_JDK%"
 set "PATH=%FOUND_JDK%\bin;%PATH%"
 
+REM ---------------------------------------------------------------------------
+REM Decide which mode we are in.
+REM
+REM This one script ships in two very different places:
+REM   * the source checkout, where gradlew.bat + modules/ exist and the point is
+REM     to hot-compile gtecore/gtm-reborn and launch the dev runtime;
+REM   * the distributed Lazy Pack, which contains only a prepared .minecraft and
+REM     has no Gradle wrapper and no sources at all.
+REM
+REM It used to unconditionally call gradlew.bat. In the Lazy Pack that produced
+REM "'...gradlew.bat' is not recognized as an internal or external command",
+REM fell straight into the pause below, and looked to players like the pack had
+REM simply failed to do anything. Pick the mode from what is actually on disk.
+REM ---------------------------------------------------------------------------
+if exist "%ROOT_DIR%gradlew.bat" if exist "%ROOT_DIR%settings.gradle" goto DEV_MODE
+if exist "%ROOT_DIR%.minecraft" goto PLAYER_MODE
+
 echo ========================================================
-echo        GTE Client (Direct Start / No Launcher)
+echo [Error] Cannot tell what to launch.
+echo ========================================================
+echo This folder has neither a Gradle wrapper (developer checkout)
+echo nor a .minecraft folder (extracted Lazy Pack).
+echo.
+echo If you downloaded GTE-LazyPack-*.zip, extract the WHOLE archive
+echo and keep run_game.bat next to the .minecraft folder.
+echo.
+pause
+exit /b 1
+
+REM ===========================================================================
+REM Player mode: standalone launch straight out of the extracted Lazy Pack
+REM ===========================================================================
+:PLAYER_MODE
+echo ========================================================
+echo        GTE Lazy Pack (Direct Start / No Launcher)
+echo ========================================================
+echo Game Directory : %ROOT_DIR%.minecraft
+echo Java 21 Runtime: %JAVA_HOME%
+echo.
+
+call :DETECT_HARDWARE
+
+set "LAUNCHER_PS1=%ROOT_DIR%gte_launcher.ps1"
+if not exist "%LAUNCHER_PS1%" set "LAUNCHER_PS1=%ROOT_DIR%scripts\gte_launcher.ps1"
+if not exist "%LAUNCHER_PS1%" (
+    echo [Error] gte_launcher.ps1 is missing from this pack.
+    echo Re-download GTE-LazyPack-*.zip and extract it completely.
+    pause
+    exit /b 1
+)
+
+REM Remember the player name between launches so worlds keep the same player data.
+set "GTE_USERNAME="
+if exist "%ROOT_DIR%.gte_username" set /p GTE_USERNAME=<"%ROOT_DIR%.gte_username"
+if not defined GTE_USERNAME (
+    echo Enter your in-game name for offline play.
+    set /p GTE_USERNAME="Player name [Player]: "
+    if not defined GTE_USERNAME set "GTE_USERNAME=Player"
+    echo !GTE_USERNAME!> "%ROOT_DIR%.gte_username"
+)
+echo Player name    : !GTE_USERNAME!  (change it: delete .gte_username)
+echo.
+
+call :DETECT_PROXY
+set "MIRROR_FLAG=-UseMirror"
+if defined DETECTED_PROXY_PORT set "MIRROR_FLAG="
+
+powershell -NoProfile -ExecutionPolicy Bypass -File "%LAUNCHER_PS1%" ^
+    -PackRoot "%ROOT_DIR%." ^
+    -JavaHome "%JAVA_HOME%" ^
+    -Username "!GTE_USERNAME!" ^
+    -MaxMemory "!RUNTIME_XMX!" ^
+    !MIRROR_FLAG!
+
+set "GAME_EXIT=!errorlevel!"
+if !GAME_EXIT! neq 0 (
+    echo.
+    echo ========================================================
+    echo [Info] Game exited with code !GAME_EXIT!.
+    echo Log: %ROOT_DIR%.minecraft\logs\latest.log
+    echo (Reset JDK: run_game.bat --reset-jdk)
+    echo ========================================================
+    pause
+)
+exit /b !GAME_EXIT!
+
+REM ===========================================================================
+REM Developer mode: hot-compile the mods and run the dev runtime through Gradle
+REM ===========================================================================
+:DEV_MODE
+echo ========================================================
+echo        GTE Client Dev Runtime (hot compile)
 echo ========================================================
 echo Game Directory : gte\overrides
 echo Java 21 Runtime: %JAVA_HOME%
 echo.
 
-REM Auto-detect local hardware for Gradle workers and game heap
-set "CPU_CORES=%NUMBER_OF_PROCESSORS%"
-if not defined CPU_CORES set "CPU_CORES=4"
-set /a WORKERS=%CPU_CORES%/2
-if %WORKERS% LSS 2 set "WORKERS=2"
-if %WORKERS% GTR 16 set "WORKERS=16"
-
-set "TOTAL_RAM_GB=16"
-for /f "delims=" %%M in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "try { [int][math]::Ceiling((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory/1GB) } catch { 16 }"') do set "TOTAL_RAM_GB=%%M"
-if not defined TOTAL_RAM_GB set "TOTAL_RAM_GB=16"
-
-set "RUNTIME_XMX=8G"
-if %TOTAL_RAM_GB% LSS 8 ( set "RUNTIME_XMX=4G" ) else if %TOTAL_RAM_GB% LSS 16 ( set "RUNTIME_XMX=6G" ) else if %TOTAL_RAM_GB% LSS 32 ( set "RUNTIME_XMX=8G" ) else ( set "RUNTIME_XMX=12G" )
-set "GTE_RUNTIME_XMX=%RUNTIME_XMX%"
-
-echo Hardware: %CPU_CORES% logical cores / ~%TOTAL_RAM_GB% GB RAM
-echo Gradle workers: %WORKERS% ^| Game heap: %GTE_RUNTIME_XMX%
+call :DETECT_HARDWARE
+echo Gradle workers: !WORKERS! ^| Game heap: !GTE_RUNTIME_XMX!
 echo.
 
-REM Auto-detect local proxy for ultrafast dependency downloads
+call :DETECT_PROXY
 set "GRADLE_PROXY_OPTS="
-set "DETECTED_PROXY_PORT="
-
-netstat -ano | findstr "127.0.0.1:7890" | findstr "LISTENING" >nul 2>&1
-if %errorlevel% equ 0 set "DETECTED_PROXY_PORT=7890"
-
-if not defined DETECTED_PROXY_PORT (
-    netstat -ano | findstr "127.0.0.1:7897" | findstr "LISTENING" >nul 2>&1
-    if %errorlevel% equ 0 set "DETECTED_PROXY_PORT=7897"
-)
-
-if not defined DETECTED_PROXY_PORT (
-    netstat -ano | findstr "127.0.0.1:10809" | findstr "LISTENING" >nul 2>&1
-    if %errorlevel% equ 0 set "DETECTED_PROXY_PORT=10809"
-)
-
-if not defined DETECTED_PROXY_PORT (
-    netstat -ano | findstr "127.0.0.1:10808" | findstr "LISTENING" >nul 2>&1
-    if %errorlevel% equ 0 set "DETECTED_PROXY_PORT=10808"
-)
-
 if defined DETECTED_PROXY_PORT (
     echo [Network] Detected local proxy on port !DETECTED_PROXY_PORT!, auto-accelerating Gradle...
     set "GRADLE_PROXY_OPTS=-Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=!DETECTED_PROXY_PORT! -Dhttps.proxyHost=127.0.0.1 -Dhttps.proxyPort=!DETECTED_PROXY_PORT!"
@@ -197,10 +252,45 @@ echo.
 
 call "%ROOT_DIR%gradlew.bat" -I "%ROOT_DIR%gradle\init.d\cn-mirrors.gradle" !GRADLE_PROXY_OPTS! --max-workers=!WORKERS! :modules:gte-dev-runtime:runClient
 
-if %errorlevel% neq 0 (
+if !errorlevel! neq 0 (
     echo.
     echo ========================================================
     echo [Info] Game exited. (Reset JDK: run_game.bat --reset-jdk)
     echo ========================================================
     pause
 )
+exit /b !errorlevel!
+
+REM ===========================================================================
+REM Shared subroutines
+REM ===========================================================================
+
+REM Auto-detect local hardware for Gradle workers and game heap
+:DETECT_HARDWARE
+set "CPU_CORES=%NUMBER_OF_PROCESSORS%"
+if not defined CPU_CORES set "CPU_CORES=4"
+set /a WORKERS=%CPU_CORES%/2
+if !WORKERS! LSS 2 set "WORKERS=2"
+if !WORKERS! GTR 16 set "WORKERS=16"
+
+set "TOTAL_RAM_GB=16"
+for /f "delims=" %%M in ('powershell -NoProfile -ExecutionPolicy Bypass -Command "try { [int][math]::Ceiling((Get-CimInstance Win32_ComputerSystem).TotalPhysicalMemory/1GB) } catch { 16 }"') do set "TOTAL_RAM_GB=%%M"
+if not defined TOTAL_RAM_GB set "TOTAL_RAM_GB=16"
+
+set "RUNTIME_XMX=8G"
+if !TOTAL_RAM_GB! LSS 8 ( set "RUNTIME_XMX=4G" ) else if !TOTAL_RAM_GB! LSS 16 ( set "RUNTIME_XMX=6G" ) else if !TOTAL_RAM_GB! LSS 32 ( set "RUNTIME_XMX=8G" ) else ( set "RUNTIME_XMX=12G" )
+set "GTE_RUNTIME_XMX=!RUNTIME_XMX!"
+
+echo Hardware: !CPU_CORES! logical cores / ~!TOTAL_RAM_GB! GB RAM ^| Game heap: !RUNTIME_XMX!
+goto :eof
+
+REM Auto-detect a local proxy for faster downloads
+:DETECT_PROXY
+set "DETECTED_PROXY_PORT="
+for %%P in (7890 7897 10809 10808) do (
+    if not defined DETECTED_PROXY_PORT (
+        netstat -ano | findstr "127.0.0.1:%%P" | findstr "LISTENING" >nul 2>&1
+        if !errorlevel! equ 0 set "DETECTED_PROXY_PORT=%%P"
+    )
+)
+goto :eof
