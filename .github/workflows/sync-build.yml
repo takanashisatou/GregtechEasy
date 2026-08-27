@@ -157,7 +157,30 @@ jobs:
             17
             21
           distribution: 'temurin'
-          cache: 'gradle'
+
+      # setup-java's built-in `cache: gradle` was removed deliberately. It passes
+      # job-status to its post step and only writes the cache when the job
+      # SUCCEEDED, so the run that died in [Pack 2] discarded the 1.3 GB
+      # dependency cache and the 1.3 GB neoformruntime Minecraft decompile it had
+      # just spent 15 minutes producing. Retesting a one-line packaging fix then
+      # paid for both from scratch. Restore and save are split here so the save
+      # can run under `if: always()`.
+      #
+      # neoformruntime is included on purpose: it holds the decompiled/patched
+      # Minecraft artifacts, which is the single most expensive thing a cold run
+      # builds and it does not change unless the MC/Forge version does.
+      - name: Restore Gradle Caches
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ~/.gradle/caches/modules-2
+            ~/.gradle/caches/neoformruntime
+            ~/.gradle/caches/build-cache-1
+            ~/.gradle/wrapper
+          key: gte-gradle-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties', 'gradle.properties') }}
+          restore-keys: |
+            gte-gradle-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties', 'gradle.properties') }}-
+            gte-gradle-${{ runner.os }}-
 
       - name: Verify Java Toolchains Are Visible to Gradle
         run: |
@@ -384,6 +407,35 @@ jobs:
             Start-Sleep -Seconds 10
           }
 
+      # Save right after the build, under always(), for the same reason as the
+      # translation cache: the expensive part (1.3 GB of resolved modules plus the
+      # 1.3 GB neoformruntime Minecraft decompile) exists by now, and a failure in
+      # any later step must not throw it away. Gradle holds .lock files inside the
+      # cache directories, so they are pruned first -- archiving a lock is
+      # harmless but restoring one can make the next run block on it.
+      - name: Prune Gradle Lock Files Before Caching
+        if: always()
+        continue-on-error: true
+        run: |
+          $home_gradle = Join-Path $env:USERPROFILE ".gradle"
+          if (Test-Path $home_gradle) {
+            Get-ChildItem $home_gradle -Recurse -Filter "*.lock" -ErrorAction SilentlyContinue |
+              ForEach-Object { Remove-Item $_.FullName -Force -ErrorAction SilentlyContinue }
+          }
+          Write-Host "Pruned Gradle lock files before caching."
+
+      - name: Save Gradle Caches
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.gradle/caches/modules-2
+            ~/.gradle/caches/neoformruntime
+            ~/.gradle/caches/build-cache-1
+            ~/.gradle/wrapper
+          key: gte-gradle-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties', 'gradle.properties') }}-${{ github.run_id }}
+
       - name: Build Summary Report
         if: steps.meta.outputs.channel != 'release'
         run: python scripts/summary_report.py "${{ steps.meta.outputs.channel }}"
@@ -439,7 +491,7 @@ jobs:
       # self-hosted by accident of workspace reuse. Restoring it is what turns a
       # ~7000-key full translation into a small incremental delta.
       - name: Restore Translation Cache
-        uses: actions/cache@v4
+        uses: actions/cache/restore@v4
         with:
           path: |
             .translation_cache.json
@@ -466,6 +518,26 @@ jobs:
           LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
           TRANSLATE_ASSET_WORKERS: '8'
         run: python scripts/opencode_translate.py --all
+
+      # Save immediately after translating, not in a post step, and with
+      # `always()` so a later failure cannot discard it. The run that died in
+      # [Pack 2] had just translated 74497 new strings and threw all of them away
+      # (its "Post Restore Translation Cache" step was skipped because the job had
+      # failed), so the next attempt re-translated the same 74497 strings and paid
+      # another ~17 minutes of API time.
+      #
+      # The key is per-run, so each attempt writes its own entry and the newest is
+      # picked up by the `gte-translation-cache-` restore prefix on the next run.
+      - name: Save Translation Cache
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            .translation_cache.json
+            modules/docs/docs/.docs_cache.json
+            docs/.docs_cache.json
+          key: gte-translation-cache-${{ github.run_id }}
 
       # modules/docs is a SEPARATE repository (takanashisatou/GregtechEasy-Docs).
       # actions/checkout persists the job's GITHUB_TOKEN for submodules, but that
