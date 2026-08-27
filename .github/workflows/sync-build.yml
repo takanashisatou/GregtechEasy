@@ -69,6 +69,10 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  # Needed by "Trigger Docs Deploy Workflow": dispatching another workflow is an
+  # Actions API write, and without this GITHUB_TOKEN gets
+  # "HTTP 403: Resource not accessible by integration".
+  actions: write
 
 jobs:
   build-and-sync:
@@ -459,14 +463,23 @@ jobs:
             Write-Host "::warning::Root translation push failed (exit $LASTEXITCODE)."
           }
 
+      # Same failure shape as the docs push: this printed "triggered
+      # successfully" while gh had actually returned 403, and it gated the
+      # artifact pipeline that follows. Now the exit code decides the message,
+      # GH_PAT is preferred (it also works when the dispatch crosses repos), and
+      # the step cannot fail the build.
       - name: Trigger Docs Deploy Workflow
         if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        continue-on-error: true
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.GH_PAT != '' && secrets.GH_PAT || github.token }}
         run: |
-          Write-Host "🚀 Triggering docs-deploy workflow..."
           gh workflow run docs-deploy.yml --ref ${{ github.ref_name }}
-          Write-Host "✅ Docs deploy workflow triggered successfully."
+          if ($LASTEXITCODE -eq 0) {
+            Write-Host "Docs deploy workflow triggered."
+          } else {
+            Write-Host "::warning::Could not trigger docs-deploy.yml (exit $LASTEXITCODE); deploy it manually if the wiki needs refreshing."
+          }
 
       # ──────────────────────────────────────────────
       # Modpack Packaging Pipeline
@@ -531,6 +544,40 @@ jobs:
           $prereleaseFlag = if ("${{ steps.meta.outputs.channel }}" -ne "release") { "--prerelease" } else { "" }
           $files = (Get-ChildItem build/artifacts/*).FullName
           gh release create "${{ steps.meta.outputs.version }}" $files --title "GregTech Easy ${{ steps.meta.outputs.version }} (${{ steps.meta.outputs.channel }})" --generate-notes $prereleaseFlag
+
+      # A nightly is dispatched against a BRANCH, so the tag-gated step above never
+      # runs and nightly artifacts previously lived only in the 30-day workflow
+      # artifact. This publishes the same files to a rolling `nightly` prerelease
+      # (the tag that already carries the historical nightly builds), replacing its
+      # assets each time so the tag always points at the newest nightly.
+      - name: Publish Rolling Nightly Prerelease
+        if: steps.meta.outputs.channel == 'nightly' && github.ref_type == 'branch' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $version = "${{ steps.meta.outputs.version }}"
+          $sha8 = "${{ github.sha }}".Substring(0, 8)
+          $title = "GregTech Easy $version ($sha8)"
+          $files = (Get-ChildItem build/artifacts/*).FullName
+          if (-not $files) {
+            Write-Host "::error::No artifacts in build/artifacts; refusing to publish an empty nightly."
+            exit 1
+          }
+          Write-Host "Publishing $($files.Count) asset(s) to the rolling 'nightly' prerelease:"
+          $files | ForEach-Object { Write-Host "  $(Split-Path $_ -Leaf)" }
+
+          gh release view nightly --repo ${{ github.repository }} > $null 2>&1
+          if ($LASTEXITCODE -eq 0) {
+            # Point the existing rolling release at this commit and swap its assets.
+            gh release edit nightly --repo ${{ github.repository }} --target ${{ github.sha }} --title $title --prerelease --notes "Automated nightly build of ``$version`` from ``${{ github.sha }}``.`n`nRolling prerelease: assets are replaced on every nightly run."
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            gh release upload nightly --repo ${{ github.repository }} $files --clobber
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          } else {
+            gh release create nightly --repo ${{ github.repository }} $files --target ${{ github.sha }} --title $title --prerelease --notes "Automated nightly build of ``$version`` from ``${{ github.sha }}``."
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+          Write-Host "Nightly prerelease published: https://github.com/${{ github.repository }}/releases/tag/nightly"
 
       # ──────────────────────────────────────────────
       # Publish to CurseForge Platform (Release Channel Only)
