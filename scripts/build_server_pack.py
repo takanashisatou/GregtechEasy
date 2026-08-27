@@ -28,6 +28,15 @@ import sys
 import zipfile
 from pathlib import Path
 
+# See build_lazy_pack.py: Windows encodes stdout with the ANSI code page, and the
+# pack tree has CJK paths, so printing a filename can raise UnicodeEncodeError on
+# a cp1252 runner even though every file was handled correctly.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 ROOT = Path(__file__).parent.parent.resolve()
 BUILD_DIR = ROOT / "build" / "artifacts"
 BUILD_DIR.mkdir(parents=True, exist_ok=True)

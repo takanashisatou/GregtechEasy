@@ -12,6 +12,20 @@ import sys
 import zipfile
 from pathlib import Path
 
+# Python on Windows encodes stdout with the ANSI code page (cp1252 on GitHub's
+# hosted runners, GBK on a zh-CN machine). This script prints every path it packs
+# and the pack tree contains CJK directories such as
+# config/inventoryprofilesnext/新的世界/, so on cp1252 the run died with
+#   UnicodeEncodeError: 'charmap' codec can't encode characters in position 44-47
+# after all the real work had succeeded. sync-build.yml sets PYTHONIOENCODING for
+# its own steps, but art-pipeline.yml also calls this script, so make the script
+# itself safe rather than relying on the caller's environment.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 ROOT = Path(__file__).parent.parent.resolve()
 BUILD_DIR = ROOT / "build" / "artifacts"
 BUILD_DIR.mkdir(parents=True, exist_ok=True)

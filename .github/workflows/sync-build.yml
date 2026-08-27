@@ -90,6 +90,19 @@ jobs:
     defaults:
       run:
         shell: powershell
+    env:
+      # Python on Windows encodes stdout with the ANSI code page, which is cp1252
+      # on hosted runners and GBK on the (retired) self-hosted box. The pack tree
+      # contains CJK paths -- e.g. config/inventoryprofilesnext/新的世界/ -- so any
+      # script that prints a filename it just processed died on the hosted runner
+      # with
+      #   UnicodeEncodeError: 'charmap' codec can't encode characters in
+      #   position 44-47: character maps to <undefined>
+      # after 42 minutes of successful build work, while passing locally purely
+      # because GBK happens to cover those characters. Force UTF-8 for every
+      # Python step in this job.
+      PYTHONIOENCODING: utf-8
+      PYTHONUTF8: '1'
     steps:
       # A cancelled or timed-out run leaves its single-use Gradle daemon alive. That
       # orphan keeps the file locks inside GRADLE_USER_HOME, so the NEXT run blocks
@@ -221,6 +234,36 @@ jobs:
       # ──────────────────────────────────────────────
       - name: "[Gate 2] Mixin Anti-Crash AST Lint"
         run: python scripts/audit_mixins.py
+
+      # ──────────────────────────────────────────────
+      # Gate 4: Packaging Dry Run (seconds)
+      # ──────────────────────────────────────────────
+      # Everything below Gate 3 costs ~40 minutes (dependency warm-up, the parallel
+      # module build, then the AI localization pass) before packaging is even
+      # attempted, so a trivial packaging bug is only discovered at minute 42 and
+      # the whole 40 minutes has to be repaid to retest a one-line fix. Run the
+      # packaging scripts against the CURRENT pack tree first: they only read
+      # gte/overrides and write into build/, so they do not depend on the module
+      # build, and the jars they would find are last run's -- fine, because what is
+      # being smoke-tested is the packaging code, not the jar contents.
+      #
+      # This is what would have caught the UnicodeEncodeError on the CJK pack path
+      # in seconds instead of at minute 42.
+      - name: "[Gate 4] Packaging Scripts Dry Run"
+        run: |
+          $ErrorActionPreference = 'Continue'
+          python scripts/build_lazy_pack.py gate-dryrun
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "::error::build_lazy_pack.py failed on the current pack tree."
+            exit $LASTEXITCODE
+          }
+          python scripts/build_server_pack.py gate-dryrun
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "::error::build_server_pack.py failed on the current pack tree."
+            exit $LASTEXITCODE
+          }
+          Remove-Item build/artifacts/GTE-LazyPack-gate-dryrun.zip, build/artifacts/GTE-Server-gate-dryrun.zip -Force -ErrorAction SilentlyContinue
+          Write-Host "Packaging scripts ran clean against the current pack tree."
 
       # ──────────────────────────────────────────────
       # Gate 3: 5-Second Fail-Fast Pre-Flight Check
