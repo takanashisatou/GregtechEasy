@@ -51,7 +51,7 @@ mkdir -p /opt/gte-server && cd /opt/gte-server
 # 2. 解压服务端包
 unzip GTE-Server-*.zip -d .
 
-# 3. 安装 Forge 1.20.1-47.3.0 / 47.4.4 服务端核心 (若未预装)
+# 3. 安装 Forge 1.20.1-47.4.1 服务端核心 (若未预装)
 # 运行安装脚本下载 minecraft_server 与 forge 库
 java -jar forge-1.20.1-*-installer.jar --installServer
 
@@ -78,7 +78,7 @@ echo "eula=true" > eula.txt
       -XX:G1MixedGCLiveThresholdPercent=90 -XX:G1RSetUpdatingPauseTimePercent=5 \
       -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem -XX:MaxTenuringThreshold=1"
 
-    $JAVA_CMD $FLAGS @libraries/net/minecraftforge/forge/1.20.1-47.3.0/unix_args.txt nogui
+    $JAVA_CMD $FLAGS @libraries/net/minecraftforge/forge/1.20.1-47.4.1/unix_args.txt nogui
     ```
 
 === "Windows (`run_server.bat`)"
@@ -90,7 +90,7 @@ echo "eula=true" > eula.txt
 
     set FLAGS=-Xms%MEMORY% -Xmx%MEMORY% -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200 -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch
 
-    %JAVA_CMD% %FLAGS% @libraries/net/minecraftforge/forge/1.20.1-47.3.0/win_args.txt nogui
+    %JAVA_CMD% %FLAGS% @libraries/net/minecraftforge/forge/1.20.1-47.4.1/win_args.txt nogui
     pause
     ```
 
