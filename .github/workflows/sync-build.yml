@@ -59,12 +59,19 @@ on:
       runner:
         description: "Runner environment"
         required: false
-        default: "self-hosted"
+        default: "windows-latest"
         type: choice
         options:
-          - self-hosted
-          - ubuntu-latest
           - windows-latest
+          - ubuntu-latest
+          - self-hosted
+
+# One in-flight run per branch. Without this, pushing a fix to a PR branch left
+# the previous run building for another 40 minutes on a stale commit, so two runs
+# competed and the older, already-irrelevant one still reported into the PR.
+concurrency:
+  group: sync-build-${{ github.ref }}
+  cancel-in-progress: true
 
 permissions:
   contents: write
@@ -77,10 +84,32 @@ permissions:
 jobs:
   build-and-sync:
     name: "GTE-Multi Build, Test, Translate & Sync"
-    runs-on: ${{ inputs.runner == 'ubuntu-latest' && 'ubuntu-latest' || inputs.runner == 'windows-latest' && 'windows-latest' || fromJSON('["self-hosted", "Windows", "X64"]') }}
+    # GitHub-hosted windows-latest by default. The self-hosted Windows runner is
+    # retired: it was a single machine, so every push and every PR to main queued
+    # behind whatever was already running, and its outbound link made the release
+    # upload step take ~70 minutes for 335 MB of assets (measured ~0.08 MB/s).
+    # It stays selectable via workflow_dispatch for local debugging only, and
+    # nothing schedules it.
+    #
+    # windows-latest is kept rather than ubuntu-latest because every `run:` block
+    # in this job is PowerShell and several shell out to cmd.exe /c gradlew.bat.
+    runs-on: ${{ inputs.runner == 'ubuntu-latest' && 'ubuntu-latest' || inputs.runner == 'self-hosted' && fromJSON('["self-hosted", "Windows", "X64"]') || 'windows-latest' }}
     defaults:
       run:
         shell: powershell
+    env:
+      # Python on Windows encodes stdout with the ANSI code page, which is cp1252
+      # on hosted runners and GBK on the (retired) self-hosted box. The pack tree
+      # contains CJK paths -- e.g. config/inventoryprofilesnext/新的世界/ -- so any
+      # script that prints a filename it just processed died on the hosted runner
+      # with
+      #   UnicodeEncodeError: 'charmap' codec can't encode characters in
+      #   position 44-47: character maps to <undefined>
+      # after 42 minutes of successful build work, while passing locally purely
+      # because GBK happens to cover those characters. Force UTF-8 for every
+      # Python step in this job.
+      PYTHONIOENCODING: utf-8
+      PYTHONUTF8: '1'
     steps:
       # A cancelled or timed-out run leaves its single-use Gradle daemon alive. That
       # orphan keeps the file locks inside GRADLE_USER_HOME, so the NEXT run blocks
@@ -128,7 +157,30 @@ jobs:
             17
             21
           distribution: 'temurin'
-          cache: 'gradle'
+
+      # setup-java's built-in `cache: gradle` was removed deliberately. It passes
+      # job-status to its post step and only writes the cache when the job
+      # SUCCEEDED, so the run that died in [Pack 2] discarded the 1.3 GB
+      # dependency cache and the 1.3 GB neoformruntime Minecraft decompile it had
+      # just spent 15 minutes producing. Retesting a one-line packaging fix then
+      # paid for both from scratch. Restore and save are split here so the save
+      # can run under `if: always()`.
+      #
+      # neoformruntime is included on purpose: it holds the decompiled/patched
+      # Minecraft artifacts, which is the single most expensive thing a cold run
+      # builds and it does not change unless the MC/Forge version does.
+      - name: Restore Gradle Caches
+        uses: actions/cache/restore@v4
+        with:
+          path: |
+            ~/.gradle/caches/modules-2
+            ~/.gradle/caches/neoformruntime
+            ~/.gradle/caches/build-cache-1
+            ~/.gradle/wrapper
+          key: gte-gradle-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties', 'gradle.properties') }}
+          restore-keys: |
+            gte-gradle-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties', 'gradle.properties') }}-
+            gte-gradle-${{ runner.os }}-
 
       - name: Verify Java Toolchains Are Visible to Gradle
         run: |
@@ -214,9 +266,40 @@ jobs:
         run: python scripts/audit_mixins.py
 
       # ──────────────────────────────────────────────
-      # Gate 3: 5-Second Fail-Fast Pre-Flight Check
+      # Gate 3: Packaging Dry Run (seconds)
       # ──────────────────────────────────────────────
-      - name: "[Gate 3] Fail-Fast Strict Compilation Pre-Flight (-Pwerror)"
+      # Everything after Gate 4 costs ~40 minutes (dependency warm-up, the parallel
+      # module build, then the AI localization pass) before packaging is even
+      # attempted, so a trivial packaging bug is only discovered at minute 42 and
+      # the whole 40 minutes has to be repaid to retest a one-line fix. Run the
+      # packaging scripts against the CURRENT pack tree first: they only read
+      # gte/overrides and write into build/, so they do not depend on the module
+      # build, and the jars they would find are last run's -- fine, because what is
+      # being smoke-tested is the packaging code, not the jar contents.
+      #
+      # This is what would have caught the UnicodeEncodeError on the CJK pack path
+      # in seconds instead of at minute 42. It sits ahead of the -Pwerror
+      # pre-flight because it costs seconds while that one starts Gradle.
+      - name: "[Gate 3] Packaging Scripts Dry Run"
+        run: |
+          $ErrorActionPreference = 'Continue'
+          python scripts/build_lazy_pack.py gate-dryrun
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "::error::build_lazy_pack.py failed on the current pack tree."
+            exit $LASTEXITCODE
+          }
+          python scripts/build_server_pack.py gate-dryrun
+          if ($LASTEXITCODE -ne 0) {
+            Write-Host "::error::build_server_pack.py failed on the current pack tree."
+            exit $LASTEXITCODE
+          }
+          Remove-Item build/artifacts/GTE-LazyPack-gate-dryrun.zip, build/artifacts/GTE-Server-gate-dryrun.zip -Force -ErrorAction SilentlyContinue
+          Write-Host "Packaging scripts ran clean against the current pack tree."
+
+      # ──────────────────────────────────────────────
+      # Gate 4: 5-Second Fail-Fast Pre-Flight Check
+      # ──────────────────────────────────────────────
+      - name: "[Gate 4] Fail-Fast Strict Compilation Pre-Flight (-Pwerror)"
         if: steps.meta.outputs.channel == 'release' || inputs.werror == true
         run: |
           $ErrorActionPreference = 'Continue'
@@ -324,6 +407,35 @@ jobs:
             Start-Sleep -Seconds 10
           }
 
+      # Save right after the build, under always(), for the same reason as the
+      # translation cache: the expensive part (1.3 GB of resolved modules plus the
+      # 1.3 GB neoformruntime Minecraft decompile) exists by now, and a failure in
+      # any later step must not throw it away. Gradle holds .lock files inside the
+      # cache directories, so they are pruned first -- archiving a lock is
+      # harmless but restoring one can make the next run block on it.
+      - name: Prune Gradle Lock Files Before Caching
+        if: always()
+        continue-on-error: true
+        run: |
+          $home_gradle = Join-Path $env:USERPROFILE ".gradle"
+          if (Test-Path $home_gradle) {
+            Get-ChildItem $home_gradle -Recurse -Filter "*.lock" -ErrorAction SilentlyContinue |
+              ForEach-Object { Remove-Item $_.FullName -Force -ErrorAction SilentlyContinue }
+          }
+          Write-Host "Pruned Gradle lock files before caching."
+
+      - name: Save Gradle Caches
+        if: always()
+        continue-on-error: true
+        uses: actions/cache/save@v4
+        with:
+          path: |
+            ~/.gradle/caches/modules-2
+            ~/.gradle/caches/neoformruntime
+            ~/.gradle/caches/build-cache-1
+            ~/.gradle/wrapper
+          key: gte-gradle-${{ runner.os }}-${{ hashFiles('gradle/libs.versions.toml', 'gradle/wrapper/gradle-wrapper.properties', 'gradle.properties') }}-${{ github.run_id }}
+
       - name: Build Summary Report
         if: steps.meta.outputs.channel != 'release'
         run: python scripts/summary_report.py "${{ steps.meta.outputs.channel }}"
@@ -363,162 +475,32 @@ jobs:
           Get-ChildItem gte/overrides/mods
 
       # ──────────────────────────────────────────────
-      # Multi-Language Localization (OpenCC 0-Token + LLM)
-      # Provider order is fast-chat-first: DEEPSEEK_API, then the FREE_CLAUDE
-      # relay, then OpenCode Zen and Gemini as fallbacks. Asset localization is
-      # request-bound (~7000 keys x 7 LLM languages), so a reasoning model as
-      # primary is what pushed this step past the 6-hour job ceiling before.
-      #
-      # This step is deliberately NOT a gate: the mod jars and modpack artifacts
-      # are already built by now, and a slow or degraded translation API must not
-      # discard them. It is bounded and advisory; the per-string cache in
-      # .translation_cache.json means an interrupted run resumes next time.
+      # Localization is NOT part of this workflow
       # ──────────────────────────────────────────────
-      # .translation_cache.json is gitignored, so without this the per-string cache
-      # would be rebuilt from nothing on every hosted run and only survive on
-      # self-hosted by accident of workspace reuse. Restoring it is what turns a
-      # ~7000-key full translation into a small incremental delta.
-      - name: Restore Translation Cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            .translation_cache.json
-            modules/docs/docs/.docs_cache.json
-            docs/.docs_cache.json
-          key: gte-translation-cache-${{ github.run_id }}
-          restore-keys: |
-            gte-translation-cache-
-
-      - name: Run Global Multi-Language Localization (AI + OpenCC)
-        timeout-minutes: 60
-        continue-on-error: true
-        env:
-          DEEPSEEK_API: ${{ secrets.DEEPSEEK_API }}
-          FREE_CLAUDE: ${{ secrets.FREE_CLAUDE }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
-          MOONSHOT_API_KEY: ${{ secrets.MOONSHOT_API_KEY }}
-          ZHIPU_API_KEY: ${{ secrets.ZHIPU_API_KEY }}
-          OPENCODE_API_KEY: ${{ secrets.OPENCODE_API_KEY }}
-          OPENCODE_MODEL: ${{ secrets.OPENCODE_MODEL }}
-          LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
-          TRANSLATE_ASSET_WORKERS: '8'
-        run: python scripts/opencode_translate.py --all
-
-      # modules/docs is a SEPARATE repository (takanashisatou/GregtechEasy-Docs).
-      # actions/checkout persists the job's GITHUB_TOKEN for submodules, but that
-      # token is scoped to this repository only, so pushing the translated wiki
-      # failed with "Permission to ...GregtechEasy-Docs.git denied to
-      # github-actions[bot] / 403". A cross-repo push needs the GH_PAT secret.
+      # It used to run here on every event, and on a pull_request that was pure
+      # waste: 1029s of the 40.7-minute PR run (42%) went to translating ~7000 keys
+      # across 7 languages, and then both commit steps were gated on
+      # `github.event_name != 'pull_request'`, so every translated string was
+      # discarded. The cache did not rescue it either -- GitHub scopes a cache
+      # written on a PR ref to that PR alone, so it cannot be read by main after
+      # the merge.
       #
-      # Embedding the PAT in the push URL is NOT enough: actions/checkout persists
-      # `http.https://github.com/.extraheader` with the job's GITHUB_TOKEN, and that
-      # Authorization header takes precedence over URL userinfo, so the push still
-      # authenticated as github-actions[bot]. The header is therefore removed for
-      # the duration of the push and restored afterwards.
+      # Translation now lives only in .github/workflows/translate.yml, dispatched
+      # manually. It is an API-cost decision, not a build step: a contributor's PR
+      # must not spend translation budget, and language files are content that
+      # belongs to main, not to a merge preview.
       #
-      # Also: the previous version printed the success message unconditionally and
-      # relied on the step's trailing exit code, so the log claimed the push had
-      # succeeded while the job failed. Status is now checked explicitly, and the
-      # outcome is exported so the root commit below refuses to record a submodule
-      # pointer that upstream does not have — that mismatch is exactly what Gate 1
-      # rejects as a wild pointer on the NEXT run.
-      - name: Commit Submodule Translation Changes (modules/docs)
-        id: docspush
-        if: github.event_name != 'pull_request'
-        continue-on-error: true
-        env:
-          DOCS_PUSH_TOKEN: ${{ secrets.GH_PAT }}
-        run: |
-          "pushed=false" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-          if (-not $env:DOCS_PUSH_TOKEN) {
-            Write-Host "::warning::GH_PAT is not set; skipping the cross-repo docs push."
-            exit 0
-          }
-          Push-Location modules/docs
-          try {
-            git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add -A
-            $subStatus = git status --porcelain
-            if (-not $subStatus) {
-              Write-Host "No docs submodule changes."
-              "pushed=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-              exit 0
-            }
-            git commit -m "i18n: Auto-update multi-language wiki translations"
-            if ($LASTEXITCODE -ne 0) {
-              Write-Host "::warning::git commit failed in modules/docs (exit $LASTEXITCODE)."
-              exit 0
-            }
+      # Consequence: the packs built here contain the language files as committed.
+      # Run translate.yml first when a release needs fresh translations.
 
-            # Drop the inherited GITHUB_TOKEN Authorization header so the PAT in the
-            # push URL is actually the credential git presents.
-            $hdrKey = "http.https://github.com/.extraheader"
-            $savedHeader = git config --local --get $hdrKey
-            if ($savedHeader) { git config --local --unset-all $hdrKey }
-            try {
-              $url = "https://x-access-token:$env:DOCS_PUSH_TOKEN@github.com/takanashisatou/GregtechEasy-Docs.git"
-              git push $url HEAD:main 2>&1 | ForEach-Object { $_ -replace [regex]::Escape($env:DOCS_PUSH_TOKEN), '***' }
-              $pushCode = $LASTEXITCODE
-            } finally {
-              if ($savedHeader) { git config --local $hdrKey $savedHeader }
-            }
-
-            if ($pushCode -eq 0) {
-              Write-Host "Docs submodule changes committed and pushed to GregtechEasy-Docs@main."
-              "pushed=true" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
-            } else {
-              Write-Host "::warning::Docs submodule push failed (exit $pushCode); the root repo will NOT record this pointer."
-            }
-          } finally {
-            Pop-Location
-          }
-
-      # Root-repo push. Unlike the submodule above this one CAN use GITHUB_TOKEN,
-      # but it must not be a gate either: the mod jars and packs are already built
-      # at this point, and losing them to a transient push race would be worse
-      # than a missing translation commit.
-      - name: Commit Root Translation Updates
-        if: github.event_name != 'pull_request'
-        continue-on-error: true
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-
-          # Never record a modules/docs pointer that GregtechEasy-Docs does not have.
-          # Committing an unpushed submodule commit is what made run 33071559366 fail
-          # Gate 1 with "Commit 5a5ddf27 is NOT merged into origin/main".
-          if ("${{ steps.docspush.outputs.pushed }}" -ne "true") {
-            git restore --staged modules/docs 2>$null
-            git checkout -- modules/docs 2>$null
-            Write-Host "::warning::Docs submodule was not pushed upstream; its pointer bump is excluded from this commit."
-          }
-
-          $status = git status --porcelain
-          if (-not $status) {
-            Write-Host "No root translation changes to commit."
-            exit 0
-          }
-          git commit -m "i18n: Auto-update multi-language assets and wiki translations"
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "::warning::Root i18n commit failed (exit $LASTEXITCODE)."
-            exit 0
-          }
-          git pull --rebase origin ${{ github.ref_name }}
-          if ($LASTEXITCODE -ne 0) {
-            Write-Host "::warning::Rebase onto origin/${{ github.ref_name }} failed; leaving the commit local."
-            exit 0
-          }
-          git push
-          if ($LASTEXITCODE -eq 0) {
-            Write-Host "Root translation updates committed and pushed."
-          } else {
-            Write-Host "::warning::Root translation push failed (exit $LASTEXITCODE)."
-          }
+      # The two i18n commit steps that used to live here (a cross-repo push to
+      # GregtechEasy-Docs and a root commit of the regenerated language files) went
+      # with the localization step. Nothing in this workflow writes translations
+      # any more, so they could only ever have produced empty commits. Their logic
+      # -- unsetting the persisted extraheader so GH_PAT is the credential git
+      # actually presents, and refusing to record a modules/docs pointer that
+      # upstream does not have (Gate 1's "wild pointer") -- lives in translate.yml,
+      # which is the workflow that now owns the change.
 
       # Same failure shape as the docs push: this printed "triggered
       # successfully" while gh had actually returned 403, and it gated the
@@ -546,17 +528,65 @@ jobs:
         with:
           go-version: '1.22'
 
+      # `go install` drops the binary in $(go env GOPATH)/bin, which is NOT on PATH
+      # on hosted runners (it was on the self-hosted box only because a previous
+      # manual install had put it there). Add it explicitly, then prove packwiz is
+      # callable so a PATH problem fails here instead of three steps later inside
+      # an export.
       - name: Install Packwiz CLI
-        run: go install github.com/packwiz/packwiz@latest
+        run: |
+          go install github.com/packwiz/packwiz@latest
+          $gobin = Join-Path (go env GOPATH) 'bin'
+          $gobin | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+          $exe = Join-Path $gobin 'packwiz.exe'
+          if (-not (Test-Path $exe)) { $exe = Join-Path $gobin 'packwiz' }
+          if (-not (Test-Path $exe)) {
+            Write-Host "::error::packwiz was not installed under $gobin."
+            exit 1
+          }
+          & $exe --help *> $null
+          Write-Host "packwiz installed at $exe"
+
+      # packwiz has no notion of an "overrides" directory: everything in the pack
+      # root that is not a metafile IS an override. Exporting from gte/ therefore
+      # treated the literal `overrides/` folder as one more override and produced
+      # overrides/overrides/mods/..., which no launcher reads -- CurseForge, PCL2,
+      # HMCL and MultiMC all install from overrides/<gamedir-relative-path>. The
+      # exported packs looked plausible (right size, right manifest, 17 mods) and
+      # installed to a modless instance.
+      #
+      # So stage a flat pack root: pack.toml + index.toml beside the CONTENTS of
+      # overrides/. Also drop logs/ and crash-reports/, which are local dev debris
+      # that is not tracked in git but does sit in the working tree on the
+      # self-hosted runner, and would otherwise be shipped to players.
+      - name: Stage Flat Packwiz Root
+        run: |
+          $stage = "build/packwiz"
+          if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
+          New-Item -ItemType Directory -Force -Path $stage | Out-Null
+          Copy-Item gte/pack.toml, gte/index.toml $stage -Force
+          Get-ChildItem gte/overrides -Force | Where-Object {
+            $_.Name -notin @('logs', 'crash-reports', 'saves')
+          } | ForEach-Object {
+            Copy-Item $_.FullName -Destination $stage -Recurse -Force
+          }
+          Write-Host "Flat packwiz root:"
+          Get-ChildItem $stage | ForEach-Object { Write-Host "  $($_.Name)" }
+          $mods = @(Get-ChildItem "$stage/mods" -Filter *.jar -ErrorAction SilentlyContinue)
+          Write-Host "mods staged: $($mods.Count)"
+          if ($mods.Count -eq 0) {
+            Write-Host "::error::No mod jars staged; the exported packs would be empty."
+            exit 1
+          }
 
       - name: Refresh Packwiz Index
-        working-directory: ./gte
+        working-directory: ./build/packwiz
         run: packwiz refresh
 
       - name: "[Pack 1] Export CurseForge Pack"
-        working-directory: ./gte
+        working-directory: ./build/packwiz
         run: |
-          $out = "../build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip"
+          $out = "../artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip"
           packwiz curseforge export -y -s client -o $out
           if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out)) {
             Write-Host "::warning::packwiz client export failed (exit $LASTEXITCODE); falling back to a plain archive."
@@ -569,26 +599,75 @@ jobs:
       - name: "[Pack 2] Build Full Player Lazy Pack (.minecraft)"
         run: python scripts/build_lazy_pack.py ${{ steps.meta.outputs.version }}
 
-      # `packwiz server export` does not exist. packwiz has no `server` command at
-      # all -- only `serve` (a dev HTTP server), which is what the shell resolved
-      # to, hence "unknown shorthand flag: 'o' in -o". Server packs are produced by
-      # the curseforge exporter with `-s server`, which filters mods by their side
-      # field. The try/catch was also dead code: a non-zero exit from a native
-      # binary does not raise a PowerShell exception, so the Compress-Archive
-      # fallback never ran and the step just failed.
-      - name: "[Pack 3] Export Server Pack"
-        working-directory: ./gte
-        run: |
-          $out = "../build/artifacts/GTE-Server-${{ steps.meta.outputs.version }}.zip"
-          packwiz curseforge export -y -s server -o $out
-          if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out)) {
-            Write-Host "::warning::packwiz server export failed (exit $LASTEXITCODE); falling back to an overrides archive."
-            Compress-Archive -Path overrides/* -DestinationPath $out -Force
-          }
+      # A server pack is NOT a CurseForge pack. `packwiz curseforge export -s server`
+      # emits manifest.json + overrides/, which is a launcher import format: it needs
+      # a launcher to read manifest.json and copy overrides/ into place. A Forge
+      # server has no launcher. The documented procedure is
+      #
+      #   unzip GTE-Server-*.zip -d .
+      #   java -jar forge-*-installer.jar --installServer
+      #   java @libraries/net/minecraftforge/forge/1.20.1-47.4.1/unix_args.txt nogui
+      #
+      # and Forge resolves mods/ and config/ relative to the server root, so an
+      # admin following those steps got a server root whose only content was a
+      # directory named `overrides` -- Forge booted with zero mods and every player
+      # was rejected for a mod-list mismatch.
+      #
+      # The `-s server` filter was also doing nothing: packwiz reads side from mod
+      # metafiles, and this pack ships mods through overrides/ (index.toml has a
+      # single pack.toml entry), so client and server exports were byte-identical
+      # in content -- 17 mods each, 569 entries each.
+      #
+      # So the server pack is built by its own script, which zips mods/, config/,
+      # defaultconfigs/ and kubejs/ at the TOP level -- exactly what --installServer
+      # expects to find next to it -- and also drops per-machine state that has no
+      # business on someone else's server (jei/world/local bookmarks named after the
+      # build machine's saves, worldedit sessions, logs, crash reports).
+      #
+      # It is Python rather than PowerShell on purpose: Compress-Archive writes zip
+      # entry names with backslashes ("mods\gtecore-....jar"), which is not a path
+      # separator in the zip spec, so consumers see one file literally named
+      # "mods\gtecore-....jar" at the archive root and no mods directory at all.
+      - name: "[Pack 3] Build Server Pack"
+        run: python scripts/build_server_pack.py ${{ steps.meta.outputs.version }}
 
-      # packwiz refresh/export rewrites index.toml hashes and pack.toml. That churn
-      # is a build artifact, not an intentional change, and leaving it staged would
-      # let it ride along into a later i18n commit.
+      # The CurseForge pack must place mods at overrides/mods/*.jar; the server pack
+      # must place them at mods/*.jar. Either mistake yields a zip that installs
+      # cleanly and then runs with no mods, so assert both rather than discovering it
+      # from a player report.
+      - name: Verify Exported Pack Layout
+        run: |
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $bad = $false
+          $expected = @{
+            'GTE-CurseForge-*.zip' = '^overrides/mods/[^/]+\.jar$'
+            'GTE-Server-*.zip'     = '^mods/[^/]+\.jar$'
+          }
+          foreach ($pattern in $expected.Keys) {
+            foreach ($zip in Get-ChildItem "build/artifacts/$pattern") {
+              $archive = [System.IO.Compression.ZipFile]::OpenRead($zip.FullName)
+              try {
+                $mods = @($archive.Entries | Where-Object { $_.FullName -match $expected[$pattern] })
+                $nested = @($archive.Entries | Where-Object { $_.FullName -like 'overrides/overrides/*' })
+                Write-Host "$($zip.Name): mods=$($mods.Count) nested-overrides=$($nested.Count)"
+                if ($mods.Count -eq 0) {
+                  Write-Host "::error::$($zip.Name) has no mods matching $($expected[$pattern]); it would install/boot with no mods."
+                  $bad = $true
+                }
+                if ($nested.Count -gt 0) {
+                  Write-Host "::error::$($zip.Name) contains overrides/overrides/; the pack root was not flattened."
+                  $bad = $true
+                }
+              } finally {
+                $archive.Dispose()
+              }
+            }
+          }
+          if ($bad) { exit 1 }
+
+      # packwiz refresh/export rewrites index.toml hashes and pack.toml. Exports now
+      # run against build/packwiz, so gte/ is untouched; this stays as a cheap guard
+      # in case a future step reintroduces an in-place refresh.
       - name: Discard Packwiz Index Churn
         continue-on-error: true
         run: |
@@ -641,24 +720,35 @@ jobs:
           Write-Host "Publishing $($files.Count) asset(s) to the rolling 'nightly' prerelease:"
           $files | ForEach-Object { Write-Host "  $(Split-Path $_ -Leaf)" }
 
+          # Retarget the tag BEFORE touching the release, and do it on both paths.
+          # `gh release create --target` is only honoured when the tag does not yet
+          # exist, and a deleted release leaves refs/tags/nightly behind -- so after
+          # a manual release deletion the create path produced a release whose
+          # assets were current but whose source tag still pointed at whatever
+          # commit the previous nightly used. Force-moving the ref first makes both
+          # paths agree.
+          $tagExists = $true
+          gh api "repos/${{ github.repository }}/git/refs/tags/nightly" > $null 2>&1
+          if ($LASTEXITCODE -ne 0) { $tagExists = $false }
+          if ($tagExists) {
+            gh api -X PATCH "repos/${{ github.repository }}/git/refs/tags/nightly" -f sha='${{ github.sha }}' -F force=true > $null
+          } else {
+            gh api -X POST "repos/${{ github.repository }}/git/refs" -f ref='refs/tags/nightly' -f sha='${{ github.sha }}' > $null
+          }
+          if ($LASTEXITCODE -eq 0) {
+            Write-Host "Rolling tag 'nightly' points at ${{ github.sha }}."
+          } else {
+            Write-Host "::warning::Could not move the 'nightly' tag; the release may reference an older commit."
+          }
+
           gh release view nightly --repo ${{ github.repository }} > $null 2>&1
           if ($LASTEXITCODE -eq 0) {
             gh release edit nightly --repo ${{ github.repository }} --title $title --prerelease --notes "Automated nightly build of ``$version`` from ``${{ github.sha }}``.`n`nRolling prerelease: assets are replaced on every nightly run."
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
             gh release upload nightly --repo ${{ github.repository }} $files --clobber
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-            # `gh release edit --target` is silently ignored once the tag exists, so
-            # the rolling tag kept pointing at an ancient commit while the assets were
-            # current. Move the ref explicitly.
-            gh api -X PATCH "repos/${{ github.repository }}/git/refs/tags/nightly" -f sha='${{ github.sha }}' -F force=true > $null
-            if ($LASTEXITCODE -eq 0) {
-              Write-Host "Rolling tag 'nightly' retargeted to ${{ github.sha }}."
-            } else {
-              Write-Host "::warning::Could not retarget the 'nightly' tag; assets are current but the tag still points elsewhere."
-            }
           } else {
-            gh release create nightly --repo ${{ github.repository }} $files --target ${{ github.sha }} --title $title --prerelease --notes "Automated nightly build of ``$version`` from ``${{ github.sha }}``."
+            gh release create nightly --repo ${{ github.repository }} $files --title $title --prerelease --notes "Automated nightly build of ``$version`` from ``${{ github.sha }}``."
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           }
           Write-Host "Nightly prerelease published: https://github.com/${{ github.repository }}/releases/tag/nightly"

@@ -12,6 +12,20 @@ import sys
 import zipfile
 from pathlib import Path
 
+# Python on Windows encodes stdout with the ANSI code page (cp1252 on GitHub's
+# hosted runners, GBK on a zh-CN machine). This script prints every path it packs
+# and the pack tree contains CJK directories such as
+# config/inventoryprofilesnext/新的世界/, so on cp1252 the run died with
+#   UnicodeEncodeError: 'charmap' codec can't encode characters in position 44-47
+# after all the real work had succeeded. sync-build.yml sets PYTHONIOENCODING for
+# its own steps, but art-pipeline.yml also calls this script, so make the script
+# itself safe rather than relying on the caller's environment.
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
+
 ROOT = Path(__file__).parent.parent.resolve()
 BUILD_DIR = ROOT / "build" / "artifacts"
 BUILD_DIR.mkdir(parents=True, exist_ok=True)
@@ -23,7 +37,14 @@ OUT_ZIP = BUILD_DIR / f"GTE-LazyPack-{VERSION}.zip"
 # 但不误伤名字里正好含 "slim" 的第三方 mod。
 SLIM_JAR = re.compile(r"-(dev-)?slim\.jar$", re.IGNORECASE)
 
-README_CN = f"""====================================================
+def render_readme(forge_version: str) -> str:
+    """玩家 README。Forge 版本必须由调用方从 pack.toml 传进来。
+
+    这段文字曾经把 Forge 版本写死成 47.3.0，于是 pack.toml 升到 47.4.1 之后
+    README 还在教玩家认 47.3.0，而启动器实际装的是 47.4.1 —— 玩家照着文档
+    对不上版本号，只能怀疑自己下错了包。版本号只有一个来源，就是 pack.toml。
+    """
+    return f"""====================================================
 GregTech Easy (GTE) 完整懒人整合包 v{VERSION}
 ====================================================
 
@@ -40,7 +61,7 @@ GregTech Easy (GTE) 完整懒人整合包 v{VERSION}
 3. 第一次启动时脚本会自动完成以下工作（全部下载到 .minecraft 内）：
    - 找不到 Java 21 时提供自动下载（清华镜像 / Adoptium 官方）
    - 下载原版 Minecraft 1.20.1 客户端
-   - 运行 Forge 47.3.0 官方安装器
+   - 运行 Forge {forge_version} 官方安装器
    - 下载全部依赖库、native 库与资源文件（约 3600 个，取决于网速）
    - 询问你的游戏角色名（离线模式），保存在 .gte_username
 4. 之后再次双击 run_game.bat 会跳过已下载的内容，直接进入游戏。
@@ -158,9 +179,10 @@ def main():
 
     # 4. 打包完整的 .minecraft 目录结构
     with zipfile.ZipFile(OUT_ZIP, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
-        # 写入说明文件
-        zf.writestr("README_启动必看.txt", README_CN)
-        zf.writestr(".minecraft/README_启动必看.txt", README_CN)
+        # 写入说明文件（Forge 版本来自 pack.toml，不写死）
+        readme = render_readme(forge_version)
+        zf.writestr("README_启动必看.txt", readme)
+        zf.writestr(".minecraft/README_启动必看.txt", readme)
 
         # 携带本地启动脚本 + 独立启动器
         for script_name, script_path in LAUNCH_SCRIPTS.items():
