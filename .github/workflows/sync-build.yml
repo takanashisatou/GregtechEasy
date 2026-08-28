@@ -266,6 +266,55 @@ jobs:
         run: python scripts/audit_mixins.py
 
       # ──────────────────────────────────────────────
+      # Gate 2b: Workflow Shell Syntax Lint (seconds)
+      # ──────────────────────────────────────────────
+      # Actions materialises each `run:` block as a BOM-less UTF-8 file, and
+      # `shell: powershell` on Windows is Windows PowerShell 5.1, which decodes
+      # script files with the ANSI code page. Any non-ASCII character in a script
+      # body is therefore mis-decoded before parsing, and CJK punctuation decodes
+      # into byte sequences that break the parser outright.
+      #
+      # That is how run 33146482531 built every artifact correctly and then died at
+      # `Publish Rolling Nightly Prerelease` with
+      #
+      #     Unexpected token 'Nightly' in expression or statement.
+      #     The string is missing the terminator: ".
+      #
+      # No amount of reading the YAML would have caught it: the YAML is valid, and
+      # the block is only broken once the runner writes and re-reads it. So parse
+      # every PowerShell run-step the way the runner will, here, in seconds.
+      - name: "[Gate 2b] Workflow Shell Syntax Lint"
+        run: |
+          $ErrorActionPreference = 'Continue'
+          $dump = Join-Path $env:RUNNER_TEMP 'wf-steps'
+          $bad = 0
+          foreach ($wf in Get-ChildItem .github/workflows/*.yml) {
+            python scripts/dump_workflow_run_steps.py $wf.FullName $dump
+            if ($LASTEXITCODE -ne 0) {
+              Write-Host "::error::Could not dump run-steps from $($wf.Name)."
+              exit 1
+            }
+          }
+          foreach ($ps1 in Get-ChildItem "$dump/*.ps1" -ErrorAction SilentlyContinue) {
+            $errors = $null
+            [void][System.Management.Automation.Language.Parser]::ParseFile($ps1.FullName, [ref]$null, [ref]$errors)
+            $count = @($errors).Count
+            if ($count -gt 0) {
+              $bad++
+              Write-Host "::error::$($ps1.BaseName) does not parse as PowerShell ($count error(s)):"
+              @($errors) | Select-Object -First 5 | ForEach-Object {
+                Write-Host "    line $($_.Extent.StartLineNumber): $($_.Message)"
+              }
+            }
+          }
+          Remove-Item $dump -Recurse -Force -ErrorAction SilentlyContinue
+          if ($bad -gt 0) {
+            Write-Host "::error::$bad workflow run-step(s) would fail to parse on the runner."
+            exit 1
+          }
+          Write-Host "All PowerShell run-steps parse cleanly as the runner would read them."
+
+      # ──────────────────────────────────────────────
       # Gate 3: Packaging Dry Run (seconds)
       # ──────────────────────────────────────────────
       # Everything after Gate 4 costs ~40 minutes (dependency warm-up, the parallel
@@ -803,40 +852,29 @@ jobs:
             Write-Host "::warning::Could not move the 'nightly' tag; the release may reference an older commit."
           }
 
-          # Release notes are generated here rather than hand-written after the fact.
-          # The previous one-line note ("Automated nightly build of ...") left players
-          # to guess which of the three zips to download, and the guess that costs the
-          # most support time -- grabbing the server pack for a client, or the full-mod
-          # pack without knowing it needs a pre-made instance -- looks identical to the
-          # right one in the asset list.
-          $forge = (Select-String -Path gte/pack.toml -Pattern '^\s*forge\s*=\s*"([^"]+)"').Matches[0].Groups[1].Value
-          $mc = (Select-String -Path gte/pack.toml -Pattern '^\s*minecraft\s*=\s*"([^"]+)"').Matches[0].Groups[1].Value
+          # Release notes are generated rather than hand-written after the fact, but
+          # they are rendered by scripts/render_nightly_notes.py and NOT inline here.
+          #
+          # Actions writes this `run:` block to a BOM-less UTF-8 .ps1 file, and
+          # Windows PowerShell 5.1 decodes script files with the ANSI code page. So a
+          # heredoc of Chinese release notes is mis-decoded before it is parsed, and
+          # CJK punctuation decodes into byte sequences that break the parser itself,
+          # so the step died with errors like
+          #
+          #     Missing argument in parameter list.
+          #     The string is missing the terminator: '.
+          #
+          # on lines whose text was already garbled in the echoed script.
+          #
+          # The CJK comments elsewhere in this workflow survive only because a
+          # corrupted comment is harmless. Player-facing Chinese has to come from a
+          # file Python reads as UTF-8.
           $notesPath = Join-Path $env:RUNNER_TEMP 'nightly-notes.md'
-          $notes = @(
-            "Automated nightly build of ``$version`` from ``${{ github.sha }}``.",
-            "",
-            "Built by [run ${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) on ``${{ github.ref_name }}``.",
-            "",
-            "Rolling prerelease: every asset here is replaced on the next nightly run.",
-            "",
-            "## 下载哪个",
-            "",
-            "| 文件 | 用途 | 怎么用 |",
-            "|---|---|---|",
-            "| ``GTE-CurseForge-$version.zip`` | **启动器一键导入,推荐** | CurseForge / PCL2 / HMCL / Prism / MultiMC 里选「导入整合包」,启动器会自动装好 Forge |",
-            "| ``GTE-FullMod-$version.zip`` | 全模组客户端包 | 已自己建好 MC $mc + Forge $forge 实例的玩家,把包内容解压进实例游戏目录 |",
-            "| ``GTE-Server-$version.zip`` | 开服 | 解压到服务器根目录,``mods/`` 直接落在根下,再跑 ``--installServer`` |",
-            "",
-            "其余 jar 是单模块产物,给开发者和 Maven 使用者。带 ``-slim`` / ``-dev-slim`` 的**不要**放进 ``mods/``:它们不打包内嵌依赖,Forge 会因缺少 ``ldlib`` 而启动失败。",
-            "",
-            "## 环境",
-            "",
-            "- Minecraft $mc,Forge **$forge**,Java **21**",
-            "- Forge 版本是硬性的:gtmthings 要求 ``[$forge,)``,而 47.4.10 自带的 ASM 9.8 + coremods 5.2.4 会让 AE2 15.4.9 的 mixin 崩溃",
-            "",
-            "nightly 不会发布到 CurseForge 平台,只在这里滚动更新。"
-          )
-          [System.IO.File]::WriteAllLines($notesPath, $notes, (New-Object System.Text.UTF8Encoding($false)))
+          python scripts/render_nightly_notes.py "$version" "${{ github.sha }}" "${{ github.run_id }}" "${{ github.ref_name }}" "$notesPath"
+          if ($LASTEXITCODE -ne 0 -or -not (Test-Path $notesPath)) {
+            Write-Host "::error::Could not render the nightly release notes."
+            exit 1
+          }
 
           gh release view nightly --repo ${{ github.repository }} 1>$null 2>$null
           if ($LASTEXITCODE -eq 0) {
