@@ -16,7 +16,7 @@ flowchart TD
     D --> E[复制生成 Jar 至 overrides/mods & 收集至 build/artifacts]
     E --> F[运行 opencode_translate.py 全量/增量 AI 国际化翻译]
     F --> G[Packwiz 规范打包: CurseForge 包 + 补丁 Java 21 manifest]
-    G --> H[Python 构建 Zero-Compile 玩家完整懒人包 .minecraft]
+    G --> H[Python 构建玩家完整模组客户端包 GTE-FullMod]
     H --> I[Packwiz 导出纯净服务端 Server 包]
     I --> J[上传所有 Release 产物至 Actions Artifacts 存储]
     J --> K[构建静态 Maven 仓库并部署至 GitHub Pages (gh-pages)]
@@ -31,10 +31,10 @@ flowchart TD
 - **Packwiz 导出**：运行 `packwiz curseforge export` 生成标准规范包。
 - **自动补丁 manifest.json**：针对部分第三方启动器在解析 CurseForge 包时默认指派 Java 17 的问题，CI 会自动解压 zip，通过 Python 脚本将 `manifest.json` 中的 `minecraft.javaVersion` 与顶层 `javaVersion` **硬编码强制写入 21**，然后重新封装。
 
-### 2. 玩家免编译完整懒人包 (`build_lazy_pack.py`)
+### 2. 玩家完整模组客户端包 (`build_full_mod_pack.py`)
 - Python 脚本自动从各模块 `build/libs/` 抽取最新核心 Jar。
 - 自动合并 `modules/gtecore/gradle/libs/` 下的关键扩展 Mod。
-- 将全部配置、KubeJS 脚本、帕秋莉手册打包成一个开箱即用的 `.minecraft` 压缩包，内置中文启动指南。
+- 将全部配置、KubeJS 脚本、帕秋莉手册打包成扁平的 `GTE-FullMod-*.zip`（顶层即 `mods/`、`config/`、`defaultconfigs/`、`kubejs/`），内置中文安装指南 `README_安装必看.txt`。
 
 ### 3. 服务端导出包 (`packwiz server export`)
 - 自动剔除客户端专有优化 Mod（如 3D 皮肤层、光影着色器、按键绑定等），生成可直接部署在 Linux/Windows 生产服务器上的纯净服务端。

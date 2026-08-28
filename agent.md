@@ -34,7 +34,7 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 .\gradlew.bat :modules:gtm-reborn:runGameTestServer
 .\gradlew.bat :modules:gte-dev-runtime:runClient
 .\gradlew.bat :modules:gtm-reborn:spotlessApply
-python scripts/build_lazy_pack.py <version>
+python scripts/build_full_mod_pack.py <version>
 ```
 
 `run_game.bat` / `run_game.sh` auto-detect CPU/RAM and start the hot-debug

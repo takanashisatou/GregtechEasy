@@ -73,14 +73,14 @@ jobs:
         working-directory: ./gte
         run: packwiz refresh
 
-      - name: Export Lazy Pack for Artist Verification
+      - name: Export Full-Mod Pack for Artist Verification
         run: |
           mkdir -p build/artifacts
-          python scripts/build_lazy_pack.py art-test-${{ github.sha }}
+          python scripts/build_full_mod_pack.py art-test-${{ github.sha }}
 
       - name: Upload Art Test Pack Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: GTE-LazyPack-Art-Test-${{ github.sha }}
+          name: GTE-FullMod-Art-Test-${{ github.sha }}
           path: build/artifacts/*.zip
           retention-days: 14

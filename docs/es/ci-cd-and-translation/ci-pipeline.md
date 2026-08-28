@@ -1,4 +1,4 @@
-﻿# Pipeline de CI/CD de construcción, empaquetado y publicación Maven automatizados
+# Pipeline de CI/CD de construcción, empaquetado y publicación Maven automatizados
 
 GTE ha establecido un **pipeline de CI/CD de GitHub Actions** altamente automatizado y con múltiples artefactos en paralelo (los archivos de configuración se encuentran en `.github/workflows/sync-build.yml` y `release-publish.yml`).
 
@@ -16,7 +16,7 @@ flowchart TD
     D --> E[Copiar los Jars generados a overrides/mods y recopilarlos en build/artifacts]
     E --> F[Ejecutar opencode_translate.py para traducción internacional AI completa/incremental]
     F --> G[Empaquetado estándar de Packwiz: paquete CurseForge + parche de manifest de Java 21]
-    G --> H[Python construye el paquete completo para jugadores Zero-Compile .minecraft]
+    G --> H[Python construye el paquete cliente con todos los mods GTE-FullMod]
     H --> I[Packwiz exporta el paquete de servidor puro]
     I --> J[Subir todos los artefactos de Release al almacenamiento de Actions Artifacts]
     J --> K[Construir un repositorio Maven estático y desplegarlo en GitHub Pages (gh-pages)]
@@ -31,10 +31,10 @@ flowchart TD
 - **Exportación de Packwiz**: ejecutar `packwiz curseforge export` para generar el paquete estándar.
 - **Parche automático de manifest.json**: para el problema de que algunos lanzadores de terceros asignan por defecto Java 17 al analizar paquetes de CurseForge, el CI descomprime automáticamente el zip, y mediante un script de Python escribe forzosamente **hardcodeado a 21** el `minecraft.javaVersion` y el `javaVersion` de nivel superior en `manifest.json`, y luego lo vuelve a empaquetar.
 
-### 2. Paquete completo para jugadores sin compilación (`build_lazy_pack.py`)
+### 2. Paquete cliente con todos los mods para jugadores (`build_full_mod_pack.py`)
 - El script de Python extrae automáticamente los Jars principales más recientes de `build/libs/` de cada módulo.
 - Fusiona automáticamente los Mods de extensión clave bajo `modules/gtecore/gradle/libs/`.
-- Empaqueta toda la configuración, scripts de KubeJS y el manual de Patchouli en un archivo comprimido `.minecraft` listo para usar, con una guía de inicio en chino incluida.
+- Empaqueta toda la configuración, scripts de KubeJS y el manual de Patchouli en un `GTE-FullMod-*.zip` plano (con `mods/`, `config/`, `defaultconfigs/` y `kubejs/` en el nivel superior), con la guía de instalación en chino `README_安装必看.txt` incluida.
 
 ### 3. Paquete de exportación para servidor (`packwiz server export`)
 - Elimina automáticamente los Mods de optimización exclusivos del cliente (como capas de skin 3D, shaders, asignaciones de teclas, etc.), generando un servidor puro que se puede desplegar directamente en servidores de producción Linux/Windows.

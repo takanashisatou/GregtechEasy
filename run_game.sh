@@ -205,11 +205,17 @@ export PATH="${FOUND_JDK}/bin:${PATH}"
 # ---------------------------------------------------------------------------
 # Decide which mode we are in.
 #
-# This script ships in two places: the source checkout (Gradle wrapper present,
-# hot-compile the mods) and the distributed Lazy Pack (only a prepared
-# .minecraft, no sources). It used to always invoke ./gradlew, which inside the
-# Lazy Pack failed with "no such file or directory" and looked like the pack did
-# nothing at all. Pick the mode from what is actually on disk.
+# This script serves two layouts: the source checkout (Gradle wrapper present,
+# hot-compile the mods) and a local standalone directory holding a prepared
+# .minecraft with no sources. It used to always invoke ./gradlew, which in the
+# second layout failed with "no such file or directory" and looked like nothing
+# happened at all. Pick the mode from what is actually on disk.
+#
+# Note: no released artifact ships this script any more. The distributed packs
+# are GTE-CurseForge-*.zip (launcher import), GTE-FullMod-*.zip (flat game
+# content for a self-made instance) and GTE-Server-*.zip. Player mode below is
+# kept for launching a locally prepared .minecraft without a launcher, which is
+# how a pack is smoke-tested before release.
 # ---------------------------------------------------------------------------
 if [ -x "${ROOT_DIR}/gradlew" ] && [ -f "${ROOT_DIR}/settings.gradle" ]; then
     GTE_MODE="dev"
@@ -222,10 +228,11 @@ else
     echo "[Error] Cannot tell what to launch."
     echo "========================================================"
     echo "This folder has neither a Gradle wrapper (developer checkout)"
-    echo "nor a .minecraft folder (extracted Lazy Pack)."
+    echo "nor a .minecraft folder (prepared standalone game directory)."
     echo ""
-    echo "If you downloaded GTE-LazyPack-*.zip, extract the WHOLE archive"
-    echo "and keep run_game.sh next to the .minecraft folder."
+    echo "If you are a player: this script is not part of any released"
+    echo "pack. Use GTE-CurseForge-*.zip and import it in your launcher,"
+    echo "or GTE-FullMod-*.zip if you already made a Forge 47.4.1 instance."
     exit 1
 fi
 
@@ -268,11 +275,11 @@ for port in 7890 7897 10809 10808 1080; do
 done
 
 # ---------------------------------------------------------------------------
-# Player mode: standalone launch out of the extracted Lazy Pack
+# Player mode: launch a prepared .minecraft directly, without a launcher
 # ---------------------------------------------------------------------------
 if [ "${GTE_MODE}" == "player" ]; then
     echo "========================================================"
-    echo "       GTE Lazy Pack (Direct Start / No Launcher)"
+    echo "       GTE Standalone Start (No Launcher)"
     echo "========================================================"
     echo "Game Directory : ${ROOT_DIR}/.minecraft"
     echo "Java 21 Runtime: ${JAVA_HOME}"
@@ -299,8 +306,7 @@ if [ "${GTE_MODE}" == "player" ]; then
     fi
 
     if [ ! -f "${LAUNCHER_PS1}" ]; then
-        echo "[Error] gte_launcher.ps1 is missing from this pack."
-        echo "Re-download GTE-LazyPack-*.zip and extract it completely."
+        echo "[Error] gte_launcher.ps1 not found next to this script or under scripts/."
         exit 1
     fi
 

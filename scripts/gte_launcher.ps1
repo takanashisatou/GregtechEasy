@@ -1,20 +1,26 @@
 #requires -version 5.1
 <#
 .SYNOPSIS
-    GTE Lazy Pack standalone launcher (player mode).
+    GTE standalone launcher (player mode) -- provisions and launches a prepared
+    .minecraft without any launcher.
 
 .DESCRIPTION
-    run_game.bat in the source tree hot-compiles the mods through Gradle. Inside
-    the distributed Lazy Pack there is no Gradle wrapper and no source tree, only
-    a prepared `.minecraft` folder, so that path cannot work. This script is the
+    run_game.bat in the source tree hot-compiles the mods through Gradle. That
+    path needs a Gradle wrapper and a source tree, so it cannot work in a bare
+    directory that only holds a prepared `.minecraft`. This script is the
     player-mode half: it provisions a real vanilla + Forge installation next to
-    the pack and launches it directly, so double-clicking run_game.bat actually
-    starts the game without any launcher.
+    that folder and launches it directly.
 
-    What it does, all into the pack's own `.minecraft` (standard layout, so PCL2
-    and HMCL can still be pointed at the same folder):
-      1. resolve the Minecraft 1.20.1 version manifest and download client.jar
-      2. run the official Forge 47.3.0 installer in --installClient mode
+    No released artifact ships this script. The distributed packs are
+    GTE-CurseForge-*.zip (launcher import), GTE-FullMod-*.zip (flat game content
+    for a self-made instance) and GTE-Server-*.zip. It is kept as the developer
+    smoke-test path: it produces a real, launcher-free 1.20.1 + Forge install to
+    verify a pack's mods actually load before release.
+
+    What it does, all into the target `.minecraft` (standard layout, so PCL2 and
+    HMCL can still be pointed at the same folder):
+      1. resolve the Minecraft version manifest and download client.jar
+      2. run the official Forge installer in --installClient mode
       3. download every required library and native, extracting natives
       4. download the asset index and all asset objects
       5. merge the Forge and vanilla version JSONs, expand the argument
@@ -58,15 +64,10 @@ $ErrorActionPreference = 'Stop'
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 [Net.ServicePointManager]::DefaultConnectionLimit = 64
 
-# Single source of truth for both versions is gte/pack.toml.
-#
-#   * running from the source checkout -> gte/pack.toml is read below;
-#   * running from a Lazy Pack         -> scripts/build_lazy_pack.py substitutes
-#     the resolved values into these two lines while packing, so the shipped
-#     copy always matches the pack it ships with.
-#
-# Keep the assignments on one line each and in this exact shape; the packer
-# rewrites them with a regex and fails the build if either stops matching.
+# Single source of truth for both versions is gte/pack.toml, which is read below
+# whenever this script runs from a source checkout. The literals here are only
+# the fallback for a copy that was moved somewhere without gte/pack.toml beside
+# it, so keep them in sync with pack.toml by hand if you ever move this file.
 $MC_VERSION    = '1.20.1'
 $FORGE_VERSION = '47.4.1'
 $FORGE_ID      = "$MC_VERSION-forge-$FORGE_VERSION"
@@ -137,7 +138,7 @@ function Get-UrlCandidates ([string]$Url) {
 Add-Type -AssemblyName System.Net.Http | Out-Null
 $script:Http = New-Object System.Net.Http.HttpClient
 $script:Http.Timeout = [TimeSpan]::FromMinutes(10)
-$script:Http.DefaultRequestHeaders.Add('User-Agent', 'GTE-LazyPack-Launcher/1.0')
+$script:Http.DefaultRequestHeaders.Add('User-Agent', 'GTE-Standalone-Launcher/1.0')
 
 function Get-StringOnce ([string]$Url) {
     foreach ($u in Get-UrlCandidates $Url) {
@@ -513,7 +514,7 @@ function Start-Game {
         '${assets_root}'         = $AssetsDir
         '${assets_index_name}'   = $AssetIndexId
         '${natives_directory}'   = $NativesDir
-        '${launcher_name}'       = 'GTE-LazyPack'
+        '${launcher_name}'       = 'GTE-Standalone'
         '${launcher_version}'    = '1.0'
         '${library_directory}'   = $LibDir
         '${classpath_separator}' = ';'
@@ -529,7 +530,7 @@ function Start-Game {
     [void]$jvmArgs.Add('-Xms512M')
     [void]$jvmArgs.Add('-XX:+UseG1GC')
     [void]$jvmArgs.Add('-Dfile.encoding=UTF-8')
-    [void]$jvmArgs.Add('-Dminecraft.launcher.brand=GTE-LazyPack')
+    [void]$jvmArgs.Add('-Dminecraft.launcher.brand=GTE-Standalone')
 
     foreach ($a in (Get-ArgList $Vanilla.arguments.jvm)) { [void]$jvmArgs.Add((Expand-Placeholders $a)) }
     if ($forge.PSObject.Properties.Name -contains 'arguments' -and $forge.arguments -and
@@ -597,13 +598,13 @@ function Get-OfflineUuid ([string]$Name) {
 # Main
 # ---------------------------------------------------------------------------
 Write-Host "========================================================" -ForegroundColor Cyan
-Write-Host "   GregTech Easy - Lazy Pack Launcher (no launcher needed)" -ForegroundColor Cyan
+Write-Host "   GregTech Easy - Standalone Launcher (no launcher needed)" -ForegroundColor Cyan
 Write-Host "========================================================" -ForegroundColor Cyan
 Write-Info "pack     : $PackRoot"
 Write-Info "game dir : $GameDir"
 
 if (-not (Test-Path -LiteralPath $GameDir)) {
-    Fail "No .minecraft folder next to this script. Extract the whole Lazy Pack zip, keeping run_game.bat and .minecraft in the same folder."
+    Fail "No .minecraft folder next to this script. Point -PackRoot at a directory that contains one."
 }
 if (-not $JavaHome -or -not (Test-Path -LiteralPath (Join-Path $JavaHome 'bin\java.exe'))) {
     Fail "JDK 21 not found. Start the pack through run_game.bat, which locates or downloads a JDK 21 for you."

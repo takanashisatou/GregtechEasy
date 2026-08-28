@@ -1,14 +1,14 @@
-# Guía de importación de CurseForge e implementación de servidor
+# Guía de Importación de CurseForge e Implementación de Servidor
 
-Además del paquete de instalación sin compilación, GTE proporciona un paquete estándar de CurseForge y un paquete de servidor construidos automáticamente con **Packwiz**.
+Además del paquete cliente con todos los mods, GTE proporciona un paquete estándar de CurseForge y un paquete de servidor construidos automáticamente con **Packwiz**.
 
 ---
 
-## 📦 Importación del paquete estándar de CurseForge
+## 📦 Importación del Paquete Estándar de CurseForge
 
 El archivo del paquete de mods en formato CurseForge se llama `GTE-CurseForge-<versión>.zip`.
 
-### Métodos de importación en el cliente
+### Método de Importación para Clientes
 
 === "Importación con PCL2 / HMCL"
 
@@ -18,31 +18,31 @@ El archivo del paquete de mods en formato CurseForge se llama `GTE-CurseForge-<v
     4. Después de la importación, ve a la configuración de la versión y especifica el runtime de Java como **Java 21**.
     5. Configura la memoria (se recomienda 8GB ~ 12GB) e inicia el juego.
 
-=== "Importación con la aplicación CurseForge"
+=== "Importación con la App de CurseForge"
 
-    1. Abre la aplicación CurseForge.
-    2. Haz clic en el icono **Minecraft** a la izquierda y entra en **My Modpacks**.
+    1. Abre la aplicación de CurseForge.
+    2. Haz clic en el icono de **Minecraft** a la izquierda y entra en **My Modpacks**.
     3. En el menú de configuración de la esquina superior derecha, haz clic en **Create Custom Profile** ➜ **Import**.
     4. Selecciona `GTE-CurseForge-<versión>.zip` y espera a que se descargue e instale automáticamente.
 
 === "Importación con Prism Launcher"
 
     1. Haz clic en **Add Instance (Añadir instancia)** ➜ **Import (Importar)**.
-    2. Navega y selecciona `GTE-CurseForge-<versión>.zip`.
-    3. Después de crear la instancia, en sus propiedades establece la ruta de Java como **JDK 21**.
+    2. Busca y selecciona `GTE-CurseForge-<versión>.zip`.
+    3. Después de crear la instancia, en sus propiedades, establece la ruta de Java a **JDK 21**.
 
 ---
 
-## 🖥️ Guía de implementación del servidor
+## 🖥️ Guía de Implementación del Servidor
 
 El archivo del paquete del servidor se llama `GTE-Server-<versión>.zip`.
 
-### 1. Preparación del entorno
+### 1. Preparación del Entorno
 - Sistema operativo: Linux (Ubuntu 22.04+ / Debian 12+) o Windows Server 2022+
-- **JDK 21 debe estar listo**: ejecuta `java -version` en la terminal y confirma que la salida sea `openjdk version "21..."`.
-- Configuración recomendada: CPU de 4 núcleos o superior, 16GB de memoria física (asigna 10G ~ 14G al servidor de Minecraft).
+- **JDK 21 debe estar listo**: Ejecuta `java -version` en la terminal y confirma que la salida sea `openjdk version "21..."`.
+- Configuración recomendada: CPU de 4 núcleos o superior, 16GB de RAM física (asigna 10G ~ 14G al servidor de Minecraft).
 
-### 2. Pasos de implementación
+### 2. Pasos de Implementación
 
 ```bash
 # 1. Crear el directorio de trabajo del servidor
@@ -59,7 +59,7 @@ java -jar forge-1.20.1-*-installer.jar --installServer
 echo "eula=true" > eula.txt
 ```
 
-### 3. Configuración del script de inicio (`run_server.sh` / `run_server.bat`)
+### 3. Configuración del Script de Inicio (`run_server.sh` / `run_server.bat`)
 
 Se recomienda usar los parámetros de optimización de Aikar para iniciar el servidor:
 
@@ -96,11 +96,13 @@ Se recomienda usar los parámetros de optimización de Aikar para iniciar el ser
 
 ---
 
-## ⚙️ Solución de problemas comunes (FAQ)
+## ⚙️ Solución de Problemas Comunes (FAQ)
 
-### P1: Al iniciar el servidor aparece `UnsupportedClassVersionError: ... class file version 65.0`
-> **Causa**: La versión de Java en el servidor es inferior a Java 21 (la versión 65.0 corresponde a JDK 21).  
-> **Solución**: En Linux, cambia a OpenJDK 21 con `sudo update-alternatives --config java`.
+### P1: El servidor muestra `UnsupportedClassVersionError: ... class file version 65.0` al iniciar
+> **Causa**: La versión de Java utilizada por el servidor es inferior a Java 21 (la versión 65.0 representa JDK 21).  
+> **Solución**: En Linux, cambia a OpenJDK 21 usando `sudo update-alternatives --config java`.
 
-### P2: Los jugadores reciben un mensaje de que la lista de mods no coincide al entrar al servidor
-> **Solución**: Asegúrate de que la versión del cliente sea exactamente la misma que la del servidor. Cada compilación CI del proyecto principal genera simultáneamente los artefactos de Cliente y Servidor correspondientes.
+### P2: Los jugadores ven una discrepancia en la lista de mods al entrar al servidor
+> **Solución**: Asegúrate de que el número de versión del cliente coincida exactamente con el del servidor. Cada compilación del CI del proyecto principal genera simultáneamente los artefactos de Cliente y Servidor correspondientes.
+
+<<<<<FILE_END: download-and-play/curseforge-and-server.md>>>>

@@ -283,9 +283,9 @@ jobs:
       - name: "[Gate 3] Packaging Scripts Dry Run"
         run: |
           $ErrorActionPreference = 'Continue'
-          python scripts/build_lazy_pack.py gate-dryrun
+          python scripts/build_full_mod_pack.py gate-dryrun
           if ($LASTEXITCODE -ne 0) {
-            Write-Host "::error::build_lazy_pack.py failed on the current pack tree."
+            Write-Host "::error::build_full_mod_pack.py failed on the current pack tree."
             exit $LASTEXITCODE
           }
           python scripts/build_server_pack.py gate-dryrun
@@ -293,7 +293,7 @@ jobs:
             Write-Host "::error::build_server_pack.py failed on the current pack tree."
             exit $LASTEXITCODE
           }
-          Remove-Item build/artifacts/GTE-LazyPack-gate-dryrun.zip, build/artifacts/GTE-Server-gate-dryrun.zip -Force -ErrorAction SilentlyContinue
+          Remove-Item build/artifacts/GTE-FullMod-gate-dryrun.zip, build/artifacts/GTE-Server-gate-dryrun.zip -Force -ErrorAction SilentlyContinue
           Write-Host "Packaging scripts ran clean against the current pack tree."
 
       # ──────────────────────────────────────────────
@@ -570,6 +570,28 @@ jobs:
           } | ForEach-Object {
             Copy-Item $_.FullName -Destination $stage -Recurse -Force
           }
+
+          # Personal state that is not pack configuration, matching what
+          # scripts/pack_common.py strips from the full-mod and server packs.
+          # config/jei/world/local/<name> holds bookmark files named after the saves
+          # on the machine that built the pack, and worldedit/sessions holds
+          # per-player blobs -- the CurseForge pack was shipping both to every player.
+          foreach ($junk in @('config/jei/world', 'config/worldedit/sessions', 'config/worldedit/.archive-unpack')) {
+            $path = Join-Path $stage $junk
+            if (Test-Path $path) {
+              Remove-Item $path -Recurse -Force
+              Write-Host "  pruned $junk (local state)"
+            }
+          }
+
+          # -slim / -dev-slim jars bundle no jar-in-jar dependencies; Forge would pick
+          # one for modId gtceu and abort with "Mod ID: 'ldlib' ... [MISSING]".
+          Get-ChildItem "$stage/mods" -Filter *.jar -ErrorAction SilentlyContinue |
+            Where-Object { $_.Name -match '-(dev-)?slim\.jar$' } | ForEach-Object {
+              Write-Host "::warning::Removing non-runnable jar from the staged pack: $($_.Name)"
+              Remove-Item $_.FullName -Force
+            }
+
           Write-Host "Flat packwiz root:"
           Get-ChildItem $stage | ForEach-Object { Write-Host "  $($_.Name)" }
           $mods = @(Get-ChildItem "$stage/mods" -Filter *.jar -ErrorAction SilentlyContinue)
@@ -596,8 +618,15 @@ jobs:
       - name: "[Pack 1] Patch manifest.json - enforce Java 21"
         run: python scripts/patch_manifest.py build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip
 
-      - name: "[Pack 2] Build Full Player Lazy Pack (.minecraft)"
-        run: python scripts/build_lazy_pack.py ${{ steps.meta.outputs.version }}
+      # The full-mod client pack: every mod, config and script at the TOP level, for
+      # players who configure their own launcher instance. It replaced the "lazy
+      # pack", which shipped a nested .minecraft/ plus a 626-line PowerShell
+      # launcher that downloaded a JDK, the vanilla client, ran the Forge installer
+      # and fetched ~3600 asset files. Maintaining a launcher is a different job
+      # from building a modpack, and its failure modes ("double-clicking the bat
+      # does nothing") were ours to answer for.
+      - name: "[Pack 2] Build Full-Mod Client Pack"
+        run: python scripts/build_full_mod_pack.py ${{ steps.meta.outputs.version }}
 
       # A server pack is NOT a CurseForge pack. `packwiz curseforge export -s server`
       # emits manifest.json + overrides/, which is a launcher import format: it needs
@@ -631,31 +660,54 @@ jobs:
       - name: "[Pack 3] Build Server Pack"
         run: python scripts/build_server_pack.py ${{ steps.meta.outputs.version }}
 
-      # The CurseForge pack must place mods at overrides/mods/*.jar; the server pack
-      # must place them at mods/*.jar. Either mistake yields a zip that installs
-      # cleanly and then runs with no mods, so assert both rather than discovering it
-      # from a player report.
+      # The CurseForge pack must place mods at overrides/mods/*.jar; the full-mod and
+      # server packs must place them at mods/*.jar. Either mistake yields a zip that
+      # installs cleanly and then runs with no mods, so assert all three rather than
+      # discovering it from a player report.
       - name: Verify Exported Pack Layout
         run: |
           Add-Type -AssemblyName System.IO.Compression.FileSystem
           $bad = $false
           $expected = @{
             'GTE-CurseForge-*.zip' = '^overrides/mods/[^/]+\.jar$'
+            'GTE-FullMod-*.zip'    = '^mods/[^/]+\.jar$'
             'GTE-Server-*.zip'     = '^mods/[^/]+\.jar$'
           }
           foreach ($pattern in $expected.Keys) {
-            foreach ($zip in Get-ChildItem "build/artifacts/$pattern") {
+            $zips = @(Get-ChildItem "build/artifacts/$pattern" -ErrorAction SilentlyContinue)
+            if ($zips.Count -eq 0) {
+              Write-Host "::error::No archive matched build/artifacts/$pattern; a pack was not built."
+              $bad = $true
+              continue
+            }
+            foreach ($zip in $zips) {
               $archive = [System.IO.Compression.ZipFile]::OpenRead($zip.FullName)
               try {
                 $mods = @($archive.Entries | Where-Object { $_.FullName -match $expected[$pattern] })
                 $nested = @($archive.Entries | Where-Object { $_.FullName -like 'overrides/overrides/*' })
-                Write-Host "$($zip.Name): mods=$($mods.Count) nested-overrides=$($nested.Count)"
+                # PowerShell's Compress-Archive writes backslash entry names, which
+                # are not path separators in the zip spec: consumers then see one
+                # file literally named "mods\x.jar" and no mods directory. Assert it
+                # here so a future rewrite in PowerShell cannot ship silently.
+                $backslash = @($archive.Entries | Where-Object { $_.FullName -like '*\*' })
+                $slim = @($archive.Entries | Where-Object { $_.FullName -match '-(dev-)?slim\.jar$' })
+                Write-Host "$($zip.Name): mods=$($mods.Count) nested=$($nested.Count) backslash=$($backslash.Count) slim=$($slim.Count)"
                 if ($mods.Count -eq 0) {
                   Write-Host "::error::$($zip.Name) has no mods matching $($expected[$pattern]); it would install/boot with no mods."
                   $bad = $true
                 }
                 if ($nested.Count -gt 0) {
                   Write-Host "::error::$($zip.Name) contains overrides/overrides/; the pack root was not flattened."
+                  $bad = $true
+                }
+                if ($backslash.Count -gt 0) {
+                  Write-Host "::error::$($zip.Name) has backslash entry names; consumers will not see directories."
+                  $bad = $true
+                }
+                # A slim jar in mods/ makes Forge pick a gtceu build with no bundled
+                # ldlib and abort before the main menu.
+                if ($slim.Count -gt 0) {
+                  Write-Host "::error::$($zip.Name) ships slim jars; Forge would fail with 'Mod ID: ldlib ... [MISSING]'."
                   $bad = $true
                 }
               } finally {
@@ -727,13 +779,23 @@ jobs:
           # assets were current but whose source tag still pointed at whatever
           # commit the previous nightly used. Force-moving the ref first makes both
           # paths agree.
+          # Both probes below EXPECT a 404 half the time, and a 404 makes gh write to
+          # stderr. Actions injects `$ErrorActionPreference = 'stop'` into the
+          # powershell shell, and `2>&1` merges native stderr into the success
+          # stream, where PowerShell wraps each line in an ErrorRecord -- which under
+          # 'stop' terminates the script. That is how the previous version died with
+          # a bare "gh : release not found" on the very path it was written to
+          # handle. Keep stderr on stderr, silence it with 2>$null, and let
+          # $LASTEXITCODE alone decide.
+          $ErrorActionPreference = 'Continue'
+
           $tagExists = $true
-          gh api "repos/${{ github.repository }}/git/refs/tags/nightly" > $null 2>&1
+          gh api "repos/${{ github.repository }}/git/refs/tags/nightly" 1>$null 2>$null
           if ($LASTEXITCODE -ne 0) { $tagExists = $false }
           if ($tagExists) {
-            gh api -X PATCH "repos/${{ github.repository }}/git/refs/tags/nightly" -f sha='${{ github.sha }}' -F force=true > $null
+            gh api -X PATCH "repos/${{ github.repository }}/git/refs/tags/nightly" -f sha='${{ github.sha }}' -F force=true 1>$null
           } else {
-            gh api -X POST "repos/${{ github.repository }}/git/refs" -f ref='refs/tags/nightly' -f sha='${{ github.sha }}' > $null
+            gh api -X POST "repos/${{ github.repository }}/git/refs" -f ref='refs/tags/nightly' -f sha='${{ github.sha }}' 1>$null
           }
           if ($LASTEXITCODE -eq 0) {
             Write-Host "Rolling tag 'nightly' points at ${{ github.sha }}."
@@ -741,14 +803,49 @@ jobs:
             Write-Host "::warning::Could not move the 'nightly' tag; the release may reference an older commit."
           }
 
-          gh release view nightly --repo ${{ github.repository }} > $null 2>&1
+          # Release notes are generated here rather than hand-written after the fact.
+          # The previous one-line note ("Automated nightly build of ...") left players
+          # to guess which of the three zips to download, and the guess that costs the
+          # most support time -- grabbing the server pack for a client, or the full-mod
+          # pack without knowing it needs a pre-made instance -- looks identical to the
+          # right one in the asset list.
+          $forge = (Select-String -Path gte/pack.toml -Pattern '^\s*forge\s*=\s*"([^"]+)"').Matches[0].Groups[1].Value
+          $mc = (Select-String -Path gte/pack.toml -Pattern '^\s*minecraft\s*=\s*"([^"]+)"').Matches[0].Groups[1].Value
+          $notesPath = Join-Path $env:RUNNER_TEMP 'nightly-notes.md'
+          $notes = @(
+            "Automated nightly build of ``$version`` from ``${{ github.sha }}``.",
+            "",
+            "Built by [run ${{ github.run_id }}](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) on ``${{ github.ref_name }}``.",
+            "",
+            "Rolling prerelease: every asset here is replaced on the next nightly run.",
+            "",
+            "## 下载哪个",
+            "",
+            "| 文件 | 用途 | 怎么用 |",
+            "|---|---|---|",
+            "| ``GTE-CurseForge-$version.zip`` | **启动器一键导入,推荐** | CurseForge / PCL2 / HMCL / Prism / MultiMC 里选「导入整合包」,启动器会自动装好 Forge |",
+            "| ``GTE-FullMod-$version.zip`` | 全模组客户端包 | 已自己建好 MC $mc + Forge $forge 实例的玩家,把包内容解压进实例游戏目录 |",
+            "| ``GTE-Server-$version.zip`` | 开服 | 解压到服务器根目录,``mods/`` 直接落在根下,再跑 ``--installServer`` |",
+            "",
+            "其余 jar 是单模块产物,给开发者和 Maven 使用者。带 ``-slim`` / ``-dev-slim`` 的**不要**放进 ``mods/``:它们不打包内嵌依赖,Forge 会因缺少 ``ldlib`` 而启动失败。",
+            "",
+            "## 环境",
+            "",
+            "- Minecraft $mc,Forge **$forge**,Java **21**",
+            "- Forge 版本是硬性的:gtmthings 要求 ``[$forge,)``,而 47.4.10 自带的 ASM 9.8 + coremods 5.2.4 会让 AE2 15.4.9 的 mixin 崩溃",
+            "",
+            "nightly 不会发布到 CurseForge 平台,只在这里滚动更新。"
+          )
+          [System.IO.File]::WriteAllLines($notesPath, $notes, (New-Object System.Text.UTF8Encoding($false)))
+
+          gh release view nightly --repo ${{ github.repository }} 1>$null 2>$null
           if ($LASTEXITCODE -eq 0) {
-            gh release edit nightly --repo ${{ github.repository }} --title $title --prerelease --notes "Automated nightly build of ``$version`` from ``${{ github.sha }}``.`n`nRolling prerelease: assets are replaced on every nightly run."
+            gh release edit nightly --repo ${{ github.repository }} --title $title --prerelease --notes-file $notesPath
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
             gh release upload nightly --repo ${{ github.repository }} $files --clobber
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           } else {
-            gh release create nightly --repo ${{ github.repository }} $files --title $title --prerelease --notes "Automated nightly build of ``$version`` from ``${{ github.sha }}``."
+            gh release create nightly --repo ${{ github.repository }} $files --title $title --prerelease --notes-file $notesPath
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           }
           Write-Host "Nightly prerelease published: https://github.com/${{ github.repository }}/releases/tag/nightly"
@@ -782,6 +879,11 @@ jobs:
       # ──────────────────────────────────────────────
       # Publish to CurseForge Platform (Release Channel Only)
       # ──────────────────────────────────────────────
+      # Only the CurseForge-format pack is uploaded, and only on the release
+      # channel. The full-mod and server packs deliberately never go to CurseForge:
+      # the platform expects a manifest.json pack it can install through a launcher,
+      # and a nightly is not a published version. So a nightly reaches players only
+      # through the rolling GitHub prerelease above.
       - name: Publish to CurseForge Platform (Release Only)
         if: steps.meta.outputs.channel == 'release' && env.CURSEFORGE_TOKEN != ''
         uses: Kir-Antipov/mc-publish@v3.3

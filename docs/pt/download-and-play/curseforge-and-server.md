@@ -1,61 +1,61 @@
 # Guia de Importação CurseForge e Implantação de Servidor
 
-Além do pacote pronto para uso sem compilação, o GTE fornece pacotes padrão CurseForge e pacotes de servidor construídos automaticamente com base no **Packwiz**.
+Além do pacote cliente completo de mods, o GTE oferece um pacote padrão CurseForge e um pacote de servidor construídos automaticamente com base no **Packwiz**.
 
 ---
 
 ## 📦 Importação do Pacote Padrão CurseForge
 
-O arquivo do pacote de mods no formato CurseForge é nomeado como `GTE-CurseForge-<versão>.zip`.
+O arquivo do pacote de mods no formato CurseForge é nomeado `GTE-CurseForge-<versão>.zip`.
 
-### Métodos de Importação no Cliente
+### Método de Importação no Cliente
 
-=== "Importação PCL2 / HMCL"
+=== "Importação via PCL2 / HMCL"
 
-    1. Abra o launcher, selecione **Instalar nova versão do jogo / Importar pacote de mods**.
+    1. Abra o launcher e selecione **Instalar nova versão do jogo / Importar pacote de mods**.
     2. Selecione o arquivo `GTE-CurseForge-<versão>.zip` baixado.
-    3. O launcher analisará automaticamente o `manifest.json` e baixará os mods dependentes em alta velocidade e concorrência.
+    3. O launcher analisará automaticamente o `manifest.json` e fará o download dos mods dependentes em alta velocidade e de forma concorrente.
     4. Após a importação, vá para as configurações da versão e defina o runtime Java como **Java 21**.
     5. Defina a memória (recomendado 8GB ~ 12GB) e inicie o jogo.
 
-=== "Importação no App CurseForge"
+=== "Importação via CurseForge App"
 
     1. Abra o aplicativo CurseForge.
-    2. Clique no ícone **Minecraft** à esquerda e vá para **My Modpacks**.
+    2. Clique no ícone **Minecraft** à esquerda e entre em **My Modpacks**.
     3. No menu de configurações no canto superior direito, clique em **Create Custom Profile** ➜ **Import**.
-    4. Selecione `GTE-CurseForge-<versão>.zip` e aguarde o download automático e a instalação.
+    4. Selecione `GTE-CurseForge-<versão>.zip` e aguarde o download automático e a conclusão da instalação.
 
-=== "Importação no Prism Launcher"
+=== "Importação via Prism Launcher"
 
     1. Clique em **Add Instance (Adicionar Instância)** ➜ **Import (Importar)**.
     2. Navegue e selecione `GTE-CurseForge-<versão>.zip`.
-    3. Após a criação da instância, defina o Java para o caminho do **JDK 21** nas propriedades da instância.
+    3. Após a criação da instância, defina o caminho do Java como **JDK 21** nas propriedades da instância.
 
 ---
 
 ## 🖥️ Guia de Implantação do Servidor
 
-O arquivo do pacote do servidor é nomeado como `GTE-Server-<versão>.zip`.
+O arquivo do pacote do servidor é nomeado `GTE-Server-<versão>.zip`.
 
 ### 1. Preparação do Ambiente
-- Sistema operacional: Linux (Ubuntu 22.04+ / Debian 12+) ou Windows Server 2022+
+- Sistema Operacional: Linux (Ubuntu 22.04+ / Debian 12+) ou Windows Server 2022+
 - **JDK 21 deve estar pronto**: Execute `java -version` no terminal e confirme que a saída é `openjdk version "21..."`.
-- Configuração recomendada: 4 núcleos de CPU ou mais, 16GB de memória física (alocar 10G ~ 14G para o servidor Minecraft).
+- Configuração recomendada: CPU com 4 núcleos ou mais, 16GB de RAM física (alocar 10G ~ 14G para o servidor Minecraft).
 
-### 2. Passos de Implantação
+### 2. Passos para Implantação
 
 ```bash
-# 1. Crie o diretório de trabalho do servidor
+# 1. Criar o diretório de trabalho do servidor
 mkdir -p /opt/gte-server && cd /opt/gte-server
 
-# 2. Descompacte o pacote do servidor
+# 2. Descompactar o pacote do servidor
 unzip GTE-Server-*.zip -d .
 
-# 3. Instale o núcleo do servidor Forge 1.20.1-47.4.1 (se não estiver pré-instalado)
+# 3. Instalar o núcleo do servidor Forge 1.20.1-47.4.1 (se não estiver pré-instalado)
 # Execute o script de instalação para baixar o minecraft_server e as bibliotecas do forge
 java -jar forge-1.20.1-*-installer.jar --installServer
 
-# 4. Aceite o contrato EULA do Minecraft
+# 4. Aceitar o Contrato EULA do Minecraft
 echo "eula=true" > eula.txt
 ```
 
@@ -98,9 +98,9 @@ Recomenda-se usar os parâmetros de otimização Aikar para iniciar o servidor:
 
 ## ⚙️ Solução de Problemas Comuns (FAQ)
 
-### Q1: Ao iniciar o servidor, aparece `UnsupportedClassVersionError: ... class file version 65.0`
-> **Causa**: A versão do Java em execução no servidor é inferior ao Java 21 (a versão 65.0 representa JDK 21).  
-> **Solução**: No Linux, alterne para OpenJDK 21 usando `sudo update-alternatives --config java`.
+### P1: O servidor apresenta o erro `UnsupportedClassVersionError: ... class file version 65.0` ao iniciar
+> **Causa**: A versão do Java em execução no servidor é inferior ao Java 21 (a versão 65.0 representa o JDK 21).  
+> **Solução**: No Linux, use `sudo update-alternatives --config java` para alternar para o OpenJDK 21.
 
-### Q2: Jogadores entram no servidor e recebem uma mensagem de incompatibilidade na lista de mods
-> **Solução**: Certifique-se de que a versão do cliente e a versão do servidor sejam exatamente iguais. Cada build de CI do projeto principal gera simultaneamente os artefatos de Cliente e Servidor correspondentes.
+### P2: Jogadores entram no servidor e recebem aviso de incompatibilidade da lista de mods
+> **Solução**: Certifique-se de que a versão do cliente e a versão do servidor sejam exatamente as mesmas. Cada build do CI do projeto principal gera simultaneamente os artefatos de Cliente e Servidor correspondentes.

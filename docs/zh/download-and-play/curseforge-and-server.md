@@ -1,6 +1,6 @@
 # CurseForge 导入与服务端部署指南
 
-除了免编译懒人包外，GTE 提供了基于 **Packwiz** 自动构建的 CurseForge 规范包与服务端包。
+除了完整模组客户端包外，GTE 提供了基于 **Packwiz** 自动构建的 CurseForge 规范包与服务端包。
 
 ---
 

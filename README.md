@@ -37,8 +37,8 @@ flowchart TD
 详细完整的多语言开发与游玩指南已内置于 [`docs/`](docs/) 目录并自动发布于 **GitHub Pages**：
 
 - 🌐 **在线阅读**：[https://takanashisatou.github.io/GregtechEasy/](https://takanashisatou.github.io/GregtechEasy/)
-- 📦 **[整合包下载与玩家指南](docs/zh/download-and-play/lazy-pack.md)**：
-  - [玩家免编译完整懒人包 (.minecraft zip) 快速导入](docs/zh/download-and-play/lazy-pack.md)
+- 📦 **[整合包下载与玩家指南](docs/zh/download-and-play/full-mod-pack.md)**：
+  - [玩家完整模组客户端包 (`GTE-FullMod-*.zip`) 安装指南](docs/zh/download-and-play/full-mod-pack.md)
   - [CurseForge 规范包与服务端部署指南 (Java 21 配置)](docs/zh/download-and-play/curseforge-and-server.md)
 - ⚙️ **[GTECore 核心模组详解](docs/zh/gtecore/overview.md)**：
   - [多方块机器图鉴 (蒸汽/电气/1B并行/1t超频)](docs/zh/gtecore/machines-and-multiblocks.md)
@@ -82,7 +82,7 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 .\gradlew.bat buildAll -x test
 .\gradlew.bat syncBlockbenchAssets
 .\gradlew.bat :modules:gte-dev-runtime:runClient
-python scripts/build_lazy_pack.py <version>
+python scripts/build_full_mod_pack.py <version>
 ```
 
 ---

@@ -37,8 +37,8 @@ flowchart TD
 The complete bilingual documentation is located under [`docs/`](docs/) and deployed to **GitHub Pages**:
 
 - 🌐 **Online Docs**: [https://takanashisatou.github.io/GregtechEasy/](https://takanashisatou.github.io/GregtechEasy/)
-- 📦 **[Download & Player Guides](docs/en/download-and-play/lazy-pack.md)**:
-  - [Zero-Compile Player Lazy Pack (.minecraft zip) Guide](docs/en/download-and-play/lazy-pack.md)
+- 📦 **[Download & Player Guides](docs/en/download-and-play/full-mod-pack.md)**:
+  - [Full-Mod Client Pack (`GTE-FullMod-*.zip`) Guide](docs/en/download-and-play/full-mod-pack.md)
   - [CurseForge Standard Pack & Server Deployment (Java 21 Setup)](docs/en/download-and-play/curseforge-and-server.md)
 - ⚙️ **[GTECore Mod Deep Dive](docs/en/gtecore/overview.md)**:
   - [Multiblock Machine Compendium (Steam/Electric/1B Parallels/1t OC)](docs/en/gtecore/machines-and-multiblocks.md)
@@ -82,7 +82,7 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 .\gradlew.bat buildAll -x test
 .\gradlew.bat syncBlockbenchAssets
 .\gradlew.bat :modules:gte-dev-runtime:runClient
-python scripts/build_lazy_pack.py <version>
+python scripts/build_full_mod_pack.py <version>
 ```
 
 ---

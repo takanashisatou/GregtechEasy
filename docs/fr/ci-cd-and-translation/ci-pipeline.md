@@ -16,7 +16,7 @@ flowchart TD
     D --> E[Copie des Jars générés vers overrides/mods & collecte vers build/artifacts]
     E --> F[Exécution de opencode_translate.py pour la traduction IA complète/incrémentale]
     F --> G[Packaging standard Packwiz : pack CurseForge + correctif manifest Java 21]
-    G --> H[Construction Python du pack complet .minecraft Zero-Compile pour joueurs]
+    G --> H[Construction Python du pack client complet GTE-FullMod]
     H --> I[Export Packwiz du pack serveur pur]
     I --> J[Téléversement de tous les artefacts de release vers le stockage Actions Artifacts]
     J --> K[Construction du dépôt Maven statique et déploiement sur GitHub Pages (gh-pages)]
@@ -31,10 +31,10 @@ flowchart TD
 - **Export Packwiz** : exécutez `packwiz curseforge export` pour générer le pack standard.
 - **Correctif automatique de manifest.json** : pour résoudre le problème où certains lanceurs tiers attribuent par défaut Java 17 lors de l'analyse des packs CurseForge, le CI décompresse automatiquement le zip, force via un script Python l'écriture de `minecraft.javaVersion` et `javaVersion` de niveau supérieur à **21**, puis reconditionne le pack.
 
-### 2. Pack complet sans compilation pour joueurs (`build_lazy_pack.py`)
+### 2. Pack client complet pour joueurs (`build_full_mod_pack.py`)
 - Le script Python extrait automatiquement les derniers Jars principaux de `build/libs/` de chaque module.
 - Il fusionne automatiquement les mods d'extension clés situés dans `modules/gtecore/gradle/libs/`.
-- Il regroupe toutes les configurations, les scripts KubeJS, le manuel Patchouli dans une archive `.minecraft` prête à l'emploi, avec un guide de démarrage en chinois intégré.
+- Il regroupe toutes les configurations, les scripts KubeJS, le manuel Patchouli dans une archive plate `GTE-FullMod-*.zip` (avec `mods/`, `config/`, `defaultconfigs/` et `kubejs/` à la racine), avec le guide d'installation en chinois `README_安装必看.txt` intégré.
 
 ### 3. Pack d'export serveur (`packwiz server export`)
 - Il exclut automatiquement les mods d'optimisation spécifiques au client (comme les couches de peau 3D, les shaders, les raccourcis clavier, etc.) et génère un serveur pur prêt à être déployé sur des serveurs de production Linux/Windows.

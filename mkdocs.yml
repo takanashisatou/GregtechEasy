@@ -63,7 +63,7 @@ plugins:
           nav_translations:
             概览 / Overview: Overview
             整合包下载与玩家指南 / Download & Play: Download & Play
-            玩家免编译懒人包 / Zero-Compile Lazy Pack: Zero-Compile Lazy Pack
+            完整模组客户端包 / Full-Mod Client Pack: Full-Mod Client Pack
             CurseForge与服务端部署 / CurseForge & Server: CurseForge & Server Deploy
             GTECore 核心模组 / GTECore: GTECore Core Mod
             模组概览 / Overview: Overview
@@ -91,7 +91,7 @@ plugins:
           nav_translations:
             概览 / Overview: 概覽 / 總覽
             整合包下载与玩家指南 / Download & Play: 整合包下載與玩家指南
-            玩家免编译懒人包 / Zero-Compile Lazy Pack: 玩家免編譯懶人包
+            完整模组客户端包 / Full-Mod Client Pack: 完整模組客戶端包
             CurseForge与服务端部署 / CurseForge & Server: CurseForge 與伺服端部署
             GTECore 核心模组 / GTECore: GTECore 核心模組
             模组概览 / Overview: 模組概覽
@@ -119,7 +119,7 @@ plugins:
           nav_translations:
             概览 / Overview: 概要
             整合包下载与玩家指南 / Download & Play: ダウンロード & プレイ
-            玩家免编译懒人包 / Zero-Compile Lazy Pack: ゼロコンパイル・レイジーパック
+            完整模组客户端包 / Full-Mod Client Pack: 完全Modクライアントパック
             CurseForge与服务端部署 / CurseForge & Server: CurseForge & サーバー展開
             GTECore 核心模组 / GTECore: GTECore コアMOD
             模组概览 / Overview: MOD概要
@@ -147,7 +147,7 @@ plugins:
           nav_translations:
             概览 / Overview: 개요
             整合包下载与玩家指南 / Download & Play: 다운로드 & 플레이
-            玩家免编译懒人包 / Zero-Compile Lazy Pack: 무컴파일 레이지팩
+            完整模组客户端包 / Full-Mod Client Pack: 전체 모드 클라이언트 팩
             CurseForge与服务端部署 / CurseForge & Server: CurseForge & 서버 배포
             GTECore 核心模组 / GTECore: GTECore 핵심 모드
             模组概览 / Overview: 모드 개요
@@ -175,7 +175,7 @@ plugins:
           nav_translations:
             概览 / Overview: Обзор
             整合包下载与玩家指南 / Download & Play: Скачать & Играть
-            玩家免编译懒人包 / Zero-Compile Lazy Pack: Готовый пак без компиляции
+            完整模组客户端包 / Full-Mod Client Pack: Клиентский пак со всеми модами
             CurseForge与服务端部署 / CurseForge & Server: CurseForge & Сервер
             GTECore 核心模组 / GTECore: GTECore Основной мод
             模组概览 / Overview: Обзор мода
@@ -203,7 +203,7 @@ plugins:
           nav_translations:
             概览 / Overview: Übersicht
             整合包下载与玩家指南 / Download & Play: Download & Spielen
-            玩家免编译懒人包 / Zero-Compile Lazy Pack: Zero-Compile Lazy Pack
+            完整模组客户端包 / Full-Mod Client Pack: Komplett-Mod-Client-Paket
             CurseForge与服务端部署 / CurseForge & Server: CurseForge & Server
             GTECore 核心模组 / GTECore: GTECore Kernmod
             模组概览 / Overview: Mod-Übersicht
@@ -231,7 +231,7 @@ plugins:
           nav_translations:
             概览 / Overview: Aperçu
             整合包下载与玩家指南 / Download & Play: Télécharger & Jouer
-            玩家免编译懒人包 / Zero-Compile Lazy Pack: Pack prêt à jouer
+            完整模组客户端包 / Full-Mod Client Pack: Pack client complet
             CurseForge与服务端部署 / CurseForge & Server: CurseForge & Serveur
             GTECore 核心模组 / GTECore: GTECore Mod principal
             模组概览 / Overview: Aperçu du mod
@@ -259,7 +259,7 @@ plugins:
           nav_translations:
             概览 / Overview: Descripción general
             整合包下载与玩家指南 / Download & Play: Descargar & Jugar
-            玩家免编译懒人包 / Zero-Compile Lazy Pack: Paquete listo para jugar
+            完整模组客户端包 / Full-Mod Client Pack: Paquete cliente con todos los mods
             CurseForge与服务端部署 / CurseForge & Server: CurseForge & Servidor
             GTECore 核心模组 / GTECore: GTECore Mod principal
             模组概览 / Overview: Descripción del mod
@@ -287,7 +287,7 @@ plugins:
           nav_translations:
             概览 / Overview: Visão geral
             整合包下载与玩家指南 / Download & Play: Download & Jogar
-            玩家免编译懒人包 / Zero-Compile Lazy Pack: Pacote pronto para jogar
+            完整模组客户端包 / Full-Mod Client Pack: Pacote cliente completo de mods
             CurseForge与服务端部署 / CurseForge & Server: CurseForge & Servidor
             GTECore 核心模组 / GTECore: GTECore Mod principal
             模组概览 / Overview: Visão geral do mod
@@ -313,7 +313,7 @@ plugins:
 nav:
   - 概览 / Overview: index.md
   - 整合包下载与玩家指南 / Download & Play:
-      - 玩家免编译懒人包 / Zero-Compile Lazy Pack: download-and-play/lazy-pack.md
+      - 完整模组客户端包 / Full-Mod Client Pack: download-and-play/full-mod-pack.md
       - CurseForge与服务端部署 / CurseForge & Server: download-and-play/curseforge-and-server.md
   - GTECore 核心模组 / GTECore:
       - 模组概览 / Overview: gtecore/overview.md

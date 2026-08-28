@@ -16,7 +16,7 @@ flowchart TD
     D --> E[Copy generated Jars to overrides/mods & collect to build/artifacts]
     E --> F[Run opencode_translate.py full/incremental AI internationalization translation]
     F --> G[Packwiz standard packaging: CurseForge pack + patched Java 21 manifest]
-    G --> H[Python builds Zero-Compile player complete lazy pack .minecraft]
+    G --> H[Python builds player full-mod client pack GTE-FullMod]
     H --> I[Packwiz exports clean server Server pack]
     I --> J[Upload all Release artifacts to Actions Artifacts storage]
     J --> K[Build static Maven repository and deploy to GitHub Pages (gh-pages)]
@@ -31,10 +31,10 @@ flowchart TD
 - **Packwiz Export**: Run `packwiz curseforge export` to generate a standard pack.
 - **Automatic manifest.json Patch**: To address the issue where some third-party launchers default to Java 17 when parsing CurseForge packs, the CI automatically extracts the zip, uses a Python script to **hardcode-force write** `minecraft.javaVersion` and the top-level `javaVersion` in `manifest.json` to **21**, and then repackages it.
 
-### 2. Player No-Compile Complete Lazy Pack (`build_lazy_pack.py`)
+### 2. Player Full-Mod Client Pack (`build_full_mod_pack.py`)
 - The Python script automatically extracts the latest core Jars from each module's `build/libs/`.
 - Automatically merges key extension Mods from `modules/gtecore/gradle/libs/`.
-- Packages all configurations, KubeJS scripts, and Patchouli manuals into a ready-to-use `.minecraft` archive, including a built-in Chinese startup guide.
+- Packages all configurations, KubeJS scripts, and Patchouli manuals into a flat `GTE-FullMod-*.zip` (with `mods/`, `config/`, `defaultconfigs/` and `kubejs/` at the top level), including a built-in Chinese install guide `README_安装必看.txt`.
 
 ### 3. Server Export Pack (`packwiz server export`)
 - Automatically removes client-only optimization Mods (such as 3D skin layers, shaders, key bindings, etc.) and generates a clean server pack that can be directly deployed on Linux/Windows production servers.

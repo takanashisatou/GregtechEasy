@@ -16,7 +16,7 @@ flowchart TD
     D --> E[复制生成 Jar 至 overrides/mods & 收集至 build/artifacts]
     E --> F[运行 opencode_translate.py 全量/增量 AI 国际化翻译]
     F --> G[Packwiz 规范打包: CurseForge 包 + 补丁 Java 21 manifest]
-    G --> H[Python 构建 Zero-Compile 玩家完整懒人包 .minecraft]
+    G --> H[Python 构建玩家完整模组客户端包 GTE-FullMod]
     H --> I[Packwiz 导出纯净服务端 Server 包]
     I --> J[上传所有 Release 产物至 Actions Artifacts 存储]
     J --> K[构建静态 Maven 仓库并部署至 GitHub Pages (gh-pages)]
@@ -31,10 +31,10 @@ flowchart TD
 - **Packwiz 내보내기**: `packwiz curseforge export`를 실행하여 표준 규격 패키지를 생성합니다.
 - **manifest.json 자동 패치**: 일부 서드파티 런처가 CurseForge 패키지를 파싱할 때 기본적으로 Java 17을 지정하는 문제를 해결하기 위해, CI가 zip을 자동으로 압축 해제하고 Python 스크립트를 통해 `manifest.json`의 `minecraft.javaVersion` 및 최상위 `javaVersion`을 **하드코딩으로 강제로 21로 기록**한 후 다시 패키징합니다.
 
-### 2. 플레이어용 컴파일 불필요 완전 간편 팩 (`build_lazy_pack.py`)
+### 2. 플레이어용 전체 모드 클라이언트 팩 (`build_full_mod_pack.py`)
 - Python 스크립트가 각 모듈의 `build/libs/`에서 최신 코어 Jar를 자동으로 추출합니다.
 - `modules/gtecore/gradle/libs/` 아래의 핵심 확장 Mod를 자동으로 병합합니다.
-- 모든 설정, KubeJS 스크립트, 파추리(Patchouli) 매뉴얼을 하나의 즉시 사용 가능한 `.minecraft` 압축 파일로 패키징하며, 중국어 시작 가이드가 내장되어 있습니다.
+- 모든 설정, KubeJS 스크립트, 파추리(Patchouli) 매뉴얼을 평면 구조의 `GTE-FullMod-*.zip`(최상위에 `mods/`, `config/`, `defaultconfigs/`, `kubejs/`)으로 패키징하며, 중국어 설치 가이드 `README_安装必看.txt`가 내장되어 있습니다.
 
 ### 3. 서버 전용 내보내기 팩 (`packwiz server export`)
 - 클라이언트 전용 최적화 Mod(예: 3D 스킨 레이어, 셰이더, 키 바인딩 등)를 자동으로 제외하여 Linux/Windows 프로덕션 서버에 바로 배포할 수 있는 순수 서버 팩을 생성합니다.

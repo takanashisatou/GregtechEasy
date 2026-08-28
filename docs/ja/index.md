@@ -10,13 +10,13 @@ GTE は、**「シンプル、楽しい、面白い、短時間」** を核心�
 
 <div class="grid cards" markdown>
 
--   :material-download: __[プレイヤーと統合パックガイド](download-and-play/lazy-pack.md)__
+-   :material-download: __[プレイヤーと統合パックガイド](download-and-play/full-mod-pack.md)__
 
     ---
 
-    ダウンロードしてすぐ使える **0 コンパイル完全お手軽パック**、CurseForge 標準パックとサーバーを入手し、**Java 21** 実行環境の設定とランチャーインポートのチュートリアルを学べます。
+    **完全Modクライアントパック**、CurseForge 標準パックとサーバーを入手し、**Java 21** 実行環境の設定とランチャーインポートのチュートリアルを学べます。
 
-    [:octicons-arrow-right-24: 今すぐ見る](download-and-play/lazy-pack.md)
+    [:octicons-arrow-right-24: 今すぐ見る](download-and-play/full-mod-pack.md)
 
 -   :material-chip: __[GTECore 核心MOD詳細](gtecore/overview.md)__
 
@@ -68,6 +68,6 @@ GTE は、**「シンプル、楽しい、面白い、短時間」** を核心�
 | :--- | :--- |
 | **プロジェクト名** | `GregtechEasy` (`gte-multi`) |
 | **実行・コンパイルツールチェーン** | **JDK 21**（Java 21 Toolchain を必須とし、すべてのサブモジュールで厳密に統一） |
-| **ゲームバージョン** | Minecraft `1.20.1` (Forge `47.4.1`) |
+| **ゲームバージョン** | Minecraft `1.20.1` (Forge `47.3.0` / `47.4.4`) |
 | **オープンソースライセンス** | LGPL-3.0 / MIT |
 | **デフォルトブランチ** | メインリポジトリ `main` / `master`、GTM-Reborn `satou`、GT-- `kotlin`、GTECore `master` |

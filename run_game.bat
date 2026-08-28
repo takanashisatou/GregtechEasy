@@ -140,16 +140,22 @@ set "PATH=%FOUND_JDK%\bin;%PATH%"
 REM ---------------------------------------------------------------------------
 REM Decide which mode we are in.
 REM
-REM This one script ships in two very different places:
+REM This one script serves two very different layouts:
 REM   * the source checkout, where gradlew.bat + modules/ exist and the point is
 REM     to hot-compile gtecore/gtm-reborn and launch the dev runtime;
-REM   * the distributed Lazy Pack, which contains only a prepared .minecraft and
-REM     has no Gradle wrapper and no sources at all.
+REM   * a local standalone directory holding a prepared .minecraft, with no
+REM     Gradle wrapper and no sources.
 REM
-REM It used to unconditionally call gradlew.bat. In the Lazy Pack that produced
-REM "'...gradlew.bat' is not recognized as an internal or external command",
-REM fell straight into the pause below, and looked to players like the pack had
-REM simply failed to do anything. Pick the mode from what is actually on disk.
+REM It used to unconditionally call gradlew.bat, so in the second layout it
+REM printed "'...gradlew.bat' is not recognized as an internal or external
+REM command", fell into the pause below, and looked like nothing had happened.
+REM Pick the mode from what is actually on disk.
+REM
+REM Note: no released artifact ships this script any more. The distributed packs
+REM are GTE-CurseForge-*.zip (launcher import), GTE-FullMod-*.zip (flat game
+REM content for a self-made instance) and GTE-Server-*.zip. PLAYER_MODE below is
+REM kept for launching a locally prepared .minecraft without a launcher, which is
+REM how a pack is smoke-tested before release.
 REM ---------------------------------------------------------------------------
 if exist "%ROOT_DIR%gradlew.bat" if exist "%ROOT_DIR%settings.gradle" goto DEV_MODE
 if exist "%ROOT_DIR%.minecraft" goto PLAYER_MODE
@@ -158,20 +164,21 @@ echo ========================================================
 echo [Error] Cannot tell what to launch.
 echo ========================================================
 echo This folder has neither a Gradle wrapper (developer checkout)
-echo nor a .minecraft folder (extracted Lazy Pack).
+echo nor a .minecraft folder (prepared standalone game directory).
 echo.
-echo If you downloaded GTE-LazyPack-*.zip, extract the WHOLE archive
-echo and keep run_game.bat next to the .minecraft folder.
+echo If you are a player: this script is not part of any released
+echo pack. Use GTE-CurseForge-*.zip and import it in your launcher,
+echo or GTE-FullMod-*.zip if you already made a Forge 47.4.1 instance.
 echo.
 pause
 exit /b 1
 
 REM ===========================================================================
-REM Player mode: standalone launch straight out of the extracted Lazy Pack
+REM Standalone mode: launch a prepared .minecraft directly, without a launcher
 REM ===========================================================================
 :PLAYER_MODE
 echo ========================================================
-echo        GTE Lazy Pack (Direct Start / No Launcher)
+echo        GTE Standalone Start (No Launcher)
 echo ========================================================
 echo Game Directory : %ROOT_DIR%.minecraft
 echo Java 21 Runtime: %JAVA_HOME%
@@ -182,8 +189,7 @@ call :DETECT_HARDWARE
 set "LAUNCHER_PS1=%ROOT_DIR%gte_launcher.ps1"
 if not exist "%LAUNCHER_PS1%" set "LAUNCHER_PS1=%ROOT_DIR%scripts\gte_launcher.ps1"
 if not exist "%LAUNCHER_PS1%" (
-    echo [Error] gte_launcher.ps1 is missing from this pack.
-    echo Re-download GTE-LazyPack-*.zip and extract it completely.
+    echo [Error] gte_launcher.ps1 not found next to this script or under scripts\.
     pause
     exit /b 1
 )

@@ -1,6 +1,6 @@
 # CurseForge 匯入與服務端部署指南
 
-除了免編譯懶人包外，GTE 提供了基於 **Packwiz** 自動構建的 CurseForge 規範包與服務端包。
+除了完整模組客戶端包外，GTE 提供了基於 **Packwiz** 自動構建的 CurseForge 規範包與服務端包。
 
 ---
 
