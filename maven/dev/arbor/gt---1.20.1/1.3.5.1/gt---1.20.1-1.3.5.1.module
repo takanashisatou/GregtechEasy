@@ -29,11 +29,11 @@
         {
           "name": "gt---1.20.1-1.3.5.1-slim.jar",
           "url": "gt---1.20.1-1.3.5.1-slim.jar",
-          "size": 2423537,
-          "sha512": "159bb66b83bb69d176eb8e40e1c609dc24f149e6eadc1b452baf2df04370068f7783aa2801cbd85cce1b864edc1023c59b4ac11045ef29911f58313273656c8f",
-          "sha256": "c1056ed9dc476911c1dee3877f3e2c2f022e23e538de4ce87ad6180f1ebcd3e6",
-          "sha1": "d2c8032d7df5d815859e4e175e52ebe472d6a0ef",
-          "md5": "0419366f140cdf9cab34e9f2007b7d45"
+          "size": 2329887,
+          "sha512": "2e31d85766847aa0b5cafc370f50bdeaedc08eaccd2d5a909a47e1091d231ad9cbc0caf786226d8251ff3dc23ba9c4170677a1205b5db17fb7df2eaef10606e6",
+          "sha256": "b56f00278aacfa80fff818d25380933df2069ad91f61c6a4415582129d738bef",
+          "sha1": "a6fedb06913484ff1dce01ec1fbe7eb18d958b0f",
+          "md5": "8faef91146b35fcbf67987c4fb7c32e7"
         }
       ]
     },
@@ -52,11 +52,11 @@
         {
           "name": "gt---1.20.1-1.3.5.1-slim.jar",
           "url": "gt---1.20.1-1.3.5.1-slim.jar",
-          "size": 2423537,
-          "sha512": "159bb66b83bb69d176eb8e40e1c609dc24f149e6eadc1b452baf2df04370068f7783aa2801cbd85cce1b864edc1023c59b4ac11045ef29911f58313273656c8f",
-          "sha256": "c1056ed9dc476911c1dee3877f3e2c2f022e23e538de4ce87ad6180f1ebcd3e6",
-          "sha1": "d2c8032d7df5d815859e4e175e52ebe472d6a0ef",
-          "md5": "0419366f140cdf9cab34e9f2007b7d45"
+          "size": 2329887,
+          "sha512": "2e31d85766847aa0b5cafc370f50bdeaedc08eaccd2d5a909a47e1091d231ad9cbc0caf786226d8251ff3dc23ba9c4170677a1205b5db17fb7df2eaef10606e6",
+          "sha256": "b56f00278aacfa80fff818d25380933df2069ad91f61c6a4415582129d738bef",
+          "sha1": "a6fedb06913484ff1dce01ec1fbe7eb18d958b0f",
+          "md5": "8faef91146b35fcbf67987c4fb7c32e7"
         }
       ]
     }
