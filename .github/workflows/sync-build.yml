@@ -720,24 +720,35 @@ jobs:
           Write-Host "Publishing $($files.Count) asset(s) to the rolling 'nightly' prerelease:"
           $files | ForEach-Object { Write-Host "  $(Split-Path $_ -Leaf)" }
 
+          # Retarget the tag BEFORE touching the release, and do it on both paths.
+          # `gh release create --target` is only honoured when the tag does not yet
+          # exist, and a deleted release leaves refs/tags/nightly behind -- so after
+          # a manual release deletion the create path produced a release whose
+          # assets were current but whose source tag still pointed at whatever
+          # commit the previous nightly used. Force-moving the ref first makes both
+          # paths agree.
+          $tagExists = $true
+          gh api "repos/${{ github.repository }}/git/refs/tags/nightly" > $null 2>&1
+          if ($LASTEXITCODE -ne 0) { $tagExists = $false }
+          if ($tagExists) {
+            gh api -X PATCH "repos/${{ github.repository }}/git/refs/tags/nightly" -f sha='${{ github.sha }}' -F force=true > $null
+          } else {
+            gh api -X POST "repos/${{ github.repository }}/git/refs" -f ref='refs/tags/nightly' -f sha='${{ github.sha }}' > $null
+          }
+          if ($LASTEXITCODE -eq 0) {
+            Write-Host "Rolling tag 'nightly' points at ${{ github.sha }}."
+          } else {
+            Write-Host "::warning::Could not move the 'nightly' tag; the release may reference an older commit."
+          }
+
           gh release view nightly --repo ${{ github.repository }} > $null 2>&1
           if ($LASTEXITCODE -eq 0) {
             gh release edit nightly --repo ${{ github.repository }} --title $title --prerelease --notes "Automated nightly build of ``$version`` from ``${{ github.sha }}``.`n`nRolling prerelease: assets are replaced on every nightly run."
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
             gh release upload nightly --repo ${{ github.repository }} $files --clobber
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-            # `gh release edit --target` is silently ignored once the tag exists, so
-            # the rolling tag kept pointing at an ancient commit while the assets were
-            # current. Move the ref explicitly.
-            gh api -X PATCH "repos/${{ github.repository }}/git/refs/tags/nightly" -f sha='${{ github.sha }}' -F force=true > $null
-            if ($LASTEXITCODE -eq 0) {
-              Write-Host "Rolling tag 'nightly' retargeted to ${{ github.sha }}."
-            } else {
-              Write-Host "::warning::Could not retarget the 'nightly' tag; assets are current but the tag still points elsewhere."
-            }
           } else {
-            gh release create nightly --repo ${{ github.repository }} $files --target ${{ github.sha }} --title $title --prerelease --notes "Automated nightly build of ``$version`` from ``${{ github.sha }}``."
+            gh release create nightly --repo ${{ github.repository }} $files --title $title --prerelease --notes "Automated nightly build of ``$version`` from ``${{ github.sha }}``."
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           }
           Write-Host "Nightly prerelease published: https://github.com/${{ github.repository }}/releases/tag/nightly"
