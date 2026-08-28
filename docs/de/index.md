@@ -2,7 +2,7 @@
 
 Willkommen zum offiziellen umfassenden Leitfaden für das **GregTech Easy (GTE)** Modpack!
 
-GTE ist ein modernes Minecraft 1.20.1 Modpack, dessen Kernphilosophie **„einfach, unterhaltsam, interessant und zeitsparend“** ist.
+GTE ist ein modernes Minecraft 1.20.1 Modpack, das auf dem Kernkonzept **„Einfach, unterhaltsam, spaßig, zeitsparend“** basiert.
 
 ---
 
@@ -10,51 +10,51 @@ GTE ist ein modernes Minecraft 1.20.1 Modpack, dessen Kernphilosophie **„einfa
 
 <div class="grid cards" markdown>
 
--   :material-download: __[Spieler- und Modpack-Leitfaden](download-and-play/lazy-pack.md)__
+-   :material-download: __[Spieler- & Modpack-Leitfaden](download-and-play/full-mod-pack.md)__
 
     ---
 
-    Lade das sofort einsatzbereite **0-Kompilierungs-Komplett-Lazy-Pack**, das CurseForge-Standardpaket und den Server herunter, und erfahre mehr über die **Java 21**-Laufzeitumgebungskonfiguration und das Import-Tutorial für den Launcher.
+    Laden Sie das **Komplett-Mod-Client-Paket**, das CurseForge-konforme Paket und den Server herunter. Erfahren Sie mehr über die **Java 21**-Laufzeitumgebungskonfiguration und Launcher-Import-Tutorials.
 
-    [:octicons-arrow-right-24: Jetzt loslegen](download-and-play/lazy-pack.md)
+    [:octicons-arrow-right-24: Jetzt loslegen](download-and-play/full-mod-pack.md)
 
--   :material-chip: __[GTECore Kernmodul-Details](gtecore/overview.md)__
+-   :material-chip: __[GTECore Kernmodul im Detail](gtecore/overview.md)__
 
     ---
 
-    Erfahre mehr über den **Yin-Yang-Bagua-Alchemieofen**, die **Vier-Symbole-Formation**, das **Erzverarbeitungszentrum**, den **Wunderring**, die **Superstring- und Yin-Yang-Schaltkreise**, die **AE2-Vorlagenbaugruppe Plus** und andere Kerninhalte.
+    Erhalten Sie tiefe Einblicke in den **Yin-Yang-Bagua-Alchemieofen**, die **Vier-Symbole-Formation**, das **Erzverarbeitungszentrum**, den **Ring der Wunder**, die **Superstring- & Yin-Yang-Schaltkreise**, das **AE2-Vorlagen-Baugruppen-Plus** und weitere Kerninhalte.
 
     [:octicons-arrow-right-24: Jetzt loslegen](gtecore/overview.md)
 
--   :material-cog: __[GTM Reborn Modul-Branch](gtm-reborn/index.md)__
+-   :material-cog: __[GTM Reborn Modifikationszweig](gtm-reborn/index.md)__
 
     ---
 
-    Erfahre mehr über die durch den `satou`-Branch eingeführten Mehr-Ampere-Rezepte, den Batch-Modus, das 1t-Subtick-Übertakten, die GameTest-Automatisierungstests und die Fluid-Bereichsausgabe-Funktionen.
+    Erfahren Sie mehr über die Funktionen des `satou`-Zweigs: Multi-Ampere-Rezepte, Stapelverarbeitungsmodus, 1t-Subtick-Übertaktung, GameTest-Automatisierungstests und Fluid-Intervall-Ausgabefunktionen.
 
     [:octicons-arrow-right-24: Jetzt loslegen](gtm-reborn/index.md)
 
--   :material-code-tags: __[KubeJS-Modifikation und Entwicklungswerkzeuge](kubejs/scripting-guide.md)__
+-   :material-code-tags: __[KubeJS-Modifikationen & Entwicklungswerkzeuge](kubejs/scripting-guide.md)__
 
     ---
 
-    Lerne, wie man Materialien in KubeJS registriert, Rezepte schreibt und mit dem integrierten `/dumpmultiblock`-Holzaxt-Auswahlwerkzeug mit einem Klick Mehrblock-Strukturcode exportiert.
+    Lernen Sie, wie Sie in KubeJS Materialien registrieren, Rezepte schreiben und das integrierte `/dumpmultiblock`-Holzaxt-Auswahlwerkzeug verwenden, um Mehrblock-Strukturcode mit einem Klick zu exportieren.
 
     [:octicons-arrow-right-24: Jetzt loslegen](kubejs/scripting-guide.md)
 
--   :material-hammer-wrench: __[Entwickler- und Absturzschutz-Praxishandbuch](development/quick-start.md)__
+-   :material-hammer-wrench: __[Entwickler- & Absturzschutz-Handbuch](development/quick-start.md)__
 
     ---
 
-    Beherrsche den sekundenschnellen Start ohne Launcher mit `run_game.bat`, die Null-Kopier-Verzeichniszuordnung mit `link_to_launcher.bat` sowie die goldene Regel zur Vermeidung von Mixin-Accessor-Abstürzen.
+    Meistern Sie den Launcher-freien Sekundenstart mit `run_game.bat`, die Null-Kopien-Verzeichniszuordnung mit `link_to_launcher.bat` und die goldenen Regeln zur Vermeidung von Mixin-Accessor-Abstürzen.
 
     [:octicons-arrow-right-24: Jetzt loslegen](development/quick-start.md)
 
--   :material-robot: __[CI/CD-Pipeline und KI-Übersetzung](ci-cd-and-translation/ci-pipeline.md)__
+-   :material-robot: __[CI/CD-Pipeline & KI-Übersetzung](ci-cd-and-translation/ci-pipeline.md)__
 
     ---
 
-    Erfahre mehr über die automatisierte parallele Multi-Modul-Builds auf Basis von GitHub Actions, Packwiz-Paketierung, Maven-Veröffentlichung und das KI-Internationalisierungsskript `opencode_translate.py`.
+    Erfahren Sie mehr über die automatisierte parallele Multi-Modul-Konstruktion basierend auf GitHub Actions, Packwiz-Paketierung, Maven-Veröffentlichung und das KI-Internationalisierungsskript `opencode_translate.py`.
 
     [:octicons-arrow-right-24: Jetzt loslegen](ci-cd-and-translation/ci-pipeline.md)
 
@@ -67,7 +67,7 @@ GTE ist ein modernes Minecraft 1.20.1 Modpack, dessen Kernphilosophie **„einfa
 | Konfigurationselement | Beschreibung |
 | :--- | :--- |
 | **Projektname** | `GregtechEasy` (`gte-multi`) |
-| **Laufzeit- und Kompilierungstoolchain** | **JDK 21** (Java 21 Toolchain wird erzwungen, alle Untermodule sind strikt einheitlich) |
+| **Laufzeit- & Kompilierungswerkzeugkette** | **JDK 21** (Java 21 Toolchain ist obligatorisch, alle Untermodule sind strikt vereinheitlicht) |
 | **Spielversion** | Minecraft `1.20.1` (Forge `47.4.1`) |
 | **Open-Source-Lizenz** | LGPL-3.0 / MIT |
-| **Standard-Branch** | Haupt-Repository `main` / `master`, GTM-Reborn `satou`, GT-- `kotlin`, GTECore `master` |
+| **Standardzweige** | Hauptrepository `main` / `master`, GTM-Reborn `satou`, GT-- `kotlin`, GTECore `master` |

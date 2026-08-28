@@ -2,27 +2,27 @@
 
 Bem-vindo ao guia oficial abrangente do pacote de mods **GregTech Easy (GTE)**!
 
-GTE é um pacote de mods moderno para Minecraft 1.20.1 com o conceito central de **"simples, divertido, interessante e de curta duração"**.
+O GTE é um pacote de mods moderno para Minecraft 1.20.1 com o conceito central de **"Simples, Divertido, Interessante e de Curta Duração"**.
 
 ---
 
-## ⚡ Índice de Acesso Rápido
+## ⚡ Índice de Navegação Rápida
 
 <div class="grid cards" markdown>
 
--   :material-download: __[Guia do Jogador e do Pacote](download-and-play/lazy-pack.md)__
+-   :material-download: __[Guia do Jogador e do Pacote de Mods](download-and-play/full-mod-pack.md)__
 
     ---
 
-    Baixe o **pacote completo pronto para uso com 0 compilação**, o pacote padrão CurseForge e o servidor, e aprenda sobre a configuração do ambiente de execução **Java 21** e o tutorial de importação do launcher.
+    Baixe o **pacote cliente completo de mods**, o pacote padrão CurseForge e o servidor, e aprenda sobre a configuração do ambiente de execução **Java 21** e os tutoriais de importação no launcher.
 
-    [:octicons-arrow-right-24: Ir agora](download-and-play/lazy-pack.md)
+    [:octicons-arrow-right-24: Ir agora](download-and-play/full-mod-pack.md)
 
 -   :material-chip: __[Detalhes do Mod Principal GTECore](gtecore/overview.md)__
 
     ---
 
-    Aprofunde-se em conteúdos principais como o **Forno de Refinamento de Imortalidade Yin-Yang Bagua**, a **Formação das Quatro Símbolos**, o **Centro de Processamento de Minérios**, o **Anel do Milagre**, os **Circuitos de Supercordas e Yin-Yang**, e o **AE2 Modelo de Montagem Plus**.
+    Aprofunde-se no **Fornalha de Refinamento Yin-Yang Bagua**, **Formação dos Quatro Símbolos**, **Centro de Processamento de Minérios**, **Anel do Milagre**, **Circuitos de Supercordas e Yin-Yang**, **AE2 Modelo de Montagem Plus** e outros conteúdos principais.
 
     [:octicons-arrow-right-24: Ir agora](gtecore/overview.md)
 
@@ -30,7 +30,7 @@ GTE é um pacote de mods moderno para Minecraft 1.20.1 com o conceito central de
 
     ---
 
-    Conheça as receitas de múltiplos amperes, o modo de processamento em lote, o overclock de 1 tick Subtick, os testes automatizados GameTest e os recursos de saída de fluidos por intervalo trazidos pelo ramo `satou`.
+    Conheça as receitas de múltiplos amperes, o modo de processamento em lote, o overclock de 1t Subtick, os testes automatizados GameTest e os recursos de saída de fluido por intervalo trazidos pelo ramo `satou`.
 
     [:octicons-arrow-right-24: Ir agora](gtm-reborn/index.md)
 
@@ -38,7 +38,7 @@ GTE é um pacote de mods moderno para Minecraft 1.20.1 com o conceito central de
 
     ---
 
-    Aprenda a registrar materiais no KubeJS, escrever receitas e usar a ferramenta integrada de seleção de caixa de madeira `/dumpmultiblock` para exportar código de estrutura de multibloco com um clique.
+    Aprenda a registrar materiais, escrever receitas no KubeJS e usar a ferramenta de seleção de machado de madeira `/dumpmultiblock` integrada para exportar código de estrutura de multiblocos com um clique.
 
     [:octicons-arrow-right-24: Ir agora](kubejs/scripting-guide.md)
 
@@ -46,7 +46,7 @@ GTE é um pacote de mods moderno para Minecraft 1.20.1 com o conceito central de
 
     ---
 
-    Domine o `run_game.bat` para iniciar em segundos sem launcher, o `link_to_launcher.bat` para mapeamento de diretório sem cópia, e a regra de ouro para evitar crashes de Mixin Accessor.
+    Domine o `run_game.bat` para iniciar em segundos sem launcher, o `link_to_launcher.bat` para mapeamento de diretório sem cópia, e a regra de ouro para eliminar crashes de Mixin Accessor.
 
     [:octicons-arrow-right-24: Ir agora](development/quick-start.md)
 
@@ -54,7 +54,7 @@ GTE é um pacote de mods moderno para Minecraft 1.20.1 com o conceito central de
 
     ---
 
-    Entenda a construção paralela automatizada de múltiplos módulos baseada em GitHub Actions, o empacotamento Packwiz, a publicação Maven e o script de internacionalização por IA `opencode_translate.py`.
+    Entenda a construção paralela automatizada de múltiplos módulos baseada no GitHub Actions, empacotamento Packwiz, publicação Maven e o script de internacionalização por IA `opencode_translate.py`.
 
     [:octicons-arrow-right-24: Ir agora](ci-cd-and-translation/ci-pipeline.md)
 
@@ -67,7 +67,7 @@ GTE é um pacote de mods moderno para Minecraft 1.20.1 com o conceito central de
 | Item de Configuração | Descrição |
 | :--- | :--- |
 | **Nome do Projeto** | `GregtechEasy` (`gte-multi`) |
-| **Cadeia de Ferramentas de Execução e Compilação** | **JDK 21** (uso obrigatório do Toolchain Java 21, todos os submódulos estritamente unificados) |
+| **Toolchain de Execução e Compilação** | **JDK 21** (Toolchain Java 21 obrigatório, estritamente unificado em todos os submódulos) |
 | **Versão do Jogo** | Minecraft `1.20.1` (Forge `47.4.1`) |
 | **Licença de Código Aberto** | LGPL-3.0 / MIT |
-| **Ramo Padrão** | Repositório principal `main` / `master`, GTM-Reborn `satou`, GT-- `kotlin`, GTECore `master` |
+| **Ramos Padrão** | Repositório principal `main` / `master`, GTM-Reborn `satou`, GT-- `kotlin`, GTECore `master` |

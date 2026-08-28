@@ -10,13 +10,13 @@ GTE 是一個以 **“簡單、好玩、有趣、耗時短”** 為核心理念�
 
 <div class="grid cards" markdown>
 
--   :material-download: __[玩家與整合包指南](download-and-play/lazy-pack.md)__
+-   :material-download: __[玩家與整合包指南](download-and-play/full-mod-pack.md)__
 
     ---
 
-    下載開箱即用的 **0 編譯完整懶人包**、CurseForge 規範包與服務端，瞭解 **Java 21** 執行環境配置與啟動器匯入教程。
+    下載 **完整模組客戶端包**、CurseForge 規範包與服務端，瞭解 **Java 21** 執行環境配置與啟動器匯入教程。
 
-    [:octicons-arrow-right-24: 立即前往](download-and-play/lazy-pack.md)
+    [:octicons-arrow-right-24: 立即前往](download-and-play/full-mod-pack.md)
 
 -   :material-chip: __[GTECore 核心模組詳解](gtecore/overview.md)__
 

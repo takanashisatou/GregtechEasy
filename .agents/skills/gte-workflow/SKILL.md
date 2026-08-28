@@ -3,7 +3,7 @@ name: gte-workflow
 description: >-
   Comprehensive guide and operational runbook for GregTech Easy (GTE) project development,
   multi-module architecture, dependency management, avoiding Mixin/Accessor runtime crashes,
-  and building player Lazy Packs or publishing to GitHub Pages Maven. Use whenever developing,
+  and building the player full-mod client pack or publishing to GitHub Pages Maven. Use whenever developing,
   modifying, or debugging GTE core modules, adding dependencies, or diagnosing game crashes.
 ---
 
@@ -35,7 +35,7 @@ GTEGroup/
 │       ├── config/ & kubejs/     # In-game configs & scripts
 │       └── patchouli_books/      # In-game guidebooks
 └── scripts/
-    ├── build_lazy_pack.py        # Player zero-compile client packaging (.minecraft zip)
+    ├── build_full_mod_pack.py    # Player full-mod client packaging (GTE-FullMod zip)
     └── audit_dependencies.py     # Static dependency audit scanner
 ```
 
@@ -128,8 +128,8 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
 # 4. Publish to static folder for GitHub Pages
 ./gradlew publishAllToMaven
 
-# 5. Build Zero-Compile Player Lazy Pack (.minecraft client zip)
-python scripts/build_lazy_pack.py [version]
+# 5. Build Player Full-Mod Client Pack (GTE-FullMod zip)
+python scripts/build_full_mod_pack.py [version]
 
 # 6. Audit 100% dependency coverage
 python scripts/audit_dependencies.py

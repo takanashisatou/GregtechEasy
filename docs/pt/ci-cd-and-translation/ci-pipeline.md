@@ -16,7 +16,7 @@ flowchart TD
     D --> E[Copiar Jars gerados para overrides/mods & Coletar para build/artifacts]
     E --> F[Executar opencode_translate.py para tradução internacional AI completa/incremental]
     F --> G[Empacotamento padrão Packwiz: Pacote CurseForge + Patch do manifest Java 21]
-    G --> H[Python constrói pacote completo Zero-Compile para jogadores .minecraft]
+    G --> H[Python constrói o pacote cliente completo de mods GTE-FullMod]
     H --> I[Packwiz exporta pacote de servidor puro]
     I --> J[Enviar todos os artefatos de Release para o armazenamento de Actions Artifacts]
     J --> K[Construir repositório Maven estático e implantar no GitHub Pages (gh-pages)]
@@ -31,10 +31,10 @@ flowchart TD
 - **Exportação Packwiz**: Execute `packwiz curseforge export` para gerar o pacote padrão.
 - **Patch automático do manifest.json**: Para o problema de alguns launchers de terceiros que atribuem Java 17 por padrão ao analisar pacotes CurseForge, o CI descompacta automaticamente o zip, usa um script Python para **forçar a gravação de 21** em `minecraft.javaVersion` e no `javaVersion` de nível superior no `manifest.json`, e então reempacota.
 
-### 2. Pacote Completo para Jogadores sem Compilação (`build_lazy_pack.py`)
+### 2. Pacote Cliente Completo de Mods para Jogadores (`build_full_mod_pack.py`)
 - O script Python extrai automaticamente os Jars principais mais recentes de `build/libs/` de cada módulo.
 - Mescla automaticamente os Mods de extensão chave em `modules/gtecore/gradle/libs/`.
-- Empacota todas as configurações, scripts KubeJS e o manual de Patchouli em um arquivo `.minecraft` pronto para uso, com guia de inicialização em chinês incluso.
+- Empacota todas as configurações, scripts KubeJS e o manual de Patchouli em um `GTE-FullMod-*.zip` plano (com `mods/`, `config/`, `defaultconfigs/` e `kubejs/` no nível superior), com o guia de instalação em chinês `README_安装必看.txt` incluso.
 
 ### 3. Pacote de Exportação para Servidor (`packwiz server export`)
 - Remove automaticamente Mods de otimização exclusivos do cliente (como camadas de skin 3D, shaders, bindings de teclas, etc.), gerando um servidor puro que pode ser implantado diretamente em servidores de produção Linux/Windows.
