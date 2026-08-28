@@ -727,13 +727,23 @@ jobs:
           # assets were current but whose source tag still pointed at whatever
           # commit the previous nightly used. Force-moving the ref first makes both
           # paths agree.
+          # Both probes below EXPECT a 404 half the time, and a 404 makes gh write to
+          # stderr. Actions injects `$ErrorActionPreference = 'stop'` into the
+          # powershell shell, and `2>&1` merges native stderr into the success
+          # stream, where PowerShell wraps each line in an ErrorRecord -- which under
+          # 'stop' terminates the script. That is how the previous version died with
+          # a bare "gh : release not found" on the very path it was written to
+          # handle. Keep stderr on stderr, silence it with 2>$null, and let
+          # $LASTEXITCODE alone decide.
+          $ErrorActionPreference = 'Continue'
+
           $tagExists = $true
-          gh api "repos/${{ github.repository }}/git/refs/tags/nightly" > $null 2>&1
+          gh api "repos/${{ github.repository }}/git/refs/tags/nightly" 1>$null 2>$null
           if ($LASTEXITCODE -ne 0) { $tagExists = $false }
           if ($tagExists) {
-            gh api -X PATCH "repos/${{ github.repository }}/git/refs/tags/nightly" -f sha='${{ github.sha }}' -F force=true > $null
+            gh api -X PATCH "repos/${{ github.repository }}/git/refs/tags/nightly" -f sha='${{ github.sha }}' -F force=true 1>$null
           } else {
-            gh api -X POST "repos/${{ github.repository }}/git/refs" -f ref='refs/tags/nightly' -f sha='${{ github.sha }}' > $null
+            gh api -X POST "repos/${{ github.repository }}/git/refs" -f ref='refs/tags/nightly' -f sha='${{ github.sha }}' 1>$null
           }
           if ($LASTEXITCODE -eq 0) {
             Write-Host "Rolling tag 'nightly' points at ${{ github.sha }}."
@@ -741,7 +751,7 @@ jobs:
             Write-Host "::warning::Could not move the 'nightly' tag; the release may reference an older commit."
           }
 
-          gh release view nightly --repo ${{ github.repository }} > $null 2>&1
+          gh release view nightly --repo ${{ github.repository }} 1>$null 2>$null
           if ($LASTEXITCODE -eq 0) {
             gh release edit nightly --repo ${{ github.repository }} --title $title --prerelease --notes "Automated nightly build of ``$version`` from ``${{ github.sha }}``.`n`nRolling prerelease: assets are replaced on every nightly run."
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
