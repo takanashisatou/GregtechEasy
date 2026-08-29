@@ -55,7 +55,11 @@ subprojects {
 // gtm-reborn, gt--, gtecore and gte-dev-runtime each launch a game instance.
 // Fail fast with guidance instead of opening multiple clients/servers.
 gradle.taskGraph.whenReady { graph ->
-    def runTasks = graph.allTasks.findAll { it.name ==~ /run(Client|Server|Data|GameTestServer)/ }
+    def runTasks = graph.allTasks.findAll { 
+        it.path != ':runClient' && 
+        it.path != ':modules:gtecore:runClient' &&
+        it.name ==~ /run(Client|Server|Data|GameTestServer)/ 
+    }
     if (runTasks.size() > 1) {
         throw new GradleException(
             'Multiple game run tasks in one invocation: ' + runTasks.collect { it.path }.join(', ') +
@@ -117,6 +121,12 @@ tasks.register('syncBlockbenchAssets') {
 // ---------------------------------------------------------------------------
 // Aggregated Lifecycle Tasks
 // ---------------------------------------------------------------------------
+tasks.register('runClient') {
+    group = 'forge runs'
+    description = 'Launch the full GTE client in dev runtime (hot debug with all mods)'
+    dependsOn ':modules:gte-dev-runtime:runClient'
+}
+
 tasks.register('buildAll') {
     group = 'build'
     description = 'Build all submodules in order (gtm-reborn -> gt-- -> gtecore)'
