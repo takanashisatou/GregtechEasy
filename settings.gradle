@@ -100,3 +100,36 @@ include 'modules:gtm-reborn'
 include 'modules:gt--'
 include 'modules:gtecore'
 include 'modules:gte-dev-runtime'
+
+// ---------------------------------------------------------------------------
+// MDG 2.0.86 + idea-ext 1.1.9 multi-module IDEA sync workaround
+// ---------------------------------------------------------------------------
+// During an IDEA sync (idea.sync.active=true), every module that applies the
+// legacyforge plugin activates MDG's IntelliJ integration, which applies the
+// idea-ext plugin. idea-ext 1.1.9 unconditionally creates a 'settings'
+// extension on the SHARED root IDEA project model, so the second MDG module
+// crashes the whole sync with:
+//   "Cannot add extension with name 'settings', as there is an extension
+//    already registered with that name."
+//
+// Workaround: keep MDG's IntelliJ integration (which generates the
+// Application run configurations) only for the hot-debug runtime module,
+// whose runs are the ones worth launching from the IDE. For the other
+// modules the idea.sync.active flag is masked during their evaluation so
+// MDG falls back to NoIdeIntegration; they still have the checked-in Gradle
+// run configurations under .idea/runConfigurations. The flag is restored
+// after each module so nothing else in the build/IDE notices.
+def mdgIdeRunModule = ':modules:gte-dev-runtime'
+def mdgIdeSkip = [':modules:gtm-reborn', ':modules:gt--', ':modules:gtecore'] as Set
+gradle.beforeProject { p ->
+    if (p.path in mdgIdeSkip && System.getProperty('idea.sync.active') != null) {
+        p.extensions.extraProperties.set('mdgIdeSyncSaved', System.getProperty('idea.sync.active'))
+        System.clearProperty('idea.sync.active')
+    }
+}
+gradle.afterProject { p, state ->
+    def saved = p.extensions.extraProperties.find('mdgIdeSyncSaved')
+    if (p.path in mdgIdeSkip && saved != null) {
+        System.setProperty('idea.sync.active', saved.toString())
+    }
+}
