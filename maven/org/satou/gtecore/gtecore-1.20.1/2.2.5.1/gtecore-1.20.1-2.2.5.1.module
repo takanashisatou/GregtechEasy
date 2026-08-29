@@ -29,11 +29,11 @@
         {
           "name": "gtecore-1.20.1-2.2.5.1.jar",
           "url": "gtecore-1.20.1-2.2.5.1.jar",
-          "size": 8256246,
-          "sha512": "4eba20c1ffea3da8fe131127c4696d1cc98aacc23b56b5787908d482ce5b960b11a7aad9524f6a1b692b7e5a48a75e14e4211c48828c94866695685b4e911e60",
-          "sha256": "2b178a6c8a2e1a7f10338240ed956dadb077b3500154bd99128a2c0cd1f96328",
-          "sha1": "99efcc006fd2daa40b69837256c2f9cff35002b4",
-          "md5": "370b4b151265193fec4edfa499c1e32f"
+          "size": 8265082,
+          "sha512": "a14b7faecb6e4433cd7549058c617e8df8e3ea3301ce1665cdccef092533643894e14b54fbe606c990ccf176ec1f7e28fdf9b0c85f3e97d99c7065ba8b2dc4a8",
+          "sha256": "971b4a9d12af497f2712c5568e6ae788e400dffa798d6f286e2bcbe6c22dcf97",
+          "sha1": "154701949a68564b6702ec1f561383f9b15445d9",
+          "md5": "0c9f63fdf2116fbc3015a6fac19b7b30"
         }
       ]
     },
@@ -52,11 +52,11 @@
         {
           "name": "gtecore-1.20.1-2.2.5.1.jar",
           "url": "gtecore-1.20.1-2.2.5.1.jar",
-          "size": 8256246,
-          "sha512": "4eba20c1ffea3da8fe131127c4696d1cc98aacc23b56b5787908d482ce5b960b11a7aad9524f6a1b692b7e5a48a75e14e4211c48828c94866695685b4e911e60",
-          "sha256": "2b178a6c8a2e1a7f10338240ed956dadb077b3500154bd99128a2c0cd1f96328",
-          "sha1": "99efcc006fd2daa40b69837256c2f9cff35002b4",
-          "md5": "370b4b151265193fec4edfa499c1e32f"
+          "size": 8265082,
+          "sha512": "a14b7faecb6e4433cd7549058c617e8df8e3ea3301ce1665cdccef092533643894e14b54fbe606c990ccf176ec1f7e28fdf9b0c85f3e97d99c7065ba8b2dc4a8",
+          "sha256": "971b4a9d12af497f2712c5568e6ae788e400dffa798d6f286e2bcbe6c22dcf97",
+          "sha1": "154701949a68564b6702ec1f561383f9b15445d9",
+          "md5": "0c9f63fdf2116fbc3015a6fac19b7b30"
         }
       ]
     },
@@ -72,11 +72,11 @@
         {
           "name": "gtecore-1.20.1-2.2.5.1-sources.jar",
           "url": "gtecore-1.20.1-2.2.5.1-sources.jar",
-          "size": 8089654,
-          "sha512": "6ea3ccd535586e7c278c645250edcd634e77c9eaa8881d2ffc5a368fb31b9ab8d888b08c16611f3a9db49e9ad9d441166a0b6663f62089a5a4e9c384693cb0b9",
-          "sha256": "af9317b3d8c92c64650769327b84cf5536cb74bd49eb91f191bc4a9d31af8f80",
-          "sha1": "03dc7abfddc856c9522773be1d5144e1340c4f8c",
-          "md5": "f12d33e5b6b6f09723ae33584e1048c7"
+          "size": 8097728,
+          "sha512": "50af9d3ad1f72798100404742e32922712292fb71f9f43531a80fd09e9134ba35bad9f7a040e29a4d89be813318693894663b6893068cad12ecbd8881116e3af",
+          "sha256": "4686715f0691ddb9544292d9f286016f35482de024b2f178b1b47166177cdf40",
+          "sha1": "0b279e004b91a23f3d341cb218849c61d8a79806",
+          "md5": "d3e931a157305f086195ed93a327e9a3"
         }
       ]
     }
