@@ -119,10 +119,9 @@ client without a launcher.
 
 For coding, refactoring, multiblock architecture, and multi-module submodule maintenance in this repository, the following high-capability reasoning models are recommended:
 
-- **Google Gemini (Gemini 2.5 Pro / Flash)** - Exceptional long-context comprehension, strong multi-module project awareness, and robust build issue diagnosis.
-- **DeepSeek (DeepSeek-V3 / V4 Flash / R1)** - High precision code generation, rapid algorithmic reasoning, and minimal hallucination.
-- **OpenAI (GPT-5 / GPT-5.6 Sol / o-series)** - Advanced multi-step planning, strict schema compliance, and architectural refactoring.
-- ⚠️ **Avoid lower-tier or unverified models** (e.g. models prone to uncoordinated git merges, ignoring texture animations/CTM specs, or silently overwriting source code).
+- **Google Gemini (Gemini 3.7 Flash)** - Exceptional long-context comprehension, strong multi-module project awareness, and robust build issue diagnosis.
+- **DeepSeek (DeepSeek-V4 Flash / Flash Vision Exp)** - High precision code generation, rapid algorithmic reasoning, and accurate texture/asset awareness.
+- **OpenAI (GPT 5.6 系列 / GPT-5.6 Sol)** - Advanced multi-step planning, strict schema compliance, and architectural refactoring.
 
 ## Cross-Agent Skills
 
