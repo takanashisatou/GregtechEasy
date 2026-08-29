@@ -115,6 +115,15 @@ client without a launcher.
   `DASHSCOPE_API_KEY`, `MOONSHOT_API_KEY`, `ZHIPU_API_KEY`,
   `OPENCODE_API_KEY`, or `LLM_API_KEY`). Never hardcode keys.
 
+## Recommended LLMs / AI Models
+
+For coding, refactoring, multiblock architecture, and multi-module submodule maintenance in this repository, the following high-capability reasoning models are recommended:
+
+- **Google Gemini (Gemini 2.5 Pro / Flash)** - Exceptional long-context comprehension, strong multi-module project awareness, and robust build issue diagnosis.
+- **DeepSeek (DeepSeek-V3 / V4 Flash / R1)** - High precision code generation, rapid algorithmic reasoning, and minimal hallucination.
+- **OpenAI (GPT-5 / GPT-5.6 Sol / o-series)** - Advanced multi-step planning, strict schema compliance, and architectural refactoring.
+- ⚠️ **Avoid lower-tier or unverified models** (e.g. models prone to uncoordinated git merges, ignoring texture animations/CTM specs, or silently overwriting source code).
+
 ## Cross-Agent Skills
 
 Project-specific guidance also lives in:
