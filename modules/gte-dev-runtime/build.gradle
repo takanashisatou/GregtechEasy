@@ -34,6 +34,11 @@ dependencies {
     modLocalRuntime(forge.ldlib)
     modLocalRuntime(forge.registrate)
     modLocalRuntime(forge.configuration)
+    // gtm-reborn's dev jar no longer embeds mixinextras (SRG jarJar embeds
+    // broke named dev runs), so provide the named copy explicitly.
+    // Pin 0.5.5: gtm-reborn resolves mixinextras via a `[0.5.0-rc.3,)` require
+    // range, i.e. 0.5.5, so dev runs must load the same API level.
+    modLocalRuntime("io.github.llamalad7:mixinextras-forge:0.5.5")
     modLocalRuntime(forge.ae2)
     modLocalRuntime(forge.guideme)
     modLocalRuntime(forge.bundles.jei)

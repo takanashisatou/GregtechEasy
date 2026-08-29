@@ -29,6 +29,7 @@ Root repository: `takanashisatou/GregtechEasy`, default branch `main`.
 ```powershell
 $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 .\gradlew.bat :modules:gtecore:compileJava
+.\gradlew.bat :modules:gtecore:runData
 .\gradlew.bat :modules:gt--:compileKotlin
 .\gradlew.bat :modules:gtm-reborn:compileJava
 .\gradlew.bat :modules:gtm-reborn:test
@@ -56,6 +57,25 @@ client without a launcher.
 7. Follow the systematic 3-step search pipeline: Chinese names -> `zh_cn.json` ->
    Registry IDs -> Target Java class/assets. Never run unconstrained root greps.
    (See `.agents/skills/gte-workflow/references/code_search_runbook.md`).
+8. After adding or renaming any registered content in `gtecore` (items, blocks,
+   machines, tooltips), ALWAYS run `.\gradlew.bat :modules:gtecore:runData` to
+   regenerate `src/generated/resources/` (lang files, item models, circuit/item
+   tags). NEVER hand-edit files under `src/generated/` — datagen overwrites
+   them. Bilingual lang entries belong in
+   `modules/gtecore/.../datagen/Lang.java` (`provider.add(key, en, zh)`), which
+   is the source of truth that `runData` uses to regenerate
+   `en_us.json` / `zh_cn.json`.
+9. Never rely on `jarJar` embeds in dev runs. jarJar resolves SRG
+   (production-mapped) jars, and FML extracts them verbatim into named dev
+   runtimes, causing probabilistic `NoSuchFieldError` crashes (see
+   `.agents/skills/gte-workflow/SKILL.md` Case 6). Dev jars exclude
+   `META-INF/jarjar/**`; production `reobfJar` output keeps embeds via
+   `jarWithEmbeds`. Any library a module embeds via `jarJar` must also be
+   declared as a named `modLocalRuntime(...)` in every run configuration that
+   loads that module (Registrate, ldlib, configuration, ponder, flywheel,
+   mixinextras 0.5.5, kotlinforforge as applicable). For mods.toml-less
+   libraries, FML dedup matches by jar file name — use maven coordinates so
+   the standalone jar keeps its artifact name, never renamed curse files.
 
 ## Game Tests
 
