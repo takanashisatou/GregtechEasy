@@ -49,6 +49,21 @@ subprojects {
 }
 
 // ---------------------------------------------------------------------------
+// Bare-run guard
+// ---------------------------------------------------------------------------
+// `gradlew runClient` (no project path) executes EVERY module's runClient:
+// gtm-reborn, gt--, gtecore and gte-dev-runtime each launch a game instance.
+// Fail fast with guidance instead of opening multiple clients/servers.
+gradle.taskGraph.whenReady { graph ->
+    def runTasks = graph.allTasks.findAll { it.name ==~ /run(Client|Server|Data|GameTestServer)/ }
+    if (runTasks.size() > 1) {
+        throw new GradleException(
+            'Multiple game run tasks in one invocation: ' + runTasks.collect { it.path }.join(', ') +
+            '. Qualify the module path, e.g. ./gradlew :modules:gte-dev-runtime:runClient')
+    }
+}
+
+// ---------------------------------------------------------------------------
 // IDEA indexing load control
 // ---------------------------------------------------------------------------
 // The aggregate checkout carries hundreds of MB of runtime logs, world saves
