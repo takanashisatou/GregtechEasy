@@ -104,7 +104,6 @@ tasks.register('copyOutputJars') {
             from project(':modules:gtm-reborn').layout.buildDirectory.dir('libs')
             from project(':modules:gt--').layout.buildDirectory.dir('libs')
             from project(':modules:gtecore').layout.buildDirectory.dir('libs')
-            from file("${rootDir}/modules/gtecore/gradle/libs")
             include '*.jar'
             // -slim / -dev-slim are deliberately built WITHOUT their jar-in-jar
             // dependencies (ldlib, configuration, Registrate, flywheel, ...).

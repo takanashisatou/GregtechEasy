@@ -1,104 +1,247 @@
 #!/usr/bin/env python3
 """
 scripts/build_full_mod_pack.py
-Build the full-mod client pack: every mod, config and script, at the top level.
+Build the full-mod client pack following CurseForge modpack format (manifest.json + overrides/mods/*.jar).
 
-This replaces the "lazy pack". That one shipped a nested .minecraft/ plus
-run_game.bat, run_game.sh and gte_launcher.ps1 -- a 626-line PowerShell launcher
-that downloaded a JDK, the vanilla client, ran the Forge installer and fetched
-~3600 asset files. Maintaining a launcher is not the same job as building a
-modpack, and every one of its failure modes ("double-clicking the bat does
-nothing") landed on us rather than on a real launcher.
+Format specification:
+1. Root contains `manifest.json` (CurseForge format, Minecraft 1.20.1, Forge 47.4.1, Java 21, overrides: "overrides").
+2. Root contains `modlist.html` (HTML list of bundled mods).
+3. `overrides/` folder containing:
+   - `overrides/mods/*.jar` (all pre-bundled runnable mods, no slim jars)
+   - `overrides/config/`, `overrides/kubejs/`, `overrides/defaultconfigs/`, `overrides/patchouli_books/`, etc.
+   - `overrides/README_安装必看.txt`
+4. 1-click import into PCL2 / HMCL / Prism / MultiMC / CurseForge Launcher.
 
-The full-mod pack is just the game content:
-
-    mods/  config/  defaultconfigs/  kubejs/  resourcepacks/
-
-Extract it into a launcher instance's game directory (the folder holding
-.minecraft's contents), install Forge yourself, and play. Same shape as the
-server pack, which makes both packs one code path.
-
-Usage: python scripts/build_full_mod_pack.py [version]
+Usage:
+    python scripts/build_full_mod_pack.py [version]
 """
+
+import json
+import os
 import sys
+import zipfile
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
+# Ensure UTF-8 output on all platforms
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
 
+ROOT = Path(__file__).parent.parent.resolve()
+BUILD_DIR = ROOT / "build" / "artifacts"
+OVERRIDES = ROOT / "gte" / "overrides"
+PACK_TOML = ROOT / "gte" / "pack.toml"
+MANIFEST_BASE = ROOT / "gte" / "curseforge_manifest.json"
+
+sys.path.insert(0, str(Path(__file__).parent))
 from pack_common import (  # noqa: E402
-    BUILD_DIR,
     CLIENT_SKIP_TOP,
-    build_pack,
+    SLIM_JAR,
+    SKIP_CONFIG_PREFIXES,
+    SKIP_TOP_ALWAYS,
     read_pack_versions,
 )
 
 VERSION = sys.argv[1] if len(sys.argv) > 1 else "dev"
 
 
-def render_readme(version: str, mc_version: str, forge_version: str) -> str:
-    """Player-facing README. Versions come from pack.toml, never hardcoded.
+def should_skip_override(rel: Path) -> str | None:
+    """Return reason if path should be excluded from overrides/, else None."""
+    parts = rel.parts
+    if not parts:
+        return "empty path"
+    if parts[0] in SKIP_TOP_ALWAYS or parts[0] == "saves":
+        return f"{parts[0]}/ is not pack content"
+    if ".git" in parts:
+        return "vcs metadata"
+    for prefix in SKIP_CONFIG_PREFIXES:
+        if parts[: len(prefix)] == prefix:
+            return "/".join(prefix) + "/ is local state"
+    # Skip non-runnable slim jars
+    if parts[0] == "mods" and SLIM_JAR.search(rel.name):
+        return "slim jar is not runnable"
+    return None
 
-    This text used to hardcode Forge 47.3.0 while the pack installed 47.4.1, so
-    the documentation and the game disagreed and the player had no way to tell
-    which number was wrong.
-    """
+
+def generate_modlist_html(mod_names: list[str]) -> str:
+    """Generate modlist.html listing all bundled mods."""
+    items = [f"<li>{name}</li>" for name in sorted(mod_names)]
+    return f"""<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>GTE Full-Mod Pack Mod List</title>
+</head>
+<body>
+    <h1>GregTech Easy - Bundled Mods</h1>
+    <ul>
+        {"".join(items)}
+    </ul>
+</body>
+</html>
+"""
+
+
+def render_readme(version: str, mc_version: str, forge_version: str) -> str:
+    """Player-facing README for 1-click import and manual extraction."""
     return f"""====================================================
 GregTech Easy (GTE) Full-Mod Client Pack v{version}
 ====================================================
 
-本压缩包是完整的客户端游戏内容：全部模组、配置与魔改脚本。
-不含启动器，也不含 Minecraft 本体和 Forge —— 这些由你的启动器负责。
+本整合包遵循 CurseForge 规范结构，并【已内置全部模组与配置】。
+支持启动器一键导入，无需额外手动下载模组。
 
-【环境要求】
+【环境信息】
   Minecraft : {mc_version}
-  Forge     : {forge_version}  <-- 必须是这个版本
-  Java      : 21  <-- 不能用 Java 17 或 Java 8
+  Forge     : {forge_version}
+  Java      : 21  <-- 必须使用 Java 21
 
-Forge 版本是硬性的，不是建议值：
-  - gtmthings 要求 Forge [{forge_version},)，低于它无法加载；
-  - 而 47.4.10 自带 ASM 9.8 + coremods 5.2.4，会让 appliedenergistics2
-    的 mixin 失配，游戏开不到主菜单。
-{forge_version} 是目前唯一可用的版本。
+【推荐使用方法：启动器一键导入（PCL2 / HMCL / Prism / MultiMC / CurseForge 通用）】
+1. 打开启动器（如 PCL2、HMCL、Prism Launcher 等）。
+2. 选择「导入整合包」或直接将本压缩包（GTE-FullMod-*.zip）拖拽进启动器窗口。
+3. 启动器会自动根据 manifest.json 配置好 Minecraft {mc_version}、Forge {forge_version} 以及全部模组。
+4. 确认分配内存建议 8G~12G，Java 指定为 Java 21。
+5. 启动游戏即可游玩！
 
-【安装步骤（PCL2 / HMCL / Prism / MultiMC / 官方启动器通用）】
+【手动解压安装方法】
 1. 在启动器里新建一个 Minecraft {mc_version} 实例，并安装 Forge {forge_version}。
-2. 启动一次，确认能进主菜单（这一步排除启动器和 Java 的问题）。
-3. 打开该实例的游戏目录（.minecraft 目录，启动器里一般有「打开文件夹」按钮）。
-4. 把本压缩包里的 mods、config、defaultconfigs、kubejs 等文件夹
-   【全部解压进去】，与已有的同名文件夹合并。
-5. 在实例设置里把 Java 指定为 Java 21，内存建议 8G~12G。
-6. 启动游戏。首次进入会生成配置，比平时慢一些。
-
-【如果你想要启动器一键导入】
-请下载 GTE-CurseForge-*.zip，在 CurseForge / PCL2 / HMCL / Prism / MultiMC
-里选择「导入整合包」。那个包自带 manifest.json，启动器会自动装好 Forge。
-本 full-mod 包是给已经会自己配实例的玩家用的。
+2. 将本压缩包内 overrides 文件夹下的全部内容（mods、config、kubejs 等）解压并合并到实例游戏目录（.minecraft/）。
+3. 指定 Java 为 Java 21，启动游戏。
 
 【开服】
-请下载 GTE-Server-*.zip，不要用这个包。
-
-【常见问题】
-- 进不去、报缺少 ldlib：检查 mods/ 里有没有名字带 -slim 的 jar。
-  本包不含这类文件；如果有，是从别处混进来的，删掉即可。
-  （-slim jar 不打包内嵌依赖，只给 Maven 使用者。）
-- 崩溃并提到 mixin / AE2：几乎总是 Forge 版本不对，确认是 {forge_version}。
-- 卡在加载界面：内存不足，调到 8G 以上。
+请下载 GTE-Server-*.zip 服务端专用包，不要使用本客户端包。
 
 祝您游戏愉快！
 """
 
 
-def main() -> None:
+def build_full_mod_pack(version: str) -> Path:
     mc_version, forge_version = read_pack_versions()
-    print(f"  pack targets Minecraft {mc_version} / Forge {forge_version}")
+    out_zip = BUILD_DIR / f"GTE-FullMod-{version}.zip"
+    BUILD_DIR.mkdir(parents=True, exist_ok=True)
 
-    readme = render_readme(VERSION, mc_version, forge_version)
-    build_pack(
-        out_zip=BUILD_DIR / f"GTE-FullMod-{VERSION}.zip",
-        skip_top=CLIENT_SKIP_TOP,
-        label="full-mod client pack",
-        extra={"README_安装必看.txt": readme},
-    )
+    print(f"\n=======================================================")
+    print(f" Building Full-Mod Client Pack (CurseForge Format + Mods): {out_zip.name}")
+    print(f" Target: Minecraft {mc_version}, Forge {forge_version}, Java 21")
+    print(f"=======================================================\n")
+
+    manifest = {
+        "minecraft": {
+            "version": mc_version,
+            "modLoaders": [
+                {
+                    "id": f"forge-{forge_version}",
+                    "primary": True
+                }
+            ],
+            "javaVersion": 21
+        },
+        "manifestType": "minecraftModpack",
+        "manifestVersion": 1,
+        "name": "GregTech Easy",
+        "version": version,
+        "author": "satou",
+        "overrides": "overrides",
+        "javaVersion": 21,
+        "files": []
+    }
+
+    readme_content = render_readme(version, mc_version, forge_version)
+
+    written_count = 0
+    skipped_count = 0
+    mods: list[str] = []
+    top_levels: dict[str, int] = {}
+
+    with zipfile.ZipFile(out_zip, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
+        # 1. Write root manifest.json
+        zf.writestr("manifest.json", json.dumps(manifest, indent=2, ensure_ascii=False))
+        written_count += 1
+
+        # 2. Write root README
+        zf.writestr("README_安装必看.txt", readme_content)
+        written_count += 1
+
+        # 3. Write overrides tree
+        if not OVERRIDES.is_dir():
+            print(f"[ERROR] Missing overrides directory: {OVERRIDES}")
+            sys.exit(1)
+
+        for item in sorted(OVERRIDES.rglob("*")):
+            if not item.is_file():
+                continue
+            rel = item.relative_to(OVERRIDES)
+            skip_reason = should_skip_override(rel)
+            if skip_reason:
+                skipped_count += 1
+                continue
+
+            zip_entry = f"overrides/{rel.as_posix()}"
+            zf.write(item, zip_entry)
+            written_count += 1
+
+            top = rel.parts[0]
+            top_levels[top] = top_levels.get(top, 0) + 1
+
+            if len(rel.parts) == 2 and rel.parts[0] == "mods" and rel.suffix.lower() == ".jar":
+                mods.append(rel.name)
+
+        # 4. Write modlist.html
+        modlist_html = generate_modlist_html(mods)
+        zf.writestr("modlist.html", modlist_html)
+        written_count += 1
+
+    print(f"Pack Summary:")
+    print(f"  Total archive entries written : {written_count}")
+    print(f"  Entries skipped (local/slim)  : {skipped_count}")
+    for top in sorted(top_levels):
+        print(f"    overrides/{top+'/' :<20} {top_levels[top]} files")
+    print(f"  overrides/mods/*.jar          : {len(mods)}")
+    for name in sorted(mods):
+        print(f"    {name}")
+
+    if not mods:
+        print("[ERROR] No overrides/mods/*.jar in the pack; the pack would run with no mods.")
+        out_zip.unlink(missing_ok=True)
+        sys.exit(1)
+
+    # Validate output
+    validate_full_mod_pack(out_zip, len(mods))
+
+    size_mb = out_zip.stat().st_size / 1024 / 1024
+    print(f"\n[SUCCESS] Full-mod client pack created: {out_zip.name} ({size_mb:.2f} MB)")
+    return out_zip
+
+
+def validate_full_mod_pack(zip_path: Path, expected_mods_count: int) -> None:
+    """Validate CurseForge format and bundled mods."""
+    with zipfile.ZipFile(zip_path, "r") as zf:
+        names = zf.namelist()
+        if "manifest.json" not in names:
+            print("[ERROR] manifest.json is missing from full-mod zip root!")
+            sys.exit(1)
+        if "modlist.html" not in names:
+            print("[ERROR] modlist.html is missing from full-mod zip root!")
+            sys.exit(1)
+
+        mod_jars = [n for n in names if n.startswith("overrides/mods/") and n.endswith(".jar")]
+        if len(mod_jars) != expected_mods_count:
+            print(f"[ERROR] Expected {expected_mods_count} mods in overrides/mods/, found {len(mod_jars)}!")
+            sys.exit(1)
+
+        # Assert no top-level mods/ folder (must be inside overrides/)
+        top_level_mods = [n for n in names if n.startswith("mods/")]
+        if top_level_mods:
+            print(f"[ERROR] Found top-level mods/ entries; must be in overrides/mods/!")
+            sys.exit(1)
+
+    print("  [Validation Passed] manifest.json present, CurseForge layout with full bundled mods verified.")
+
+
+def main():
+    build_full_mod_pack(VERSION)
 
 
 if __name__ == "__main__":

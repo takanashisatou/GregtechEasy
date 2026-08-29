@@ -46,8 +46,7 @@ Rolling prerelease: every asset here is replaced on the next nightly run.
 
 | 文件 | 用途 | 怎么用 |
 |---|---|---|
-| `GTE-CurseForge-{version}.zip` | **启动器一键导入，推荐** | 在 CurseForge / PCL2 / HMCL / Prism / MultiMC 里选「导入整合包」，启动器会自动装好 Forge |
-| `GTE-FullMod-{version}.zip` | 全模组客户端包 | 给已经自己建好 MC {mc} + Forge {forge} 实例的玩家，把包内容解压进实例的游戏目录 |
+| `GTE-FullMod-{version}.zip` | **全模组客户端包（推荐）** | 遵循 CurseForge 整合包规范并内置全部模组。在 PCL2 / HMCL / Prism / MultiMC / CurseForge 里选「导入整合包」，启动器会自动配置好 Forge {forge} 与全部模组 |
 | `GTE-Server-{version}.zip` | 开服 | 解压到服务端根目录，`mods/` 就在根下，然后跑 `--installServer` |
 
 其余 jar 是单模块产物，给开发者和 Maven 使用者。带 `-slim` / `-dev-slim` 的**不要**放进 `mods/`：它们故意不打包内嵌依赖，Forge 会因为缺少 `ldlib` 而启动失败。

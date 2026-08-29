@@ -131,9 +131,12 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
 # 5. Build Player Full-Mod Client Pack (GTE-FullMod zip)
 python scripts/build_full_mod_pack.py [version]
 
-# 6. Audit 100% dependency coverage
+# 6. Build Pure CurseForge Modpack (No bundled jars)
+python scripts/build_curseforge_pack.py [version]
+
+# 7. Audit 100% dependency coverage
 python scripts/audit_dependencies.py
 
-# 7. Launch Hot Debug Client
+# 8. Launch Hot Debug Client
 ./gradlew :modules:gte-dev-runtime:runClient
 ```

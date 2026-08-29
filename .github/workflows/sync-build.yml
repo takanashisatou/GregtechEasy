@@ -577,149 +577,23 @@ jobs:
         with:
           go-version: '1.22'
 
-      # `go install` drops the binary in $(go env GOPATH)/bin, which is NOT on PATH
-      # on hosted runners (it was on the self-hosted box only because a previous
-      # manual install had put it there). Add it explicitly, then prove packwiz is
-      # callable so a PATH problem fails here instead of three steps later inside
-      # an export.
-      - name: Install Packwiz CLI
-        run: |
-          go install github.com/packwiz/packwiz@latest
-          $gobin = Join-Path (go env GOPATH) 'bin'
-          $gobin | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
-          $exe = Join-Path $gobin 'packwiz.exe'
-          if (-not (Test-Path $exe)) { $exe = Join-Path $gobin 'packwiz' }
-          if (-not (Test-Path $exe)) {
-            Write-Host "::error::packwiz was not installed under $gobin."
-            exit 1
-          }
-          & $exe --help *> $null
-          Write-Host "packwiz installed at $exe"
-
-      # packwiz has no notion of an "overrides" directory: everything in the pack
-      # root that is not a metafile IS an override. Exporting from gte/ therefore
-      # treated the literal `overrides/` folder as one more override and produced
-      # overrides/overrides/mods/..., which no launcher reads -- CurseForge, PCL2,
-      # HMCL and MultiMC all install from overrides/<gamedir-relative-path>. The
-      # exported packs looked plausible (right size, right manifest, 17 mods) and
-      # installed to a modless instance.
-      #
-      # So stage a flat pack root: pack.toml + index.toml beside the CONTENTS of
-      # overrides/. Also drop logs/ and crash-reports/, which are local dev debris
-      # that is not tracked in git but does sit in the working tree on the
-      # self-hosted runner, and would otherwise be shipped to players.
-      - name: Stage Flat Packwiz Root
-        run: |
-          $stage = "build/packwiz"
-          if (Test-Path $stage) { Remove-Item $stage -Recurse -Force }
-          New-Item -ItemType Directory -Force -Path $stage | Out-Null
-          Copy-Item gte/pack.toml, gte/index.toml $stage -Force
-          Get-ChildItem gte/overrides -Force | Where-Object {
-            $_.Name -notin @('logs', 'crash-reports', 'saves')
-          } | ForEach-Object {
-            Copy-Item $_.FullName -Destination $stage -Recurse -Force
-          }
-
-          # Personal state that is not pack configuration, matching what
-          # scripts/pack_common.py strips from the full-mod and server packs.
-          # config/jei/world/local/<name> holds bookmark files named after the saves
-          # on the machine that built the pack, and worldedit/sessions holds
-          # per-player blobs -- the CurseForge pack was shipping both to every player.
-          foreach ($junk in @('config/jei/world', 'config/worldedit/sessions', 'config/worldedit/.archive-unpack')) {
-            $path = Join-Path $stage $junk
-            if (Test-Path $path) {
-              Remove-Item $path -Recurse -Force
-              Write-Host "  pruned $junk (local state)"
-            }
-          }
-
-          # -slim / -dev-slim jars bundle no jar-in-jar dependencies; Forge would pick
-          # one for modId gtceu and abort with "Mod ID: 'ldlib' ... [MISSING]".
-          Get-ChildItem "$stage/mods" -Filter *.jar -ErrorAction SilentlyContinue |
-            Where-Object { $_.Name -match '-(dev-)?slim\.jar$' } | ForEach-Object {
-              Write-Host "::warning::Removing non-runnable jar from the staged pack: $($_.Name)"
-              Remove-Item $_.FullName -Force
-            }
-
-          Write-Host "Flat packwiz root:"
-          Get-ChildItem $stage | ForEach-Object { Write-Host "  $($_.Name)" }
-          $mods = @(Get-ChildItem "$stage/mods" -Filter *.jar -ErrorAction SilentlyContinue)
-          Write-Host "mods staged: $($mods.Count)"
-          if ($mods.Count -eq 0) {
-            Write-Host "::error::No mod jars staged; the exported packs would be empty."
-            exit 1
-          }
-
-      - name: Refresh Packwiz Index
-        working-directory: ./build/packwiz
-        run: packwiz refresh
-
-      - name: "[Pack 1] Export CurseForge Pack"
-        working-directory: ./build/packwiz
-        run: |
-          $out = "../artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip"
-          packwiz curseforge export -y -s client -o $out
-          if ($LASTEXITCODE -ne 0 -or -not (Test-Path $out)) {
-            Write-Host "::warning::packwiz client export failed (exit $LASTEXITCODE); falling back to a plain archive."
-            Compress-Archive -Path * -DestinationPath $out -Force
-          }
-
-      - name: "[Pack 1] Patch manifest.json - enforce Java 21"
-        run: python scripts/patch_manifest.py build/artifacts/GTE-CurseForge-${{ steps.meta.outputs.version }}.zip
-
-      # The full-mod client pack: every mod, config and script at the TOP level, for
-      # players who configure their own launcher instance. It replaced the "lazy
-      # pack", which shipped a nested .minecraft/ plus a 626-line PowerShell
-      # launcher that downloaded a JDK, the vanilla client, ran the Forge installer
-      # and fetched ~3600 asset files. Maintaining a launcher is a different job
-      # from building a modpack, and its failure modes ("double-clicking the bat
-      # does nothing") were ours to answer for.
-      - name: "[Pack 2] Build Full-Mod Client Pack"
+      # ──────────────────────────────────────────────
+      # Pack Building: Full-Mod Client & Server Packs
+      # ──────────────────────────────────────────────
+      - name: "[Pack 1] Build Full-Mod Client Pack"
         run: python scripts/build_full_mod_pack.py ${{ steps.meta.outputs.version }}
 
-      # A server pack is NOT a CurseForge pack. `packwiz curseforge export -s server`
-      # emits manifest.json + overrides/, which is a launcher import format: it needs
-      # a launcher to read manifest.json and copy overrides/ into place. A Forge
-      # server has no launcher. The documented procedure is
-      #
-      #   unzip GTE-Server-*.zip -d .
-      #   java -jar forge-*-installer.jar --installServer
-      #   java @libraries/net/minecraftforge/forge/1.20.1-47.4.1/unix_args.txt nogui
-      #
-      # and Forge resolves mods/ and config/ relative to the server root, so an
-      # admin following those steps got a server root whose only content was a
-      # directory named `overrides` -- Forge booted with zero mods and every player
-      # was rejected for a mod-list mismatch.
-      #
-      # The `-s server` filter was also doing nothing: packwiz reads side from mod
-      # metafiles, and this pack ships mods through overrides/ (index.toml has a
-      # single pack.toml entry), so client and server exports were byte-identical
-      # in content -- 17 mods each, 569 entries each.
-      #
-      # So the server pack is built by its own script, which zips mods/, config/,
-      # defaultconfigs/ and kubejs/ at the TOP level -- exactly what --installServer
-      # expects to find next to it -- and also drops per-machine state that has no
-      # business on someone else's server (jei/world/local bookmarks named after the
-      # build machine's saves, worldedit sessions, logs, crash reports).
-      #
-      # It is Python rather than PowerShell on purpose: Compress-Archive writes zip
-      # entry names with backslashes ("mods\gtecore-....jar"), which is not a path
-      # separator in the zip spec, so consumers see one file literally named
-      # "mods\gtecore-....jar" at the archive root and no mods directory at all.
-      - name: "[Pack 3] Build Server Pack"
+      - name: "[Pack 2] Build Server Pack"
         run: python scripts/build_server_pack.py ${{ steps.meta.outputs.version }}
 
-      # The CurseForge pack must place mods at overrides/mods/*.jar; the full-mod and
-      # server packs must place them at mods/*.jar. Either mistake yields a zip that
-      # installs cleanly and then runs with no mods, so assert all three rather than
-      # discovering it from a player report.
+      # The Full-Mod pack follows CurseForge layout (overrides/mods/*.jar);
+      # the server pack places mods at top level (mods/*.jar).
       - name: Verify Exported Pack Layout
         run: |
           Add-Type -AssemblyName System.IO.Compression.FileSystem
           $bad = $false
           $expected = @{
-            'GTE-CurseForge-*.zip' = '^overrides/mods/[^/]+\.jar$'
-            'GTE-FullMod-*.zip'    = '^mods/[^/]+\.jar$'
+            'GTE-FullMod-*.zip'    = '^overrides/mods/[^/]+\.jar$'
             'GTE-Server-*.zip'     = '^mods/[^/]+\.jar$'
           }
           foreach ($pattern in $expected.Keys) {
@@ -913,30 +787,6 @@ jobs:
           } else {
             Write-Host "No stale assets on the nightly release."
           }
-
-      # ──────────────────────────────────────────────
-      # Publish to CurseForge Platform (Release Channel Only)
-      # ──────────────────────────────────────────────
-      # Only the CurseForge-format pack is uploaded, and only on the release
-      # channel. The full-mod and server packs deliberately never go to CurseForge:
-      # the platform expects a manifest.json pack it can install through a launcher,
-      # and a nightly is not a published version. So a nightly reaches players only
-      # through the rolling GitHub prerelease above.
-      - name: Publish to CurseForge Platform (Release Only)
-        if: steps.meta.outputs.channel == 'release' && env.CURSEFORGE_TOKEN != ''
-        uses: Kir-Antipov/mc-publish@v3.3
-        env:
-          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
-        with:
-          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          curseforge-id: 1347911
-          files: build/artifacts/GTE-CurseForge-*.zip
-          name: GregTech Easy ${{ steps.meta.outputs.version }}
-          version-type: release
-          loaders: forge
-          game-versions: |
-            1.20.1
-            Java 21
 
       # ──────────────────────────────────────────────
       # Publish Maven Artifacts to GitHub Pages

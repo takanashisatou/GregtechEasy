@@ -1,0 +1,224 @@
+name: "CurseForge Publish (Standalone)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Release Version (e.g. 2.2.5)"
+        required: true
+        type: string
+      channel:
+        description: "CurseForge Release Channel"
+        required: true
+        default: "release"
+        type: choice
+        options:
+          - release
+          - beta
+          - alpha
+      publish_submodule_mods:
+        description: "Publish Submodule Mods (gtm-reborn, gtecore, gt--) to CurseForge first"
+        required: false
+        default: true
+        type: boolean
+      gtecore_cf_id:
+        description: "GTE Core CurseForge Project ID (optional if set in secrets)"
+        required: false
+        default: ""
+        type: string
+      gtm_reborn_cf_id:
+        description: "GTM-Reborn CurseForge Project ID (optional if set in secrets)"
+        required: false
+        default: ""
+        type: string
+      gt_minus_cf_id:
+        description: "GT-- CurseForge Project ID (optional if set in secrets)"
+        required: false
+        default: ""
+        type: string
+      modpack_cf_id:
+        description: "GTE Modpack CurseForge Project ID"
+        required: true
+        default: "1347911"
+        type: string
+      changelog:
+        description: "Release Changelog (markdown format)"
+        required: false
+        default: "Release update for GregTech Easy."
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  curseforge-publish:
+    name: "Publish Submodule Mods & CurseForge Modpack"
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: powershell
+    env:
+      PYTHONIOENCODING: utf-8
+      PYTHONUTF8: '1'
+      CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+    steps:
+      - name: Checkout Repository & Submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up JDK 17 + 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: |
+            17
+            21
+          distribution: 'temurin'
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Verify Environment & Token
+        run: |
+          if (-not $env:CURSEFORGE_TOKEN) {
+            Write-Host "::error::CURSEFORGE_TOKEN secret is not set! Cannot publish to CurseForge."
+            exit 1
+          }
+          Write-Host "Java Version: 21"
+          Write-Host "Version: ${{ inputs.version }}"
+          Write-Host "Channel: ${{ inputs.channel }}"
+
+      # ──────────────────────────────────────────────
+      # 1. Compile Submodule Mods
+      # ──────────────────────────────────────────────
+      - name: Compile All Submodule Mods
+        run: |
+          cmd.exe /c "gradlew.bat :modules:gtecore:assemble :modules:gtm-reborn:assemble :modules:gt--:assemble -x test"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          cmd.exe /c "gradlew.bat copyOutputJars"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Find Built Mod Jars
+        id: jars
+        run: |
+          $gtecore = (Get-ChildItem gte/overrides/mods/gtecore-*.jar | Where-Object { $_.Name -notmatch 'slim' } | Select-Object -First 1).FullName
+          $gtm = (Get-ChildItem gte/overrides/mods/gtm-reborn-*.jar | Where-Object { $_.Name -notmatch 'slim' } | Select-Object -First 1).FullName
+          $gtminus = (Get-ChildItem gte/overrides/mods/gt---*.jar | Where-Object { $_.Name -notmatch 'slim' } | Select-Object -First 1).FullName
+
+          Write-Host "GTECore Jar: $gtecore"
+          Write-Host "GTM-Reborn Jar: $gtm"
+          Write-Host "GT-- Jar: $gtminus"
+
+          echo "gtecore_jar=$gtecore" >> $env:GITHUB_OUTPUT
+          echo "gtm_jar=$gtm" >> $env:GITHUB_OUTPUT
+          echo "gtminus_jar=$gtminus" >> $env:GITHUB_OUTPUT
+
+      # ──────────────────────────────────────────────
+      # 2. Publish Submodule Mods (Pre-requisite for Modpack)
+      # ──────────────────────────────────────────────
+      - name: Publish GTE Core Mod to CurseForge
+        if: inputs.publish_submodule_mods && (inputs.gtecore_cf_id != '' || secrets.GTECORE_CF_ID != '')
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-id: ${{ inputs.gtecore_cf_id || secrets.GTECORE_CF_ID }}
+          files: ${{ steps.jars.outputs.gtecore_jar }}
+          name: "GTE Core ${{ inputs.version }}"
+          version-type: ${{ inputs.channel }}
+          loaders: forge
+          game-versions: |
+            1.20.1
+            Java 21
+          changelog: ${{ inputs.changelog }}
+
+      - name: Publish GTM Reborn Mod to CurseForge
+        if: inputs.publish_submodule_mods && (inputs.gtm_reborn_cf_id != '' || secrets.GTM_REBORN_CF_ID != '')
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-id: ${{ inputs.gtm_reborn_cf_id || secrets.GTM_REBORN_CF_ID }}
+          files: ${{ steps.jars.outputs.gtm_jar }}
+          name: "GTM Reborn ${{ inputs.version }}"
+          version-type: ${{ inputs.channel }}
+          loaders: forge
+          game-versions: |
+            1.20.1
+            Java 21
+          changelog: ${{ inputs.changelog }}
+
+      - name: Publish GT-- Mod to CurseForge
+        if: inputs.publish_submodule_mods && (inputs.gt_minus_cf_id != '' || secrets.GT_MINUS_CF_ID != '')
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-id: ${{ inputs.gt_minus_cf_id || secrets.GT_MINUS_CF_ID }}
+          files: ${{ steps.jars.outputs.gtminus_jar }}
+          name: "GT-- ${{ inputs.version }}"
+          version-type: ${{ inputs.channel }}
+          loaders: forge
+          game-versions: |
+            1.20.1
+            Java 21
+          changelog: ${{ inputs.changelog }}
+
+      # ──────────────────────────────────────────────
+      # 3. Build Clean CurseForge Modpack (NO JARS IN OVERRIDES)
+      # ──────────────────────────────────────────────
+      - name: Build Clean CurseForge Modpack
+        run: |
+          python scripts/build_curseforge_pack.py "${{ inputs.version }}"
+
+      - name: Verify Clean Modpack Layout
+        run: |
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $zip = Get-ChildItem "build/artifacts/GTE-CurseForge-${{ inputs.version }}.zip"
+          if (-not $zip) {
+            Write-Host "::error::Modpack zip not found!"
+            exit 1
+          }
+          $archive = [System.IO.Compression.ZipFile]::OpenRead($zip.FullName)
+          try {
+            $manifest = $archive.GetEntry('manifest.json')
+            $modlist = $archive.GetEntry('modlist.html')
+            if (-not $manifest) { Write-Host "::error::manifest.json missing"; exit 1 }
+            if (-not $modlist) { Write-Host "::error::modlist.html missing"; exit 1 }
+
+            $jars = @($archive.Entries | Where-Object { $_.FullName -like 'overrides/mods/*.jar' -or $_.FullName -like '*.jar' })
+            if ($jars.Count -gt 0) {
+              Write-Host "::error::Found $($jars.Count) jar files inside CurseForge pack! Bundling jars is prohibited."
+              exit 1
+            }
+            Write-Host "Verification Passed: Pure manifest.json modpack with zero bundled jars."
+          } finally {
+            $archive.Dispose()
+          }
+
+      # ──────────────────────────────────────────────
+      # 4. Publish CurseForge Modpack Platform
+      # ──────────────────────────────────────────────
+      - name: Publish Modpack to CurseForge Platform
+        uses: Kir-Antipov/mc-publish@v3.3
+        with:
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-id: ${{ inputs.modpack_cf_id }}
+          files: build/artifacts/GTE-CurseForge-${{ inputs.version }}.zip
+          name: "GregTech Easy ${{ inputs.version }}"
+          version-type: ${{ inputs.channel }}
+          loaders: forge
+          game-versions: |
+            1.20.1
+            Java 21
+          changelog: ${{ inputs.changelog }}
+
+      # ──────────────────────────────────────────────
+      # 5. Upload Archive Artifact
+      # ──────────────────────────────────────────────
+      - name: Upload CurseForge Modpack Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: GTE-CurseForge-${{ inputs.version }}
+          path: build/artifacts/GTE-CurseForge-${{ inputs.version }}.zip
+          retention-days: 30

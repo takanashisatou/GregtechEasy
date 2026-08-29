@@ -79,10 +79,14 @@ client without a launcher.
 
 - `.github/workflows/sync-build.yml` builds all modules in one Gradle call,
   runs gtm-reborn tests/game tests, translates language files, and packs
-  artifacts. It also publishes on `v*` tags.
+  Full-Mod & Server artifacts. It publishes rolling nightlies and tags.
 - `.github/workflows/release-publish.yml` implements manual releases:
   dispatch with a version -> create `dev -> release` PR -> squash merge ->
   tag `v<version>` -> tag workflow publishes.
+- `.github/workflows/curseforge-publish.yml` implements standalone CurseForge
+  publishing: compiles and publishes submodule mods (`gtm-reborn`, `gtecore`,
+  `gt--`) to CurseForge first, builds a pure `manifest.json` modpack with
+  ZERO bundled jars in `overrides/`, and uploads to CurseForge platform.
 - Translation providers are selected through environment variables
   (`DEEPSEEK_API_KEY`, `GEMINI_API_KEY`, `OPENAI_API_KEY`,
   `DASHSCOPE_API_KEY`, `MOONSHOT_API_KEY`, `ZHIPU_API_KEY`,

@@ -1,0 +1,142 @@
+{
+  "name": "GregTech Easy",
+  "author": "satou",
+  "version": "3.0.1",
+  "manifestType": "minecraftModpack",
+  "manifestVersion": 1,
+  "minecraft": {
+    "version": "1.20.1",
+    "modLoaders": [
+      {
+        "id": "forge-47.4.1",
+        "primary": true
+      }
+    ],
+    "javaVersion": 21
+  },
+  "javaVersion": 21,
+  "overrides": "overrides",
+  "files": [
+    {
+      "name": "Applied Energistics 2",
+      "projectID": 223794,
+      "fileID": 5937107,
+      "required": true,
+      "slug": "applied-energistics-2"
+    },
+    {
+      "name": "Architectury API",
+      "projectID": 419699,
+      "fileID": 5137938,
+      "required": true,
+      "slug": "architectury-api"
+    },
+    {
+      "name": "Bookshelf",
+      "projectID": 228525,
+      "fileID": 5219468,
+      "required": true,
+      "slug": "bookshelf"
+    },
+    {
+      "name": "Curios API",
+      "projectID": 309927,
+      "fileID": 5369964,
+      "required": true,
+      "slug": "curios"
+    },
+    {
+      "name": "Game Stages",
+      "projectID": 268655,
+      "fileID": 4627255,
+      "required": true,
+      "slug": "game-stages"
+    },
+    {
+      "name": "GTM Things",
+      "projectID": 969560,
+      "fileID": 5693006,
+      "required": true,
+      "slug": "gtm-things"
+    },
+    {
+      "name": "GTNN",
+      "projectID": 941031,
+      "fileID": 5800049,
+      "required": true,
+      "slug": "gtnn"
+    },
+    {
+      "name": "GuideMe",
+      "projectID": 1017366,
+      "fileID": 5742469,
+      "required": true,
+      "slug": "guideme"
+    },
+    {
+      "name": "Jade",
+      "projectID": 324717,
+      "fileID": 5824982,
+      "required": true,
+      "slug": "jade"
+    },
+    {
+      "name": "Just Enough Characters (JECH)",
+      "projectID": 250763,
+      "fileID": 5275815,
+      "required": true,
+      "slug": "just-enough-characters-jech"
+    },
+    {
+      "name": "Just Enough Items (JEI)",
+      "projectID": 238222,
+      "fileID": 6116827,
+      "required": true,
+      "slug": "jei"
+    },
+    {
+      "name": "Kotlin for Forge",
+      "projectID": 351264,
+      "fileID": 5074211,
+      "required": true,
+      "slug": "kotlin-for-forge"
+    },
+    {
+      "name": "KubeJS",
+      "projectID": 238086,
+      "fileID": 5464161,
+      "required": true,
+      "slug": "kubejs"
+    },
+    {
+      "name": "Rhino",
+      "projectID": 416294,
+      "fileID": 5262791,
+      "required": true,
+      "slug": "rhino"
+    }
+  ],
+  "submodules": {
+    "gtm-reborn": {
+      "name": "GregTech Modern Reborn",
+      "projectID": 0,
+      "fileID": 0,
+      "required": true,
+      "slug": "gregtech-modern-reborn"
+    },
+    "gtecore": {
+      "name": "GTE Core",
+      "projectID": 0,
+      "fileID": 0,
+      "required": true,
+      "slug": "gtecore"
+    },
+    "gt--": {
+      "name": "GT-- Community Edition",
+      "projectID": 0,
+      "fileID": 0,
+      "required": true,
+      "slug": "gt-minus-minus"
+    }
+  }
+}
