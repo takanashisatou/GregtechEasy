@@ -64,6 +64,15 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
 - **Why**: Plain `localRuntime` or `fileTree` does NOT trigger ModDevGradle's deobfuscation remapper.
 - **Policy**: In `modules/gte-dev-runtime/build.gradle`, declare runtime dependencies with `modLocalRuntime(...)` and ensure `obfuscation.createRemappingConfiguration(configurations.localRuntime)` is defined.
 
+### Rule 3b: Never Rely on `jarJar` Embeds in Dev Runs (probabilistic-crash trap)
+- **Why**: ModDevGradle's `jarJar` configuration resolves **production-mapped (SRG)** jars by design (embeds target production). FML extracts embedded jars verbatim, so an SRG embed loaded in a named (mojmap) dev runtime crashes mod construction with e.g. `NoSuchFieldError: CreativeModeTabs f_256750_` (SRG Registrate). Whether a run survived depended on which entry point was used and on FML's `JarSelector` dedup picking a named standalone copy first — which made `runData`/`runClient` fail **probabilistically**.
+- **Policy (implemented in `gradle/scripts/jars.gradle` of gtm-reborn and gt--)**:
+  1. The **dev jar excludes `META-INF/jarjar/**`** — it ships without embeds.
+  2. A `jarWithEmbeds` task (dev jar + jarJar output) feeds `reobfJar.input`, so the **production jar keeps its SRG embeds** unchanged.
+  3. Every run configuration must declare **named standalone copies** of every previously-embedded library via `modLocalRuntime(...)` (Registrate, ldlib, configuration, ponder, flywheel, mixinextras, kotlinforforge — whichever apply). For mods.toml-less libraries (e.g. Registrate), FML dedup matches by **file name**, so the standalone jar must keep its maven artifact name — use maven coordinates, never renamed curse.maven files.
+- **Version trap**: gtm-reborn resolves mixinextras through a `[0.5.0-rc.3,)` require range (i.e. 0.5.5), so dev runs must pin `io.github.llamalad7:mixinextras-forge:0.5.5`, not the catalog's 0.5.0-rc.3.
+- **Compat-mod trap**: gt--'s datagen omits content gated by `GTNNIntegration` (ad_astra / botania / create materials & tags) when those mods are absent from the run. Its data run therefore loads them via `modLocalRuntime`; otherwise generated lang/tags silently lose entries.
+
 ### Rule 4: Never Set `remap = false` on Vanilla Minecraft / Forge Targets
 - **Why**: In development, Minecraft is deobfuscated so `remap = false` appears to work. But in production, Vanilla methods are SRG-obfuscated (`m_xxxx_`). Setting `remap = false` skips Refmap generation and causes instant fatal crashes (`InvalidInjectionException: Could not find target`) when players start the game.
 - **Policy**:
@@ -97,6 +106,12 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
 - **Symptom**: `compileJava` fails with `NoSuchFileException: ...\build\classes\java\main\...` or `Unable to delete build`.
 - **Solution**: Run `.\gradlew.bat --stop` to terminate lingering Gradle Daemons holding file locks, then delete `build/` and recompile.
 
+### Case 6: Probabilistic `runData` crash — `NoSuchFieldError: CreativeModeTabs f_256750_`
+- **Symptom**: `runData`/`runClient` in gtecore or gt-- died during mod construction at `AbstractRegistrate.<init>` with `NoSuchFieldError` on SRG field `f_256750_`. Success looked random: gte-dev-runtime runs worked, module runs crashed, and occasionally a run survived depending on FML's jar-selection order.
+- **Root Cause**: gtm-reborn's and gt--'s **dev jars embedded SRG-mapped jarJar dependencies** (Registrate, ldlib, configuration, flywheel, ponder, mixinextras; kotlinforforge for gt--). FML extracts embeds verbatim; an SRG Registrate in a named (mojmap) runtime crashes on first use. Runs that also had a named standalone Registrate on the classpath survived because FML's `JarSelector` deterministically prefers top-level classpath jars over embedded ones with the same identifier (for mods.toml-less libs the identifier is the **file name**).
+- **Fix**: See Rule 3b. Dev jars no longer carry embeds (`jar` excludes `META-INF/jarjar/**`); `jarWithEmbeds` feeds `reobfJar` so production jars are unchanged; every run config carries named `modLocalRuntime` copies of the embedded libraries.
+- **Diagnostic script**: `python scripts/texture_lab/inspect_jarjar.py <jar>` classifies a jar's `META-INF/jarjar` embeds as SRG vs NAMED.
+
 ---
 
 ## 4. Dependency Management Workflow
@@ -119,27 +134,50 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
 # 1. Compile all Java code
 ./gradlew compileJava
 
-# 2. Build mod jars and synchronize to overrides/mods
+# 2. Regenerate gtecore data (lang / item models / tags) — MANDATORY after
+#    adding or renaming any registered content (items, blocks, tooltips)
+./gradlew :modules:gtecore:runData
+
+# 3. Build mod jars and synchronize to overrides/mods
 ./gradlew copyOutputJars
 
-# 3. Publish to local Maven cache (~/.m2/repository/)
+# 4. Publish to local Maven cache (~/.m2/repository/)
 ./gradlew publishAllToMavenLocal
 
-# 4. Publish to static folder for GitHub Pages
+# 5. Publish to static folder for GitHub Pages
 ./gradlew publishAllToMaven
 
-# 5. Build Player Full-Mod Client Pack (GTE-FullMod zip)
+# 6. Build Player Full-Mod Client Pack (GTE-FullMod zip)
 python scripts/build_full_mod_pack.py [version]
 
-# 6. Build Pure CurseForge Modpack (No bundled jars)
+# 7. Build Pure CurseForge Modpack (No bundled jars)
 python scripts/build_curseforge_pack.py [version]
 
-# 7. Audit 100% dependency coverage
+# 8. Audit 100% dependency coverage
 python scripts/audit_dependencies.py
 
-# 8. Launch Hot Debug Client
+# 9. Launch Hot Debug Client
 ./gradlew :modules:gte-dev-runtime:runClient
 ```
+
+### Datagen Discipline (注册新内容后必须 runData)
+
+- `modules/gtecore/src/generated/resources/` is **100% datagen output**
+  (`runData` writes lang JSONs, Registrate item models, and `.tag(...)`
+  circuit/item tags there). **NEVER hand-edit files under it** — the next
+  `runData` silently overwrites them.
+- Bilingual lang entries are sourced from
+  `modules/gtecore/.../datagen/Lang.java` via
+  `provider.add(key, en, zh)` (en_us + zh_cn in one call). Add entries there,
+  then run `./gradlew :modules:gtecore:runData` and verify the regenerated
+  `en_us.json` / `zh_cn.json` contain your keys.
+- Skipping `runData` leaves new items without generated item models and
+  without circuit tag JSONs (`data/gtceu/tags/items/circuits/*.json`), so
+  circuits will not be recognized as working circuits in-game even though
+  `compileJava` passes.
+- Other locales (`de_de`, `ja_jp`, ...) are produced by the CI translation
+  workflow (`.github/workflows/translate.yml`) from the committed zh_cn —
+  do not hand-write them either.
 
 ---
 
