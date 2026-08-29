@@ -140,3 +140,24 @@ python scripts/audit_dependencies.py
 # 8. Launch Hot Debug Client
 ./gradlew :modules:gte-dev-runtime:runClient
 ```
+
+---
+
+## 6. Code & Asset Search Methodology (代码与资源精准检索方法)
+
+Detailed runbook: [code_search_runbook.md](file:///c:/Users/Ex_Je/Documents/GTEGroup/.agents/skills/gte-workflow/references/code_search_runbook.md)
+
+When looking for items, blocks, machines, textures, or configs across the multi-module repo, **NEVER perform broad unconstrained root greps**. Follow this systematic 3-step pipeline:
+
+1. **Natural Language / Chinese Name $\to$ ID**:
+   - First grep `zh_cn.json` under `modules/gtecore/src/generated/resources/assets/gtecore/lang/` or `gte/overrides/config/openloader/resources/quests/assets/gte/lang/`.
+   - Extract the registry ID (e.g. `"block.gtecore.imaginary_casing": "§b虚数机械方块"` $\to$ `imaginary_casing`).
+2. **ID $\to$ Java / KubeJS Registry Target**:
+   - Casings & Blocks $\to$ `modules/gtecore/.../GTEBlocks.java`
+   - Items & Circuits $\to$ `modules/gtecore/.../GTEItems.java`
+   - Multiblocks & Machines $\to$ `modules/gtecore/.../machines/GTEMultiMachine.java` / `GTEMachines.java`
+   - Modpack Scripts $\to$ `gte/overrides/kubejs/server_scripts/`
+3. **Textures, Models & CTM Discovery**:
+   - Search `art_assets/` (central models/textures) and `modules/<mod>/src/main/resources/assets/<mod>/textures/`.
+   - Always verify matching `.png.mcmeta` and `_ctm.png` for connected textures and animation.
+

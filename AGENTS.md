@@ -53,6 +53,9 @@ client without a launcher.
 5. Keep edits scoped to the submodule that owns the feature.
 6. Never set `remap = false` on Mixin targets targeting `net.minecraft.*` or
    `net.minecraftforge.*` classes. It will pass dev runs but crash in production.
+7. Follow the systematic 3-step search pipeline: Chinese names -> `zh_cn.json` ->
+   Registry IDs -> Target Java class/assets. Never run unconstrained root greps.
+   (See `.agents/skills/gte-workflow/references/code_search_runbook.md`).
 
 ## Game Tests
 
