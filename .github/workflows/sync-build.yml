@@ -360,11 +360,7 @@ jobs:
           }
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      # ──────────────────────────────────────────────
-      # Art Assets & Parallel Build
-      # ──────────────────────────────────────────────
-      - name: Synchronize Blockbench Models & Art Assets
-        run: python scripts/sync_art_assets.py
+
 
       # Gradle/Java does NOT honour the HTTP_PROXY / HTTPS_PROXY environment
       # variables - it only reads systemProp.http(s).proxyHost/proxyPort. On a
