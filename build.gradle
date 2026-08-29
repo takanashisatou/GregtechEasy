@@ -92,14 +92,11 @@ subprojects {
 }
 
 // ---------------------------------------------------------------------------
-// Blockbench Art Assets Synchronization Task
-// ---------------------------------------------------------------------------
-// ---------------------------------------------------------------------------
-// Blockbench Art Assets Synchronization Task
+// Blockbench Art Assets Manual Task (Optional, does not run automatically)
 // ---------------------------------------------------------------------------
 tasks.register('syncBlockbenchAssets') {
     group = 'build'
-    description = 'Multi-namespace synchronization of 3D models and textures from art_assets/'
+    description = 'Manual synchronization of 3D models and textures from art_assets/'
 
     def artAssetsDir = file("${rootDir}/art_assets")
     inputs.dir(artAssetsDir)
@@ -114,12 +111,6 @@ tasks.register('syncBlockbenchAssets') {
             commandLine 'python', "${rootDir}/scripts/sync_art_assets.py"
             ignoreExitValue = true
         }
-    }
-}
-
-subprojects {
-    tasks.matching { it.name == 'processResources' }.configureEach {
-        dependsOn rootProject.tasks.named('syncBlockbenchAssets')
     }
 }
 
