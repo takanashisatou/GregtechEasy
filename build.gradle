@@ -49,6 +49,34 @@ subprojects {
 }
 
 // ---------------------------------------------------------------------------
+// IDEA indexing load control
+// ---------------------------------------------------------------------------
+// The aggregate checkout carries hundreds of MB of runtime logs, world saves
+// and packed mod jars that must never be indexed (indexing them ran the IDE
+// out of heap: OutOfMemoryError in FileBasedIndex / Trigram.Index). Gradle
+// sync honors idea.module.excludeDirs from the tooling model, so declare the
+// exclusions in the build. build/ and .gradle/ dirs are excluded
+// automatically by the Gradle integration.
+idea {
+    module {
+        // run/               : dev-runtime game dirs (multi-MB debug.log, saves)
+        // gte/overrides/mods : ~263 MB of binary mod jars, no editing value
+        excludeDirs += files('run', 'gte/overrides/mods')
+    }
+}
+
+subprojects {
+    plugins.withId('idea') {
+        idea {
+            module {
+                // per-module run/ dirs (runData / runClient outputs and logs)
+                excludeDirs += files('run')
+            }
+        }
+    }
+}
+
+// ---------------------------------------------------------------------------
 // Blockbench Art Assets Synchronization Task
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
