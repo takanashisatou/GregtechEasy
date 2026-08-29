@@ -51,19 +51,35 @@ dependencies {
     modLocalRuntime(forge.ponder)
     modLocalRuntime(forge.flywheel.forge)
 
-    // Local flatDir pack mods: resolve from the bundled jars so no network is needed.
-    def packLibsDir = file("${rootDir}/modules/gtecore/gradle/libs")
+    // Full-pack mods: scan the packwiz overrides (gte/overrides/mods is the
+    // exact jar set of the production "Oh" instance) first, then the legacy
+    // bundled libs dir for extras, so the dev client loads the same mod set
+    // as the shipped pack. Every jar goes through modLocalRuntime, which
+    // remaps it SRG -> named for the dev runtime.
+    def packModsDir = file("${rootDir}/gte/overrides/mods")
+    def legacyLibsDir = file("${rootDir}/modules/gtecore/gradle/libs")
     def alreadyProvided = [
+        // provided above via maven modLocalRuntime coordinates
         'appliedenergistics2-forge', 'architectury-', 'curios-forge',
         'gtmthings', 'guideme', 'jade-', 'jei-1.20.1-forge',
-        'kotlinforforge', 'kubejs-forge', 'rhino-forge'
+        'kotlinforforge', 'kubejs-forge', 'rhino-forge',
+        'ldlib', 'configuration-'
     ]
     def devUnsafe = [
-        'gtm-reborn', 'gtecore', 'gtnn-',
+        // replaced by sourceSet-backed mods{} mappings
+        'gtm-reborn', 'gtecore', 'gtnn-', 'gt---',
+        // production shader/optimizer jars break deobfuscated dev runs
         'oculus', 'embeddium', 'modernfix', 'modern-ui', 'modernui'
     ]
-    if (packLibsDir.exists()) {
-        packLibsDir.eachFileMatch(~/.*\.jar/) { jar ->
+    def seen = [] as Set
+    [packModsDir, legacyLibsDir].each { dir ->
+        if (!dir.exists()) {
+            return
+        }
+        dir.eachFileMatch(~/.*\.jar/) { jar ->
+            if (!seen.add(jar.name)) {
+                return
+            }
             def name = jar.name.toLowerCase()
             if (alreadyProvided.any { name.contains(it) }) {
                 return
@@ -89,6 +105,12 @@ dependencies {
             modLocalRuntime("dev:${artifact}:${version}")
         }
     }
+}
+
+repositories {
+    // The shared repositories.gradle only points flatDir at the legacy libs
+    // dir; the full-pack scan above also needs the packwiz overrides.
+    flatDir { dir "${rootDir}/gte/overrides/mods" }
 }
 
 legacyForge {
