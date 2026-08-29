@@ -1,6 +1,6 @@
 name = "GregTech Easy"
 author = "satou"
-version = "3.0.1"
+version = "3.0.5"
 description = "GregTech Easy Modpack with JDK 21 and GTECore + GTM-Reborn Dual Core"
 pack-format = "packwiz:1.1.0"
 
