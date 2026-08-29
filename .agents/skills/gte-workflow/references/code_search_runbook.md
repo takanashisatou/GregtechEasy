@@ -23,7 +23,59 @@
 
 ---
 
-## 2. 系统化检索决策树 (Search Decision Tree)
+## 2. 沿着代码依赖链检索 (Dependency-Chain & Symbol Graph Search)
+
+在深入分析、修改或调试功能时，**严禁孤立查看单个文件**。必须顺着 GTE 的 **4 大核心代码依赖链** 进行上下游穿透检索：
+
+```
+                    ┌─────────────────────────────────────────────────────────┐
+                    │            多方块结构全依赖链 (Multiblock Chain)          │
+                    └─────────────────────────────────────────────────────────┘
+  Machine Registry ────────► Block Pattern (where/aisle) ────────► Casings/Coils (GTEBlocks)
+(GTEMachines.java)         (FactoryBlockPattern.start())         (Texture ID / CTM / .mcmeta)
+         │                                                                   │
+         ▼                                                                   ▼
+ RecipeType (GTERecipeTypes) ──► Recipe Conditions ──► Overclocks/Modifiers ──► JEI / Terminal Check
+ (DataGen & KubeJS Scripts)     (BAI_HU_CONDITION)     (recipeModifier)       (Structure Testing)
+```
+
+### 链条一：多方块结构全依赖链 (Multiblock Structure Chain)
+当要修改或分析一个多方块机器时，按如下链条逐级追踪：
+1. **入口定位**：在 `modules/gtecore/common/data/machines/` 或 `GTEMachines.java` 找到机器控制器常量（如 `YIN_YANG_EIGHT_TRIGMAS_BLAST_FURNACE`）。
+2. **图案解析**：找到其 `.pattern(...)` 方法，查看切片矩阵（`aisle(...)`）与字符谓词（`where("A", ...)`）。
+3. **方块追踪**：从谓词中的 `GTEBlocks.XXX.get()` 跳转至 `GTEBlocks.java`，获取方块的注册属性与贴图 ResourceLocation。
+4. **材质与连接**：跳转至 `assets/gtecore/textures/block/...`，同时检查同名 `.mcmeta`（动画与 CTM 配置）和 `_ctm.png`（无缝连接贴图）。
+5. **结构校验终端**：查看 `StructureTestingTerminalBehavior.java` 中是否支持该多方块的虚拟投影或成型校验。
+
+### 链条二：配方与业务处理链路 (Recipe & Processing Chain)
+当分析机器的运行逻辑、并行数、超频与输入输出时：
+1. **配方类型**：从机器的 `.recipeType(GTERecipeTypes.XXX)` 跳转至 `GTERecipeTypes.java`。
+2. **运行条件**：检查是否挂载了自定义条件（如 `GTERecipeConditions.BAI_HU` $\to$ `BAI_HU_CONDITION.java`）。
+3. **超频/修改器**：检查机器的 `.recipeModifier(...)`（如 1T OC 逻辑、温度加成、线圈等级计算）。
+4. **配方数据源**：
+   - 内置 Java 配方：`modules/gtecore/src/main/java/org/satou/gtecore/data/recipe/...`
+   - KubeJS 整合包配方：`gte/overrides/kubejs/server_scripts/...`
+
+### 链条三：物品、芯片与电路层级链 (Circuit & Tier Progression Chain)
+当追踪某个材料、芯片或电路的上下游消耗与产出时：
+1. **物品定义**：在 `modules/gtecore/common/data/items/GTEItems.java` 找到物品注册。
+2. **阶级标签**：检查附带的 Tag（如 `.tag(CustomTags.UV_CIRCUITS)`、`CustomTags.ZPM_CIRCUITS`）。
+3. **生产配方**：在 `org.satou.gtecore.data.recipe` 或 `kubejs/` 中 grep 该物品 ID 作为 output（查由什么机器制造）。
+4. **消耗配方**：grep 该物品 ID 作为 input（查用于合成什么机器控制器或高级外壳）。
+5. **任务引导**：在 `gte/overrides/config/openloader/resources/quests/` 中检索该物品的 Quest 依赖关系。
+
+### 链条四：跨子模块 API 溯源与继承链 (Cross-Submodule Inheritance Chain)
+当遇到框架层报错或需要扩展 GT 核心功能时：
+1. **子模块上溯**：
+   - `modules/gtecore` 中的类（如 `GTEMultiMachine`）通常继承自 `modules/gtm-reborn` 中的基类（如 `WorkableElectricMultiblockMachine`、`MetaMachine`）。
+2. **能力与接口**：
+   - 若要实现特定能力（如能量存储、流体多合一），查看 `com.gregtechceu.gtceu.api.machine.feature` 下的接口。
+3. **跨模块依赖 (GT--)**：
+   - 若使用了 GT-- (GTNN) 的高级材料或外壳，追踪至 `modules/gt--` 的 `GTNNCasingBlocks` 或 `GTNNMaterials`。
+
+---
+
+## 3. 系统化检索决策树 (Search Decision Tree)
 
 ### 场景 A：已知中文名称（如“虚数外壳”、“离火外壳”、“结构检测终端”）
 **严禁直接在整个 Java 源码中 grep 中文字符！**（Java 变量名全部为英文）。
@@ -77,7 +129,7 @@
 
 ---
 
-## 3. 工具选用与精准检索范例
+## 4. 工具选用与精准检索范例
 
 | 检索目标 | 推荐工具 | 推荐参数范例 | 说明 |
 | :--- | :--- | :--- | :--- |
@@ -85,11 +137,13 @@
 | **定位某个 Java 类或方块** | `grep_search` | `Query: "IMAGINARY_CASING"`, `SearchPath: "modules/gtecore/src/main/java"` | 限定目录，精准命中 |
 | **查找贴图/模型文件** | `find_by_name` | `Pattern: "*imaginary*"`, `SearchDirectory: "modules/gtecore/src/main/resources/assets"` | 按文件名与扩展名定位 |
 | **排查是否有未提交或分支资产** | `run_command` | `python -c "import subprocess..."` 跨子模块 git log 扫描 | 快速排查本地隐藏历史 |
+| **沿继承链追踪基类方法** | `grep_search` | `Query: "class WorkableElectricMultiblockMachine"`, `SearchPath: "modules/gtm-reborn"` | 跨子模块精准定位核心实现 |
 
 ---
 
-## 4. 严禁的反模式 (Anti-Patterns to Avoid)
+## 5. 严禁的反模式 (Anti-Patterns to Avoid)
 
 - ❌ **严禁无范围全库盲搜 (Blind Workspace Grep)**：切勿在仓库根目录直接对模糊词发起大范围无过滤 grep。
 - ❌ **严禁把“代码未搜到”直接当作“完全不存在”**：美术素材可能已经放在 `art_assets/` 或 `textures/block/` 中等待注册；必须完成多层排查。
 - ❌ **严禁忽略 CTM / MCMETA 依赖**：为方块添加或修改贴图时，漏查 `.mcmeta` 将导致游戏内 CTM 丢失或贴图不连接。
+- ❌ **严禁断链推测**：在修改多方块结构或配方时，严禁只改 Java 端却不检查对应的材质、CTM、配方修改器与 KubeJS 联动。
