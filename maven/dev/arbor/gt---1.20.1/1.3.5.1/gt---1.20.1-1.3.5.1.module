@@ -30,10 +30,10 @@
           "name": "gt---1.20.1-1.3.5.1.jar",
           "url": "gt---1.20.1-1.3.5.1.jar",
           "size": 8867494,
-          "sha512": "4ee51f741c081b441b31b3e672086a9ab7148d7e08cd8649b80ed3c45b5d56af8fbe69cc00c2f29d96f024bdc8dd11dcf7031935731395dc1c14fb7eb0d69013",
-          "sha256": "ba3f34ba808f34b8fa207b541039aefad91da1021f6fe084d7c73b1d3b849edc",
-          "sha1": "baaa41979394289768e51c031eb7db8b92366f03",
-          "md5": "7b4363172f12795b492e0aa2eb089d17"
+          "sha512": "cfe96289e1dada2c5f785ae080f1aebf5671c54d61d82277c4f8c7ffcf20953d2de2830390baa13c86d64313f87b844bed562477f1c99596313ea1a02ba22fe3",
+          "sha256": "7691736360b1c4d90b097e4811af5a8a68b8e7f09ce94696adaa9fbf3b9e59f4",
+          "sha1": "1f27ee991a4ae20f00202fe49c291ef4b2f1ae1f",
+          "md5": "230d23bd22db2a0ee1dd0757977043dc"
         }
       ]
     },
@@ -53,10 +53,10 @@
           "name": "gt---1.20.1-1.3.5.1.jar",
           "url": "gt---1.20.1-1.3.5.1.jar",
           "size": 8867494,
-          "sha512": "4ee51f741c081b441b31b3e672086a9ab7148d7e08cd8649b80ed3c45b5d56af8fbe69cc00c2f29d96f024bdc8dd11dcf7031935731395dc1c14fb7eb0d69013",
-          "sha256": "ba3f34ba808f34b8fa207b541039aefad91da1021f6fe084d7c73b1d3b849edc",
-          "sha1": "baaa41979394289768e51c031eb7db8b92366f03",
-          "md5": "7b4363172f12795b492e0aa2eb089d17"
+          "sha512": "cfe96289e1dada2c5f785ae080f1aebf5671c54d61d82277c4f8c7ffcf20953d2de2830390baa13c86d64313f87b844bed562477f1c99596313ea1a02ba22fe3",
+          "sha256": "7691736360b1c4d90b097e4811af5a8a68b8e7f09ce94696adaa9fbf3b9e59f4",
+          "sha1": "1f27ee991a4ae20f00202fe49c291ef4b2f1ae1f",
+          "md5": "230d23bd22db2a0ee1dd0757977043dc"
         }
       ]
     }
