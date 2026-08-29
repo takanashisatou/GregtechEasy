@@ -1,0 +1,9 @@
+{
+  "animation": {
+    "frametime": 2,
+    "interpolate": true
+  },
+  "ldlib": {
+    "connection": "gtecore:block/casings/imaginary/imaginary_casing_ctm"
+  }
+}
