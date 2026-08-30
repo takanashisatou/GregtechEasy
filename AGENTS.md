@@ -131,7 +131,10 @@ For coding, refactoring, multiblock architecture, and multi-module submodule mai
 Project-specific guidance also lives in:
 
 - `.agents/skills/gte-workflow/SKILL.md` - GTE development runbook
+- `.agents/skills/gte-pixel-lab/SKILL.md` - Universal Minecraft pixel art, CTM inspection, and animation toolset (`python scripts/texture_lab/pixel_tool.py <cmd>`)
+- `.agents/skills/gte-multiblock/SKILL.md` - GTE multiblock structure creation, registry, and recipe modifiers
+- `.agents/skills/gte-multiblock-architecture/SKILL.md` - Multiblock 3D geometric modeling and pattern generation
 - `.codex/rules.md` - detailed project rules
 - `README.md` - developer-facing quick start
 
-Read the relevant skill before changing build, Gradle, CI, or module code.
+Read the relevant skill before changing build, Gradle, CI, texture, or module code.
