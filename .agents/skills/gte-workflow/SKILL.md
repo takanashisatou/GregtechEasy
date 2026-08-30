@@ -79,9 +79,11 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
   - Targets in `net.minecraft.*` or `net.minecraftforge.*` **MUST** keep `remap = true` (default; do not specify `remap = false`).
   - Only set `remap = false` on third-party non-obfuscated Java libraries (e.g. `Gson`, `Netty`, `LWJGL`) or synthetic mod-injected interface accessors.
 
-### Rule 5: Never Attach Sibling SourceSets to `legacyForge.mods {}` in Submodule Datagen
-- **Why**: Attaching sibling mod source sets (e.g. `gtceu { sourceSet(...) }` or `gtnn { sourceSet(...) }`) inside a submodule's `legacyForge.mods {}` block forces Forge's `DatagenModLoader` to register those sibling mods as active Datagen contributors. This causes duplicate or conflicting Registrate data providers to be constructed, triggering fatal classloader collisions: `ClassCastException: class RegistrateBlockstateProvider cannot be cast to class GTBlockstateProvider`.
-- **Policy**: Keep each submodule's `legacyForge.mods {}` strictly limited to its own mod ID (`"${mod_id}"`). Wire sibling cross-module code dependencies using standard Gradle dependency declarations (`implementation(requireSibling(...)) { transitive = false }`).
+### Rule 5: Never Attach Sibling SourceSets to `legacyForge.mods {}` in Submodules
+- **Why**: Attaching sibling mod source sets (e.g. `gtceu { sourceSet(...) }` or `gtnn { sourceSet(...) }`) inside a submodule's `legacyForge.mods {}` block forces Forge's `DatagenModLoader` and `ModLauncher` to register those sibling mods as active contributors in the submodule's context.
+  - **In `runData`**: This causes duplicate/conflicting Registrate data providers to be constructed, triggering fatal classloader collisions: `ClassCastException: class RegistrateBlockstateProvider cannot be cast to class GTBlockstateProvider`.
+  - **In `runClient`**: This causes classloading duplicates, mapping-attribute loops, and launch crashes during FML mod construction.
+- **Policy**: Keep each submodule's `legacyForge.mods {}` strictly limited to its own mod ID (`"${mod_id}"`). Wire sibling cross-module code dependencies using standard Gradle dependency declarations (`implementation(requireSibling(...)) { transitive = false }`). Multi-mod sourceSet aggregation is exclusively reserved for the dedicated runner `modules/gte-dev-runtime`.
 
 ---
 
@@ -116,10 +118,10 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
 - **Fix**: See Rule 3b. Dev jars no longer carry embeds (`jar` excludes `META-INF/jarjar/**`); `jarWithEmbeds` feeds `reobfJar` so production jars are unchanged; every run config carries named `modLocalRuntime` copies of the embedded libraries.
 - **Diagnostic script**: `python scripts/texture_lab/inspect_jarjar.py <jar>` classifies a jar's `META-INF/jarjar` embeds as SRG vs NAMED.
 
-### Case 7: `runData` Datagen Crash — `ClassCastException: RegistrateBlockstateProvider cannot be cast to GTBlockstateProvider`
-- **Symptom**: `.\gradlew.bat :modules:gtecore:runData` fails with `ClassCastException` in `GTBlockBuilder.lambda$exBlockstate$0`.
-- **Root Cause**: Sibling mod sourceSets (`gtceu`, `gtnn`) were attached to `legacyForge.mods {}` in `gtecore/gradle/scripts/moddevgradle.gradle`. Forge's `DatagenModLoader` registered both `gtceu` and `gtecore` as active datagen providers, causing Registrate provider instances from different loaders/wrappers to collide.
-- **Solution**: Remove sibling sourceSets from `mods {}` in `gtecore`. Sibling compilation dependencies must strictly use standard `implementation(requireSibling(':modules:gtm-reborn', 'gtm-reborn')) { transitive = false }`.
+### Case 7: `runData` & `runClient` Collision — `ClassCastException` / Lifecycle Failures via Sibling `sourceSets`
+- **Symptom**: `.\gradlew.bat :modules:gtecore:runData` fails with `ClassCastException: RegistrateBlockstateProvider cannot be cast to GTBlockstateProvider`, and `runClient` fails during mod initialization.
+- **Root Cause**: Sibling mod sourceSets (`gtceu`, `gtnn`) were attached to `legacyForge.mods {}` in `gtecore/gradle/scripts/moddevgradle.gradle`. Forge's `DatagenModLoader` and ModLauncher registered both `gtceu` and `gtecore` as active contributors, causing Registrate provider instances from different loaders/wrappers to collide and break runtime lifecycle.
+- **Solution**: Remove sibling sourceSets from `mods {}` in all submodules. Sibling compilation dependencies must strictly use standard Gradle dependency wiring `implementation(requireSibling(':modules:gtm-reborn', 'gtm-reborn')) { transitive = false }`, and multi-sourceSet hot debugging belongs strictly in `gte-dev-runtime`.
 
 ---
 

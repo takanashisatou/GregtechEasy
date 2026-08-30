@@ -77,8 +77,8 @@ client without a launcher.
    libraries, FML dedup matches by jar file name — use maven coordinates so
    the standalone jar keeps its artifact name, never renamed curse files.
 10. Never attach sibling source sets (e.g. `gtceu { sourceSet(...) }` or `gtnn { sourceSet(...) }`) inside a submodule's `legacyForge.mods {}` block.
-    - Doing so registers sibling mods as active Datagen contributors in Forge's `DatagenModLoader`, causing Registrate classloader collisions (`ClassCastException: RegistrateBlockstateProvider cannot be cast to GTBlockstateProvider`) during `.\gradlew.bat :modules:gtecore:runData`.
-    - Cross-submodule code dependencies must strictly use standard Gradle dependency wiring (`implementation(requireSibling(':modules:gtm-reborn', 'gtm-reborn')) { transitive = false }`), keeping each submodule's `mods {}` strictly to its own `"${mod_id}"`.
+    - Doing so registers sibling mods as active Datagen/Runtime contributors in Forge's `DatagenModLoader` and ModLauncher, causing Registrate classloader collisions (`ClassCastException: RegistrateBlockstateProvider cannot be cast to GTBlockstateProvider`) during `.\gradlew.bat :modules:gtecore:runData` as well as classloading/lifecycle conflicts during `runClient`.
+    - Cross-submodule code dependencies must strictly use standard Gradle dependency wiring (`implementation(requireSibling(':modules:gtm-reborn', 'gtm-reborn')) { transitive = false }`), keeping each submodule's `mods {}` strictly to its own `"${mod_id}"`. (Only the dedicated runner `gte-dev-runtime` aggregates multi-mod source sets for full-pack hot debug).
 
 ## Game Tests
 
