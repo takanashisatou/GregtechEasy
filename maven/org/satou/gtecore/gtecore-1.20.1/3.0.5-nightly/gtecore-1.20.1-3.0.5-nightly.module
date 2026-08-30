@@ -29,11 +29,11 @@
         {
           "name": "gtecore-1.20.1-3.0.5-nightly.jar",
           "url": "gtecore-1.20.1-3.0.5-nightly.jar",
-          "size": 11006279,
-          "sha512": "cc067a0af6a73c34a468bd0d848057e8b0ff91df26309026e845d74c70ca661f96af2472156fb476fcf22d527190819f472719cda05a74c64b8d11e977db8c03",
-          "sha256": "cdfba42303d0a207d16662c2d9aa5ea5e7335b6e2d95e661257dd443c031864f",
-          "sha1": "3c5f12f803b7d9eb3eba93e023e8aeaabfba1e01",
-          "md5": "6d86ad723b8143fe3b131dafd84c679a"
+          "size": 11003592,
+          "sha512": "37cb14f331c3c0b1e799aacd8ce2d2cc2698fd610b2210a0dfd79422ecbd59814cffa4915ac792ca28d35abdc9721f57ae9eb6fdf81e9dd8abb2412664d13b4f",
+          "sha256": "f823d94c63d46ce0ae2fbd29a5a86232a2058ae813db2df91b843d986e28f877",
+          "sha1": "c0510c9fd56d1806b6c56b25f44d7255d56e3f06",
+          "md5": "d7c9caec0e8cd98518732b27383ac86e"
         }
       ]
     },
@@ -52,11 +52,11 @@
         {
           "name": "gtecore-1.20.1-3.0.5-nightly.jar",
           "url": "gtecore-1.20.1-3.0.5-nightly.jar",
-          "size": 11006279,
-          "sha512": "cc067a0af6a73c34a468bd0d848057e8b0ff91df26309026e845d74c70ca661f96af2472156fb476fcf22d527190819f472719cda05a74c64b8d11e977db8c03",
-          "sha256": "cdfba42303d0a207d16662c2d9aa5ea5e7335b6e2d95e661257dd443c031864f",
-          "sha1": "3c5f12f803b7d9eb3eba93e023e8aeaabfba1e01",
-          "md5": "6d86ad723b8143fe3b131dafd84c679a"
+          "size": 11003592,
+          "sha512": "37cb14f331c3c0b1e799aacd8ce2d2cc2698fd610b2210a0dfd79422ecbd59814cffa4915ac792ca28d35abdc9721f57ae9eb6fdf81e9dd8abb2412664d13b4f",
+          "sha256": "f823d94c63d46ce0ae2fbd29a5a86232a2058ae813db2df91b843d986e28f877",
+          "sha1": "c0510c9fd56d1806b6c56b25f44d7255d56e3f06",
+          "md5": "d7c9caec0e8cd98518732b27383ac86e"
         }
       ]
     },
@@ -72,11 +72,11 @@
         {
           "name": "gtecore-1.20.1-3.0.5-nightly-sources.jar",
           "url": "gtecore-1.20.1-3.0.5-nightly-sources.jar",
-          "size": 10772991,
-          "sha512": "7450e45b0fe13d14af94a082a53290562756e80227ae7b007615c0967aaffe8ed198d3c8dd686702b5ce14a82ba0e958d048c74be14ce874381fe6255a77a35d",
-          "sha256": "8c996d55aa5975530b6e00ac2f34b09c0646186d93dc0fd54f5495a3abaa9722",
-          "sha1": "cfa98976bce554756e9d9ed8d2915df9cb3a871f",
-          "md5": "05aecd9907d604fb606713804d4d9197"
+          "size": 10770304,
+          "sha512": "588480f1e26acff35163c818b109d6aee674d43ae67def53f88b7f217b612e5d1c647c3d203bc19aeecbf5355c0d39b5b9a7431319f5a5e36131863016eabca1",
+          "sha256": "edf42bd6747144d6aeaffd3af8ae307b2a5a54be6bac94ed18a74c6706b18482",
+          "sha1": "28b643d21a2d9ca152ca66c8b16c303693b006ac",
+          "md5": "dc0c1e2f1ab51d9c60527493be60f9b2"
         }
       ]
     }
