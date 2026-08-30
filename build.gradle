@@ -57,7 +57,6 @@ subprojects {
 gradle.taskGraph.whenReady { graph ->
     def runTasks = graph.allTasks.findAll { 
         it.path != ':runClient' && 
-        it.path != ':modules:gtecore:runClient' &&
         it.name ==~ /run(Client|Server|Data|GameTestServer)/ 
     }
     if (runTasks.size() > 1) {
