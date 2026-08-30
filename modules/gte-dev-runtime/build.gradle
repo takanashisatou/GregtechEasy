@@ -89,28 +89,33 @@ dependencies {
             }
 
             def base = jar.name.replaceAll(/\.jar$/, '')
-            def parts = base.split('-')
-            def versionStart = -1
-            for (int i = parts.length - 1; i >= 0; i--) {
-                if (parts[i] ==~ /^\d.*/) {
-                    versionStart = i
-                    break
+            if (base.contains('-')) {
+                def parts = base.split('-')
+                def versionStart = -1
+                for (int i = parts.length - 1; i >= 1; i--) {
+                    if (parts[i] ==~ /^\d.*/) {
+                        versionStart = i
+                        break
+                    }
                 }
+                if (versionStart > 0) {
+                    def artifact = parts[0..<versionStart].join('-')
+                    def version = parts[versionStart..-1].join('-')
+                    modLocalRuntime(name: artifact, version: version)
+                } else {
+                    modLocalRuntime(name: base)
+                }
+            } else {
+                modLocalRuntime(name: base)
             }
-            if (versionStart < 0) {
-                versionStart = parts.length - 1
-            }
-            def artifact = parts[0..<versionStart].join('-')
-            def version = parts[versionStart..-1].join('-')
-            modLocalRuntime("dev:${artifact}:${version}")
         }
     }
 }
 
 repositories {
-    // The shared repositories.gradle only points flatDir at the legacy libs
-    // dir; the full-pack scan above also needs the packwiz overrides.
-    flatDir { dir "${rootDir}/gte/overrides/mods" }
+    flatDir {
+        dirs "${rootDir}/gte/overrides/mods", "${rootDir}/modules/gtecore/gradle/libs"
+    }
 }
 
 legacyForge {
