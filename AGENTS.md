@@ -76,6 +76,9 @@ client without a launcher.
    mixinextras 0.5.5, kotlinforforge as applicable). For mods.toml-less
    libraries, FML dedup matches by jar file name — use maven coordinates so
    the standalone jar keeps its artifact name, never renamed curse files.
+10. Never attach sibling source sets (e.g. `gtceu { sourceSet(...) }` or `gtnn { sourceSet(...) }`) inside a submodule's `legacyForge.mods {}` block.
+    - Doing so registers sibling mods as active Datagen contributors in Forge's `DatagenModLoader`, causing Registrate classloader collisions (`ClassCastException: RegistrateBlockstateProvider cannot be cast to GTBlockstateProvider`) during `.\gradlew.bat :modules:gtecore:runData`.
+    - Cross-submodule code dependencies must strictly use standard Gradle dependency wiring (`implementation(requireSibling(':modules:gtm-reborn', 'gtm-reborn')) { transitive = false }`), keeping each submodule's `mods {}` strictly to its own `"${mod_id}"`.
 
 ## Game Tests
 
