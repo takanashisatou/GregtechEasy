@@ -56,9 +56,18 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
   ```
 - **Better**: Prefer Vanilla/Forge native methods over accessors (e.g. `property.getPossibleValues()` for `IntegerProperty` min/max instead of `IntegerPropertyAccessor`).
 
-### Rule 2: Never Put Production Shader/Optimizer Jars into Dev Runtime
-- **Why**: Production jars like `Oculus`, `Embeddium`, `ModernFix`, `ModernUI` have hardcoded SRG obfuscated mixin refmaps (`f_117950_`, `m_91302_`). Gradle `runClient` uses deobfuscated Mojang mappings, leading to `InvalidMixinException`.
-- **Policy**: Keep optimization/shader mods exclusively for players in `gte/overrides/mods/` for real launchers; exclude them from `gte-dev-runtime`.
+### Rule 2: Ensure Early Window is Disabled via `config/fml.toml` When Using Embeddium/Oculus in Dev Runtime
+- **Why**: When running `runClient` with `modLocalRuntime(forge.embeddium)` and `modLocalRuntime(forge.oculus)` on Windows with discrete GPUs (NVIDIA RTX series), Forge's `fmlearlywindow` (Early Progress Window) spawns a separate background GLFW/OpenGL rendering thread (`pool-2-thread-1`). When Embeddium/Oculus multi-threaded optimization hooks kick in, GLFW context switching between threads deadlocks silently, preventing the game window from popping up.
+- **Policy**: In Forge 47.4.1, `FMLConfig` prioritizes reading `earlyWindowControl` directly from `config/fml.toml`. Ensure:
+  1. In all `config/fml.toml` (`run/client/config/fml.toml`, `gte/overrides/config/fml.toml`, `modules/gtecore/run/client/config/fml.toml`), set:
+     ```toml
+     earlyWindowControl = false
+     ```
+  2. In `runs.client` within `moddevgradle.gradle` / `build.gradle`, also pass:
+     ```groovy
+     jvmArguments.addAll('-Dfml.earlyprogresswindow=false', '-Dforge.earlyWindow=false')
+     ```
+  This causes Forge to use `DummyProvider` (`ImmediateWindowProvider not loading because splash screen is disabled`), routing all GLFW window and OpenGL context creation directly to the main Render Thread so the game window pops up smoothly.
 
 ### Rule 3: Always Use `modLocalRuntime` for Dev Runtime Dependencies
 - **Why**: Plain `localRuntime` or `fileTree` does NOT trigger ModDevGradle's deobfuscation remapper.
@@ -118,10 +127,31 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
 - **Fix**: See Rule 3b. Dev jars no longer carry embeds (`jar` excludes `META-INF/jarjar/**`); `jarWithEmbeds` feeds `reobfJar` so production jars are unchanged; every run config carries named `modLocalRuntime` copies of the embedded libraries.
 - **Diagnostic script**: `python scripts/texture_lab/inspect_jarjar.py <jar>` classifies a jar's `META-INF/jarjar` embeds as SRG vs NAMED.
 
-### Case 7: `runData` & `runClient` Collision — `ClassCastException` / Lifecycle Failures via Sibling `sourceSets`
+### Case 7: `runClient` Hangs in Background Without Popping Up Window (Embeddium / Oculus + `fmlearlywindow` Deadlock)
+- **Symptom**: Running `runClient` with `modLocalRuntime(forge.embeddium)` and `modLocalRuntime(forge.oculus)` shows `Game took XX seconds to start` in logs or freezes after ModLauncher, but no game window ever appears on screen.
+- **Root Cause**: Forge's `ImmediateWindowProvider fmlearlywindow` creates a concurrent OpenGL context on a secondary worker thread to show the early progress bar. On discrete GPUs (NVIDIA RTX series), Embeddium / Oculus multi-threaded optimizations (`NVIDIA_THREADED_OPTIMIZATIONS`) conflict with this early GLFW context switch, deadlocking the render thread before the main window is displayed.
+- **Solution**:
+  1. Do NOT delete or strip Embeddium/Oculus from `modLocalRuntime` if they are required for development.
+  2. In `runs.client` within `moddevgradle.gradle` (or `build.gradle`), pass the disable flags directly to `jvmArguments`:
+     ```groovy
+     jvmArguments.addAll('-Dfml.earlyprogresswindow=false', '-Dforge.earlyWindow=false')
+     ```
+  3. This completely disables the unstable early progress window and routes all GLFW window creation directly to the main Render Thread.
+
+### Case 8: `runData` & `runClient` Collision — `ClassCastException` / Lifecycle Failures via Sibling `sourceSets`
 - **Symptom**: `.\gradlew.bat :modules:gtecore:runData` fails with `ClassCastException: RegistrateBlockstateProvider cannot be cast to GTBlockstateProvider`, and `runClient` fails during mod initialization.
 - **Root Cause**: Sibling mod sourceSets (`gtceu`, `gtnn`) were attached to `legacyForge.mods {}` in `gtecore/gradle/scripts/moddevgradle.gradle`. Forge's `DatagenModLoader` and ModLauncher registered both `gtceu` and `gtecore` as active contributors, causing Registrate provider instances from different loaders/wrappers to collide and break runtime lifecycle.
 - **Solution**: Remove sibling sourceSets from `mods {}` in all submodules. Sibling compilation dependencies must strictly use standard Gradle dependency wiring `implementation(requireSibling(':modules:gtm-reborn', 'gtm-reborn')) { transitive = false }`, and multi-sourceSet hot debugging belongs strictly in `gte-dev-runtime`.
+
+### Case 9: Jade `AssertionError: Missing config translation` in Dev Runs
+- **Symptom**: Opening or closing screens in `runClient` crashes with `java.lang.AssertionError: Missing config translation: config.jade.plugin_xxx` inside `snownee.jade.JadeClient.onGui`.
+- **Root Cause**: ModDevGradle enables Java assertions (`-ea`) in dev run configurations by default. Jade has an assertion verifying all third-party plugin translation keys exist; if any third-party mod misses a key, an AssertionError is thrown.
+- **Solution**: Pass `-da:snownee.jade...` in `runs.client` within `modules/gte-dev-runtime/build.gradle` and register the missing translation in `Lang.java`.
+
+### Case 10: Real-Time Bi-Directional Dev Directory Linking
+- **Symptom**: Quests edited in-game during `runClient` stay isolated in `run/client/` without updating `gte/overrides/`, or changes in `gte/overrides/` are missing from `runClient`.
+- **Root Cause**: `run/` is `.gitignore`d to prevent log/save pollution, while `gte/overrides/` is the Git-tracked source of truth.
+- **Solution**: `modules/gte-dev-runtime` defines `linkDevEnvironment`, which automatically creates native NTFS Directory Junctions (`mklink /J` on Windows, symlinks on POSIX) for `kubejs`, `config/ftbquests`, `defaultconfigs`, and `tlm_custom_pack`. Edits in-game write directly into `gte/overrides` for instant Git tracking.
 
 ---
 

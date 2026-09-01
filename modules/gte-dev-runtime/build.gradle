@@ -50,29 +50,52 @@ dependencies {
     modLocalRuntime(forge.kotlinforforge)
     modLocalRuntime(forge.ponder)
     modLocalRuntime(forge.flywheel.forge)
+    modLocalRuntime(forge.patchouli)
+    modLocalRuntime(forge.botania)
+    modLocalRuntime(forge.theoneprobe)
+    modLocalRuntime(forge.clothconfig)
+    modLocalRuntime(forge.ftblibrary)
+    modLocalRuntime(forge.ftbteams)
+    modLocalRuntime(forge.ftbquests)
+    modLocalRuntime(forge.ftbchunks)
+    modLocalRuntime(forge.ftbultimine)
+    modLocalRuntime(forge.ftbessentials)
+    modLocalRuntime(forge.resourcefullib)
+    modLocalRuntime(forge.sophisticatedcore)
+    modLocalRuntime(forge.sophisticatedbackpacks)
+    modLocalRuntime(forge.sophisticatedstorage)
+    modLocalRuntime(forge.embeddium)
+    modLocalRuntime(forge.oculus)
+    modLocalRuntime(forge.extendedae)
+    modLocalRuntime(forge.ae2wtlib)
+    modLocalRuntime(forge.ferritecore)
+    modLocalRuntime(forge.glodium)
+    modLocalRuntime("dev.latvian.mods:item-filters-forge:2001.1.0-build.59")
 
     // Full-pack mods: scan the packwiz overrides (gte/overrides/mods is the
-    // exact jar set of the production "Oh" instance) first, then the legacy
-    // bundled libs dir for extras, so the dev client loads the same mod set
+    // exact jar set of the production "Oh" instance), so the dev client loads the same mod set
     // as the shipped pack. Every jar goes through modLocalRuntime, which
     // remaps it SRG -> named for the dev runtime.
     def packModsDir = file("${rootDir}/gte/overrides/mods")
-    def legacyLibsDir = file("${rootDir}/modules/gtecore/gradle/libs")
     def alreadyProvided = [
         // provided above via maven modLocalRuntime coordinates
-        'appliedenergistics2-forge', 'architectury-', 'curios-forge',
-        'gtmthings', 'guideme', 'jade-', 'jei-1.20.1-forge',
-        'kotlinforforge', 'kubejs-forge', 'rhino-forge',
-        'ldlib', 'configuration-'
+        'appliedenergistics2', 'architectury', 'curios',
+        'gtmthings', 'guideme', 'jade', 'jei',
+        'kotlinforforge', 'kubejs', 'rhino',
+        'ldlib', 'configuration', 'ponder', 'flywheel',
+        'patchouli', 'botania', 'theoneprobe', 'cloth-config',
+        'ftb-library', 'ftb-teams', 'ftb-quests', 'ftb-chunks',
+        'ftb-ultimine', 'ftb-essentials', 'resourceful',
+        'sophisticatedcore', 'sophisticatedbackpacks', 'sophisticatedstorage',
+        'extendedae', 'ae2wtlib', 'ferritecore', 'glodium', 'item-filters',
+        'embeddium', 'oculus'
     ]
     def devUnsafe = [
         // replaced by sourceSet-backed mods{} mappings
-        'gtm-reborn', 'gtecore', 'gtnn-', 'gt---',
-        // production shader/optimizer jars break deobfuscated dev runs
-        'oculus', 'embeddium', 'modernfix', 'modern-ui', 'modernui'
+        'gtm-reborn', 'gtecore', 'gtnn-', 'gt---'
     ]
     def seen = [] as Set
-    [packModsDir, legacyLibsDir].each { dir ->
+    [packModsDir].each { dir ->
         if (!dir.exists()) {
             return
         }
@@ -114,7 +137,7 @@ dependencies {
 
 repositories {
     flatDir {
-        dirs "${rootDir}/gte/overrides/mods", "${rootDir}/modules/gtecore/gradle/libs"
+        dirs "${rootDir}/gte/overrides/mods"
     }
 }
 
@@ -147,8 +170,10 @@ legacyForge {
             gameDirectory.set(file("${rootDir}/run/client"))
             systemProperty('forge.logging.markers', 'REGISTRIES')
             systemProperty('forge.logging.console.level', 'info')
+            systemProperty('fml.earlyprogresswindow', 'false')
+            systemProperty('forge.earlyWindow', 'false')
             def runtimeXmx = System.getenv('GTE_RUNTIME_XMX') ?: '8G'
-            jvmArguments.addAll("-Xmx${runtimeXmx}", '-XX:+UseG1GC')
+            jvmArguments.addAll("-Xmx${runtimeXmx}", '-XX:+UseG1GC', '-da:snownee.jade...', '-Dfml.earlyprogresswindow=false', '-Dforge.earlyWindow=false', '-Dfile.encoding=UTF-8', '-Dsun.stdout.encoding=UTF-8', '-Dsun.stderr.encoding=UTF-8')
         }
 
         server {
@@ -161,10 +186,46 @@ legacyForge {
 
         configureEach {
             systemProperty 'forge.logging.markers', 'REGISTRIES'
-            systemProperty 'mixin.config', 'gtceu.mixins.json,gtecore.mixins.json,gtnn.mixins.json'
+            programArguments.addAll('--mixin', 'gtceu.mixins.json', '--mixin', 'gtecore.mixins.json', '--mixin', 'gtnn.mixins.json')
             logLevel = org.slf4j.event.Level.INFO
         }
     }
+}
+
+// Automatically establish real-time two-way directory junctions/symlinks between gte/overrides and run/client
+tasks.register('linkDevEnvironment') {
+    doLast {
+        def isWin = org.gradle.internal.os.OperatingSystem.current().isWindows()
+        def targets = [
+            'kubejs',
+            'config/ftbquests',
+            'defaultconfigs',
+            'tlm_custom_pack',
+            'patchouli_books'
+        ]
+        targets.each { rel ->
+            def targetDir = file("${rootDir}/gte/overrides/${rel}")
+            def linkDir = file("${rootDir}/run/client/${rel}")
+            if (!targetDir.exists()) {
+                targetDir.mkdirs()
+            }
+            if (!linkDir.exists()) {
+                linkDir.parentFile.mkdirs()
+                if (isWin) {
+                    exec {
+                        commandLine 'cmd', '/c', 'mklink', '/J', linkDir.absolutePath, targetDir.absolutePath
+                    }
+                } else {
+                    java.nio.file.Files.createSymbolicLink(linkDir.toPath(), targetDir.toPath())
+                }
+                println "[GTE] Linked ${rel} -> ${targetDir.absolutePath}"
+            }
+        }
+    }
+}
+
+tasks.matching { it.name in ['runClient', 'prepareClientRun'] }.configureEach {
+    dependsOn(tasks.named('linkDevEnvironment'))
 }
 
 // Disable maven publishing and archive production for this shadow dev module

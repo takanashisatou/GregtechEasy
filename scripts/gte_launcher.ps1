@@ -530,6 +530,8 @@ function Start-Game {
     [void]$jvmArgs.Add('-Xms512M')
     [void]$jvmArgs.Add('-XX:+UseG1GC')
     [void]$jvmArgs.Add('-Dfile.encoding=UTF-8')
+    [void]$jvmArgs.Add('-Dfml.earlyprogresswindow=false')
+    [void]$jvmArgs.Add('-Dforge.earlyWindow=false')
     [void]$jvmArgs.Add('-Dminecraft.launcher.brand=GTE-Standalone')
 
     foreach ($a in (Get-ArgList $Vanilla.arguments.jvm)) { [void]$jvmArgs.Add((Expand-Placeholders $a)) }

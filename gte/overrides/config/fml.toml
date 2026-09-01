@@ -3,7 +3,7 @@ earlyWindowHeight = 480
 #Enable forge global version checking
 versionCheck = true
 #Should we control the window. Disabling this disables new GL features and can be bad for mods that rely on them.
-earlyWindowControl = true
+earlyWindowControl = false
 #Early window framebuffer scale
 earlyWindowFBScale = 1
 #Early window provider

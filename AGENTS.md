@@ -46,8 +46,9 @@ client without a launcher.
 
 1. Never force-cast Mixin accessor interfaces. Use `instanceof` guards or
    vanilla APIs instead.
-2. Do not add Oculus, Embeddium, ModernFix, or ModernUI to `gte-dev-runtime`;
-   production shader/optimizer jars break deobfuscated dev runs.
+2. When running `runClient` with optimization and shader mods (Embeddium / Oculus) in `modLocalRuntime`, ALWAYS ensure `earlyWindowControl = false` in `config/fml.toml` (as well as passing `-Dfml.earlyprogresswindow=false` and `-Dforge.earlyWindow=false` in `runs.client`).
+   - On Windows with discrete GPUs (e.g. NVIDIA RTX series), Forge's `fmlearlywindow` (Early Progress Window) spawns a separate background GLFW/OpenGL rendering thread (`pool-2-thread-1`) that conflicts with Embeddium/Oculus pipeline hooks during window creation, causing silent GLFW context deadlocks where the client freezes in background and never pops up.
+   - Forge 47.4.1's `FMLConfig` prioritizes `earlyWindowControl` inside `config/fml.toml`. Setting `earlyWindowControl = false` causes Forge to use `DummyProvider` (`ImmediateWindowProvider not loading because splash screen is disabled`), forcing GLFW window creation directly on the main Render Thread so the window pops up smoothly.
 3. Use `modLocalRuntime` for dev runtime mods and `modCompileOnly` /
    `compileOnly` for compile-time dependencies.
 4. Preserve existing uncommitted changes. Work with them; do not revert them.
@@ -79,6 +80,12 @@ client without a launcher.
 10. Never attach sibling source sets (e.g. `gtceu { sourceSet(...) }` or `gtnn { sourceSet(...) }`) inside a submodule's `legacyForge.mods {}` block.
     - Doing so registers sibling mods as active Datagen/Runtime contributors in Forge's `DatagenModLoader` and ModLauncher, causing Registrate classloader collisions (`ClassCastException: RegistrateBlockstateProvider cannot be cast to GTBlockstateProvider`) during `.\gradlew.bat :modules:gtecore:runData` as well as classloading/lifecycle conflicts during `runClient`.
     - Cross-submodule code dependencies must strictly use standard Gradle dependency wiring (`implementation(requireSibling(':modules:gtm-reborn', 'gtm-reborn')) { transitive = false }`), keeping each submodule's `mods {}` strictly to its own `"${mod_id}"`. (Only the dedicated runner `gte-dev-runtime` aggregates multi-mod source sets for full-pack hot debug).
+11. Strictly respect Parallel Subagent Asset Dependencies during DataGen.
+    - When using parallel subagents for asset creation (textures/models) and code registration, `runData` MUST NEVER be triggered prematurely by code subagents while asset subagents are still generating or writing PNG textures to disk.
+    - Registrate / Forge Datagen requires all target texture PNG files to be firmly written on disk before execution to avoid corrupt/missing model JSON definitions. Always ensure all parallel asset workers have finished before running `.\gradlew.bat :modules:gtecore:runData`.
+12. Real-Time Dev Environment Linking:
+    - `modules/gte-dev-runtime` automatically creates Directory Junctions (`mklink /J` on Windows, symlinks on POSIX) linking `run/client/{kubejs, config/ftbquests, defaultconfigs, tlm_custom_pack}` to `gte/overrides/`.
+    - This allows in-game quest editing and KubeJS script development during `runClient` to be reflected and committed to Git in real-time, while keeping test saves and runtime logs safely confined to `run/client/`.
 
 ## Game Tests
 
