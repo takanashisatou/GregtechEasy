@@ -56,7 +56,7 @@ subprojects {
 // Fail fast with guidance instead of opening multiple clients/servers.
 gradle.taskGraph.whenReady { graph ->
     def runTasks = graph.allTasks.findAll { 
-        it.path != ':runClient' && 
+        !(it.path in [':runClient', ':runFullPack']) && 
         it.name ==~ /run(Client|Server|Data|GameTestServer)/ 
     }
     if (runTasks.size() > 1) {
@@ -121,6 +121,12 @@ tasks.register('syncBlockbenchAssets') {
 // Aggregated Lifecycle Tasks
 // ---------------------------------------------------------------------------
 tasks.register('runClient') {
+    group = 'forge runs'
+    description = 'Launch the full GTE client in dev runtime (hot debug with all mods)'
+    dependsOn ':modules:gte-dev-runtime:runClient'
+}
+
+tasks.register('runFullPack') {
     group = 'forge runs'
     description = 'Launch the full GTE client in dev runtime (hot debug with all mods)'
     dependsOn ':modules:gte-dev-runtime:runClient'
