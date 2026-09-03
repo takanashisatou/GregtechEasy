@@ -61,6 +61,16 @@ jobs:
       PYTHONIOENCODING: utf-8
       PYTHONUTF8: '1'
       CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+      # The `secrets` context is NOT available in a step-level `if:` (only env,
+      # github, inputs, job, matrix, needs, runner, steps, strategy, vars are).
+      # Referencing it there makes the whole workflow file unparseable, which
+      # GitHub reports as a startup_failure against every push - the workflow
+      # appears to "run automatically" and fail in 0s even though it only
+      # declares workflow_dispatch. Resolve the ids into job env once here and
+      # let the steps test `env.*` instead.
+      GTECORE_CF_ID: ${{ inputs.gtecore_cf_id || secrets.GTECORE_CF_ID }}
+      GTM_REBORN_CF_ID: ${{ inputs.gtm_reborn_cf_id || secrets.GTM_REBORN_CF_ID }}
+      GT_MINUS_CF_ID: ${{ inputs.gt_minus_cf_id || secrets.GT_MINUS_CF_ID }}
     steps:
       - name: Checkout Repository & Submodules
         uses: actions/checkout@v4
@@ -120,11 +130,11 @@ jobs:
       # 2. Publish Submodule Mods (Pre-requisite for Modpack)
       # ──────────────────────────────────────────────
       - name: Publish GTE Core Mod to CurseForge
-        if: inputs.publish_submodule_mods && (inputs.gtecore_cf_id != '' || secrets.GTECORE_CF_ID != '')
+        if: inputs.publish_submodule_mods && env.GTECORE_CF_ID != ''
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          curseforge-id: ${{ inputs.gtecore_cf_id || secrets.GTECORE_CF_ID }}
+          curseforge-id: ${{ env.GTECORE_CF_ID }}
           files: ${{ steps.jars.outputs.gtecore_jar }}
           name: "GTE Core ${{ inputs.version }}"
           version-type: ${{ inputs.channel }}
@@ -135,11 +145,11 @@ jobs:
           changelog: ${{ inputs.changelog }}
 
       - name: Publish GTM Reborn Mod to CurseForge
-        if: inputs.publish_submodule_mods && (inputs.gtm_reborn_cf_id != '' || secrets.GTM_REBORN_CF_ID != '')
+        if: inputs.publish_submodule_mods && env.GTM_REBORN_CF_ID != ''
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          curseforge-id: ${{ inputs.gtm_reborn_cf_id || secrets.GTM_REBORN_CF_ID }}
+          curseforge-id: ${{ env.GTM_REBORN_CF_ID }}
           files: ${{ steps.jars.outputs.gtm_jar }}
           name: "GTM Reborn ${{ inputs.version }}"
           version-type: ${{ inputs.channel }}
@@ -150,11 +160,11 @@ jobs:
           changelog: ${{ inputs.changelog }}
 
       - name: Publish GT-- Mod to CurseForge
-        if: inputs.publish_submodule_mods && (inputs.gt_minus_cf_id != '' || secrets.GT_MINUS_CF_ID != '')
+        if: inputs.publish_submodule_mods && env.GT_MINUS_CF_ID != ''
         uses: Kir-Antipov/mc-publish@v3.3
         with:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
-          curseforge-id: ${{ inputs.gt_minus_cf_id || secrets.GT_MINUS_CF_ID }}
+          curseforge-id: ${{ env.GT_MINUS_CF_ID }}
           files: ${{ steps.jars.outputs.gtminus_jar }}
           name: "GT-- ${{ inputs.version }}"
           version-type: ${{ inputs.channel }}
