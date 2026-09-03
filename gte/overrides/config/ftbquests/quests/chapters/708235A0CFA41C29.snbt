@@ -1526,7 +1526,7 @@
 			tasks: [{
 				icon: "gtecore:miracle_ring"
 				id: "5A10A9D8D8171697"
-				item: "gtceu:miracle_ring"
+				item: "gtecore:miracle_ring"
 				type: "item"
 			}]
 			x: -15.0d
