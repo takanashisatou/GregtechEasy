@@ -68,6 +68,20 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
      jvmArguments.addAll('-Dfml.earlyprogresswindow=false', '-Dforge.earlyWindow=false')
      ```
   This causes Forge to use `DummyProvider` (`ImmediateWindowProvider not loading because splash screen is disabled`), routing all GLFW window and OpenGL context creation directly to the main Render Thread so the game window pops up smoothly.
+- **Consequence**: with no early window, nothing is on screen for the first ~25 s and the window is then created *behind* the active window (Windows foreground lock). That is handled by the raise helper — see Rule 2b and Case 11 — not by re-enabling the early window.
+
+### Rule 2b: Launch the Dev Client Only Through the Gradle `runClient` Task
+- **Supported entry points** (all three arm the window-raise helper):
+  ```powershell
+  $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+  .\gradlew.bat runFullPack                              # preferred, root aggregate wrapper
+  .\gradlew.bat :modules:gte-dev-runtime:runClient        # equivalent
+  .\run_game.bat                                         # same task, auto-detects JDK/RAM/cores
+  ```
+- **Expected timeline**: no window for ~25 s (early window is disabled on purpose), then a 1600x900 window opens and is raised to the front; full cold start ≈ 70 s (`ModernFix` logs `Game took ~66 seconds to start`).
+- **Knobs**: `GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT` (default 1600x900), `GTE_NO_WINDOW_RAISE=1`, `GTE_RUNTIME_XMX` (default `8G`).
+- **Unsupported**: the auto-generated `.vscode/launch.json` configs. They invoke `net.neoforged.devlaunch.Main` directly, bypassing `runClient` and therefore the window raise; ModDevGradle also regenerates that file on every IDE sync, so edits do not survive (Case 12). The IntelliJ `Run Client (Hot Debug)` config attaches JDWP, which produces the `jdwp.dll` `EXCEPTION_ACCESS_VIOLATION` dumps in `run/client/hs_err_pid*.log` at shutdown — use it only when you actually need breakpoints.
+
 
 ### Rule 3: Always Use `modLocalRuntime` for Dev Runtime Dependencies
 - **Why**: Plain `localRuntime` or `fileTree` does NOT trigger ModDevGradle's deobfuscation remapper.
@@ -137,6 +151,7 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
      jvmArguments.addAll('-Dfml.earlyprogresswindow=false', '-Dforge.earlyWindow=false')
      ```
   3. This completely disables the unstable early progress window and routes all GLFW window creation directly to the main Render Thread.
+- **Follow-up**: With the early window gone, no window exists for the first ~25 s of the run, which produces a *second*, different "no window" report — see Case 11. Never resolve Case 11 by re-enabling the early window.
 
 ### Case 8: `runData` & `runClient` Collision — `ClassCastException` / Lifecycle Failures via Sibling `sourceSets`
 - **Symptom**: `.\gradlew.bat :modules:gtecore:runData` fails with `ClassCastException: RegistrateBlockstateProvider cannot be cast to GTBlockstateProvider`, and `runClient` fails during mod initialization.
@@ -152,6 +167,33 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
 - **Symptom**: Quests edited in-game during `runClient` stay isolated in `run/client/` without updating `gte/overrides/`, or changes in `gte/overrides/` are missing from `runClient`.
 - **Root Cause**: `run/` is `.gitignore`d to prevent log/save pollution, while `gte/overrides/` is the Git-tracked source of truth.
 - **Solution**: `modules/gte-dev-runtime` defines `linkDevEnvironment`, which automatically creates native NTFS Directory Junctions (`mklink /J` on Windows, symlinks on POSIX) for `kubejs`, `config/ftbquests`, `defaultconfigs`, and `tlm_custom_pack`. Edits in-game write directly into `gte/overrides` for instant Git tracking.
+
+### Case 11: `runFullPack` / `runClient` "Window Never Pops Up" — Window Created BEHIND the Active Window (Windows Foreground Lock)
+- **Symptom**: `.\gradlew.bat runFullPack` runs to completion, `latest.log` ends with `[ModernFix]: Game took ~66 seconds to start` and no error, yet the user never sees a game window. Looks identical to Case 7 but is a different failure.
+- **Diagnosis (do this before changing anything)**: enumerate top-level windows in Z-order and look for class `GLFW30` owned by the run's `java.exe`. If it is present with `Visible=True`, `Iconic=False` and a sane rect, the game is fine and only the Z-order/focus is wrong. On the reference machine the window sat at Z-index 2, directly behind the focused browser window that fully covered it.
+- **Root Cause**: two effects compounding.
+  1. Because the early progress window is disabled (mandatory, Case 7 / Rule 2), GLFW only creates the window inside `Minecraft.<init>`, ~25 s into the run — long after the user alt-tabbed away. The game JVM is a **background process forked by the Gradle daemon**, so Windows' foreground lock refuses the `SetForegroundWindow` that GLFW issues on window creation (`SetForegroundWindow` only succeeds for the foreground process, a process started *by* the foreground process, or one that received the last input event). The window is therefore created *below* the active window.
+  2. Minecraft's default 854x480 is ~11 % of a 3840x2400 screen, so any maximized editor/browser hides it completely.
+- **Solution**: `modules/gte-dev-runtime/build.gradle` arms `scripts/dev/raise_game_window.ps1` from `runClient.doFirst` (via `ProcessBuilder`, never `exec {}`, so the build does not block). The helper polls for the `GLFW30` window whose owning `java.exe` command line contains `gte-dev-runtime` (so a launcher instance is never grabbed) and started with this run, then lifts it with `SetWindowPos(HWND_TOPMOST)` → `SetWindowPos(HWND_NOTOPMOST)`. **Z-order changes are not subject to the foreground lock, so the raise always works**; keyboard focus is then attempted with `AttachThreadInput` + `SetForegroundWindow` + `SwitchToThisWindow`, falling back to `FlashWindowEx` when Windows still refuses. The run also passes `--width 1600 --height 900`.
+- **Knobs**: `GTE_NO_WINDOW_RAISE=1` disables the helper; `GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT` override the window size. Helper output goes to `modules/gte-dev-runtime/build/raise-game-window.log`.
+- **Launch through Gradle only**: the helper is armed from `runClient.doFirst`, so it only applies to `gradlew runFullPack` / `gradlew :modules:gte-dev-runtime:runClient` / `run_game.bat`. The auto-generated `.vscode/launch.json` configs start `net.neoforged.devlaunch.Main` directly and bypass it — see Case 12; that path is deliberately unsupported.
+- **Not a fix**: re-enabling `earlyWindowControl` / `fmlearlywindow` (regresses to the Case 7 GLFW deadlock), and changing `SPI_SETFOREGROUNDLOCKTIMEOUT` (mutates the user's system-wide settings).
+
+### Case 12: Where `.vscode/launch.json` Comes From (and Why It Is Not a Supported Launch Path)
+- **Question**: nobody wrote `.vscode/launch.json`, yet it holds 12 fully-populated Java launch configs with absolute paths.
+- **Origin**: ModDevGradle generates it. `IdeIntegration.createForProject` picks an integration by probing the environment — `VSCODE_PID` (and the Gradle process actually being a descendant of that PID) selects `VsCodeIntegration`, `eclipse.application` selects `EclipseIntegration`, `idea.sync.active` selects `IntelliJIntegration`, otherwise `NoIdeIntegration` writes nothing. `VsCodeIntegration.configureRuns` then walks every `runs {}` block in `afterEvaluate` and calls `BatchedLaunchWriter.writeToLatestJson(rootDir)`. Config names come verbatim from each module's `ideName`; group names are `"Mod Development - " + project.getName()`. VS Code's Java extension is Buildship-based, which is why the configs reference Eclipse-style `bin/main` output dirs — IntelliJ would use `build/classes`.
+- **When it regenerates**: on every Gradle sync from a VS Code-family IDE (VS Code, Antigravity, Cursor), including the sync triggered after editing a `build.gradle`. MDG writes its groups with `WritingMode.REMOVE_EXISTING`, so they are replaced wholesale each time. The content only actually changes if `ideName`, `gameDirectory`, `loadedMods`, `tasksBefore` or the set of runs changed — the configs merely point at `build/moddev/*RunProgramArgs.txt` argfiles, and it is those argfiles that carry `--width`/`--height`, mixin lists and JVM args (verified: changing `GTE_WINDOW_WIDTH` rewrites the argfile and leaves `launch.json` byte-identical).
+- **Manual trigger**: MDG registers `neoForgeIdeSync` for this. From a shell the IDE probe must pass, so fake the VS Code ancestry:
+  ```powershell
+  $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+  $env:VSCODE_PID=$PID    # the Gradle process must be a descendant of this PID
+  .\gradlew.bat --no-daemon neoForgeIdeSync
+  ```
+  Its task graph is `linkDevEnvironment` → `prepareClientRun` → `prepareServerRun` → `neoForgeIdeSync`, so a sync also refreshes the argfiles and the `gte/overrides` directory junctions.
+- **Do not use those configs to launch the game, and do not hand-edit them.** They bypass `runClient`, so the Case 11 window raise never happens, and regeneration discards manual edits. Durable customization belongs in `runs {}` in `build.gradle`, which flows into the argfiles both paths read.
+- **Not tracked by git**: `.gitignore` ignores `.vscode/`, so this is purely a local IDE artifact.
+
+
 
 ---
 

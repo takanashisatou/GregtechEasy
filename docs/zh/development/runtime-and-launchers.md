@@ -46,9 +46,50 @@ graph TD
 ### 工作原理与设计考量
 - **定位**：纯本地热编译联调沙盒，**禁止打包发布，不会出现在任何玩家构件中**。
 - **ModDevGradle 动态重映射**：自动将 `gtm-reborn` 与 `gtecore` 的最新源码热编译并挂载进 Mojang 反混淆命名空间。
-- **启动方式**：
-  - 在 IDEA 中选择运行配置 **`Run GTE Full Pack (Client - Hot Debug)`**。
-  - 或命令行执行：
-    ```powershell
-    .\gradlew.bat :modules:gte-dev-runtime:runClient
-    ```
+
+### 正确的启动方式
+
+以下三种入口等价，且都会自动置顶游戏窗口：
+
+```powershell
+$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+.\gradlew.bat runFullPack                          # 推荐：根工程聚合入口
+.\gradlew.bat :modules:gte-dev-runtime:runClient    # 等价写法
+.\run_game.bat                                     # 同一任务，自动探测 JDK/内存/核心数
+```
+
+### 为什么启动后 25 秒看不到窗口（这是正常的）
+
+```mermaid
+sequenceDiagram
+    participant G as Gradle 守护进程
+    participant J as 游戏 JVM (后台进程)
+    participant H as raise_game_window.ps1
+    G->>H: runClient 启动时异步拉起
+    G->>J: fork 游戏进程
+    Note over J: 早期进度窗口已禁用<br/>屏幕上暂无任何窗口
+    J->>J: ModLauncher / Mixin / 35 个模组构造
+    Note over J: ~25 秒后 Minecraft.<init><br/>GLFW 创建窗口
+    J--xJ: SetForegroundWindow 被前台锁拒绝<br/>窗口生成在活动窗口下方
+    H->>J: 轮询到 GLFW30 窗口
+    H->>J: SetWindowPos 提到最前 (不受前台锁限制)
+```
+
+为规避 Embeddium/Oculus 在独立显卡上的 GLFW 上下文死锁，Forge 的早期进度窗口被**刻意禁用**（详见[防崩溃手册](anti-crash-guide.md)）。代价是窗口要到 `Minecraft.<init>` 才创建，此时游戏进程已是 Gradle 守护进程派生的后台进程，Windows 前台锁会拒绝它抢占焦点 —— 窗口确实创建了、也在正常渲染，但被压在当前活动窗口下面，看起来就像"没弹出窗口"。
+
+因此 `runClient` 会异步拉起 `scripts/dev/raise_game_window.ps1`，它轮询本次运行自己 JVM 的 `GLFW30` 窗口，再用 `SetWindowPos` 把它提到最前（Z 序变更不受前台锁限制，因此必定成功）。日志位于 `modules/gte-dev-runtime/build/raise-game-window.log`。完整冷启动约 70 秒。
+
+### 环境变量开关
+
+| 环境变量 | 作用 |
+| --- | --- |
+| `GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT` | 窗口尺寸（默认 1600x900） |
+| `GTE_NO_WINDOW_RAISE=1` | 关闭自动置顶，保持 GLFW 原始位置 |
+| `GTE_RUNTIME_XMX` | 客户端堆上限（默认 `8G`，`run_game.bat` 会按物理内存自动设定） |
+
+### ⚠️ 不要使用 `.vscode/launch.json` 启动
+
+`.vscode/launch.json` 里的配置是 ModDevGradle 在 IDE 同步时自动生成的（分组名形如 `Mod Development - gte-dev-runtime`）。它们直接调用 `net.neoforged.devlaunch.Main`，**绕过 `runClient` 任务**，因此窗口不会被置顶；并且该文件每次 IDE 同步都会被重写，手工修改不会保留。持久化的运行参数请写在 `build.gradle` 的 `runs {}` 中 —— 两条路径读取的是同一份 `build/moddev/*RunProgramArgs.txt` 参数文件。
+
+需要断点调试时使用 IDEA 的 **`Run Client (Hot Debug)`** 配置。它会挂载 JDWP 调试器，退出时可能在 `run/client/` 留下 `hs_err_pid*.log`（崩在 `jdwp.dll` 的 `Shutdown.halt0`），属已知的无害现象，与启动流程无关。
+
