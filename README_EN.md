@@ -81,9 +81,30 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 .\gradlew.bat compileJava -Pwerror
 .\gradlew.bat buildAll -x test
 .\gradlew.bat syncBlockbenchAssets
-.\gradlew.bat :modules:gte-dev-runtime:runClient
 python scripts/build_full_mod_pack.py <version>
 ```
+
+### 4. Launching the Dev Client (the correct way)
+
+```powershell
+$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+.\gradlew.bat runFullPack                          # preferred, root aggregate entry point
+.\gradlew.bat :modules:gte-dev-runtime:runClient    # equivalent
+```
+
+Double-clicking `run_game.bat` uses the same task (it auto-detects JDK, RAM and core count).
+
+**What to expect**: for roughly the first **25 seconds nothing appears on screen** — this is intentional. Forge's early progress window is disabled to avoid the Embeddium/Oculus GLFW deadlock on discrete GPUs, so GLFW only creates the window inside `Minecraft.<init>`. At that point the game JVM is a background process forked by the Gradle daemon, so the Windows foreground lock denies its focus request and the window is created *behind* the active window. `runClient` therefore launches `scripts/dev/raise_game_window.ps1`, which waits for the window and pulls it to the front. A full cold start takes about 70 seconds.
+
+| Environment variable | Effect |
+| --- | --- |
+| `GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT` | Window size (default 1600x900) |
+| `GTE_NO_WINDOW_RAISE=1` | Skip the raise, leave the window where GLFW put it |
+| `GTE_RUNTIME_XMX` | Client heap limit (default `8G`) |
+
+> ⚠️ **Do not** launch the game through the auto-generated configurations in `.vscode/launch.json`. They invoke `net.neoforged.devlaunch.Main` directly, bypassing `runClient`, so the window is never raised — and ModDevGradle rewrites that file on every IDE sync, so manual edits are lost. Use IntelliJ's `Run Client (Hot Debug)` only when you need breakpoints (it attaches JDWP and leaves `hs_err_pid*.log` files in `run/client/` on exit; that is a known, harmless artifact).
+
+Full background: [Local Hot Debugging and Launcher-Free Quick Run](docs/en/development/runtime-and-launchers.md).
 
 ---
 

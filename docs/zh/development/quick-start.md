@@ -69,3 +69,17 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 # 7. 发布全模块静态构件至 build/maven (用于 GitHub Pages Maven)
 .\gradlew.bat publishAllToMaven
 ```
+
+---
+
+## 🎮 4. 启动开发客户端
+
+```powershell
+$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+.\gradlew.bat runFullPack
+```
+
+启动后约 25 秒内屏幕上不会出现窗口，这是正常的 —— Forge 早期进度窗口被刻意禁用，窗口会在稍后由 `scripts/dev/raise_game_window.ps1` 自动置顶。请勿使用 `.vscode/launch.json` 里的自动生成配置启动。
+
+完整说明与环境变量开关见 [**本地热联调与免启动器快速运行**](runtime-and-launchers.md)。
+

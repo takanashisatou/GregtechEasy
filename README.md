@@ -82,9 +82,30 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 .\gradlew.bat compileJava -Pwerror
 .\gradlew.bat buildAll -x test
 .\gradlew.bat syncBlockbenchAssets
-.\gradlew.bat :modules:gte-dev-runtime:runClient
 python scripts/build_full_mod_pack.py <version>
 ```
+
+### 4. 启动开发客户端（正确方式）
+
+```powershell
+$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+.\gradlew.bat runFullPack                          # 推荐：根工程聚合入口
+.\gradlew.bat :modules:gte-dev-runtime:runClient    # 等价写法
+```
+
+双击 `run_game.bat` 也是同一条路径（会自动探测 JDK、内存与核心数）。
+
+**预期表现**：启动后约 **25 秒内屏幕上不会有任何窗口** —— 这是刻意为之。为规避 Embeddium/Oculus 在独显上的 GLFW 死锁，Forge 的早期进度窗口被禁用，窗口要到 `Minecraft.<init>` 才由 GLFW 创建。此时游戏进程是 Gradle 守护进程派生的后台进程，Windows 前台锁会拒绝它抢占焦点，窗口会被创建在当前活动窗口**下方**。因此 `runClient` 会自动拉起 `scripts/dev/raise_game_window.ps1`，等窗口出现后把它提到最前。完整冷启动约 70 秒。
+
+| 环境变量 | 作用 |
+| --- | --- |
+| `GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT` | 窗口尺寸（默认 1600x900） |
+| `GTE_NO_WINDOW_RAISE=1` | 关闭自动置顶，保持 GLFW 原始位置 |
+| `GTE_RUNTIME_XMX` | 客户端堆上限（默认 `8G`） |
+
+> ⚠️ **不要**使用 `.vscode/launch.json` 里那些自动生成的配置启动游戏。它们直接调用 `net.neoforged.devlaunch.Main`，绕过 `runClient`，窗口不会被置顶；而且 ModDevGradle 会在每次 IDE 同步时重写该文件，手工修改不会保留。需要断点调试时再用 IDEA 的 `Run Client (Hot Debug)`（它挂载 JDWP，退出时会在 `run/client/` 留下 `hs_err_pid*.log`，属已知无害现象）。
+
+详细原理见 [本地热联调与免启动器快速运行](docs/zh/development/runtime-and-launchers.md)。
 
 ---
 

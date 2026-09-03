@@ -105,7 +105,10 @@ git push origin master
 ## 5. 本地影子调试与热编译环境 (`gte-dev-runtime`)
 
 - **定位**：纯本地测试环境，禁止打包发布。
-- **启动方式**：在 IntelliJ IDEA 中直接运行 Run Configuration **`Run GTE Full Pack (Client - Hot Debug)`**，或在命令行运行 `./gradlew :modules:gte-dev-runtime:runClient`。
+- **启动方式（唯一推荐）**：命令行执行 `.\gradlew.bat runFullPack`（等价于 `.\gradlew.bat :modules:gte-dev-runtime:runClient`），或双击 `run_game.bat`。
+  - 启动后约 **25 秒内屏幕上不会出现窗口**：为规避 Embeddium/Oculus 在独显上的 GLFW 死锁，Forge 早期进度窗口被刻意禁用，窗口要到 `Minecraft.<init>` 才创建，且因 Windows 前台锁被压在活动窗口下方。`runClient` 会异步拉起 `scripts/dev/raise_game_window.ps1` 将其置顶（日志：`modules/gte-dev-runtime/build/raise-game-window.log`）。完整冷启动约 70 秒。
+  - 开关：`GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT`（默认 1600x900）、`GTE_NO_WINDOW_RAISE=1`、`GTE_RUNTIME_XMX`（默认 `8G`）。
+  - **禁止**使用 `.vscode/launch.json` 中 ModDevGradle 自动生成的配置启动：它们直接调用 `net.neoforged.devlaunch.Main`，绕过 `runClient` 因而窗口不会置顶，且该文件每次 IDE 同步都会被重写。需要断点时才使用 IDEA 的 `Run Client (Hot Debug)`（挂载 JDWP，退出时可能在 `run/client/` 留下 `hs_err_pid*.log`，属已知无害现象）。
 - **工作原理**：
   - 游戏工作目录重定向到 `gte/overrides/`。
   - 自动读取 `gte/overrides/mods/` 里的所有第三方 Jar。

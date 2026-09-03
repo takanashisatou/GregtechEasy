@@ -1,4 +1,4 @@
-﻿# Démarrage rapide sans lanceur et débogage à chaud local
+# Démarrage rapide sans lanceur et débogage à chaud local
 
 GTE propose un système de débogage à chaud extrêmement convivial pour les concepteurs de packs, les rédacteurs de quêtes et les programmeurs de mods.
 
@@ -46,9 +46,34 @@ Pour les programmeurs Java/Kotlin, `modules/gte-dev-runtime` est un module de d�
 ### Principe de fonctionnement et considérations de conception
 - **Positionnement** : sandbox de débogage à chaud purement local, **interdit à la publication, n'apparaîtra dans aucun artefact de joueur**.
 - **Remappage dynamique ModDevGradle** : compile à chaud automatiquement les derniers codes sources de `gtm-reborn` et `gtecore` et les monte dans l'espace de noms de désobfuscation Mojang.
-- **Méthode de lancement** :
-  - Dans IDEA, sélectionnez la configuration d'exécution **`Run GTE Full Pack (Client - Hot Debug)`**.
-  - Ou exécutez en ligne de commande :
-    ```powershell
-    .\gradlew.bat :modules:gte-dev-runtime:runClient
-    ```
+
+### La bonne façon de lancer le jeu
+
+Ces trois points d'entrée sont équivalents et remontent tous automatiquement la fenêtre du jeu au premier plan :
+
+```powershell
+$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+.\gradlew.bat runFullPack                          # preferred, root aggregate entry point
+.\gradlew.bat :modules:gte-dev-runtime:runClient    # equivalent
+.\run_game.bat                                     # same task, auto-detects JDK/RAM/cores
+```
+
+### Pourquoi aucune fenêtre n'apparaît pendant les 25 premières secondes (c'est normal)
+
+La fenêtre de progression précoce de Forge est délibérément désactivée afin d'éviter l'interblocage du contexte GLFW d'Embeddium/Oculus sur les cartes graphiques dédiées. En contrepartie, la fenêtre n'est créée qu'à l'intérieur de `Minecraft.<init>` ; à ce moment-là, la JVM du jeu est un processus d'arrière-plan forké par le démon Gradle. Le verrou de premier plan de Windows refuse sa demande de focus : la fenêtre est donc bien créée et rendue correctement, mais elle se place sous la fenêtre active — ce qui ressemble exactement à « la fenêtre ne s'est jamais affichée ».
+
+`runClient` lance donc `scripts/dev/raise_game_window.ps1` de façon asynchrone. Ce script interroge en boucle la fenêtre `GLFW30` appartenant à la JVM de cette exécution et la remonte avec `SetWindowPos` (les changements d'ordre Z ne sont pas soumis au verrou de premier plan, la remontée réussit donc toujours). Son journal se trouve dans `modules/gte-dev-runtime/build/raise-game-window.log`. Un démarrage à froid complet prend environ 70 secondes.
+
+### Variables d'environnement
+
+| Variable d'environnement | Effet |
+| --- | --- |
+| `GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT` | Taille de la fenêtre (par défaut 1600x900) |
+| `GTE_NO_WINDOW_RAISE=1` | Ignorer la remontée et laisser la fenêtre là où GLFW l'a placée |
+| `GTE_RUNTIME_XMX` | Limite du tas du client (par défaut `8G`) |
+
+### Ne lancez pas le jeu via `.vscode/launch.json`
+
+Les configurations de `.vscode/launch.json` sont générées automatiquement par ModDevGradle lors de la synchronisation de l'IDE. Elles invoquent directement `net.neoforged.devlaunch.Main`, contournant la tâche `runClient`, de sorte que la fenêtre n'est jamais remontée — et le fichier est réécrit à chaque synchronisation de l'IDE, les modifications manuelles ne survivent donc pas. Placez les arguments d'exécution durables dans le bloc `runs {}` de `build.gradle`.
+
+Lorsque vous avez besoin de points d'arrêt, utilisez la configuration `Run Client (Hot Debug)` d'IntelliJ. Elle attache un débogueur JDWP et peut laisser des fichiers `hs_err_pid*.log` dans `run/client/` à la fermeture ; il s'agit d'un artefact connu et inoffensif, sans rapport avec le démarrage.

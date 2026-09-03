@@ -168,12 +168,36 @@ legacyForge {
             client()
             ideName = "Run GTE Full Pack (Client - Hot Debug)"
             gameDirectory.set(file("${rootDir}/run/client"))
+            // Minecraft's 854x480 default is a speck on a high-DPI screen, which is
+            // half of why the run looked like it never opened a window. GLFW sizes
+            // in physical pixels on Windows, so keep the default modest enough to
+            // fit a 1920x1080 desktop; override per machine with GTE_WINDOW_WIDTH /
+            // GTE_WINDOW_HEIGHT.
+            programArguments.addAll(
+                '--width', (System.getenv('GTE_WINDOW_WIDTH') ?: '1600'),
+                '--height', (System.getenv('GTE_WINDOW_HEIGHT') ?: '900')
+            )
             systemProperty('forge.logging.markers', 'REGISTRIES')
             systemProperty('forge.logging.console.level', 'info')
+            systemProperty('embeddium.allow_broken_mods', 'true')
+            systemProperty('flywheel.backend', 'off')
+            systemProperty('flw.backend', 'off')
             systemProperty('fml.earlyprogresswindow', 'false')
             systemProperty('forge.earlyWindow', 'false')
             def runtimeXmx = System.getenv('GTE_RUNTIME_XMX') ?: '8G'
-            jvmArguments.addAll("-Xmx${runtimeXmx}", '-XX:+UseG1GC', '-da:snownee.jade...', '-Dfml.earlyprogresswindow=false', '-Dforge.earlyWindow=false', '-Dfile.encoding=UTF-8', '-Dsun.stdout.encoding=UTF-8', '-Dsun.stderr.encoding=UTF-8')
+            jvmArguments.addAll(
+                "-Xmx${runtimeXmx}",
+                '-XX:+UseG1GC',
+                '-da:snownee.jade...',
+                '-Dfml.earlyprogresswindow=false',
+                '-Dforge.earlyWindow=false',
+                '-Dembeddium.allow_broken_mods=true',
+                '-Dflywheel.backend=off',
+                '-Dflw.backend=off',
+                '-Dfile.encoding=UTF-8',
+                '-Dsun.stdout.encoding=UTF-8',
+                '-Dsun.stderr.encoding=UTF-8'
+            )
         }
 
         server {
@@ -226,6 +250,48 @@ tasks.register('linkDevEnvironment') {
 
 tasks.matching { it.name in ['runClient', 'prepareClientRun'] }.configureEach {
     dependsOn(tasks.named('linkDevEnvironment'))
+}
+
+// ---------------------------------------------------------------------------
+// Pull the game window to the front once it appears (Windows only)
+// ---------------------------------------------------------------------------
+// The early progress window MUST stay disabled here: with Embeddium/Oculus in
+// modLocalRuntime, `fmlearlywindow` builds a second GLFW/OpenGL context on a
+// worker thread and deadlocks the render thread on NVIDIA GPUs (SKILL.md Case 7).
+// The cost is that GLFW only creates the window inside Minecraft.<init>, ~25 s
+// into the run. By then the JVM is a background process forked by the Gradle
+// daemon, so Windows refuses its SetForegroundWindow call and the window is
+// stacked *behind* whatever the user clicked in the meantime - it is created and
+// rendering, just completely covered. That is the "runFullPack never opens a
+// window" report. Re-raising it from outside the JVM works because SetWindowPos
+// Z-order changes are not subject to the foreground lock.
+def raiseWindowScript = file("${rootDir}/scripts/dev/raise_game_window.ps1")
+def raiseWindowLog = layout.buildDirectory.file('raise-game-window.log').get().asFile
+def isWindowsHost = org.gradle.internal.os.OperatingSystem.current().isWindows()
+
+tasks.matching { it.name == 'runClient' }.configureEach {
+    doFirst {
+        if (!isWindowsHost) {
+            return
+        }
+        if (System.getenv('GTE_NO_WINDOW_RAISE')) {
+            logger.lifecycle('>> GTE_NO_WINDOW_RAISE is set - leaving the game window where GLFW puts it.')
+            return
+        }
+        if (!raiseWindowScript.exists()) {
+            logger.warn(">> ${raiseWindowScript} is missing - the game window will not be raised.")
+            return
+        }
+        raiseWindowLog.parentFile.mkdirs()
+        // Fire and forget: the helper polls for the window, raises it once and exits.
+        // ProcessBuilder (not exec {}) so the build does not wait for it.
+        new ProcessBuilder(
+            'powershell.exe', '-NoProfile', '-ExecutionPolicy', 'Bypass',
+            '-File', raiseWindowScript.absolutePath,
+            '-TimeoutSeconds', '600'
+        ).redirectErrorStream(true).redirectOutput(raiseWindowLog).start()
+        logger.lifecycle(">> Game window will be raised when it appears (log: ${raiseWindowLog}, disable with GTE_NO_WINDOW_RAISE=1)")
+    }
 }
 
 // Disable maven publishing and archive production for this shadow dev module

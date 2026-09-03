@@ -46,9 +46,34 @@ Para programadores Java/Kotlin, `modules/gte-dev-runtime` é o módulo de depura
 ### Princípio de funcionamento e considerações de design
 - **Posicionamento**: sandbox puramente local para depuração integrada com compilação a quente, **proibido empacotar para distribuição e não aparecerá em nenhum artefato de jogador**.
 - **Remapeamento dinâmico com ModDevGradle**: compila automaticamente o código-fonte mais recente de `gtm-reborn` e `gtecore` a quente e monta no namespace de desofuscação Mojang.
-- **Métodos de inicialização**:
-  - No IDEA, selecione a configuração de execução **`Run GTE Full Pack (Client - Hot Debug)`**.
-  - Ou execute via linha de comando:
-    ```powershell
-    .\gradlew.bat :modules:gte-dev-runtime:runClient
-    ```
+
+### A forma correta de iniciar
+
+Estes três pontos de entrada são equivalentes e todos trazem a janela do jogo para a frente automaticamente:
+
+```powershell
+$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+.\gradlew.bat runFullPack                          # preferred, root aggregate entry point
+.\gradlew.bat :modules:gte-dev-runtime:runClient    # equivalent
+.\run_game.bat                                     # same task, auto-detects JDK/RAM/cores
+```
+
+### Por que nenhuma janela aparece nos primeiros 25 segundos (isso é normal)
+
+A janela de progresso inicial do Forge é deliberadamente desativada para evitar o deadlock do contexto GLFW do Embeddium/Oculus em GPUs dedicadas. O custo é que a janela só é criada dentro de `Minecraft.<init>`, quando a JVM do jogo já é um processo em segundo plano criado por fork pelo daemon do Gradle. O bloqueio de primeiro plano do Windows nega o pedido de foco, então a janela é criada e renderizada corretamente, mas fica embaixo da janela ativa — o que parece exatamente com "a janela nunca apareceu".
+
+Por isso o `runClient` inicia `scripts/dev/raise_game_window.ps1` de forma assíncrona. Ele faz polling à procura da janela `GLFW30` pertencente à JVM desta execução e a eleva com `SetWindowPos` (mudanças de ordem Z não estão sujeitas ao bloqueio de primeiro plano, portanto a elevação sempre funciona). Seu log fica em `modules/gte-dev-runtime/build/raise-game-window.log`. Uma inicialização a frio completa leva cerca de 70 segundos.
+
+### Variáveis de ambiente
+
+| Variável de ambiente | Efeito |
+| --- | --- |
+| `GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT` | Tamanho da janela (padrão 1600x900) |
+| `GTE_NO_WINDOW_RAISE=1` | Ignorar a elevação e deixar a janela onde o GLFW a colocou |
+| `GTE_RUNTIME_XMX` | Limite de heap do cliente (padrão `8G`) |
+
+### Não inicie pelo `.vscode/launch.json`
+
+As configurações em `.vscode/launch.json` são geradas automaticamente pelo ModDevGradle durante a sincronização da IDE. Elas invocam `net.neoforged.devlaunch.Main` diretamente, ignorando a tarefa `runClient`, então a janela nunca é elevada — e o arquivo é reescrito a cada sincronização da IDE, portanto edições manuais não sobrevivem. Coloque argumentos de execução duráveis no bloco `runs {}` do `build.gradle`.
+
+Quando você precisar de breakpoints, use a configuração `Run Client (Hot Debug)` do IntelliJ. Ela anexa um depurador JDWP e pode deixar arquivos `hs_err_pid*.log` em `run/client/` ao sair; esse é um artefato conhecido e inofensivo, sem relação com a inicialização.

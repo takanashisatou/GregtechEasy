@@ -70,4 +70,17 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 .\gradlew.bat publishAllToMaven
 ```
 
+---
+
+## 🎮 4. Launching the Dev Client
+
+```powershell
+$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+.\gradlew.bat runFullPack
+```
+
+No window appears for roughly the first 25 seconds — that is normal. Forge's early progress window is deliberately disabled, and the window is raised to the front slightly later by `scripts/dev/raise_game_window.ps1`. Do not launch through the auto-generated configurations in `.vscode/launch.json`.
+
+Full details and environment knobs: [**Local Hot Debugging and Launcher-Free Quick Run**](runtime-and-launchers.md).
+
 <<<<<FILE_END: development/quick-start.md>>>>

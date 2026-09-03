@@ -46,9 +46,34 @@ Java/Kotlinプログラマー向けに、`modules/gte-dev-runtime` は専用の�
 ### 動作原理と設計上の考慮点
 - **位置付け**: 純粋なローカルホットコンパイル/連携デバッグ用サンドボックスであり、**パッケージングして公開することは禁止されており、いかなるプレイヤー向け成果物にも含まれません**。
 - **ModDevGradle動的リマッピング**: `gtm-reborn` と `gtecore` の最新ソースコードを自動的にホットコンパイルし、Mojangの難読化解除名前空間にマウントします。
-- **起動方法**:
-  - IDEAで実行構成 **`Run GTE Full Pack (Client - Hot Debug)`** を選択します。
-  - またはコマンドラインで実行：
-    ```powershell
-    .\gradlew.bat :modules:gte-dev-runtime:runClient
-    ```
+
+### 正しい起動方法
+
+以下の3つのエントリポイントは等価であり、いずれもゲームウィンドウを自動的に最前面へ持ち上げます：
+
+```powershell
+$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+.\gradlew.bat runFullPack                          # preferred, root aggregate entry point
+.\gradlew.bat :modules:gte-dev-runtime:runClient    # equivalent
+.\run_game.bat                                     # same task, auto-detects JDK/RAM/cores
+```
+
+### 最初の25秒間ウィンドウが表示されない理由（これは正常です）
+
+独立GPU上でのEmbeddium/OculusによるGLFWコンテキストのデッドロックを避けるため、Forgeの早期進捗ウィンドウは意図的に無効化されています。その代償として、ウィンドウは `Minecraft.<init>` の内部でようやく作成されます。その時点でゲームJVMはGradleデーモンからforkされたバックグラウンドプロセスであり、Windowsのフォアグラウンドロックがそのフォーカス要求を拒否します。そのためウィンドウは正しく作成・描画されているにもかかわらず、アクティブウィンドウの背後に隠れてしまい、まさに「ウィンドウが一向に表示されない」ように見えます。
+
+そこで `runClient` は `scripts/dev/raise_game_window.ps1` を非同期に起動します。このスクリプトは今回の実行自身のJVMに属する `GLFW30` ウィンドウをポーリングし、`SetWindowPos` で最前面へ持ち上げます（Zオーダーの変更はフォアグラウンドロックの対象外なので、この処理は必ず成功します）。そのログは `modules/gte-dev-runtime/build/raise-game-window.log` にあります。完全なコールドスタートには約70秒かかります。
+
+### 環境変数スイッチ
+
+| 環境変数 | 効果 |
+| --- | --- |
+| `GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT` | ウィンドウサイズ（デフォルト 1600x900） |
+| `GTE_NO_WINDOW_RAISE=1` | 最前面化をスキップし、GLFWが配置した位置のままにする |
+| `GTE_RUNTIME_XMX` | クライアントのヒープ上限（デフォルト `8G`） |
+
+### `.vscode/launch.json` から起動しないこと
+
+`.vscode/launch.json` 内の構成は、IDE同期時にModDevGradleによって自動生成されます。これらは `net.neoforged.devlaunch.Main` を直接呼び出し、`runClient` タスクをバイパスするため、ウィンドウは決して最前面に持ち上げられません。さらにこのファイルはIDE同期のたびに書き換えられるため、手動での編集は残りません。恒久的な実行引数は `build.gradle` の `runs {}` ブロックに記述してください。
+
+ブレークポイントが必要な場合は、IntelliJの `Run Client (Hot Debug)` 構成を使用してください。これはJDWPデバッガーをアタッチし、終了時に `run/client/` へ `hs_err_pid*.log` ファイルを残すことがあります。これは既知の無害な副産物であり、起動処理とは無関係です。
