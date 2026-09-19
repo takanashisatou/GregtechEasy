@@ -424,6 +424,18 @@ jobs:
             Start-Sleep -Seconds 5
           }
 
+      # Generated gtecore lang/model/tag resources are ignored by Git. Generate
+      # them before packaging on a clean runner, using a separate game invocation.
+      - name: Generate GTECore Resources
+        timeout-minutes: 30
+        run: |
+          if ($env:OS -like "*Windows*" -or $env:WINDIR) {
+            cmd.exe /c "gradlew.bat :modules:gtecore:runData --no-daemon --console=plain"
+          } else {
+            ./gradlew :modules:gtecore:runData --no-daemon --console=plain
+          }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Build All Modules & GameTest in Parallel
         id: build_modules
         timeout-minutes: 120
@@ -451,6 +463,17 @@ jobs:
               ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
             Start-Sleep -Seconds 10
           }
+
+      # The aggregate run guard permits one game process per Gradle invocation.
+      - name: Test GTECore Purification Controls
+        timeout-minutes: 30
+        run: |
+          if ($env:OS -like "*Windows*" -or $env:WINDIR) {
+            cmd.exe /c "gradlew.bat :modules:gtecore:runGameTestServer --no-daemon --console=plain"
+          } else {
+            ./gradlew :modules:gtecore:runGameTestServer --no-daemon --console=plain
+          }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       # Save right after the build, under always(), for the same reason as the
       # translation cache: the expensive part (1.3 GB of resolved modules plus the
