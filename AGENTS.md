@@ -126,6 +126,105 @@ you actually need breakpoints.
 12. Real-Time Dev Environment Linking:
     - `modules/gte-dev-runtime` automatically creates Directory Junctions (`mklink /J` on Windows, symlinks on POSIX) linking `run/client/{kubejs, config/ftbquests, defaultconfigs, tlm_custom_pack}` to `gte/overrides/`.
     - This allows in-game quest editing and KubeJS script development during `runClient` to be reflected and committed to Git in real-time, while keeping test saves and runtime logs safely confined to `run/client/`.
+13. NEVER edit the bytes of a third-party mod jar. The pack consumes mods as
+    published artifacts; rewriting a refmap, a `.class`, or any other zip entry
+    inside an upstream jar (Rhino, LDLib, Yeetus, ModernFix, gregmek, trashslot,
+    KubeJS, ModernUI, Polymorph, CoreLib, TouhouLittleMaid, ...) is not a fix.
+    It produces an untraceable fork that no version number, checksum or build
+    log can reproduce, it cannot be re-derived by anyone else, and a later CI
+    copy of the same file name silently discards it. Change the **version**
+    through the build configuration instead (see "Modpack Assembly" below). If
+    an upstream jar is genuinely broken, bump its version or vendor a real
+    release — never patch it in place.
+14. One `modId`, one jar. Forge loads mod ids, not file names, and a fork keeps
+    the upstream `modId`: `modules/gt--` is a fork of `Arborsm/GT--` that still
+    declares `mod_id=gtnn`, `dev.arbor.gtnn` packages and display name `GT--`,
+    so an upstream GT-- jar and our CE jar can never coexist in one pack. Before
+    adding, replacing or deleting a jar in `gte/overrides/mods/`, read each
+    jar's `META-INF/mods.toml`, collect the ids from the `[[mods]]` sections
+    only (never from `[[dependencies.*]]`), and confirm every id appears exactly
+    once across the whole directory. "They are two different mods" is not a
+    valid defence when both files declare the same `modId`.
+15. When a check keeps getting violated by hand, add an automated gate instead
+    of a stronger sentence. The repository already has `scripts/audit_art.py`,
+    `audit_dependencies.py`, `audit_docs.py`, `audit_mixins.py`,
+    `audit_submodules.py` and `audit_translations.py` wired into CI; a
+    duplicate-`modId` audit is the one still missing.
+
+## Modpack Assembly (`gte/`) and Mod Versions
+
+`gte/overrides/mods/` is **CI-owned**. Never drop a jar into it by hand, and
+never treat its contents as the source of truth for what a mod's version is.
+
+What writes that directory:
+
+1. `sync-build.yml` → "Copy Built Mod Jars to Overrides and Artifacts" copies
+   `modules/*/build/libs/*.jar` (minus `-sources`, `-dev`, `-all`) into
+   `build/artifacts/`, copies the non-slim ones into `gte/overrides/mods/`, and
+   deletes leftover `*-slim.jar` / `*-dev-slim.jar`.
+2. `translate.yml` → "Commit and Direct Push" runs `git add -A` and commits.
+   That is how freshly built jars reach git, and why a commit whose message says
+   `i18n: Auto-update ...` can contain jar binaries.
+
+So this is the "Lazy Pack" assembly mode: everything under `gte/` is zipped
+verbatim by `scripts/build_full_mod_pack.py`, which fails on an empty mods dir,
+on a count mismatch inside the zip, and on a top-level `mods/` entry
+(`expected_mods_count` is derived from the same directory, so adding or removing
+a jar needs no constant updated). `scripts/build_curseforge_pack.py` ships a
+pure `manifest.json` and forbids jars in `overrides/` entirely.
+
+Version knobs — change these, never a jar:
+
+| What | Where |
+| --- | --- |
+| GT-- CE version | `modules/gt--/gradle.properties` → `mod_version` (currently `1.3.5.1`) |
+| GTM-Reborn version | `modules/gtm-reborn/gradle.properties` → `mod_version` |
+| GTECore version and its dependency pins | `modules/gtecore/gradle.properties` → `mod_version`, `gtmr_version`, `kubejs_version`, `jei_version` |
+| Minecraft / Forge / mappings | root `gradle.properties`, `gradle/libs.versions.toml` (`minecraft`, `forge`, `parchment`) and `gte/pack.toml` `[versions]` — keep all three in sync |
+| Third-party runtime mods | `modLocalRuntime(...)` coordinates in the run configurations |
+
+Facts behind these rules, so they are not rediscovered the hard way:
+
+- `gte/pack.toml` is packwiz-shaped (`pack-format = "packwiz:1.1.0"`,
+  `meta-folder = "mods"`, `meta-folder-type = "toml"`) but no `gte/mods/*.pw.toml`
+  exists and `gte/index.toml` is an empty stub, so nothing is version-pinned
+  through packwiz; every mod ships as a tracked binary under `overrides/`.
+- `modules/gt--` has **diverged** from its upstream `Arborsm/GT--` (default
+  branch `kotlin`, remote `takanashisatou/GT---Community-Edition`): as of
+  2026-09-23 the fork is 14 commits ahead and 17 behind, upstream's
+  `mod_version` is already `1.3.10` while ours is `1.3.5.1`. Merging upstream is
+  a real conflict resolution task — never bump the submodule pointer to a commit
+  whose version was not merged into the branch the pack is built from.
+- `gtnn-1.20.1-1.3.5.3.jar` is a stale upstream GT-- release inherited from the
+  pre-monorepo pack (commit `718aded`, 2026-08-19) that declares the same
+  `modId = gtnn` as the CE jar CI builds. It must not sit in
+  `gte/overrides/mods/`.
+
+## Debugging a Broken Pack
+
+A pack that suddenly refuses to launch is almost always a *content* change, not
+a broken game. Work in this order:
+
+1. Diff the shipped pack against the last build that launched — begin with
+   `git log --stat -- gte/overrides/mods/`.
+2. Read the crash report's `-- Mod List --` and `-- MOD <id> --` blocks before
+   changing anything. A jar that kept its file name but changed size/hash means
+   someone patched a mod by hand; a `modId` appearing twice means the wrong jar
+   is in the pack.
+3. Make ONE scoped change, rebuild, and verify. Do not stack speculative fixes.
+
+Method that is forbidden here, because each step hides the cause instead of
+finding it:
+
+- disabling Mixin features of an unrelated mod (`modernfix-mixins.properties`
+  entries such as `mixin.bugfix.*` / `mixin.perf.*`) to get past a startup crash;
+- deleting a jar that "looks duplicated" without reading its `META-INF/mods.toml`;
+- upgrading several unrelated mods in one commit, or replacing mods while
+  chasing a crash whose first report was never read;
+- editing jar internals to satisfy a refmap/remap error instead of changing the
+  version that produced it;
+- reporting a crash as fixed without a green CI run and, for any pack change, an
+  actual client launch.
 
 ## Game Tests
 
@@ -147,6 +246,22 @@ you actually need breakpoints.
 4. Wait for CI to go green, then squash merge.
 5. After a submodule merge, bump the submodule pointer in the root repository
    with a separate root PR and wait for root CI.
+
+Non-negotiable:
+
+6. Never commit directly to `main`. This applies to CI tweaks, pack/jar changes
+   and "one-line fixes" too. `main` has no branch protection, so this rule is
+   the only guard, and it was just violated by 8 consecutive unreviewed commits
+   on 2026-09-22/23: each push re-triggered the release workflow and cancelled
+   the previous run, so not one of them was ever covered by a completed build.
+7. Do not push while a CI run on the same branch is still in flight unless
+   cancelling it is what you intend. `sync-build.yml` groups runs per branch, so
+   each push silently cancels the previous one — that is how 4 consecutive runs
+   produced no result at all.
+8. Never report work as done, fixed or verified off a cancelled, in-flight or
+   missing CI run. "CI should be fine" is not a result; read the conclusion.
+9. Revert work that violated these rules as one reviewable PR (a single revert
+   commit restoring the last PR-merged tree) rather than by rewriting `main`.
 
 ## CI / Release
 
@@ -181,6 +296,10 @@ Project-specific guidance also lives in:
 - `.agents/skills/gte-pixel-lab/SKILL.md` - Universal Minecraft pixel art, CTM inspection, and animation toolset (`python scripts/texture_lab/pixel_tool.py <cmd>`)
 - `.agents/skills/gte-multiblock/SKILL.md` - GTE multiblock structure creation, registry, and recipe modifiers
 - `.agents/skills/gte-multiblock-architecture/SKILL.md` - Multiblock 3D geometric modeling and pattern generation
+- `scripts/audit_*.py` - automatically enforced invariants (`audit_art`,
+  `audit_dependencies`, `audit_docs`, `audit_mixins`, `audit_submodules`,
+  `audit_translations`), wired into CI. When a mistake class needs a gate rather
+  than another rule, add the audit script and wire it in.
 - `.codex/rules.md` - detailed project rules
 - `README.md` - developer-facing quick start
 
