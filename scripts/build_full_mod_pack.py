@@ -38,6 +38,7 @@ MANIFEST_BASE = ROOT / "gte" / "curseforge_manifest.json"
 sys.path.insert(0, str(Path(__file__).parent))
 from pack_common import (  # noqa: E402
     CLIENT_SKIP_TOP,
+    DEV_ONLY_JAR,
     SLIM_JAR,
     SKIP_CONFIG_PREFIXES,
     SKIP_TOP_ALWAYS,
@@ -59,9 +60,9 @@ def should_skip_override(rel: Path) -> str | None:
     for prefix in SKIP_CONFIG_PREFIXES:
         if parts[: len(prefix)] == prefix:
             return "/".join(prefix) + "/ is local state"
-    # Skip non-runnable slim jars
-    if parts[0] == "mods" and SLIM_JAR.search(rel.name):
-        return "slim jar is not runnable"
+    # Skip non-runnable slim or dev-only jars
+    if parts[0] == "mods" and (SLIM_JAR.search(rel.name) or DEV_ONLY_JAR.search(rel.name)):
+        return "slim or dev-only jar is not runnable"
     return None
 
 

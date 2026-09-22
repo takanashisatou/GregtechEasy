@@ -41,9 +41,29 @@ BUILD_DIR = ROOT / "build" / "artifacts"
 OVERRIDES = ROOT / "gte" / "overrides"
 PACK_TOML = ROOT / "gte" / "pack.toml"
 
-# Matches gtecore-1.20.1-2.2.5.1-slim.jar and ...-dev-slim.jar without catching a
-# third-party mod that merely has "slim" in its name.
-SLIM_JAR = re.compile(r"-(dev-)?slim\.jar$", re.IGNORECASE)
+# Matches gtecore-1.20.1-2.2.5.1-slim.jar, ...-dev-slim.jar, and ...-dev-embeds.jar
+SLIM_JAR = re.compile(r"-(dev-)?(slim|embeds)\.jar$", re.IGNORECASE)
+
+# Dev-only tooling mods (e.g. ProbeJS typing dumper) that must never be shipped to players/servers
+DEV_ONLY_JAR = re.compile(r"^probejs.*\.jar$", re.IGNORECASE)
+
+# Client-only mods that cause crashes or are useless on dedicated Forge server
+SERVER_SKIP_MODS = {
+    "appleskin",
+    "betterfpsdist",
+    "controlling",
+    "embeddium",
+    "entityculling",
+    "fancymenu",
+    "jecharacters",
+    "konkrete",
+    "melody",
+    "modernui",
+    "moreoverlays",
+    "mousetweaks",
+    "trashslot",
+    "yeetusexperimentus",
+}
 
 # Build debris and vcs metadata. logs/ and crash-reports/ are untracked but do
 # sit in the runner's working tree, so an in-place archive shipped them.
@@ -98,8 +118,13 @@ def should_skip(rel: Path, skip_top: set[str]) -> str | None:
     # modId "gtceu", picks a slim one, and aborts before the main menu with
     #   Missing or unsupported mandatory dependencies:
     #     Mod ID: 'ldlib', Requested by: 'gtceu' ... [MISSING]
-    if parts[0] == "mods" and SLIM_JAR.search(rel.name):
-        return "slim jar is not runnable"
+    if parts[0] == "mods" and (SLIM_JAR.search(rel.name) or DEV_ONLY_JAR.search(rel.name)):
+        return "slim, dev-embeds, or dev-only jar is not runnable"
+    if "resourcepacks" in skip_top and parts[0] == "mods":
+        mod_name_lower = rel.name.lower()
+        for cmod in SERVER_SKIP_MODS:
+            if cmod in mod_name_lower:
+                return f"{cmod} is client-only mod"
     return None
 
 
