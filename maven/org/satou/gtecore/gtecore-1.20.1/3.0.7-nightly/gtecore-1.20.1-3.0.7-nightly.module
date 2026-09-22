@@ -30,10 +30,10 @@
           "name": "gtecore-1.20.1-3.0.7-nightly.jar",
           "url": "gtecore-1.20.1-3.0.7-nightly.jar",
           "size": 11230123,
-          "sha512": "6fc664b4f89b913c52e622e098286726b2f6e05e2739672768667508c5198d5cc8fc18086c81b73a401d7c09238ea4c79f544ca41e411bb5bf3944f24eb01708",
-          "sha256": "14fda7b35fe58928dc7b3d7bd23f1b53d27e426ef3c307d1c434ca76e0a4ff9f",
-          "sha1": "5c2c23099614bba5e8180dc04e89e7f25e956b1c",
-          "md5": "0f3c8b58224c848ed0215b9a63109c54"
+          "sha512": "d35df7c515eef473cf5271b91b9ba10b0641fa19bd274aad08b3a81006803e6f7e51b475a6e82a1296396575e600851a4c6e275b347e929e3a57ef4f3e68e85c",
+          "sha256": "dc770d4f2889b3ec61b3b74409010306d143308499b17db9ee3e8c0a39b2ab87",
+          "sha1": "02c7463412d2cdf7d95572579195eef0fe1d5435",
+          "md5": "2c55826dd1cd0a0de5f0b7b240add42e"
         }
       ]
     },
@@ -53,10 +53,10 @@
           "name": "gtecore-1.20.1-3.0.7-nightly.jar",
           "url": "gtecore-1.20.1-3.0.7-nightly.jar",
           "size": 11230123,
-          "sha512": "6fc664b4f89b913c52e622e098286726b2f6e05e2739672768667508c5198d5cc8fc18086c81b73a401d7c09238ea4c79f544ca41e411bb5bf3944f24eb01708",
-          "sha256": "14fda7b35fe58928dc7b3d7bd23f1b53d27e426ef3c307d1c434ca76e0a4ff9f",
-          "sha1": "5c2c23099614bba5e8180dc04e89e7f25e956b1c",
-          "md5": "0f3c8b58224c848ed0215b9a63109c54"
+          "sha512": "d35df7c515eef473cf5271b91b9ba10b0641fa19bd274aad08b3a81006803e6f7e51b475a6e82a1296396575e600851a4c6e275b347e929e3a57ef4f3e68e85c",
+          "sha256": "dc770d4f2889b3ec61b3b74409010306d143308499b17db9ee3e8c0a39b2ab87",
+          "sha1": "02c7463412d2cdf7d95572579195eef0fe1d5435",
+          "md5": "2c55826dd1cd0a0de5f0b7b240add42e"
         }
       ]
     },
@@ -72,11 +72,11 @@
         {
           "name": "gtecore-1.20.1-3.0.7-nightly-sources.jar",
           "url": "gtecore-1.20.1-3.0.7-nightly-sources.jar",
-          "size": 11046395,
-          "sha512": "3d16095dc9f74f8e6ebb46bd83a9c947f36eb5f8395798c1dee405ed7a8e5150db88655ca3639c1821db012520b61c04c1db3ee2b0ee44996ecc32546e09e314",
-          "sha256": "60a59bd58ebce552c67a2dedf1300ee7511245b6c23f558be4e027ce323d7e94",
-          "sha1": "de1027d83decb11393592be73d4011960dc706e1",
-          "md5": "8d64f65010185533716ec2c564d1ae93"
+          "size": 11046396,
+          "sha512": "a02149d23173476a4984d979eb52a8d4742c00ae7bf4fee156fd575b25bd6c37bc5c5ae1f679479bc6e584d9e30519999b7c2f6fcbd79b6458a3c061e3d1094a",
+          "sha256": "fdae07de487f6478cb0af04e4cd492c579fccb5f500d2eee0b8c202a6ac18ba4",
+          "sha1": "038591033f9e90d21aa4d7b05f2e19f41a0520d1",
+          "md5": "bcb4fd6fc3259270a74391c0a0a52dc0"
         }
       ]
     }
