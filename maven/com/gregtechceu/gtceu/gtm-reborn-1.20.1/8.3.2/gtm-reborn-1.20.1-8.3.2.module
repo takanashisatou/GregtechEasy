@@ -30,10 +30,10 @@
           "name": "gtm-reborn-1.20.1-8.3.2.jar",
           "url": "gtm-reborn-1.20.1-8.3.2.jar",
           "size": 19703823,
-          "sha512": "7c0a7b70f66e3e39c8300dc058d7416c92fffa6b53ae122036d9602913ad64ec8abc7fec3c2328f6883ab1c5f060ceda3899c2e13cf5292a58610c141bee57ff",
-          "sha256": "4fec10b2149b92f84bdfcb4739a14c4e464d514e23d86a15babd7837fcafb4f0",
-          "sha1": "d0d6bfd69a51c6f3f6b4adc213dd02a0c5792b9f",
-          "md5": "eb42867ae251f041c4885ea611638119"
+          "sha512": "b8f810152281a67869a6def47920713e57908c9a04778751db81e0799a434aad8f00b51383406e70e5120ab3f699108f32d4019d1cbf05ad6c38fec3631f72e8",
+          "sha256": "463343a2bc91be9ae5d35e32755605d4f54aec3ac9d8c21cb3b891f99de57988",
+          "sha1": "ca60a9573062da245592a69e66ed868dcad04086",
+          "md5": "2491bce19cd8485fb21eb045653ea035"
         }
       ]
     },
@@ -53,10 +53,10 @@
           "name": "gtm-reborn-1.20.1-8.3.2.jar",
           "url": "gtm-reborn-1.20.1-8.3.2.jar",
           "size": 19703823,
-          "sha512": "7c0a7b70f66e3e39c8300dc058d7416c92fffa6b53ae122036d9602913ad64ec8abc7fec3c2328f6883ab1c5f060ceda3899c2e13cf5292a58610c141bee57ff",
-          "sha256": "4fec10b2149b92f84bdfcb4739a14c4e464d514e23d86a15babd7837fcafb4f0",
-          "sha1": "d0d6bfd69a51c6f3f6b4adc213dd02a0c5792b9f",
-          "md5": "eb42867ae251f041c4885ea611638119"
+          "sha512": "b8f810152281a67869a6def47920713e57908c9a04778751db81e0799a434aad8f00b51383406e70e5120ab3f699108f32d4019d1cbf05ad6c38fec3631f72e8",
+          "sha256": "463343a2bc91be9ae5d35e32755605d4f54aec3ac9d8c21cb3b891f99de57988",
+          "sha1": "ca60a9573062da245592a69e66ed868dcad04086",
+          "md5": "2491bce19cd8485fb21eb045653ea035"
         }
       ]
     },
@@ -73,10 +73,10 @@
           "name": "gtm-reborn-1.20.1-8.3.2-sources.jar",
           "url": "gtm-reborn-1.20.1-8.3.2-sources.jar",
           "size": 10852214,
-          "sha512": "72cb36d870389072f6ae33ca3d863e6597b8efc2deb3894681e24db383e0f1dde5104fe2c7c2f509564f977237f3ba48e9327c53a3077ef60192599bc22d686f",
-          "sha256": "90b604e08a2a41473fe2935c31066f6e0891b04da67e7900f047f99f5810ff0b",
-          "sha1": "b058776e5c86fde524f02a86530619d6adbea2e8",
-          "md5": "bbeb2ab8b2f760d391a125f204268193"
+          "sha512": "363e9fe8cf75e46b90c40c560e0bc65572dc6db8477b38ebc69a68efed6585b7f83fed296e65aab7cd03d40e420c5c78ecd69d483b6ebdd024c0dac397a18d23",
+          "sha256": "6b553a9017460e571b0fa3b1a504565442594dcccb5c18a7485c2cf67dec9acf",
+          "sha1": "87ebacb129e3866eed2a2d8f4543ac84e69cab75",
+          "md5": "9f00f162a2c146d03a8e95cfb8cb718d"
         }
       ]
     }
