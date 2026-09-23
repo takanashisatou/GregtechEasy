@@ -36,7 +36,7 @@ import subprocess
 import sys
 import zipfile
 from pathlib import Path
-from typing import Dict, List, NamedTuple, Optional, Set
+from typing import Dict, List, NamedTuple, Optional, Set, Tuple
 
 ROOT = Path(__file__).parent.parent.resolve()
 
