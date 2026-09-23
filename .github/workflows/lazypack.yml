@@ -208,8 +208,20 @@ jobs:
           # pack and being presented to users as the newest nightly. Prune the
           # pack zips this run did not produce - and ONLY those: everything else
           # on the release (module jars) comes from sync-build.yml.
+          #
+          # Read the assets through the paginated REST endpoint, NOT through
+          # `gh release view --json assets`: that returns a capped, stale snapshot
+          # of the release object. On this job's first run it listed the two zips
+          # it had just replaced and did not list the August ones at all, so the
+          # August zips survived the prune - the same snapshot is why
+          # sync-build.yml's old prune step never removed them either.
           $current = $files | ForEach-Object { Split-Path $_ -Leaf }
-          $existing = @(gh release view nightly --repo "${{ github.repository }}" --json assets --jq '.assets[].name' 2>$null)
+          $releaseId = gh api "repos/${{ github.repository }}/releases/tags/nightly" --jq '.id' 2>$null
+          $existing = @()
+          if ($releaseId) {
+            $existing = @(gh api "repos/${{ github.repository }}/releases/$releaseId/assets?per_page=100" --jq '.[].name' 2>$null)
+          }
+          Write-Host "Release carries $($existing.Count) asset(s); this build produced $($current.Count) pack zip(s)."
           $stale = @($existing | Where-Object { ($_ -like 'GTE-FullMod-*.zip' -or $_ -like 'GTE-Server-*.zip') -and $current -notcontains $_ })
           foreach ($name in $stale) {
             gh release delete-asset nightly $name --repo "${{ github.repository }}" --yes 1>$null 2>$null
