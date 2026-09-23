@@ -25,6 +25,111 @@ obfuscation {
     createRemappingConfiguration(configurations.localRuntime)
 }
 
+// ---------------------------------------------------------------------------
+// Full-pack mods for the dev runtime: coordinates, never flat files
+// ---------------------------------------------------------------------------
+// The dev client loads the same mod set as the shipped pack, but it runs with
+// named (Mojang) mappings, and ModDevGradle only remaps SRG -> named for
+// *coordinate* dependencies - a jar it resolves from a flatDir repository is
+// handed to the run untouched. Feeding the pack's production jars to the run
+// that way is how the 2026-09-01 incident started: the run failed on the first
+// vanilla @Shadow, and the "fix" (commit 9a67970) copied the dev runtime's named
+// output back over gte/overrides/mods - 94 dev jars under the published file
+// names, and every nightly afterwards died before the main menu.
+//
+// So publish the pack's jars as gte.mods:<artifact>:<version> into a generated
+// local Maven repository. ModDevGradle then remaps them for the dev runtime, the
+// pack keeps its published (SRG) bytes, and every dev-only copy stays under
+// build/ where it cannot be committed by accident.
+def packModsDir = file("${rootDir}/gte/overrides/mods")
+def devModsRepoDir = file("${rootDir}/build/localMaven")
+def packModsAlreadyProvided = [
+    // provided above via maven modLocalRuntime coordinates
+    'appliedenergistics2', 'architectury', 'curios',
+    'gtmthings', 'guideme', 'jade', 'jei',
+    'kotlinforforge', 'kubejs', 'rhino',
+    'ldlib', 'configuration', 'ponder', 'flywheel',
+    'patchouli', 'botania', 'theoneprobe', 'cloth-config',
+    'ftb-library', 'ftb-teams', 'ftb-quests', 'ftb-chunks',
+    'ftb-ultimine', 'ftb-essentials', 'resourceful',
+    'sophisticatedcore', 'sophisticatedbackpacks', 'sophisticatedstorage',
+    'extendedae', 'ae2wtlib', 'ferritecore', 'glodium', 'item-filters',
+    'embeddium', 'oculus'
+]
+def packModsDevUnsafe = [
+    // replaced by sourceSet-backed mods{} mappings
+    'gtm-reborn', 'gtecore', 'gtnn-', 'gt---'
+]
+
+/** [artifact, mavenVersion] for a pack jar name, or null when it does not parse. */
+def packModCoordinate = { String fileName ->
+    def base = fileName.replaceAll(/\.jar$/, '')
+    // Pack file names use either '-' or '_' as the separator (fancymenu ships as
+    // fancymenu_forge_3.8.1_MC_1.20.1.jar). The version starts at the first
+    // numeric segment after the first one, so "AdvancedAE-1.1.4-1.20.1" becomes
+    // AdvancedAE:1.1.4-1.20.1 rather than AdvancedAE-1.1.4:1.20.1.
+    def separator = base.contains('-') ? '-' : '_'
+    def parts = base.split(separator == '-' ? '-' : '_')
+    def versionStart = -1
+    for (int i = 1; i < parts.length; i++) {
+        if (parts[i] ==~ /^\d.*/) {
+            versionStart = i
+            break
+        }
+    }
+    if (versionStart <= 0) {
+        return null
+    }
+    // Gradle rejects coordinates outside [A-Za-z0-9_.-] and a '+' cannot appear
+    // in a Maven version, so sanitise both halves here; the publisher writes the
+    // repository layout with exactly these values.
+    def sanitise = { String value -> value.replace('+', '_').replaceAll(/[^A-Za-z0-9_.\-]/, '_') }
+    return [sanitise(parts[0..<versionStart].join(separator)), sanitise(parts[versionStart..-1].join(separator))]
+}
+
+def publishPackModsForDev = tasks.register('publishPackModsForDev') {
+    group = 'gte'
+    description = 'Publishes the shipped pack jars as gte.mods coordinates so ModDevGradle remaps them for the dev runtime.'
+    inputs.files(fileTree(packModsDir) { include '*.jar' }).withPropertyName('packJars').optional()
+    outputs.dir(devModsRepoDir).withPropertyName('devModsRepo')
+    doLast {
+        devModsRepoDir.mkdirs()
+        def published = 0
+        def jars = (packModsDir.listFiles({ File f -> f.name.toLowerCase().endsWith('.jar') } as FileFilter) ?: new File[0]).sort { it.name }
+        jars.each { jar ->
+            def lower = jar.name.toLowerCase()
+            if (packModsAlreadyProvided.any { lower.contains(it) } || packModsDevUnsafe.any { lower.contains(it) }) {
+                return
+            }
+            def coord = packModCoordinate(jar.name)
+            if (coord == null) {
+                logger.warn(">> ${jar.name} does not parse into gte.mods coordinates; the dev runtime will not load it.")
+                return
+            }
+            def artifact = coord[0]
+            def mavenVersion = coord[1]
+            def target = new File(devModsRepoDir, "gte/mods/${artifact}/${mavenVersion}")
+            target.mkdirs()
+            def jarTarget = new File(target, "${artifact}-${mavenVersion}.jar")
+            // Always overwrite: a stale copy with the same length would silently
+            // keep the old bytes, and that is exactly how the pack got poisoned.
+            jarTarget.bytes = jar.bytes
+            new File(target, "${artifact}-${mavenVersion}.pom").text = """<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>gte.mods</groupId>
+    <artifactId>${artifact}</artifactId>
+    <version>${mavenVersion}</version>
+</project>
+"""
+            published++
+        }
+        logger.lifecycle(">> Published ${published} pack mod(s) into ${devModsRepoDir} as gte.mods coordinates for the dev runtime.")
+    }
+}
+
 dependencies {
     implementation(project(':modules:gtm-reborn')) { transitive = false }
     implementation(project(':modules:gt--')) { transitive = false }
@@ -72,28 +177,9 @@ dependencies {
     modLocalRuntime(forge.glodium)
     modLocalRuntime("dev.latvian.mods:item-filters-forge:2001.1.0-build.59")
 
-    // Full-pack mods: scan the packwiz overrides (gte/overrides/mods is the
-    // exact jar set of the production "Oh" instance), so the dev client loads the same mod set
-    // as the shipped pack. Every jar goes through modLocalRuntime, which
-    // remaps it SRG -> named for the dev runtime.
-    def packModsDir = file("${rootDir}/gte/overrides/mods")
-    def alreadyProvided = [
-        // provided above via maven modLocalRuntime coordinates
-        'appliedenergistics2', 'architectury', 'curios',
-        'gtmthings', 'guideme', 'jade', 'jei',
-        'kotlinforforge', 'kubejs', 'rhino',
-        'ldlib', 'configuration', 'ponder', 'flywheel',
-        'patchouli', 'botania', 'theoneprobe', 'cloth-config',
-        'ftb-library', 'ftb-teams', 'ftb-quests', 'ftb-chunks',
-        'ftb-ultimine', 'ftb-essentials', 'resourceful',
-        'sophisticatedcore', 'sophisticatedbackpacks', 'sophisticatedstorage',
-        'extendedae', 'ae2wtlib', 'ferritecore', 'glodium', 'item-filters',
-        'embeddium', 'oculus'
-    ]
-    def devUnsafe = [
-        // replaced by sourceSet-backed mods{} mappings
-        'gtm-reborn', 'gtecore', 'gtnn-', 'gt---'
-    ]
+    // Full-pack mods: the exact jar set of the shipped pack, resolved from the
+    // generated local Maven repository as gte.mods coordinates so ModDevGradle
+    // remaps them SRG -> named (see publishPackModsForDev above).
     def seen = [] as Set
     [packModsDir].each { dir ->
         if (!dir.exists()) {
@@ -104,40 +190,50 @@ dependencies {
                 return
             }
             def name = jar.name.toLowerCase()
-            if (alreadyProvided.any { name.contains(it) }) {
+            if (packModsAlreadyProvided.any { name.contains(it) }) {
                 return
             }
-            if (devUnsafe.any { name.contains(it) }) {
+            if (packModsDevUnsafe.any { name.contains(it) }) {
                 return
             }
 
-            def base = jar.name.replaceAll(/\.jar$/, '')
-            if (base.contains('-')) {
-                def parts = base.split('-')
-                def versionStart = -1
-                for (int i = parts.length - 1; i >= 1; i--) {
-                    if (parts[i] ==~ /^\d.*/) {
-                        versionStart = i
-                        break
-                    }
-                }
-                if (versionStart > 0) {
-                    def artifact = parts[0..<versionStart].join('-')
-                    def version = parts[versionStart..-1].join('-')
-                    modLocalRuntime(name: artifact, version: version)
-                } else {
-                    modLocalRuntime(name: base)
-                }
+            def coord = packModCoordinate(jar.name)
+            if (coord != null) {
+                modLocalRuntime("gte.mods:${coord[0]}:${coord[1]}")
             } else {
-                modLocalRuntime(name: base)
+                // NEVER fall back to a version-less dependency: Gradle answers
+                // "any version" by enumerating versions from every declared
+                // repository, which hangs the run on an unreachable mirror
+                // instead of failing (that is what stalled the 2026-09-23 run).
+                logger.warn(">> ${jar.name} does not parse into gte.mods coordinates; the dev runtime will not load it.")
             }
         }
     }
 }
 
 repositories {
+    // The generated gte.mods repository publishPackModsForDev writes into. This
+    // is what lets ModDevGradle remap the pack's production jars for the dev
+    // runtime; the flatDir entry stays only for anything resolved by bare name.
+    maven {
+        name = 'GteDevPackMods'
+        url = uri(devModsRepoDir)
+        content { includeGroup 'gte.mods' }
+    }
     flatDir {
         dirs "${rootDir}/gte/overrides/mods"
+    }
+}
+
+// The generated group exists ONLY in that directory, so tell every other
+// repository to ignore it. Without this Gradle probes all ~25 declared
+// repositories (taberna, repsy, tterrag, FTB, Modrinth, ... plus a few
+// unreachable mirrors) for each of the ~70 generated coordinates before it
+// reaches the local one: ~1700 HTTP requests, each waiting on a timeout, which
+// looks exactly like a hung run.
+repositories.configureEach { repo ->
+    if (repo.name != 'GteDevPackMods' && repo instanceof org.gradle.api.artifacts.repositories.MavenArtifactRepository) {
+        repo.content { excludeGroup 'gte.mods' }
     }
 }
 
@@ -250,6 +346,13 @@ tasks.register('linkDevEnvironment') {
 
 tasks.matching { it.name in ['runClient', 'prepareClientRun'] }.configureEach {
     dependsOn(tasks.named('linkDevEnvironment'))
+    dependsOn(publishPackModsForDev)
+}
+
+// The pack mods must exist in the generated repository before anything resolves
+// the dev runtime classpath, whatever MDG names its own preparation tasks.
+tasks.matching { it.name.startsWith('prepare') || it.name in ['runClient', 'runServer'] }.configureEach {
+    dependsOn(publishPackModsForDev)
 }
 
 // ---------------------------------------------------------------------------

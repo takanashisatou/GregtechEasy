@@ -149,8 +149,33 @@ you actually need breakpoints.
     of a stronger sentence. The repository already has `scripts/audit_art.py`,
     `audit_dependencies.py`, `audit_docs.py`, `audit_mixins.py`,
     `audit_submodules.py` and `audit_translations.py` wired into CI; the
-    duplicate-`modId` audit (`scripts/audit_modids.py`, Gate 1b) was the last
-    one added, because rule 14 kept being broken by hand.
+    duplicate-`modId` audit (`scripts/audit_modids.py`, Gate 1b) and the
+    production-mapping audit (`scripts/audit_pack_mappings.py`, Gate 1c) were the
+    last ones added, each because the rule it enforces kept being broken by hand.
+16. Every jar in `gte/overrides/mods/` must be the artifact upstream published,
+    i.e. a **production (SRG) build** — never a dev jar. Forge 1.20.1 production
+    names vanilla members `m_12345_` / `f_12345_`; a jar built with Mojang
+    mappings (`Minecraft.getInstance()`, `.player`) resolves nothing there, so
+    the loader dies at the first `@Shadow` of a vanilla field or throws
+    `NoSuchMethodError` as soon as the class is used. This is not theoretical:
+    the dev runtime remaps the pack's jars SRG -> named for `runFullPack`
+    (`modules/gte-dev-runtime/build.gradle` scans `gte/overrides/mods`), and
+    commit `9a67970` committed that remapped set back over the pack — 94 of 99
+    third-party jars became dev builds under the *same file names, versions and
+    sizes*, and every nightly afterwards died on launch. Restore the published
+    file instead (the last healthy set is `5eb4386`, whose blobs are byte-identical
+    to the upstream releases — verified against the Modrinth sha512 for
+    `modernfix-forge-5.24.4+mc1.20.1.jar`); never reobfuscate or patch a jar by
+    hand, and never copy jars out of a dev run's remap output into the pack.
+    The dev client gets its own copies instead: `modules/gte-dev-runtime`
+    publishes the pack jars into `build/localMaven` as `gte.mods:<artifact>:<version>`
+    (`publishPackModsForDev`) because ModDevGradle only remaps SRG -> named for
+    **coordinate** dependencies — a jar resolved from `flatDir` is handed to the
+    run untouched, which is how this broke in the first place. Two traps when
+    touching that path: never declare a version-less `modLocalRuntime(name: ...)`
+    (Gradle answers it by enumerating versions from every repository), and keep
+    `gte.mods` excluded from the other repositories (otherwise each of the ~70
+    coordinates is probed against ~25 remotes before the local one is reached).
 
 ## Modpack Assembly (`gte/`) and Mod Versions
 
@@ -304,8 +329,9 @@ Project-specific guidance also lives in:
 - `.agents/skills/gte-multiblock-architecture/SKILL.md` - Multiblock 3D geometric modeling and pattern generation
 - `scripts/audit_*.py` - automatically enforced invariants (`audit_art`,
   `audit_dependencies`, `audit_docs`, `audit_mixins`, `audit_modids`,
-  `audit_submodules`, `audit_translations`), wired into CI. When a mistake class
-  needs a gate rather than another rule, add the audit script and wire it in.
+  `audit_pack_mappings`, `audit_submodules`, `audit_translations`), wired into CI.
+  When a mistake class needs a gate rather than another rule, add the audit
+  script and wire it in.
 - `.codex/rules.md` - detailed project rules
 - `README.md` - developer-facing quick start
 
