@@ -321,6 +321,12 @@ Non-negotiable:
   replaced and omitted two from August, so the prune step reported success while
   the ancient zips stayed on the rolling `nightly` release and kept being offered
   to users as the newest build.
+- Delete release assets by **id** (`gh api -X DELETE
+  repos/<owner>/<repo>/releases/assets/<id>`), not by name. An upload that is
+  interrupted leaves the asset in `state=starter`; the API still lists its name,
+  but `gh release delete-asset <tag> <name>` answers "asset ... not found in
+  release nightly" (exit 1), so a name-based prune warns and leaves it there
+  permanently. That is exactly how the two August zips survived every prune.
 - `.github/workflows/release-publish.yml` implements manual releases:
   dispatch with a version -> create `dev -> release` PR -> squash merge ->
   tag `v<version>` -> tag workflow publishes.
