@@ -164,10 +164,11 @@ jobs:
             build/artifacts/GTE-FullMod-*.zip
             build/artifacts/GTE-Server-*.zip
 
-      # Only this workflow's own previous output is replaced. The module jars and
-      # the nightly release notes on that prerelease come from sync-build.yml, so
-      # nothing here prunes "everything this run did not produce" - this job does
-      # not produce them.
+      # This workflow is the ONLY producer of the rolling `nightly` prerelease:
+      # sync-build.yml deliberately does not touch it (a merge push used to
+      # replace it, and it rebuilt the pack this job exists to build). So the
+      # rolling tag, the pack zips and the notes for those zips are all owned
+      # here. Module jars are not built here and are therefore left alone.
       - name: Publish LazyPack to the Rolling 'nightly' Prerelease
         if: inputs.publish
         env:
@@ -180,16 +181,47 @@ jobs:
             Write-Host "::error::No pack zips in build/artifacts; refusing to publish nothing."
             exit 1
           }
+          Write-Host "Publishing $($files.Count) pack zip(s) to the rolling 'nightly' prerelease:"
+          $files | ForEach-Object { Write-Host "  $(Split-Path $_ -Leaf)" }
 
-          $stale = @(gh release view nightly --repo "${{ github.repository }}" --json assets --jq '.assets[].name' 2>$null | Where-Object { $_ -like 'GTE-*-lazypack-*.zip' })
+          # Retarget the tag before touching the release: `gh release create
+          # --target` is only honoured when the tag does not exist yet, and a
+          # deleted release leaves refs/tags/nightly behind. A 404 here is
+          # expected half the time and makes gh write to stderr, so keep stderr
+          # on stderr ($ErrorActionPreference is already Continue) and let
+          # $LASTEXITCODE decide.
+          gh api "repos/${{ github.repository }}/git/refs/tags/nightly" 1>$null 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            gh api -X PATCH "repos/${{ github.repository }}/git/refs/tags/nightly" -f sha='${{ github.sha }}' -F force=true 1>$null
+          } else {
+            gh api -X POST "repos/${{ github.repository }}/git/refs" -f ref='refs/tags/nightly' -f sha='${{ github.sha }}' 1>$null
+          }
+          if ($LASTEXITCODE -eq 0) {
+            Write-Host "Rolling tag 'nightly' points at ${{ github.sha }}."
+          } else {
+            Write-Host "::warning::Could not move the 'nightly' tag; the release may reference an older commit."
+          }
+
+          # A rolling tag must show exactly one build. `gh release upload
+          # --clobber` replaces same-named assets but never removes the others,
+          # which is how zips from August were still sitting next to the current
+          # pack and being presented to users as the newest nightly. Prune the
+          # pack zips this run did not produce - and ONLY those: everything else
+          # on the release (module jars) comes from sync-build.yml.
+          $current = $files | ForEach-Object { Split-Path $_ -Leaf }
+          $existing = @(gh release view nightly --repo "${{ github.repository }}" --json assets --jq '.assets[].name' 2>$null)
+          $stale = @($existing | Where-Object { ($_ -like 'GTE-FullMod-*.zip' -or $_ -like 'GTE-Server-*.zip') -and $current -notcontains $_ })
           foreach ($name in $stale) {
             gh release delete-asset nightly $name --repo "${{ github.repository }}" --yes 1>$null 2>$null
-            if ($LASTEXITCODE -eq 0) { Write-Host "  removed stale $name" }
+            if ($LASTEXITCODE -eq 0) { Write-Host "  pruned stale pack zip $name" }
+            else { Write-Host "::warning::Could not remove stale asset $name (exit $LASTEXITCODE)." }
           }
 
           gh release view nightly --repo "${{ github.repository }}" 1>$null 2>$null
           if ($LASTEXITCODE -eq 0) {
             gh release upload nightly --repo "${{ github.repository }}" $files --clobber
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            gh release edit nightly --repo "${{ github.repository }}" --title "GregTech Easy LazyPack $version" --prerelease
             if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
             Write-Host "Uploaded LazyPack $version to the existing 'nightly' prerelease."
           } else {

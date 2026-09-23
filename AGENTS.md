@@ -297,20 +297,23 @@ Non-negotiable:
 ## CI / Release
 
 - `.github/workflows/sync-build.yml` builds all modules in one Gradle call,
-  runs gtm-reborn tests/game tests, translates language files, and packs
-  Full-Mod & Server artifacts. It publishes rolling nightlies and tags. It has
-  **no cron**: it runs on pull requests and on pushes to `main`/`master`/`dev`/
-  `satou` (plus tags and manual dispatch), because a daily schedule re-ran the
-  identical pipeline on an unchanged tree one day after the merge had already
-  run it.
-- `.github/workflows/lazypack.yml` is the manual, pack-only job (dispatch only):
-  it checks out the tree without submodules and with no JDK, runs the two pack
-  gates, builds the Full-Mod and Server LazyPacks with
-  `scripts/build_full_mod_pack.py` / `build_server_pack.py`, verifies the zips,
-  uploads them, and can publish them to the rolling `nightly` prerelease. Use it
-  when only the pack needs rebuilding. Do not add Gradle, translation, Maven or
-  packwiz work to it — that belongs to sync-build.yml and to the manual
-  CurseForge workflow.
+  runs gtm-reborn tests/game tests and packs Full-Mod & Server artifacts. It
+  creates tag/versioned releases and uploads the built jars as workflow
+  artifacts; it must **never** publish the rolling `nightly` prerelease (see
+  below). It has **no cron**: it runs on pull requests and on pushes to
+  `main`/`master`/`dev`/`satou` (plus tags and manual dispatch), because a daily
+  schedule re-ran the identical pipeline on an unchanged tree one day after the
+  merge had already run it.
+- `.github/workflows/lazypack.yml` is the manual, pack-only job (dispatch only)
+  and the **only** producer of the rolling `nightly` prerelease: it checks out
+  the tree without submodules and with no JDK, runs the two pack gates, builds
+  the Full-Mod and Server LazyPacks with `scripts/build_full_mod_pack.py` /
+  `build_server_pack.py`, verifies the zips, uploads them, retargets the
+  `nightly` tag at the commit it built from, and prunes the pack zips it did not
+  produce — and only those, because the module jars on that release belong to
+  sync-build.yml. `publish=false` skips the release entirely. Use it when the
+  pack needs rebuilding; do not add Gradle, translation, Maven or packwiz work to
+  it — that belongs to sync-build.yml and to the manual CurseForge workflow.
 - `.github/workflows/release-publish.yml` implements manual releases:
   dispatch with a version -> create `dev -> release` PR -> squash merge ->
   tag `v<version>` -> tag workflow publishes.
