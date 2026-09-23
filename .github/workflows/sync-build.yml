@@ -272,6 +272,19 @@ jobs:
         run: python scripts/audit_modids.py
 
       # ──────────────────────────────────────────────
+      # Gate 1c: Production-mapping Lint (0.3s)
+      # ──────────────────────────────────────────────
+      # A jar built with Mojang mappings (a "dev" jar - exactly what the dev
+      # runtime produces when it remaps the pack SRG -> named) cannot resolve a
+      # single vanilla member on a production install. Commit 9a67970 replaced
+      # 94 of the pack's 99 third-party jars with dev builds of the same file
+      # names, and the pack then died on launch at the first @Shadow of a vanilla
+      # field. File name, version and size are all identical to the real
+      # artifact, so this is the only check that can see the difference.
+      - name: "[Gate 1c] Pack Production-Mapping Lint"
+        run: python scripts/audit_pack_mappings.py
+
+      # ──────────────────────────────────────────────
       # Gate 2: Mixin Anti-Crash AST Lint (0.3s)
       # ──────────────────────────────────────────────
       - name: "[Gate 2] Mixin Anti-Crash AST Lint"
@@ -584,6 +597,12 @@ jobs:
       # that ships is assembled from it.
       - name: "[Gate 1b] Verify Pack modId Uniqueness After Copy"
         run: python scripts/audit_modids.py
+
+      # The copy step is also the only other place a non-production jar could
+      # enter the pack (a module whose dev output leaks into build/libs). Same
+      # check as Gate 1c, on what this run actually produced.
+      - name: "[Gate 1c] Verify Pack Production Mapping After Copy"
+        run: python scripts/audit_pack_mappings.py
 
       # ──────────────────────────────────────────────
       # Localization is NOT part of this workflow
