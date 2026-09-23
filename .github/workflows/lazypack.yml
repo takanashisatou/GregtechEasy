@@ -71,13 +71,13 @@ jobs:
       PYTHONUTF8: '1'
 
     steps:
-      # fetch-depth 1 and NO submodules: the pack is self-contained, and skipping
-      # the submodule clone is most of the difference between this job and the
-      # build pipeline it exists to avoid.
+      # fetch-depth 0 and NO submodules: the pack is self-contained and needs no
+      # submodule clone, but Gate 1d compares submodule gitlinks against the commit
+      # that last built each jar, so root commit history is required.
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1
+          fetch-depth: 0
 
       - name: Set up Python 3.11
         uses: actions/setup-python@v5
