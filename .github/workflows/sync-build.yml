@@ -31,8 +31,11 @@ on:
       - '.github/workflows/docs-deploy.yml'
       - '.github/workflows/translate.yml'
       - '**.md'
-  schedule:
-    - cron: '0 2 * * *' # Daily Nightly build at 02:00 UTC
+  # No `schedule:` here on purpose. The daily cron used to run this whole
+  # pipeline - submodules, three modules, GameTest, packaging, publishing - one
+  # day after the merge that had already run all of it on the pull request, which
+  # is minutes of duplicated work for a tree that had not changed. Rebuilding just
+  # the pack is a manual, pack-only job: .github/workflows/lazypack.yml.
   workflow_dispatch:
     inputs:
       channel:
