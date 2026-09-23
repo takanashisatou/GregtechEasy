@@ -81,3 +81,9 @@ gte/overrides/mods/*-dev-slim.jar
 
 # Player name chosen on first run of the Lazy Pack launcher
 .gte_username
+
+# Session handoff notes. These describe wherever the work happened to be at the
+# end of one sitting - pending PRs, the state of a release, network workarounds
+# on one machine - which is not a repository invariant and goes stale within days.
+# The durable rules live in AGENTS.md, which is tracked.
+HANDOFF.md
