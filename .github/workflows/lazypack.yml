@@ -215,18 +215,28 @@ jobs:
           # it had just replaced and did not list the August ones at all, so the
           # August zips survived the prune - the same snapshot is why
           # sync-build.yml's old prune step never removed them either.
+          #
+          # Delete by ASSET ID, not by name. Those two August assets were left in
+          # state=starter by an upload that never finished, and for those
+          # `gh release delete-asset <tag> <name>` answers "asset ... not found in
+          # release nightly" (exit 1) even though the API lists the name - so a
+          # name-based prune warns and leaves them in place forever.
           $current = $files | ForEach-Object { Split-Path $_ -Leaf }
           $releaseId = gh api "repos/${{ github.repository }}/releases/tags/nightly" --jq '.id' 2>$null
-          $existing = @()
+          $assets = @()
           if ($releaseId) {
-            $existing = @(gh api "repos/${{ github.repository }}/releases/$releaseId/assets?per_page=100" --jq '.[].name' 2>$null)
+            $assets = @(gh api "repos/${{ github.repository }}/releases/$releaseId/assets?per_page=100" --jq '.[] | "\(.id)`t\(.name)`t\(.state)"' 2>$null)
           }
-          Write-Host "Release carries $($existing.Count) asset(s); this build produced $($current.Count) pack zip(s)."
-          $stale = @($existing | Where-Object { ($_ -like 'GTE-FullMod-*.zip' -or $_ -like 'GTE-Server-*.zip') -and $current -notcontains $_ })
-          foreach ($name in $stale) {
-            gh release delete-asset nightly $name --repo "${{ github.repository }}" --yes 1>$null 2>$null
-            if ($LASTEXITCODE -eq 0) { Write-Host "  pruned stale pack zip $name" }
-            else { Write-Host "::warning::Could not remove stale asset $name (exit $LASTEXITCODE)." }
+          Write-Host "Release carries $($assets.Count) asset(s); this build produced $($current.Count) pack zip(s)."
+          $stale = @($assets | Where-Object {
+            $row = $_ -split "`t"
+            ($row[1] -like 'GTE-FullMod-*.zip' -or $row[1] -like 'GTE-Server-*.zip') -and $current -notcontains $row[1]
+          })
+          foreach ($row in $stale) {
+            $parts = $row -split "`t"
+            gh api -X DELETE "repos/${{ github.repository }}/releases/assets/$($parts[0])" 1>$null 2>$null
+            if ($LASTEXITCODE -eq 0) { Write-Host "  pruned stale pack zip $($parts[1]) (state=$($parts[2]))" }
+            else { Write-Host "::warning::Could not remove stale asset $($parts[1]) (exit $LASTEXITCODE)." }
           }
 
           gh release view nightly --repo "${{ github.repository }}" 1>$null 2>$null
