@@ -212,9 +212,16 @@ What writes that directory:
    `reobfJar` (`modules/*/gradle/scripts/jars.gradle`); it declares the **same
    modId and version** as the jar it feeds, so publishing or packing it puts a
    duplicate the loader cannot even resolve by version in front of users.
-2. `translate.yml` → "Commit and Direct Push" runs `git add -A` and commits.
-   That is how freshly built jars reach git, and why a commit whose message says
-   `i18n: Auto-update ...` can contain jar binaries.
+2. Nothing, today. `translate.yml` → "Commit and Direct Push" runs `git add -A`
+   and commits the root tree, and until 2026-09-23 this section claimed that is
+   how freshly built jars reach git. It is not, and it never could be:
+   `translate.yml` runs no Gradle, so it never produces a jar, and it only ever
+   sees what git already holds. That recipe was tested and failed — see
+   "Keeping the committed jars current" below, which also carries the pending
+   D1-a fix. The one thing that section got right is that
+   `git add -A` is why a commit whose message says `i18n: Auto-update ...` can
+   contain jar binaries: it happened while translation ran right after a build on
+   the same runner, which is not the normal case.
 
 So this is the "Lazy Pack" assembly mode: everything under `gte/` is zipped
 verbatim by `scripts/build_full_mod_pack.py`, which fails on an empty mods dir,
@@ -223,48 +230,96 @@ on a count mismatch inside the zip, and on a top-level `mods/` entry
 a jar needs no constant updated). `scripts/build_curseforge_pack.py` ships a
 pure `manifest.json` and forbids jars in `overrides/` entirely.
 
-### Keeping the committed jars current (run `translate.yml` after `sync-build`)
+### Keeping the committed jars current — NOT SOLVED YET, do D1-a (next task)
 
-Neither workflow commits `gte/overrides/mods/` on its own, and this is the step
-people forget:
+**Status: the pack cannot currently be released.** `gte/overrides/mods/` holds
+module jars built 2026-09-01 while the submodule pointers have moved on, and no
+mechanism exists that puts a freshly built jar into git. Gate 1d
+(`scripts/audit_module_jar_freshness.py`) therefore fails in `lazypack.yml` and
+refuses to build — correctly, but it means `nightly` is frozen.
 
-- `sync-build.yml` **writes** the jars (its "Copy Built Mod Jars" step) but has
-  no `git add` anywhere, so the jars it builds stay uncommitted in the runner and
-  vanish with it.
-- `translate.yml` is the only workflow that runs `git add -A` on the root tree.
-  It checks out submodules but runs **no Gradle**, so it never *produces* a jar —
-  it only commits what the working tree already contains.
+Why the obvious fix does not work. The previously documented recipe was "let
+`sync-build.yml` build, then dispatch `translate.yml` to commit the jars". It was
+tested on 2026-09-23 and it **cannot work**, because CI runners do not share a
+filesystem:
 
-So a fresh module jar reaches git only when `translate.yml` runs **after** a
-`sync-build.yml` run has left the jar on disk. The LazyPack job then reads that
-committed jar. The order is the whole mechanism:
+```
+sync-build run  -> runner A: writes fresh jars into gte/overrides/mods/   (its own disk)
+                              run ends, runner A is destroyed, files are gone
+translate   run -> runner B: fresh checkout of git  -> only the OLD jars exist
+lazypack    run -> runner C: fresh checkout of git  -> still the old jars
+```
+
+`translate.yml` runs no Gradle at all (checkout -> setup python -> pip ->
+`opencode_translate.py` -> commit), so it can never *produce* a jar. Its
+`git add -A` only stages what the working tree already holds, and the working tree
+only ever holds what git has. The proof, from the translate run on `988e3b5`:
+
+```
+Root changes:  M gte/overrides/config/openloader/resources/quests/assets/gte/lang/en_us.json
+```
+
+— one translated language file, zero jars. Dispatching `lazypack.yml` afterwards
+gave `✗ [Gate 1d] Module Jar Freshness Lint`, which is the gate working.
+
+#### D1-a: let the run that builds the jars also commit them
+
+`sync-build.yml` is the only job that ever has the new jars on disk. Give it the
+commit, instead of asking a later, differently-located job to do it:
+
+1. Add a final step to `sync-build.yml`, after "Copy Built Mod Jars to Overrides
+   and Artifacts", that checks whether the copy changed anything:
+   `git status --porcelain -- gte/overrides/mods/`. The copy step already deletes
+   every jar it is about to rewrite (matched by each module's `base.archivesName`
+   prefix), so a change here means exactly "the module jars were rebuilt".
+2. If it did change, commit those jars on a derived branch
+   (`chore/refresh-module-jars-<run_id>`) and open a PR against `main`.
+   **Not a direct push** — rule 6 now has branch protection behind it, and
+   `translate.yml`'s "Commit and Direct Push" is the standing proof that a direct
+   push to `main` is rejected.
+3. Guard it: run only for pushes to `main`/`master`, never for a `pull_request`
+   event, and skip when the diff is empty. `sync-build.yml` groups runs per branch
+   and cancels in progress, so a PR opened by a cancelled run would reference a
+   commit nobody can see.
+4. Expect the loop to converge. Merging the jar PR changes
+   `gte/overrides/mods/`, which re-triggers `sync-build.yml`; that run starts from
+   the jars it just committed, so its copy produces no diff and it opens no PR.
+   Two runs per release, not an endless chain.
+
+D1-a's finishing condition: open the jar PR and confirm **Gate 1d is green on it**
+(that PR is the first commit where the shipped jars match the pointer). Then
+`lazypack.yml` builds.
+
+Considered and rejected: having `lazypack.yml` fetch the jars from the last
+successful `sync-build` run's workflow artifact over the GitHub API. It works, but
+it puts the pack's contents outside git, so `gte/overrides/mods/` would stop being
+a reproducible description of what shipped, and Gate 1d would have nothing to
+check against.
+
+#### Also fix: `translate.yml`'s direct push
+
+`translate.yml` -> "Commit and Direct Push" (`git push` to `main`, line ~237) now
+fails every run under the new branch protection. Switch it to the PR path its
+`create_pr` input already implements, or to `workflow_call`-only use. This is
+independent of D1-a but currently leaves translation runs red.
+
+#### The order that will work once D1-a lands
 
 1. merge the submodule PR, then the root PR that bumps its pointer;
-2. let `sync-build.yml` run green on that pointer — it compiles the modules and
-   copies the fresh jars into `gte/overrides/mods/` in its own runner;
-3. **dispatch `translate.yml`** on that same commit — its `git add -A` picks up
-   those jars and commits them;
-4. only then dispatch `lazypack.yml`.
+2. `sync-build.yml` runs — compiles, copies, and **opens a jar-refresh PR**;
+3. merge that jar PR (Gate 1d is green on it);
+4. dispatch `lazypack.yml`.
 
-Two traps:
+No step depends on a human remembering something unrelated to what they were
+doing, which was the fatal flaw in the tested-and-rejected recipe.
 
-- **Steps 2 and 3 race.** They are independent workflows on the same tree. If
-  `translate.yml` finishes before `sync-build.yml` has written the jars, it
-  commits nothing and the jars stay stale — `sync-build.yml` pushed its copy
-  after the train left. Run `translate.yml` only once the `sync-build.yml` run
-  for that commit has completed.
-- **A submodule pointer bump does not carry its jar.** `gte/overrides/mods/`
-  holds binaries, so git sees no change when the module's code moves. Between
-  step 1 and step 3 the tree genuinely contains a stale pack, and
-  Gate 1d (`scripts/audit_module_jar_freshness.py`) will say so — that is the
-  gate working, not a false alarm. It is why the gate lives in `lazypack.yml`
-  (which ships the pack) and not in `sync-build.yml` (which would then fail every
-  pointer-bump PR while holding the correct jars in its own working tree).
+#### Why the gate is in `lazypack.yml` and not `sync-build.yml`
 
-Step 3 is the one a human has to remember, and forgetting it is silent: the pack
-keeps building, the version string never changes, and only Gate 1d notices. If it
-keeps being forgotten, give step 3 its own automation rather than a stronger
-sentence here (rule 15).
+Gate 1d compares the *committed* jars against the submodule pointers, and
+`sync-build.yml` compiles but does not commit. In that job the working tree holds
+correct jars that git lacks, so the gate would go red on every pointer bump while
+the tree in front of it is right — training people to ignore it. It belongs to the
+job that ships the pack. That stays true after D1-a.
 
 Version knobs — change these, never a jar:
 
@@ -348,6 +403,12 @@ Non-negotiable:
    the only guard, and it was just violated by 8 consecutive unreviewed commits
    on 2026-09-22/23: each push re-triggered the release workflow and cancelled
    the previous run, so not one of them was ever covered by a completed build.
+   As of 2026-09-24 `main` **does** have branch protection (required PR required
+   status check `PR Validation`, no force push, no deletion, enforced for admins
+   too), so the server now refuses a direct push. It was still broken twice by
+   hand before that: the 8 commits above, and an agent pushing a CI tweak
+   straight to `main` on 2026-09-24 because it never re-checked which branch it
+   was on. Always confirm `git branch --show-current` before committing.
 7. Do not push while a CI run on the same branch is still in flight unless
    cancelling it is what you intend. `sync-build.yml` groups runs per branch, so
    each push silently cancels the previous one — that is how 4 consecutive runs
@@ -380,9 +441,10 @@ Non-negotiable:
   it — that belongs to sync-build.yml and to the manual CurseForge workflow.
   Note what it does **not** do: it compiles nothing, so it ships whatever jars are
   committed. Gate 1d is what makes that safe — without it a stale module jar
-  reaches players silently. The job also leaves the tree untouched, so the jars
-  sync-build copies into `gte/overrides/mods/` still have to be committed by
-  something else (today: only `translate.yml`'s `git add -A`).
+  reaches players silently. It also never commits anything, which is why it cannot
+  refresh the jars itself; as of 2026-09-24 **nothing does**, so it currently
+  refuses to build. See "Keeping the committed jars current" above for the D1-a
+  fix that gives `sync-build.yml` the commit.
 - When you need a release's asset list from CI, read it through the paginated
   REST endpoint (`repos/<owner>/<repo>/releases/<id>/assets?per_page=100`), never
   through `gh release view --json assets`: the latter returns a capped, stale
