@@ -260,6 +260,18 @@ jobs:
         run: python scripts/audit_submodules.py
 
       # ──────────────────────────────────────────────
+      # Gate 1b: Pack Duplicate modId Lint (1s)
+      # ──────────────────────────────────────────────
+      # gte/overrides/mods/ is CI-owned, so nothing stops a stale inherited jar
+      # from sitting next to the one this repository builds under the same modId.
+      # `gtnn-1.20.1-1.3.5.3.jar` (upstream GT--, inherited from the pre-monorepo
+      # pack) did exactly that next to the CE jar for weeks: Forge loads mod ids,
+      # not file names, so one of them silently loses all of its content.
+      # Cheap enough to run before the 40-minute build rather than after it.
+      - name: "[Gate 1b] Pack Duplicate modId Lint"
+        run: python scripts/audit_modids.py
+
+      # ──────────────────────────────────────────────
       # Gate 2: Mixin Anti-Crash AST Lint (0.3s)
       # ──────────────────────────────────────────────
       - name: "[Gate 2] Mixin Anti-Crash AST Lint"
@@ -522,8 +534,16 @@ jobs:
           New-Item -ItemType Directory -Force -Path gte/overrides/mods, build/artifacts | Out-Null
 
           # Every publishable jar becomes a release asset...
+          #
+          # `-dev-embeds` is the `jarWithEmbeds` intermediate the modules register
+          # in gradle/scripts/jars.gradle: named classes plus the SRG jarJar
+          # embeds, built only to feed reobfJar. It declares the SAME modId and
+          # version as the jar it feeds, so publishing it puts a second `gtceu` /
+          # `gtnn` in front of users, where the id collision has no version
+          # ordering to resolve it.
           $publishable = Get-ChildItem -Path modules/*/build/libs -Filter "*.jar" -Recurse | Where-Object {
-            $_.Name -notlike "*-sources.jar" -and $_.Name -notlike "*-dev.jar" -and $_.Name -notlike "*-all.jar"
+            $_.Name -notlike "*-sources.jar" -and $_.Name -notlike "*-dev.jar" -and
+            $_.Name -notlike "*-dev-embeds.jar" -and $_.Name -notlike "*-all.jar"
           }
           $publishable | ForEach-Object { Copy-Item $_.FullName -Destination build/artifacts/ -Force }
 
@@ -534,15 +554,20 @@ jobs:
           # a slim one, and aborts before the main menu with:
           #   Missing or unsupported mandatory dependencies:
           #     Mod ID: 'ldlib', Requested by: 'gtceu' ... [MISSING]
+          # -dev-embeds is the same hazard without the missing dependency: a
+          # duplicate id that silently wins or loses against the real jar. Gate 1b
+          # below fails the run if any such jar reaches this directory.
           $runnable = $publishable | Where-Object {
-            $_.Name -notlike "*-slim.jar" -and $_.Name -notlike "*-dev-slim.jar"
+            $_.Name -notlike "*-slim.jar" -and $_.Name -notlike "*-dev-slim.jar" -and
+            $_.Name -notlike "*-dev-embeds.jar"
           }
           $runnable | ForEach-Object { Copy-Item $_.FullName -Destination gte/overrides/mods/ -Force }
 
-          # Two slim jars were committed to git by an earlier i18n step; drop any
-          # that are still lying around so the pack we ship is actually playable.
+          # Non-runnable jars were committed to git by earlier steps before (slim
+          # builds, and a `-dev-embeds` intermediate); drop any that are still
+          # lying around so the pack we ship is actually playable.
           Get-ChildItem gte/overrides/mods -Filter "*.jar" | Where-Object {
-            $_.Name -like "*-slim.jar" -or $_.Name -like "*-dev-slim.jar"
+            $_.Name -like "*-slim.jar" -or $_.Name -like "*-dev-slim.jar" -or $_.Name -like "*-dev-embeds.jar"
           } | ForEach-Object {
             Write-Host "::warning::Removing non-runnable jar from pack: $($_.Name)"
             Remove-Item $_.FullName -Force
@@ -550,6 +575,15 @@ jobs:
 
           Write-Host "Listing gte/overrides/mods contents:"
           Get-ChildItem gte/overrides/mods
+
+      # This step is what WRITES gte/overrides/mods/, so it is also the only
+      # place a duplicate modId can appear without a human touching a jar: a
+      # module still building under another module's modId, or a rename that
+      # leaves both the old and the new artifact in the tree. Gate 1b checked
+      # what was committed; check what this run just produced before the pack
+      # that ships is assembled from it.
+      - name: "[Gate 1b] Verify Pack modId Uniqueness After Copy"
+        run: python scripts/audit_modids.py
 
       # ──────────────────────────────────────────────
       # Localization is NOT part of this workflow
@@ -642,7 +676,8 @@ jobs:
                 # here so a future rewrite in PowerShell cannot ship silently.
                 $backslash = @($archive.Entries | Where-Object { $_.FullName -like '*\*' })
                 $slim = @($archive.Entries | Where-Object { $_.FullName -match '-(dev-)?slim\.jar$' })
-                Write-Host "$($zip.Name): mods=$($mods.Count) nested=$($nested.Count) backslash=$($backslash.Count) slim=$($slim.Count)"
+                $devEmbeds = @($archive.Entries | Where-Object { $_.FullName -match '-dev-embeds\.jar$' })
+                Write-Host "$($zip.Name): mods=$($mods.Count) nested=$($nested.Count) backslash=$($backslash.Count) slim=$($slim.Count) devEmbeds=$($devEmbeds.Count)"
                 if ($mods.Count -eq 0) {
                   Write-Host "::error::$($zip.Name) has no mods matching $($expected[$pattern]); it would install/boot with no mods."
                   $bad = $true
@@ -659,6 +694,13 @@ jobs:
                 # ldlib and abort before the main menu.
                 if ($slim.Count -gt 0) {
                   Write-Host "::error::$($zip.Name) ships slim jars; Forge would fail with 'Mod ID: ldlib ... [MISSING]'."
+                  $bad = $true
+                }
+                # A jarWithEmbeds intermediate in mods/ declares the same modId as
+                # the real jar it was built to feed, so Forge loads whichever it
+                # finds first and the other one's content disappears.
+                if ($devEmbeds.Count -gt 0) {
+                  Write-Host "::error::$($zip.Name) ships '-dev-embeds.jar' intermediates; they duplicate the real jars' modIds."
                   $bad = $true
                 }
               } finally {
