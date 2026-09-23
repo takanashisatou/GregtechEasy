@@ -148,8 +148,9 @@ you actually need breakpoints.
 15. When a check keeps getting violated by hand, add an automated gate instead
     of a stronger sentence. The repository already has `scripts/audit_art.py`,
     `audit_dependencies.py`, `audit_docs.py`, `audit_mixins.py`,
-    `audit_submodules.py` and `audit_translations.py` wired into CI; a
-    duplicate-`modId` audit is the one still missing.
+    `audit_submodules.py` and `audit_translations.py` wired into CI; the
+    duplicate-`modId` audit (`scripts/audit_modids.py`, Gate 1b) was the last
+    one added, because rule 14 kept being broken by hand.
 
 ## Modpack Assembly (`gte/`) and Mod Versions
 
@@ -195,10 +196,11 @@ Facts behind these rules, so they are not rediscovered the hard way:
   `mod_version` is already `1.3.10` while ours is `1.3.5.1`. Merging upstream is
   a real conflict resolution task — never bump the submodule pointer to a commit
   whose version was not merged into the branch the pack is built from.
-- `gtnn-1.20.1-1.3.5.3.jar` is a stale upstream GT-- release inherited from the
-  pre-monorepo pack (commit `718aded`, 2026-08-19) that declares the same
-  `modId = gtnn` as the CE jar CI builds. It must not sit in
-  `gte/overrides/mods/`.
+- `gtnn-1.20.1-1.3.5.3.jar` was a stale upstream GT-- release inherited from the
+  pre-monorepo pack (commit `718aded`, 2026-08-19) that declared the same
+  `modId = gtnn` as the CE jar CI builds. It was deleted, and
+  `scripts/audit_modids.py` (Gate 1b) now fails the build if any two jars in
+  `gte/overrides/mods/` declare the same id again.
 
 ## Debugging a Broken Pack
 
@@ -297,9 +299,9 @@ Project-specific guidance also lives in:
 - `.agents/skills/gte-multiblock/SKILL.md` - GTE multiblock structure creation, registry, and recipe modifiers
 - `.agents/skills/gte-multiblock-architecture/SKILL.md` - Multiblock 3D geometric modeling and pattern generation
 - `scripts/audit_*.py` - automatically enforced invariants (`audit_art`,
-  `audit_dependencies`, `audit_docs`, `audit_mixins`, `audit_submodules`,
-  `audit_translations`), wired into CI. When a mistake class needs a gate rather
-  than another rule, add the audit script and wire it in.
+  `audit_dependencies`, `audit_docs`, `audit_mixins`, `audit_modids`,
+  `audit_submodules`, `audit_translations`), wired into CI. When a mistake class
+  needs a gate rather than another rule, add the audit script and wire it in.
 - `.codex/rules.md` - detailed project rules
 - `README.md` - developer-facing quick start
 
