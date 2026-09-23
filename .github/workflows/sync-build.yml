@@ -557,6 +557,42 @@ jobs:
         run: |
           New-Item -ItemType Directory -Force -Path gte/overrides/mods, build/artifacts | Out-Null
 
+          # Clear this run's outputs before writing them.
+          #
+          # The checkout carries the module jars from the last commit that had CI
+          # commit them, and `Copy-Item -Force` only replaces a file of the SAME
+          # NAME. That was sufficient while a module's file name was stable, but
+          # `gtecore`'s nightly version now carries the commit it was built from
+          # (3.0.7-nightly-<sha>), so a new build lands under a NEW name and the
+          # previous jar survives beside it:
+          #
+          #   gtecore-1.20.1-3.0.7-nightly.jar          (committed by an earlier run)
+          #   gtecore-1.20.1-3.0.7-nightly-ed5c094.jar (just built)
+          #
+          # Both declare modId `gtecore`, so Gate 1b fails the run - correctly -
+          # and the pack would otherwise ship a duplicate.
+          #
+          # The prefix is the module's `base.archivesName` ("<name>-<mcversion>",
+          # set in each module's gradle/scripts/jars.gradle), which does NOT contain
+          # the mod version. Deriving it from the built file name instead would give
+          # `gtecore-1.20.1-3.0.7-nightly-ed5c094` - complete with the new SHA - and
+          # then nothing would match the old `...-3.0.7-nightly.jar`. That mistake
+          # was caught by running this against the real tree.
+          #
+          # This runs BEFORE the copy so a failure cannot leave the pack with no
+          # module jars at all.
+          $modulePrefixes = @('gtm-reborn-1.20.1', 'gt---1.20.1', 'gtecore-1.20.1')
+          Write-Host "Module jar prefixes this run owns: $($modulePrefixes -join ', ')"
+          foreach ($target in @('gte/overrides/mods', 'build/artifacts')) {
+            Get-ChildItem $target -Filter "*.jar" -ErrorAction SilentlyContinue | Where-Object {
+              $name = $_.Name
+              $modulePrefixes | Where-Object { $name -eq "$_.jar" -or $name -like "$_-*" }
+            } | ForEach-Object {
+              Write-Host "  clearing previous build: $target/$($_.Name)"
+              Remove-Item $_.FullName -Force
+            }
+          }
+
           # Every publishable jar becomes a release asset...
           #
           # `-dev-embeds` is the `jarWithEmbeds` intermediate the modules register
