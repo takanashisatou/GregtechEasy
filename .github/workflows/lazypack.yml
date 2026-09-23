@@ -221,20 +221,32 @@ jobs:
           # `gh release delete-asset <tag> <name>` answers "asset ... not found in
           # release nightly" (exit 1) even though the API lists the name - so a
           # name-based prune warns and leaves them in place forever.
+          #
+          # Two PowerShell traps this step already fell into, both silent:
+          # a backtick escape inside a SINGLE-quoted string stays a literal
+          # backtick (so the old `--jq '...`t...'` produced rows with "`t" instead
+          # of tabs and nothing ever matched), and the id captured from a native
+          # command can carry a stray CR that corrupts the URL built from it.
+          # Hence @tsv for the row separator and .Trim() on the id - and the
+          # "Release carries N asset(s)" line below, which is how the 0-asset
+          # version of this bug announced itself instead of passing silently.
           $current = $files | ForEach-Object { Split-Path $_ -Leaf }
-          $releaseId = gh api "repos/${{ github.repository }}/releases/tags/nightly" --jq '.id' 2>$null
+          $rawReleaseId = gh api "repos/${{ github.repository }}/releases/tags/nightly" --jq '.id' 2>$null
+          $releaseId = "$rawReleaseId".Trim()
           $assets = @()
           if ($releaseId) {
-            $assets = @(gh api "repos/${{ github.repository }}/releases/$releaseId/assets?per_page=100" --jq '.[] | "\(.id)`t\(.name)`t\(.state)"' 2>$null)
+            $assets = @(gh api "repos/${{ github.repository }}/releases/$releaseId/assets?per_page=100" --jq '.[] | [.id, .name, .state] | @tsv' 2>$null)
+          } else {
+            Write-Host "::warning::Could not resolve the 'nightly' release id; skipping the stale-asset prune."
           }
-          Write-Host "Release carries $($assets.Count) asset(s); this build produced $($current.Count) pack zip(s)."
+          Write-Host "Release id '$releaseId' carries $($assets.Count) asset(s); this build produced $($current.Count) pack zip(s)."
           $stale = @($assets | Where-Object {
             $row = $_ -split "`t"
             ($row[1] -like 'GTE-FullMod-*.zip' -or $row[1] -like 'GTE-Server-*.zip') -and $current -notcontains $row[1]
           })
           foreach ($row in $stale) {
             $parts = $row -split "`t"
-            gh api -X DELETE "repos/${{ github.repository }}/releases/assets/$($parts[0])" 1>$null 2>$null
+            gh api -X DELETE "repos/${{ github.repository }}/releases/assets/$($parts[0].Trim())" 1>$null 2>$null
             if ($LASTEXITCODE -eq 0) { Write-Host "  pruned stale pack zip $($parts[1]) (state=$($parts[2]))" }
             else { Write-Host "::warning::Could not remove stale asset $($parts[1]) (exit $LASTEXITCODE)." }
           }
