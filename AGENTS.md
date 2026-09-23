@@ -160,9 +160,13 @@ never treat its contents as the source of truth for what a mod's version is.
 What writes that directory:
 
 1. `sync-build.yml` → "Copy Built Mod Jars to Overrides and Artifacts" copies
-   `modules/*/build/libs/*.jar` (minus `-sources`, `-dev`, `-all`) into
-   `build/artifacts/`, copies the non-slim ones into `gte/overrides/mods/`, and
-   deletes leftover `*-slim.jar` / `*-dev-slim.jar`.
+   `modules/*/build/libs/*.jar` (minus `-sources`, `-dev`, `-dev-embeds`, `-all`)
+   into `build/artifacts/`, copies the fat jars into `gte/overrides/mods/`, and
+   deletes leftover `*-slim.jar` / `*-dev-slim.jar` / `*-dev-embeds.jar`.
+   `-dev-embeds` is the `jarWithEmbeds` intermediate that exists only to feed
+   `reobfJar` (`modules/*/gradle/scripts/jars.gradle`); it declares the **same
+   modId and version** as the jar it feeds, so publishing or packing it puts a
+   duplicate the loader cannot even resolve by version in front of users.
 2. `translate.yml` → "Commit and Direct Push" runs `git add -A` and commits.
    That is how freshly built jars reach git, and why a commit whose message says
    `i18n: Auto-update ...` can contain jar binaries.
