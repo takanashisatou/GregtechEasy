@@ -11,26 +11,34 @@ on:
       - 'v*'
       - 'alpha-*'
       - 'beta-*'
-    paths-ignore:
+    paths-ignore: &build_irrelevant_paths
       - 'docs/**'
       - 'mkdocs.yml'
       - 'requirements.txt'
       - '.github/workflows/docs-deploy.yml'
       - '.github/workflows/translate.yml'
       - '**.md'
+      # gte-dev-runtime is not part of this pipeline at all: the module steps
+      # touch only gtm-reborn / gt-- / gtecore, and copyOutputJars only reads
+      # those three build/libs. It is the local hot-debug runner (runFullPack)
+      # and produces nothing that ships or publishes. Rebuilding all three
+      # modules plus the Minecraft decompile for a dev-runtime edit is ~15
+      # minutes of work for a file this run never reads.
+      - 'modules/gte-dev-runtime/**'
+      # Build-time *inputs* are the modules and the pack tree. Python tooling
+      # under scripts/ runs at pack/release time (build_full_mod_pack.py, the
+      # audit gates) or as manual utilities, so editing a lint script must not
+      # schedule a compile of three Minecraft mods. .github/**
+      # deliberately stays out of this list: a sync-build.yml change is the one
+      # case where running the pipeline IS the test.
+      - 'scripts/**'
   pull_request:
     branches:
       - master
       - main
       - dev
       - satou
-    paths-ignore:
-      - 'docs/**'
-      - 'mkdocs.yml'
-      - 'requirements.txt'
-      - '.github/workflows/docs-deploy.yml'
-      - '.github/workflows/translate.yml'
-      - '**.md'
+    paths-ignore: *build_irrelevant_paths
   # No `schedule:` here on purpose. The daily cron used to run this whole
   # pipeline - submodules, three modules, GameTest, packaging, publishing - one
   # day after the merge that had already run all of it on the pull request, which
