@@ -314,6 +314,13 @@ Non-negotiable:
   sync-build.yml. `publish=false` skips the release entirely. Use it when the
   pack needs rebuilding; do not add Gradle, translation, Maven or packwiz work to
   it — that belongs to sync-build.yml and to the manual CurseForge workflow.
+- When you need a release's asset list from CI, read it through the paginated
+  REST endpoint (`repos/<owner>/<repo>/releases/<id>/assets?per_page=100`), never
+  through `gh release view --json assets`: the latter returns a capped, stale
+  snapshot of the release object. It once listed assets that had already been
+  replaced and omitted two from August, so the prune step reported success while
+  the ancient zips stayed on the rolling `nightly` release and kept being offered
+  to users as the newest build.
 - `.github/workflows/release-publish.yml` implements manual releases:
   dispatch with a version -> create `dev -> release` PR -> squash merge ->
   tag `v<version>` -> tag workflow publishes.
