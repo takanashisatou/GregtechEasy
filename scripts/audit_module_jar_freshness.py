@@ -225,7 +225,10 @@ def jar_declared_version(jar: Path) -> str:
 
 
 def expected_version(module_dir: Path) -> str:
-    text = (module_dir / "gradle.properties").read_text(encoding="utf-8")
+    props = module_dir / "gradle.properties"
+    if not props.is_file():
+        return ""
+    text = props.read_text(encoding="utf-8")
     match = re.search(rf"(?m)^\s*{PROPERTIES_VERSION_KEY}\s*=\s*(\S+)\s*$", text)
     return match.group(1) if match else ""
 
