@@ -827,7 +827,17 @@ jobs:
         # cancelled run would point at a commit nobody can see.
         if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         env:
-          GH_TOKEN: ${{ github.token }}
+          # GH_PAT preferred, same expression as "Trigger Docs Deploy Workflow".
+          #
+          # GITHUB_TOKEN cannot open a pull request unless the repository setting
+          # "Allow GitHub Actions to create and approve pull requests" is on, and it
+          # is off here: the first live run got the jars committed and pushed, then
+          # died on
+          #   GraphQL: GitHub Actions is not permitted to create or approve pull
+          #   requests (createPullRequest)
+          # with the branch left behind on the remote. A PAT scopes the permission to
+          # this one step instead of granting it to every workflow in the repository.
+          GH_TOKEN: ${{ secrets.GH_PAT != '' && secrets.GH_PAT || github.token }}
         run: |
           $changed = @(git status --porcelain -- gte/overrides/mods/)
           if ($changed.Count -eq 0) {
@@ -871,7 +881,13 @@ jobs:
           ) -join "`n"
           $body | Out-File -FilePath build/jar-pr-body.md -Encoding utf8
           gh pr create --repo "${{ github.repository }}" --base main --head $branch --title "chore(pack): refresh the module jars built from ${{ github.sha }}" --body-file build/jar-pr-body.md
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if ($LASTEXITCODE -ne 0) {
+            # The branch is already pushed at this point, so say so rather than
+            # making the next person re-derive it from a bare exit code.
+            Write-Host "::error::Could not open the jar refresh PR. The branch $branch is pushed and holds the rebuilt jars - open the PR from it by hand, or grant this workflow permission to open pull requests."
+            Write-Host "::error::Fix: set the repository secret GH_PAT to a token with the repo scope, or enable Settings -> Actions -> General -> 'Allow GitHub Actions to create and approve pull requests'."
+            exit $LASTEXITCODE
+          }
           Write-Host "Opened the jar refresh PR from $branch."
 
       # ──────────────────────────────────────────────
