@@ -43,23 +43,109 @@ obfuscation {
 // build/ where it cannot be committed by accident.
 def packModsDir = file("${rootDir}/gte/overrides/mods")
 def devModsRepoDir = file("${rootDir}/build/localMaven")
+
+// The dev runtime provides these through `modLocalRuntime(...)` coordinates above,
+// so the pack's copy of the same mod must be published into build/localMaven
+// instead. Keyed by the modId the jar DECLARES in META-INF/mods.toml - that is
+// what Forge loads by, and it is the only key that cannot collide by accident.
+//
+// Each value is the exact resource name in gradle/forge.versions.toml that the
+// `modLocalRuntime(...)` list below resolves, so `scripts/audit_dev_pack_parity.py`
+// can check this map against the shipped jars without guessing at spelling.
+//
+// It used to be keyed by a substring of the *file name* ("extendedae"), which
+// silently swallowed extendedae_plus-1.5.1.jar: a completely different mod
+// (modId `extendedae_plus`, not `expatternprovider`) whose name merely contains
+// the pin. The symptom was a dev run that was quietly one mod short of the pack.
+//
+// `packModsDevUnsafe` still matches file names on purpose: those entries are
+// name *prefixes* ("gtnn-" is the historical GT-- artifact stem, which is why
+// gt---1.20.1-1.3.5.1.jar must stay excluded), and a source-set-backed module
+// declares the same modId as the shipped jar, so a modId key would be ambiguous.
 def packModsAlreadyProvided = [
-    // provided above via maven modLocalRuntime coordinates
-    'appliedenergistics2', 'architectury', 'curios',
-    'gtmthings', 'guideme', 'jade', 'jei',
-    'kotlinforforge', 'kubejs', 'rhino',
-    'ldlib', 'configuration', 'ponder', 'flywheel',
-    'patchouli', 'botania', 'theoneprobe', 'cloth-config',
-    'ftb-library', 'ftb-teams', 'ftb-quests', 'ftb-chunks',
-    'ftb-ultimine', 'ftb-essentials', 'resourceful',
-    'sophisticatedcore', 'sophisticatedbackpacks', 'sophisticatedstorage',
-    'extendedae', 'ae2wtlib', 'ferritecore', 'glodium', 'item-filters',
-    'embeddium', 'oculus'
+    // modId -> version-catalog resource, kept in sync with the
+    // `modLocalRuntime(...)` list below.
+    'ae2'                     : 'ae2',
+    'architectury'            : 'architectury',
+    'cloth_config'            : 'clothconfig',
+    'configuration'           : 'configuration',
+    'curios'                  : 'curios',
+    'embeddium'               : 'embeddium',
+    'expatternprovider'       : 'extendedae',
+    'ferritecore'             : 'ferritecore',
+    'ftbchunks'               : 'ftbchunks',
+    'ftbessentials'           : 'ftbessentials',
+    'ftblibrary'              : 'ftblibrary',
+    'ftbquests'               : 'ftbquests',
+    'ftbteams'                : 'ftbteams',
+    'ftbultimine'             : 'ftbultimine',
+    'glodium'                 : 'glodium',
+    'gtmthings'               : 'gtmthings',
+    'guideme'                 : 'guideme',
+    'itemfilters'             : 'item-filters',
+    'jade'                    : 'jade',
+    'jei'                     : 'jei',
+    'kubejs'                  : 'kubejs',
+    'ldlib'                   : 'ldlib',
+    'oculus'                  : 'oculus',
+    'patchouli'               : 'patchouli',
+    'rhino'                   : 'rhino',
+    'sophisticatedbackpacks'  : 'sophisticatedbackpacks',
+    'sophisticatedcore'       : 'sophisticatedcore',
+    'sophisticatedstorage'    : 'sophisticatedstorage',
+    'ae2wtlib'                : 'ae2wtlib',
+    // Not present in gte/overrides/mods today (dev-only runtime libraries);
+    // listed so the map stays a complete picture of what the coordinates cover.
+    'botania'                 : 'botania',
+    'flywheel'                : 'flywheel',
+    'kotlinforforge'          : 'kotlinforforge',
+    'ponder'                  : 'ponder',
+    'resourcefullib'          : 'resourceful',
+    'resourcefulconfig'       : 'resourceful',
+    'theoneprobe'             : 'theoneprobe',
 ]
 def packModsDevUnsafe = [
     // replaced by sourceSet-backed mods{} mappings
     'gtm-reborn', 'gtecore', 'gtnn-', 'gt---'
 ]
+
+// modId (as declared by a jar's META-INF/mods.toml) -> why the dev runtime
+// refuses to load that jar. Empty for jars the dev runtime does load.
+def devRuntimeSkipReason = { File jar ->
+    def name = jar.name.toLowerCase()
+    if (packModsDevUnsafe.any { name.contains(it) }) {
+        return 'replaced by a sourceSet-backed mods{} entry'
+    }
+    def modIds = []
+    try {
+        def zip = new java.util.zip.ZipFile(jar)
+        try {
+            def entry = zip.getEntry('META-INF/mods.toml')
+            if (entry != null) {
+                def text = zip.getInputStream(entry).getText('UTF-8')
+                // [[mods]] sections only - never [[dependencies.*]] blocks.
+                def matcher = text =~ /(?m)^\s*modId\s*=\s*["']([^"']+)["']/
+                matcher.each { modIds << it[1] }
+            }
+        } finally {
+            zip.close()
+        }
+    } catch (Exception e) {
+        logger.warn(">> Could not read META-INF/mods.toml from ${jar.name} (${e.message}); falling back to a file-name match.")
+    }
+    if (modIds.isEmpty()) {
+        // Keep the historical behaviour for jars that declare no modId (Forge
+        // dedups mods.toml-less libraries by FILE NAME, so this is the correct
+        // key for them anyway). The separator is required so that, e.g.,
+        // `extendedae_plus` can never be matched by the `extendedae` pin again.
+        def fallback = packModsAlreadyProvided.values().find { pin ->
+            name == pin || name.startsWith("${pin}-") || name.startsWith("${pin}_")
+        }
+        return fallback == null ? null : "provided by the '${fallback}' coordinate"
+    }
+    def provided = modIds.find { packModsAlreadyProvided.containsKey(it) }
+    return provided == null ? null : "provided by the '${packModsAlreadyProvided[provided]}' coordinate"
+}
 
 /** [artifact, mavenVersion] for a pack jar name, or null when it does not parse. */
 def packModCoordinate = { String fileName ->
@@ -97,8 +183,7 @@ def publishPackModsForDev = tasks.register('publishPackModsForDev') {
         def published = 0
         def jars = (packModsDir.listFiles({ File f -> f.name.toLowerCase().endsWith('.jar') } as FileFilter) ?: new File[0]).sort { it.name }
         jars.each { jar ->
-            def lower = jar.name.toLowerCase()
-            if (packModsAlreadyProvided.any { lower.contains(it) } || packModsDevUnsafe.any { lower.contains(it) }) {
+            if (devRuntimeSkipReason(jar) != null) {
                 return
             }
             def coord = packModCoordinate(jar.name)
@@ -189,11 +274,7 @@ dependencies {
             if (!seen.add(jar.name)) {
                 return
             }
-            def name = jar.name.toLowerCase()
-            if (packModsAlreadyProvided.any { name.contains(it) }) {
-                return
-            }
-            if (packModsDevUnsafe.any { name.contains(it) }) {
+            if (devRuntimeSkipReason(jar) != null) {
                 return
             }
 

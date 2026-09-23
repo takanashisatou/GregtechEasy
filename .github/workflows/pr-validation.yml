@@ -1,0 +1,89 @@
+name: "GTE PR Validation"
+
+# ---------------------------------------------------------------------------
+# Why this workflow exists
+# ---------------------------------------------------------------------------
+# `main` requires status checks before a merge, and this is the check to require.
+#
+# sync-build.yml cannot be that check. It is ~15 minutes and it deliberately
+# skips two path families (docs/**, scripts/**, modules/gte-dev-runtime/**, and
+# anything else in its paths-ignore) because it never reads them. A pull request
+# that only touches, say, a lint script therefore reports NO check at all - and a
+# branch protection rule that requires one would wait forever on it: the PR could
+# never be merged, and the "fix" people would reach for is turning the rule off.
+#
+# So this job runs on EVERY pull request with no path filter, in seconds, and
+# reports one stable check. Require this, and a doc-only PR merges without
+# pretending a full mod build was relevant to it, while a PR that does touch
+# build inputs still runs sync-build alongside it.
+#
+# Keep it cheap and dependency-free: it must not become something to route
+# around. It lints the things sync-build cannot lint without running Gradle.
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pr-validation-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: "PR Validation"
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PyYAML
+        run: python -m pip install --quiet pyyaml
+
+      - name: Validate Workflow Files Parse
+        # Gate 2b (scripts/dump_workflow_run_steps.py) covers the PowerShell run
+        # steps of sync-build.yml, but a workflow whose YAML itself does not parse
+        # never reaches a runner, so GitHub reports no check at all and the PR sits
+        # with a silently missing status.
+        run: |
+          python -c "
+          import pathlib, sys, yaml
+          paths = sorted(pathlib.Path('.github/workflows').glob('*.yml'))
+          bad = []
+          for path in paths:
+              try:
+                  yaml.safe_load(path.read_text(encoding='utf-8'))
+              except Exception as exc:
+                  bad.append('%s: %s' % (path, exc))
+          if bad:
+              print('::error::Workflow YAML does not parse:')
+              for line in bad:
+                  print('  ' + line)
+              sys.exit(1)
+          print('Parsed %d workflow file(s).' % len(paths))
+          "
+
+      - name: Pack Content Gates
+        # The three invariants that need nothing but the pack tree and a Python
+        # interpreter: duplicate modIds (rule 14), production mappings (rule 16),
+        # and dev-runtime/pack parity (Gate 1e). lazypack.yml enforces the same
+        # three at pack time; running them here makes a PR that breaks them red
+        # before it lands instead of at release. They take about a second total.
+        #
+        # Gate 1d (module jar freshness) is deliberately NOT here: on a PR the
+        # submodule pointers legitimately lead the committed jars, so it would be
+        # red for every pointer bump rather than for anything the PR did wrong.
+        # It belongs to lazypack.yml, which is what actually ships the pack.
+        run: |
+          python scripts/audit_modids.py
+          python scripts/audit_pack_mappings.py
+          python scripts/audit_dev_pack_parity.py
