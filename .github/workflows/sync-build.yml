@@ -803,6 +803,77 @@ jobs:
       - name: List Artifacts
         run: Get-ChildItem build/artifacts
 
+      - name: List Artifacts
+        run: Get-ChildItem build/artifacts
+
+      # ──────────────────────────────────────────────
+      # Keep the committed module jars current (AGENTS.md D1-a)
+      # ──────────────────────────────────────────────
+      # This job is the ONLY place a freshly built jar ever exists on disk. Every
+      # other workflow does a fresh checkout of git, so a jar that is not committed
+      # here does not exist for them - and `lazypack.yml` builds its pack from the
+      # committed tree, which is why Gate 1d exists and why `nightly` was frozen
+      # while nothing committed these. The previously documented recipe ("let
+      # sync-build build, then dispatch translate.yml to commit the jars") was
+      # tested and cannot work: translate.yml runs no Gradle, so it only ever sees
+      # what git already holds.
+      #
+      # It runs last, after both packs are built, so reaching it means the whole
+      # pipeline was green. It opens a PR instead of pushing, because rule 6 now has
+      # branch protection behind it and a direct push to main is rejected.
+      - name: Open Module Jar Refresh PR
+        # push only: a pull_request event's head SHA belongs to a branch that may be
+        # deleted or force-pushed, and sync-build cancels in progress, so a PR from a
+        # cancelled run would point at a commit nobody can see.
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $changed = @(git status --porcelain -- gte/overrides/mods/)
+          if ($changed.Count -eq 0) {
+            Write-Host "Module jars are already current; nothing to commit."
+            exit 0
+          }
+          Write-Host "Module jars rebuilt by this run:"
+          $changed | ForEach-Object { Write-Host "  $_" }
+
+          $branch = "chore/refresh-module-jars-${{ github.run_id }}"
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b $branch
+          git add gte/overrides/mods
+          git commit -m "chore(pack): refresh the module jars built from ${{ github.sha }}"
+          git push -u origin $branch
+
+          # Built by concatenation rather than a here-string: a PowerShell here-string
+          # terminator must sit in column 1, which is illegal inside a literal block
+          # scalar and makes the whole workflow file fail to parse.
+          #
+          # Backticks appear ONLY in $fence. Inside a double-quoted PowerShell string
+          # a backtick is the escape character, so writing a literal `nightly` here
+          # produced a newline and the body read "ightly cannot be dispatched".
+          # Running this against the real script is what caught it.
+          $fence = '```'
+          $body = @(
+            "The module jars in ``gte/overrides/mods/`` were rebuilt from ``${{ github.sha }}``."
+            ""
+            "This is what makes Gate 1d pass: it compares the committed jars against"
+            "the submodule pointers, so this PR is the first commit where the shipped"
+            "jars match the code they were built from. The nightly pack cannot be"
+            "dispatched until it is merged - lazypack.yml builds the pack from the"
+            "committed tree."
+            ""
+            $fence
+            ($changed -join "`n")
+            $fence
+            ""
+            "Opened automatically by sync-build.yml -> ""Open Module Jar Refresh PR""."
+          ) -join "`n"
+          $body | Out-File -FilePath build/jar-pr-body.md -Encoding utf8
+          gh pr create --repo "${{ github.repository }}" --base main --head $branch --title "chore(pack): refresh the module jars built from ${{ github.sha }}" --body-file build/jar-pr-body.md
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          Write-Host "Opened the jar refresh PR from $branch."
+
       # ──────────────────────────────────────────────
       # Artifact Upload (30 Days)
       # ──────────────────────────────────────────────
