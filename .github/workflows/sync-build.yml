@@ -535,15 +535,16 @@ jobs:
           #   Missing or unsupported mandatory dependencies:
           #     Mod ID: 'ldlib', Requested by: 'gtceu' ... [MISSING]
           $runnable = $publishable | Where-Object {
-            $_.Name -notlike "*-slim.jar" -and $_.Name -notlike "*-dev-slim.jar" -and $_.Name -notlike "*-dev-embeds.jar"
+            $_.Name -notlike "*-slim.jar" -and $_.Name -notlike "*-dev-slim.jar"
           }
           $runnable | ForEach-Object { Copy-Item $_.FullName -Destination gte/overrides/mods/ -Force }
 
-          # Clean up any non-runnable or duplicate jars from overrides/mods
+          # Two slim jars were committed to git by an earlier i18n step; drop any
+          # that are still lying around so the pack we ship is actually playable.
           Get-ChildItem gte/overrides/mods -Filter "*.jar" | Where-Object {
-            $_.Name -like "*-slim.jar" -or $_.Name -like "*-dev-slim.jar" -or $_.Name -like "*-dev-embeds.jar" -or $_.Name -like "probejs*.jar" -or $_.Name -like "gtnn-*.jar"
+            $_.Name -like "*-slim.jar" -or $_.Name -like "*-dev-slim.jar"
           } | ForEach-Object {
-            Write-Host "::warning::Removing non-runnable or duplicate jar from pack: $($_.Name)"
+            Write-Host "::warning::Removing non-runnable jar from pack: $($_.Name)"
             Remove-Item $_.FullName -Force
           }
 
