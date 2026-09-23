@@ -1,0 +1,231 @@
+name: "LazyPack Build (manual, pack only)"
+
+# ---------------------------------------------------------------------------
+# Why this workflow exists
+# ---------------------------------------------------------------------------
+# The pack under gte/ is assembled from jars that are already committed, and
+# scripts/pack_common.py only ever zips that tree. Building it therefore needs no
+# submodule checkout, no JDK, no Gradle, no GameTest run and no translation - and
+# it takes seconds instead of the ~15 minutes sync-build.yml spends.
+#
+# What it replaces: sync-build.yml used to run its whole pipeline on a daily cron
+# as well, i.e. every day it repeated on an unchanged tree exactly what the pull
+# request (and then the merge push) had already run, for the sole purpose of
+# refreshing two zips. That cron is gone; rebuilding only the pack is now this
+# workflow, triggered by hand.
+#
+# Deliberately NOT here, because these belong to sync-build.yml or to the manual
+# CurseForge workflow:
+#   - submodules, JDK/Gradle, module compilation, game tests
+#   - translation (translate.yml) and Maven deployment
+#   - CurseForge publishing (curseforge-publish.yml)
+#   - packwiz (the pack is still the "Lazy Pack": gte/ is zipped verbatim)
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version suffix for the zips (default: lazypack-<sha8>)"
+        required: false
+        default: ""
+        type: string
+      publish:
+        description: "Also upload the zips to the rolling 'nightly' prerelease"
+        required: false
+        default: true
+        type: boolean
+
+concurrency:
+  group: lazypack-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  lazypack:
+    name: "Build LazyPack (client + server)"
+    runs-on: windows-latest
+    timeout-minutes: 30
+    # Every run: block below is PowerShell, and declaring it explicitly is also
+    # what makes Gate 2b (scripts/dump_workflow_run_steps.py + the PowerShell
+    # parser in sync-build.yml) actually lint this file - a workflow without it
+    # contributes zero parsed steps and silently escapes that gate.
+    defaults:
+      run:
+        shell: powershell
+    env:
+      # The pack tree contains CJK directory names (config/inventoryprofilesnext/),
+      # and Python on Windows encodes stdout with the ANSI code page, which once
+      # killed a run with UnicodeEncodeError while printing such a path. Force
+      # UTF-8 for every Python step, exactly as sync-build.yml does.
+      PYTHONIOENCODING: utf-8
+      PYTHONUTF8: '1'
+
+    steps:
+      # fetch-depth 1 and NO submodules: the pack is self-contained, and skipping
+      # the submodule clone is most of the difference between this job and the
+      # build pipeline it exists to avoid.
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      # scripts/pack_common.py and the two pack builders are stdlib-only
+      # (zipfile + pathlib + json), so there is nothing to pip install here.
+      - name: Resolve Version
+        id: meta
+        run: |
+          $version = "${{ inputs.version }}"
+          if (-not $version) {
+            $version = "lazypack-" + "${{ github.sha }}".Substring(0, 8)
+          }
+          "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding utf8
+          Write-Host "LazyPack version: $version"
+
+      # These two gates are the pack-content invariants and cost ~1s together.
+      # They run before anything is built so a poisoned tree cannot be archived.
+      - name: "[Gate 1b] Pack Duplicate modId Lint"
+        run: python scripts/audit_modids.py
+
+      - name: "[Gate 1c] Pack Production-Mapping Lint"
+        run: python scripts/audit_pack_mappings.py
+
+      - name: "[Pack 1] Build Full-Mod Client Pack"
+        run: python scripts/build_full_mod_pack.py ${{ steps.meta.outputs.version }}
+
+      - name: "[Pack 2] Build Server Pack"
+        run: python scripts/build_server_pack.py ${{ steps.meta.outputs.version }}
+
+      # The Full-Mod pack follows CurseForge layout (overrides/mods/*.jar);
+      # the server pack places mods at top level (mods/*.jar).
+      - name: Verify Exported Pack Layout
+        run: |
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          $bad = $false
+          $expected = @{
+            'GTE-FullMod-*.zip'    = '^overrides/mods/[^/]+\.jar$'
+            'GTE-Server-*.zip'     = '^mods/[^/]+\.jar$'
+          }
+          foreach ($pattern in $expected.Keys) {
+            $zips = @(Get-ChildItem "build/artifacts/$pattern" -ErrorAction SilentlyContinue)
+            if ($zips.Count -eq 0) {
+              Write-Host "::error::No archive matched build/artifacts/$pattern; a pack was not built."
+              $bad = $true
+              continue
+            }
+            foreach ($zip in $zips) {
+              $archive = [System.IO.Compression.ZipFile]::OpenRead($zip.FullName)
+              try {
+                $mods = @($archive.Entries | Where-Object { $_.FullName -match $expected[$pattern] })
+                # PowerShell's Compress-Archive writes backslash entry names, which
+                # are not path separators in the zip spec: consumers then see one
+                # file literally named "mods\x.jar" and no mods directory.
+                $backslash = @($archive.Entries | Where-Object { $_.FullName -like '*\*' })
+                $slim = @($archive.Entries | Where-Object { $_.FullName -match '-(dev-)?slim\.jar$' })
+                $devEmbeds = @($archive.Entries | Where-Object { $_.FullName -match '-dev-embeds\.jar$' })
+                Write-Host "$($zip.Name): mods=$($mods.Count) backslash=$($backslash.Count) slim=$($slim.Count) devEmbeds=$($devEmbeds.Count)"
+                if ($mods.Count -eq 0) {
+                  Write-Host "::error::$($zip.Name) has no mods matching $($expected[$pattern]); it would install/boot with no mods."
+                  $bad = $true
+                }
+                if ($backslash.Count -gt 0) {
+                  Write-Host "::error::$($zip.Name) has backslash entry names; consumers will not see directories."
+                  $bad = $true
+                }
+                if ($slim.Count -gt 0) {
+                  Write-Host "::error::$($zip.Name) ships slim jars; Forge would fail with 'Mod ID: ldlib ... [MISSING]'."
+                  $bad = $true
+                }
+                if ($devEmbeds.Count -gt 0) {
+                  Write-Host "::error::$($zip.Name) ships '-dev-embeds.jar' intermediates; they duplicate the real jars' modIds."
+                  $bad = $true
+                }
+              } finally {
+                $archive.Dispose()
+              }
+            }
+          }
+          if ($bad) { exit 1 }
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: GTE-LazyPack-${{ steps.meta.outputs.version }}
+          if-no-files-found: error
+          retention-days: 30
+          path: |
+            build/artifacts/GTE-FullMod-*.zip
+            build/artifacts/GTE-Server-*.zip
+
+      # This workflow is the ONLY producer of the rolling `nightly` prerelease:
+      # sync-build.yml deliberately does not touch it (a merge push used to
+      # replace it, and it rebuilt the pack this job exists to build). So the
+      # rolling tag, the pack zips and the notes for those zips are all owned
+      # here. Module jars are not built here and are therefore left alone.
+      - name: Publish LazyPack to the Rolling 'nightly' Prerelease
+        if: inputs.publish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = 'Continue'
+          $version = "${{ steps.meta.outputs.version }}"
+          $files = @(Get-ChildItem "build/artifacts/GTE-FullMod-*.zip", "build/artifacts/GTE-Server-*.zip" -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName })
+          if (-not $files) {
+            Write-Host "::error::No pack zips in build/artifacts; refusing to publish nothing."
+            exit 1
+          }
+          Write-Host "Publishing $($files.Count) pack zip(s) to the rolling 'nightly' prerelease:"
+          $files | ForEach-Object { Write-Host "  $(Split-Path $_ -Leaf)" }
+
+          # Retarget the tag before touching the release: `gh release create
+          # --target` is only honoured when the tag does not exist yet, and a
+          # deleted release leaves refs/tags/nightly behind. A 404 here is
+          # expected half the time and makes gh write to stderr, so keep stderr
+          # on stderr ($ErrorActionPreference is already Continue) and let
+          # $LASTEXITCODE decide.
+          gh api "repos/${{ github.repository }}/git/refs/tags/nightly" 1>$null 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            gh api -X PATCH "repos/${{ github.repository }}/git/refs/tags/nightly" -f sha='${{ github.sha }}' -F force=true 1>$null
+          } else {
+            gh api -X POST "repos/${{ github.repository }}/git/refs" -f ref='refs/tags/nightly' -f sha='${{ github.sha }}' 1>$null
+          }
+          if ($LASTEXITCODE -eq 0) {
+            Write-Host "Rolling tag 'nightly' points at ${{ github.sha }}."
+          } else {
+            Write-Host "::warning::Could not move the 'nightly' tag; the release may reference an older commit."
+          }
+
+          # A rolling tag must show exactly one build. `gh release upload
+          # --clobber` replaces same-named assets but never removes the others,
+          # which is how zips from August were still sitting next to the current
+          # pack and being presented to users as the newest nightly. Prune the
+          # pack zips this run did not produce - and ONLY those: everything else
+          # on the release (module jars) comes from sync-build.yml.
+          $current = $files | ForEach-Object { Split-Path $_ -Leaf }
+          $existing = @(gh release view nightly --repo "${{ github.repository }}" --json assets --jq '.assets[].name' 2>$null)
+          $stale = @($existing | Where-Object { ($_ -like 'GTE-FullMod-*.zip' -or $_ -like 'GTE-Server-*.zip') -and $current -notcontains $_ })
+          foreach ($name in $stale) {
+            gh release delete-asset nightly $name --repo "${{ github.repository }}" --yes 1>$null 2>$null
+            if ($LASTEXITCODE -eq 0) { Write-Host "  pruned stale pack zip $name" }
+            else { Write-Host "::warning::Could not remove stale asset $name (exit $LASTEXITCODE)." }
+          }
+
+          gh release view nightly --repo "${{ github.repository }}" 1>$null 2>$null
+          if ($LASTEXITCODE -eq 0) {
+            gh release upload nightly --repo "${{ github.repository }}" $files --clobber
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            gh release edit nightly --repo "${{ github.repository }}" --title "GregTech Easy LazyPack $version" --prerelease
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            Write-Host "Uploaded LazyPack $version to the existing 'nightly' prerelease."
+          } else {
+            gh release create nightly --repo "${{ github.repository }}" $files --title "GregTech Easy LazyPack $version" --prerelease
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            Write-Host "Created the 'nightly' prerelease with LazyPack $version."
+          }

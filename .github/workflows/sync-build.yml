@@ -31,8 +31,11 @@ on:
       - '.github/workflows/docs-deploy.yml'
       - '.github/workflows/translate.yml'
       - '**.md'
-  schedule:
-    - cron: '0 2 * * *' # Daily Nightly build at 02:00 UTC
+  # No `schedule:` here on purpose. The daily cron used to run this whole
+  # pipeline - submodules, three modules, GameTest, packaging, publishing - one
+  # day after the merge that had already run all of it on the pull request, which
+  # is minutes of duplicated work for a tree that had not changed. Rebuilding just
+  # the pack is a manual, pack-only job: .github/workflows/lazypack.yml.
   workflow_dispatch:
     inputs:
       channel:
@@ -763,119 +766,14 @@ jobs:
           $files = (Get-ChildItem build/artifacts/*).FullName
           gh release create "${{ steps.meta.outputs.version }}" $files --title "GregTech Easy ${{ steps.meta.outputs.version }} (${{ steps.meta.outputs.channel }})" --generate-notes $prereleaseFlag
 
-      # A nightly is dispatched against a BRANCH, so the tag-gated step above never
-      # runs and nightly artifacts previously lived only in the 30-day workflow
-      # artifact. This publishes the same files to a rolling `nightly` prerelease
-      # (the tag that already carries the historical nightly builds), replacing its
-      # assets each time so the tag always points at the newest nightly.
-      - name: Publish Rolling Nightly Prerelease
-        if: steps.meta.outputs.channel == 'nightly' && github.ref_type == 'branch' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          $version = "${{ steps.meta.outputs.version }}"
-          $sha8 = "${{ github.sha }}".Substring(0, 8)
-          $title = "GregTech Easy $version ($sha8)"
-          $files = (Get-ChildItem build/artifacts/*).FullName
-          if (-not $files) {
-            Write-Host "::error::No artifacts in build/artifacts; refusing to publish an empty nightly."
-            exit 1
-          }
-          Write-Host "Publishing $($files.Count) asset(s) to the rolling 'nightly' prerelease:"
-          $files | ForEach-Object { Write-Host "  $(Split-Path $_ -Leaf)" }
-
-          # Retarget the tag BEFORE touching the release, and do it on both paths.
-          # `gh release create --target` is only honoured when the tag does not yet
-          # exist, and a deleted release leaves refs/tags/nightly behind -- so after
-          # a manual release deletion the create path produced a release whose
-          # assets were current but whose source tag still pointed at whatever
-          # commit the previous nightly used. Force-moving the ref first makes both
-          # paths agree.
-          # Both probes below EXPECT a 404 half the time, and a 404 makes gh write to
-          # stderr. Actions injects `$ErrorActionPreference = 'stop'` into the
-          # powershell shell, and `2>&1` merges native stderr into the success
-          # stream, where PowerShell wraps each line in an ErrorRecord -- which under
-          # 'stop' terminates the script. That is how the previous version died with
-          # a bare "gh : release not found" on the very path it was written to
-          # handle. Keep stderr on stderr, silence it with 2>$null, and let
-          # $LASTEXITCODE alone decide.
-          $ErrorActionPreference = 'Continue'
-
-          $tagExists = $true
-          gh api "repos/${{ github.repository }}/git/refs/tags/nightly" 1>$null 2>$null
-          if ($LASTEXITCODE -ne 0) { $tagExists = $false }
-          if ($tagExists) {
-            gh api -X PATCH "repos/${{ github.repository }}/git/refs/tags/nightly" -f sha='${{ github.sha }}' -F force=true 1>$null
-          } else {
-            gh api -X POST "repos/${{ github.repository }}/git/refs" -f ref='refs/tags/nightly' -f sha='${{ github.sha }}' 1>$null
-          }
-          if ($LASTEXITCODE -eq 0) {
-            Write-Host "Rolling tag 'nightly' points at ${{ github.sha }}."
-          } else {
-            Write-Host "::warning::Could not move the 'nightly' tag; the release may reference an older commit."
-          }
-
-          # Release notes are generated rather than hand-written after the fact, but
-          # they are rendered by scripts/render_nightly_notes.py and NOT inline here.
-          #
-          # Actions writes this `run:` block to a BOM-less UTF-8 .ps1 file, and
-          # Windows PowerShell 5.1 decodes script files with the ANSI code page. So a
-          # heredoc of Chinese release notes is mis-decoded before it is parsed, and
-          # CJK punctuation decodes into byte sequences that break the parser itself,
-          # so the step died with errors like
-          #
-          #     Missing argument in parameter list.
-          #     The string is missing the terminator: '.
-          #
-          # on lines whose text was already garbled in the echoed script.
-          #
-          # The CJK comments elsewhere in this workflow survive only because a
-          # corrupted comment is harmless. Player-facing Chinese has to come from a
-          # file Python reads as UTF-8.
-          $notesPath = Join-Path $env:RUNNER_TEMP 'nightly-notes.md'
-          python scripts/render_nightly_notes.py "$version" "${{ github.sha }}" "${{ github.run_id }}" "${{ github.ref_name }}" "$notesPath"
-          if ($LASTEXITCODE -ne 0 -or -not (Test-Path $notesPath)) {
-            Write-Host "::error::Could not render the nightly release notes."
-            exit 1
-          }
-
-          gh release view nightly --repo ${{ github.repository }} 1>$null 2>$null
-          if ($LASTEXITCODE -eq 0) {
-            gh release edit nightly --repo ${{ github.repository }} --title $title --prerelease --notes-file $notesPath
-            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-            gh release upload nightly --repo ${{ github.repository }} $files --clobber
-            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          } else {
-            gh release create nightly --repo ${{ github.repository }} $files --title $title --prerelease --notes-file $notesPath
-            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          }
-          Write-Host "Nightly prerelease published: https://github.com/${{ github.repository }}/releases/tag/nightly"
-
-          # `gh release upload --clobber` replaces same-named assets but never removes
-          # ones this run did not produce, so the rolling release accumulated files
-          # from the 1.9.1 era next to current jars — users saw ancient packs
-          # presented as the newest nightly. A rolling tag must show exactly one
-          # build, so anything not produced by this run is deleted.
-          #
-          # This only ever touches the `nightly` prerelease. Versioned releases
-          # (v1.9.1, v1.9.5, v2.2.3.5, ...) are never modified, and each stale file
-          # here also exists on its own version tag, so no last copy is destroyed.
-          $current = $files | ForEach-Object { Split-Path $_ -Leaf }
-          $existing = gh release view nightly --repo ${{ github.repository }} --json assets --jq '.assets[].name'
-          $stale = @($existing | Where-Object { $current -notcontains $_ })
-          if ($stale.Count -gt 0) {
-            Write-Host "Pruning $($stale.Count) asset(s) not produced by this build:"
-            foreach ($name in $stale) {
-              gh release delete-asset nightly $name --repo ${{ github.repository }} --yes
-              if ($LASTEXITCODE -eq 0) {
-                Write-Host "  removed $name"
-              } else {
-                Write-Host "::warning::Could not remove stale asset $name (exit $LASTEXITCODE)."
-              }
-            }
-          } else {
-            Write-Host "No stale assets on the nightly release."
-          }
+      # The rolling `nightly` prerelease is NOT published here. It carries the
+      # LazyPack (the client and server zips built from the committed pack tree)
+      # and nothing else, and it is produced by the manual, pack-only job in
+      # .github/workflows/lazypack.yml. Publishing it from a merge push meant any
+      # push could silently replace what that job produced, and it re-ran the
+      # pack build the job exists to do on its own. Versioned releases and tags
+      # are still created by the step above, and the built jars travel as
+      # workflow artifacts (30 days) as before.
 
       # ──────────────────────────────────────────────
       # Publish Maven Artifacts to GitHub Pages
