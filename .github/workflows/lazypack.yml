@@ -20,6 +20,14 @@ name: "LazyPack Build (manual, pack only)"
 #   - translation (translate.yml) and Maven deployment
 #   - CurseForge publishing (curseforge-publish.yml)
 #   - packwiz (the pack is still the "Lazy Pack": gte/ is zipped verbatim)
+#
+# The one thing this job depends on and cannot do itself: it ships whatever jars
+# are COMMITTED under gte/overrides/mods/, and it compiles nothing. Those jars
+# only reach git when translate.yml runs after sync-build.yml has copied them
+# into the working tree (sync-build itself has no `git add`). Hence Gate 1d below,
+# which refuses to build a pack whose module jars have fallen behind the module
+# sources. Recipe and rationale: AGENTS.md -> "Keeping the committed jars
+# current".
 
 on:
   workflow_dispatch:
@@ -96,6 +104,27 @@ jobs:
 
       - name: "[Gate 1c] Pack Production-Mapping Lint"
         run: python scripts/audit_pack_mappings.py
+
+      # The pack is assembled from jars that are already committed, and this job
+      # compiles nothing - so a module jar that stopped matching the module
+      # sources beside it ships silently under an unchanged version string. That
+      # is not hypothetical: gtecore's jar was 28 source files behind the tree
+      # for three weeks in September 2026, and nothing noticed because the
+      # version was still 3.0.7-nightly. Gate 1d is what notices.
+      #
+      # This is also the gate that closes the `translate.yml` ordering hole: the
+      # fix for a failure here is to let sync-build.yml copy the fresh jars and
+      # then dispatch translate.yml to commit them (AGENTS.md, "Keeping the
+      # committed jars current"). The gate cannot live in sync-build.yml, where
+      # the working tree holds correct jars that the job never commits.
+      - name: "[Gate 1d] Module Jar Freshness Lint"
+        run: python scripts/audit_module_jar_freshness.py
+
+      # The dev runtime (runFullPack) replaces some pack jars with Maven
+      # coordinates, and that substitution drifts out of step with what is
+      # actually shipped. Gate 1e fails on any NEW divergence.
+      - name: "[Gate 1e] Dev-Runtime/Pack Parity Lint"
+        run: python scripts/audit_dev_pack_parity.py
 
       - name: "[Pack 1] Build Full-Mod Client Pack"
         run: python scripts/build_full_mod_pack.py ${{ steps.meta.outputs.version }}

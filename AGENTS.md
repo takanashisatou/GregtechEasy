@@ -149,9 +149,29 @@ you actually need breakpoints.
     of a stronger sentence. The repository already has `scripts/audit_art.py`,
     `audit_dependencies.py`, `audit_docs.py`, `audit_mixins.py`,
     `audit_submodules.py` and `audit_translations.py` wired into CI; the
-    duplicate-`modId` audit (`scripts/audit_modids.py`, Gate 1b) and the
-    production-mapping audit (`scripts/audit_pack_mappings.py`, Gate 1c) were the
-    last ones added, each because the rule it enforces kept being broken by hand.
+    duplicate-`modId` audit (`scripts/audit_modids.py`, Gate 1b), the
+    production-mapping audit (`scripts/audit_pack_mappings.py`, Gate 1c), the
+    module-jar staleness audit (`scripts/audit_module_jar_freshness.py`, Gate 1d)
+    and the dev-runtime/pack parity audit (`scripts/audit_dev_pack_parity.py`,
+    Gate 1e) were the last ones added, each because the rule it enforces kept
+    being broken by hand.
+    - Gate 1d exists because `gte/overrides/mods/` is assembled from jars and
+      nothing checked that they still match the module sources beside them: the
+      three module jars were committed 2026-09-01 while `gtecore` gained sources
+      on 2026-09-20, so three weeks of LazyPack zips shipped under an unchanged
+      `3.0.7-nightly`. It compares each shipped jar against the submodule source
+      tree (classes) and against the submodule pointer that heads the commit
+      which last built it (commits), and it runs in `lazypack.yml` only — see
+      "Keeping the committed jars current" below for why it cannot live in
+      `sync-build.yml`.
+    - Gate 1e exists because `runFullPack` replaces ~29 pack jars with Maven
+      coordinates from `gradle/forge.versions.toml`, and that substitution drifts
+      from what the pack ships in both directions (dev was on ldlib 1.0.40.b while
+      the pack shipped 1.0.43). Divergences recorded in
+      `scripts/dev_pack_parity_baseline.json` are known debt; anything new fails.
+      Its `packModsAlreadyProvided` keys are modIds and its values are exact
+      `gradle/forge.versions.toml` resource names — never file-name substrings,
+      which is how `extendedae_plus` was silently dropped from the dev run.
 16. Every jar in `gte/overrides/mods/` must be the artifact upstream published,
     i.e. a **production (SRG) build** — never a dev jar. Forge 1.20.1 production
     names vanilla members `m_12345_` / `f_12345_`; a jar built with Mojang
@@ -202,6 +222,49 @@ on a count mismatch inside the zip, and on a top-level `mods/` entry
 (`expected_mods_count` is derived from the same directory, so adding or removing
 a jar needs no constant updated). `scripts/build_curseforge_pack.py` ships a
 pure `manifest.json` and forbids jars in `overrides/` entirely.
+
+### Keeping the committed jars current (run `translate.yml` after `sync-build`)
+
+Neither workflow commits `gte/overrides/mods/` on its own, and this is the step
+people forget:
+
+- `sync-build.yml` **writes** the jars (its "Copy Built Mod Jars" step) but has
+  no `git add` anywhere, so the jars it builds stay uncommitted in the runner and
+  vanish with it.
+- `translate.yml` is the only workflow that runs `git add -A` on the root tree.
+  It checks out submodules but runs **no Gradle**, so it never *produces* a jar —
+  it only commits what the working tree already contains.
+
+So a fresh module jar reaches git only when `translate.yml` runs **after** a
+`sync-build.yml` run has left the jar on disk. The LazyPack job then reads that
+committed jar. The order is the whole mechanism:
+
+1. merge the submodule PR, then the root PR that bumps its pointer;
+2. let `sync-build.yml` run green on that pointer — it compiles the modules and
+   copies the fresh jars into `gte/overrides/mods/` in its own runner;
+3. **dispatch `translate.yml`** on that same commit — its `git add -A` picks up
+   those jars and commits them;
+4. only then dispatch `lazypack.yml`.
+
+Two traps:
+
+- **Steps 2 and 3 race.** They are independent workflows on the same tree. If
+  `translate.yml` finishes before `sync-build.yml` has written the jars, it
+  commits nothing and the jars stay stale — `sync-build.yml` pushed its copy
+  after the train left. Run `translate.yml` only once the `sync-build.yml` run
+  for that commit has completed.
+- **A submodule pointer bump does not carry its jar.** `gte/overrides/mods/`
+  holds binaries, so git sees no change when the module's code moves. Between
+  step 1 and step 3 the tree genuinely contains a stale pack, and
+  Gate 1d (`scripts/audit_module_jar_freshness.py`) will say so — that is the
+  gate working, not a false alarm. It is why the gate lives in `lazypack.yml`
+  (which ships the pack) and not in `sync-build.yml` (which would then fail every
+  pointer-bump PR while holding the correct jars in its own working tree).
+
+Step 3 is the one a human has to remember, and forgetting it is silent: the pack
+keeps building, the version string never changes, and only Gate 1d notices. If it
+keeps being forgotten, give step 3 its own automation rather than a stronger
+sentence here (rule 15).
 
 Version knobs — change these, never a jar:
 
@@ -306,14 +369,20 @@ Non-negotiable:
   merge had already run it.
 - `.github/workflows/lazypack.yml` is the manual, pack-only job (dispatch only)
   and the **only** producer of the rolling `nightly` prerelease: it checks out
-  the tree without submodules and with no JDK, runs the two pack gates, builds
-  the Full-Mod and Server LazyPacks with `scripts/build_full_mod_pack.py` /
-  `build_server_pack.py`, verifies the zips, uploads them, retargets the
+  the tree without submodules and with no JDK, runs the four pack gates
+  (duplicate modId, production mapping, module jar freshness, dev/pack parity),
+  builds the Full-Mod and Server LazyPacks with `scripts/build_full_mod_pack.py`
+  / `build_server_pack.py`, verifies the zips, uploads them, retargets the
   `nightly` tag at the commit it built from, and prunes the pack zips it did not
   produce — and only those, because the module jars on that release belong to
   sync-build.yml. `publish=false` skips the release entirely. Use it when the
   pack needs rebuilding; do not add Gradle, translation, Maven or packwiz work to
   it — that belongs to sync-build.yml and to the manual CurseForge workflow.
+  Note what it does **not** do: it compiles nothing, so it ships whatever jars are
+  committed. Gate 1d is what makes that safe — without it a stale module jar
+  reaches players silently. The job also leaves the tree untouched, so the jars
+  sync-build copies into `gte/overrides/mods/` still have to be committed by
+  something else (today: only `translate.yml`'s `git add -A`).
 - When you need a release's asset list from CI, read it through the paginated
   REST endpoint (`repos/<owner>/<repo>/releases/<id>/assets?per_page=100`), never
   through `gh release view --json assets`: the latter returns a capped, stale
@@ -356,9 +425,10 @@ Project-specific guidance also lives in:
 - `.agents/skills/gte-multiblock/SKILL.md` - GTE multiblock structure creation, registry, and recipe modifiers
 - `.agents/skills/gte-multiblock-architecture/SKILL.md` - Multiblock 3D geometric modeling and pattern generation
 - `scripts/audit_*.py` - automatically enforced invariants (`audit_art`,
-  `audit_dependencies`, `audit_docs`, `audit_mixins`, `audit_modids`,
-  `audit_pack_mappings`, `audit_submodules`, `audit_translations`), wired into CI.
-  When a mistake class needs a gate rather than another rule, add the audit
+  `audit_dependencies`, `audit_dev_pack_parity`, `audit_docs`,
+  `audit_mixins`, `audit_modids`, `audit_module_jar_freshness`,
+  `audit_pack_mappings`, `audit_submodules`, `audit_translations`), wired into
+  CI. When a mistake class needs a gate rather than another rule, add the audit
   script and wire it in.
 - `.codex/rules.md` - detailed project rules
 - `README.md` - developer-facing quick start

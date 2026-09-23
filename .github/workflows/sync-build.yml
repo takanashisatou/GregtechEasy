@@ -607,6 +607,21 @@ jobs:
       - name: "[Gate 1c] Verify Pack Production Mapping After Copy"
         run: python scripts/audit_pack_mappings.py
 
+      # The dev-runtime/pack parity gate belongs here: it compares the Maven pins
+      # in gradle/forge.versions.toml against the jars in the tree, so a drift is
+      # worth surfacing on every build, not only when someone packs.
+      - name: "[Gate 1e] Verify Dev-Runtime/Pack Parity After Copy"
+        run: python scripts/audit_dev_pack_parity.py
+
+      # Gate 1d (module jar freshness) deliberately does NOT run here. This job
+      # compiles the modules and copies the result into gte/overrides/mods/, but
+      # it never commits - nothing in this workflow runs `git add`. So the jars
+      # it just built are on disk and NOT in git, and Gate 1d reads git objects:
+      # it would go red on every submodule pointer bump while the working tree in
+      # front of it is perfectly correct, which trains people to ignore it.
+      # Gate 1d's home is lazypack.yml, where a stale committed jar is the thing
+      # that actually ships. See "Keeping the committed jars current" in AGENTS.md.
+
       # ──────────────────────────────────────────────
       # Localization is NOT part of this workflow
       # ──────────────────────────────────────────────
