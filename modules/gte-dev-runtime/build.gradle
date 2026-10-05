@@ -124,8 +124,17 @@ def devRuntimeSkipReason = { File jar ->
             if (entry != null) {
                 def text = zip.getInputStream(entry).getText('UTF-8')
                 // [[mods]] sections only - never [[dependencies.*]] blocks.
-                def matcher = text =~ /(?m)^\s*modId\s*=\s*["']([^"']+)["']/
-                matcher.each { modIds << it[1] }
+                def inModsSection = false
+                text.eachLine { line ->
+                    if (line ==~ /\s*\[\[?[^\]]+\]\]?\s*(?:#.*)?/) {
+                        inModsSection = line ==~ /\s*\[\[\s*mods\s*\]\]\s*(?:#.*)?/
+                    } else if (inModsSection) {
+                        def matcher = line =~ /^\s*modId\s*=\s*["']([^"']+)["']\s*(?:#.*)?$/
+                        if (matcher.matches()) {
+                            modIds << matcher[0][1]
+                        }
+                    }
+                }
             }
         } finally {
             zip.close()
@@ -146,6 +155,76 @@ def devRuntimeSkipReason = { File jar ->
     def provided = modIds.find { packModsAlreadyProvided.containsKey(it) }
     return provided == null ? null : "provided by the '${packModsAlreadyProvided[provided]}' coordinate"
 }
+
+// Exercise the SAME jar classifier used by dependency registration and local
+// Maven publication. The Python parity audit parses declarations separately,
+// so it cannot catch a regression in this Groovy filter on its own.
+def verifyPackModFiltering = tasks.register('verifyPackModFiltering') {
+    group = 'verification'
+    description = 'Checks that pack jars are filtered by their own mod IDs, never by dependency IDs.'
+    doLast {
+        def fixtures = [
+            [name: 'Mekanism-1.20.1-10.4.16.80.jar', skip: false, toml: '''
+[[mods]]
+modId="mekanism"
+[[dependencies.mekanism]]
+modId="curios"
+mandatory=false
+[[dependencies.mekanism]]
+modId="jei"
+mandatory=false
+'''],
+            [name: 'extendedae_plus-1.5.1.jar', skip: false, toml: '''
+[[mods]] # addon declaration
+modId='extendedae_plus' # its own ID
+[[dependencies.extendedae_plus]]
+modId='expatternprovider'
+mandatory=true
+'''],
+            [name: 'ae2-15.4.8.jar', skip: true, toml: '''
+[[mods]]
+modId="ae2"
+[[dependencies.ae2]]
+modId="minecraft"
+'''],
+            [name: 'multiple-mods-1.jar', skip: true, toml: '''
+[[mods]]
+modId="test_addon"
+[[dependencies.test_addon]]
+modId="minecraft"
+[[mods]]
+modId="curios"
+'''],
+            [name: 'properties-1.jar', skip: false, toml: '''
+[[mods]]
+modId="test_addon"
+[modproperties.test_addon]
+modId="ae2"
+'''],
+            [name: 'gtm-reborn-1.jar', skip: true, toml: null],
+            [name: 'jei-1.jar', skip: true, toml: null],
+            [name: 'jeiaddon-1.jar', skip: false, toml: null],
+        ]
+        fixtures.each { fixture ->
+            def jar = new File(temporaryDir, fixture.name)
+            jar.parentFile.mkdirs()
+            new java.util.jar.JarOutputStream(new FileOutputStream(jar)).withCloseable { zip ->
+                if (fixture.toml != null) {
+                    zip.putNextEntry(new java.util.zip.ZipEntry('META-INF/mods.toml'))
+                    zip.write(fixture.toml.getBytes('UTF-8'))
+                    zip.closeEntry()
+                }
+            }
+            def reason = devRuntimeSkipReason(jar)
+            if ((reason != null) != fixture.skip) {
+                throw new GradleException("Incorrect pack filtering for ${fixture.name}: ${reason ?: 'loaded'}")
+            }
+        }
+        logger.lifecycle(">> Verified ${fixtures.size()} pack-mod filtering cases.")
+    }
+}
+
+tasks.named('check') { dependsOn(verifyPackModFiltering) }
 
 /** [artifact, mavenVersion] for a pack jar name, or null when it does not parse. */
 def packModCoordinate = { String fileName ->

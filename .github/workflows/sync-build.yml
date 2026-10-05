@@ -481,7 +481,7 @@ jobs:
           if ("${{ steps.meta.outputs.channel }}" -eq "release" -or "${{ inputs.werror }}" -eq "true") {
             $WERROR_FLAG = "-Pwerror"
           }
-          $TASKS = ":modules:gtm-reborn:build :modules:gtm-reborn:runGameTestServer :modules:gtecore:build :modules:gt--:build"
+          $TASKS = ":modules:gtm-reborn:build :modules:gtm-reborn:runGameTestServer :modules:gtecore:build :modules:gt--:build :modules:gte-dev-runtime:verifyPackModFiltering"
           # Retry once: artifact downloads from third-party maven hosts fail
           # intermittently, and a whole nightly should not be lost to one flaky CDN.
           for ($attempt = 1; $attempt -le 2; $attempt++) {
