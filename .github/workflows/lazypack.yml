@@ -83,10 +83,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
       # scripts/pack_common.py and the two pack builders are stdlib-only
-      # (zipfile + pathlib + json), so there is nothing to pip install here.
+      # (zipfile + pathlib + json), so there is nothing to pip install or cache.
+      # Enabling pip caching fails in setup-python's post step when no pip cache
+      # directory was created, even after the pack was successfully published.
       - name: Resolve Version
         id: meta
         run: |
