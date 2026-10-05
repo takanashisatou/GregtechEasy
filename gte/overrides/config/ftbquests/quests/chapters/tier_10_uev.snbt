@@ -1,0 +1,683 @@
+{
+	autofocus_id: "53DC8A55C1CBE569"
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "tier_10_uev"
+	group: "277796EFA601375B"
+	icon: "gtceu:uev_machine_hull"
+	id: "6B323DEABB8E231C"
+	images: [{
+		click: "https://liteyuki.feishu.cn/wiki/ClHrwvA1jivg5Vkn7DqcJLXFnqe"
+		height: 2.75d
+		hover: ["点击查看教程"]
+		image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_uev.png"
+		rotation: 0.0d
+		width: 3.85d
+		x: -14.0d
+		y: -3.5d
+	}]
+	order_index: 10
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: ["3199B7281B38A1EA"]
+			description: [
+				"欢迎来到 UEV 时代！"
+				"在掌握了阴阳与八卦的奥秘后，你面对的是高维时空折叠而成的虚数领域。"
+				"利用阴阳主机与顶级材料制作你的首批 UEV 机器外壳，开启这片充满无限可能的领域。"
+			]
+			id: "53DC8A55C1CBE569"
+			size: 1.5d
+			subtitle: "向虚数维度跃迁"
+			tasks: [
+				{
+					id: "C211AA2FB6DA6D03"
+					item: "gtceu:uev_machine_hull"
+					type: "item"
+				}
+			]
+			title: "UEV 时代启程"
+			x: -14.0d
+			y: 0.0d
+		},
+		{
+			dependencies: ["53DC8A55C1CBE569"]
+			description: [
+				"在装配线中，使用 UHV 核心部件，灌注暗流体、超弦催化剂与熔融中子素，并融入阴阳与八卦符石，将其升格为 UEV 基础动力组件！"
+				"它们是建造后续所有 UEV 多方块机器与高级产线的核心工业部件。"
+			]
+			id: "031389A5AB616E4B"
+			size: 1.5d
+			subtitle: "八卦注入的极限动力"
+			tasks: [
+				{
+					id: "44188031876471B0"
+					item: "gtceu:uev_electric_motor"
+					type: "item"
+				},
+				{
+					id: "5044060344108380"
+					item: "gtceu:uev_electric_piston"
+					type: "item"
+				},
+				{
+					id: "9894DC9BB14A4FE5"
+					item: "gtceu:uev_electric_pump"
+					type: "item"
+				},
+				{
+					id: "D3A4477281F4EE8C"
+					item: "gtceu:uev_conveyor_module"
+					type: "item"
+				},
+				{
+					id: "522BE2ACC65E6120"
+					item: "gtceu:uev_robot_arm"
+					type: "item"
+				}
+			]
+			title: "UEV时代的老五样"
+			x: -11.5d
+			y: 0.0d
+		},
+		{
+			dependencies: ["031389A5AB616E4B"]
+			description: [
+				"发射器（离象）、传感器（坎象）与场发生器（乾坤同构）。"
+				"它们是搭建大型虚数多方块与精密光刻仪器的核心高阶传感器件。"
+			]
+			id: "5173F63C00C45E46"
+			subtitle: "发射器、传感器与场发生器"
+			tasks: [
+				{
+					id: "2A6BAD83D6706F8E"
+					item: "gtceu:uev_emitter"
+					type: "item"
+				},
+				{
+					id: "4490B4DCD06B2940"
+					item: "gtceu:uev_sensor"
+					type: "item"
+				},
+				{
+					id: "E5E2FB9677A2C8EE"
+					item: "gtceu:uev_field_generator"
+					type: "item"
+				}
+			]
+			title: "场控与传感极限"
+			x: -11.5d
+			y: 2.0d
+		},
+		{
+			dependencies: ["031389A5AB616E4B"]
+			description: [
+				"虚数体系需要极高纯度的净化水。"
+				"在化学反应釜中，使用盐酸、铁铝粉和蒸馏水制备高纯复合絮凝液；并对碳与二氧化硅进行水热酸活化球化，制造改性纳米活性炭微球。"
+			]
+			id: "B52F9F7BF9812A86"
+			subtitle: "絮凝与吸附"
+			tasks: [
+				{
+					id: "2B9A1082DAFC3B96"
+					item: "gtecore:modified_carbon_microspheres"
+					type: "item"
+				},
+				{
+					id: "9AAE8BB91D045B21"
+					item: "gtceu:composite_flocculant_bucket"
+					type: "item"
+				}
+			]
+			title: "澄清前置化学耗材"
+			x: -9.0d
+			y: -3.5d
+		},
+		{
+			dependencies: ["B52F9F7BF9812A86"]
+			description: [
+				"深度除杂所需的尖端化学品："
+				"高纯臭氧：在电解机中由高压电晕放电发生；"
+				"混床树脂微球：由苯乙烯、甲苯与浓硫酸悬浮共聚合成；"
+				"电子级酸碱脱附液：用于 EDI 树脂深度洗脱与离子再生。"
+			]
+			id: "94540C15D2331A72"
+			subtitle: "树脂微球与洗脱再生"
+			tasks: [
+				{
+					id: "8AFF697454BEC69C"
+					item: "gtecore:mixed_bed_resin_beads"
+					type: "item"
+				},
+				{
+					id: "71255A7F5C54DF76"
+					item: "gtceu:electronic_acid_base_reagent_bucket"
+					type: "item"
+				},
+				{
+					id: "F9236B53F2869BA8"
+					item: "gtceu:ozone_bucket"
+					type: "item"
+				}
+			]
+			title: "深度脱离子前置试剂"
+			x: -9.0d
+			y: -5.5d
+		},
+		{
+			dependencies: [
+				"031389A5AB616E4B"
+				"B52F9F7BF9812A86"
+			]
+			description: [
+				"整套三级水质净化产线的心脏！自身不执行配方，负责为所有已连接的分级装置集中供电并下发并行度上限。"
+				"使用数据棒潜行右键中枢复制坐标，随后右键各净化装置即可完成无线绑定。"
+				"注意：未连接到成型中枢的净化装置将无法开机。"
+			]
+			id: "F476347130787C8B"
+			size: 1.5d
+			subtitle: "中枢统管与电力广播"
+			tasks: [
+				{
+					id: "CC552A16A7D68FFF"
+					item: "gtecore:central_water_purification_plant"
+					type: "item"
+				}
+			]
+			title: "中枢净化水厂"
+			x: -6.5d
+			y: -2.0d
+		},
+		{
+			dependencies: [
+				"F476347130787C8B"
+				"B52F9F7BF9812A86"
+			]
+			description: [
+				"输入水/蒸馏水、复合絮凝液与纳米碳微球，产出【蒸馏净化水】。"
+				"注意：必须安装温控仓与温控信号仓，将运行温度稳定在安全区间（稳定运行600秒可达到100%净化产出率）。"
+			]
+			id: "A3E88DB394858EA1"
+			subtitle: "差压闪蒸与重金属分离"
+			tasks: [
+				{
+					id: "447288E6ACC8B890"
+					item: "gtecore:t1_clarifier_purification_unit"
+					type: "item"
+				},
+				{
+					id: "9E03055544819202"
+					item: "gtceu:distilled_purified_water_bucket"
+					type: "item"
+				}
+			]
+			title: "一级澄清净化装置"
+			x: -6.5d
+			y: -3.5d
+		},
+		{
+			dependencies: [
+				"A3E88DB394858EA1"
+				"94540C15D2331A72"
+			]
+			description: [
+				"蒸馏净化水注入装置，通入臭氧或双氧水进行深紫外高能光催化氧化，产出【紫外净化水】。"
+				"安装 1~4 组紫外灯仓，紫外辐射剂量达标后方可出水，TOC 降低至 1 ppb 以下！"
+			]
+			id: "ECC60D7A7A9F3F96"
+			subtitle: "深紫外光催化 TOC 矿化"
+			tasks: [
+				{
+					id: "8FFA7C1260FDE8CF"
+					item: "gtecore:t2_uv_oxidation_purification_unit"
+					type: "item"
+				},
+				{
+					id: "8338CDDAC122DB2D"
+					item: "gtceu:uv_purified_water_bucket"
+					type: "item"
+				}
+			]
+			title: "二级紫外氧化净化装置"
+			x: -4.0d
+			y: -3.5d
+		},
+		{
+			dependencies: [
+				"ECC60D7A7A9F3F96"
+				"94540C15D2331A72"
+			]
+			description: [
+				"紫外净化水 + 电子级混床树脂微球 + 酸碱脱附试剂 → 【电子级净化水】(UPW)。"
+				"绝缘电阻率达到极限 18.2 MΩ·cm，这是虚数之树培育与微电子芯片制造的命脉之源！"
+				"离子负载满后需利用外部红石信号请求再生清洗配方。"
+			]
+			id: "CDCA42FD890BAE77"
+			size: 1.5d
+			subtitle: "终极绝缘纯水 (18.2 MΩ·cm)"
+			tasks: [
+				{
+					id: "4DB9EC1A4D5B9FC4"
+					item: "gtecore:t3_edi_ultrapure_purification_unit"
+					type: "item"
+				},
+				{
+					id: "10BD40A902103992"
+					item: "gtceu:ultrapure_water_bucket"
+					type: "item"
+				}
+			]
+			title: "三级 EDI 超纯净化装置"
+			x: -1.5d
+			y: -3.5d
+		},
+		{
+			dependencies: [
+				"031389A5AB616E4B"
+				"5173F63C00C45E46"
+			]
+			description: [
+				"虚数外壳：八卦机械方块与中子素板为基，UEV 泵加压封装；"
+				"枝桠外壳：三钛长杆与中子素框架加固；"
+				"约束外壳：融合阴阳力场约束与 UEV 场发生器；"
+				"能量导管：以六角铕导线与震象符石贯通虚数能流。"
+			]
+			id: "E3263B967FB4A8A4"
+			subtitle: "约束、枝桠与能量通道"
+			tasks: [
+				{
+					id: "6A29AF8F5ACE08C5"
+					item: "gtecore:imaginary_casing"
+					type: "item"
+				},
+				{
+					id: "DCF59B85ABBEDF24"
+					item: "gtecore:imaginary_branch_casing"
+					type: "item"
+				},
+				{
+					id: "B855101B11191EAE"
+					item: "gtecore:imaginary_containment_casing"
+					type: "item"
+				},
+				{
+					id: "2AC85E96EE2EA9D6"
+					item: "gtecore:imaginary_energy_conduit"
+					type: "item"
+				}
+			]
+			title: "虚数构件工程"
+			x: -9.0d
+			y: 0.0d
+		},
+		{
+			dependencies: [
+				"E3263B967FB4A8A4"
+				"CDCA42FD890BAE77"
+			]
+			description: [
+				"虚数核心外壳：在坤艮星枢中消耗阴阳处理器主机与电子级净化水合成；"
+				"虚数玻璃：在赤阳道核中以阴阳透镜聚光重构；"
+				"虚数线圈方块：坤艮星枢超导缠绕。"
+			]
+			id: "536555779CD8D263"
+			subtitle: "星枢与道核的巅峰造物"
+			tasks: [
+				{
+					id: "CC3964CB8BA3FDFB"
+					item: "gtecore:imaginary_core_casing"
+					type: "item"
+				},
+				{
+					id: "E8B4BB6352B25B97"
+					item: "gtecore:imaginary_glass"
+					type: "item"
+				},
+				{
+					id: "594587A3D0CF00D8"
+					item: "gtecore:imaginary_coil_block"
+					type: "item"
+				}
+			]
+			title: "虚数核心组件"
+			x: -6.5d
+			y: 0.0d
+		},
+		{
+			dependencies: [
+				"536555779CD8D263"
+				"CDCA42FD890BAE77"
+			]
+			description: [
+				"虚数生长介质：由赤阳道核制备，消耗电子级净化水、水木符篆与阴阳，作为日常单晶培养的不可或缺耗材；"
+				"虚数叶矩阵：在装配线中大批量生产（每批 64 个），与虚数玻璃、枝桠外壳共同织就虚数之树的宏大树冠。"
+			]
+			id: "EC2DFF8D569BC72A"
+			subtitle: "维系生机的分形叶片"
+			tasks: [
+				{
+					id: "31344B9E686FF5FC"
+					item: "gtecore:imaginary_growth_medium"
+					type: "item"
+				},
+				{
+					id: "A3D242E4F5C2436B"
+					item: "gtecore:imaginary_leaf_matrix"
+					type: "item"
+				}
+			]
+			title: "生长介质与虚数树冠"
+			x: -4.0d
+			y: 0.0d
+		},
+		{
+			dependencies: [
+				"536555779CD8D263"
+				"EC2DFF8D569BC72A"
+				"CDCA42FD890BAE77"
+			]
+			description: [
+				"扫描研究虚数核心外壳，使用核心外壳、枝桠外壳、约束外壳、能量导管、线圈与 UIV 阴阳处理器主机在装配线制造控制器！"
+				"搭建庞大的分形树木结构，点亮高维虚数能量回路。它是单晶生长、晶圆制备与四级成品虚数电路总装的核心中枢！"
+			]
+			id: "46FB3C8945DAF3E7"
+			size: 2.0d
+			subtitle: "高维分形矩阵 · 虚数之源"
+			tasks: [
+				{
+					id: "47D93A1B6C45D945"
+					item: "gtecore:tree_of_imaginary"
+					type: "item"
+				}
+			]
+			title: "虚数之树"
+			x: -1.5d
+			y: 0.0d
+		},
+		{
+			dependencies: ["46FB3C8945DAF3E7"]
+			description: [
+				"单晶培养：在虚数之树中，注入高纯硅粉、虚数生长介质、Naquadria与电子级水提拉单晶棒；"
+				"晶圆精切：配合润滑油与电子级水切割，获得纯净无暇的【虚数之树晶圆】！"
+			]
+			id: "89AD9EC4B13D1364"
+			size: 1.5d
+			subtitle: "单晶硅提拉与晶圆精切"
+			tasks: [
+				{
+					id: "76AE72EBFC1140C9"
+					item: "gtecore:imaginary_tree_boule"
+					type: "item"
+				},
+				{
+					id: "870C25E48D1BF90C"
+					item: "gtecore:imaginary_tree_wafer"
+					type: "item"
+				}
+			]
+			title: "虚数之晶"
+			x: 1.5d
+			y: 0.0d
+		},
+		{
+			dependencies: ["89AD9EC4B13D1364"]
+			description: [
+				"扫描研究普通虚数晶圆后在装配线组装（宽15×高9×深13双胶囊光学结构）。"
+				"拥有专用的浸没光刻配方逻辑，分立为【电路芯片分支】与【CPU芯片分支】两大工艺！"
+			]
+			id: "B2FB1708311D3AF7"
+			size: 1.5d
+			subtitle: "193nm 浸没与极紫外干涉"
+			tasks: [
+				{
+					id: "D564C0D88EEECE86"
+					item: "gtecore:imaginary_lithography_center"
+					type: "item"
+				}
+			]
+			title: "虚数浸没光刻中心"
+			x: 4.0d
+			y: -2.0d
+		},
+		{
+			dependencies: ["B2FB1708311D3AF7"]
+			description: [
+				"浸没曝光：普通晶圆 + 阴阳透镜（不消耗） + 双氧水 + 电子级净化水 → 虚数 CPU 晶圆；"
+				"晶圆划片：虚数 CPU 晶圆 + 润滑油 + 电子级净化水 → 虚数之树电路芯片 (单批 16 枚)！"
+			]
+			id: "E6A261383C778054"
+			subtitle: "浸没曝光与划片"
+			tasks: [
+				{
+					id: "095064D919AAF75C"
+					item: "gtecore:imaginary_tree_cpu_wafer"
+					type: "item"
+				},
+				{
+					id: "AEEC78E7D0B800FF"
+					item: "gtecore:imaginary_tree_circuit_chip"
+					type: "item"
+				}
+			]
+			title: "光刻分支 A：电路芯片"
+			x: 6.5d
+			y: -3.0d
+		},
+		{
+			dependencies: ["B2FB1708311D3AF7"]
+			description: [
+				"粗制切割：普通晶圆直接划片为粗制晶片；"
+				"精密刻模：阴阳透镜聚束刻蚀，配合氢氟酸和电子级水在晶片表面蚀刻出数十亿晶体管矩阵；"
+				"互连封装：与铕细导线、焊锡合金封装引脚，得到核心【虚数之树 CPU 芯片】。"
+			]
+			id: "BFA1934F9292CAB2"
+			subtitle: "粗切、纳米刻模与金线封装"
+			tasks: [
+				{
+					id: "62E18AF8876707F4"
+					item: "gtecore:raw_imaginary_tree_chip"
+					type: "item"
+				},
+				{
+					id: "5A914859DC6F0732"
+					item: "gtecore:engraved_imaginary_tree_chip"
+					type: "item"
+				},
+				{
+					id: "A3F78477756A14C5"
+					item: "gtecore:imaginary_tree_cpu_chip"
+					type: "item"
+				}
+			]
+			title: "光刻分支 B：CPU 芯片"
+			x: 6.5d
+			y: -1.0d
+		},
+		{
+			dependencies: [
+				"E6A261383C778054"
+				"BFA1934F9292CAB2"
+			]
+			description: [
+				"扫描研究虚数 CPU 芯片后组装，利用八角层压塔与U型湿法走廊进行微电子高级封装。"
+				"承担基板压合、微细印刷线路蚀刻及芯片倒装 SoC 封装全部任务。"
+			]
+			id: "6D06446EC5AEC858"
+			size: 1.5d
+			subtitle: "13×9×13 阶梯层压封装矩阵"
+			tasks: [
+				{
+					id: "9BC230D68A463FDC"
+					item: "gtecore:imaginary_circuit_fabricator"
+					type: "item"
+				}
+			]
+			title: "虚数基板封装厂"
+			x: 4.0d
+			y: 2.0d
+		},
+		{
+			dependencies: ["6D06446EC5AEC858"]
+			description: [
+				"基板层压：强化环氧树脂板与虚数生长介质复合，压入铕箔并由聚苯并咪唑粘接；"
+				"印刷蚀刻：利用三氯化铁与电子级水蚀刻铕与黄金微电路，制成高频【虚数之树印刷电路基板】。"
+			]
+			id: "6522A59F4C657561"
+			subtitle: "生长介质强化与氯化铁蚀刻"
+			tasks: [
+				{
+					id: "D44A42B4A043B0C4"
+					item: "gtecore:imaginary_tree_circuit_board"
+					type: "item"
+				},
+				{
+					id: "49B48506255A9560"
+					item: "gtecore:imaginary_tree_printed_circuit_board"
+					type: "item"
+				}
+			]
+			title: "多层高频电路板"
+			x: 6.5d
+			y: 2.0d
+		},
+		{
+			dependencies: [
+				"6D06446EC5AEC858"
+				"E6A261383C778054"
+				"BFA1934F9292CAB2"
+				"6522A59F4C657561"
+			]
+			description: [
+				"将 2x 虚数 CPU 芯片、4x 虚数电路芯片以及印刷基板与铕细导线封装在单个晶片内，构成极具算力密度的 SoC！"
+			]
+			id: "BBE0DB22904590F5"
+			size: 1.5d
+			subtitle: "微系统高度集成片上系统"
+			tasks: [
+				{
+					id: "A035DB9A3DB082CF"
+					item: "gtecore:imaginary_tree_soc"
+					type: "item"
+				}
+			]
+			title: "虚数之树 SoC"
+			x: 8.5d
+			y: 1.0d
+		},
+		{
+			dependencies: [
+				"6522A59F4C657561"
+				"E6A261383C778054"
+				"BFA1934F9292CAB2"
+				"46FB3C8945DAF3E7"
+			]
+			description: [
+				"虚数印刷基板 + 4x CPU 芯片 + 8x 电路芯片 + 16x 三钛细导线 + 焊锡 + 电子级水。"
+				"拥有纯正虚数血统的基础级处理器！"
+			]
+			id: "D1262FAF40A2ED21"
+			subtitle: "初阶虚数算力起点"
+			tasks: [
+				{
+					id: "D06DF056F3EA1514"
+					item: "gtecore:imaginary_tree_processor"
+					type: "item"
+				}
+			]
+			title: "[UHV] 虚数之树处理器"
+			x: 10.5d
+			y: 0.0d
+		},
+		{
+			dependencies: [
+				"D1262FAF40A2ED21"
+				"BBE0DB22904590F5"
+			]
+			description: [
+				"4x 虚数处理器 + 4x 虚数之树 SoC + 2x 中子素板 + 焊锡 + 电子级水。"
+				"真正达成 UEV 级电路在虚数路线下的完整自循环与自给自足！"
+			]
+			id: "6DF7876513A6BD1E"
+			size: 1.5d
+			subtitle: "本代主控算力成熟"
+			tasks: [
+				{
+					id: "2317FB7B644D9A83"
+					item: "gtecore:imaginary_tree_processor_assembly"
+					type: "item"
+				}
+			]
+			title: "[UEV] 虚数之树处理器集群"
+			x: 12.5d
+			y: 0.0d
+		},
+		{
+			dependencies: [
+				"6DF7876513A6BD1E"
+				"536555779CD8D263"
+			]
+			description: [
+				"4x 虚数处理器集群 + 虚数核心外壳 + 4x 中子素板 + 焊锡。"
+				"算力产生质的飞跃，可作为下一电压时代的顶级算力供给！"
+			]
+			id: "EB2555750290FD2C"
+			subtitle: "跨入下个时代的算力基石"
+			tasks: [
+				{
+					id: "257E9E02A2CB3296"
+					item: "gtecore:imaginary_tree_processor_computer"
+					type: "item"
+				}
+			]
+			title: "[UIV] 虚数之树超级计算机"
+			x: 14.5d
+			y: 0.0d
+		},
+		{
+			dependencies: [
+				"EB2555750290FD2C"
+				"E3263B967FB4A8A4"
+			]
+			description: [
+				"4x 虚数超级计算机 + 2x 虚数约束外壳 + 8x 中子素板 + 焊锡。"
+				"虚数工程的至高明珠！它所承载的庞大虚数算力，足以重塑时空拓扑，窥见宇宙终极真理。"
+			]
+			id: "27535579C7234E9A"
+			size: 2.0d
+			subtitle: "虚数极致 · 算力王权"
+			tasks: [
+				{
+					id: "B224B0C6B691FD90"
+					item: "gtecore:imaginary_tree_processor_mainframe"
+					type: "item"
+				}
+			]
+			title: "[UXV] 虚数之树处理器主机"
+			x: 16.5d
+			y: 0.0d
+		},
+		{
+			dependencies: ["27535579C7234E9A"]
+			description: [
+				"恭喜你完整贯通了 UEV 虚数系列的所有多方块与配方流水线！"
+				"从三级水质净化系统的中枢调配，到虚数之树的挺拔矗立，再到浸没光刻中心与封装厂的毫厘雕琢，你已经掌握了宇宙顶级的精密制造工程。"
+			]
+			icon: "gtceu:uev_machine_hull"
+			id: "0D5E3F3416DF80D4"
+			size: 1.5d
+			subtitle: "向无尽未来进发"
+			tasks: [
+				{
+					id: "FFC8CA390D91AE76"
+					title: "虚数时代圆满完成"
+					type: "checkmark"
+				}
+			]
+			title: "虚数宏图成型"
+			x: 18.5d
+			y: 0.0d
+		}
+	]
+	subtitle: ["极限高压"]
+	title: "&d[Tier 10] UEV&r"
+}
