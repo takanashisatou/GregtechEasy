@@ -76,6 +76,7 @@ jobs:
         run: |
           python -m unittest discover -s scripts/quest_lab -p 'test_*.py'
           python -m unittest discover -s scripts -p test_dev_pack_parity.py
+          python -m unittest discover -s scripts -p test_curseforge_release.py
 
       - name: Pack Content Gates
         # The three invariants that need nothing but the pack tree and a Python

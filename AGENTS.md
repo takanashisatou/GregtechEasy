@@ -124,7 +124,7 @@ you actually need breakpoints.
     - When using parallel subagents for asset creation (textures/models) and code registration, `runData` MUST NEVER be triggered prematurely by code subagents while asset subagents are still generating or writing PNG textures to disk.
     - Registrate / Forge Datagen requires all target texture PNG files to be firmly written on disk before execution to avoid corrupt/missing model JSON definitions. Always ensure all parallel asset workers have finished before running `.\gradlew.bat :modules:gtecore:runData`.
 12. Real-Time Dev Environment Linking:
-    - `modules/gte-dev-runtime` automatically creates Directory Junctions (`mklink /J` on Windows, symlinks on POSIX) linking `run/client/{kubejs, config/ftbquests, defaultconfigs, tlm_custom_pack}` to `gte/overrides/`.
+    - `modules/gte-dev-runtime` automatically creates Directory Junctions (`mklink /J` on Windows, symlinks on POSIX) linking `run/client/{kubejs, config/ftbquests, config/openloader/resources, config/fancymenu, defaultconfigs, tlm_custom_pack}` to `gte/overrides/`.
     - This allows in-game quest editing and KubeJS script development during `runClient` to be reflected and committed to Git in real-time, while keeping test saves and runtime logs safely confined to `run/client/`.
 13. NEVER edit the bytes of a third-party mod jar. The pack consumes mods as
     published artifacts; rewriting a refmap, a `.class`, or any other zip entry
@@ -461,10 +461,12 @@ Non-negotiable:
 - `.github/workflows/release-publish.yml` implements manual releases:
   dispatch with a version -> create `dev -> release` PR -> squash merge ->
   tag `v<version>` -> tag workflow publishes.
-- `.github/workflows/curseforge-publish.yml` implements standalone CurseForge
-  publishing: compiles and publishes submodule mods (`gtm-reborn`, `gtecore`,
-  `gt--`) to CurseForge first, builds a pure `manifest.json` modpack with
-  ZERO bundled jars in `overrides/`, and uploads to CurseForge platform.
+- `.github/workflows/curseforge-publish.yml` implements two-stage CurseForge
+  publishing from the committed production jars: `modules` uploads the three
+  mods and records their returned file IDs; after moderation, `pack` verifies
+  public downloads against the recorded SHA-256 hashes and builds/uploads a
+  pure `manifest.json` modpack with ZERO jars anywhere in the archive. `check`
+  performs the preflight without uploads. See `docs/curseforge-release.md`.
 - Translation providers are selected through environment variables
   (`DEEPSEEK_API_KEY`, `GEMINI_API_KEY`, `OPENAI_API_KEY`,
   `DASHSCOPE_API_KEY`, `MOONSHOT_API_KEY`, `ZHIPU_API_KEY`,
