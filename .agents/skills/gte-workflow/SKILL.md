@@ -233,8 +233,10 @@ When writing or modifying Java/Kotlin code in `gtm-reborn`, `gtecore`, or `gte-d
 # 6. Build Player Full-Mod Client Pack (GTE-FullMod zip)
 python scripts/build_full_mod_pack.py [version]
 
-# 7. Build Pure CurseForge Modpack (No bundled jars)
-python scripts/build_curseforge_pack.py [version]
+# 7. Build Pure CurseForge Modpack after all three module uploads are approved
+# The record contains the exact project/file IDs returned by the upload stage.
+python scripts/build_curseforge_pack.py [version] --module-release build/curseforge/module-release.json
+# Release instructions: docs/curseforge-release.md (check -> modules -> review -> pack)
 
 # 8. Audit 100% dependency coverage
 python scripts/audit_dependencies.py

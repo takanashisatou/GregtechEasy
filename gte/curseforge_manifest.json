@@ -18,125 +18,901 @@
   "overrides": "overrides",
   "files": [
     {
-      "name": "Applied Energistics 2",
-      "projectID": 223794,
-      "fileID": 5937107,
+      "name": "SuperMartijn642's Core Lib (by SuperMartijn642)",
+      "slug": "supermartijn642s-core-lib",
+      "projectID": 454372,
+      "fileID": 6034718,
       "required": true,
-      "slug": "applied-energistics-2"
+      "fileName": "supermartijn642corelib-1.1.18-forge-mc1.20.1.jar",
+      "sha256": "b89c7703f909c75bff8981be7a3c7219138e01549666bd5cd5c47a1d6330489e"
     },
     {
-      "name": "Architectury API",
+      "name": "OWorld2Create (by TachibanaSherry)",
+      "slug": "oworld2create",
+      "projectID": 923261,
+      "fileID": 4799214,
+      "required": true,
+      "fileName": "0World2Create-Universal-1.19-1.20.X-1.0.0.jar",
+      "sha256": "ddf923ce4d0bb1573ecf06d6c57e1c85d2e0419d4ccea591e3dec0d405132ff5"
+    },
+    {
+      "name": "GregMek (by MeowmelMuku)",
+      "slug": "gregmek",
+      "projectID": 1320684,
+      "fileID": 6847015,
+      "required": true,
+      "fileName": "gregmek-1.0-SNAPSHOT.jar",
+      "sha256": "61a7043a4b618807180532b4a8ec4bac11cac341aa10a27cd2b8f32e02d7d5a0"
+    },
+    {
+      "name": "Touhou Little Maid (by TartaricAcid)",
+      "slug": "touhou-little-maid",
+      "projectID": 355044,
+      "fileID": 6911704,
+      "required": true,
+      "fileName": "touhoulittlemaid-1.3.8-forge+mc1.20.1.jar",
+      "sha256": "85cc166e795f82fd92f0f6ed3b5964c70c1439fc988d3c2d624c190771ac2063"
+    },
+    {
+      "name": "Packet Fixer (by TonimatasDEV)",
+      "slug": "packet-fixer",
+      "projectID": 689467,
+      "fileID": 7221527,
+      "required": true,
+      "fileName": "packetfixer-3.3.1-1.18-1.20.4-merged.jar",
+      "sha256": "4f641e4e204315a55b3f5a33e3039076ba08c95b68ac9280ea0081fb27470c13"
+    },
+    {
+      "name": "Just Enough Items (JEI) (by mezz)",
+      "slug": "jei",
+      "projectID": 238222,
+      "fileID": 6600311,
+      "required": true,
+      "fileName": "jei-1.20.1-forge-15.20.0.112.jar",
+      "sha256": "2d3a86f503dbde51afa5142951525c37e227016ce8d9e7dfd10bbdd9233f0204"
+    },
+    {
+      "name": "ExtendedAE (by GlodBlock)",
+      "slug": "ex-pattern-provider",
+      "projectID": 892005,
+      "fileID": 7472662,
+      "required": true,
+      "fileName": "ExtendedAE-1.20-1.4.10-forge.jar",
+      "sha256": "7f9a0f7ba943575cf8561c5a9ed1e13178e61228c4b7aa0b51d36e13968ba4a2"
+    },
+    {
+      "name": "Item Filters (by LatvianModder)",
+      "slug": "item-filters",
+      "projectID": 309674,
+      "fileID": 4838266,
+      "required": true,
+      "fileName": "item-filters-forge-2001.1.0-build.59.jar",
+      "sha256": "99417b1342ba51ccb9611b17ab01fc1299971aa34e8f9d2a8b3c63df5713eb49"
+    },
+    {
+      "name": "Mekanism Extras (by lost_myself8)",
+      "slug": "mekanism-extras",
+      "projectID": 1026040,
+      "fileID": 6923166,
+      "required": true,
+      "fileName": "mekanism_extras-1.20.1-1.4.5.jar",
+      "sha256": "0525035cd07b739be4452e363cc2bf3db2a271c1e613445880fa42c87dd3ef7f"
+    },
+    {
+      "name": "Configuration (by Toma)",
+      "slug": "configuration",
+      "projectID": 444699,
+      "fileID": 5840405,
+      "required": true,
+      "fileName": "configuration-forge-1.20.1-3.1.0.jar",
+      "sha256": "179ca1a9928920a5d89d73d308e0e78f59083e4e44d869d5cf23a9087fd52c3d"
+    },
+    {
+      "name": "AppleSkin (by squeek502)",
+      "slug": "appleskin",
+      "projectID": 248787,
+      "fileID": 4770828,
+      "required": true,
+      "fileName": "appleskin-forge-mc1.20.1-2.5.1.jar",
+      "sha256": "e12419e43e3babc810af289403c5cd96bd7f09809b389acc6bb2f122b4b2a426"
+    },
+    {
+      "name": "Gregfluxology (by Tian_mi)",
+      "slug": "gregfluxology",
+      "projectID": 1106032,
+      "fileID": 6770837,
+      "required": true,
+      "fileName": "gregfluxology-0.0.2.jar",
+      "sha256": "f3f997066bcf397f9fe243e9b5bea5a5f63837ad1f32b7ef9db78f1a85f09e45"
+    },
+    {
+      "name": "Sophisticated Core (by P3pp3rF1y)",
+      "slug": "sophisticated-core",
+      "projectID": 618298,
+      "fileID": 6896721,
+      "required": true,
+      "fileName": "sophisticatedcore-1.20.1-1.2.81.1091.jar",
+      "sha256": "68432dd683826b54efb6522b4c474993ea26e5ade49ac181bff0e262031a4229"
+    },
+    {
+      "name": "Some-Useless-Things (by SorrowMist)",
+      "slug": "some-useless-things",
+      "projectID": 1401600,
+      "fileID": 7493082,
+      "required": true,
+      "fileName": "useless_mod-26.1.20-Forge1.20.1.jar",
+      "sha256": "d562b12f21d7da30897e5c83f512c79defdf0731a7218a2756e3bc42e6e898a7"
+    },
+    {
+      "name": "Curios API (Forge/NeoForge) (by TheIllusiveC4)",
+      "slug": "curios",
+      "projectID": 309927,
+      "fileID": 6418456,
+      "required": true,
+      "fileName": "curios-forge-5.14.1+1.20.1.jar",
+      "sha256": "1e817919a35b37cf30524aaec73f0ca5130452f23f168f844854df282eb8e51f"
+    },
+    {
+      "name": "FTB Teams (NeoForge) (by FTB)",
+      "slug": "ftb-teams-forge",
+      "projectID": 404468,
+      "fileID": 6130786,
+      "required": true,
+      "fileName": "ftb-teams-forge-2001.3.1.jar",
+      "sha256": "d6e3cf8d0bdae7f848764428c613ae2528aecf9d275b4169eb8e15da87b41863"
+    },
+    {
+      "name": "Applied Mekanistics (by ramidzkh)",
+      "slug": "applied-mekanistics",
+      "projectID": 574300,
+      "fileID": 4842281,
+      "required": true,
+      "fileName": "Applied-Mekanistics-1.4.2.jar",
+      "sha256": "957e59989cc8388bcc10c42c8f68c0f1e3afce8a066a02bb2b6d0f4d641cce55"
+    },
+    {
+      "name": "Jade 🔍 (by Snownee)",
+      "slug": "jade",
+      "projectID": 324717,
+      "fileID": 6855440,
+      "required": true,
+      "fileName": "Jade-1.20.1-Forge-11.13.2.jar",
+      "sha256": "31949971a7a8d5a5bc95ad9d400cbedfd2d65ffbfb3cea7c0b2fa3b47431a0a5"
+    },
+    {
+      "name": "Ender IO (by crazypants_mc_the_second)",
+      "slug": "ender-io",
+      "projectID": 64578,
+      "fileID": 6911764,
+      "required": true,
+      "fileName": "EnderIO-1.20.1-6.2.13-beta-all.jar",
+      "sha256": "22c612a56838caf8284daafc6586ab12276dda4036907030495ee85d914834b0"
+    },
+    {
+      "name": "Sophisticated Backpacks (by P3pp3rF1y)",
+      "slug": "sophisticated-backpacks",
+      "projectID": 422301,
+      "fileID": 6907756,
+      "required": true,
+      "fileName": "sophisticatedbackpacks-1.20.1-3.23.26.1315.jar",
+      "sha256": "15ee2c98536253ad733d8a7e9273a824762cf93c6ed4a313d1a28284092978c2"
+    },
+    {
+      "name": "Mekanism Additions (by bradyaidanc)",
+      "slug": "mekanism-additions",
+      "projectID": 345425,
+      "fileID": 6552913,
+      "required": true,
+      "fileName": "MekanismAdditions-1.20.1-10.4.16.80.jar",
+      "sha256": "980a86196b872ca7a66a76d37fe2119097beb8e9cc7f0fad44aa0bb47f7d83a4"
+    },
+    {
+      "name": "Trash Cans (by SuperMartijn642)",
+      "slug": "trash-cans",
+      "projectID": 394535,
+      "fileID": 4712179,
+      "required": true,
+      "fileName": "trashcans-1.0.18b-forge-mc1.20.jar",
+      "sha256": "533c14cfcc5d99e4889d9cdddea2e2ef382febfd5ae5ecb3b0676538a1ccdda4"
+    },
+    {
+      "name": "Open Loader (by DarkhaxDev)",
+      "slug": "open-loader",
+      "projectID": 354339,
+      "fileID": 5368592,
+      "required": true,
+      "fileName": "OpenLoader-Forge-1.20.1-19.0.4.jar",
+      "sha256": "30e7baa36edd497801eaca4acb3d1cebe77eae7feca675ac85045dc39a99c6b8"
+    },
+    {
+      "name": "Balm (by BlayTheNinth)",
+      "slug": "balm",
+      "projectID": 531761,
+      "fileID": 6841886,
+      "required": true,
+      "fileName": "balm-forge-1.20.1-7.3.34-all.jar",
+      "sha256": "58b36a6d2ba09e82a3ef232ceb330dae617b04310719e127cffca3b5ea75c919"
+    },
+    {
+      "name": "GTMThings (by liansishen)",
+      "slug": "gtmthings",
+      "projectID": 1104310,
+      "fileID": 6843500,
+      "required": true,
+      "fileName": "gtmthings-1.5.4.jar",
+      "sha256": "d3f6c66b1e3c86497fed5b45b455eb687f46895ac53717967046968b2a16bcda"
+    },
+    {
+      "name": "Yeetus Experimentus (by Sunekaer)",
+      "slug": "yeetusexperimentus",
+      "projectID": 635427,
+      "fileID": 4680832,
+      "required": true,
+      "fileName": "YeetusExperimentus-Forge-2.3.1-build.6+mc1.20.1.jar",
+      "sha256": "6dacf5ea0cec5d6d53e7d002d4a06ac4fa5f7ec665f3932bb6566136e6a7f8ed"
+    },
+    {
+      "name": "Mekanism Generators (by bradyaidanc)",
+      "slug": "mekanism-generators",
+      "projectID": 268566,
+      "fileID": 6552914,
+      "required": true,
+      "fileName": "MekanismGenerators-1.20.1-10.4.16.80.jar",
+      "sha256": "be2d5b8553f8638cfabf491002f95cef6acef210f627addb391f5af713502512"
+    },
+    {
+      "name": "FTB Essentials (Forge & Fabric) (by FTB)",
+      "slug": "ftb-essentials",
+      "projectID": 410811,
+      "fileID": 6555287,
+      "required": true,
+      "fileName": "ftb-essentials-forge-2001.2.3.jar",
+      "sha256": "dcbec178981988fc67e8838e8eba948325988221941daa6e5dd65441974b39f0"
+    },
+    {
+      "name": "AE2 Things [Forge] (by thetechnici4n)",
+      "slug": "ae2-things-forge",
+      "projectID": 609977,
+      "fileID": 4616683,
+      "required": true,
+      "fileName": "AE2-Things-1.2.1.jar",
+      "sha256": "6a900a8e4411f9c2653a38cdabbf503cf89766b289120a5f3599282120d2abc3"
+    },
+    {
+      "name": "ModernFix (by embeddedt)",
+      "slug": "modernfix",
+      "projectID": 790626,
+      "fileID": 6837713,
+      "required": true,
+      "fileName": "modernfix-forge-5.24.4+mc1.20.1.jar",
+      "sha256": "98d77cb29c718934b1d5d465d3725a0de4284bf3c8033d6553a7dd3b15956fe4"
+    },
+    {
+      "name": "MEGA Cells (by ninety)",
+      "slug": "mega-cells",
+      "projectID": 622112,
+      "fileID": 6175008,
+      "required": true,
+      "fileName": "megacells-forge-2.4.6-1.20.1.jar",
+      "sha256": "19f59cc793950a3fa80dc1b29ef3bdad587344cd5efe25c5e010f4db1ea4a79c"
+    },
+    {
+      "name": "ProbeJS (by Amygdaloideae)",
+      "slug": "probejs",
+      "projectID": 585406,
+      "fileID": 5227399,
+      "required": true,
+      "fileName": "probejs-6.0.1-forge.jar",
+      "sha256": "139b586b87a8bad536e0a8983fc01c48e8ff46fb2e5881b52ac8b59f44b1e609"
+    },
+    {
+      "name": "Pipez (by henkelmax)",
+      "slug": "pipez",
+      "projectID": 443900,
+      "fileID": 6368313,
+      "required": true,
+      "fileName": "pipez-forge-1.20.1-1.2.21.jar",
+      "sha256": "4ace663c812e3af58106f6956443a0d5d1504c9afb262db49a633571d54bf1ee"
+    },
+    {
+      "name": "Super Factory Manager ( SFM ) (by TeamDman)",
+      "slug": "super-factory-manager",
+      "projectID": 306935,
+      "fileID": 7021189,
+      "required": true,
+      "fileName": "Super Factory Manager (SFM)-MC1.20.1-4.26.0.jar",
+      "sha256": "bbbb40b1c2a7f077b5ccffcceb7d105d114b88485427f9882639224b9f709995"
+    },
+    {
+      "name": "Simple Voice Chat (by henkelmax)",
+      "slug": "simple-voice-chat",
+      "projectID": 416089,
+      "fileID": 6863774,
+      "required": true,
+      "fileName": "voicechat-forge-1.20.1-2.5.36.jar",
+      "sha256": "f1d9015650f7172dbb171c9a053d3edf99cde936c0ac7cca5566cf8c1fcc5ba2"
+    },
+    {
+      "name": "ME Requester (by Relentless)",
+      "slug": "merequester",
+      "projectID": 688367,
+      "fileID": 5689932,
+      "required": true,
+      "fileName": "merequester-forge-1.20.1-1.1.5.jar",
+      "sha256": "119c23431ff06b1ebe57606daff460b7c74f74c8564a26f1cbac4cd3521968cd"
+    },
+    {
+      "name": "FTB Library (Forge) (by FTB)",
+      "slug": "ftb-library-forge",
+      "projectID": 404465,
+      "fileID": 6807424,
+      "required": true,
+      "fileName": "ftb-library-forge-2001.2.10.jar",
+      "sha256": "c721880edd4f3a78965a350b2f12c6fe05f74dba4037a2a08fd792f9cbb1db97"
+    },
+    {
+      "name": "Polymorph (Fabric/Forge/Quilt) (by TheIllusiveC4)",
+      "slug": "polymorph",
+      "projectID": 388800,
+      "fileID": 6450982,
+      "required": true,
+      "fileName": "polymorph-forge-0.49.10+1.20.1.jar",
+      "sha256": "cbe63a0a1cb6ae8dbc0e29bb96d149a137cd4e714b295fa49d230994091d157f"
+    },
+    {
+      "name": "FTB Chunks (NeoForge) (by FTB)",
+      "slug": "ftb-chunks-forge",
+      "projectID": 314906,
+      "fileID": 6431735,
+      "required": true,
+      "fileName": "ftb-chunks-forge-2001.3.6.jar",
+      "sha256": "caaa40aea64bba6f113fbddcabf77962b4b4e03bf57cbabace07ab05d28b38f9"
+    },
+    {
+      "name": "Sophisticated Storage (by P3pp3rF1y)",
+      "slug": "sophisticated-storage",
+      "projectID": 619320,
+      "fileID": 6912200,
+      "required": true,
+      "fileName": "sophisticatedstorage-1.20.1-1.3.62.1236.jar",
+      "sha256": "3496f1931cd5e7df56c1c5c4a9eed36f54501727271c1c950acdf584f4bde426"
+    },
+    {
+      "name": "Glodium (by GlodBlock)",
+      "slug": "glodium",
+      "projectID": 957920,
+      "fileID": 5226922,
+      "required": true,
+      "fileName": "Glodium-1.20-1.5-forge.jar",
+      "sha256": "fc419cb5bf511750c0a2da498b925f5122ac4f78617aca6630fe80abf0b6f460"
+    },
+    {
+      "name": "Architectury API (by shedaniel)",
+      "slug": "architectury-api",
       "projectID": 419699,
       "fileID": 5137938,
       "required": true,
-      "slug": "architectury-api"
+      "fileName": "architectury-9.2.14-forge.jar",
+      "sha256": "218b471d0b8a1f6cda14cfc1beb9eeb0df54304500acc6c5613d9b88ec65d9af"
     },
     {
-      "name": "Bookshelf",
-      "projectID": 228525,
-      "fileID": 5219468,
+      "name": "GeckoLib (by Gecko)",
+      "slug": "geckolib",
+      "projectID": 388172,
+      "fileID": 6920925,
       "required": true,
-      "slug": "bookshelf"
+      "fileName": "geckolib-forge-1.20.1-4.7.4.jar",
+      "sha256": "6ccdc4001520a098f0af16cebcabc2edde655a64ca39f7acd1e4c90e31bc5164"
     },
     {
-      "name": "Curios API",
-      "projectID": 309927,
-      "fileID": 5369964,
+      "name": "Polymorphic Energistics (by ninety)",
+      "slug": "polymorphic-energistics",
+      "projectID": 941096,
+      "fileID": 5282394,
       "required": true,
-      "slug": "curios"
+      "fileName": "polyeng-forge-0.1.1-1.20.1.jar",
+      "sha256": "595eeacf80632633967c1a21b751a6d981b2ac12c16416ec3993b26f26df3af0"
     },
     {
-      "name": "Game Stages",
-      "projectID": 268655,
-      "fileID": 4627255,
+      "name": "Konkrete (by Keksuccino)",
+      "slug": "konkrete",
+      "projectID": 410295,
+      "fileID": 5028413,
       "required": true,
-      "slug": "game-stages"
+      "fileName": "konkrete_forge_1.8.0_MC_1.20-1.20.1.jar",
+      "sha256": "e78686b92c3761ec26eb9d3c53efdd3d6ca77981cbd3723995e1163b7103ae0b"
     },
     {
-      "name": "GTM Things",
-      "projectID": 969560,
-      "fileID": 5693006,
+      "name": "Maid Useful Tasks (by xypp)",
+      "slug": "maid-useful-tasks",
+      "projectID": 1255424,
+      "fileID": 6890475,
       "required": true,
-      "slug": "gtm-things"
+      "fileName": "1.20.1-maid_useful_task-1.3.6.jar",
+      "sha256": "8ac4fac517d808f18032f8ae827b157ba86d8f52949711c95639afbde8e88fd3"
     },
     {
-      "name": "GTNN",
-      "projectID": 941031,
-      "fileID": 5800049,
+      "name": "Inventory Tweaks - ReFoxed (by LobsterJonn)",
+      "slug": "inventory-tweaks-refoxed",
+      "projectID": 976858,
+      "fileID": 6816947,
       "required": true,
-      "slug": "gtnn"
+      "fileName": "invtweaks-1.20.1-1.2.2.jar",
+      "sha256": "54ba6fd7d5e4b9a9dadf6876153b99a94b4997f8d4ee0e46c9c58ea5c8c95802"
     },
     {
-      "name": "GuideMe",
-      "projectID": 1017366,
-      "fileID": 5742469,
+      "name": "Building Gadgets (by Direwolf20)",
+      "slug": "building-gadgets",
+      "projectID": 298187,
+      "fileID": 6850495,
       "required": true,
-      "slug": "guideme"
+      "fileName": "buildinggadgets2-1.0.8.jar",
+      "sha256": "59efb399a4acdb69a01a970b1f1e3c5584495aabc726ff40857ab4aed9372c83"
     },
     {
-      "name": "Jade",
-      "projectID": 324717,
-      "fileID": 5824982,
+      "name": "FancyMenu (by Keksuccino)",
+      "slug": "fancymenu",
+      "projectID": 367706,
+      "fileID": 7256735,
       "required": true,
-      "slug": "jade"
+      "fileName": "fancymenu_forge_3.8.1_MC_1.20.1.jar",
+      "sha256": "ba1ddf0f61def8ea87e7757ebb45f1390e1da0f7ebce1aff299b0a169b045858"
     },
     {
-      "name": "Just Enough Characters (JECH)",
-      "projectID": 250763,
-      "fileID": 5275815,
+      "name": "ME Infinity Cell (by y_xiao233)",
+      "slug": "me-infinity-cell",
+      "projectID": 1320551,
+      "fileID": 6918846,
       "required": true,
-      "slug": "just-enough-characters-jech"
+      "fileName": "meinfinitycell-1.20.1-4.0.0.jar",
+      "sha256": "5a3e7b75302219a63a67d121c521f510bcede3885d5d1deca1cff9e161afb338"
     },
     {
-      "name": "Just Enough Items (JEI)",
-      "projectID": 238222,
-      "fileID": 6116827,
-      "required": true,
-      "slug": "jei"
-    },
-    {
-      "name": "Kotlin for Forge",
-      "projectID": 351264,
-      "fileID": 5074211,
-      "required": true,
-      "slug": "kotlin-for-forge"
-    },
-    {
-      "name": "KubeJS",
-      "projectID": 238086,
-      "fileID": 5464161,
-      "required": true,
-      "slug": "kubejs"
-    },
-    {
-      "name": "Rhino",
+      "name": "Rhino (by LatvianModder)",
+      "slug": "rhino",
       "projectID": 416294,
-      "fileID": 5262791,
+      "fileID": 6186971,
       "required": true,
-      "slug": "rhino"
+      "fileName": "rhino-forge-2001.2.3-build.10.jar",
+      "sha256": "fed2211429301bf043864183cab9ab8e92d4cc4dbb9e488ce6c75217c54584a6"
+    },
+    {
+      "name": "Mekanism (by bradyaidanc)",
+      "slug": "mekanism",
+      "projectID": 268560,
+      "fileID": 6552911,
+      "required": true,
+      "fileName": "Mekanism-1.20.1-10.4.16.80.jar",
+      "sha256": "3b0d191fa4a45e662f9725991d76a30192f30186abb2ba694b873b5f7b9358d2"
+    },
+    {
+      "name": "Almost Unified (by AlmostReliable)",
+      "slug": "almost-unified",
+      "projectID": 633823,
+      "fileID": 6912269,
+      "required": true,
+      "fileName": "almostunified-forge-1.20.1-0.10.1.jar",
+      "sha256": "820e57b79ed847e4d9371c77531cf7b78352b400e2dbc85d167a66e900f2fc81"
+    },
+    {
+      "name": "AE2 Network Analyser (by GlodBlock)",
+      "slug": "ae2-network-analyser",
+      "projectID": 961856,
+      "fileID": 5107131,
+      "required": true,
+      "fileName": "AE2NetworkAnalyzer-1.20-1.0.6-forge.jar",
+      "sha256": "9c10ab288402b6a01815d58029298fc56dd482f045511ad35104b17e9b6c4393"
+    },
+    {
+      "name": "Just Enough Characters (by towdium)",
+      "slug": "just-enough-characters",
+      "projectID": 250702,
+      "fileID": 6680042,
+      "required": true,
+      "fileName": "jecharacters-1.20.1-forge-4.5.16.jar",
+      "sha256": "95070fd8136a9677783b161bd8302c13bce1b232a53eee9b2c209f84c7381bc7"
+    },
+    {
+      "name": "FerriteCore ((Neo)Forge) (by malte0811)",
+      "slug": "ferritecore",
+      "projectID": 429235,
+      "fileID": 4810975,
+      "required": true,
+      "fileName": "ferritecore-6.0.1-forge.jar",
+      "sha256": "9c2c9396a49e796d88497758caa4637d2bcbb433c318e2dd9cebcffbaf0f6c54"
+    },
+    {
+      "name": "Advanced Backups (by HeatherWhite)",
+      "slug": "advanced-backups",
+      "projectID": 876284,
+      "fileID": 6148221,
+      "required": true,
+      "fileName": "AdvancedBackups-forge-1.20-3.7.1.jar",
+      "sha256": "eb471fbd7de564e6b12890359546d280d5723e09867a3104ea31c7285ada6942"
+    },
+    {
+      "name": "Trenzalore (by UnRealDinnerbone)",
+      "slug": "trenzalore",
+      "projectID": 870210,
+      "fileID": 4848244,
+      "required": true,
+      "fileName": "trenzalore-forge-3.3.10+mc1.20.1-all.jar",
+      "sha256": "e5b2f8554f1a0acecaf568773504a0e3fe26e6f8d94cb279bac03d7c478554e4"
+    },
+    {
+      "name": "Embeddium (by FiniteReality)",
+      "slug": "embeddium",
+      "projectID": 908741,
+      "fileID": 5681725,
+      "required": true,
+      "fileName": "embeddium-0.3.31+mc1.20.1.jar",
+      "sha256": "eed3d1325f2acc2fd4e69bb495e5ccb91d962126ac5330f0582ebc2a3daf47fb"
+    },
+    {
+      "name": "Building Wands (by nicguzzo)",
+      "slug": "building-wands",
+      "projectID": 363392,
+      "fileID": 5654676,
+      "required": true,
+      "fileName": "BuildingWands-mc1.20.1-2.7-forge-beta.jar",
+      "sha256": "ab264cc3a132dbf66dcba049e38d10c0769678ad8a16e2d99cd59908c20ea873"
+    },
+    {
+      "name": "KubeJS (by LatvianModder)",
+      "slug": "kubejs",
+      "projectID": 238086,
+      "fileID": 5853326,
+      "required": true,
+      "fileName": "kubejs-forge-2001.6.5-build.16.jar",
+      "sha256": "3de6b7267d3aab981848ed54d3afe7edf20532fa4060631fd6fffcd99ac5f3d5"
+    },
+    {
+      "name": "Just Another Void Dimension (by UnRealDinnerbone)",
+      "slug": "javd",
+      "projectID": 370890,
+      "fileID": 4803995,
+      "required": true,
+      "fileName": "JAVD-Forge-5.0.1+mc1.20.1.jar",
+      "sha256": "2af488ba98b2b3c608516eb0ee88a38e45f505583681cfb03482a7bb12b91fd0"
+    },
+    {
+      "name": "LDLib (by KilaBash)",
+      "slug": "ldlib",
+      "projectID": 626676,
+      "fileID": 6899193,
+      "required": true,
+      "fileName": "ldlib-forge-1.20.1-1.0.43.jar",
+      "sha256": "b17f6cbb888a9040cee862d58879c4da11d26a65742b712a2b4d74438c1f60fe"
+    },
+    {
+      "name": "GuideME (by shartte)",
+      "slug": "guideme",
+      "projectID": 1173950,
+      "fileID": 6679102,
+      "required": true,
+      "fileName": "guideme-20.1.11.jar",
+      "sha256": "9e39a63d69327b9688a933c19ad360484e08fd198825e052181175f693a5cd79"
+    },
+    {
+      "name": "Modern AE2 Additions (by AE2Enthusiast)",
+      "slug": "modern-ae2-additions",
+      "projectID": 1028068,
+      "fileID": 6827727,
+      "required": true,
+      "fileName": "mae2-2.0.0-beta.c.jar",
+      "sha256": "633e21125646a72b7c9a6fa3c92764cf2287535547d560d6ca1d2f855be24f7f"
+    },
+    {
+      "name": "TrashSlot (by BlayTheNinth)",
+      "slug": "trashslot",
+      "projectID": 235577,
+      "fileID": 6319121,
+      "required": true,
+      "fileName": "trashslot-forge-1.20-15.1.2.jar",
+      "sha256": "9cc15728f84a0af0be0efa537cf897c0d98f3c706eb5dd5264c9cd58dc322411"
+    },
+    {
+      "name": "AE Wireless Transceiver (by xiaopiao)",
+      "slug": "ae-wireless-transceiver",
+      "projectID": 1337607,
+      "fileID": 7478596,
+      "required": true,
+      "fileName": "aewireless-1.2.5.jar",
+      "sha256": "44ddb40d5b865846323d1da641fe173544647f61965ca1a8dc18545b1925446f"
+    },
+    {
+      "name": "Better Fps - Render Distance[Forge] (by someaddon)",
+      "slug": "better-fps-render-distance",
+      "projectID": 551520,
+      "fileID": 5723247,
+      "required": true,
+      "fileName": "betterfpsdist-1.20.1-6.0.jar",
+      "sha256": "0fa8855bcdc67962f109a096381107f58917faa64c61dd99b32ae0e738aae4f7"
+    },
+    {
+      "name": "More Overlays Updated (by RiDGo8)",
+      "slug": "more-overlays-updated",
+      "projectID": 391382,
+      "fileID": 5376428,
+      "required": true,
+      "fileName": "moreoverlays-1.22.7-mc1.20.2.jar",
+      "sha256": "1cf063baf7eed2f41066a00cb5520d0ceed4104118990d508591c8a4c9781980"
+    },
+    {
+      "name": "LaserIO (by Direwolf20)",
+      "slug": "laserio",
+      "projectID": 626839,
+      "fileID": 5074767,
+      "required": true,
+      "fileName": "laserio-1.6.8.jar",
+      "sha256": "f07fc6cb7f2aa28197e87ffc3a35062390259ad803d8996b08b13473c0af6790"
+    },
+    {
+      "name": "Patchouli (by Vazkii)",
+      "slug": "patchouli",
+      "projectID": 306770,
+      "fileID": 6164575,
+      "required": true,
+      "fileName": "Patchouli-1.20.1-84.1-FORGE.jar",
+      "sha256": "9cc38ebb5e29b350222e337b7a5a2ba238c802230a89434ce00e90ee3026d056"
+    },
+    {
+      "name": "ExtendedAE-Plus (by GaLicn)",
+      "slug": "extendedae-plus",
+      "projectID": 1337639,
+      "fileID": 7327714,
+      "required": true,
+      "fileName": "extendedae_plus-1.5.1.jar",
+      "sha256": "232addee9673ce00ee0d6113434d716df4852661651f5bead851878ccac10fa9"
+    },
+    {
+      "name": "AdvancedAE (by pedroksl)",
+      "slug": "advancedae",
+      "projectID": 1084104,
+      "fileID": 6916770,
+      "required": true,
+      "fileName": "AdvancedAE-1.1.4-1.20.1.jar",
+      "sha256": "da90aab033d06cd0d7ff56ef98049baca1e705d6cabd1695a96c400533e8b502"
+    },
+    {
+      "name": "Applied Energistics 2 (by thetechnici4n)",
+      "slug": "applied-energistics-2",
+      "projectID": 223794,
+      "fileID": 6852919,
+      "required": true,
+      "fileName": "appliedenergistics2-forge-15.4.8.jar",
+      "sha256": "046b37c9893f6429fe6fd55ed4eb22803707ca5aa21ef8a647b634f78566d927"
+    },
+    {
+      "name": "FTB Quests (NeoForge) (by FTB)",
+      "slug": "ftb-quests-forge",
+      "projectID": 289412,
+      "fileID": 6829212,
+      "required": true,
+      "fileName": "ftb-quests-forge-2001.4.14.jar",
+      "sha256": "0986ef763a3255f01d34c0b863e7323420744e9c7186677e61782b9ad91f2743"
+    },
+    {
+      "name": "Melody (by Keksuccino)",
+      "slug": "melody",
+      "projectID": 938643,
+      "fileID": 5109692,
+      "required": true,
+      "fileName": "melody_forge_1.0.3_MC_1.20.1-1.20.4.jar",
+      "sha256": "933e2a7e79c4594f965f7f7d00b1f28a98ec2a180ad8f9f90310a266fe5cf5d8"
+    },
+    {
+      "name": "Squat Grow (Shift / Twerk to grow plants) (by Gaz_)",
+      "slug": "squat-grow",
+      "projectID": 515698,
+      "fileID": 5150173,
+      "required": true,
+      "fileName": "squatgrow-forge-5.3.0+mc1.20.1.jar",
+      "sha256": "a67367e176e01ab0f9e2ddf1943ca4bdcb7a274fd852d44822037167852871a9"
+    },
+    {
+      "name": "Searchables (by Jaredlll08)",
+      "slug": "searchables",
+      "projectID": 858542,
+      "fileID": 5284015,
+      "required": true,
+      "fileName": "Searchables-forge-1.20.1-1.0.3.jar",
+      "sha256": "c1a76e93886210574d3f298c0461241fb711e52ac22c7a04d3236840f29e6576"
+    },
+    {
+      "name": "Modern UI (by BloCamLimb)",
+      "slug": "modern-ui",
+      "projectID": 352491,
+      "fileID": 6199942,
+      "required": true,
+      "fileName": "ModernUI-Forge-1.20.1-3.11.1.6-universal.jar",
+      "sha256": "ff0afbf380d53939b104f6318befef06995314e7d804ad900bc7a8679a22c8c7"
+    },
+    {
+      "name": "Applied Energistics 2 Wireless Terminals (by Mari_023)",
+      "slug": "applied-energistics-2-wireless-terminals",
+      "projectID": 459929,
+      "fileID": 5217955,
+      "required": true,
+      "fileName": "ae2wtlib-15.2.3-forge.jar",
+      "sha256": "4b1797edb3307eca6c610c31b371d5a802c124d5052329d3454c065831298199"
+    },
+    {
+      "name": "FTB Ultimine (Forge) (by FTB)",
+      "slug": "ftb-ultimine-forge",
+      "projectID": 386134,
+      "fileID": 6899418,
+      "required": true,
+      "fileName": "ftb-ultimine-forge-2001.1.7.jar",
+      "sha256": "317c94a8ad011907932b7f0eec875b1b0233bc9164e8920c702186570da74d69"
+    },
+    {
+      "name": "Mouse Tweaks (by YaLTeR)",
+      "slug": "mouse-tweaks",
+      "projectID": 60089,
+      "fileID": 5338457,
+      "required": true,
+      "fileName": "MouseTweaks-forge-mc1.20.1-2.25.1.jar",
+      "sha256": "6c27d16aa715ac6613a55fc463739e2c7b78279e4e4c4cede299e4a2d4a70f08"
+    },
+    {
+      "name": "Cloth Config API (Fabric/Forge/NeoForge) (by shedaniel)",
+      "slug": "cloth-config",
+      "projectID": 348521,
+      "fileID": 5729105,
+      "required": true,
+      "fileName": "cloth-config-11.1.136-forge.jar",
+      "sha256": "1e895e85cf5b1e1905ef3178ec155c8badfe22a1577b92c09143a5aa1f4ce0f2"
+    },
+    {
+      "name": "Applied Flux (by GlodBlock)",
+      "slug": "applied-flux",
+      "projectID": 965012,
+      "fileID": 6755986,
+      "required": true,
+      "fileName": "AppliedFlux-1.20-1.3.2-forge.jar",
+      "sha256": "6e596a6c8718fdb19ed1b6f5152ca9fef441f256f0fcd5091c5875f1d2aa58b2"
+    },
+    {
+      "name": "Inventory Essentials (by BlayTheNinth)",
+      "slug": "inventory-essentials",
+      "projectID": 368825,
+      "fileID": 6794133,
+      "required": true,
+      "fileName": "inventoryessentials-forge-1.20.1-8.2.9.jar",
+      "sha256": "39f34495e5fc2d45fdf3ce959daa76ab8ab805466ff43eb92dde6da5ec866430"
+    },
+    {
+      "name": "Entity Culling Fabric/Forge (by tr7zw)",
+      "slug": "entityculling",
+      "projectID": 448233,
+      "fileID": 6780226,
+      "required": true,
+      "fileName": "entityculling-forge-1.8.2-mc1.20.1.jar",
+      "sha256": "b8eb1a4fe48779bdaefcda64468471da148d0eacf93570d55373d05418b2deca"
+    },
+    {
+      "name": "Maid Storage Manager (by xypp)",
+      "slug": "maid-storage-manager",
+      "projectID": 1210244,
+      "fileID": 6919317,
+      "required": true,
+      "fileName": "1.20.1-maid_storage_manager-1.12.15.jar",
+      "sha256": "a9a57326772c96646e85b3da8f25582a9dcba0f9e46cc4e3575abbfcbad2dbb5"
+    },
+    {
+      "name": "SuperMartijn642's Config Lib (by SuperMartijn642)",
+      "slug": "supermartijn642s-config-lib",
+      "projectID": 438332,
+      "fileID": 4715408,
+      "required": true,
+      "fileName": "supermartijn642configlib-1.1.8-forge-mc1.20.jar",
+      "sha256": "bea425ef7e9cd27a7fc0f4b89e00cbd0a1ee050f071ecaa9f28f7238f400f0a3"
+    },
+    {
+      "name": "Controlling (by Jaredlll08)",
+      "slug": "controlling",
+      "projectID": 250398,
+      "fileID": 4646682,
+      "required": true,
+      "fileName": "Controlling-forge-1.20.1-12.0.2.jar",
+      "sha256": "516308a93824119f6a1ebc75425aa21ee8f8de0c331942793a054ba6d9c24944"
+    },
+    {
+      "name": "OmniTool (by GaLicn)",
+      "slug": "omnitool",
+      "projectID": 1401075,
+      "fileID": 7356900,
+      "required": true,
+      "fileName": "omnitools-1.2.0-fix.jar",
+      "sha256": "e27d6c7d8dfd3015eed097b9f469675925a8673a2dba3154015fa1a5ab0dea97"
+    },
+    {
+      "name": "Cupboard (by someaddon)",
+      "slug": "cupboard",
+      "projectID": 326652,
+      "fileID": 5470032,
+      "required": true,
+      "fileName": "cupboard-1.20.1-2.7.jar",
+      "sha256": "63a1b6e8e9cffd53f283fae04f64b8d63dcaaa99fe0e383bb664f23ec87d395f"
+    },
+    {
+      "name": "Infinite Storage Cell (by nutant233)",
+      "slug": "infinite-storage-cell",
+      "projectID": 1173691,
+      "fileID": 6155997,
+      "required": true,
+      "fileName": "infinitestoragecell-1.20.1-1.2.jar",
+      "sha256": "1871f681b1668c4333d07f7502eec21c57657686a5183657d286365e94a8859e"
+    },
+    {
+      "name": "Lan Server Properties (by rikka0w0)",
+      "slug": "lan-server-properties",
+      "projectID": 387365,
+      "fileID": 4776657,
+      "required": true,
+      "fileName": "lanserverproperties-1.11.1-forge.jar",
+      "sha256": "dd59193804b778cf8d42284695b325d945150e4a973fb04e961fcd8b0c807b89"
+    },
+    {
+      "name": "FTB XMod Compat (by FTB)",
+      "slug": "ftb-xmod-compat",
+      "projectID": 889915,
+      "fileID": 6402486,
+      "required": true,
+      "fileName": "ftb-xmod-compat-forge-2.1.3.jar",
+      "sha256": "16a8eb9de88d5c33d29cb076cc39dfb337b2c54348e1ef1efe9dd60cf85e5f72"
+    },
+    {
+      "name": "Mekanism Tools (by bradyaidanc)",
+      "slug": "mekanism-tools",
+      "projectID": 268567,
+      "fileID": 6552915,
+      "required": true,
+      "fileName": "MekanismTools-1.20.1-10.4.16.80.jar",
+      "sha256": "29089222fd52d272d767d7d2f62b9e6b401b3280a212be096eaedb0fc48aacfb"
+    },
+    {
+      "name": "WorldEdit (by sk89q)",
+      "slug": "worldedit",
+      "projectID": 225608,
+      "fileID": 4586218,
+      "required": true,
+      "fileName": "worldedit-mod-7.2.15.jar",
+      "sha256": "17db6b3e94f52d25426684663e1e1846823cbb7907f1c365ac329e5bc7bfaf2c"
+    },
+    {
+      "name": "LazyDFU (by tuxed)",
+      "slug": "lazydfu",
+      "projectID": 433518,
+      "fileID": 3821870,
+      "required": true,
+      "fileName": "lazydfu-0.1.3.jar",
+      "sha256": "4f3b77273b57d019a8db58371e63e4426557c1bb7c9cc10536a03972122778c8"
     }
   ],
   "submodules": {
     "gtm-reborn": {
       "name": "GregTech Modern Reborn",
-      "projectID": 0,
+      "projectID": 1347911,
       "fileID": 0,
       "required": true,
       "slug": "gregtech-modern-reborn"
     },
     "gtecore": {
       "name": "GTE Core",
-      "projectID": 0,
+      "projectID": 1332244,
       "fileID": 0,
       "required": true,
-      "slug": "gtecore"
+      "slug": "gregtech-easy-core"
     },
     "gt--": {
       "name": "GT-- Community Edition",
-      "projectID": 0,
+      "projectID": 1353895,
       "fileID": 0,
       "required": true,
-      "slug": "gt-minus-minus"
+      "slug": "gt-community-edition"
     }
-  }
+  },
+  "source": "https://www.curseforge.com/minecraft/modpacks/gregtech-easy/files/7584449"
 }

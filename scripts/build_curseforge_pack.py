@@ -7,7 +7,7 @@ CurseForge Modpack Specification:
 1. manifest.json at zip root with projectID & fileID for all declared mods.
 2. modlist.html at zip root with links to CurseForge project pages.
 3. overrides/ folder containing config, kubejs, patchouli_books, defaultconfigs, etc.
-4. STRICTLY NO JAR FILES inside overrides/mods/ (bundling jars in overrides violates CF rules).
+4. STRICTLY NO JAR FILES anywhere in this project's CurseForge pack.
 
 Usage:
     python scripts/build_curseforge_pack.py [version] [options]
@@ -25,6 +25,7 @@ import json
 import os
 import sys
 import zipfile
+import html
 from pathlib import Path
 
 # Ensure UTF-8 output on all platforms
@@ -46,6 +47,7 @@ from pack_common import (  # noqa: E402
     SKIP_TOP_ALWAYS,
     read_pack_versions,
 )
+from curseforge_release import positive_id, validate_catalog, validate_release  # noqa: E402
 
 
 def should_skip_override(rel: Path) -> str | None:
@@ -70,7 +72,7 @@ def generate_modlist_html(mod_entries: list[dict]) -> str:
     """Generate modlist.html according to CurseForge modpack spec."""
     items = []
     for mod in mod_entries:
-        name = mod.get("name", f"Mod (Project {mod.get('projectID')})")
+        name = html.escape(mod.get("name", f"Mod (Project {mod.get('projectID')})"))
         slug = mod.get("slug", "")
         if slug:
             url = f"https://www.curseforge.com/minecraft/mc-mods/{slug}"
@@ -94,7 +96,8 @@ def generate_modlist_html(mod_entries: list[dict]) -> str:
 """
 
 
-def build_curseforge_pack(version: str, submodule_overrides: dict[str, dict[str, int]]) -> Path:
+def build_curseforge_pack(version: str, submodule_overrides: dict[str, dict[str, int]],
+                         release_record: dict | None = None) -> Path:
     mc_version, forge_version = read_pack_versions()
     out_zip = BUILD_DIR / f"GTE-CurseForge-{version}.zip"
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
@@ -105,12 +108,13 @@ def build_curseforge_pack(version: str, submodule_overrides: dict[str, dict[str,
     print(f"=======================================================\n")
 
     # 1. Load base manifest definition
-    manifest_data = {}
-    if MANIFEST_BASE.is_file():
-        try:
-            manifest_data = json.loads(MANIFEST_BASE.read_text(encoding="utf-8"))
-        except Exception as e:
-            print(f"[WARN] Failed to parse {MANIFEST_BASE}: {e}")
+    # An incomplete manifest must never turn into a successful modless export.
+    manifest_data = json.loads(MANIFEST_BASE.read_text(encoding="utf-8"))
+    validate_catalog(manifest_data, OVERRIDES / "mods")
+    if release_record is not None:
+        if release_record.get("version") != version:
+            raise ValueError("Pack version differs from the recorded module release")
+        submodule_overrides = validate_release(release_record, manifest_data, OVERRIDES / "mods")
 
     # 2. Assemble manifest.json
     manifest = {
@@ -159,16 +163,12 @@ def build_curseforge_pack(version: str, submodule_overrides: dict[str, dict[str,
         name = sub_def.get("name", sub_key)
         slug = sub_def.get("slug", "")
 
-        if pid and fid:
-            manifest["files"].append({
-                "projectID": int(pid),
-                "fileID": int(fid),
-                "required": True
-            })
-            mod_info_list.append({"name": name, "slug": slug, "projectID": pid, "fileID": fid})
-            print(f"  [Submodule Mod] {name:<26} -> Project: {pid}, File: {fid}")
-        else:
-            print(f"  [Notice] Submodule mod {name} not assigned CF fileID (project={pid}, file={fid}).")
+        pid, fid = positive_id(pid), positive_id(fid)
+        if any(row["projectID"] == pid for row in manifest["files"]):
+            raise ValueError(f"Duplicate manifest project: {pid}")
+        manifest["files"].append({"projectID": pid, "fileID": fid, "required": True})
+        mod_info_list.append({"name": name, "slug": slug, "projectID": pid, "fileID": fid})
+        print(f"  [Submodule Mod] {name:<26} -> Project: {pid}, File: {fid}")
 
     modlist_html = generate_modlist_html(mod_info_list)
 
@@ -238,17 +238,24 @@ def validate_curseforge_zip(zip_path: Path) -> None:
         manifest = json.loads(zf.read("manifest.json").decode("utf-8"))
         files = manifest.get("files", [])
         if not files:
-            print("[WARN] manifest.json contains 0 files! Launchers will install no mods.")
+            raise ValueError("manifest.json contains no mod files")
+        projects = [positive_id(row["projectID"]) for row in files]
+        for row in files:
+            positive_id(row["fileID"])
+        if len(set(projects)) != len(projects):
+            raise ValueError("manifest.json contains duplicate projects")
 
         # STRICT ASSERTION: NO JAR FILES ANYWHERE IN OVERRIDES
-        jar_entries = [name for name in names if name.endswith(".jar") or name.startswith("overrides/mods/")]
+        jar_entries = [name for name in names if name.lower().endswith(".jar") or name.lower().startswith("overrides/mods/")]
         if jar_entries:
             print(f"[ERROR] CRITICAL: CurseForge pack contains {len(jar_entries)} bundled jar file(s) in overrides!")
             for jar in jar_entries[:5]:
                 print(f"  - {jar}")
-            print("CurseForge moderation will REJECT packs bundling mods in overrides.")
-            zip_path.unlink(missing_ok=True)
-            sys.exit(1)
+
+    # Windows cannot unlink a ZIP while ZipFile still holds its read handle.
+    if jar_entries:
+        zip_path.unlink(missing_ok=True)
+        sys.exit(1)
 
     print("  [Validation Passed] manifest.json and modlist.html present, 0 jar files bundled in overrides.")
 
@@ -262,6 +269,7 @@ def parse_args():
     parser.add_argument("--gtecore-file-id", type=int, default=0)
     parser.add_argument("--gt-minus-project-id", type=int, default=0)
     parser.add_argument("--gt-minus-file-id", type=int, default=0)
+    parser.add_argument("--module-release", type=Path, help="Recorded project/file IDs from the module upload stage")
     return parser.parse_args()
 
 
@@ -285,7 +293,11 @@ def main():
             "fileID": args.gt_minus_file_id
         }
 
-    build_curseforge_pack(args.version, sub_overrides)
+    record = json.loads(args.module_release.read_text(encoding="utf-8")) if args.module_release else None
+    try:
+        build_curseforge_pack(args.version, sub_overrides, record)
+    except (OSError, ValueError, KeyError) as exc:
+        sys.exit(f"[ERROR] {exc}")
 
 
 if __name__ == "__main__":
