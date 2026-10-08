@@ -480,6 +480,7 @@ tasks.register('linkDevEnvironment') {
             'kubejs',
             'config/ftbquests',
             'config/openloader/resources',
+            'config/fancymenu',
             'defaultconfigs',
             'tlm_custom_pack',
             'patchouli_books'
@@ -490,21 +491,22 @@ tasks.register('linkDevEnvironment') {
             if (!targetDir.exists()) {
                 targetDir.mkdirs()
             }
-            // Existing runs have an old, ordinary copy of the quest language pack.
-            // Preserve it outside OpenLoader's search directory before replacing it
-            // with the same live link used by the quest tree itself.
-            if (rel == 'config/openloader/resources' && linkDir.exists()
+            // Preserve old ordinary copies before linking the pack's translations
+            // and UI. Otherwise the client keeps stale quest text or window titles.
+            def migratedConfigs = ['config/openloader/resources': 'openloader-resources',
+                                   'config/fancymenu': 'fancymenu']
+            if (migratedConfigs.containsKey(rel) && linkDir.exists()
                     && !java.nio.file.Files.isSameFile(linkDir.toPath(), targetDir.toPath())) {
                 def clientRoot = file("${rootDir}/run/client").toPath().toAbsolutePath().normalize()
-                def backupDir = file("${rootDir}/run/client/.gte-link-backups/openloader-resources-${System.currentTimeMillis()}")
+                def backupDir = file("${rootDir}/run/client/.gte-link-backups/${migratedConfigs[rel]}-${System.currentTimeMillis()}")
                 def oldPath = linkDir.toPath().toAbsolutePath().normalize()
                 def backupPath = backupDir.toPath().toAbsolutePath().normalize()
                 if (!oldPath.startsWith(clientRoot) || !backupPath.startsWith(clientRoot)) {
-                    throw new GradleException('OpenLoader link migration must stay inside the dev client directory.')
+                    throw new GradleException('Config link migration must stay inside the dev client directory.')
                 }
                 java.nio.file.Files.createDirectories(backupPath.parent)
                 java.nio.file.Files.move(oldPath, backupPath)
-                println "[GTE] Preserved previous OpenLoader resources at ${backupDir.absolutePath}"
+                println "[GTE] Preserved previous ${rel} at ${backupDir.absolutePath}"
             }
             if (!linkDir.exists()) {
                 linkDir.parentFile.mkdirs()
