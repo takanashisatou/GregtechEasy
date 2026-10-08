@@ -655,7 +655,10 @@ jobs:
       # in gradle/forge.versions.toml against the jars in the tree, so a drift is
       # worth surfacing on every build, not only when someone packs.
       - name: "[Gate 1e] Verify Dev-Runtime/Pack Parity After Copy"
-        run: python scripts/audit_dev_pack_parity.py
+        run: |
+          python -m unittest discover -s scripts -p test_dev_pack_parity.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python scripts/audit_dev_pack_parity.py
 
       # Gate 1d (module jar freshness) deliberately does NOT run here. This job
       # compiles the modules and copies the result into gte/overrides/mods/, but

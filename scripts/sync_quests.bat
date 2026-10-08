@@ -53,7 +53,7 @@ echo 正在将仓库的最新内容推送到游戏目录...
 robocopy "%OVERRIDES_DIR%\ftbquests" "%GAME_DIR%\ftbquests" /E /NFL /NDL /NJH /NJS /nc /ns /np
 robocopy "%OVERRIDES_DIR%\kubejs" "%GAME_DIR%\kubejs" /E /NFL /NDL /NJH /NJS /nc /ns /np
 robocopy "%OVERRIDES_DIR%\config" "%GAME_DIR%\config" /E /NFL /NDL /NJH /NJS /nc /ns /np
-echo [完成] 已全部推送至游戏目录！请在游戏内使用 /ftbquests reload 刷新查看。
+echo [完成] 已全部推送至游戏目录！任务树用 /ftbquests reload，语言与贴图另用 F3+T 重载资源。
 pause
 goto EXIT
 

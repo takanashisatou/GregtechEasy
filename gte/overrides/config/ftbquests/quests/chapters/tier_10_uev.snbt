@@ -1,52 +1,47 @@
 {
-	autofocus_id: "53DC8A55C1CBE569"
+	autofocus_id: "06BD546FDEBA97D9"
 	default_hide_dependency_lines: false
 	default_quest_shape: ""
 	filename: "tier_10_uev"
 	group: "277796EFA601375B"
-	icon: "gtceu:uev_machine_hull"
+	icon: "gtecore:tree_of_imaginary"
 	id: "6B323DEABB8E231C"
-	images: [{
-		click: "https://liteyuki.feishu.cn/wiki/ClHrwvA1jivg5Vkn7DqcJLXFnqe"
-		height: 2.75d
-		hover: ["点击查看教程"]
-		image: "kubejs:textures/ftbquests/volt_level_logos/ftbq_gtelogo_volt_level_uev.png"
-		rotation: 0.0d
-		width: 3.85d
-		x: -14.0d
-		y: -3.5d
-	}]
 	order_index: 10
 	quest_links: [ ]
 	quests: [
 		{
-			dependencies: ["3199B7281B38A1EA"]
+			dependencies: ["769C8F34627F32E0"]
 			description: [
-				"欢迎来到 UEV 时代！"
-				"在掌握了阴阳与八卦的奥秘后，你面对的是高维时空折叠而成的虚数领域。"
-				"利用阴阳主机与顶级材料制作你的首批 UEV 机器外壳，开启这片充满无限可能的领域。"
+				"{gte.tier_10_uev.quests.06BD546FDEBA97D9.description0}"
+				"{gte.tier_10_uev.quests.06BD546FDEBA97D9.description1}"
+				"{gte.tier_10_uev.quests.06BD546FDEBA97D9.description2}"
 			]
-			id: "53DC8A55C1CBE569"
-			size: 1.5d
-			subtitle: "向虚数维度跃迁"
+			icon: "gtecore:tree_of_imaginary"
+			id: "06BD546FDEBA97D9"
 			tasks: [{
-				id: "36474F8E75DF9BC8"
-				item: "gtceu:uev_machine_hull"
-				type: "item"
+				id: "27E71C0D6006D9A6"
+				type: "checkmark"
 			}]
-			title: "UEV 时代启程"
-			x: -14.0d
+			title: "{gte.tier_10_uev.quests.06BD546FDEBA97D9.title}"
+			x: -4.0d
 			y: 0.0d
 		}
 		{
-			dependencies: ["53DC8A55C1CBE569"]
-			description: [
-				"在装配线中，使用 UHV 核心部件，灌注暗流体、超弦催化剂与熔融中子素，并融入阴阳与八卦符石，将其升格为 UEV 基础动力组件！"
-				"它们是建造后续所有 UEV 多方块机器与高级产线的核心工业部件。"
+			dependencies: [
+				"06BD546FDEBA97D9"
+				"62FD8E0CA756A7A4"
 			]
+			description: [
+				"{gte.tier_10_uev.quests.031389A5AB616E4B.description0}"
+				"{gte.tier_10_uev.quests.031389A5AB616E4B.description1}"
+			]
+			icon: "gtceu:uev_electric_motor"
 			id: "031389A5AB616E4B"
-			size: 1.5d
-			subtitle: "八卦注入的极限动力"
+			rewards: [{
+				id: "77E98F46B4526D8B"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [
 				{
 					id: "44188031876471B0"
@@ -74,18 +69,23 @@
 					type: "item"
 				}
 			]
-			title: "UEV时代的老五样"
-			x: -11.5d
+			title: "{gte.tier_10_uev.quests.031389A5AB616E4B.title}"
+			x: -1.0d
 			y: 0.0d
 		}
 		{
 			dependencies: ["031389A5AB616E4B"]
 			description: [
-				"发射器（离象）、传感器（坎象）与场发生器（乾坤同构）。"
-				"它们是搭建大型虚数多方块与精密光刻仪器的核心高阶传感器件。"
+				"{gte.tier_10_uev.quests.5173F63C00C45E46.description0}"
+				"{gte.tier_10_uev.quests.5173F63C00C45E46.description1}"
 			]
+			icon: "gtceu:uev_emitter"
 			id: "5173F63C00C45E46"
-			subtitle: "发射器、传感器与场发生器"
+			rewards: [{
+				id: "4CD7C8BC0D590C6C"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [
 				{
 					id: "2A6BAD83D6706F8E"
@@ -103,511 +103,1167 @@
 					type: "item"
 				}
 			]
-			title: "场控与传感极限"
-			x: -11.5d
-			y: 2.0d
+			title: "{gte.tier_10_uev.quests.5173F63C00C45E46.title}"
+			x: 2.0d
+			y: 0.0d
 		}
 		{
-			dependencies: ["031389A5AB616E4B"]
-			description: [
-				"虚数体系需要极高纯度的净化水。"
-				"在化学反应釜中，使用盐酸、铁铝粉和蒸馏水制备高纯复合絮凝液；并对碳与二氧化硅进行水热酸活化球化，制造改性纳米活性炭微球。"
+			dependencies: [
+				"031389A5AB616E4B"
+				"3199B7281B38A1EA"
 			]
-			id: "6D2213014BDD8DFD"
-			subtitle: "絮凝与吸附"
+			description: [
+				"{gte.tier_10_uev.quests.64D6DAB6191BCCA9.description0}"
+				"{gte.tier_10_uev.quests.64D6DAB6191BCCA9.description1}"
+			]
+			icon: "gtecore:yin_yang_processor_mainframe"
+			id: "64D6DAB6191BCCA9"
+			rewards: [{
+				id: "0C6283529D52BE81"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [
 				{
-					id: "2B9A1082DAFC3B96"
-					item: "gtecore:modified_carbon_microspheres"
+					id: "6DC00DDD0F9233F7"
+					item: "gtecore:yin_yang_processor_mainframe"
 					type: "item"
 				}
 				{
-					id: "7D919C63CC113154"
-					item: "gtceu:composite_flocculant_bucket"
+					id: "08E26876C2FFE6CB"
+					item: "gtecore:red_sun_tao_core"
+					type: "item"
+				}
+				{
+					id: "150D437376AE837E"
+					item: "gtecore:kun_gen_star_hub"
+					type: "item"
+				}
+				{
+					id: "55E2C4B37970A449"
+					item: "gtecore:yinyang_glass_lens"
 					type: "item"
 				}
 			]
-			title: "澄清前置化学耗材"
-			x: -9.0d
-			y: -3.5d
+			title: "{gte.tier_10_uev.quests.64D6DAB6191BCCA9.title}"
+			x: 2.0d
+			y: 3.0d
 		}
 		{
+			dependencies: ["5FAAB250FB748770"]
 			description: [
-				"深度除杂所需的尖端化学品："
-				"高纯臭氧：在电解机中由高压电晕放电发生；"
-				"混床树脂微球：由苯乙烯、甲苯与浓硫酸悬浮共聚合成；"
-				"电子级酸碱脱附液：用于 EDI 树脂深度洗脱与离子再生。"
+				"{gte.tier_10_uev.quests.43D5399B26E5F748.description0}"
+				"{gte.tier_10_uev.quests.43D5399B26E5F748.description1}"
+				"{gte.tier_10_uev.quests.43D5399B26E5F748.description2}"
 			]
-			id: "36D7880A5E9C2B80"
-			subtitle: "树脂微球与洗脱再生"
-			tasks: [
-				{
-					id: "71D62A9B6DBFC014"
-					item: "gtecore:mixed_bed_resin_beads"
-					type: "item"
-				}
-				{
-					id: "71255A7F5C54DF76"
-					item: "gtceu:electronic_acid_base_reagent_bucket"
-					type: "item"
-				}
-				{
-					id: "5B5543A92F811ED2"
-					item: "gtceu:ozone_bucket"
-					type: "item"
-				}
-			]
-			title: "深度脱离子前置试剂"
-			x: -9.0d
-			y: -5.5d
-		}
-		{
-			dependencies: ["031389A5AB616E4B"]
-			description: [
-				"整套三级水质净化产线的心脏！自身不执行配方，负责为所有已连接的分级装置集中供电并下发并行度上限。"
-				"使用数据棒潜行右键中枢复制坐标，随后右键各净化装置即可完成无线绑定。"
-				"注意：未连接到成型中枢的净化装置将无法开机。"
-			]
+			icon: "gtecore:central_water_purification_plant"
 			id: "43D5399B26E5F748"
-			size: 1.5d
-			subtitle: "中枢统管与电力广播"
+			rewards: [{
+				id: "156FFB7B3F7BDDC9"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [{
 				id: "7EFDC52025E2E8BC"
 				item: "gtecore:central_water_purification_plant"
 				type: "item"
 			}]
-			title: "中枢净化水厂"
-			x: -6.5d
-			y: -2.0d
+			title: "{gte.tier_10_uev.quests.43D5399B26E5F748.title}"
+			x: 5.0d
+			y: -8.0d
+		}
+		{
+			dependencies: ["43D5399B26E5F748"]
+			description: [
+				"{gte.tier_10_uev.quests.1C625B39E1561176.description0}"
+				"{gte.tier_10_uev.quests.1C625B39E1561176.description1}"
+			]
+			icon: "gtceu:aluminium_dust"
+			id: "1C625B39E1561176"
+			tasks: [{
+				id: "7D919C63CC113154"
+				type: "checkmark"
+			}]
+			title: "{gte.tier_10_uev.quests.1C625B39E1561176.title}"
+			x: 5.0d
+			y: -11.0d
+		}
+		{
+			dependencies: ["43D5399B26E5F748"]
+			description: [
+				"{gte.tier_10_uev.quests.6D2213014BDD8DFD.description0}"
+				"{gte.tier_10_uev.quests.6D2213014BDD8DFD.description1}"
+			]
+			icon: "gtecore:modified_carbon_microspheres"
+			id: "6D2213014BDD8DFD"
+			rewards: [{
+				id: "598E93CC08BF4045"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 16L
+				id: "2B9A1082DAFC3B96"
+				item: "gtecore:modified_carbon_microspheres"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.6D2213014BDD8DFD.title}"
+			x: 5.0d
+			y: -5.0d
 		}
 		{
 			description: [
-				"输入水/蒸馏水、复合絮凝液与纳米碳微球，产出【蒸馏净化水】。"
-				"注意：必须安装温控仓与温控信号仓，将运行温度稳定在安全区间（稳定运行600秒可达到100%净化产出率）。"
+				"{gte.tier_10_uev.quests.72483F1BB8B9D3E0.description0}"
+				"{gte.tier_10_uev.quests.72483F1BB8B9D3E0.description1}"
 			]
-			id: "22E465A72D1B0239"
-			subtitle: "差压闪蒸与重金属分离"
+			icon: "gtecore:thermal_control_hatch"
+			id: "72483F1BB8B9D3E0"
+			rewards: [{
+				id: "54BB737D4E2B6E78"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [
 				{
-					id: "447288E6ACC8B890"
-					item: "gtecore:t1_clarifier_purification_unit"
+					id: "2267A28FE3A0FC49"
+					item: "gtecore:thermal_control_hatch"
 					type: "item"
 				}
 				{
-					id: "4F5922F69CFEB192"
-					item: "gtceu:distilled_purified_water_bucket"
+					id: "78FFFABA92B7B0F8"
+					item: "gtecore:thermal_signal_hatch"
 					type: "item"
 				}
 			]
-			title: "一级澄清净化装置"
-			x: -6.5d
-			y: -3.5d
-		}
-		{
-			description: [
-				"蒸馏净化水注入装置，通入臭氧或双氧水进行深紫外高能光催化氧化，产出【紫外净化水】。"
-				"安装 1~4 组紫外灯仓，紫外辐射剂量达标后方可出水，TOC 降低至 1 ppb 以下！"
-			]
-			id: "5D22C8E9AAC77930"
-			subtitle: "深紫外光催化 TOC 矿化"
-			tasks: [
-				{
-					id: "316B4D008B1F0EEB"
-					item: "gtecore:t2_uv_oxidation_purification_unit"
-					type: "item"
-				}
-				{
-					id: "6612F710CFA22B76"
-					item: "gtceu:uv_purified_water_bucket"
-					type: "item"
-				}
-			]
-			title: "二级紫外氧化净化装置"
-			x: -4.0d
-			y: -3.5d
-		}
-		{
-			description: [
-				"紫外净化水 + 电子级混床树脂微球 + 酸碱脱附试剂 → 【电子级净化水】(UPW)。"
-				"绝缘电阻率达到极限 18.2 MΩ·cm，这是虚数之树培育与微电子芯片制造的命脉之源！"
-				"离子负载满后需利用外部红石信号请求再生清洗配方。"
-			]
-			id: "5D3E7098F84DCC94"
-			size: 1.5d
-			subtitle: "终极绝缘纯水 (18.2 MΩ·cm)"
-			tasks: [
-				{
-					id: "4DB9EC1A4D5B9FC4"
-					item: "gtecore:t3_edi_ultrapure_purification_unit"
-					type: "item"
-				}
-				{
-					id: "10BD40A902103992"
-					item: "gtceu:ultrapure_water_bucket"
-					type: "item"
-				}
-			]
-			title: "三级 EDI 超纯净化装置"
-			x: -1.5d
-			y: -3.5d
+			title: "{gte.tier_10_uev.quests.72483F1BB8B9D3E0.title}"
+			x: 8.0d
+			y: -5.0d
 		}
 		{
 			dependencies: [
-				"031389A5AB616E4B"
-				"5173F63C00C45E46"
+				"43D5399B26E5F748"
+				"1C625B39E1561176"
+				"6D2213014BDD8DFD"
 			]
 			description: [
-				"虚数外壳：八卦机械方块与中子素板为基，UEV 泵加压封装；"
-				"枝桠外壳：三钛长杆与中子素框架加固；"
-				"约束外壳：融合阴阳力场约束与 UEV 场发生器；"
-				"能量导管：以六角铕导线与震象符石贯通虚数能流。"
+				"{gte.tier_10_uev.quests.22E465A72D1B0239.description0}"
+				"{gte.tier_10_uev.quests.22E465A72D1B0239.description1}"
 			]
+			icon: "gtecore:t1_clarifier_purification_unit"
+			id: "22E465A72D1B0239"
+			rewards: [{
+				id: "0F7E3C2760C6CC64"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "447288E6ACC8B890"
+				item: "gtecore:t1_clarifier_purification_unit"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.22E465A72D1B0239.title}"
+			x: 8.0d
+			y: -8.0d
+		}
+		{
+			dependencies: ["22E465A72D1B0239"]
+			description: [
+				"{gte.tier_10_uev.quests.4E3AF1A20EFB1211.description0}"
+				"{gte.tier_10_uev.quests.4E3AF1A20EFB1211.description1}"
+			]
+			icon: "gtecore:t1_clarifier_purification_unit"
+			id: "4E3AF1A20EFB1211"
+			tasks: [{
+				id: "4F5922F69CFEB192"
+				type: "checkmark"
+			}]
+			title: "{gte.tier_10_uev.quests.4E3AF1A20EFB1211.title}"
+			x: 11.0d
+			y: -8.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.220AD6965A6109D0.description0}"
+				"{gte.tier_10_uev.quests.220AD6965A6109D0.description1}"
+			]
+			icon: "gtceu:iv_electrolyzer"
+			id: "220AD6965A6109D0"
+			tasks: [{
+				id: "5B5543A92F811ED2"
+				type: "checkmark"
+			}]
+			title: "{gte.tier_10_uev.quests.220AD6965A6109D0.title}"
+			x: 11.0d
+			y: -11.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.0FEB11C02238549F.description0}"
+				"{gte.tier_10_uev.quests.0FEB11C02238549F.description1}"
+			]
+			icon: "gtecore:uv_lamp_hatch"
+			id: "0FEB11C02238549F"
+			rewards: [{
+				id: "6A57381AED612BF9"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "0E0D2A0DA730CD10"
+				item: "gtecore:uv_lamp_hatch"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.0FEB11C02238549F.title}"
+			x: 14.0d
+			y: -5.0d
+		}
+		{
+			dependencies: ["220AD6965A6109D0"]
+			description: [
+				"{gte.tier_10_uev.quests.5D22C8E9AAC77930.description0}"
+				"{gte.tier_10_uev.quests.5D22C8E9AAC77930.description1}"
+			]
+			icon: "gtecore:t2_uv_oxidation_purification_unit"
+			id: "5D22C8E9AAC77930"
+			rewards: [{
+				id: "5651A0765C2BE8D5"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "316B4D008B1F0EEB"
+				item: "gtecore:t2_uv_oxidation_purification_unit"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.5D22C8E9AAC77930.title}"
+			x: 14.0d
+			y: -8.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.66DBD9B9ECC8135D.description0}"
+				"{gte.tier_10_uev.quests.66DBD9B9ECC8135D.description1}"
+			]
+			icon: "gtecore:t2_uv_oxidation_purification_unit"
+			id: "66DBD9B9ECC8135D"
+			tasks: [{
+				id: "6612F710CFA22B76"
+				type: "checkmark"
+			}]
+			title: "{gte.tier_10_uev.quests.66DBD9B9ECC8135D.title}"
+			x: 17.0d
+			y: -8.0d
+		}
+		{
+			dependencies: ["66DBD9B9ECC8135D"]
+			description: [
+				"{gte.tier_10_uev.quests.36D7880A5E9C2B80.description0}"
+				"{gte.tier_10_uev.quests.36D7880A5E9C2B80.description1}"
+			]
+			icon: "gtecore:mixed_bed_resin_beads"
+			id: "36D7880A5E9C2B80"
+			rewards: [{
+				id: "0AA074182902D936"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 8L
+				id: "71D62A9B6DBFC014"
+				item: "gtecore:mixed_bed_resin_beads"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.36D7880A5E9C2B80.title}"
+			x: 17.0d
+			y: -11.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.060AC36DB3101A93.description0}"
+				"{gte.tier_10_uev.quests.060AC36DB3101A93.description1}"
+			]
+			icon: "gtceu:sodium_hydroxide_dust"
+			id: "060AC36DB3101A93"
+			tasks: [{
+				id: "71255A7F5C54DF76"
+				type: "checkmark"
+			}]
+			title: "{gte.tier_10_uev.quests.060AC36DB3101A93.title}"
+			x: 17.0d
+			y: -5.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.2098B215AC54E1F0.description0}"
+				"{gte.tier_10_uev.quests.2098B215AC54E1F0.description1}"
+			]
+			icon: "gtecore:edi_load_signal_hatch"
+			id: "2098B215AC54E1F0"
+			rewards: [{
+				id: "70CC4F9DA034A170"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [
+				{
+					id: "56FC24FB56501342"
+					item: "gtecore:edi_load_signal_hatch"
+					type: "item"
+				}
+				{
+					id: "70456B650CE7F80F"
+					item: "gtecore:edi_regeneration_control_hatch"
+					type: "item"
+				}
+			]
+			title: "{gte.tier_10_uev.quests.2098B215AC54E1F0.title}"
+			x: 20.0d
+			y: -5.0d
+		}
+		{
+			dependencies: [
+				"66DBD9B9ECC8135D"
+				"36D7880A5E9C2B80"
+				"060AC36DB3101A93"
+				"2098B215AC54E1F0"
+			]
+			description: [
+				"{gte.tier_10_uev.quests.5D3E7098F84DCC94.description0}"
+				"{gte.tier_10_uev.quests.5D3E7098F84DCC94.description1}"
+			]
+			icon: "gtecore:t3_edi_ultrapure_purification_unit"
+			id: "5D3E7098F84DCC94"
+			rewards: [{
+				id: "5C7D4E8FAA9BE780"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "4DB9EC1A4D5B9FC4"
+				item: "gtecore:t3_edi_ultrapure_purification_unit"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.5D3E7098F84DCC94.title}"
+			x: 20.0d
+			y: -8.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.3C2ADB51F10FE933.description0}"
+				"{gte.tier_10_uev.quests.3C2ADB51F10FE933.description1}"
+			]
+			icon: "gtecore:t3_edi_ultrapure_purification_unit"
+			id: "3C2ADB51F10FE933"
+			tasks: [{
+				id: "10BD40A902103992"
+				type: "checkmark"
+			}]
+			title: "{gte.tier_10_uev.quests.3C2ADB51F10FE933.title}"
+			x: 23.0d
+			y: -8.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.498F4FFAF98EC3F3.description0}"
+				"{gte.tier_10_uev.quests.498F4FFAF98EC3F3.description1}"
+			]
+			icon: "gtecore:imaginary_casing"
 			id: "498F4FFAF98EC3F3"
-			subtitle: "约束、枝桠与能量通道"
-			tasks: [
-				{
-					id: "6A29AF8F5ACE08C5"
-					item: "gtecore:imaginary_casing"
-					type: "item"
-				}
-				{
-					id: "1B0722D1305B2F39"
-					item: "gtecore:imaginary_branch_casing"
-					type: "item"
-				}
-				{
-					id: "7711B126322A2B8F"
-					item: "gtecore:imaginary_containment_casing"
-					type: "item"
-				}
-				{
-					id: "2AC85E96EE2EA9D6"
-					item: "gtecore:imaginary_energy_conduit"
-					type: "item"
-				}
-			]
-			title: "虚数构件工程"
-			x: -9.0d
+			rewards: [{
+				id: "466956F3478F6290"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 32L
+				id: "6A29AF8F5ACE08C5"
+				item: "gtecore:imaginary_casing"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.498F4FFAF98EC3F3.title}"
+			x: 5.0d
 			y: 0.0d
 		}
 		{
+			dependencies: ["498F4FFAF98EC3F3"]
 			description: [
-				"虚数核心外壳：在坤艮星枢中消耗阴阳处理器主机与电子级净化水合成；"
-				"虚数玻璃：在赤阳道核中以阴阳透镜聚光重构；"
-				"虚数线圈方块：坤艮星枢超导缠绕。"
+				"{gte.tier_10_uev.quests.5C7EFC6E592173CC.description0}"
+				"{gte.tier_10_uev.quests.5C7EFC6E592173CC.description1}"
 			]
+			icon: "gtecore:imaginary_branch_casing"
+			id: "5C7EFC6E592173CC"
+			rewards: [{
+				id: "725F145702D1A62B"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 32L
+				id: "1B0722D1305B2F39"
+				item: "gtecore:imaginary_branch_casing"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.5C7EFC6E592173CC.title}"
+			x: 8.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["498F4FFAF98EC3F3"]
+			description: [
+				"{gte.tier_10_uev.quests.7214694B148BE30A.description0}"
+				"{gte.tier_10_uev.quests.7214694B148BE30A.description1}"
+			]
+			icon: "gtecore:imaginary_containment_casing"
+			id: "7214694B148BE30A"
+			rewards: [{
+				id: "73BB0B6F837AA34A"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 16L
+				id: "7711B126322A2B8F"
+				item: "gtecore:imaginary_containment_casing"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.7214694B148BE30A.title}"
+			x: 8.0d
+			y: 3.0d
+		}
+		{
+			dependencies: ["498F4FFAF98EC3F3"]
+			description: [
+				"{gte.tier_10_uev.quests.09F571EF51333F67.description0}"
+				"{gte.tier_10_uev.quests.09F571EF51333F67.description1}"
+			]
+			icon: "gtecore:imaginary_energy_conduit"
+			id: "09F571EF51333F67"
+			rewards: [{
+				id: "5F4A6C7561343B4A"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 16L
+				id: "2AC85E96EE2EA9D6"
+				item: "gtecore:imaginary_energy_conduit"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.09F571EF51333F67.title}"
+			x: 8.0d
+			y: -3.0d
+		}
+		{
+			dependencies: [
+				"7214694B148BE30A"
+				"3C2ADB51F10FE933"
+			]
+			description: [
+				"{gte.tier_10_uev.quests.536555779CD8D263.description0}"
+				"{gte.tier_10_uev.quests.536555779CD8D263.description1}"
+			]
+			icon: "gtecore:imaginary_core_casing"
 			id: "536555779CD8D263"
-			subtitle: "星枢与道核的巅峰造物"
-			tasks: [
-				{
-					id: "1031D2FDD0B37065"
-					item: "gtecore:imaginary_core_casing"
-					type: "item"
-				}
-				{
-					id: "73C9D5CFAC53F8CC"
-					item: "gtecore:imaginary_glass"
-					type: "item"
-				}
-				{
-					id: "594587A3D0CF00D8"
-					item: "gtecore:imaginary_coil_block"
-					type: "item"
-				}
+			rewards: [{
+				id: "14D502B6DCF2A305"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 4L
+				id: "1031D2FDD0B37065"
+				item: "gtecore:imaginary_core_casing"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.536555779CD8D263.title}"
+			x: 11.0d
+			y: 3.0d
+		}
+		{
+			dependencies: [
+				"498F4FFAF98EC3F3"
+				"5CA73D2AE2FBAC2D"
 			]
-			title: "虚数核心组件"
-			x: -6.5d
+			description: [
+				"{gte.tier_10_uev.quests.51610BB38CEAEA19.description0}"
+				"{gte.tier_10_uev.quests.51610BB38CEAEA19.description1}"
+			]
+			icon: "gtecore:imaginary_coil_block"
+			id: "51610BB38CEAEA19"
+			rewards: [{
+				id: "10CFDD6E79B8DE78"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 8L
+				id: "594587A3D0CF00D8"
+				item: "gtecore:imaginary_coil_block"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.51610BB38CEAEA19.title}"
+			x: 11.0d
 			y: 0.0d
 		}
 		{
-			dependencies: ["536555779CD8D263"]
+			dependencies: ["3C2ADB51F10FE933"]
 			description: [
-				"虚数生长介质：由赤阳道核制备，消耗电子级净化水、水木符篆与阴阳，作为日常单晶培养的不可或缺耗材；"
-				"虚数叶矩阵：在装配线中大批量生产（每批 64 个），与虚数玻璃、枝桠外壳共同织就虚数之树的宏大树冠。"
+				"{gte.tier_10_uev.quests.200953E16DBDDEFC.description0}"
+				"{gte.tier_10_uev.quests.200953E16DBDDEFC.description1}"
 			]
+			icon: "gtecore:imaginary_glass"
+			id: "200953E16DBDDEFC"
+			rewards: [{
+				id: "21DCF1C74EF74FF9"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 32L
+				id: "73C9D5CFAC53F8CC"
+				item: "gtecore:imaginary_glass"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.200953E16DBDDEFC.title}"
+			x: 11.0d
+			y: -3.0d
+		}
+		{
+			dependencies: [
+				"3C2ADB51F10FE933"
+				"3936ACC1E6EEB000"
+				"5FAAB250FB748770"
+			]
+			description: [
+				"{gte.tier_10_uev.quests.3FD3B62DE929C1BE.description0}"
+				"{gte.tier_10_uev.quests.3FD3B62DE929C1BE.description1}"
+			]
+			icon: "gtecore:imaginary_growth_medium"
 			id: "3FD3B62DE929C1BE"
-			subtitle: "维系生机的分形叶片"
-			tasks: [
-				{
-					id: "31344B9E686FF5FC"
-					item: "gtecore:imaginary_growth_medium"
-					type: "item"
-				}
-				{
-					id: "44F716DB18EDC7C9"
-					item: "gtecore:imaginary_leaf_matrix"
-					type: "item"
-				}
-			]
-			title: "生长介质与虚数树冠"
-			x: -4.0d
-			y: 0.0d
+			rewards: [{
+				id: "0BFBCE9F89C369E5"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 32L
+				id: "31344B9E686FF5FC"
+				item: "gtecore:imaginary_growth_medium"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.3FD3B62DE929C1BE.title}"
+			x: 14.0d
+			y: 3.0d
 		}
 		{
-			dependencies: ["536555779CD8D263"]
-			description: [
-				"扫描研究虚数核心外壳，使用核心外壳、枝桠外壳、约束外壳、能量导管、线圈与 UIV 阴阳处理器主机在装配线制造控制器！"
-				"搭建庞大的分形树木结构，点亮高维虚数能量回路。它是单晶生长、晶圆制备与四级成品虚数电路总装的核心中枢！"
+			dependencies: [
+				"5C7EFC6E592173CC"
+				"3FD3B62DE929C1BE"
 			]
+			description: [
+				"{gte.tier_10_uev.quests.53F079160724E89C.description0}"
+				"{gte.tier_10_uev.quests.53F079160724E89C.description1}"
+			]
+			icon: "gtecore:imaginary_leaf_matrix"
+			id: "53F079160724E89C"
+			rewards: [{
+				id: "10D6034B89615B3E"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 64L
+				id: "44F716DB18EDC7C9"
+				item: "gtecore:imaginary_leaf_matrix"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.53F079160724E89C.title}"
+			x: 14.0d
+			y: -3.0d
+		}
+		{
+			dependencies: [
+				"5C7EFC6E592173CC"
+				"7214694B148BE30A"
+				"51610BB38CEAEA19"
+				"53F079160724E89C"
+			]
+			description: [
+				"{gte.tier_10_uev.quests.46FB3C8945DAF3E7.description0}"
+				"{gte.tier_10_uev.quests.46FB3C8945DAF3E7.description1}"
+			]
+			icon: "gtecore:tree_of_imaginary"
 			id: "46FB3C8945DAF3E7"
-			size: 2.0d
-			subtitle: "高维分形矩阵 · 虚数之源"
+			rewards: [{
+				id: "0BE74C22F531C569"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [{
 				id: "47D93A1B6C45D945"
 				item: "gtecore:tree_of_imaginary"
 				type: "item"
 			}]
-			title: "虚数之树"
-			x: -1.5d
+			title: "{gte.tier_10_uev.quests.46FB3C8945DAF3E7.title}"
+			x: 17.0d
 			y: 0.0d
 		}
 		{
-			dependencies: ["46FB3C8945DAF3E7"]
-			description: [
-				"单晶培养：在虚数之树中，注入高纯硅粉、虚数生长介质、Naquadria与电子级水提拉单晶棒；"
-				"晶圆精切：配合润滑油与电子级水切割，获得纯净无暇的【虚数之树晶圆】！"
+			dependencies: [
+				"46FB3C8945DAF3E7"
+				"3FD3B62DE929C1BE"
 			]
+			description: [
+				"{gte.tier_10_uev.quests.33BC87E898235262.description0}"
+				"{gte.tier_10_uev.quests.33BC87E898235262.description1}"
+			]
+			icon: "gtecore:imaginary_tree_boule"
 			id: "33BC87E898235262"
-			size: 1.5d
-			subtitle: "单晶硅提拉与晶圆精切"
-			tasks: [
-				{
-					id: "76AE72EBFC1140C9"
-					item: "gtecore:imaginary_tree_boule"
-					type: "item"
-				}
-				{
-					id: "1A9C0F39CDD2F461"
-					item: "gtecore:imaginary_tree_wafer"
-					type: "item"
-				}
-			]
-			title: "虚数之晶"
-			x: 1.5d
+			rewards: [{
+				id: "7A8D415C8A7F3AF0"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 4L
+				id: "76AE72EBFC1140C9"
+				item: "gtecore:imaginary_tree_boule"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.33BC87E898235262.title}"
+			x: 20.0d
 			y: 0.0d
 		}
 		{
 			description: [
-				"扫描研究普通虚数晶圆后在装配线组装（宽15×高9×深13双胶囊光学结构）。"
-				"拥有专用的浸没光刻配方逻辑，分立为【电路芯片分支】与【CPU芯片分支】两大工艺！"
+				"{gte.tier_10_uev.quests.627E6F98F83C1229.description0}"
+				"{gte.tier_10_uev.quests.627E6F98F83C1229.description1}"
 			]
+			icon: "gtecore:imaginary_tree_wafer"
+			id: "627E6F98F83C1229"
+			rewards: [{
+				id: "24771355C70274C0"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 16L
+				id: "1A9C0F39CDD2F461"
+				item: "gtecore:imaginary_tree_wafer"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.627E6F98F83C1229.title}"
+			x: 23.0d
+			y: 0.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.34FE87F6B0FB478B.description0}"
+				"{gte.tier_10_uev.quests.34FE87F6B0FB478B.description1}"
+			]
+			icon: "gtecore:imaginary_lithography_center"
 			id: "34FE87F6B0FB478B"
-			size: 1.5d
-			subtitle: "193nm 浸没与极紫外干涉"
+			rewards: [{
+				id: "6ACA286E37E22F4A"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [{
 				id: "73A84E13DD666871"
 				item: "gtecore:imaginary_lithography_center"
 				type: "item"
 			}]
-			title: "虚数浸没光刻中心"
-			x: 4.0d
-			y: -2.0d
+			title: "{gte.tier_10_uev.quests.34FE87F6B0FB478B.title}"
+			x: 26.0d
+			y: 0.0d
 		}
 		{
+			dependencies: ["34FE87F6B0FB478B"]
 			description: [
-				"浸没曝光：普通晶圆 + 阴阳透镜（不消耗） + 双氧水 + 电子级净化水 → 虚数 CPU 晶圆；"
-				"晶圆划片：虚数 CPU 晶圆 + 润滑油 + 电子级净化水 → 虚数之树电路芯片 (单批 16 枚)！"
+				"{gte.tier_10_uev.quests.6B5BF365176DA320.description0}"
+				"{gte.tier_10_uev.quests.6B5BF365176DA320.description1}"
 			]
+			icon: "gtecore:imaginary_tree_cpu_wafer"
+			id: "6B5BF365176DA320"
+			rewards: [{
+				id: "278B0019238CC6C1"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "095064D919AAF75C"
+				item: "gtecore:imaginary_tree_cpu_wafer"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.6B5BF365176DA320.title}"
+			x: 26.0d
+			y: 3.0d
+		}
+		{
+			dependencies: ["6B5BF365176DA320"]
+			description: [
+				"{gte.tier_10_uev.quests.783E04C8B5902F14.description0}"
+				"{gte.tier_10_uev.quests.783E04C8B5902F14.description1}"
+			]
+			icon: "gtecore:imaginary_tree_circuit_chip"
 			id: "783E04C8B5902F14"
-			subtitle: "浸没曝光与划片"
-			tasks: [
-				{
-					id: "095064D919AAF75C"
-					item: "gtecore:imaginary_tree_cpu_wafer"
-					type: "item"
-				}
-				{
-					id: "2C52C086E02EC3DC"
-					item: "gtecore:imaginary_tree_circuit_chip"
-					type: "item"
-				}
+			rewards: [{
+				id: "183B880C404E9B9C"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 16L
+				id: "2C52C086E02EC3DC"
+				item: "gtecore:imaginary_tree_circuit_chip"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.783E04C8B5902F14.title}"
+			x: 29.0d
+			y: 3.0d
+		}
+		{
+			dependencies: ["34FE87F6B0FB478B"]
+			description: [
+				"{gte.tier_10_uev.quests.63F97866EBF9E115.description0}"
+				"{gte.tier_10_uev.quests.63F97866EBF9E115.description1}"
 			]
-			title: "光刻分支 A：电路芯片"
-			x: 6.5d
-			y: -3.0d
+			icon: "gtecore:raw_imaginary_tree_chip"
+			id: "63F97866EBF9E115"
+			rewards: [{
+				id: "7BCA6CFD3EEDD6B8"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 4L
+				id: "62E18AF8876707F4"
+				item: "gtecore:raw_imaginary_tree_chip"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.63F97866EBF9E115.title}"
+			x: 20.0d
+			y: 3.0d
+		}
+		{
+			dependencies: ["63F97866EBF9E115"]
+			description: [
+				"{gte.tier_10_uev.quests.0649A0B0DFAC4D25.description0}"
+				"{gte.tier_10_uev.quests.0649A0B0DFAC4D25.description1}"
+			]
+			icon: "gtecore:engraved_imaginary_tree_chip"
+			id: "0649A0B0DFAC4D25"
+			rewards: [{
+				id: "6320A4AD8B527AE6"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "5A914859DC6F0732"
+				item: "gtecore:engraved_imaginary_tree_chip"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.0649A0B0DFAC4D25.title}"
+			x: 20.0d
+			y: 6.0d
 		}
 		{
 			description: [
-				"粗制切割：普通晶圆直接划片为粗制晶片；"
-				"精密刻模：阴阳透镜聚束刻蚀，配合氢氟酸和电子级水在晶片表面蚀刻出数十亿晶体管矩阵；"
-				"互连封装：与铕细导线、焊锡合金封装引脚，得到核心【虚数之树 CPU 芯片】。"
+				"{gte.tier_10_uev.quests.7AD30ECB59978141.description0}"
+				"{gte.tier_10_uev.quests.7AD30ECB59978141.description1}"
 			]
+			icon: "gtecore:imaginary_tree_cpu_chip"
 			id: "7AD30ECB59978141"
-			subtitle: "粗切、纳米刻模与金线封装"
-			tasks: [
-				{
-					id: "62E18AF8876707F4"
-					item: "gtecore:raw_imaginary_tree_chip"
-					type: "item"
-				}
-				{
-					id: "5A914859DC6F0732"
-					item: "gtecore:engraved_imaginary_tree_chip"
-					type: "item"
-				}
-				{
-					id: "32D74924B653E831"
-					item: "gtecore:imaginary_tree_cpu_chip"
-					type: "item"
-				}
-			]
-			title: "光刻分支 B：CPU 芯片"
-			x: 6.5d
-			y: -1.0d
+			rewards: [{
+				id: "2D5462560941DEE2"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 4L
+				id: "32D74924B653E831"
+				item: "gtecore:imaginary_tree_cpu_chip"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.7AD30ECB59978141.title}"
+			x: 23.0d
+			y: 6.0d
 		}
 		{
+			dependencies: ["783E04C8B5902F14"]
 			description: [
-				"扫描研究虚数 CPU 芯片后组装，利用八角层压塔与U型湿法走廊进行微电子高级封装。"
-				"承担基板压合、微细印刷线路蚀刻及芯片倒装 SoC 封装全部任务。"
+				"{gte.tier_10_uev.quests.6D06446EC5AEC858.description0}"
+				"{gte.tier_10_uev.quests.6D06446EC5AEC858.description1}"
 			]
+			icon: "gtecore:imaginary_circuit_fabricator"
 			id: "6D06446EC5AEC858"
-			size: 1.5d
-			subtitle: "13×9×13 阶梯层压封装矩阵"
+			rewards: [{
+				id: "0CBECC68D6AA3C76"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [{
 				id: "0A6CAF60F4295CD2"
 				item: "gtecore:imaginary_circuit_fabricator"
 				type: "item"
 			}]
-			title: "虚数基板封装厂"
-			x: 4.0d
-			y: 2.0d
+			title: "{gte.tier_10_uev.quests.6D06446EC5AEC858.title}"
+			x: 26.0d
+			y: 6.0d
 		}
 		{
-			dependencies: ["6D06446EC5AEC858"]
+			dependencies: ["3FD3B62DE929C1BE"]
 			description: [
-				"基板层压：强化环氧树脂板与虚数生长介质复合，压入铕箔并由聚苯并咪唑粘接；"
-				"印刷蚀刻：利用三氯化铁与电子级水蚀刻铕与黄金微电路，制成高频【虚数之树印刷电路基板】。"
+				"{gte.tier_10_uev.quests.435EA9C096D1E8B8.description0}"
+				"{gte.tier_10_uev.quests.435EA9C096D1E8B8.description1}"
 			]
+			icon: "gtecore:imaginary_tree_circuit_board"
+			id: "435EA9C096D1E8B8"
+			rewards: [{
+				id: "5FA1111371D859AE"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 4L
+				id: "30AD1DE79DCEED74"
+				item: "gtecore:imaginary_tree_circuit_board"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.435EA9C096D1E8B8.title}"
+			x: 26.0d
+			y: 9.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.6522A59F4C657561.description0}"
+				"{gte.tier_10_uev.quests.6522A59F4C657561.description1}"
+			]
+			icon: "gtecore:imaginary_tree_printed_circuit_board"
 			id: "6522A59F4C657561"
-			subtitle: "生长介质强化与氯化铁蚀刻"
-			tasks: [
-				{
-					id: "30AD1DE79DCEED74"
-					item: "gtecore:imaginary_tree_circuit_board"
-					type: "item"
-				}
-				{
-					id: "49B48506255A9560"
-					item: "gtecore:imaginary_tree_printed_circuit_board"
-					type: "item"
-				}
-			]
-			title: "多层高频电路板"
-			x: 6.5d
-			y: 2.0d
+			rewards: [{
+				id: "3D3828FC6723B8AA"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "49B48506255A9560"
+				item: "gtecore:imaginary_tree_printed_circuit_board"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.6522A59F4C657561.title}"
+			x: 23.0d
+			y: 9.0d
 		}
 		{
 			dependencies: [
-				"6D06446EC5AEC858"
 				"6522A59F4C657561"
+				"783E04C8B5902F14"
 			]
-			description: ["将 2x 虚数 CPU 芯片、4x 虚数电路芯片以及印刷基板与铕细导线封装在单个晶片内，构成极具算力密度的 SoC！"]
+			description: [
+				"{gte.tier_10_uev.quests.5518AF06814C60AC.description0}"
+				"{gte.tier_10_uev.quests.5518AF06814C60AC.description1}"
+			]
+			icon: "gtecore:imaginary_tree_soc"
 			id: "5518AF06814C60AC"
-			size: 1.5d
-			subtitle: "微系统高度集成片上系统"
+			rewards: [{
+				id: "3F6C9DABE6899692"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [{
+				count: 2L
 				id: "381CBD2AA58A31DB"
 				item: "gtecore:imaginary_tree_soc"
 				type: "item"
 			}]
-			title: "虚数之树 SoC"
-			x: 8.5d
-			y: 1.0d
+			title: "{gte.tier_10_uev.quests.5518AF06814C60AC.title}"
+			x: 20.0d
+			y: 12.0d
 		}
 		{
 			dependencies: [
 				"6522A59F4C657561"
-				"46FB3C8945DAF3E7"
+				"783E04C8B5902F14"
 			]
 			description: [
-				"虚数印刷基板 + 4x CPU 芯片 + 8x 电路芯片 + 16x 三钛细导线 + 焊锡 + 电子级水。"
-				"拥有纯正虚数血统的基础级处理器！"
+				"{gte.tier_10_uev.quests.6F6F6033DAA05A31.description0}"
+				"{gte.tier_10_uev.quests.6F6F6033DAA05A31.description1}"
 			]
+			icon: "gtecore:imaginary_tree_processor"
 			id: "6F6F6033DAA05A31"
-			subtitle: "初阶虚数算力起点"
+			rewards: [{
+				id: "3804CB225B4830D8"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [{
+				count: 4L
 				id: "5374427FDE2EB0E5"
 				item: "gtecore:imaginary_tree_processor"
 				type: "item"
 			}]
-			title: "[UHV] 虚数之树处理器"
-			x: 10.5d
-			y: 0.0d
+			title: "{gte.tier_10_uev.quests.6F6F6033DAA05A31.title}"
+			x: 20.0d
+			y: 9.0d
 		}
 		{
+			dependencies: ["5518AF06814C60AC"]
 			description: [
-				"4x 虚数处理器 + 4x 虚数之树 SoC + 2x 中子素板 + 焊锡 + 电子级水。"
-				"真正达成 UEV 级电路在虚数路线下的完整自循环与自给自足！"
+				"{gte.tier_10_uev.quests.6DF7876513A6BD1E.description0}"
+				"{gte.tier_10_uev.quests.6DF7876513A6BD1E.description1}"
 			]
+			icon: "gtecore:imaginary_tree_processor_assembly"
 			id: "6DF7876513A6BD1E"
-			size: 1.5d
-			subtitle: "本代主控算力成熟"
+			rewards: [{
+				id: "466D9078CF59615F"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [{
+				count: 2L
 				id: "2317FB7B644D9A83"
 				item: "gtecore:imaginary_tree_processor_assembly"
 				type: "item"
 			}]
-			title: "[UEV] 虚数之树处理器集群"
-			x: 12.5d
-			y: 0.0d
+			title: "{gte.tier_10_uev.quests.6DF7876513A6BD1E.title}"
+			x: 17.0d
+			y: 9.0d
 		}
 		{
-			dependencies: [
-				"6DF7876513A6BD1E"
-				"536555779CD8D263"
-			]
 			description: [
-				"4x 虚数处理器集群 + 虚数核心外壳 + 4x 中子素板 + 焊锡。"
-				"算力产生质的飞跃，可作为下一电压时代的顶级算力供给！"
+				"{gte.tier_10_uev.quests.2628E2514DD165F6.description0}"
+				"{gte.tier_10_uev.quests.2628E2514DD165F6.description1}"
 			]
+			icon: "gtecore:imaginary_tree_processor_computer"
 			id: "2628E2514DD165F6"
-			subtitle: "跨入下个时代的算力基石"
+			rewards: [{
+				id: "7604665AF40074EE"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [{
 				id: "257E9E02A2CB3296"
 				item: "gtecore:imaginary_tree_processor_computer"
 				type: "item"
 			}]
-			title: "[UIV] 虚数之树超级计算机"
-			x: 14.5d
-			y: 0.0d
+			title: "{gte.tier_10_uev.quests.2628E2514DD165F6.title}"
+			x: 14.0d
+			y: 9.0d
 		}
 		{
+			dependencies: ["7214694B148BE30A"]
 			description: [
-				"4x 虚数超级计算机 + 2x 虚数约束外壳 + 8x 中子素板 + 焊锡。"
-				"虚数工程的至高明珠！它所承载的庞大虚数算力，足以重塑时空拓扑，窥见宇宙终极真理。"
+				"{gte.tier_10_uev.quests.27535579C7234E9A.description0}"
+				"{gte.tier_10_uev.quests.27535579C7234E9A.description1}"
 			]
+			icon: "gtecore:imaginary_tree_processor_mainframe"
 			id: "27535579C7234E9A"
-			size: 2.0d
-			subtitle: "虚数极致 · 算力王权"
+			rewards: [{
+				id: "775AFDD905F1C2EE"
+				type: "xp"
+				xp: 100
+			}]
 			tasks: [{
 				id: "29E98371033B32C4"
 				item: "gtecore:imaginary_tree_processor_mainframe"
 				type: "item"
 			}]
-			title: "[UXV] 虚数之树处理器主机"
-			x: 16.5d
-			y: 0.0d
+			title: "{gte.tier_10_uev.quests.27535579C7234E9A.title}"
+			x: 11.0d
+			y: 9.0d
 		}
 		{
 			dependencies: ["27535579C7234E9A"]
 			description: [
-				"恭喜你完整贯通了 UEV 虚数系列的所有多方块与配方流水线！"
-				"从三级水质净化系统的中枢调配，到虚数之树的挺拔矗立，再到浸没光刻中心与封装厂的毫厘雕琢，你已经掌握了宇宙顶级的精密制造工程。"
+				"{gte.tier_10_uev.quests.1A712CFB183F3833.description0}"
+				"{gte.tier_10_uev.quests.1A712CFB183F3833.description1}"
 			]
-			icon: "gtceu:uev_machine_hull"
+			icon: "gtecore:imaginary_crystal_growth_array"
+			id: "1A712CFB183F3833"
+			rewards: [{
+				id: "41B065CFC3CBADCA"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "23ECE7090BF53D0E"
+				item: "gtecore:imaginary_crystal_growth_array"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.1A712CFB183F3833.title}"
+			x: 8.0d
+			y: 6.0d
+		}
+		{
+			dependencies: [
+				"27535579C7234E9A"
+				"5518AF06814C60AC"
+			]
+			description: [
+				"{gte.tier_10_uev.quests.654CD95BB26C8A7A.description0}"
+				"{gte.tier_10_uev.quests.654CD95BB26C8A7A.description1}"
+			]
+			icon: "gtecore:imaginary_circuit_integration_matrix"
+			id: "654CD95BB26C8A7A"
+			rewards: [{
+				id: "74684914775116A6"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "2A335C4564E560BB"
+				item: "gtecore:imaginary_circuit_integration_matrix"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.654CD95BB26C8A7A.title}"
+			x: 8.0d
+			y: 12.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.0CDA20239B4447AC.description0}"
+				"{gte.tier_10_uev.quests.0CDA20239B4447AC.description1}"
+			]
+			icon: "gtecore:imaginary_growth_medium"
+			id: "0CDA20239B4447AC"
+			rewards: [{
+				id: "1D5EF58451764741"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 96L
+				id: "38EC5D0F379ED593"
+				item: "gtecore:imaginary_growth_medium"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.0CDA20239B4447AC.title}"
+			x: 5.0d
+			y: 6.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.4B83EF6211F04517.description0}"
+				"{gte.tier_10_uev.quests.4B83EF6211F04517.description1}"
+			]
+			icon: "gtecore:imaginary_tree_boule"
+			id: "4B83EF6211F04517"
+			rewards: [{
+				id: "11986888FDBC40EF"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 12L
+				id: "77C69F804DD3109B"
+				item: "gtecore:imaginary_tree_boule"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.4B83EF6211F04517.title}"
+			x: 5.0d
+			y: 9.0d
+		}
+		{
+			description: [
+				"{gte.tier_10_uev.quests.2DD75B9F46F534C3.description0}"
+				"{gte.tier_10_uev.quests.2DD75B9F46F534C3.description1}"
+			]
+			icon: "gtecore:imaginary_tree_wafer"
+			id: "2DD75B9F46F534C3"
+			rewards: [{
+				id: "5D550AA496BA6503"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 96L
+				id: "183E4A842E978EBA"
+				item: "gtecore:imaginary_tree_wafer"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.2DD75B9F46F534C3.title}"
+			x: 5.0d
+			y: 12.0d
+		}
+		{
+			dependencies: [
+				"654CD95BB26C8A7A"
+				"2DD75B9F46F534C3"
+			]
+			description: [
+				"{gte.tier_10_uev.quests.1A638C0E99629C36.description0}"
+				"{gte.tier_10_uev.quests.1A638C0E99629C36.description1}"
+			]
+			icon: "gtecore:imaginary_tree_processor"
+			id: "1A638C0E99629C36"
+			rewards: [{
+				id: "456E037637C16EC7"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [
+				{
+					id: "0ECA6A2D7253552E"
+					item: "gtecore:imaginary_tree_processor"
+					type: "item"
+				}
+				{
+					id: "2C199386A6B54EDD"
+					item: "gtecore:imaginary_tree_processor_assembly"
+					type: "item"
+				}
+				{
+					id: "79E58261E4D49596"
+					item: "gtecore:imaginary_tree_processor_computer"
+					type: "item"
+				}
+				{
+					id: "76C1236BA7E107BE"
+					item: "gtecore:imaginary_tree_processor_mainframe"
+					type: "item"
+				}
+			]
+			title: "{gte.tier_10_uev.quests.1A638C0E99629C36.title}"
+			x: 2.0d
+			y: 12.0d
+		}
+		{
+			dependencies: [
+				"2DD75B9F46F534C3"
+				"1A638C0E99629C36"
+			]
+			description: [
+				"{gte.tier_10_uev.quests.0D5E3F3416DF80D4.description0}"
+				"{gte.tier_10_uev.quests.0D5E3F3416DF80D4.description1}"
+			]
+			icon: "gtecore:tree_of_imaginary"
 			id: "0D5E3F3416DF80D4"
-			size: 1.5d
-			subtitle: "向无尽未来进发"
 			tasks: [{
 				id: "526AEEF761B01847"
-				title: "虚数时代圆满完成"
 				type: "checkmark"
 			}]
-			title: "虚数宏图成型"
-			x: 18.5d
-			y: 0.0d
+			title: "{gte.tier_10_uev.quests.0D5E3F3416DF80D4.title}"
+			x: -1.0d
+			y: 9.0d
+		}
+		{
+			dependencies: ["031389A5AB616E4B"]
+			description: ["{gte.tier_10_uev.quests.53DC8A55C1CBE569.description0}"]
+			icon: "gtceu:uev_machine_hull"
+			id: "53DC8A55C1CBE569"
+			optional: true
+			tasks: [{
+				id: "36474F8E75DF9BC8"
+				item: "gtceu:uev_machine_hull"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.53DC8A55C1CBE569.title}"
+			x: -1d
+			y: -3d
 		}
 	]
-	subtitle: ["极限高压"]
-	title: "&d[Tier 10] UEV&r"
+	subtitle: ["{gte.tier_10_uev.subtitle}"]
+	tags: ["quest_uev"]
+	title: "&b{gte.tier_10_uev.title}&r"
 }

@@ -243,6 +243,13 @@ def resolve_pin(pin: str, versions: Dict[str, str], libraries: Dict[str, str]) -
             module, version = entry, None
         if version is None:
             return None
+        # Exact Modrinth IDs avoid ambiguous Forge/Fabric/NeoForge releases
+        # sharing a version number. Keep the readable declared mod version in
+        # [versions].<library alias> for metadata ranges and parity comparison.
+        if module.startswith("maven.modrinth:") and re.fullmatch(r"[A-Za-z0-9]{8}", version):
+            declared = versions.get(alias)
+            if declared and declared != version:
+                version = declared
         return alias, module.split(":")[-1], version
 
     # A literal coordinate: group:artifact:version. It has no catalog alias, so
