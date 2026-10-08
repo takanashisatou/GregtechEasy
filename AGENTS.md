@@ -486,6 +486,7 @@ Project-specific guidance also lives in:
 - `.agents/skills/gte-pixel-lab/SKILL.md` - Universal Minecraft pixel art, CTM inspection, and animation toolset (`python scripts/texture_lab/pixel_tool.py <cmd>`)
 - `.agents/skills/gte-multiblock/SKILL.md` - GTE multiblock structure creation, registry, and recipe modifiers
 - `.agents/skills/gte-multiblock-architecture/SKILL.md` - Multiblock 3D geometric modeling and pattern generation
+- `.agents/skills/gte-quest-lab/SKILL.md` - FTB Quests editing CLI and SNBT format reference (`python scripts/quest_lab/ftbq.py <cmd>`): inspect, lint, add quests, manage `{gte.*}` translation keys
 - `scripts/audit_*.py` - automatically enforced invariants (`audit_art`,
   `audit_dependencies`, `audit_dev_pack_parity`, `audit_docs`,
   `audit_mixins`, `audit_modids`, `audit_module_jar_freshness`,

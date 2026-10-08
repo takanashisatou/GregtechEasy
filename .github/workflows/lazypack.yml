@@ -125,7 +125,10 @@ jobs:
       # coordinates, and that substitution drifts out of step with what is
       # actually shipped. Gate 1e fails on any NEW divergence.
       - name: "[Gate 1e] Dev-Runtime/Pack Parity Lint"
-        run: python scripts/audit_dev_pack_parity.py
+        run: |
+          python -m unittest discover -s scripts -p test_dev_pack_parity.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python scripts/audit_dev_pack_parity.py
 
       - name: "[Pack 1] Build Full-Mod Client Pack"
         run: python scripts/build_full_mod_pack.py ${{ steps.meta.outputs.version }}
