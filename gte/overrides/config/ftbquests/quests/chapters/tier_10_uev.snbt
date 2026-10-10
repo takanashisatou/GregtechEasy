@@ -463,6 +463,10 @@
 			y: -8.0d
 		}
 		{
+			dependencies: [
+				"39B7739571F9A8BC"
+				"031389A5AB616E4B"
+			]
 			description: [
 				"{gte.tier_10_uev.quests.498F4FFAF98EC3F3.description0}"
 				"{gte.tier_10_uev.quests.498F4FFAF98EC3F3.description1}"
@@ -1248,7 +1252,10 @@
 			y: 9.0d
 		}
 		{
-			dependencies: ["031389A5AB616E4B"]
+			dependencies: [
+				"031389A5AB616E4B"
+				"39B7739571F9A8BC"
+			]
 			description: ["{gte.tier_10_uev.quests.53DC8A55C1CBE569.description0}"]
 			icon: "gtceu:uev_machine_hull"
 			id: "53DC8A55C1CBE569"
@@ -1261,6 +1268,102 @@
 			title: "{gte.tier_10_uev.quests.53DC8A55C1CBE569.title}"
 			x: -1d
 			y: -3d
+		}
+		{
+			dependencies: [
+				"06BD546FDEBA97D9"
+				"11C3DE0680DC1FD7"
+				"5CA73D2AE2FBAC2D"
+			]
+			description: [
+				"{gte.tier_10_uev.quests.6C41307AF88C75D9.description0}"
+				"{gte.tier_10_uev.quests.6C41307AF88C75D9.description1}"
+				"{gte.tier_10_uev.quests.6C41307AF88C75D9.description2}"
+			]
+			icon: "gtecore:super_fusion_reactor_ii"
+			id: "6C41307AF88C75D9"
+			rewards: [{
+				id: "5909600E4C72B39C"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				id: "2825BD009B7638F6"
+				item: "gtecore:super_fusion_reactor_ii"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.6C41307AF88C75D9.title}"
+			x: -4.0d
+			y: -3.0d
+		}
+		{
+			dependencies: ["6C41307AF88C75D9"]
+			description: [
+				"{gte.tier_10_uev.quests.36EB42F8CB31696F.description0}"
+				"{gte.tier_10_uev.quests.36EB42F8CB31696F.description1}"
+			]
+			icon: "gtceu:yin_yang_fusion_alloy_ingot"
+			id: "36EB42F8CB31696F"
+			rewards: [{
+				id: "2CE4F2A5B5211C62"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 16L
+				id: "5F41CDBB76EDABAB"
+				item: "gtceu:yin_yang_fusion_alloy_ingot"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.36EB42F8CB31696F.title}"
+			x: -4.0d
+			y: -6.0d
+		}
+		{
+			dependencies: ["36EB42F8CB31696F"]
+			description: [
+				"{gte.tier_10_uev.quests.2420E67629DC09F7.description0}"
+				"{gte.tier_10_uev.quests.2420E67629DC09F7.description1}"
+			]
+			icon: "gtceu:yin_yang_fusion_alloy_plate"
+			id: "2420E67629DC09F7"
+			rewards: [{
+				id: "339325E9A6AD7823"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 8L
+				id: "421FED5071DE4E3D"
+				item: "gtceu:yin_yang_fusion_alloy_plate"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.2420E67629DC09F7.title}"
+			x: -1.0d
+			y: -6.0d
+		}
+		{
+			dependencies: ["2420E67629DC09F7"]
+			description: [
+				"{gte.tier_10_uev.quests.39B7739571F9A8BC.description0}"
+				"{gte.tier_10_uev.quests.39B7739571F9A8BC.description1}"
+			]
+			icon: "gtceu:uev_machine_casing"
+			id: "39B7739571F9A8BC"
+			rewards: [{
+				id: "5AF41ACC8AD71680"
+				type: "xp"
+				xp: 100
+			}]
+			tasks: [{
+				count: 8L
+				id: "5CC1686CDFC08182"
+				item: "gtceu:uev_machine_casing"
+				type: "item"
+			}]
+			title: "{gte.tier_10_uev.quests.39B7739571F9A8BC.title}"
+			x: 2.0d
+			y: -6.0d
 		}
 	]
 	subtitle: ["{gte.tier_10_uev.subtitle}"]
