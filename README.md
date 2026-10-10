@@ -67,6 +67,7 @@ flowchart TD
 - **Java 环境**：必须安装 **JDK 21**（推荐 [Azul Zulu 21](https://www.azul.com/downloads/?version=java-21-lts) 或 [Eclipse Temurin 21](https://adoptium.net/temurin/releases/?version=21)）。
 - **开发工具**：推荐使用 **IntelliJ IDEA 2023.3+**，并安装插件：*Minecraft Development*、*Lombok*、*Kotlin*。
 - **内存预算**：仓库已按普通 16 GB 机器调优——Gradle 守护进程上限 4 GB，IDEA 建议 `-Xmx4G`（Help → Change Memory Settings；构建已通过 `idea.module.excludeDirs` 排除了 `run/` 游戏运行目录和 `gte/overrides/mods/` 整合包 jar，索引负担已大幅降低）。首次同步会下载并转制数 GB 依赖（Minecraft 工件 + 全部 mod 的反混淆 jar），CPU 打满数分钟属一次性成本，结果永久缓存于 `~/.gradle`。
+- **依赖解析**：共享仓库按包名过滤并只注册一次，MixinExtras 与 TypeTools 固定为运行环境已有的版本，避免动态范围遍历所有模组仓库。IDEA 保留源码下载，默认关闭自动下载 Javadoc；需要时可加 `-PgteDownloadJavadoc=true`。`verifyDependencyRouting` 会检查仓库重复和版本固定，并随客户端准备、CI 的模组过滤检查执行。排查解析变慢时保留 `~/.gradle` 缓存，先用 `gradlew.bat help --info` 定位等待请求。
 
 ### 2. 克隆与导入
 ```bash

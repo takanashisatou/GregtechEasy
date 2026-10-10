@@ -85,6 +85,15 @@ idea {
 
 subprojects {
     plugins.withId('idea') {
+        // Mod modules enable eager Javadoc downloads in their own scripts.
+        // Most runtime mods publish no Javadoc, so every import pays for many
+        // missing-artifact requests. Sources remain available for debugging.
+        def configureJavadoc = {
+            idea.module.downloadJavadoc = providers.gradleProperty('gteDownloadJavadoc')
+                    .map { it.toBoolean() }.getOrElse(false)
+        }
+        if (state.executed) configureJavadoc()
+        else afterEvaluate { configureJavadoc() }
         idea {
             module {
                 // per-module run/ dirs (runData / runClient outputs and logs)
@@ -120,6 +129,40 @@ tasks.register('syncBlockbenchAssets') {
 // ---------------------------------------------------------------------------
 // Aggregated Lifecycle Tasks
 // ---------------------------------------------------------------------------
+def verifyDependencyRouting = tasks.register('verifyDependencyRouting') {
+    group = 'verification'
+    description = 'Checks shared Maven repository duplication and fixed runtime dependency versions'
+    doLast {
+        subprojects.each { p ->
+            def urls = p.repositories.findAll {
+                it instanceof org.gradle.api.artifacts.repositories.MavenArtifactRepository
+            }.groupBy { it.url.toString().replaceAll('/+$', '') }
+            urls.each { url, repos ->
+                // MDG adds its own Forge and Mojang repositories alongside ours.
+                def allowed = url in ['https://maven.minecraftforge.net', 'https://libraries.minecraft.net'] ? 2 : 1
+                if (repos.size() > allowed) {
+                    throw new GradleException("${p.path} repeats ${url}: ${repos.collect { it.name }}")
+                }
+            }
+            p.configurations.findAll { it.canBeResolved }.each { c ->
+                def forced = c.resolutionStrategy.forcedModules.collect { "${it.group}:${it.name}:${it.version}".toString() }
+                if (!forced.contains('io.github.llamalad7:mixinextras-forge:0.5.5') ||
+                        !forced.contains('net.jodah:typetools:0.6.3')) {
+                    throw new GradleException("${p.path}:${c.name} is missing the fixed runtime dependency versions")
+                }
+            }
+        }
+        logger.lifecycle('Verified Maven repository deduplication and runtime dependency version pins.')
+    }
+}
+
+tasks.named('check') { dependsOn verifyDependencyRouting }
+subprojects {
+    tasks.matching { it.name == 'verifyPackModFiltering' || it.name == 'prepareClientRun' }.configureEach {
+        dependsOn verifyDependencyRouting
+    }
+}
+
 tasks.register('runClient') {
     group = 'forge runs'
     description = 'Launch the full GTE client in dev runtime (hot debug with all mods)'

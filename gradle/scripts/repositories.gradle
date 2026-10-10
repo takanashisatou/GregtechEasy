@@ -6,23 +6,53 @@
  * 避免在多个子模块间重复复制粘贴仓库配置。
  */
 
+// The root build and the modules both apply this script. Register each list
+// once: duplicated repositories double metadata and missing-classifier probes.
+if (extensions.extraProperties.has('gteSharedRepositoriesConfigured')) return
+extensions.extraProperties.set('gteSharedRepositoriesConfigured', true)
+
+// gtm-reborn publishes a jarJar compatibility range, but resolving that range
+// enumerates every Maven repository on each cache refresh/IDE import. Keep the
+// actual artifact equal to the named runtime copy already used by every runner.
+configurations.configureEach {
+    resolutionStrategy.force 'io.github.llamalad7:mixinextras-forge:0.5.5', 'net.jodah:typetools:0.6.3'
+}
+
 repositories {
     mavenLocal()
     mavenCentral()
     flatDir {
         dir "${rootDir}/modules/gtecore/gradle/libs"
+        content { includeGroup 'blank'; includeGroup 'dev' }
     }
     maven {
         name = "GTE-GitHubPages"
         url = "https://takanashisatou.github.io/gtecore/"
+        content {
+            includeGroupByRegex 'org\\.satou\\..*'
+            includeGroup 'com.gregtechceu.gtceu'
+            includeGroup 'dev.arbor.gtnn'
+        }
     }
     maven {
         name = "MinecraftForge"
         url = "https://maven.minecraftforge.net/"
+        content {
+            includeGroupByRegex 'net\\.minecraftforge.*'
+            includeGroupByRegex 'de\\.oceanlabs\\..*'
+            includeGroup 'cpw.mods'
+            includeGroup 'org.spongepowered'
+        }
     }
     maven {
         name = "MojangLibraries"
         url = "https://libraries.minecraft.net/"
+        content {
+            includeGroupByRegex 'com\\.mojang.*'
+            includeGroupByRegex 'org\\.lwjgl.*'
+            includeGroup 'com.microsoft.azure'
+            includeGroup 'net.minecraft'
+        }
     }
     maven {
         name = "FuzssModresources"
@@ -32,54 +62,86 @@ repositories {
     maven {
         name = "CreateMod"
         url = "https://maven.createmod.net"
+        content {
+            includeGroupByRegex 'com\\.simibubi\\..*'
+            includeGroupByRegex 'net\\.createmod\\..*'
+            includeGroupByRegex 'dev\\.engine-room\\..*'
+        }
     }
     maven {
         name = "JaredsMaven"
         url = "https://maven.blamejared.com/"
+        content {
+            includeGroup 'mezz.jei'
+            includeGroupByRegex 'vazkii\\..*'
+            includeGroupByRegex 'net\\.darkhax\\..*'
+            includeGroupByRegex 'com\\.blamejared.*'
+        }
     }
     maven {
         name = "ModMaven"
         url = "https://modmaven.dev"
+        content {
+            includeGroup 'appeng'
+            includeGroup 'org.appliedenergistics'
+            includeGroup 'org.moddingx'
+            includeGroup 'com.gregtechceu.gtceu'
+            includeGroupByRegex 'top\\.theillusivec4\\..*'
+            includeGroup 'dev.architectury'
+        }
     }
     maven {
         name = "FirstDarkDev"
         url = "https://maven.firstdark.dev/snapshots"
+        content { includeGroupByRegex 'com\\.lowdragmc\\..*' }
     }
     maven {
         name = "FirstDarkDevXYZ"
         url = "https://maven.firstdarkdev.xyz/snapshots"
+        content { includeGroupByRegex 'com\\.lowdragmc\\..*' }
     }
     maven {
         name = "Configuration"
         url = "https://api.repsy.io/mvn/toma/public/"
+        content { includeGroupByRegex 'dev\\.toma\\..*' }
     }
     maven {
         name = "TeamResourceful"
         url = "https://maven.teamresourceful.com/repository/maven-public/"
+        content {
+            includeGroupByRegex 'com\\.teamresourceful\\..*'
+            includeGroupByRegex 'earth\\.terrarium\\..*'
+        }
     }
     maven {
         name = "tterrag"
         url = "https://maven.tterrag.com/"
+        content { includeGroupByRegex 'com\\.tterrag\\..*' }
     }
     maven {
         name = "Latvian"
         url = "https://maven.latvian.dev/releases"
+        content { includeGroupByRegex 'dev\\.latvian\\..*' }
     }
     maven {
         name = "FTB"
         url = "https://maven.ftb.dev/releases"
+        content { includeGroup 'dev.ftb.mods' }
     }
     maven {
         name = "TOP"
         url = "https://maven.k-4u.nl"
+        content { includeGroupByRegex 'mcjty\\..*' }
     }
     maven {
         name = "JourneyMap"
         url = "https://jm.gserv.me/repository/maven-public/"
+        content { includeGroupByRegex 'info\\.journeymap.*' }
     }
     maven {
         name = "Modrinth"
         url = "https://api.modrinth.com/maven"
+        content { includeGroup 'maven.modrinth' }
     }
     maven {
         name = "CurseMaven"
@@ -89,22 +151,35 @@ repositories {
     maven {
         name = "Terraformers"
         url = "https://maven.terraformersmc.com/releases/"
+        content {
+            includeGroup 'dev.emi'
+            includeGroupByRegex 'com\\.terraformersmc\\..*'
+        }
     }
     maven {
         name = "shedaniel"
         url = "https://maven.shedaniel.me/"
+        content { includeGroupByRegex 'me\\.shedaniel.*' }
+    }
+    maven {
+        name = 'Architectury'
+        url = 'https://maven.architectury.dev'
+        content { includeGroup 'dev.architectury' }
     }
     maven {
         name = "Curios"
         url = "https://maven.theillusivec4.top/"
+        content { includeGroupByRegex 'top\\.theillusivec4\\..*' }
     }
     maven {
         name = "KotlinForForge"
         url = "https://thedarkcolour.github.io/KotlinForForge/"
+        content { includeGroup 'thedarkcolour' }
     }
     maven {
         name = "SquidDev"
         url = "https://maven.squiddev.cc"
+        content { includeGroup 'cc.tweaked' }
     }
     maven {
         name = "BMCLAPI-Forge"
@@ -114,6 +189,39 @@ repositories {
             includeGroup "net.minecraftforge.gradle"
             includeGroup "cpw.mods"
             includeGroup "de.oceanlabs.mcp"
+        }
+    }
+}
+
+// MDG adds its own Forge/NeoForged/Mojang repositories after this script.
+// Maven Central owns MixinExtras; never ask those mod repositories for it.
+repositories.configureEach { repo ->
+    if (repo instanceof org.gradle.api.artifacts.repositories.MavenArtifactRepository &&
+            repo.url.host == 'maven.neoforged.net' && repo.url.path.startsWith('/releases')) {
+        repo.content {
+            includeGroupByRegex 'net\\.neoforged.*'
+            includeGroupByRegex 'org\\.parchmentmc.*'
+        }
+    }
+    if (repo instanceof org.gradle.api.artifacts.repositories.MavenArtifactRepository &&
+            repo.url.host == 'maven.minecraftforge.net') {
+        repo.content {
+            includeGroupByRegex 'net\\.minecraftforge.*'
+            includeGroupByRegex 'de\\.oceanlabs\\..*'
+            includeGroupByRegex 'org\\.parchmentmc.*'
+            includeGroup 'cpw.mods'
+            includeGroup 'org.spongepowered'
+        }
+    }
+    if (repo instanceof org.gradle.api.artifacts.repositories.MavenArtifactRepository &&
+            repo.url.scheme in ['http', 'https'] &&
+            repo.name != 'MavenRepo' &&
+            !repo.url.host.endsWith('maven.apache.org') && !repo.url.host.endsWith('repo1.maven.org')) {
+        repo.content {
+            excludeGroup 'io.github.llamalad7'
+            // Forge's userdev config also resolves detached configurations,
+            // which do not inherit configurations.configureEach version pins.
+            excludeGroup 'net.jodah'
         }
     }
 }

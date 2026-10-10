@@ -1,4 +1,13 @@
 pluginManagement {
+    // Resolve the implementation directly. The legacyforge marker is POM-only;
+    // probing its nonexistent JAR on NeoForged retries slow HTTP HEAD requests.
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.id == 'net.neoforged.moddev.legacyforge') {
+                useModule("net.neoforged:moddev-gradle:${requested.version}")
+            }
+        }
+    }
     repositories {
         maven {
             name = 'BMCLAPI-Forge'
@@ -13,14 +22,21 @@ pluginManagement {
         maven {
             name = 'MinecraftForge'
             url = 'https://maven.minecraftforge.net/'
+            content {
+                includeGroupByRegex 'net\\.minecraftforge.*'
+                includeGroup 'cpw.mods'
+                includeGroupByRegex 'de\\.oceanlabs\\..*'
+            }
         }
         maven {
             name = 'NeoForged'
             url = 'https://maven.neoforged.net/releases'
+            content { includeGroupByRegex 'net\\.neoforged.*' }
         }
         maven {
             name = 'ParchmentMC'
             url = 'https://maven.parchmentmc.org'
+            content { includeGroupByRegex 'org\\.parchmentmc.*' }
         }
         gradlePluginPortal()
         mavenCentral()
