@@ -27,7 +27,7 @@ S:custom_window_icon_16 = '/config/fancymenu/assets/modpack_icon_16x16.png';
 B:show_custom_window_icon = 'true';
 S:custom_window_icon_macos = '/config/fancymenu/assets/modpackicon.icns';
 S:custom_window_icon_32 = '/config/fancymenu/assets/modpack_icon_32x32.png';
-S:custom_window_title = 'GregTech Easy 3.0.0 Edition';
+S:custom_window_title = 'GregTech Easy 3.1.0 Edition';
 
 
 ##[multiplayer_screen]
