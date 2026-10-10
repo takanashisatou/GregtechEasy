@@ -3,11 +3,11 @@
   <groupId>org.satou.gtecore</groupId>
   <artifactId>gtecore-1.20.1</artifactId>
   <versioning>
-    <latest>3.0.7-nightly-b5f306e</latest>
-    <release>3.0.7-nightly-b5f306e</release>
+    <latest>3.1.0</latest>
+    <release>3.1.0</release>
     <versions>
-      <version>3.0.7-nightly-b5f306e</version>
+      <version>3.1.0</version>
     </versions>
-    <lastUpdated>20261010142546</lastUpdated>
+    <lastUpdated>20261010162341</lastUpdated>
   </versioning>
 </metadata>
