@@ -132,7 +132,7 @@ public static final MultiblockMachineDefinition MEGA_FUEL_GENERATOR = GTECore_RE
 
 ```java
 public class CustomFluidProcessMachine extends WorkableElectricMultiblockMachine implements IFluidRenderMulti, IDisplayUIMachine {
-    
+
     protected static final ManagedFieldHolder MANAGED_FIELD_HOLDER = new ManagedFieldHolder(
             CustomFluidProcessMachine.class, WorkableElectricMultiblockMachine.MANAGED_FIELD_HOLDER);
 
