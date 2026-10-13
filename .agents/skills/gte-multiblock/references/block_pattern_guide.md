@@ -6,26 +6,26 @@
 
 ## 1. 结构坐标轴映射机制 (Coordinate System & Aisles)
 
-`FactoryBlockPattern.start()` 采用相对于控制器面朝方向的局部坐标系：
+`FactoryBlockPattern.start()` 默认局部方向为 `(LEFT, UP, FRONT)`：字符索引沿 LEFT 增加、行索引沿 UP 增加、切片索引沿 FRONT 增加。显式 `start(charDir, stringDir, aisleDir)` 可以更改这三个方向；再结合控制器朝向、upwardsFacing 和 flip 转为世界坐标。
 
 ```
-                    ▲ Y 轴 (垂直高度，从上到下或者从下到上均可，通常第一行为顶部或底部)
+                    ▲ Y 轴 (默认 UP，行索引从底部向上增加)
                     │
                     │
                     │
    ◄────────────────┼────────────────► X 轴 (横向宽度，字符串的每个字符，从左到右)
-   (相对左侧)       │                 (相对右侧)
+   (字符轴默认 LEFT，不能直接等同于世界 X 正方向)
                     │
                    ╱
                   ╱
-                 ▼ Z 轴 (前后深度，每一个 .aisle() 代表一层切片，从后向前或从前向后)
+                    ▼ Z 轴 (默认 FRONT，每个 .aisle() 增加一个切片)
 ```
 
 ### 编写规范示例
 
 ```java
 .pattern(definition -> FactoryBlockPattern.start()
-        // 第 1 切片 (Z = 0, 最底层或最顶层 / 最深层)
+        // 第 1 切片 (切片索引 0)
         .aisle("AAA", "AAA", "AAA")
         // 第 2 切片 (Z = 1, 中间层)
         .aisle("BBB", "B#B", "BBB")
@@ -60,10 +60,10 @@
 
 ### (2) 仓口能力谓词 (`PartAbility`)
 
-| `PartAbility` 枚举 | 功能说明 | 典型用途 |
+| 能力 / 调用 | 功能说明 | 典型用途 |
 | :--- | :--- | :--- |
 | `autoAbilities(definition.getRecipeTypes())` | **自动根据配方类型**允许输入/输出物品与流体仓口及能源仓 | 大多数加工机器（最省心推荐） |
-| `autoAbilities(true, false, true)` | 手动指定 `(item, fluid, energy)` 基础仓口能力 | 自定义输入需求机器 |
+| `autoAbilities(true, false, true)` | 参数为 `(maintenance, muffler, parallel)`，此例允许维护与并行仓，不包含基础 IO | 需另外组合配方 IO 的机器 |
 | `abilities(PartAbility.INPUT_LASER)` | 激光输入仓（256A+ 大电流） | 高压/高耗能多方块机器 |
 | `abilities(PartAbility.OUTPUT_LASER)` | 激光输出仓 | 超大型发电机 / 聚变输出 |
 | `abilities(PartAbility.MULTI_PARALLEL_HATCH)` | 多重并行控制仓 | 高并行加工机器 |
@@ -84,7 +84,7 @@
 
 ## 3. 结构预览与 JEI 形状信息 (`MultiblockShapeInfo`)
 
-为了让机器支持在 **JEI / EMI / REI** 以及游戏内 **结构测试终端（Structure Testing Terminal）** 中高亮投影和分层预览，需要配置 `.shapeInfos(...)`：
+默认结构可由 `getMatchingShapes()` / 当前 builder 自动产生预览。只有需要额外结构变体、特殊部件朝向或自定义页面时再配置 `.shapeInfos(...)`；它不是所有机器的必填项。预览生成不证明真实 pattern 一定能成型：
 
 ```java
 .shapeInfos(definition -> {
@@ -123,3 +123,8 @@
    - 检查仓口是否放在了未被 `.or(autoAbilities(...))` 包含的位置。
 2. **控制器朝向错误**：
    - 确认在 `MultiblockMachineDefinition` 链式调用中设置了 `.rotationState(RotationState.ALL)` 或 `.rotationState(RotationState.NON_Y_AXIS)`。
+
+3. **特殊仓口无法加入**：
+   - `autoAbilities(recipeTypes)` 只处理基础物品/流体/电力能力；催化剂仓、数据仓等需按实际能力单独声明。
+4. **GameTest 中偶发失配**：
+   - 读错误坐标与真实方块。`empty` 模板不清理整座大机器，创意自动搭建保留已有非空气方块，并可能放入可选仓口；按 [GameTest 工作流](gametest_workflow.md) 隔离场地与数量状态。
