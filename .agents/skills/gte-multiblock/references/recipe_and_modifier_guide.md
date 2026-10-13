@@ -82,7 +82,9 @@ public static ModifierFunction recipeModifierForCustomMultiblock(@NotNull MetaMa
     
     // 1. 设置或计算最大并行上限（如 10 亿并行或由仓口/等级决定）
     int maxParallel = 1000000000;
-    int actualParallel = FUEL_ENGINE.getParallelAmount(electricMachine, recipe, maxParallel);
+    // 普通电力加工使用同时限制输入、输出空间与电力的原生逻辑。
+    // FUEL_ENGINE.getParallelAmount 是特定机器的输入侧 helper，不能当作通用安全并行计算。
+    int actualParallel = ParallelLogic.getParallelAmount(electricMachine, recipe, maxParallel);
     
     if (actualParallel <= 0) return ModifierFunction.NULL;
 
@@ -92,11 +94,15 @@ public static ModifierFunction recipeModifierForCustomMultiblock(@NotNull MetaMa
             .outputModifier(ContentModifier.multiplier(actualParallel))
             .parallels(actualParallel)
             .eutMultiplier(actualParallel) // 能耗等比例放大
-            // 可选：缩短时间实现 Subtick 超频
-            .durationModifier(ContentModifier.multiplier(0.0001))
             .build();
 }
 ```
+
+上例说明一次性 IO 的并行缩放。配方若含有非 EU 的 tick 输入/输出，还要核实相应 tick modifier；零并行、能耗与耗时边界以当前 `ModifierFunction`、`ParallelLogic` 源码为准。固定 `.durationModifier(multiplier(...))` 只是耗时倍率，不能称为真正 subtick 超频；超频应采用匹配机器设计的 `OverclockingLogic` / 原生修改器，确认组合顺序与并行电耗。
+
+### 配方不能运行时
+
+从真实配方、当前模式、条件的控制器类型/能力判断追踪到 `RecipeHelper.checkConditions`、`RecipeLogic` 与机器修改器。声明某配方类型不意味着满足那个类型内的专用外壳条件。兼容修改应仅作用于目标机器/类型，保留反向条件和其他环境、输入输出、电力要求；不要直接清空条件列表。
 
 ---
 
@@ -116,6 +122,10 @@ GTERecipeTypes.QUANTUM_ASSEMBLER.recipeBuilder("nano_circuit_assembly")
         .EUt(GTValues.VA[GTValues.LuV]) // 耗能等级
         .save(provider);
 ```
+
+### 语言与 datagen
+
+新增或改名的内容、名称与提示统一在 `modules/gtecore/src/main/java/org/satou/gtecore/datagen/Lang.java` 写入 `provider.add(key, en, zh)`，随后运行 `:modules:gtecore:runData`。生成输出位于 `src/generated/resources/`，不能直接编辑；不要依据旧 `assets/gtceu/lang` 路径为新 GTECore 内容手写语言 JSON。
 
 ### (2) 装配线配方（含研究与扫描器）
 
