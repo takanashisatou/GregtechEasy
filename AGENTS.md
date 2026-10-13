@@ -1,501 +1,129 @@
 # GTE-Multi Agent Guide
 
-This file is the shared instruction set for AI coding agents (Codex, Claude,
-Cursor, Gemini, Antigravity, etc.) working in this repository.
+Shared instructions for agents working in this repository. Follow the user's explicit scope and existing authorization; this guide does not authorize unrelated packaging, publication, or external actions.
 
-## Project Overview
+## Task Scope and Completion
 
-GTE-Multi is a multi-module Minecraft Forge 1.20.1 project running on JDK 21.
-It aggregates several git repositories as submodules:
+- Static analysis/review: inspect the requested commit and deliver findings with evidence. Do not automatically edit code or start the game.
+- Source fixes/development: make changes in the owning module, run applicable validation, and complete the authorized source PR and root-pointer PR flow.
+- Documentation, skills, and test-fixture changes: validate the changed files or affected tests. Do not turn them into player-pack builds or client launches.
+- Production JAR refreshes, pack assembly, releases, and Maven publication are separate workflows, used only when the user requests them.
+- CI may automatically create a module-JAR refresh PR after a source merge. Its existence is not permission to follow or merge it. A source task ends when its requested source changes and authorized PR flow are complete.
+- When the user excludes production JAR changes, keep `gte/overrides/mods/` out of the submitted diff. Normal source CI may still compile temporary artifacts.
+- Preserve current user changes and already granted authorization. Do not repeat permission questions for steps already authorized.
 
-- `modules/gtm-reborn` - GregTech Modern Reborn fork, branch `satou`
-- `modules/gt--` - GT-- Community Edition addon, branch `kotlin`
-- `modules/gtecore` - GTE Core mod, branch `master`
-- `modules/docs` - GregTech Easy Docs & Wiki, branch `main`
-- `modules/gte-dev-runtime` - local hot-debug runtime (not published)
-- `gte/` - Packwiz modpack root and overrides
+## Repository and Environment
 
-Root repository: `takanashisatou/GregtechEasy`, default branch `main`.
+GTE-Multi targets Minecraft Forge 1.20.1 and JDK 21. The root repository is `takanashisatou/GregtechEasy`, base branch `main`.
 
-## Environment
+| Location | Ownership / PR base |
+| --- | --- |
+| `modules/gtm-reborn` | GregTech Modern Reborn submodule; `satou` |
+| `modules/gt--` | GT-- Community Edition submodule; `kotlin`; retains modId `gtnn` |
+| `modules/gtecore` | GTE Core submodule; `master` |
+| `modules/docs` | Docs/wiki submodule; `main` |
+| `modules/gte-dev-runtime` | Root-owned hot-debug runner; not published |
+| `gte/` | Root-owned pack configuration and overrides |
 
-- JDK 21 is required: `C:\Users\Ex_Je\.jdks\ms-21.0.11`
-- Set `JAVA_HOME` before Gradle commands on Windows.
-- The repository may be a local git checkout with submodule directories;
-  do not run `git init`, `git reset --hard`, or discard user changes.
+Use `.gitmodules`, Gradle configuration, and the current workflows as the source of version/branch details. Do not copy historical version numbers or assume a release is currently blocked/ready from an old note.
 
-## Common Commands
+On this Windows host, set `JAVA_HOME` to the configured JDK 21 before Gradle:
 
 ```powershell
 $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
-.\gradlew.bat :modules:gtecore:compileJava
-.\gradlew.bat :modules:gtecore:runData
-.\gradlew.bat :modules:gt--:compileKotlin
-.\gradlew.bat :modules:gtm-reborn:compileJava
-.\gradlew.bat :modules:gtm-reborn:test
-.\gradlew.bat :modules:gtm-reborn:runGameTestServer
-.\gradlew.bat :modules:gte-dev-runtime:runClient
-.\gradlew.bat :modules:gtm-reborn:spotlessApply
-python scripts/build_full_mod_pack.py <version>
+.\gradlew.bat :modules:gtecore:compileJava -Pwerror --console=plain
 ```
 
-`run_game.bat` / `run_game.sh` auto-detect CPU/RAM and start the hot-debug
-client without a launcher.
+Inspect root and affected submodule status before editing. Do not run `git init`, `git reset --hard`, discard changes, or rewrite `main`. For a request about aggregate `main`, use its recorded gitlinks as the baseline, not whichever submodule branch is locally checked out.
 
-## Launching the Dev Client (correct way)
+## Search and Change Boundaries
 
-Use one of these two entry points. Both go through the Gradle `runClient` task,
-which is what arms the window-raise helper described in rule 2.
+- Follow Chinese name -> `zh_cn.json` -> registry ID -> owning Java/Kotlin/assets. Scope `rg` to the relevant module/file; do not run unconstrained root searches for vague terms.
+- Trace machine registration, controller/parent, recipe type, conditions/modifiers, and Java/KubeJS recipe sources before diagnosing a recipe failure.
+- Extract dimensions, symbol counts, and predicates from large structure matrices instead of printing every giant `.aisle(...)` line.
+- Keep feature edits in their owning submodule. Root documentation, shared tooling, pack configuration, and runtime-runner edits belong in the root repository.
+- Prefer one evidence-based fix. Read the first relevant exception/assertion and distinguish implementation, test-fixture, and environment failures before changing unrelated mods or settings.
 
-```powershell
-# Preferred: aggregate wrapper from the repository root
-$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
-.\gradlew.bat runFullPack
+## Runtime and Registration Invariants
 
-# Equivalent (runFullPack is a thin wrapper around it)
-.\gradlew.bat :modules:gte-dev-runtime:runClient
-```
+- Never force-cast Mixin accessor interfaces; use guarded `instanceof` or vanilla APIs. Keep remap enabled for `net.minecraft.*` and `net.minecraftforge.*` Mixin targets.
+- Use `modLocalRuntime` for named dev-runtime dependencies and the appropriate `modCompileOnly` / `compileOnly` configuration for compile references.
+- A submodule's `legacyForge.mods` contains only that module's own source set. Wire sibling code through Gradle project dependencies; only `gte-dev-runtime` aggregates multi-mod source sets.
+- Do not rely on SRG jarJar embeds in named dev runs. Dev JARs exclude `META-INF/jarjar/**`; `jarWithEmbeds` feeds production `reobfJar`. Each run loading an embedding module must provide matching named standalone libraries. For mods.toml-less libraries, use Maven coordinates and preserve the artifact filename for deduplication.
+- For pack mods used by the dev runner, preserve its versioned local-Maven coordinate/remap path. Avoid version-less `modLocalRuntime(name: ...)` and keep `gte.mods` excluded from unrelated remote repositories.
+- For `gtecore`, after adding/renaming registered content, language keys, or tags, update `datagen/Lang.java` with `provider.add(key, en, zh)` and run `:modules:gtecore:runData`. Other modules use their own data/language providers. Never hand-edit `src/generated/`.
+- Target textures/models must be fully written before their datagen runs. If asset work is delegated or parallelized, wait for the asset workers before starting dependent datagen.
+- The dev runner links selected `run/client` configuration/script directories to `gte/overrides`. In-game quest/script edits may therefore become tracked changes; saves and logs belong under `run/`. Preserve those edits and stage only intended paths.
+- Never edit entries inside third-party JARs or copy dev-remapped output into the production pack. Fix dependency coordinates/versions or consume a reproducible published release.
 
-`run_game.bat` is also fine — it calls the same task after auto-detecting JDK,
-cores and RAM.
+## Validation
 
-Expected behaviour: nothing appears on screen for roughly the first 25 seconds
-(the early progress window is disabled on purpose, see rule 2), then a 1600x900
-window opens and is pulled to the front. Cold start is around 70 seconds total.
-Progress is visible in the console and in `modules/gte-dev-runtime/build/raise-game-window.log`.
-
-Environment knobs:
-
-| Variable | Effect |
+| Change | Applicable checks |
 | --- | --- |
-| `GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT` | Window size (default 1600x900) |
-| `GTE_NO_WINDOW_RAISE=1` | Leave the window wherever GLFW puts it |
-| `GTE_RUNTIME_XMX` | Client heap (default `8G`) |
+| Documentation/skills | Structure/frontmatter as applicable, reference links, `git diff --check`; no Gradle or client launch solely for prose |
+| Java/Kotlin behavior | Strict compilation plus relevant tests and applicable audits |
+| Covers/machine behavior | Run `:modules:gtm-reborn:runGameTestServer` before changing behavior, then validate the affected implementation |
+| GTECore GameTest fixtures | `:modules:gtecore:runGameTestServer`; keep required tests and neighboring batch/template conventions |
+| GTECore registered content/data | `:modules:gtecore:runData`, followed by generated-resource inspection |
+| Requested pack changes | Current pack gates and an actual client launch when validating a pack/runtime fix |
 
-Do NOT launch the dev client through the auto-generated `.vscode/launch.json`
-configurations. They start `net.neoforged.devlaunch.Main` directly, bypassing
-`runClient`, so the window is never raised; they are also regenerated by
-ModDevGradle on every IDE sync, so edits to them do not survive. The IntelliJ
-`Run Client (Hot Debug)` configuration attaches a JDWP debugger, which is the
-source of the `jdwp.dll` `EXCEPTION_ACCESS_VIOLATION` dumps in
-`run/client/hs_err_pid*.log` on exit — harmless but noisy, and only relevant if
-you actually need breakpoints.
+Required tests must pass; optional GameTests may fail without failing CI. Verify the actual final required-test result, not merely a zero process exit code. Rerun/broaden checks only for changed behavior, failures, or unresolved evidence.
 
-## Development Rules
+`empty` GameTest templates clear only their own footprint. Large structures need an explicitly cleared, isolated site within world height bounds. Creative autobuild preserves non-air blocks and may add optional parts: start quantity assertions from a known part count. Initialize real hatches/tier through formation when testing recipe execution. Details: [GameTest workflow](.agents/skills/gte-multiblock/references/gametest_workflow.md).
 
-1. Never force-cast Mixin accessor interfaces. Use `instanceof` guards or
-   vanilla APIs instead.
-2. When running `runClient` with optimization and shader mods (Embeddium / Oculus) in `modLocalRuntime`, ALWAYS ensure `earlyWindowControl = false` in `config/fml.toml` (as well as passing `-Dfml.earlyprogresswindow=false` and `-Dforge.earlyWindow=false` in `runs.client`).
-   - On Windows with discrete GPUs (e.g. NVIDIA RTX series), Forge's `fmlearlywindow` (Early Progress Window) spawns a separate background GLFW/OpenGL rendering thread (`pool-2-thread-1`) that conflicts with Embeddium/Oculus pipeline hooks during window creation, causing silent GLFW context deadlocks where the client freezes in background and never pops up.
-   - Forge 47.4.1's `FMLConfig` prioritizes `earlyWindowControl` inside `config/fml.toml`. Setting `earlyWindowControl = false` causes Forge to use `DummyProvider` (`ImmediateWindowProvider not loading because splash screen is disabled`), forcing GLFW window creation directly on the main Render Thread so the window pops up smoothly.
-   - Disabling the early window delays window creation to `Minecraft.<init>` (~25 s in). The game JVM is a background process forked by the Gradle daemon, so Windows denies its `SetForegroundWindow` call and the window is stacked BEHIND the editor/browser the user switched to — it renders fine but stays invisible, which looks exactly like a launch failure. `runClient` therefore spawns `scripts/dev/raise_game_window.ps1`, which waits for the `GLFW30` window of the run's own JVM and lifts it with `SetWindowPos` (Z-order changes bypass the foreground lock). Do not "fix" that report by re-enabling the early window. Disable the helper with `GTE_NO_WINDOW_RAISE=1`; window size defaults to 1600x900 and honors `GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT`.
-3. Use `modLocalRuntime` for dev runtime mods and `modCompileOnly` /
-   `compileOnly` for compile-time dependencies.
-4. Preserve existing uncommitted changes. Work with them; do not revert them.
-5. Keep edits scoped to the submodule that owns the feature.
-6. Never set `remap = false` on Mixin targets targeting `net.minecraft.*` or
-   `net.minecraftforge.*` classes. It will pass dev runs but crash in production.
-7. Follow the systematic 3-step search pipeline: Chinese names -> `zh_cn.json` ->
-   Registry IDs -> Target Java class/assets. Never run unconstrained root greps.
-   (See `.agents/skills/gte-workflow/references/code_search_runbook.md`).
-8. After adding or renaming any registered content in `gtecore` (items, blocks,
-   machines, tooltips), ALWAYS run `.\gradlew.bat :modules:gtecore:runData` to
-   regenerate `src/generated/resources/` (lang files, item models, circuit/item
-   tags). NEVER hand-edit files under `src/generated/` — datagen overwrites
-   them. Bilingual lang entries belong in
-   `modules/gtecore/.../datagen/Lang.java` (`provider.add(key, en, zh)`), which
-   is the source of truth that `runData` uses to regenerate
-   `en_us.json` / `zh_cn.json`.
-9. Never rely on `jarJar` embeds in dev runs. jarJar resolves SRG
-   (production-mapped) jars, and FML extracts them verbatim into named dev
-   runtimes, causing probabilistic `NoSuchFieldError` crashes (see
-   `.agents/skills/gte-workflow/SKILL.md` Case 6). Dev jars exclude
-   `META-INF/jarjar/**`; production `reobfJar` output keeps embeds via
-   `jarWithEmbeds`. Any library a module embeds via `jarJar` must also be
-   declared as a named `modLocalRuntime(...)` in every run configuration that
-   loads that module (Registrate, ldlib, configuration, ponder, flywheel,
-   mixinextras 0.5.5, kotlinforforge as applicable). For mods.toml-less
-   libraries, FML dedup matches by jar file name — use maven coordinates so
-   the standalone jar keeps its artifact name, never renamed curse files.
-10. Never attach sibling source sets (e.g. `gtceu { sourceSet(...) }` or `gtnn { sourceSet(...) }`) inside a submodule's `legacyForge.mods {}` block.
-    - Doing so registers sibling mods as active Datagen/Runtime contributors in Forge's `DatagenModLoader` and ModLauncher, causing Registrate classloader collisions (`ClassCastException: RegistrateBlockstateProvider cannot be cast to GTBlockstateProvider`) during `.\gradlew.bat :modules:gtecore:runData` as well as classloading/lifecycle conflicts during `runClient`.
-    - Cross-submodule code dependencies must strictly use standard Gradle dependency wiring (`implementation(requireSibling(':modules:gtm-reborn', 'gtm-reborn')) { transitive = false }`), keeping each submodule's `mods {}` strictly to its own `"${mod_id}"`. (Only the dedicated runner `gte-dev-runtime` aggregates multi-mod source sets for full-pack hot debug).
-11. Strictly respect Parallel Subagent Asset Dependencies during DataGen.
-    - When using parallel subagents for asset creation (textures/models) and code registration, `runData` MUST NEVER be triggered prematurely by code subagents while asset subagents are still generating or writing PNG textures to disk.
-    - Registrate / Forge Datagen requires all target texture PNG files to be firmly written on disk before execution to avoid corrupt/missing model JSON definitions. Always ensure all parallel asset workers have finished before running `.\gradlew.bat :modules:gtecore:runData`.
-12. Real-Time Dev Environment Linking:
-    - `modules/gte-dev-runtime` automatically creates Directory Junctions (`mklink /J` on Windows, symlinks on POSIX) linking `run/client/{kubejs, config/ftbquests, config/openloader/resources, config/fancymenu, defaultconfigs, tlm_custom_pack}` to `gte/overrides/`.
-    - This allows in-game quest editing and KubeJS script development during `runClient` to be reflected and committed to Git in real-time, while keeping test saves and runtime logs safely confined to `run/client/`.
-13. NEVER edit the bytes of a third-party mod jar. The pack consumes mods as
-    published artifacts; rewriting a refmap, a `.class`, or any other zip entry
-    inside an upstream jar (Rhino, LDLib, Yeetus, ModernFix, gregmek, trashslot,
-    KubeJS, ModernUI, Polymorph, CoreLib, TouhouLittleMaid, ...) is not a fix.
-    It produces an untraceable fork that no version number, checksum or build
-    log can reproduce, it cannot be re-derived by anyone else, and a later CI
-    copy of the same file name silently discards it. Change the **version**
-    through the build configuration instead (see "Modpack Assembly" below). If
-    an upstream jar is genuinely broken, bump its version or vendor a real
-    release — never patch it in place.
-14. One `modId`, one jar. Forge loads mod ids, not file names, and a fork keeps
-    the upstream `modId`: `modules/gt--` is a fork of `Arborsm/GT--` that still
-    declares `mod_id=gtnn`, `dev.arbor.gtnn` packages and display name `GT--`,
-    so an upstream GT-- jar and our CE jar can never coexist in one pack. Before
-    adding, replacing or deleting a jar in `gte/overrides/mods/`, read each
-    jar's `META-INF/mods.toml`, collect the ids from the `[[mods]]` sections
-    only (never from `[[dependencies.*]]`), and confirm every id appears exactly
-    once across the whole directory. "They are two different mods" is not a
-    valid defence when both files declare the same `modId`.
-15. When a check keeps getting violated by hand, add an automated gate instead
-    of a stronger sentence. The repository already has `scripts/audit_art.py`,
-    `audit_dependencies.py`, `audit_docs.py`, `audit_mixins.py`,
-    `audit_submodules.py` and `audit_translations.py` wired into CI; the
-    duplicate-`modId` audit (`scripts/audit_modids.py`, Gate 1b), the
-    production-mapping audit (`scripts/audit_pack_mappings.py`, Gate 1c), the
-    module-jar staleness audit (`scripts/audit_module_jar_freshness.py`, Gate 1d)
-    and the dev-runtime/pack parity audit (`scripts/audit_dev_pack_parity.py`,
-    Gate 1e) were the last ones added, each because the rule it enforces kept
-    being broken by hand.
-    - Gate 1d exists because `gte/overrides/mods/` is assembled from jars and
-      nothing checked that they still match the module sources beside them: the
-      three module jars were committed 2026-09-01 while `gtecore` gained sources
-      on 2026-09-20, so three weeks of LazyPack zips shipped under an unchanged
-      `3.0.7-nightly`. It compares each shipped jar against the submodule source
-      tree (classes) and against the submodule pointer that heads the commit
-      which last built it (commits), and it runs in `lazypack.yml` only — see
-      "Keeping the committed jars current" below for why it cannot live in
-      `sync-build.yml`.
-    - Gate 1e exists because `runFullPack` replaces ~29 pack jars with Maven
-      coordinates from `gradle/forge.versions.toml`, and that substitution drifts
-      from what the pack ships in both directions (dev was on ldlib 1.0.40.b while
-      the pack shipped 1.0.43). Divergences recorded in
-      `scripts/dev_pack_parity_baseline.json` are known debt; anything new fails.
-      Its `packModsAlreadyProvided` keys are modIds and its values are exact
-      `gradle/forge.versions.toml` resource names — never file-name substrings,
-      which is how `extendedae_plus` was silently dropped from the dev run.
-16. Every jar in `gte/overrides/mods/` must be the artifact upstream published,
-    i.e. a **production (SRG) build** — never a dev jar. Forge 1.20.1 production
-    names vanilla members `m_12345_` / `f_12345_`; a jar built with Mojang
-    mappings (`Minecraft.getInstance()`, `.player`) resolves nothing there, so
-    the loader dies at the first `@Shadow` of a vanilla field or throws
-    `NoSuchMethodError` as soon as the class is used. This is not theoretical:
-    the dev runtime remaps the pack's jars SRG -> named for `runFullPack`
-    (`modules/gte-dev-runtime/build.gradle` scans `gte/overrides/mods`), and
-    commit `9a67970` committed that remapped set back over the pack — 94 of 99
-    third-party jars became dev builds under the *same file names, versions and
-    sizes*, and every nightly afterwards died on launch. Restore the published
-    file instead (the last healthy set is `5eb4386`, whose blobs are byte-identical
-    to the upstream releases — verified against the Modrinth sha512 for
-    `modernfix-forge-5.24.4+mc1.20.1.jar`); never reobfuscate or patch a jar by
-    hand, and never copy jars out of a dev run's remap output into the pack.
-    The dev client gets its own copies instead: `modules/gte-dev-runtime`
-    publishes the pack jars into `build/localMaven` as `gte.mods:<artifact>:<version>`
-    (`publishPackModsForDev`) because ModDevGradle only remaps SRG -> named for
-    **coordinate** dependencies — a jar resolved from `flatDir` is handed to the
-    run untouched, which is how this broke in the first place. Two traps when
-    touching that path: never declare a version-less `modLocalRuntime(name: ...)`
-    (Gradle answers it by enumerating versions from every repository), and keep
-    `gte.mods` excluded from the other repositories (otherwise each of the ~70
-    coordinates is probed against ~25 remotes before the local one is reached).
+When the same mistake repeatedly escapes manual checks, add an appropriate automated gate instead of accumulating longer warnings. Select the relevant existing `scripts/audit_*.py` checks for the change.
 
-## Modpack Assembly (`gte/`) and Mod Versions
+## Development Client
 
-`gte/overrides/mods/` is **CI-owned**. Never drop a jar into it by hand, and
-never treat its contents as the source of truth for what a mod's version is.
+Launch only when requested or needed for the runtime/graphics issue. From the root, use `runFullPack` or `:modules:gte-dev-runtime:runClient`; `run_game.bat` / `run_game.sh` use the supported Gradle path too.
 
-What writes that directory:
+With Embeddium/Oculus, keep `earlyWindowControl=false` in `config/fml.toml` and retain `-Dfml.earlyprogresswindow=false` / `-Dforge.earlyWindow=false`. Do not re-enable the early window to solve a missing/covered game window.
 
-1. `sync-build.yml` → "Copy Built Mod Jars to Overrides and Artifacts" copies
-   `modules/*/build/libs/*.jar` (minus `-sources`, `-dev`, `-dev-embeds`, `-all`)
-   into `build/artifacts/`, copies the fat jars into `gte/overrides/mods/`, and
-   deletes leftover `*-slim.jar` / `*-dev-slim.jar` / `*-dev-embeds.jar`.
-   `-dev-embeds` is the `jarWithEmbeds` intermediate that exists only to feed
-   `reobfJar` (`modules/*/gradle/scripts/jars.gradle`); it declares the **same
-   modId and version** as the jar it feeds, so publishing or packing it puts a
-   duplicate the loader cannot even resolve by version in front of users.
-2. Nothing, today. `translate.yml` → "Commit and Direct Push" runs `git add -A`
-   and commits the root tree, and until 2026-09-23 this section claimed that is
-   how freshly built jars reach git. It is not, and it never could be:
-   `translate.yml` runs no Gradle, so it never produces a jar, and it only ever
-   sees what git already holds. That recipe was tested and failed — see
-   "Keeping the committed jars current" below, which also carries the pending
-   D1-a fix. The one thing that section got right is that
-   `git add -A` is why a commit whose message says `i18n: Auto-update ...` can
-   contain jar binaries: it happened while translation ran right after a build on
-   the same runner, which is not the normal case.
+Gradle arms the window-raise helper; generated `.vscode/launch.json` configurations bypass it and are not the supported launch path. Do not hand-edit those generated launch configurations. Confirm the run's own JVM/window and logs before calling a launch broken; avoid stopping the user's other instances.
 
-So this is the "Lazy Pack" assembly mode: everything under `gte/` is zipped
-verbatim by `scripts/build_full_mod_pack.py`, which fails on an empty mods dir,
-on a count mismatch inside the zip, and on a top-level `mods/` entry
-(`expected_mods_count` is derived from the same directory, so adding or removing
-a jar needs no constant updated). `scripts/build_curseforge_pack.py` ships a
-pure `manifest.json` and forbids jars in `overrides/` entirely.
+Runtime dependency, window, debug-dump, and linking details are in [runtime troubleshooting](.agents/skills/gte-workflow/references/runtime_troubleshooting.md), read only for the matching symptom.
 
-### Keeping the committed jars current — NOT SOLVED YET, do D1-a (next task)
+## Git and PR Flow
 
-**Status: the pack cannot currently be released.** `gte/overrides/mods/` holds
-module jars built 2026-09-01 while the submodule pointers have moved on, and no
-mechanism exists that puts a freshly built jar into git. Gate 1d
-(`scripts/audit_module_jar_freshness.py`) therefore fails in `lazypack.yml` and
-refuses to build — correctly, but it means `nightly` is frozen.
+1. Create a feature branch in the owning repository (default prefix `codex/`). Confirm the current branch before every commit; never commit/push directly to a target branch, including one-line fixes and CI changes.
+2. Commit and push the intended changes, open the PR against the base in the ownership table, and wait for the relevant CI on its actual head SHA to conclude successfully.
+3. Squash merge within the user's authorized scope. After a submodule merge, use its merged commit in a separate root-pointer PR and wait for root CI before merging.
+4. Do not push another change while that branch's CI is running unless cancelling the old run is intentional. Do not report success from cancelled, in-flight, missing, or different-SHA checks.
+5. Read concrete CI failures before retrying. Do not weaken required checks, remove tests, or stack speculative changes to obtain green status. Revert a bad change through a reviewable PR rather than rewriting `main`.
 
-Why the obvious fix does not work. The previously documented recipe was "let
-`sync-build.yml` build, then dispatch `translate.yml` to commit the jars". It was
-tested on 2026-09-23 and it **cannot work**, because CI runners do not share a
-filesystem:
+The root requires `PR Validation` through its protected-branch flow. Check current branch protection/workflow behavior when needed; do not assume historical protection status or bypass it. Existing authorization to finish this flow does not authorize additional release or JAR PRs.
 
-```
-sync-build run  -> runner A: writes fresh jars into gte/overrides/mods/   (its own disk)
-                              run ends, runner A is destroyed, files are gone
-translate   run -> runner B: fresh checkout of git  -> only the OLD jars exist
-lazypack    run -> runner C: fresh checkout of git  -> still the old jars
-```
+## Pack and CI Reference
 
-`translate.yml` runs no Gradle at all (checkout -> setup python -> pip ->
-`opencode_translate.py` -> commit), so it can never *produce* a jar. Its
-`git add -A` only stages what the working tree already holds, and the working tree
-only ever holds what git has. The proof, from the translate run on `988e3b5`:
+These constraints apply when the user's task includes the relevant pack/CI operation:
 
-```
-Root changes:  M gte/overrides/config/openloader/resources/quests/assets/gte/lang/en_us.json
-```
+- `gte/overrides/mods/` is CI-owned. Module versions come from module `gradle.properties`; runtime dependency versions come from Gradle coordinates/catalogs. Keep Minecraft/Forge/mapping changes consistent across root configuration, `gradle/libs.versions.toml`, and `gte/pack.toml` where applicable.
+- One modId, one JAR. Read only the `[[mods]]` declarations in `META-INF/mods.toml`, not dependency sections. Upstream GT-- and the CE fork both declare `gtnn` and cannot coexist.
+- Pack JARs must be reproducible production/SRG artifacts; exclude dev, sources, slim/embedded intermediates as specified by the current assembly workflow. A matching filename or version is not proof of correct mapping or freshness.
+- `sync-build.yml` compiles/tests modules and assembles artifacts. Its current push-to-main/master path opens `chore/refresh-module-jars-<run_id>` PRs for rebuilt committed JARs. It has no cron and must not publish the rolling `nightly` prerelease.
+- `lazypack.yml` is manual, pack-only, and the sole rolling `nightly` producer. It compiles nothing and ships committed JARs. It enforces duplicate modId (1b), production mapping (1c), module freshness (1d), and dev/pack parity (1e); `publish=false` skips release publication.
+- Gate 1d belongs to the committed-pack shipping path, not a build job that has only rebuilt uncommitted files. Gate 1e uses modId keys and exact catalog resource-name values for `packModsAlreadyProvided`; known differences belong in `scripts/dev_pack_parity_baseline.json`, not new unreviewed drift.
+- `translate.yml` translates assets; it does not compile/transfer module JARs. Its current docs step directly pushes `main`; the root `create_pr` option does not cover that submodule step. This legacy behavior is not permission to bypass PR rules. Verify a compliant path for requested translation work; do not turn this note into an unrequested workflow repair.
+- `release-publish.yml` and `curseforge-publish.yml` handle requested releases/CurseForge operations. Follow their current inputs and [CurseForge release guide](docs/curseforge-release.md).
+- Read release assets through the paginated REST assets endpoint; delete authorized assets by id, including `state=starter` entries. Do not rely on the capped `gh release view --json assets` snapshot or delete by guessed name.
+- Translation/API credentials come from configured environment/secrets; never hardcode keys.
 
-— one translated language file, zero jars. Dispatching `lazypack.yml` afterwards
-gave `✗ [Gate 1d] Module Jar Freshness Lint`, which is the gate working.
+For a broken pack, compare shipped files/hashes against the last healthy build and read the crash's Mod List / MOD blocks before changing content. Do not guess duplicate JARs by filename, disable unrelated Mixin features, or stack unrelated mod upgrades to hide the first failure.
 
-#### D1-a: let the run that builds the jars also commit them
+Read [packaging and release guidance](.agents/skills/gte-workflow/references/packaging_and_release.md) only when that workflow is requested. Source fixes need not resolve stale player-pack JARs as an unrelated follow-up.
 
-`sync-build.yml` is the only job that ever has the new jars on disk. Give it the
-commit, instead of asking a later, differently-located job to do it:
+## Skills and Delegation
 
-1. Add a final step to `sync-build.yml`, after "Copy Built Mod Jars to Overrides
-   and Artifacts", that checks whether the copy changed anything:
-   `git status --porcelain -- gte/overrides/mods/`. The copy step already deletes
-   every jar it is about to rewrite (matched by each module's `base.archivesName`
-   prefix), so a change here means exactly "the module jars were rebuilt".
-2. If it did change, commit those jars on a derived branch
-   (`chore/refresh-module-jars-<run_id>`) and open a PR against `main`.
-   **Not a direct push** — rule 6 now has branch protection behind it, and
-   `translate.yml`'s "Commit and Direct Push" is the standing proof that a direct
-   push to `main` is rejected.
-3. Guard it: run only for pushes to `main`/`master`, never for a `pull_request`
-   event, and skip when the diff is empty. `sync-build.yml` groups runs per branch
-   and cancels in progress, so a PR opened by a cancelled run would reference a
-   commit nobody can see.
-4. Expect the loop to converge. Merging the jar PR changes
-   `gte/overrides/mods/`, which re-triggers `sync-build.yml`; that run starts from
-   the jars it just committed, so its copy produces no diff and it opens no PR.
-   Two runs per release, not an endless chain.
+Project `.agents/skills/` is the maintained source. Do not recreate old same-name global copies or archive obsolete instructions inside searchable skill directories. `.codex/rules.md` is only a short entrypoint, not a second rulebook.
 
-D1-a's finishing condition: open the jar PR and confirm **Gate 1d is green on it**
-(that PR is the first commit where the shipped jars match the pointer). Then
-`lazypack.yml` builds.
-
-Considered and rejected: having `lazypack.yml` fetch the jars from the last
-successful `sync-build` run's workflow artifact over the GitHub API. It works, but
-it puts the pack's contents outside git, so `gte/overrides/mods/` would stop being
-a reproducible description of what shipped, and Gate 1d would have nothing to
-check against.
-
-#### Also fix: `translate.yml`'s direct push
-
-`translate.yml` -> "Commit and Direct Push" (`git push` to `main`, line ~237) now
-fails every run under the new branch protection. Switch it to the PR path its
-`create_pr` input already implements, or to `workflow_call`-only use. This is
-independent of D1-a but currently leaves translation runs red.
-
-#### The order that will work once D1-a lands
-
-1. merge the submodule PR, then the root PR that bumps its pointer;
-2. `sync-build.yml` runs — compiles, copies, and **opens a jar-refresh PR**;
-3. merge that jar PR (Gate 1d is green on it);
-4. dispatch `lazypack.yml`.
-
-No step depends on a human remembering something unrelated to what they were
-doing, which was the fatal flaw in the tested-and-rejected recipe.
-
-#### Why the gate is in `lazypack.yml` and not `sync-build.yml`
-
-Gate 1d compares the *committed* jars against the submodule pointers, and
-`sync-build.yml` compiles but does not commit. In that job the working tree holds
-correct jars that git lacks, so the gate would go red on every pointer bump while
-the tree in front of it is right — training people to ignore it. It belongs to the
-job that ships the pack. That stays true after D1-a.
-
-Version knobs — change these, never a jar:
-
-| What | Where |
+| Skill | Use when |
 | --- | --- |
-| GT-- CE version | `modules/gt--/gradle.properties` → `mod_version` (currently `1.3.5.1`) |
-| GTM-Reborn version | `modules/gtm-reborn/gradle.properties` → `mod_version` |
-| GTECore version and its dependency pins | `modules/gtecore/gradle.properties` → `mod_version`, `gtmr_version`, `kubejs_version`, `jei_version` |
-| Minecraft / Forge / mappings | root `gradle.properties`, `gradle/libs.versions.toml` (`minecraft`, `forge`, `parchment`) and `gte/pack.toml` `[versions]` — keep all three in sync |
-| Third-party runtime mods | `modLocalRuntime(...)` coordinates in the run configurations |
+| [gte-workflow](.agents/skills/gte-workflow/SKILL.md) | Module development, dependency/runtime diagnosis, source PRs |
+| [gte-multiblock](.agents/skills/gte-multiblock/SKILL.md) | Existing/new machines, patterns, recipe conditions/modifiers, structure tests |
+| [gte-multiblock-architecture](.agents/skills/gte-multiblock-architecture/SKILL.md) | Designing new shapes or geometric matrices |
+| [gte-pixel-lab](.agents/skills/gte-pixel-lab/SKILL.md) | Texture, animation, palette, CTM inspection or edits |
+| [gte-quest-lab](.agents/skills/gte-quest-lab/SKILL.md) | In-game quests, chapter dependencies/rewards and quest translations |
 
-Facts behind these rules, so they are not rediscovered the hard way:
+Read the relevant skill before changing module, build, CI, asset, or quest content; load references only as needed. Use [README.md](README.md) for the developer quick start.
 
-- `gte/pack.toml` is packwiz-shaped (`pack-format = "packwiz:1.1.0"`,
-  `meta-folder = "mods"`, `meta-folder-type = "toml"`) but no `gte/mods/*.pw.toml`
-  exists and `gte/index.toml` is an empty stub, so nothing is version-pinned
-  through packwiz; every mod ships as a tracked binary under `overrides/`.
-- `modules/gt--` has **diverged** from its upstream `Arborsm/GT--` (default
-  branch `kotlin`, remote `takanashisatou/GT---Community-Edition`): as of
-  2026-09-23 the fork is 14 commits ahead and 17 behind, upstream's
-  `mod_version` is already `1.3.10` while ours is `1.3.5.1`. Merging upstream is
-  a real conflict resolution task — never bump the submodule pointer to a commit
-  whose version was not merged into the branch the pack is built from.
-- `gtnn-1.20.1-1.3.5.3.jar` was a stale upstream GT-- release inherited from the
-  pre-monorepo pack (commit `718aded`, 2026-08-19) that declared the same
-  `modId = gtnn` as the CE jar CI builds. It was deleted, and
-  `scripts/audit_modids.py` (Gate 1b) now fails the build if any two jars in
-  `gte/overrides/mods/` declare the same id again.
-
-## Debugging a Broken Pack
-
-A pack that suddenly refuses to launch is almost always a *content* change, not
-a broken game. Work in this order:
-
-1. Diff the shipped pack against the last build that launched — begin with
-   `git log --stat -- gte/overrides/mods/`.
-2. Read the crash report's `-- Mod List --` and `-- MOD <id> --` blocks before
-   changing anything. A jar that kept its file name but changed size/hash means
-   someone patched a mod by hand; a `modId` appearing twice means the wrong jar
-   is in the pack.
-3. Make ONE scoped change, rebuild, and verify. Do not stack speculative fixes.
-
-Method that is forbidden here, because each step hides the cause instead of
-finding it:
-
-- disabling Mixin features of an unrelated mod (`modernfix-mixins.properties`
-  entries such as `mixin.bugfix.*` / `mixin.perf.*`) to get past a startup crash;
-- deleting a jar that "looks duplicated" without reading its `META-INF/mods.toml`;
-- upgrading several unrelated mods in one commit, or replacing mods while
-  chasing a crash whose first report was never read;
-- editing jar internals to satisfy a refmap/remap error instead of changing the
-  version that produced it;
-- reporting a crash as fixed without a green CI run and, for any pack change, an
-  actual client launch.
-
-## Game Tests
-
-- Game tests live under `modules/gtm-reborn/src/test`.
-- Required tests must pass; optional tests may fail without failing CI.
-- Run `:modules:gtm-reborn:runGameTestServer` before changing cover or machine
-  behavior.
-- When adding a test, use the same batch/template conventions as nearby tests.
-
-## Git and PR Workflow
-
-1. Create a feature branch inside the owning submodule.
-2. Commit and push it to the submodule remote.
-3. Open a PR:
-   - `gtm-reborn` -> base `satou`
-   - `gtecore` -> base `master`
-   - `gt--` -> base `kotlin`
-   - root `GregtechEasy` -> base `main`
-4. Wait for CI to go green, then squash merge.
-5. After a submodule merge, bump the submodule pointer in the root repository
-   with a separate root PR and wait for root CI.
-
-Non-negotiable:
-
-6. Never commit directly to `main`. This applies to CI tweaks, pack/jar changes
-   and "one-line fixes" too. `main` has no branch protection, so this rule is
-   the only guard, and it was just violated by 8 consecutive unreviewed commits
-   on 2026-09-22/23: each push re-triggered the release workflow and cancelled
-   the previous run, so not one of them was ever covered by a completed build.
-   As of 2026-09-24 `main` **does** have branch protection (required PR required
-   status check `PR Validation`, no force push, no deletion, enforced for admins
-   too), so the server now refuses a direct push. It was still broken twice by
-   hand before that: the 8 commits above, and an agent pushing a CI tweak
-   straight to `main` on 2026-09-24 because it never re-checked which branch it
-   was on. Always confirm `git branch --show-current` before committing.
-7. Do not push while a CI run on the same branch is still in flight unless
-   cancelling it is what you intend. `sync-build.yml` groups runs per branch, so
-   each push silently cancels the previous one — that is how 4 consecutive runs
-   produced no result at all.
-8. Never report work as done, fixed or verified off a cancelled, in-flight or
-   missing CI run. "CI should be fine" is not a result; read the conclusion.
-9. Revert work that violated these rules as one reviewable PR (a single revert
-   commit restoring the last PR-merged tree) rather than by rewriting `main`.
-
-## CI / Release
-
-- `.github/workflows/sync-build.yml` builds all modules in one Gradle call,
-  runs gtm-reborn tests/game tests and packs Full-Mod & Server artifacts. It
-  creates tag/versioned releases and uploads the built jars as workflow
-  artifacts; it must **never** publish the rolling `nightly` prerelease (see
-  below). It has **no cron**: it runs on pull requests and on pushes to
-  `main`/`master`/`dev`/`satou` (plus tags and manual dispatch), because a daily
-  schedule re-ran the identical pipeline on an unchanged tree one day after the
-  merge had already run it.
-- `.github/workflows/lazypack.yml` is the manual, pack-only job (dispatch only)
-  and the **only** producer of the rolling `nightly` prerelease: it checks out
-  the tree without submodules and with no JDK, runs the four pack gates
-  (duplicate modId, production mapping, module jar freshness, dev/pack parity),
-  builds the Full-Mod and Server LazyPacks with `scripts/build_full_mod_pack.py`
-  / `build_server_pack.py`, verifies the zips, uploads them, retargets the
-  `nightly` tag at the commit it built from, and prunes the pack zips it did not
-  produce — and only those, because the module jars on that release belong to
-  sync-build.yml. `publish=false` skips the release entirely. Use it when the
-  pack needs rebuilding; do not add Gradle, translation, Maven or packwiz work to
-  it — that belongs to sync-build.yml and to the manual CurseForge workflow.
-  Note what it does **not** do: it compiles nothing, so it ships whatever jars are
-  committed. Gate 1d is what makes that safe — without it a stale module jar
-  reaches players silently. It also never commits anything, which is why it cannot
-  refresh the jars itself; as of 2026-09-24 **nothing does**, so it currently
-  refuses to build. See "Keeping the committed jars current" above for the D1-a
-  fix that gives `sync-build.yml` the commit.
-- When you need a release's asset list from CI, read it through the paginated
-  REST endpoint (`repos/<owner>/<repo>/releases/<id>/assets?per_page=100`), never
-  through `gh release view --json assets`: the latter returns a capped, stale
-  snapshot of the release object. It once listed assets that had already been
-  replaced and omitted two from August, so the prune step reported success while
-  the ancient zips stayed on the rolling `nightly` release and kept being offered
-  to users as the newest build.
-- Delete release assets by **id** (`gh api -X DELETE
-  repos/<owner>/<repo>/releases/assets/<id>`), not by name. An upload that is
-  interrupted leaves the asset in `state=starter`; the API still lists its name,
-  but `gh release delete-asset <tag> <name>` answers "asset ... not found in
-  release nightly" (exit 1), so a name-based prune warns and leaves it there
-  permanently. That is exactly how the two August zips survived every prune.
-- `.github/workflows/release-publish.yml` implements manual releases:
-  dispatch with a version -> create `dev -> release` PR -> squash merge ->
-  tag `v<version>` -> tag workflow publishes.
-- `.github/workflows/curseforge-publish.yml` implements two-stage CurseForge
-  publishing from the committed production jars: `modules` uploads the three
-  mods and records their returned file IDs; after moderation, `pack` verifies
-  public downloads against the recorded SHA-256 hashes and builds/uploads a
-  pure `manifest.json` modpack with ZERO jars anywhere in the archive. `check`
-  performs the preflight without uploads. See `docs/curseforge-release.md`.
-- Translation providers are selected through environment variables
-  (`DEEPSEEK_API_KEY`, `GEMINI_API_KEY`, `OPENAI_API_KEY`,
-  `DASHSCOPE_API_KEY`, `MOONSHOT_API_KEY`, `ZHIPU_API_KEY`,
-  `OPENCODE_API_KEY`, or `LLM_API_KEY`). Never hardcode keys.
-
-## Recommended LLMs / AI Models
-
-For coding, refactoring, multiblock architecture, and multi-module submodule maintenance in this repository, the following high-capability reasoning models are recommended:
-
-- **Google Gemini (Gemini 3.7 Flash)** - Exceptional long-context comprehension, strong multi-module project awareness, and robust build issue diagnosis.
-- **DeepSeek (DeepSeek-V4 Flash / Flash Vision Exp)** - High precision code generation, rapid algorithmic reasoning, and accurate texture/asset awareness.
-- **OpenAI (GPT 5.6 系列 / GPT-5.6 Sol)** - Advanced multi-step planning, strict schema compliance, and architectural refactoring.
-
-## Cross-Agent Skills
-
-Project-specific guidance also lives in:
-
-- `.agents/skills/gte-workflow/SKILL.md` - GTE development runbook
-- `.agents/skills/gte-pixel-lab/SKILL.md` - Universal Minecraft pixel art, CTM inspection, and animation toolset (`python scripts/texture_lab/pixel_tool.py <cmd>`)
-- `.agents/skills/gte-multiblock/SKILL.md` - GTE multiblock structure creation, registry, and recipe modifiers
-- `.agents/skills/gte-multiblock-architecture/SKILL.md` - Multiblock 3D geometric modeling and pattern generation
-- `.agents/skills/gte-quest-lab/SKILL.md` - FTB Quests editing CLI and SNBT format reference (`python scripts/quest_lab/ftbq.py <cmd>`): inspect, lint, add quests, manage `{gte.*}` translation keys
-- `scripts/audit_*.py` - automatically enforced invariants (`audit_art`,
-  `audit_dependencies`, `audit_dev_pack_parity`, `audit_docs`,
-  `audit_mixins`, `audit_modids`, `audit_module_jar_freshness`,
-  `audit_pack_mappings`, `audit_submodules`, `audit_translations`), wired into
-  CI. When a mistake class needs a gate rather than another rule, add the audit
-  script and wire it in.
-- `.codex/rules.md` - detailed project rules
-- `README.md` - developer-facing quick start
-
-Read the relevant skill before changing build, Gradle, CI, texture, or module code.
+Delegation is not automatic. When subagents are authorized, follow the user's model preference: use `gpt-6-astra` unless explicitly asked otherwise; report unavailability before substituting another model. Keep shared edits and dependent asset/datagen work coordinated.
