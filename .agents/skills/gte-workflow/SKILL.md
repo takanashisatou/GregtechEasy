@@ -19,7 +19,7 @@ description: >-
 | 技能、说明、测试夹具优化 | 对应文件与适用的验证 | 文本/脚本检查、相关测试及已授权的 PR 流程完成 |
 | 整合包、生产 JAR 更新、发布 | 用户明确指定的产物或发布结果 | 进入 [打包与发布流程](references/packaging_and_release.md) |
 
-修复源码不等于更新生产 JAR。CI 自动创建 JAR 刷新 PR，也不代表用户授权本任务跟踪或合并它。用户要求不更新 JAR 时，提交范围不包含 `gte/overrides/mods/`；必要的源码 CI 可继续运行。
+修复源码不等于更新生产 JAR。只有明确请求的手动生产构建才创建 JAR 刷新 PR，源码合并不自动构建。用户要求不更新 JAR 时，提交范围不包含 `gte/overrides/mods/`。常规编译、GameTest 和审计在本地运行，PR 合并不启动或等待 CI。
 
 ## 定位与读取
 
@@ -34,7 +34,7 @@ description: >-
 - 在拥有该功能的模块创建功能分支，先复现或确认阻断点，再做一个有依据的修复。
 - 纯文本/技能修改使用结构、链接与脚本检查；测试夹具修改运行对应测试。不要把这些任务升级为生产包构建或客户端启动。
 - Java/Kotlin 行为修改做严格编译与针对性运行验证；按 `AGENTS.md` 执行适用的强制检查。已有通过结果只在改动、失败或新疑点出现时重跑。
-- **新增/改名注册内容、语言键或标签时**，语言源写在 `modules/gtecore/src/main/java/org/satou/gtecore/datagen/Lang.java` 的 `provider.add(key, en, zh)`，再运行 `:modules:gtecore:runData`。不手改 `src/generated/`。没有数据变化的逻辑修复不自动要求本地 datagen；CI 自身要求的步骤照常执行。
+- **新增/改名注册内容、语言键或标签时**，语言源写在 `modules/gtecore/src/main/java/org/satou/gtecore/datagen/Lang.java` 的 `provider.add(key, en, zh)`，再运行 `:modules:gtecore:runData`。不手改 `src/generated/`。没有数据变化的逻辑修复不自动要求本地 datagen；明确请求的生产构建仍按其配置生成数据。
 - 测试要验证可观察的行为。结构 GameTest 的 `empty` 模板只清理自身范围；大结构必须显式隔离完整场地，不能假定抬高相对高度后没有地形。详见 [多方块测试](../gte-multiblock/references/gametest_workflow.md)。
 
 常用命令（Windows 从根目录运行，先按 `AGENTS.md` 设置 JDK 21 的 `JAVA_HOME`）：
@@ -45,15 +45,15 @@ description: >-
 .\gradlew.bat :modules:gtecore:runGameTestServer --console=plain
 ```
 
-## PR 与 CI
+## PR 与本地验证
 
 仅在用户已授权 commit / push / PR / merge 的范围内执行后续动作，不重复询问已有授权。源码流程按仓库要求依次完成模块 PR，再更新根仓库指针；根级技能/工具改动使用根仓库功能分支。
 
 - 提交前确认分支；不直接提交到受保护的目标分支。
-- CI 检查绑定 PR 的实际 head SHA；等待相关运行的最终结论，不能凭运行中、已取消或缺失的检查报告完成。
-- 同一分支 CI 在运行时，不追加 push，除非已明确决定取消旧运行。
-- CI 失败先读失败步骤及具体断言，再判断实现、测试场地还是环境问题；不要用反复重跑、删测试或关闭校验掩盖可复现错误。
-- 等待时优先处理独立工作，状态未变则延长查询间隔；只汇报实质变化。不要把源码任务的终点延伸到未请求的发布流水线。
+- 合并前在本地完成适用的严格编译、GameTest 和审计，在 PR 中记录结果；源码 push、PR 和 merge 不运行 CI，也不要求 CI 状态检查。
+- 模块自动构建、测试和格式工作流在仓库设置中保持禁用；根仓库工作流保留手动入口，继续使用 PR 合并。
+- 验证失败先读失败步骤及具体断言，再判断实现、测试场地还是环境问题；不要用反复重跑、删测试或改断言掩盖可复现错误。用户排除新增测试时不加测试。
+- 明确请求的生产构建或发布才启动对应手动 CI；消费产物前核对实际来源 SHA 和最终成功结果。不要把源码任务延伸到未请求的发布流水线。
 
 ## 会影响运行的关键约束
 

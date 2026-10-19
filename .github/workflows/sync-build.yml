@@ -1,49 +1,6 @@
-name: "GTE-Multi CI/CD Build & Multi-Channel Release"
+name: "GTE-Multi Production Build (manual)"
 
 on:
-  push:
-    branches:
-      - master
-      - main
-      - dev
-      - satou
-    tags:
-      - 'v*'
-      - 'alpha-*'
-      - 'beta-*'
-    paths-ignore: &build_irrelevant_paths
-      - 'docs/**'
-      - 'mkdocs.yml'
-      - 'requirements.txt'
-      - '.github/workflows/docs-deploy.yml'
-      - '.github/workflows/translate.yml'
-      - '**.md'
-      # gte-dev-runtime is not part of this pipeline at all: the module steps
-      # touch only gtm-reborn / gt-- / gtecore, and copyOutputJars only reads
-      # those three build/libs. It is the local hot-debug runner (runFullPack)
-      # and produces nothing that ships or publishes. Rebuilding all three
-      # modules plus the Minecraft decompile for a dev-runtime edit is ~15
-      # minutes of work for a file this run never reads.
-      - 'modules/gte-dev-runtime/**'
-      # Build-time *inputs* are the modules and the pack tree. Python tooling
-      # under scripts/ runs at pack/release time (build_full_mod_pack.py, the
-      # audit gates) or as manual utilities, so editing a lint script must not
-      # schedule a compile of three Minecraft mods. .github/**
-      # deliberately stays out of this list: a sync-build.yml change is the one
-      # case where running the pipeline IS the test.
-      - 'scripts/**'
-  pull_request:
-    branches:
-      - master
-      - main
-      - dev
-      - satou
-    paths-ignore: *build_irrelevant_paths
-  # No `schedule:` here on purpose. The daily cron used to run this whole
-  # pipeline - submodules, three modules, GameTest, packaging, publishing - one
-  # day after the merge that had already run all of it on the pull request, which
-  # is minutes of duplicated work for a tree that had not changed. Rebuilding just
-  # the pack is a manual, pack-only job: .github/workflows/lazypack.yml.
   workflow_dispatch:
     inputs:
       channel:
@@ -94,7 +51,7 @@ permissions:
 
 jobs:
   build-and-sync:
-    name: "GTE-Multi Build, Test, Translate & Sync"
+    name: "Build and Assemble Production Artifacts"
     # GitHub-hosted windows-latest by default. The self-hosted Windows runner is
     # retired: it was a single machine, so every push and every PR to main queued
     # behind whatever was already running, and its outbound link made the release
@@ -472,53 +429,21 @@ jobs:
           }
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - name: Build All Modules & GameTest in Parallel
+      - name: Build Production Modules
         id: build_modules
         timeout-minutes: 120
         run: |
-          $ErrorActionPreference = 'Continue'
           $WERROR_FLAG = ""
           if ("${{ steps.meta.outputs.channel }}" -eq "release" -or "${{ inputs.werror }}" -eq "true") {
             $WERROR_FLAG = "-Pwerror"
           }
-          $TASKS = ":modules:gtm-reborn:build :modules:gtm-reborn:runGameTestServer :modules:gtecore:build :modules:gt--:build :modules:gte-dev-runtime:verifyPackModFiltering"
-          # Retry once: artifact downloads from third-party maven hosts fail
-          # intermittently, and a whole nightly should not be lost to one flaky CDN.
-          for ($attempt = 1; $attempt -le 2; $attempt++) {
-            Write-Host "=== Build attempt $attempt/2 ==="
-            if ($env:OS -like "*Windows*" -or $env:WINDIR) {
-              cmd.exe /c "gradlew.bat $TASKS $WERROR_FLAG --parallel --no-daemon"
-            } else {
-              ./gradlew $TASKS.Split(' ') $WERROR_FLAG --parallel --no-daemon
-            }
-            if ($LASTEXITCODE -eq 0) { break }
-            if ($attempt -eq 2) { exit $LASTEXITCODE }
-            Write-Host "::warning::Build attempt $attempt failed (exit $LASTEXITCODE); retrying once."
-            Get-CimInstance Win32_Process -Filter "Name='java.exe'" |
-              Where-Object { $_.CommandLine -match 'GradleDaemon|GradleWrapperMain' } |
-              ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
-            Start-Sleep -Seconds 10
+          $TASKS = ":modules:gtm-reborn:assemble :modules:gtecore:assemble :modules:gt--:assemble :modules:gte-dev-runtime:verifyPackModFiltering"
+          if ($env:OS -like "*Windows*" -or $env:WINDIR) {
+            cmd.exe /c "gradlew.bat $TASKS $WERROR_FLAG --parallel --no-daemon"
+          } else {
+            ./gradlew $TASKS.Split(' ') $WERROR_FLAG --parallel --no-daemon
           }
-
-      # The aggregate run guard permits one game process per Gradle invocation.
-      - name: Test GTECore Purification Controls
-        timeout-minutes: 30
-        run: |
-          for ($attempt = 1; $attempt -le 2; $attempt++) {
-            Write-Host "=== GTECore GameTest attempt $attempt/2 ==="
-            if ($env:OS -like "*Windows*" -or $env:WINDIR) {
-              cmd.exe /c "gradlew.bat :modules:gtecore:runGameTestServer --no-daemon --console=plain"
-            } else {
-              ./gradlew :modules:gtecore:runGameTestServer --no-daemon --console=plain
-            }
-            if ($LASTEXITCODE -eq 0) { break }
-            if ($attempt -eq 2) { exit $LASTEXITCODE }
-            Write-Host "::warning::GTECore GameTest attempt $attempt failed (exit $LASTEXITCODE); retrying once."
-            Get-CimInstance Win32_Process -Filter "Name='java.exe'" |
-              Where-Object { $_.CommandLine -match 'GradleDaemon|GradleWrapperMain' } |
-              ForEach-Object { Stop-Process -Id $_.ProcessId -Force -ErrorAction SilentlyContinue }
-            Start-Sleep -Seconds 10
-          }
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       # Save right after the build, under always(), for the same reason as the
       # translation cache: the expensive part (1.3 GB of resolved modules plus the
@@ -825,10 +750,8 @@ jobs:
       # pipeline was green. It opens a PR instead of pushing, because rule 6 now has
       # branch protection behind it and a direct push to main is rejected.
       - name: Open Module Jar Refresh PR
-        # push only: a pull_request event's head SHA belongs to a branch that may be
-        # deleted or force-pushed, and sync-build cancels in progress, so a PR from a
-        # cancelled run would point at a commit nobody can see.
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+        # Explicit production builds may open a jar refresh PR.
+        if: github.event_name == 'workflow_dispatch' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         env:
           # GH_PAT preferred, same expression as "Trigger Docs Deploy Workflow".
           #

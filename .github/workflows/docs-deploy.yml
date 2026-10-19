@@ -1,27 +1,6 @@
 name: "Deploy GTE Documentation & Wiki"
 
 on:
-  push:
-    branches:
-      - master
-      - main
-    paths:
-      - "modules/docs/**"
-      - "docs/**"
-      - "mkdocs.yml"
-      - "requirements.txt"
-      - "scripts/audit_docs.py"
-      - ".github/workflows/docs-deploy.yml"
-  pull_request:
-    branches:
-      - master
-      - main
-    paths:
-      - "modules/docs/**"
-      - "docs/**"
-      - "mkdocs.yml"
-      - "requirements.txt"
-      - "scripts/audit_docs.py"
   workflow_dispatch:
 
   # Allow other workflows to trigger docs deploy
