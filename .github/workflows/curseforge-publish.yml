@@ -25,6 +25,10 @@ on:
         description: "Successful modules-stage Actions run ID (required for pack)"
         type: string
         default: ""
+      tested_pack_commit:
+        description: "Optional user-tested pack commit after config changes; current gte/ must match exactly"
+        type: string
+        default: ""
       modules_approved:
         description: "For pack: all three module files have passed CurseForge moderation"
         type: boolean
@@ -77,6 +81,7 @@ jobs:
       RELEASE_VERSION: ${{ inputs.version }}
       RELEASE_STAGE: ${{ inputs.stage }}
       MODULE_RELEASE_RUN: ${{ inputs.module_release_run_id }}
+      TESTED_PACK_COMMIT: ${{ inputs.tested_pack_commit }}
       MODULES_APPROVED: ${{ inputs.modules_approved }}
       GTECORE_CF_ID: ${{ inputs.gtecore_cf_id }}
       GTM_REBORN_CF_ID: ${{ inputs.gtm_reborn_cf_id }}
@@ -221,6 +226,7 @@ jobs:
 
       - name: Upload modpack only after public-download and zero-jar checks
         if: inputs.stage == 'pack'
+        id: pack
         uses: Kira-NT/mc-publish@52307b03863581dec6b652b83e597aec02ebb075 # v3.3
         with:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
@@ -233,3 +239,10 @@ jobs:
           java: 21
           changelog: ${{ inputs.changelog }}
           retry-attempts: 1
+
+      - name: Record published pack file ID
+        if: inputs.stage == 'pack' && steps.pack.outcome == 'success'
+        env:
+          PACK_FILE_ID: ${{ steps.pack.outputs.curseforge-version }}
+        run: |
+          Write-Host "CurseForge pack file ID: $env:PACK_FILE_ID"

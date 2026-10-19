@@ -126,7 +126,11 @@ def validate_release(record, catalog=None, mods=MODS, expected_tree=None):
         raise ValueError("Version differs from the module-stage release record")
     if expected_tree is None:
         expected_tree = git_value("rev-parse", "HEAD:gte/overrides")
-    if record.get("overridesTree") != expected_tree:
+    tested_pack_commit = os.environ.get("TESTED_PACK_COMMIT", "")
+    if tested_pack_commit:
+        if git_value("rev-parse", "HEAD:gte") != git_value("rev-parse", f"{tested_pack_commit}:gte"):
+            raise ValueError("Pack inputs differ from the explicitly tested pack commit")
+    elif record.get("overridesTree") != expected_tree:
         raise ValueError("Pack overrides changed after module upload; resume from the recorded source commit")
     projects = {positive_id(r["projectID"]) for r in catalog["files"]}
     for key, path in own.items():
