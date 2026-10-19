@@ -34,6 +34,9 @@ SHA-256 清单和完整覆盖率，准备三个模块的发布记录。
 1. 确认模块 PR、根仓库指针 PR 和 jar 刷新 PR 已合并，使用 `main`。
 2. 运行同一 workflow，选择 `stage=modules`，填写版本号、release/beta/alpha
    和更新日志。此阶段只上传三个生产 jar，不构建或上传整合包。
+   若 GT-- 没有变更，可填写 `reuse_gt_minus_file_id`，复用已审核文件。准备阶段会
+   公开下载该文件并核对当前已提交 GT-- JAR 的 SHA-256；一致后跳过 GT-- 上传，
+   仍在发布记录中保存其准确 file ID，只上传 GTECore 和 GTM-Reborn。
 3. 保存成功运行的 Actions run ID。运行产物 `curseforge-module-release`
    包含 `module-release.json`，记录三个返回的 file ID、project ID、文件名、
    SHA-256、来源提交和整合包 overrides 的 Git tree。记录保留 90 天。

@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       stage:
-        description: "check: no upload; modules: upload three jars; pack: after moderation"
+        description: "check: no upload; modules: upload jars (optionally reuse GT--); pack: after moderation"
         type: choice
         required: true
         default: check
@@ -41,6 +41,10 @@ on:
         description: "GT-- Community Edition CurseForge project"
         type: string
         default: "1353895"
+      reuse_gt_minus_file_id:
+        description: "Optional approved GT-- file ID to reuse after public SHA-256 verification; skips its upload"
+        type: string
+        default: ""
       modpack_cf_id:
         description: "GregTech Easy modpack CurseForge project"
         type: string
@@ -77,6 +81,7 @@ jobs:
       GTECORE_CF_ID: ${{ inputs.gtecore_cf_id }}
       GTM_REBORN_CF_ID: ${{ inputs.gtm_reborn_cf_id }}
       GT_MINUS_CF_ID: ${{ inputs.gt_minus_cf_id }}
+      REUSE_GT_MINUS_FILE_ID: ${{ inputs.reuse_gt_minus_file_id }}
       MODPACK_CF_ID: ${{ inputs.modpack_cf_id }}
     steps:
       - name: Checkout committed pack
@@ -154,7 +159,7 @@ jobs:
           retry-attempts: 1
 
       - name: Upload GT-- CE jar
-        if: inputs.stage == 'modules'
+        if: inputs.stage == 'modules' && inputs.reuse_gt_minus_file_id == ''
         id: gtminus
         uses: Kira-NT/mc-publish@52307b03863581dec6b652b83e597aec02ebb075 # v3.3
         with:
@@ -174,7 +179,7 @@ jobs:
         env:
           GTECORE_FILE_ID: ${{ steps.core.outputs.curseforge-version }}
           GTM_REBORN_FILE_ID: ${{ steps.gtm.outputs.curseforge-version }}
-          GT_MINUS_FILE_ID: ${{ steps.gtminus.outputs.curseforge-version }}
+          GT_MINUS_FILE_ID: ${{ steps.gtminus.outputs.curseforge-version || inputs.reuse_gt_minus_file_id }}
         run: python scripts/curseforge_release.py record
 
       - name: Keep module release record for the post-moderation stage
