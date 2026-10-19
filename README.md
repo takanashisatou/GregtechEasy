@@ -113,6 +113,6 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 ## 🤝 贡献与开源政策 (AI-Friendly Policy)
 
 - 🤖 **零 AI 工具限制**：本项目全面拥抱现代 AI 开发！欢迎使用任何 AI 工具（Claude Code, Cursor, Codex, Gemini, DeepSeek 等）或手写代码贡献。
-- 🛡️ **唯一准绳：CI 门禁**：所有 PR 只要能 100% 通过 `-Werror` 编译、GameTest 实机测试与防崩溃规则检查，均受热烈欢迎！
+- 🛠️ **本地验证后合并**：按改动范围在本地完成 `-Werror` 编译、GameTest 和审计，在 PR 中记录结果；提交与合并不触发 CI，生产构建和发布按需手动运行。
 - 📖 详细规范请参阅：[**CONTRIBUTING.md (贡献指南)**](CONTRIBUTING.md)。
 

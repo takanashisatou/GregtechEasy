@@ -1,27 +1,7 @@
-name: "GTE PR Validation"
-
-# ---------------------------------------------------------------------------
-# Why this workflow exists
-# ---------------------------------------------------------------------------
-# `main` requires status checks before a merge, and this is the check to require.
-#
-# sync-build.yml cannot be that check. It is ~15 minutes and it deliberately
-# skips two path families (docs/**, scripts/**, modules/gte-dev-runtime/**, and
-# anything else in its paths-ignore) because it never reads them. A pull request
-# that only touches, say, a lint script therefore reports NO check at all - and a
-# branch protection rule that requires one would wait forever on it: the PR could
-# never be merged, and the "fix" people would reach for is turning the rule off.
-#
-# So this job runs on EVERY pull request with no path filter, in seconds, and
-# reports one stable check. Require this, and a doc-only PR merges without
-# pretending a full mod build was relevant to it, while a PR that does touch
-# build inputs still runs sync-build alongside it.
-#
-# Keep it cheap and dependency-free: it must not become something to route
-# around. It lints the things sync-build cannot lint without running Gradle.
+name: "Helper Validation (manual)"
 
 on:
-  pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -32,7 +12,7 @@ concurrency:
 
 jobs:
   validate:
-    name: "PR Validation"
+    name: "Helper Validation"
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:

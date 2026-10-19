@@ -8,8 +8,8 @@ Shared instructions for agents working in this repository. Follow the user's exp
 - Source fixes/development: make changes in the owning module, run applicable validation, and complete the authorized source PR and root-pointer PR flow.
 - Documentation, skills, and test-fixture changes: validate the changed files or affected tests. Do not turn them into player-pack builds or client launches.
 - Production JAR refreshes, pack assembly, releases, and Maven publication are separate workflows, used only when the user requests them.
-- CI may automatically create a module-JAR refresh PR after a source merge. Its existence is not permission to follow or merge it. A source task ends when its requested source changes and authorized PR flow are complete.
-- When the user excludes production JAR changes, keep `gte/overrides/mods/` out of the submitted diff. Normal source CI may still compile temporary artifacts.
+- Only explicitly requested manual production builds create module-JAR refresh PRs. A source merge does not start a build or authorize JAR refreshes. A source task ends when its requested source changes and authorized PR flow are complete.
+- When the user excludes production JAR changes, keep `gte/overrides/mods/` out of the submitted diff.
 - Preserve current user changes and already granted authorization. Do not repeat permission questions for steps already authorized.
 
 ## Repository and Environment
@@ -60,7 +60,9 @@ Inspect root and affected submodule status before editing. Do not run `git init`
 - The dev runner links selected `run/client` configuration/script directories to `gte/overrides`. In-game quest/script edits may therefore become tracked changes; saves and logs belong under `run/`. Preserve those edits and stage only intended paths.
 - Never edit entries inside third-party JARs or copy dev-remapped output into the production pack. Fix dependency coordinates/versions or consume a reproducible published release.
 
-## Validation
+## Local Validation
+
+Run applicable compilation, GameTests, and audits locally before merging. Source pushes, PRs, and merges must not trigger CI or require CI status checks. Production builds and publication remain explicit manual workflows.
 
 | Change | Applicable checks |
 | --- | --- |
@@ -71,7 +73,7 @@ Inspect root and affected submodule status before editing. Do not run `git init`
 | GTECore registered content/data | `:modules:gtecore:runData`, followed by generated-resource inspection |
 | Requested pack changes | Current pack gates and an actual client launch when validating a pack/runtime fix |
 
-Required tests must pass; optional GameTests may fail without failing CI. Verify the actual final required-test result, not merely a zero process exit code. Rerun/broaden checks only for changed behavior, failures, or unresolved evidence.
+Required tests must pass; optional GameTests do not determine the required-test result. Verify the actual final required-test result, not merely a zero process exit code. Rerun/broaden checks only for changed behavior, failures, or unresolved evidence. Do not add tests when the user excludes them.
 
 `empty` GameTest templates clear only their own footprint. Large structures need an explicitly cleared, isolated site within world height bounds. Creative autobuild preserves non-air blocks and may add optional parts: start quantity assertions from a known part count. Initialize real hatches/tier through formation when testing recipe execution. Details: [GameTest workflow](.agents/skills/gte-multiblock/references/gametest_workflow.md).
 
@@ -90,12 +92,12 @@ Runtime dependency, window, debug-dump, and linking details are in [runtime trou
 ## Git and PR Flow
 
 1. Create a feature branch in the owning repository (default prefix `codex/`). Confirm the current branch before every commit; never commit/push directly to a target branch, including one-line fixes and CI changes.
-2. Commit and push the intended changes, open the PR against the base in the ownership table, and wait for the relevant CI on its actual head SHA to conclude successfully.
-3. Squash merge within the user's authorized scope. After a submodule merge, use its merged commit in a separate root-pointer PR and wait for root CI before merging.
-4. Do not push another change while that branch's CI is running unless cancelling the old run is intentional. Do not report success from cancelled, in-flight, missing, or different-SHA checks.
-5. Read concrete CI failures before retrying. Do not weaken required checks, remove tests, or stack speculative changes to obtain green status. Revert a bad change through a reviewable PR rather than rewriting `main`.
+2. Complete applicable local checks, commit and push the intended changes, and open the PR against the base in the ownership table. Record the local validation results in the PR.
+3. Squash merge within the user's authorized scope after local validation. After a submodule merge, use its merged commit in a separate root-pointer PR and validate that change locally before merging.
+4. Keep automatic module build/test/format workflows disabled in repository settings. Keep root workflows manual and retain PR protection without required CI status checks. Do not dispatch CI merely to merge a source PR.
+5. Read concrete failures before retrying. Do not weaken assertions, remove tests, or stack speculative changes to obtain a passing result. Revert a bad change through a reviewable PR rather than rewriting `main`.
 
-The root requires `PR Validation` through its protected-branch flow. Check current branch protection/workflow behavior when needed; do not assume historical protection status or bypass it. Existing authorization to finish this flow does not authorize additional release or JAR PRs.
+Preserve the PR-based protected-branch flow; merges do not require `PR Validation` or other CI checks. For explicitly requested manual production builds, verify the actual source SHA and final result before consuming artifacts. Existing authorization to finish the source flow does not authorize additional release or JAR PRs.
 
 ## Pack and CI Reference
 
@@ -104,7 +106,7 @@ These constraints apply when the user's task includes the relevant pack/CI opera
 - `gte/overrides/mods/` is CI-owned. Module versions come from module `gradle.properties`; runtime dependency versions come from Gradle coordinates/catalogs. Keep Minecraft/Forge/mapping changes consistent across root configuration, `gradle/libs.versions.toml`, and `gte/pack.toml` where applicable.
 - One modId, one JAR. Read only the `[[mods]]` declarations in `META-INF/mods.toml`, not dependency sections. Upstream GT-- and the CE fork both declare `gtnn` and cannot coexist.
 - Pack JARs must be reproducible production/SRG artifacts; exclude dev, sources, slim/embedded intermediates as specified by the current assembly workflow. A matching filename or version is not proof of correct mapping or freshness.
-- `sync-build.yml` compiles/tests modules and assembles artifacts. Its current push-to-main/master path opens `chore/refresh-module-jars-<run_id>` PRs for rebuilt committed JARs. It has no cron and must not publish the rolling `nightly` prerelease.
+- `sync-build.yml` is manual: it compiles and assembles production artifacts without GameTests. An explicitly requested run on main/master may open a `chore/refresh-module-jars-<run_id>` PR. It has no push, PR, tag, or cron trigger and must not publish the rolling `nightly` prerelease.
 - `lazypack.yml` is manual, pack-only, and the sole rolling `nightly` producer. It compiles nothing and ships committed JARs. It enforces duplicate modId (1b), production mapping (1c), module freshness (1d), and dev/pack parity (1e); `publish=false` skips release publication.
 - Gate 1d belongs to the committed-pack shipping path, not a build job that has only rebuilt uncommitted files. Gate 1e uses modId keys and exact catalog resource-name values for `packModsAlreadyProvided`; known differences belong in `scripts/dev_pack_parity_baseline.json`, not new unreviewed drift.
 - `translate.yml` translates assets; it does not compile/transfer module JARs. Its current docs step directly pushes `main`; the root `create_pr` option does not cover that submodule step. This legacy behavior is not permission to bypass PR rules. Verify a compliant path for requested translation work; do not turn this note into an unrequested workflow repair.
