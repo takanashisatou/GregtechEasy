@@ -1,7 +1,7 @@
 """Two-stage CurseForge release metadata and exact pack-file verification.
 
-Upload three committed production jars, save their returned IDs, then resume
-after moderation. Public downloads are checked without the upload token.
+Upload committed production jars, optionally reuse an approved GT-- file, and
+save exact file IDs before moderation. Public downloads never use the upload token.
 """
 import argparse
 import concurrent.futures
@@ -105,6 +105,12 @@ def prepare(version, catalog=None):
         raise ValueError("Module project overrides collide with another manifest project")
     if record["modpackProject"] in projects or record["modpackProject"] in {r["projectID"] for r in catalog["files"]}:
         raise ValueError("Modpack project ID is a mod project ID")
+    reused_gt_minus = os.environ.get("REUSE_GT_MINUS_FILE_ID", "")
+    if reused_gt_minus:
+        row = record["modules"]["gt--"]
+        row["fileID"] = positive_id(reused_gt_minus)
+        public_download(row)
+        print(f"Reusing publicly verified GT-- file {row['fileID']}: {row['fileName']}", flush=True)
     return record
 
 
