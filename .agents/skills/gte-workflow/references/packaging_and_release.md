@@ -4,6 +4,10 @@
 
 ## 先核实当前配置
 
+后续正式包 ZIP 命名为 `GregTech Easy <版本号>(Use Java 21).zip`，发布显示名称为
+`GregTech Easy <版本号>(Use Java 21)`，版本号与左括号之间不加空格。下次发布前
+同步打包脚本与 CI 的命名模板；此次已发布的 3.1.1 文件保持现有名称。
+
 读取 `AGENTS.md` 的 Modpack Assembly / CI 章节和实际 `.github/workflows/`。根仓库可能仍包含旧状态说明；实际 job、分支与版本配置为准，不把文档中的历史版本或“尚未实现”当成当前事实。
 
 - 模块版本来自各模块 `gradle.properties`；运行依赖来自版本目录和 Gradle 配置。
