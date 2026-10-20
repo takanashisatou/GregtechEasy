@@ -103,6 +103,7 @@ Preserve the PR-based protected-branch flow; merges do not require `PR Validatio
 
 These constraints apply when the user's task includes the relevant pack/CI operation:
 
+- Future official pack ZIPs must be named `GregTech Easy <version>(Use Java 21).zip`, with the release display name `GregTech Easy <version>(Use Java 21)`. Preserve this exact spacing, including no space before `(`. Update packaging and CI naming templates for the next release; leave the already-published 3.1.1 files unchanged.
 - `gte/overrides/mods/` is CI-owned. Module versions come from module `gradle.properties`; runtime dependency versions come from Gradle coordinates/catalogs. Keep Minecraft/Forge/mapping changes consistent across root configuration, `gradle/libs.versions.toml`, and `gte/pack.toml` where applicable.
 - One modId, one JAR. Read only the `[[mods]]` declarations in `META-INF/mods.toml`, not dependency sections. Upstream GT-- and the CE fork both declare `gtnn` and cannot coexist.
 - Pack JARs must be reproducible production/SRG artifacts; exclude dev, sources, slim/embedded intermediates as specified by the current assembly workflow. A matching filename or version is not proof of correct mapping or freshness.

@@ -5,6 +5,14 @@
 最终 CurseForge 整合包中 **任何路径都不允许有 jar**。所有模组通过
 `manifest.json` 中的 `projectID` / `fileID` 安装。
 
+## 正式包命名
+
+后续正式包 ZIP 统一使用 `GregTech Easy <版本号>(Use Java 21).zip`，发布显示名称
+使用 `GregTech Easy <版本号>(Use Java 21)`。例如 `GregTech Easy 3.1.1(Use Java 21).zip`；
+保留名称中的空格，版本号与左括号之间不加空格。
+
+下次发布前同步打包脚本与 CI 的命名模板。此次已发布的 3.1.1 文件保持现有名称。
+
 项目默认值来自已有公开项目：
 
 | 项目 | Project ID |
