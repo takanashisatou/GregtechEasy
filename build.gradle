@@ -175,6 +175,8 @@ tasks.register('runFullPack') {
     dependsOn ':modules:gte-dev-runtime:runClient'
 }
 
+apply from: "${rootDir}/gradle/scripts/production-runtime.gradle"
+
 tasks.register('buildAll') {
     group = 'build'
     description = 'Build all submodules in order (gtm-reborn -> gt-- -> gtecore)'
