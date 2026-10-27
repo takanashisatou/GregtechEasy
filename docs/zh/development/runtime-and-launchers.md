@@ -93,3 +93,27 @@ sequenceDiagram
 
 需要断点调试时使用 IDEA 的 **`Run Client (Hot Debug)`** 配置。它会挂载 JDWP 调试器，退出时可能在 `run/client/` 留下 `hs_err_pid*.log`（崩在 `jdwp.dll` 的 `Shutdown.halt0`），属已知的无害现象，与启动流程无关。
 
+## 生产环境运行 (`runFullPackForReal`)
+
+```powershell
+$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+.\gradlew.bat runFullPackForReal
+```
+
+此入口由 Gradle/JVM 安装和启动正式 Minecraft + Forge。它先构建 `gtm-reborn`、`gt--`、`gtecore` 的 `reobfJar`，保留生产 jarJar 内嵌依赖，然后通过正式 `forgeclient` 启动。运行时使用 SRG 成员名，`FMLLoader.isProduction()` 为 `true`，`GTCEu.isDev()` 为 `false`。各模组按自身逻辑处理开发环境专用检查；日志采用正式环境默认设置。
+
+| 命令 | 用途 |
+| --- | --- |
+| `runFullPack` | named 映射、源码输出的热调试环境 |
+| `prepareFullPackForReal` | 构建生产模组、安装运行库、复制并校验整合包，不启动游戏 |
+| `runFullPackForReal` | 完成准备，再次检验 Hash 后启动正式客户端 |
+| `verifyFullPackForReal` | 运行启动参数、隔离同步和失败拦截的本地夹具检查，无需下载游戏 |
+
+正式实例位于 `run/production/client/`；Minecraft/Forge、运行库、原生库和资源缓存位于 `run/production/runtime/`；逐文件 SHA-256 清单、启动参数及安装日志位于 `run/production/state/`。首次安装需要联网，后续复用校验后的缓存；缓存完整时可以添加 `--offline`。
+
+**每次启动都会刷新仓库提供的配置、任务书、脚本与资源。** 实例里对应的包配置改动会被覆盖；独立存档、日志以及游戏生成的其他文件保留。文件使用普通副本，游戏内编辑不会回写仓库。第三方 JAR 使用整合包原始字节，自研模组按实际声明的 modId 替换成本次任务的正式输出；生产包目录不会被修改。
+
+同步前记录源文件 SHA-256，复制后和启动 JVM 前分别重新读取目标文件校验。缺失、Hash 不符、未受管的残留 JAR、重复 modId、开发映射 JAR或缺失的生产内嵌依赖会阻止启动，并报告具体文件。完整清单写入 `state/pack-manifest.json`，同步失败的预期清单保留在 `state/pack-expected.json`。同一正式实例运行期间不能再次准备或启动。
+
+本地离线用户名取 `GTE_USERNAME`，默认 `Player`；堆大小取 `GTE_RUNTIME_XMX`，默认 `8G`；窗口尺寸沿用 `GTE_WINDOW_WIDTH` / `GTE_WINDOW_HEIGHT`，默认 `1600×900`。保持 `earlyWindowControl=false` 及两个早期窗口关闭参数。生产入口不注入热调试运行器的 GameTest、断言、refmap 重映射或额外兼容参数。
+

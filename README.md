@@ -94,6 +94,8 @@ $env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
 .\gradlew.bat :modules:gte-dev-runtime:runClient    # 等价写法
 ```
 
+正式环境验证使用 `.\gradlew.bat runFullPackForReal`：本地构建三个模组的生产 JAR，使用正式 Forge `forgeclient` / SRG 映射启动独立的 `run/production/client` 实例。每次启动刷新整合包配置，并在复制后和启动前重新校验全部受管文件的 SHA-256；存档独立保留。仅准备而不启动可运行 `prepareFullPackForReal`，启动器逻辑检查使用 `verifyFullPackForReal`。详情见[生产环境运行](docs/zh/development/runtime-and-launchers.md#生产环境运行-runfullpackforreal)。
+
 双击 `run_game.bat` 也是同一条路径（会自动探测 JDK、内存与核心数）。
 
 **预期表现**：启动后约 **25 秒内屏幕上不会有任何窗口** —— 这是刻意为之。为规避 Embeddium/Oculus 在独显上的 GLFW 死锁，Forge 的早期进度窗口被禁用，窗口要到 `Minecraft.<init>` 才由 GLFW 创建。此时游戏进程是 Gradle 守护进程派生的后台进程，Windows 前台锁会拒绝它抢占焦点，窗口会被创建在当前活动窗口**下方**。因此 `runClient` 会自动拉起 `scripts/dev/raise_game_window.ps1`，等窗口出现后把它提到最前。完整冷启动约 70 秒。

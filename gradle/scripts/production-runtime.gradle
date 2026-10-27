@@ -1,0 +1,683 @@
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+
+import java.nio.channels.FileChannel
+import java.nio.channels.OverlappingFileLockException
+import java.nio.file.Files
+import java.nio.file.LinkOption
+import java.nio.file.StandardCopyOption
+import java.nio.file.StandardOpenOption
+import java.security.MessageDigest
+import java.util.concurrent.Callable
+import java.util.concurrent.Executors
+import java.util.regex.Pattern
+import java.util.zip.ZipFile
+
+// This runner deliberately does not use MDG's run model or runtimeClasspath:
+// those contain named Minecraft, remapped mods and exploded source sets.
+class GteProductionRuntime {
+    final Project project
+    final File root
+    final File client
+    final File installation
+    final File state
+    static final Map<String, String> MODULES = [
+        gtceu: ':modules:gtm-reborn', gtnn: ':modules:gt--', gtecore: ':modules:gtecore'
+    ].asImmutable()
+    static final Pattern SRG = Pattern.compile('[fm]_\\d{4,}_')
+
+    GteProductionRuntime(Project project, File root) {
+        this.project = project
+        this.root = root
+        client = safeFile(root, 'client')
+        installation = safeFile(root, 'runtime')
+        state = safeFile(root, 'state')
+    }
+
+    static File safeFile(File base, String relative) {
+        def basePath = base.toPath().toAbsolutePath().normalize()
+        def path = basePath.resolve(relative.replace('\\', '/')).normalize()
+        if (!relative || new File(relative).absolute || !path.startsWith(basePath) || path == basePath) {
+            throw new GradleException("Production runtime path escapes its directory: ${relative}")
+        }
+        // Also reject junctions, including junctions pointing elsewhere inside
+        // the instance. No runtime write may traverse a link back to the checkout.
+        for (def cursor = path; cursor != null && cursor.startsWith(basePath); cursor = cursor.parent) {
+            if (Files.exists(cursor, LinkOption.NOFOLLOW_LINKS) &&
+                    (Files.isSymbolicLink(cursor) || cursor.toRealPath() != cursor)) {
+                throw new GradleException("Production runtime path is a link/junction: ${cursor}")
+            }
+        }
+        path.toFile()
+    }
+
+    static String digest(File file, String algorithm = 'SHA-256') {
+        def hash = MessageDigest.getInstance(algorithm)
+        file.withInputStream { input ->
+            byte[] buffer = new byte[65536]
+            int count
+            while ((count = input.read(buffer)) != -1) hash.update(buffer, 0, count)
+        }
+        hash.digest().encodeHex().toString()
+    }
+
+    static Object json(File file) { new JsonSlurper().parse(file, 'UTF-8') }
+
+    static void writeJson(File file, Object data) {
+        file.parentFile.mkdirs()
+        def part = new File(file.parentFile, file.name + '.part')
+        part.setText(JsonOutput.prettyPrint(JsonOutput.toJson(data)) + '\n', 'UTF-8')
+        Files.move(part.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING)
+    }
+
+    def locked(Closure action) {
+        // Validate the root itself before creating anything underneath it.
+        safeFile(project.rootDir, project.rootDir.toPath().relativize(root.toPath()).toString())
+        state.mkdirs()
+        def channel = FileChannel.open(safeFile(state, 'instance.lock').toPath(),
+                StandardOpenOption.CREATE, StandardOpenOption.WRITE)
+        def lock
+        try {
+            try { lock = channel.tryLock() } catch (OverlappingFileLockException ignored) { }
+            if (lock == null) throw new GradleException('Production instance is already preparing or running; close that instance first.')
+            return action.call()
+        } finally {
+            lock?.release()
+            channel.close()
+        }
+    }
+
+    Map versions() {
+        def text = project.file('gte/pack.toml').getText('UTF-8')
+        def values = [:]
+        ['minecraft', 'forge', 'java'].each { key ->
+            def match = text =~ /(?m)^\s*${key}\s*=\s*"([^"]+)"/
+            if (!match.find()) throw new GradleException("Missing ${key} in gte/pack.toml")
+            values[key] = match.group(1)
+        }
+        def catalog = project.extensions.getByType(org.gradle.api.artifacts.VersionCatalogsExtension).named('libs')
+        if (values.minecraft != project.property('minecraft_version') ||
+                values.forge != project.property('forge_version') ||
+                values.minecraft != catalog.findVersion('minecraft').get().requiredVersion ||
+                values.forge != catalog.findVersion('forge').get().requiredVersion ||
+                "${values.minecraft}-${values.forge}" != catalog.findVersion('minecraftForge').get().requiredVersion ||
+                values.java != '21') {
+            throw new GradleException('Production versions disagree: check pack.toml, gradle.properties and libs.versions.toml (Java must be 21).')
+        }
+        values
+    }
+
+    String javaExecutable() {
+        project.extensions.getByType(org.gradle.jvm.toolchain.JavaToolchainService)
+                .launcherFor { languageVersion = JavaLanguageVersion.of(21) }.get().executablePath.asFile.absolutePath
+    }
+
+    static String stripComment(String line) {
+        StringBuilder result = new StringBuilder()
+        char quote = (char) 0
+        boolean escaped = false
+        for (char ch : line.toCharArray()) {
+            if (escaped) { result.append(ch); escaped = false; continue }
+            if (quote != (char) 0) {
+                result.append(ch)
+                if (ch == (char) 92 && quote == (char) 34) escaped = true
+                else if (ch == quote) quote = (char) 0
+            } else if (ch == (char) 34 || ch == (char) 39) {
+                quote = ch
+                result.append(ch)
+            } else if (ch == (char) 35) break
+            else result.append(ch)
+        }
+        result.toString()
+    }
+
+    static List<String> declaredModIds(String text) {
+        def ids = []
+        boolean mods = false
+        text.eachLine { raw ->
+            def line = stripComment(raw).trim()
+            if (line.startsWith('[')) mods = line ==~ /\[\[\s*mods\s*\]\]/
+            else if (mods) {
+                def match = line =~ /^modId\s*=\s*["']([^"']+)["']\s*$/
+                if (match.matches()) ids.add(match.group(1).toLowerCase(Locale.ROOT))
+            }
+        }
+        ids
+    }
+
+    static List<String> modIds(File jar) {
+        new ZipFile(jar).withCloseable { zip ->
+            def entry = zip.getEntry('META-INF/mods.toml')
+            if (entry == null) return []
+            def ids = declaredModIds(zip.getInputStream(entry).getText('UTF-8'))
+            if (ids.empty) throw new GradleException("No [[mods]] modId in ${jar}")
+            ids
+        }
+    }
+
+    static boolean skipPackPath(String relative) {
+        def parts = relative.split('/')
+        if (parts[0] in ['logs', 'crash-reports', 'saves', '.git'] || parts.contains('.git')) return true
+        ['config/jei/world', 'config/worldedit/sessions', 'config/worldedit/.archive-unpack'].any {
+            relative == it || relative.startsWith(it + '/')
+        }
+    }
+
+    Map<String, Map> packManifest(Map<String, File> modules) {
+        def sources = new TreeMap<String, File>()
+        def overrides = project.file('gte/overrides')
+        if (!overrides.isDirectory()) throw new GradleException("Missing pack overrides: ${overrides}")
+        Files.walk(overrides.toPath()).withCloseable { paths ->
+            paths.filter { Files.isRegularFile(it) }.forEach { path ->
+                String rel = overrides.toPath().relativize(path).toString().replace('\\', '/')
+                if (skipPackPath(rel)) return
+                if (rel.startsWith('mods/') && rel.toLowerCase(Locale.ROOT).endsWith('.jar')) {
+                    def ids = modIds(path.toFile())
+                    if (ids.any { MODULES.containsKey(it) }) {
+                        if (ids.any { !MODULES.containsKey(it) }) {
+                            throw new GradleException("Cannot replace a mixed module/third-party JAR: ${path}")
+                        }
+                        return
+                    }
+                    // Third-party fat releases such as Balm legitimately use
+                    // '-all'. Only our module assembly excludes that classifier.
+                    if (path.fileName.toString() ==~ /.*-(?:dev|dev-embeds|sources|slim|dev-slim)\.jar/) {
+                        throw new GradleException("Non-runnable JAR in pack: ${path}")
+                    }
+                }
+                sources[rel] = path.toFile()
+            }
+        }
+        modules.each { id, jar ->
+            if (!jar.isFile() || !modIds(jar).contains(id)) {
+                throw new GradleException("Production output for ${id} is missing or declares the wrong modId: ${jar}")
+            }
+            def rel = 'mods/' + jar.name
+            if (sources.containsKey(rel)) throw new GradleException("Production JAR filename collision: ${rel}")
+            sources[rel] = jar
+        }
+        def names = new HashSet<String>()
+        def result = new TreeMap<String, Map>()
+        sources.each { rel, source ->
+            if (!names.add(rel.toLowerCase(Locale.ROOT))) throw new GradleException("Case-insensitive pack path collision: ${rel}")
+            result[rel] = [source: source.absolutePath, size: source.length(), sha256: digest(source)]
+        }
+        result
+    }
+
+    void synchronizePack(Map<String, Map> expected) {
+        def previousFile = safeFile(state, 'pack-manifest.json')
+        Map previous = new LinkedHashMap(previousFile.isFile() ? (Map) json(previousFile).files : [:])
+        def attemptedFile = safeFile(state, 'pack-expected.json')
+        if (attemptedFile.isFile()) previous.putAll((Map) json(attemptedFile).files)
+        // A failed copy/audit can leave newly copied files too. The last
+        // attempted manifest records ownership so the next run can remove them.
+        previous.keySet().each { rel ->
+            safeFile(client, rel.toString())
+            if (skipPackPath(rel.toString())) throw new GradleException("Personal data must never appear in a managed pack manifest: ${rel}")
+        }
+        // Save the expected source hashes BEFORE copying, including on failure.
+        writeJson(attemptedFile, [files: expected])
+        previous.keySet().findAll { !expected.containsKey(it) }.each { rel ->
+            def old = safeFile(client, rel.toString())
+            if (old.isDirectory()) throw new GradleException("Managed file became a directory: ${old}")
+            Files.deleteIfExists(old.toPath())
+        }
+        expected.each { rel, entry ->
+            def target = safeFile(client, rel)
+            if (target.isDirectory()) {
+                // Only empty directories may be replaced; never delete saves or
+                // recursively erase game-generated data to resolve a conflict.
+                Files.delete(target.toPath())
+            }
+            target.parentFile.mkdirs()
+            if (!target.isFile() || target.length() != entry.size || digest(target) != entry.sha256) {
+                Files.copy(new File(entry.source).toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING)
+            }
+        }
+        verifyPack(expected, previous.keySet().findAll { !expected.containsKey(it) })
+        auditMods(expected)
+        writeJson(previousFile, [files: expected])
+        project.logger.lifecycle(">> Production pack synchronized and SHA-256 verified: ${expected.size()} files")
+    }
+
+    void verifyPack(Map<String, Map> expected, Collection obsolete = []) {
+        expected.each { rel, entry ->
+            def target = safeFile(client, rel)
+            if (!target.isFile()) throw new GradleException("Production file missing: ${rel}")
+            if (target.length() != entry.size || digest(target) != entry.sha256) {
+                throw new GradleException("Production SHA-256 mismatch: ${rel}")
+            }
+        }
+        obsolete.each { rel ->
+            if (safeFile(client, rel.toString()).exists()) throw new GradleException("Stale managed production file: ${rel}")
+        }
+        def mods = safeFile(client, 'mods')
+        if (!mods.isDirectory()) throw new GradleException('Production mods directory is missing.')
+        Files.walk(mods.toPath()).withCloseable { paths ->
+            paths.filter { Files.isRegularFile(it) && it.fileName.toString().toLowerCase(Locale.ROOT).endsWith('.jar') }.forEach { path ->
+                def rel = client.toPath().relativize(path).toString().replace('\\', '/')
+                safeFile(client, rel)
+                if (!expected.containsKey(rel)) throw new GradleException("Unexpected production mod JAR: ${rel}")
+            }
+        }
+    }
+
+    void auditMods(Map<String, Map> expected) {
+        def owners = [:]
+        expected.keySet().findAll { it.startsWith('mods/') && it.toLowerCase(Locale.ROOT).endsWith('.jar') }.each { rel ->
+            def jar = safeFile(client, rel)
+            def ids = modIds(jar)
+            ids.each { id ->
+                if (owners.containsKey(id)) throw new GradleException("Duplicate production modId ${id}: ${owners[id]} and ${rel}")
+                owners[id] = rel
+            }
+            new ZipFile(jar).withCloseable { zip ->
+                int classes = 0
+                boolean srg = false
+                for (def entry : Collections.list(zip.entries())) {
+                    if (!entry.name.endsWith('.class')) continue
+                    classes++
+                    if (SRG.matcher(new String(zip.getInputStream(entry).bytes, 'ISO-8859-1')).find()) {
+                        srg = true
+                        break
+                    }
+                }
+                // Same heuristic and small-library threshold as audit_pack_mappings.py.
+                if (!srg && classes >= 10) throw new GradleException("Non-production (named mapping) JAR: ${rel}")
+                def metadata = zip.getEntry('META-INF/jarjar/metadata.json')
+                if (ids.any { it in ['gtceu', 'gtnn'] } && metadata == null) {
+                    throw new GradleException("Production module is missing jarJar embeds: ${rel}")
+                }
+                if (metadata != null) {
+                    def embeds = new JsonSlurper().parseText(zip.getInputStream(metadata).getText('UTF-8')).jars
+                    if (ids.any { it in ['gtceu', 'gtnn'] } && !embeds) {
+                        throw new GradleException("Production module has empty jarJar metadata: ${rel}")
+                    }
+                    embeds.each { embed ->
+                        def path = embed.path?.toString()
+                        // Forge follows the metadata's ZIP-relative path;
+                        // ModernUI, for example, uses META-INF/jars/.
+                        if (!path || path.startsWith('/') || path.contains('\\') || path.contains(':') ||
+                                path.split('/').contains('..') || zip.getEntry(path) == null) {
+                            throw new GradleException("Missing/invalid jarJar dependency ${path} in ${rel}")
+                        }
+                    }
+                }
+            }
+        }
+        MODULES.keySet().each { id ->
+            if (!owners.containsKey(id)) throw new GradleException("Missing production module: ${id}")
+        }
+    }
+
+    void download(String url, File target, String sha1 = null, long size = 0) {
+        if (target.isFile() && (size <= 0 || target.length() == size) &&
+                (sha1 == null || digest(target, 'SHA-1') == sha1)) return
+        if (project.gradle.startParameter.offline) throw new GradleException("Offline production cache missing/corrupt: ${target}")
+        target.parentFile.mkdirs()
+        def part = new File(target.parentFile, target.name + '.part')
+        Exception failure
+        for (int attempt = 0; attempt < 3; attempt++) {
+            try {
+                def connection = new URL(url).openConnection()
+                connection.connectTimeout = 15000
+                connection.readTimeout = 30000
+                connection.setRequestProperty('User-Agent', 'GTE-Gradle-Production-Runtime')
+                connection.inputStream.withCloseable { input -> part.withOutputStream { it << input } }
+                if (size > 0 && part.length() != size) throw new IOException("Size mismatch: ${url}")
+                if (sha1 != null && digest(part, 'SHA-1') != sha1) throw new IOException("SHA-1 mismatch: ${url}")
+                Files.move(part.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING)
+                return
+            } catch (Exception ex) { failure = ex }
+        }
+        throw new GradleException("Failed downloading ${url} -> ${target}", failure)
+    }
+
+    static Map host() {
+        def os = System.getProperty('os.name').toLowerCase(Locale.ROOT)
+        [name: os.contains('win') ? 'windows' : (os.contains('mac') ? 'osx' : 'linux'),
+         arch: System.getProperty('os.arch'), version: System.getProperty('os.version')]
+    }
+
+    static boolean allowed(Object rules, Map os = host(), Map features = [:]) {
+        if (!rules) return true
+        boolean allow = false
+        rules.each { rule ->
+            boolean matches = true
+            if (rule.os?.name && rule.os.name != os.name) matches = false
+            if (rule.os?.arch && !(os.arch ==~ rule.os.arch)) matches = false
+            if (rule.os?.version && !(os.version ==~ rule.os.version)) matches = false
+            rule.features?.each { key, value -> if ((features[key] ?: false) != value) matches = false }
+            if (matches) allow = rule.action == 'allow'
+        }
+        allow
+    }
+
+    static String libraryPath(String coordinate) {
+        def extension = 'jar'
+        def name = coordinate
+        if (name.contains('@')) { def split = name.split('@', 2); name = split[0]; extension = split[1] }
+        def parts = name.split(':')
+        if (parts.length < 3 || parts.length > 4) throw new GradleException("Invalid library coordinate: ${coordinate}")
+        "${parts[0].replace('.', '/')}/${parts[1]}/${parts[2]}/${parts[1]}-${parts[2]}${parts.length == 4 ? '-' + parts[3] : ''}.${extension}"
+    }
+
+    static String libraryKey(String coordinate) {
+        def parts = coordinate.split(':')
+        "${parts[0]}:${parts[1]}:${parts.length > 3 ? parts[3] : ''}"
+    }
+
+    static Map mergeVersions(Map parent, Map child) {
+        def merged = new LinkedHashMap(parent)
+        merged.putAll(child)
+        def libraries = new LinkedHashMap()
+        (parent.libraries ?: []).each { libraries[libraryKey(it.name)] = it }
+        (child.libraries ?: []).each { libraries[libraryKey(it.name)] = it }
+        merged.libraries = libraries.values().toList()
+        merged.arguments = [:]
+        ['jvm', 'game'].each { kind ->
+            merged.arguments[kind] = (parent.arguments?.get(kind) ?: []) + (child.arguments?.get(kind) ?: [])
+        }
+        merged
+    }
+
+    Map readVersion(String id, Set<String> visiting = new HashSet<String>()) {
+        if (!visiting.add(id)) throw new GradleException("Cyclic Minecraft version inheritance: ${id}")
+        def version = (Map) json(safeFile(installation, "versions/${id}/${id}.json"))
+        def result = version.inheritsFrom ? mergeVersions(readVersion(version.inheritsFrom, visiting), version) : version
+        visiting.remove(id)
+        result
+    }
+
+    static List<String> expandArguments(Object arguments, Map replacements, Map os = host(), Map features = [:]) {
+        def result = []
+        (arguments ?: []).each { arg ->
+            def values
+            if (arg instanceof String) values = [arg]
+            else if (allowed(arg.rules, os, features)) values = arg.value instanceof List ? arg.value : [arg.value]
+            else return
+            values.each { value ->
+                String text = value.toString()
+                replacements.each { key, replacement -> text = text.replace('${' + key + '}', replacement.toString()) }
+                if (text.contains('${')) throw new GradleException("Unresolved production launch argument: ${text}")
+                result.add(text)
+            }
+        }
+        result
+    }
+
+    static String quoteArgument(String value) {
+        // Java @argfile syntax, not cmd.exe/PowerShell quoting. Quote empty
+        // arguments too, and escape Windows separators inside the quotes.
+        if (value.contains('\n') || value.contains('\r') || value.contains('\u0000')) {
+            throw new GradleException('Newline/NUL in production launch argument')
+        }
+        '"' + value.replace('\\', '\\\\').replace('"', '\\"') + '"'
+    }
+
+    static String argumentEncoding() {
+        // The Windows java launcher reads @files in the native code page,
+        // even on JDK 21 where file.encoding defaults to UTF-8 (JEP 400).
+        System.getProperty('native.encoding') ?: java.nio.charset.Charset.defaultCharset().name()
+    }
+
+    static void writeArguments(File file, List<String> arguments) {
+        def text = arguments.collect { quoteArgument(it) }.join('\n') + '\n'
+        def encoding = argumentEncoding()
+        if (!java.nio.charset.Charset.forName(encoding).newEncoder().canEncode(text)) {
+            throw new GradleException("Java @argfile cannot encode a launch path/argument in ${encoding}; use a representable checkout path or enable the Windows UTF-8 system locale.")
+        }
+        file.parentFile.mkdirs()
+        file.setText(text, encoding)
+    }
+
+    Map provision(File installer) {
+        def v = versions()
+        project.logger.lifecycle(">> Preparing official Minecraft ${v.minecraft} / Forge ${v.forge} production runtime")
+        installation.mkdirs()
+        def manifest = safeFile(installation, 'version_manifest_v2.json')
+        download('https://piston-meta.mojang.com/mc/game/version_manifest_v2.json', manifest)
+        def release = json(manifest).versions.find { it.id == v.minecraft }
+        if (release == null) throw new GradleException("Minecraft ${v.minecraft} missing from manifest")
+        def vanillaJson = safeFile(installation, "versions/${v.minecraft}/${v.minecraft}.json")
+        download(release.url, vanillaJson, release.sha1)
+        def vanilla = json(vanillaJson)
+        def clientJar = safeFile(installation, "versions/${v.minecraft}/${v.minecraft}.jar")
+        download(vanilla.downloads.client.url, clientJar, vanilla.downloads.client.sha1, vanilla.downloads.client.size as long)
+
+        def forge
+        new ZipFile(installer).withCloseable { zip ->
+            forge = new JsonSlurper().parseText(zip.getInputStream(zip.getEntry('version.json')).getText('UTF-8'))
+        }
+        if (forge.inheritsFrom != v.minecraft) throw new GradleException('Forge installer targets a different Minecraft version')
+        def stampFile = safeFile(state, 'installation.json')
+        def stamp = stampFile.isFile() ? json(stampFile) : [:]
+        boolean installed = stamp.installer == digest(installer) && stamp.files && stamp.files.every { rel, hash ->
+            def file = safeFile(installation, rel)
+            file.isFile() && digest(file) == hash
+        }
+        if (!installed) {
+            if (project.gradle.startParameter.offline) throw new GradleException('Production Forge installation is missing/corrupt; run once without --offline.')
+            safeFile(installation, 'launcher_profiles.json').setText('{"profiles":{}}', 'UTF-8')
+            def log = safeFile(state, 'forge-install.log')
+            project.logger.lifecycle(">> Installing production Forge ${v.forge} (log: ${log})")
+            log.withOutputStream { output ->
+                project.javaexec {
+                    executable = javaExecutable()
+                    classpath = project.files(installer)
+                    mainClass = 'net.minecraftforge.installer.SimpleInstaller'
+                    args '--installClient', installation.absolutePath
+                    workingDir = installation
+                    standardOutput = output
+                    errorOutput = output
+                    enableAssertions = false
+                    // The installer is a separate JVM; inherit configured proxy
+                    // settings, but never the Gradle/dev-run classpath or flags.
+                    System.properties.each { key, value ->
+                        if (key.toString() ==~ /(?:https?|socks)\.proxy.*/) systemProperty(key.toString(), value)
+                    }
+                }
+            }
+            def installedJson = safeFile(installation, "versions/${forge.id}/${forge.id}.json")
+            if (!installedJson.isFile()) throw new GradleException("Forge installer did not produce ${installedJson}")
+            def files = new TreeMap()
+            ['libraries', 'versions'].each { dir ->
+                Files.walk(safeFile(installation, dir).toPath()).withCloseable { paths ->
+                    paths.filter { Files.isRegularFile(it) && (it.toString().endsWith('.jar') || it.toString().endsWith('.json')) }.forEach { path ->
+                        files[installation.toPath().relativize(path).toString().replace('\\', '/')] = digest(path.toFile())
+                    }
+                }
+            }
+            writeJson(stampFile, [installer: digest(installer), files: files])
+        }
+        def version = readVersion(forge.id)
+        def classpath = []
+        def natives = []
+        def libraries = safeFile(installation, 'libraries')
+        version.libraries.findAll { allowed(it.rules) }.each { lib ->
+            def artifact = lib.downloads?.artifact
+            String rel = artifact?.path ?: libraryPath(lib.name)
+            def file = safeFile(libraries, rel)
+            if (artifact != null) download(artifact.url, file, artifact.sha1, (artifact.size ?: 0) as long)
+            else if (!file.isFile()) download((lib.url ?: 'https://libraries.minecraft.net/') + rel, file)
+            classpath.add(file.absolutePath)
+            // Modern metadata declares native jars as ordinary libraries;
+            // older metadata uses a natives/classifiers map. Support both.
+            if (lib.name.contains(':natives-')) natives.add([file: file, excludes: []])
+            def classifier = lib.natives?.get(host().name)?.replace('${arch}', System.getProperty('os.arch').contains('64') ? '64' : '32')
+            if (classifier) {
+                def nativeArtifact = lib.downloads?.classifiers?.get(classifier)
+                if (!nativeArtifact) throw new GradleException("Missing native classifier ${classifier} for ${lib.name}")
+                def nativeFile = safeFile(libraries, nativeArtifact.path)
+                download(nativeArtifact.url, nativeFile, nativeArtifact.sha1, (nativeArtifact.size ?: 0) as long)
+                natives.add([file: nativeFile, excludes: lib.extract?.exclude ?: []])
+            }
+        }
+        def nativesDir = safeFile(installation, "natives/${forge.id}/${host().name}-${host().arch}")
+        nativesDir.mkdirs()
+        natives.each { nativeJar ->
+            new ZipFile(nativeJar.file).withCloseable { zip ->
+                Collections.list(zip.entries()).findAll { entry ->
+                    !entry.directory && entry.name ==~ /.*\.(?:dll|so|dylib|jnilib)/ &&
+                            !nativeJar.excludes.any { entry.name.startsWith(it) }
+                }.each { entry ->
+                    def target = safeFile(nativesDir, entry.name)
+                    target.parentFile.mkdirs()
+                    zip.getInputStream(entry).withCloseable { input ->
+                        Files.copy(input, target.toPath(), StandardCopyOption.REPLACE_EXISTING)
+                    }
+                }
+            }
+        }
+        def assets = safeFile(installation, 'assets')
+        def index = version.assetIndex
+        def indexFile = safeFile(assets, "indexes/${index.id}.json")
+        download(index.url, indexFile, index.sha1, (index.size ?: 0) as long)
+        // JsonSlurper's values() view does not support removal; unique() is
+        // mutating, so deduplicate a detached list rather than the JSON map.
+        def objects = json(indexFile).objects.values().toList().unique { it.hash }
+        project.logger.lifecycle(">> Verifying/downloading ${objects.size()} production asset objects")
+        def pool = Executors.newFixedThreadPool(8)
+        try {
+            def futures = objects.collect { object ->
+                pool.submit({ ->
+                    def rel = "${object.hash.substring(0, 2)}/${object.hash}"
+                    def target = safeFile(assets, 'objects/' + rel)
+                    // Asset objects are mapping-independent official bytes.
+                    // Reuse a dev checkout's Mojang cache only after validating
+                    // the official hash; never reuse any remapped mod/MC jar.
+                    def cached = new File(project.gradle.gradleUserHomeDir, 'caches/neoformruntime/assets/objects/' + rel)
+                    if (!target.exists() && cached.isFile() && cached.length() == object.size && digest(cached, 'SHA-1') == object.hash) {
+                        target.parentFile.mkdirs()
+                        Files.copy(cached.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING)
+                    }
+                    download('https://resources.download.minecraft.net/' + rel,
+                            target, object.hash, object.size as long)
+                    return null
+                } as Callable)
+            }
+            futures.each { it.get() }
+        } finally { pool.shutdownNow() }
+        [version: version, classpath: classpath, natives: nativesDir.absolutePath, assets: assets.absolutePath]
+    }
+
+    List<String> launchArguments(Map runtime) {
+        def version = runtime.version
+        def name = System.getenv('GTE_USERNAME') ?: 'Player'
+        def uuid = UUID.nameUUIDFromBytes(('OfflinePlayer:' + name).getBytes('UTF-8')).toString().replace('-', '')
+        def replacements = [
+            auth_player_name: name, auth_uuid: uuid, auth_access_token: '0', auth_session: '0',
+            user_type: 'legacy', user_properties: '{}', clientid: '', auth_xuid: '',
+            version_name: version.id, version_type: version.type ?: 'release',
+            game_directory: client.absolutePath, assets_root: runtime.assets,
+            assets_index_name: version.assetIndex.id, natives_directory: runtime.natives,
+            launcher_name: 'GTE-Production-Gradle', launcher_version: '1',
+            library_directory: safeFile(installation, 'libraries').absolutePath,
+            classpath_separator: File.pathSeparator, classpath: runtime.classpath.join(File.pathSeparator),
+            resolution_width: System.getenv('GTE_WINDOW_WIDTH') ?: '1600',
+            resolution_height: System.getenv('GTE_WINDOW_HEIGHT') ?: '900'
+        ]
+        def features = [has_custom_resolution: true]
+        def game = expandArguments(version.arguments.game, replacements, host(), features)
+        int targetIndex = game.indexOf('--launchTarget')
+        if (targetIndex < 0 || game[targetIndex + 1] != 'forgeclient') {
+            throw new GradleException('Installer metadata does not describe a production forgeclient launch')
+        }
+        if (version.mainClass != 'cpw.mods.bootstraplauncher.BootstrapLauncher') {
+            throw new GradleException("Unexpected Forge production main class: ${version.mainClass}")
+        }
+        def arguments = ["-Xmx${System.getenv('GTE_RUNTIME_XMX') ?: '8G'}", '-XX:+UseG1GC',
+                         '-Dfile.encoding=UTF-8', '-Dsun.stdout.encoding=UTF-8', '-Dsun.stderr.encoding=UTF-8',
+                         '-Dfml.earlyprogresswindow=false', '-Dforge.earlyWindow=false']
+        arguments.addAll(expandArguments(version.arguments.jvm, replacements, host(), features))
+        arguments.add(version.mainClass)
+        arguments.addAll(game)
+        if (arguments.any { it.contains('userdev') || it.contains('mixin.env.remapRefMap') || it.contains('forge.enableGameTest') }) {
+            throw new GradleException('Development-only argument leaked into production launch')
+        }
+        arguments.collect { it.toString() }
+    }
+
+    void prepare(File installer, Map<String, File> modules) {
+        locked {
+            def runtime = provision(installer)
+            synchronizePack(packManifest(modules))
+            def fml = safeFile(client, 'config/fml.toml')
+            if (!fml.isFile() || !(fml.getText('UTF-8') =~ /(?m)^\s*earlyWindowControl\s*=\s*false\s*$/).find()) {
+                throw new GradleException('Production pack requires config/fml.toml earlyWindowControl=false')
+            }
+            def arguments = launchArguments(runtime)
+            writeArguments(safeFile(state, 'launch.args'), arguments)
+            writeJson(safeFile(state, 'launch.json'), [arguments: arguments, java: javaExecutable()])
+            project.logger.lifecycle(">> Production client ready: ${client} (forgeclient / SRG, Java 21)")
+        }
+    }
+
+    void launch(Map<String, File> modules) {
+        locked {
+            def expected = json(safeFile(state, 'pack-manifest.json')).files
+            if (expected != packManifest(modules)) throw new GradleException('Pack sources changed after preparation; rerun runFullPackForReal.')
+            // Always re-read every file immediately before starting Java. Neither
+            // this action nor prepare has an up-to-date/cache shortcut.
+            verifyPack(expected)
+            auditMods(expected)
+            def launch = json(safeFile(state, 'launch.json'))
+            def argFile = safeFile(state, 'launch.args')
+            def text = launch.arguments.collect { quoteArgument(it) }.join('\n') + '\n'
+            if (argFile.getText(argumentEncoding()) != text) throw new GradleException('Production launch.args was modified after preparation')
+            project.logger.lifecycle(">> Starting production client after final SHA-256 verification: ${client}")
+            project.exec {
+                commandLine launch.java, '@' + argFile.absolutePath
+                workingDir = client
+                def cleanEnvironment = new LinkedHashMap(System.getenv())
+                cleanEnvironment.remove('MOD_CLASSES')
+                environment = cleanEnvironment
+            }
+        }
+    }
+}
+
+def productionRuntime = new GteProductionRuntime(project, file("${rootDir}/run/production"))
+def moduleOutputs = providers.provider {
+    GteProductionRuntime.MODULES.collectEntries { id, path ->
+        [(id): project(path).tasks.named('reobfJar').get().archiveFile.get().asFile]
+    }
+}
+configurations.create('productionForgeInstaller') { transitive = false }
+dependencies.add('productionForgeInstaller', providers.provider {
+    def versions = productionRuntime.versions()
+    "net.minecraftforge:forge:${versions.minecraft}-${versions.forge}:installer"
+})
+
+tasks.register('prepareFullPackForReal') {
+    group = 'forge runs'
+    description = 'Build production modules, install real Forge, copy and SHA-256 verify an isolated full-pack client'
+    dependsOn GteProductionRuntime.MODULES.values().collect { "${it}:reobfJar" }
+    doLast { productionRuntime.prepare(configurations.productionForgeInstaller.singleFile, moduleOutputs.get()) }
+}
+
+tasks.register('runFullPackForReal') {
+    group = 'forge runs'
+    description = 'Launch the isolated full pack through production Forge (forgeclient / SRG, no dev mode)'
+    dependsOn tasks.named('prepareFullPackForReal')
+    doLast { productionRuntime.launch(moduleOutputs.get()) }
+}
+
+// Also reject mixing a production client and a dev client/server in one Gradle
+// invocation. Separate invocations remain independent, with separate worlds.
+gradle.taskGraph.whenReady { graph ->
+    if (graph.hasTask(':runFullPackForReal') && graph.allTasks.any { it.name ==~ /run(Client|Server|Data|GameTestServer)/ }) {
+        throw new GradleException('Run production and development clients in separate Gradle invocations.')
+    }
+}
+
+apply from: "${rootDir}/gradle/tests/production-runtime.gradle"
+
+tasks.register('verifyFullPackForReal') {
+    group = 'verification'
+    description = 'Exercise production metadata, real Java argfile parsing, isolated pack synchronization and failure gates'
+    doLast { gteProductionRuntimeChecks(GteProductionRuntime) }
+}
+tasks.named('check') { dependsOn tasks.named('verifyFullPackForReal') }

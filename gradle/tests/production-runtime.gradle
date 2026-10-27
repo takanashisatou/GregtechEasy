@@ -1,0 +1,161 @@
+import groovy.json.JsonOutput
+import java.nio.file.Files
+import java.util.zip.ZipEntry
+import java.util.zip.ZipOutputStream
+
+ext.gteProductionRuntimeChecks = { Class runtimeType ->
+    // Fresh fixtures under build/, never an installed client or tracked pack.
+    def fixture = layout.buildDirectory.dir("tests/production-runtime/${UUID.randomUUID()}").get().asFile
+    fixture.mkdirs()
+    int cases = 0
+    def check = { boolean condition, String message ->
+        if (!condition) throw new GradleException("Production runtime check failed: ${message}")
+        cases++
+    }
+    def fails = { String message, Closure action ->
+        try { action.call() } catch (GradleException ex) {
+            check(ex.message.contains(message), "expected '${message}', got '${ex.message}'")
+            return
+        }
+        throw new GradleException("Production runtime check failed: expected failure '${message}'")
+    }
+    def put = { String relative, String text ->
+        def file = new File(fixture, relative)
+        file.parentFile.mkdirs()
+        file.setText(text, 'UTF-8')
+        file
+    }
+    def jar = { String relative, List<String> ids, boolean embedded = false, boolean named = false,
+                String embeddedPath = 'META-INF/jarjar/dependency.jar' ->
+        def file = new File(fixture, relative)
+        file.parentFile.mkdirs()
+        new ZipOutputStream(new FileOutputStream(file)).withCloseable { zip ->
+            def entry = { String name, String text ->
+                zip.putNextEntry(new ZipEntry(name))
+                zip.write(text.getBytes('UTF-8'))
+                zip.closeEntry()
+            }
+            entry('META-INF/mods.toml', ids.collect {
+                "[[mods]]\nmodId = '${it}' # actual declaration\nversion = '1'\n[[dependencies.${it}]]\nmodId = 'minecraft'\n"
+            }.join('\n'))
+            (0..11).each { entry("example/Example${it}.class", named ? 'Minecraft.getInstance' : 'Minecraft.m_12345_') }
+            if (embedded) {
+                entry('META-INF/jarjar/metadata.json', JsonOutput.toJson([jars: [[path: embeddedPath]]]))
+                entry(embeddedPath, 'fixture dependency')
+            }
+        }
+        file
+    }
+    def fakeProject = [getRootDir: { fixture }, getLogger: { logger },
+                       file: { Object name -> new File(fixture, name.toString()) }] as Project
+    def runner = runtimeType.newInstance(fakeProject, new File(fixture, 'run/production'))
+    def modules = [gtceu: jar('outputs/gtceu.jar', ['gtceu'], true),
+                   gtnn: jar('outputs/gtnn.jar', ['gtnn'], true),
+                   gtecore: jar('outputs/gtecore.jar', ['gtecore'])]
+    put('gte/overrides/config/test.toml', '中文配置 = true\n')
+    put('gte/overrides/kubejs/server_scripts/test.js', '// source recipe\n')
+    put('gte/overrides/saves/do-not-copy/level.dat', 'private world')
+    put('gte/overrides/logs/latest.log', 'private log')
+    put('gte/overrides/config/jei/world/private/bookmarks.ini', 'private bookmarks')
+    jar('gte/overrides/mods/old-module-name.jar', ['gtceu'])
+    jar('gte/overrides/mods/third-party.jar', ['examplemod'])
+    jar('gte/overrides/mods/vendor-release-all.jar', ['vendorfatmod'], true, false, 'META-INF/jars/dependency.jar')
+    def expected = runner.packManifest(modules)
+    check(expected.keySet().size() == 7 && expected.containsKey('mods/vendor-release-all.jar'), 'include official third-party fat releases and exact module outputs')
+    check(!expected.keySet().any { it.contains('old-module') || it.startsWith('saves/') || it.startsWith('logs/') || it.contains('bookmarks') }, 'replace by modId and exclude personal data')
+    runner.synchronizePack(expected)
+    check(runtimeType.json(new File(runner.state, 'pack-manifest.json')).files == runner.packManifest(modules), 'persisted manifest equals a fresh source hash scan')
+    check(new File(runner.client, 'config/test.toml').getText('UTF-8') == '中文配置 = true\n', 'copy Unicode file bytes')
+    check(new File(fixture, 'gte/overrides/mods/old-module-name.jar').isFile(), 'never mutate committed production jars')
+    new File(runner.client, 'config/test.toml').setText('tampered', 'UTF-8')
+    fails('SHA-256 mismatch') { runner.verifyPack(expected) }
+    check(new File(fixture, 'gte/overrides/config/test.toml').getText('UTF-8') == '中文配置 = true\n', 'instance edits never write through to source')
+    runner.synchronizePack(expected)
+    Files.delete(new File(runner.client, 'mods/gtecore.jar').toPath())
+    fails('file missing') { runner.verifyPack(expected) }
+    runner.synchronizePack(expected)
+    def extra = new File(runner.client, 'mods/unknown.JAR')
+    Files.copy(modules.gtecore.toPath(), extra.toPath())
+    fails('Unexpected production mod JAR') { runner.verifyPack(expected) }
+    Files.delete(extra.toPath())
+    def save = new File(runner.client, 'saves/test-world/level.dat')
+    save.parentFile.mkdirs()
+    save.setText('preserve my world', 'UTF-8')
+    def generated = new File(runner.client, 'config/game-generated.toml')
+    generated.setText('keep = true', 'UTF-8')
+    Files.delete(new File(fixture, 'gte/overrides/kubejs/server_scripts/test.js').toPath())
+    put('gte/overrides/config/test.toml', 'changed = true\n')
+    expected = runner.packManifest(modules)
+    runner.synchronizePack(expected)
+    check(!new File(runner.client, 'kubejs/server_scripts/test.js').exists(), 'remove obsolete previously managed script')
+    check(save.getText('UTF-8') == 'preserve my world' && generated.getText('UTF-8') == 'keep = true', 'preserve worlds and game-generated files across refresh')
+    check(new File(runner.client, 'config/test.toml').getText('UTF-8') == 'changed = true\n', 'refresh changed source configuration')
+    def duplicate = jar('gte/overrides/mods/duplicate.jar', ['examplemod'])
+    fails('Duplicate production modId') { runner.synchronizePack(runner.packManifest(modules)) }
+    Files.delete(duplicate.toPath())
+    def badMapping = jar('gte/overrides/mods/named.jar', ['namedmod'], false, true)
+    fails('Non-production (named mapping)') { runner.synchronizePack(runner.packManifest(modules)) }
+    Files.delete(badMapping.toPath())
+    runner.synchronizePack(runner.packManifest(modules))
+    check(!new File(runner.client, 'mods/duplicate.jar').exists() && !new File(runner.client, 'mods/named.jar').exists(), 'recover and remove obsolete files from failed synchronization attempts')
+    def originalGtnn = modules.gtnn
+    modules.gtnn = jar('outputs/without-embeds.jar', ['gtnn'])
+    fails('missing jarJar embeds') { runner.synchronizePack(runner.packManifest(modules)) }
+    modules.gtnn = originalGtnn
+    runner.synchronizePack(runner.packManifest(modules))
+    fails('escapes its directory') { runtimeType.safeFile(runner.client, '../outside.txt') }
+    runner.locked { fails('already preparing or running') { runner.locked { } } }
+
+    def ids = runtimeType.declaredModIds('''[[mods]] # declaration
+modId = "first" # comment
+[[dependencies.first]]
+modId = "not_a_mod"
+[[mods]]
+modId = 'second'
+''')
+    check(ids == ['first', 'second'], 'parse only [[mods]], including comments and multiple declarations')
+    def merged = runtimeType.mergeVersions(
+            [mainClass: 'vanilla', libraries: [[name: 'a:b:1'], [name: 'a:b:1:natives-windows']],
+             arguments: [jvm: ['-cp', '${classpath}'], game: ['--username', '${auth_player_name}']]],
+            [mainClass: 'forge', libraries: [[name: 'a:b:2']], arguments: [game: ['--launchTarget', 'forgeclient']]])
+    check(merged.mainClass == 'forge' && merged.libraries*.name == ['a:b:2', 'a:b:1:natives-windows'], 'child overrides library version while preserving native classifier')
+    check(merged.arguments.game == ['--username', '${auth_player_name}', '--launchTarget', 'forgeclient'] && merged.arguments.jvm.size() == 2, 'inherit both argument lists')
+    def windows = [name: 'windows', arch: 'amd64', version: '10.0']
+    check(runtimeType.allowed([[action: 'allow', os: [name: 'windows']]], windows), 'select Windows rules')
+    check(!runtimeType.allowed([[action: 'allow'], [action: 'disallow', os: [name: 'windows']]], windows), 'last matching rule wins')
+    check(!runtimeType.allowed([[action: 'allow', os: [name: 'linux']]], windows), 'exclude Linux libraries from Windows')
+    check(runtimeType.expandArguments([[rules: [[action: 'allow', features: [has_custom_resolution: true]]],
+                                      value: ['--width', '${resolution_width}']]], [resolution_width: '1600'], windows,
+                                     [has_custom_resolution: true]) == ['--width', '1600'], 'expand feature-gated argument arrays')
+    fails('Unresolved production launch argument') { runtimeType.expandArguments(['${missing}'], [:]) }
+    def launchFixture = [version: [id: 'production-fixture', type: 'release',
+                                  mainClass: 'cpw.mods.bootstraplauncher.BootstrapLauncher', assetIndex: [id: '5'],
+                                  arguments: [jvm: ['-cp', '${classpath}'], game: ['--launchTarget', 'forgeclient',
+                                                                                 '--gameDir', '${game_directory}']]],
+                         classpath: ['C:/library with spaces/example.jar'], assets: 'C:/assets', natives: 'C:/natives']
+    def launchArguments = runner.launchArguments(launchFixture)
+    check(launchArguments.contains('forgeclient') && !launchArguments.any { it.contains('userdev') || it.startsWith('-ea') }, 'production launch target and default assertion policy')
+    launchFixture.version.arguments.game[1] = 'forgeclientuserdev'
+    fails('production forgeclient') { runner.launchArguments(launchFixture) }
+    check(runtimeType.libraryPath('net.minecraftforge:forge:1.20.1-47.4.1:client') == 'net/minecraftforge/forge/1.20.1-47.4.1/forge-1.20.1-47.4.1-client.jar', 'production Maven classifier path')
+
+    // Exercise the actual Java 21 launcher, not a second copy of our quoting
+    // implementation. Includes an empty argument, quotes, backslashes and CJK.
+    def probe = put('参数 文件/ArgumentProbe.java', '''class ArgumentProbe {
+    public static void main(String[] args) { System.out.print(String.join("|", args)); }
+}
+''')
+    def values = ['', 'a b', '中文', 'a"quote', 'C:\\path with spaces\\', '#not-comment']
+    def argsFile = new File(fixture, '参数 文件/probe.args')
+    runtimeType.writeArguments(argsFile, ['-Dstdout.encoding=UTF-8', '--source', '21', probe.absolutePath] + values)
+    def output = new ByteArrayOutputStream()
+    def java21 = extensions.getByType(org.gradle.jvm.toolchain.JavaToolchainService)
+            .launcherFor { languageVersion = JavaLanguageVersion.of(21) }.get().executablePath.asFile
+    exec {
+        commandLine java21.absolutePath, '@' + argsFile.absolutePath
+        workingDir = fixture
+        standardOutput = output
+    }
+    check(output.toString('UTF-8') == values.join('|'), 'Java launcher preserves all argfile values')
+    logger.lifecycle(">> Production runtime checks passed: ${cases} assertions (fixtures: ${fixture})")
+}
