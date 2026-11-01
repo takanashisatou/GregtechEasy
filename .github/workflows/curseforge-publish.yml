@@ -231,7 +231,12 @@ jobs:
         with:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           curseforge-id: ${{ inputs.modpack_cf_id }}
-          files: build/artifacts/GregTech Easy ${{ inputs.version }}(Use Java 21).zip
+          # mc-publish expands `files` with a glob engine where `(` and `)` start an
+          # extglob group, so the official name `GregTech Easy <version>(Use Java 21).zip`
+          # matched nothing ("No files found for the specified glob"). `?` matches the
+          # literal parentheses without metacharacters, and the uploaded file keeps the
+          # required official archive name.
+          files: build/artifacts/GregTech Easy ${{ inputs.version }}?Use Java 21?.zip
           name: "GregTech Easy ${{ inputs.version }}(Use Java 21)"
           version-type: ${{ inputs.channel }}
           loaders: forge
