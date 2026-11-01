@@ -130,6 +130,7 @@ Project `.agents/skills/` is the maintained source. Do not recreate old same-nam
 | Skill | Use when |
 | --- | --- |
 | [gte-workflow](.agents/skills/gte-workflow/SKILL.md) | Module development, dependency/runtime diagnosis, source PRs; requested production builds and official modpack releases |
+| [gte-release-publish](.agents/skills/gte-release-publish/SKILL.md) | Version bumps, production JAR refresh, CurseForge module upload and official zero-JAR modpack publication |
 | [gte-multiblock](.agents/skills/gte-multiblock/SKILL.md) | Existing/new machines, patterns, recipe conditions/modifiers, structure tests |
 | [gte-multiblock-architecture](.agents/skills/gte-multiblock-architecture/SKILL.md) | Designing new shapes or geometric matrices |
 | [gte-pixel-lab](.agents/skills/gte-pixel-lab/SKILL.md) | Texture, animation, palette, CTM inspection or edits |
