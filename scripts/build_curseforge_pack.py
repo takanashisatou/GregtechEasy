@@ -99,7 +99,7 @@ def generate_modlist_html(mod_entries: list[dict]) -> str:
 def build_curseforge_pack(version: str, submodule_overrides: dict[str, dict[str, int]],
                          release_record: dict | None = None) -> Path:
     mc_version, forge_version = read_pack_versions()
-    out_zip = BUILD_DIR / f"GTE-CurseForge-{version}.zip"
+    out_zip = BUILD_DIR / f"GregTech Easy {version}(Use Java 21).zip"
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
 
     print(f"\n=======================================================")
