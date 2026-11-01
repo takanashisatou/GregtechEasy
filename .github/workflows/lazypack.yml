@@ -143,7 +143,7 @@ jobs:
           Add-Type -AssemblyName System.IO.Compression.FileSystem
           $bad = $false
           $expected = @{
-            'GTE-FullMod-*.zip'    = '^overrides/mods/[^/]+\.jar$'
+            'GregTech Easy *(Use Java 21).zip'    = '^overrides/mods/[^/]+\.jar$'
             'GTE-Server-*.zip'     = '^mods/[^/]+\.jar$'
           }
           foreach ($pattern in $expected.Keys) {
@@ -194,7 +194,7 @@ jobs:
           if-no-files-found: error
           retention-days: 30
           path: |
-            build/artifacts/GTE-FullMod-*.zip
+            build/artifacts/GregTech Easy *(Use Java 21).zip
             build/artifacts/GTE-Server-*.zip
 
       # This workflow is the ONLY producer of the rolling `nightly` prerelease:
@@ -209,7 +209,7 @@ jobs:
         run: |
           $ErrorActionPreference = 'Continue'
           $version = "${{ steps.meta.outputs.version }}"
-          $files = @(Get-ChildItem "build/artifacts/GTE-FullMod-*.zip", "build/artifacts/GTE-Server-*.zip" -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName })
+          $files = @(Get-ChildItem "build/artifacts/GregTech Easy *(Use Java 21).zip", "build/artifacts/GTE-Server-*.zip" -ErrorAction SilentlyContinue | ForEach-Object { $_.FullName })
           if (-not $files) {
             Write-Host "::error::No pack zips in build/artifacts; refusing to publish nothing."
             exit 1
@@ -275,7 +275,7 @@ jobs:
           Write-Host "Release id '$releaseId' carries $($assets.Count) asset(s); this build produced $($current.Count) pack zip(s)."
           $stale = @($assets | Where-Object {
             $row = $_ -split "`t"
-            ($row[1] -like 'GTE-FullMod-*.zip' -or $row[1] -like 'GTE-Server-*.zip') -and $current -notcontains $row[1]
+            ($row[1] -like 'GTE-FullMod-*.zip' -or $row[1] -like 'GregTech Easy *(Use Java 21).zip' -or $row[1] -like 'GTE-Server-*.zip') -and $current -notcontains $row[1]
           })
           foreach ($row in $stale) {
             $parts = $row -split "`t"

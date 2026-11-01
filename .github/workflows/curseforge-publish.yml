@@ -232,7 +232,7 @@ jobs:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           curseforge-id: ${{ inputs.modpack_cf_id }}
           files: build/artifacts/GTE-CurseForge-${{ inputs.version }}.zip
-          name: "GregTech Easy ${{ inputs.version }} (Use Java 21)"
+          name: "GregTech Easy ${{ inputs.version }}(Use Java 21)"
           version-type: ${{ inputs.channel }}
           loaders: forge
           game-versions: 1.20.1
