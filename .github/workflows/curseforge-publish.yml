@@ -220,7 +220,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: GTE-CurseForge-${{ inputs.version }}
-          path: build/artifacts/GTE-CurseForge-${{ inputs.version }}.zip
+          path: build/artifacts/GregTech Easy ${{ inputs.version }}(Use Java 21).zip
           if-no-files-found: error
           retention-days: 30
 
@@ -231,7 +231,7 @@ jobs:
         with:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           curseforge-id: ${{ inputs.modpack_cf_id }}
-          files: build/artifacts/GTE-CurseForge-${{ inputs.version }}.zip
+          files: build/artifacts/GregTech Easy ${{ inputs.version }}(Use Java 21).zip
           name: "GregTech Easy ${{ inputs.version }}(Use Java 21)"
           version-type: ${{ inputs.channel }}
           loaders: forge
