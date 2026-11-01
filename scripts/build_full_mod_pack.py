@@ -100,7 +100,7 @@ GregTech Easy (GTE) Full-Mod Client Pack v{version}
 
 【推荐使用方法：启动器一键导入（PCL2 / HMCL / Prism / MultiMC / CurseForge 通用）】
 1. 打开启动器（如 PCL2、HMCL、Prism Launcher 等）。
-2. 选择「导入整合包」或直接将本压缩包（GTE-FullMod-*.zip）拖拽进启动器窗口。
+2. 选择「导入整合包」或直接将本压缩包（GregTech Easy {version}(Use Java 21).zip）拖拽进启动器窗口。
 3. 启动器会自动根据 manifest.json 配置好 Minecraft {mc_version}、Forge {forge_version} 以及全部模组。
 4. 确认分配内存建议 8G~12G，Java 指定为 Java 21。
 5. 启动游戏即可游玩！
@@ -119,7 +119,7 @@ GregTech Easy (GTE) Full-Mod Client Pack v{version}
 
 def build_full_mod_pack(version: str) -> Path:
     mc_version, forge_version = read_pack_versions()
-    out_zip = BUILD_DIR / f"GTE-FullMod-{version}.zip"
+    out_zip = BUILD_DIR / f"GregTech Easy {version}(Use Java 21).zip"
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
 
     print(f"\n=======================================================")

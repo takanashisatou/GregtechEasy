@@ -335,7 +335,7 @@ jobs:
             Write-Host "::error::build_server_pack.py failed on the current pack tree."
             exit $LASTEXITCODE
           }
-          Remove-Item build/artifacts/GTE-FullMod-gate-dryrun.zip, build/artifacts/GTE-Server-gate-dryrun.zip -Force -ErrorAction SilentlyContinue
+          Remove-Item 'build/artifacts/GregTech Easy gate-dryrun(Use Java 21).zip', build/artifacts/GTE-Server-gate-dryrun.zip -Force -ErrorAction SilentlyContinue
           Write-Host "Packaging scripts ran clean against the current pack tree."
 
       # ──────────────────────────────────────────────
@@ -664,7 +664,7 @@ jobs:
           Add-Type -AssemblyName System.IO.Compression.FileSystem
           $bad = $false
           $expected = @{
-            'GTE-FullMod-*.zip'    = '^overrides/mods/[^/]+\.jar$'
+            'GregTech Easy *(Use Java 21).zip'    = '^overrides/mods/[^/]+\.jar$'
             'GTE-Server-*.zip'     = '^mods/[^/]+\.jar$'
           }
           foreach ($pattern in $expected.Keys) {
@@ -836,7 +836,7 @@ jobs:
         run: |
           $prereleaseFlag = if ("${{ steps.meta.outputs.channel }}" -ne "release") { "--prerelease" } else { "" }
           $files = (Get-ChildItem build/artifacts/*).FullName
-          gh release create "${{ steps.meta.outputs.version }}" $files --title "GregTech Easy ${{ steps.meta.outputs.version }} (${{ steps.meta.outputs.channel }})" --generate-notes $prereleaseFlag
+          gh release create "${{ steps.meta.outputs.version }}" $files --title "GregTech Easy ${{ steps.meta.outputs.version }}(Use Java 21)" --generate-notes $prereleaseFlag
 
       # The rolling `nightly` prerelease is NOT published here. It carries the
       # LazyPack (the client and server zips built from the committed pack tree)
