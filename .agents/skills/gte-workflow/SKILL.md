@@ -2,8 +2,9 @@
 name: gte-workflow
 description: >-
   Develop and debug GTE module sources, dependencies, and the development runtime.
-  Use for GTE Java/Kotlin changes, crashes, and source PRs. Packaging, production
-  JAR refreshes, releases, and Maven publication apply only when requested.
+  Use for GTE Java/Kotlin changes, crashes, source PRs, and explicitly requested
+  production JAR builds, CurseForge module publication, official modpack preparation
+  and releases. Maven publication applies only when requested.
 ---
 
 # GTE 开发工作流
@@ -18,6 +19,8 @@ description: >-
 | 源码修复、机器开发 | 归属模块中的改动及必要验证 | 本地改动完成，或会话已授权的源码 PR / 指针 PR 合并完成 |
 | 技能、说明、测试夹具优化 | 对应文件与适用的验证 | 文本/脚本检查、相关测试及已授权的 PR 流程完成 |
 | 整合包、生产 JAR 更新、发布 | 用户明确指定的产物或发布结果 | 进入 [打包与发布流程](references/packaging_and_release.md) |
+
+本项目的正式整合包默认走 CurseForge 流程，用户另有指定时从其要求。“先发布更新后的 JAR，再打本地包让我检验”包含通过 CI 上传模块到 CurseForge；构建或 JAR 刷新 PR 不能代替上传。本地验收包使用上传记录中的准确 file ID，整合包公开发布留到用户验收及授权之后。执行前先读打包参考及其链接的 CurseForge 发布指南。
 
 修复源码不等于更新生产 JAR。只有明确请求的手动生产构建才创建 JAR 刷新 PR，源码合并不自动构建。用户要求不更新 JAR 时，提交范围不包含 `gte/overrides/mods/`。常规编译、GameTest 和审计在本地运行，PR 合并不启动或等待 CI。
 

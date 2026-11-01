@@ -5,13 +5,37 @@
 最终 CurseForge 整合包中 **任何路径都不允许有 jar**。所有模组通过
 `manifest.json` 中的 `projectID` / `fileID` 安装。
 
+## 从源码到正式整合包
+
+本项目正式整合包默认采用此流程，用户指定其他格式或平台时按其要求。
+“先发布更新后的模块 JAR，再打本地包让我人工检验”包含 CI 上传模块到 CurseForge，
+交付点是本地验收 ZIP；整合包公开上传留待用户验收和发布授权后执行。
+
+1. 核对 `main` 的模块 gitlink 与计划发布的源码，先完成必要的模块及根指针 PR。
+   在构建前确定包版本、模块各自的 `gradle.properties` 版本、包元数据与命名模板，
+   将所需改动通过 PR 合并。包版本不自动改写所有模块版本；版本号相同也不能证明 JAR 是最新源码。
+2. 手动运行 `sync-build.yml`，正式构建使用 `channel=release` 和计划包版本。
+   核对来源 SHA、数据生成、生产装配和整个运行的最终成功结果。
+3. 复核其 JAR 刷新 PR：只保留计划更新的产物，在本地运行重复 modId、生产映射、
+   模块新鲜度和 dev/pack parity 检查后合并。后续上传消费这些已提交的相同字节，
+   不另行本地编译或替换 JAR。
+4. 执行下述模块上传阶段，保存成功运行的 ID 和 `module-release.json`。
+5. 使用上传记录制作下述本地验收包，交付 ZIP、来源提交、哈希和验证结果。
+   用户要求人工检验时在此交付，不运行整合包上传阶段。
+6. 满足模块审核、公开下载验证、所需人工验收及发布授权后，执行整合包上传阶段。
+
+`sync-build.yml` 的产物和 JAR 刷新 PR 不等于 CurseForge 上传。
+`lazypack.yml` / `build_full_mod_pack.py` 生成内置 JAR 的 Full-Mod 包，
+`release-publish.yml` 操作分支和 tag；它们均不能替代本流程的模块上传与零 JAR 打包。
+
 ## 正式包命名
 
 后续正式包 ZIP 统一使用 `GregTech Easy <版本号>(Use Java 21).zip`，发布显示名称
 使用 `GregTech Easy <版本号>(Use Java 21)`。例如 `GregTech Easy 3.1.1(Use Java 21).zip`；
 保留名称中的空格，版本号与左括号之间不加空格。
 
-下次发布前同步打包脚本与 CI 的命名模板。此次已发布的 3.1.1 文件保持现有名称。
+核对打包脚本与 CI 的命名模板一致；已发布的历史文件保持现有名称。
+Full-Mod 与 CurseForge 包可能使用相同文件名，若同时制作，应放在不同目录，避免互相覆盖。
 
 项目默认值来自已有公开项目：
 
@@ -28,8 +52,8 @@ Actions。本文流程不需要额外的 CurseForge Core API key。
 
 ## 检查
 
-手动运行 `CurseForge Publish (two stages)`，选择 `stage=check`，填写计划版本号。
-此阶段不上传任何文件：检查生产 jar、模块来源版本、97 个第三方文件的
+需要单独预检时，手动运行 `CurseForge Publish (two stages)`，选择 `stage=check`，填写计划版本号。
+此阶段不上传任何文件；`stage=modules` 也会执行相同前置检查：检查生产 jar、模块来源版本、清单中第三方文件的
 SHA-256 清单和完整覆盖率，准备三个模块的发布记录。
 
 `gte/curseforge_manifest.json` 的第三方文件来自已发布的 2.2.5 包，并逐个
@@ -45,6 +69,9 @@ SHA-256 清单和完整覆盖率，准备三个模块的发布记录。
    若 GT-- 没有变更，可填写 `reuse_gt_minus_file_id`，复用已审核文件。准备阶段会
    公开下载该文件并核对当前已提交 GT-- JAR 的 SHA-256；一致后跳过 GT-- 上传，
    仍在发布记录中保存其准确 file ID，只上传 GTECore 和 GTM-Reborn。
+   复用要求整个 JAR 的 SHA-256 相同，不能只比较文件名、版本或解压后的文件内容。
+   若未修改模块仅因重新压缩而产生不同字节，可在 JAR 刷新 PR 中保留原已审核产物，
+   经新鲜度检查后复用；不要将新字节绑定到旧 file ID。
 3. 保存成功运行的 Actions run ID。运行产物 `curseforge-module-release`
    包含 `module-release.json`，记录三个返回的 file ID、project ID、文件名、
    SHA-256、来源提交和整合包 overrides 的 Git tree。记录保留 90 天。
@@ -54,9 +81,30 @@ SHA-256 清单和完整覆盖率，准备三个模块的发布记录。
 如果上传中途失败，仍会保留已返回的 file ID。先检查作者后台和发布记录，
 不要盲目重跑导致重复上传；第二阶段拒绝缺失任一模块 file ID 的记录。
 
+## 本地验收包（不上传整合包）
+
+模块上传成功后，下载该运行的 `curseforge-module-release` artifact 到独立目录。
+使用其中的原始记录打包。在仓库根目录先将 `$packVersion` 设为计划版本，
+`$moduleRecord` 设为该 `module-release.json` 的本地路径，再执行：
+
+```powershell
+python scripts/build_curseforge_pack.py "$packVersion" --module-release "$moduleRecord"
+python scripts/curseforge_release.py verify --record "$moduleRecord"
+```
+
+打包会核对记录版本、overrides Git tree、模块文件名及 SHA-256，并使用返回的准确 ID。
+同时检查工作区配置是否与记录一致；不要把未提交的配置改动混进验收包却仍声称对应原提交。
+核对 ZIP CRC、Minecraft/Forge/Java 与包版本、全部模组引用和全归档零 JAR，保存 ZIP SHA-256。
+交付绝对路径、来源提交、模块上传 run ID / file ID 以及实际完成的检查结果。
+
+本地 ZIP 可以先于审核完成生成。公开下载检查须不携带作者 token，并逐个校验清单文件哈希。
+上传返回 ID 不证明审核通过；404 表示文件尚不可公开取得，超时表示该次网络验证未完成。
+若存在待审核或未通过/未完成的下载项，应注明“本地包已生成，完整安装尚未验证”，
+不能仅凭 ZIP 校验通过称为可安装。等待审核不需要反复上传或长时间轮询。
+
 ## 第二阶段：审核后发布整合包
 
-1. 三个模块文件均审核通过后，选择 `stage=pack`，填写第一阶段成功的 run ID，
+1. 获得整合包发布授权、完成用户要求的人工验收且三个模块文件均审核通过后，选择 `stage=pack`，填写第一阶段成功的 run ID，
    使用相同版本号，并勾选 `modules_approved`。这个勾选代表作者已核实审核结果，
    工作流不会把“上传成功”自动当作“审核通过”。
 2. 工作流取回第一阶段的记录，确认当前包内容未变更，然后在 **不携带作者 token**

@@ -103,6 +103,10 @@ Preserve the PR-based protected-branch flow; merges do not require `PR Validatio
 
 These constraints apply when the user's task includes the relevant pack/CI operation:
 
+- For this project's official modpack release, use the CurseForge flow unless the user specifies another format or destination: merge intended source/gitlink and release-metadata PRs -> manual `sync-build.yml` -> verify and merge the JAR refresh PR -> `curseforge-publish.yml` with `stage=modules` -> build a local zero-JAR CurseForge ZIP using the returned file IDs -> user acceptance when requested -> authorized `stage=pack` after module moderation and public-download verification. Read the [CurseForge release guide](docs/curseforge-release.md) before starting the build.
+- “Publish the updated module JARs, then make a local official pack for me to test” includes uploading those JARs to CurseForge through CI. A successful build, JAR refresh PR, Actions artifact, or Maven deployment alone does not finish module publication. Stop at the local acceptance package when the user reserves testing; do not publish the modpack or create a release tag on that instruction alone.
+- `lazypack.yml` / `build_full_mod_pack.py` produce bundled-JAR packs; use them for requested Full-Mod/offline/server deliverables, not as a substitute for the official CurseForge manifest pack. Keep different package formats in separate output directories when they share the official filename.
+- Report module upload, moderation, public-download/hash verification, local ZIP validation, user acceptance, and modpack publication separately. A returned file ID is not proof of moderation or installability. A local ZIP may be delivered pending moderation, but explicitly mark any download checks that failed or remain incomplete.
 - Future official pack ZIPs must be named `GregTech Easy <version>(Use Java 21).zip`, with the release display name `GregTech Easy <version>(Use Java 21)`. Preserve this exact spacing, including no space before `(`. Update packaging and CI naming templates for the next release; leave the already-published 3.1.1 files unchanged.
 - `gte/overrides/mods/` is CI-owned. Module versions come from module `gradle.properties`; runtime dependency versions come from Gradle coordinates/catalogs. Keep Minecraft/Forge/mapping changes consistent across root configuration, `gradle/libs.versions.toml`, and `gte/pack.toml` where applicable.
 - One modId, one JAR. Read only the `[[mods]]` declarations in `META-INF/mods.toml`, not dependency sections. Upstream GT-- and the CE fork both declare `gtnn` and cannot coexist.
@@ -111,7 +115,7 @@ These constraints apply when the user's task includes the relevant pack/CI opera
 - `lazypack.yml` is manual, pack-only, and the sole rolling `nightly` producer. It compiles nothing and ships committed JARs. It enforces duplicate modId (1b), production mapping (1c), module freshness (1d), and dev/pack parity (1e); `publish=false` skips release publication.
 - Gate 1d belongs to the committed-pack shipping path, not a build job that has only rebuilt uncommitted files. Gate 1e uses modId keys and exact catalog resource-name values for `packModsAlreadyProvided`; known differences belong in `scripts/dev_pack_parity_baseline.json`, not new unreviewed drift.
 - `translate.yml` translates assets; it does not compile/transfer module JARs. Its current docs step directly pushes `main`; the root `create_pr` option does not cover that submodule step. This legacy behavior is not permission to bypass PR rules. Verify a compliant path for requested translation work; do not turn this note into an unrequested workflow repair.
-- `release-publish.yml` and `curseforge-publish.yml` handle requested releases/CurseForge operations. Follow their current inputs and [CurseForge release guide](docs/curseforge-release.md).
+- `curseforge-publish.yml` owns CurseForge module and modpack uploads. `release-publish.yml` is a separate branch/tag release operation, used only when requested; it is not the entrypoint for local official-pack preparation. Follow current workflow inputs and the [CurseForge release guide](docs/curseforge-release.md).
 - Read release assets through the paginated REST assets endpoint; delete authorized assets by id, including `state=starter` entries. Do not rely on the capped `gh release view --json assets` snapshot or delete by guessed name.
 - Translation/API credentials come from configured environment/secrets; never hardcode keys.
 
@@ -125,7 +129,7 @@ Project `.agents/skills/` is the maintained source. Do not recreate old same-nam
 
 | Skill | Use when |
 | --- | --- |
-| [gte-workflow](.agents/skills/gte-workflow/SKILL.md) | Module development, dependency/runtime diagnosis, source PRs |
+| [gte-workflow](.agents/skills/gte-workflow/SKILL.md) | Module development, dependency/runtime diagnosis, source PRs; requested production builds and official modpack releases |
 | [gte-multiblock](.agents/skills/gte-multiblock/SKILL.md) | Existing/new machines, patterns, recipe conditions/modifiers, structure tests |
 | [gte-multiblock-architecture](.agents/skills/gte-multiblock-architecture/SKILL.md) | Designing new shapes or geometric matrices |
 | [gte-pixel-lab](.agents/skills/gte-pixel-lab/SKILL.md) | Texture, animation, palette, CTM inspection or edits |
