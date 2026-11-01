@@ -1,0 +1,84 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.gregtechceu.gtceu",
+    "module": "gtm-reborn-1.20.1",
+    "version": "8.3.4",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14"
+    }
+  },
+  "variants": [
+    {
+      "name": "reobfRuntimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "files": [
+        {
+          "name": "gtm-reborn-1.20.1-8.3.4.jar",
+          "url": "gtm-reborn-1.20.1-8.3.4.jar",
+          "size": 19889222,
+          "sha512": "69de7074d4e89616f4df90d67fffdafb4c664b4b75c9ff0db89d896108feb3497252017a98bbcde1683f3ef7e169fc6ecbc3febdc14abbe8776117421b162fbb",
+          "sha256": "8f77776eede5b227656e0b20bd76884e7d74c66e3d48454154299930ddd3a2e4",
+          "sha1": "e639c8e810450d99912052f894f5d4b7c008f0a3",
+          "md5": "8322f6b417870679493eeea3a65d1619"
+        }
+      ]
+    },
+    {
+      "name": "reobfApiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "files": [
+        {
+          "name": "gtm-reborn-1.20.1-8.3.4.jar",
+          "url": "gtm-reborn-1.20.1-8.3.4.jar",
+          "size": 19889222,
+          "sha512": "69de7074d4e89616f4df90d67fffdafb4c664b4b75c9ff0db89d896108feb3497252017a98bbcde1683f3ef7e169fc6ecbc3febdc14abbe8776117421b162fbb",
+          "sha256": "8f77776eede5b227656e0b20bd76884e7d74c66e3d48454154299930ddd3a2e4",
+          "sha1": "e639c8e810450d99912052f894f5d4b7c008f0a3",
+          "md5": "8322f6b417870679493eeea3a65d1619"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "gtm-reborn-1.20.1-8.3.4-sources.jar",
+          "url": "gtm-reborn-1.20.1-8.3.4-sources.jar",
+          "size": 10853033,
+          "sha512": "e51ade5dc1c8ae0f4d3cb304a7c9702b7a72e7b4bfb0dc35f7c30d90edbf55efc0432e6d8f4388bf6cf628a5721d80e33da8fcedd089f60a30f820636ff15e75",
+          "sha256": "ca5589788473165d157fb5bcb8d8503662f07e34aa149771c73713182cd4117c",
+          "sha1": "4afa04785c91c163a6fe2d2679254e8ccb4a3383",
+          "md5": "9f18936b91f73f3bc9f5fcf1d998b38a"
+        }
+      ]
+    }
+  ]
+}

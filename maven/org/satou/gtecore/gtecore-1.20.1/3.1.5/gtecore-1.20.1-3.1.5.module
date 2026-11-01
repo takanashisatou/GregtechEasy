@@ -1,0 +1,84 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.satou.gtecore",
+    "module": "gtecore-1.20.1",
+    "version": "3.1.5",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.14"
+    }
+  },
+  "variants": [
+    {
+      "name": "reobfRuntimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "files": [
+        {
+          "name": "gtecore-1.20.1-3.1.5.jar",
+          "url": "gtecore-1.20.1-3.1.5.jar",
+          "size": 11253374,
+          "sha512": "68cf187e13250e282da8c8de055187759b1ab97240724265739656a1ed274b85d05863b2bd8479e2e94e846309f43e8a640173fbb51988f9f8ca44e762db6cf6",
+          "sha256": "821626603037cd56d8870fec590cc2127fcd80230b408fce5e9475807a656b6e",
+          "sha1": "57857e254229875b07f590fd202f2fc1f5947a5b",
+          "md5": "2b191a07b87c8b55167c97302b56db56"
+        }
+      ]
+    },
+    {
+      "name": "reobfApiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 21,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "files": [
+        {
+          "name": "gtecore-1.20.1-3.1.5.jar",
+          "url": "gtecore-1.20.1-3.1.5.jar",
+          "size": 11253374,
+          "sha512": "68cf187e13250e282da8c8de055187759b1ab97240724265739656a1ed274b85d05863b2bd8479e2e94e846309f43e8a640173fbb51988f9f8ca44e762db6cf6",
+          "sha256": "821626603037cd56d8870fec590cc2127fcd80230b408fce5e9475807a656b6e",
+          "sha1": "57857e254229875b07f590fd202f2fc1f5947a5b",
+          "md5": "2b191a07b87c8b55167c97302b56db56"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "gtecore-1.20.1-3.1.5-sources.jar",
+          "url": "gtecore-1.20.1-3.1.5-sources.jar",
+          "size": 11063278,
+          "sha512": "5f1977c89159bf5efae94357978372d454f7b389c0b21ab10b499ca7105be611e73093a8f4ea4e5a0e9163c56d9e96e29374f064792747dbed10578153ba2aa4",
+          "sha256": "7de76f30b4f8d19b0a73c630d9d43b2ea760cde9e593e9eb7afc0b7bb9fb4033",
+          "sha1": "7000e7fbbf24429bc2b29a85734aea3b4dbe9a38",
+          "md5": "d062cc9e71011de8c3f96ee1a42795e8"
+        }
+      ]
+    }
+  ]
+}
