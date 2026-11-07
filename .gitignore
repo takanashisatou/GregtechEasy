@@ -86,4 +86,3 @@ gte/overrides/mods/*-dev-slim.jar
 # end of one sitting - pending PRs, the state of a release, network workarounds
 # on one machine - which is not a repository invariant and goes stale within days.
 # The durable rules live in AGENTS.md, which is tracked.
-HANDOFF.md
