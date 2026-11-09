@@ -1,7 +1,11 @@
 name: "CurseForge Publish (two stages)"
 
+# DEPRECATED for official releases. Module JARs and the zero-JAR pack are now
+# built locally, inspected manually, and uploaded manually through the CurseForge
+# author dashboard. See docs/curseforge-release.md. Do not dispatch this workflow.
+#
 # Upload modules first. After moderation, resume with their recorded exact file IDs.
-# This workflow publishes the committed production jars already tested by sync-build;
+# Historically, it published the committed production jars already tested by sync-build;
 # it never recompiles a different set or adds jars to the modpack archive.
 on:
   workflow_dispatch:

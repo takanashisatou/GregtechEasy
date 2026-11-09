@@ -503,6 +503,20 @@
 			x: 14.5d
 			y: 2.5d
 		}
+		{
+			dependencies: ["25A7279184870EE1"]
+			description: ["{gte.tier_8_uv.quests.533F334B9CA79620.description0}"]
+			id: "533F334B9CA79620"
+			size: 1.5d
+			tasks: [{
+				id: "69C81D0EAD4EA001"
+				item: "kubejs:super_string_star"
+				type: "item"
+			}]
+			title: "{gte.tier_8_uv.quests.533F334B9CA79620.title}"
+			x: 6.5d
+			y: 1.5d
+		}
 	]
 	subtitle: ["极限压"]
 	title: "&3{gte.tier_8_uv.title}&r"

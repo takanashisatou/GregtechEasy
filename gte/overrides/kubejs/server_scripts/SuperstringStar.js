@@ -22,6 +22,7 @@ ServerEvents.recipes(event => {
         .itemOutputs('kubejs:super_string_star')
         .EUt(GTValues.VA[GTValues.UHV])
         .duration(20 * 60 * 20)
+        .circuit(6)
 
     // The star remains in the input bus, including when overclocking or paralleling.
     gte.chord_of_all_things('kubejs:super_string_star_circuits')

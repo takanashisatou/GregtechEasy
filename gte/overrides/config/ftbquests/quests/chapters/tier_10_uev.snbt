@@ -1266,8 +1266,8 @@
 				type: "item"
 			}]
 			title: "{gte.tier_10_uev.quests.53DC8A55C1CBE569.title}"
-			x: -1d
-			y: -3d
+			x: -1.0d
+			y: -3.0d
 		}
 		{
 			dependencies: [

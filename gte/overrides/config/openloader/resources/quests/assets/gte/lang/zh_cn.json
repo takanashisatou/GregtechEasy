@@ -699,5 +699,7 @@
     "gte.tier_10_uev.quests.2420E67629DC09F7.description1":"每个 UEV 机械方块需要 8 块合金板。下一步要制作 8 个机械方块，合计需要 64 块；这条合金产线可以与三级净水同时建设。",
     "gte.tier_10_uev.quests.39B7739571F9A8BC.title":"UEV 机械方块",
     "gte.tier_10_uev.quests.39B7739571F9A8BC.description0":"在 UHV 组装机中设置电路 8，投入 1 个 UHV 机械方块、8 块阴阳聚变合金板、4 块三钛板、4 个阴阳电路芯片和 576 mB 焊锡合金，基础时间 30 秒，得到 1 个 UEV 机械方块。",
-    "gte.tier_10_uev.quests.39B7739571F9A8BC.description1":"先准备 8 个 UEV 机械方块，正好供下一步装配出 32 个虚数外壳。这一步仍使用 UHV 供电，不需要虚数电路；UEV 机器外壳也会用到这些机械方块。"
+    "gte.tier_10_uev.quests.39B7739571F9A8BC.description1":"先准备 8 个 UEV 机械方块，正好供下一步装配出 32 个虚数外壳。这一步仍使用 UHV 供电，不需要虚数电路；UEV 机器外壳也会用到这些机械方块。",
+    "gte.tier_8_uv.quests.533F334B9CA79620.title":"超弦之星",
+    "gte.tier_8_uv.quests.533F334B9CA79620.description0":"                              不错的简化配方的催化剂。"
 }

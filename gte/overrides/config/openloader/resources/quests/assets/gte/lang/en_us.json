@@ -726,5 +726,7 @@
     "gte.tier_10_uev.quests.2420E67629DC09F7.description1":"Each UEV Machine Casing needs eight alloy plates. The next step needs eight casings, or 64 plates in total. Build this alloy line alongside three-stage water purification.",
     "gte.tier_10_uev.quests.39B7739571F9A8BC.title":"UEV Machine Casings",
     "gte.tier_10_uev.quests.39B7739571F9A8BC.description0":"Set a UHV Assembler to circuit 8 and combine one UHV Machine Casing, eight Yin-Yang Fusion Alloy Plates, four Tritanium Plates, four Yin-Yang Circuit Chips and 576 mB Soldering Alloy. The base recipe takes 30 seconds and makes one UEV Machine Casing.",
-    "gte.tier_10_uev.quests.39B7739571F9A8BC.description1":"Prepare eight UEV Machine Casings for the next batch of 32 Imaginary Casings. This step still uses UHV power and needs no Imaginary circuits. UEV Machine Hulls also use these casings."
+    "gte.tier_10_uev.quests.39B7739571F9A8BC.description1":"Prepare eight UEV Machine Casings for the next batch of 32 Imaginary Casings. This step still uses UHV power and needs no Imaginary circuits. UEV Machine Hulls also use these casings.",
+    "gte.tier_8_uv.quests.533F334B9CA79620.title":"Superstring Star",
+    "gte.tier_8_uv.quests.533F334B9CA79620.description0":"A nice catalyst for the simplified recipe."
 }

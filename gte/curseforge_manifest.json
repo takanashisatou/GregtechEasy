@@ -1,7 +1,7 @@
 {
   "name": "GregTech Easy",
   "author": "satou",
-  "version": "3.1.5",
+  "version": "3.1.5.5",
   "manifestType": "minecraftModpack",
   "manifestVersion": 1,
   "minecraft": {
@@ -660,28 +660,37 @@
       "name": "ExtendedAE-Plus (by GaLicn)",
       "slug": "extendedae-plus",
       "projectID": 1337639,
-      "fileID": 7327714,
+      "fileID": 8697301,
       "required": true,
-      "fileName": "extendedae_plus-1.5.1.jar",
-      "sha256": "232addee9673ce00ee0d6113434d716df4852661651f5bead851878ccac10fa9"
+      "fileName": "extendedae_plus-1.6.0-f2.jar",
+      "sha256": "5fc86dec3488bd069d4289b60b383ddd76a1028d6357593c8404a5b59719718f"
     },
     {
       "name": "AdvancedAE (by pedroksl)",
       "slug": "advancedae",
       "projectID": 1084104,
-      "fileID": 6916770,
+      "fileID": 8564205,
       "required": true,
-      "fileName": "AdvancedAE-1.1.4-1.20.1.jar",
-      "sha256": "da90aab033d06cd0d7ff56ef98049baca1e705d6cabd1695a96c400533e8b502"
+      "fileName": "AdvancedAE-1.3.6-1.20.1.jar",
+      "sha256": "e216f95ac73eb4c1e8f3db22cc3d30f37f2612a7cb1762b9ebce148d0d5657b2"
     },
     {
       "name": "Applied Energistics 2 (by thetechnici4n)",
       "slug": "applied-energistics-2",
       "projectID": 223794,
-      "fileID": 6852919,
+      "fileID": 8991271,
       "required": true,
-      "fileName": "appliedenergistics2-forge-15.4.8.jar",
-      "sha256": "046b37c9893f6429fe6fd55ed4eb22803707ca5aa21ef8a647b634f78566d927"
+      "fileName": "appliedenergistics2-forge-15.4.11.jar",
+      "sha256": "f2ff9ee5122b037d4e93537425ab9fbe49860fc9c3977db13b20a50ca7d30f9e"
+    },
+    {
+      "name": "Neo ECO AE Extension (by DancingSnow)",
+      "slug": "neo-eco-ae-extension",
+      "projectID": 1460639,
+      "fileID": 8379573,
+      "required": true,
+      "fileName": "neoecoae-20.2.1.jar",
+      "sha256": "130792bd9ce07cf4365135936cfefc947104e0027523f92558f74b6162c66c45"
     },
     {
       "name": "FTB Quests (NeoForge) (by FTB)",
@@ -732,10 +741,10 @@
       "name": "Applied Energistics 2 Wireless Terminals (by Mari_023)",
       "slug": "applied-energistics-2-wireless-terminals",
       "projectID": 459929,
-      "fileID": 5217955,
+      "fileID": 7251206,
       "required": true,
-      "fileName": "ae2wtlib-15.2.3-forge.jar",
-      "sha256": "4b1797edb3307eca6c610c31b371d5a802c124d5052329d3454c065831298199"
+      "fileName": "ae2wtlib-15.3.3-forge.jar",
+      "sha256": "39e5cede37d5c6a07592d6c1e83398791e037f3d434bc44f7460cd085a4de5f4"
     },
     {
       "name": "FTB Ultimine (Forge) (by FTB)",
