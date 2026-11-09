@@ -2,7 +2,7 @@ StartupEvents.registry("item",e=>{
     
     e.create("universal_circuit:uhv_universal_circuit","basic").tag('gtceu:circuits/uhv')
 
-    e.create("universal_circuit:uev_universal_circuit","basic").tag('gtceu:circuits/uhv')
+    e.create("universal_circuit:uev_universal_circuit","basic").tag('gtceu:circuits/uev')
 
     e.create("universal_circuit:uiv_universal_circuit","basic").tag('gtceu:circuits/uiv')
 
