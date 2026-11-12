@@ -127,7 +127,11 @@ def build_pack(out_zip: Path, skip_top: set[str], label: str,
 
     with zipfile.ZipFile(out_zip, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=6) as zf:
         for name, content in (extra or {}).items():
-            zf.writestr(name, content)
+            info = zipfile.ZipInfo(name)
+            info.date_time = (1980, 1, 1, 0, 0, 0)
+            info.external_attr = (0o755 if name.endswith(".sh") else 0o644) << 16
+            info.compress_type = zipfile.ZIP_DEFLATED
+            zf.writestr(info, content)
             written += 1
 
         for item in sorted(OVERRIDES.rglob("*")):
