@@ -1,41 +1,28 @@
-# 整合包与发布流程
+# 打包与发布格式速查
 
-只在用户明确请求整合包产物、生产 JAR 更新、版本发布或 Maven 发布时使用本流程。机器源码修复、静态分析、测试与技能优化本身不授权这些操作；已有用户授权足够时直接完成，不增加重复确认。
+不同分发形态走不同脚本，按需对号入座：
 
-## 先核实当前配置
+| 你要打什么包 | 入口 | 说明 |
+| --- | --- | --- |
+| **正式 CurseForge 整合包（零 JAR）** | [gte-release-publish](../../gte-release-publish/SKILL.md) + `docs/curseforge-release.md` | 本机 Gradle 编生产 JAR → 本机 `build_curseforge_pack.py` 生成零 JAR ZIP → 手动上传 CurseForge |
+| **Full-Mod 离线整包 / Nightly** | `scripts/build_full_mod_pack.py` 或手动触发 `lazypack.yml` | 内置已提交的 `gte/overrides/mods/` JAR；`lazypack.yml` 不编译源码，`publish=false` 只打不发 |
+| **服务端整合包** | `scripts/build_server_pack.py` | 基于已提交整合包生成开服包 |
+| **GitHub 分支 / Tag 发布** | `release-publish.yml` | 单独的 GitHub Release 流程，不替代 CurseForge 上传 |
+| **Maven 发布** | 各模块 Gradle publishing 配置 | 仅需要发库给下游时使用 |
 
-后续正式包 ZIP 命名为 `GregTech Easy <版本号>(Use Java 21).zip`，发布显示名称为
-`GregTech Easy <版本号>(Use Java 21)`，版本号与左括号之间不加空格。发布前核对
-打包脚本与发布命名模板一致；已发布的历史文件保持现有名称。
+## 打包硬规范
 
-读取 `AGENTS.md` 的 Pack and CI Reference 章节和实际打包脚本/Gradle 配置。正式整合包准备或发布还必须先读 [CurseForge 发布指南](../../../../docs/curseforge-release.md)，再启动构建；不要等到上传时才发现所需产物格式和前置条件。实际版本、分支与文件 ID 以当前源码和作者后台为准，不把历史版本或旧状态说明当成当前事实。
+- **官方命名**：正式包 ZIP 和显示名固定为 `GregTech Easy <版本号>(Use Java 21).zip`（版本号和 `(` 之间**没有空格**）。
+- **一 modId 一 JAR**：检查 `META-INF/mods.toml` 的 `[[mods]]` 段（不是依赖段）。例如上游 GT-- 和 CE 分支都叫 `gtnn`，绝不能并存。
+- **只收生产 SRG JAR**：`gte/overrides/mods/` 里严禁混入 `-dev`、`-dev-embeds`、`-slim`、`-sources`、`-all` 或开发重映射产物。
+- **打包前 4 个核心审计**：
 
-- 模块版本来自各模块 `gradle.properties`；运行依赖来自版本目录和 Gradle 配置。
-- `gte/overrides/mods/` 的生产模块 JAR 由本地构建刷新，并通过 PR 提交；禁止手工丢 dev/remap 或未经审核的 JAR、编辑第三方 JAR 内部或写回开发 remap 输出。
-- 一 modId 一 JAR，读取 `META-INF/mods.toml` 的 `[[mods]]` 段；只接受生产 SRG 构建，排除 `-dev`、`-dev-embeds`、`-sources` 等中间产物。
+```powershell
+python scripts/audit_modids.py
+python scripts/audit_pack_mappings.py
+python scripts/audit_module_jar_freshness.py
+python scripts/audit_dev_pack_parity.py
+```
 
-## 按用户请求选交付
-
-| 请求 | 使用路径 |
-| --- | --- |
-| 刷新已提交的模块 JAR | 模块源码与根指针经本地验证及 PR 合并后，明确请求时在本机 Gradle 构建生产 JAR、刷新 `gte/overrides/mods/` 并创建 JAR 刷新 PR；本地核对正确源提交、内容和 Gate 1d，再在已授权范围内合并。不要运行已弃用的 `sync-build.yml` |
-| 基于已提交整合包制作 Full-Mod/Server 包 | 当前 `lazypack.yml` 或 `scripts/build_full_mod_pack.py` / `build_server_pack.py`；检查产物内容及相应 pack gates |
-| 正式整合包准备 / CurseForge 产物或发布 | 按发布指南完成源码与元数据准备 → 本地生产构建及 JAR 刷新 PR → 手动上传模块 JAR 到 CF → 本地零 JAR ZIP → 人工检查 → 手动上传整合包；用户指定其他格式/平台时按其要求 |
-| GitHub 分支 / tag 发布 | 明确请求此目标时检查 `release-publish.yml` 的当前分支、PR、tag 路径；不能代替 CurseForge 模块上传 |
-| Maven 发布 | 当前 publishing 配置与 CI；仅执行用户要求的发布目标 |
-
-手动生产构建创建的 JAR PR 是待审阅产物，不是任何源码任务的默认后续步骤。源码合并不自动运行 CI。用户要求只修改源码或不更新 JAR 时，不自行启动构建、跟踪或合并 JAR PR。不能把本地 `copyOutputJars` 当作默认源码验证命令。GameTest 在本地运行，生产构建不重复执行。
-
-## 正式整合包的交付边界
-
-- “先把模块发布成正式 JAR，再打本地包让我检验”授权本地构建、JAR 更新 PR、手动 CurseForge 模块上传和本地打包；交付本地验收包后等待用户检验，不自行上传整合包、创建 tag 或发布 nightly。
-- 本地正式 CurseForge ZIP 使用 `build_curseforge_pack.py --module-release`，所有模组由准确的 project/file ID 安装，全归档零 JAR。LazyPack / Full-Mod 的内置 JAR 包仅在用户要求该格式时使用；不能因为同样有 `manifest.json` 就混淆两种交付。
-- 仅完成构建、保存 Actions artifacts、刷新仓库 JAR 或部署 Maven 都不能称为“已发布到 CurseForge”。上传成功后保留 `module-release.json`，不要用旧 ID 或猜测的“最新文件”打包。
-- 区分“已上传”“已审核”“公开下载与 SHA-256 验证通过”“ZIP 校验通过”“用户验收通过”“整合包已发布”。404 只能说明尚不可公开下载，网络超时也不能证明审核状态；未完成的下载检查应明确报告，不能宣称可完整安装。
-- 用户等待人工检验时，可以先交付已绑定新 ID 的本地 ZIP，并注明审核/下载待完成项。不要长时间轮询审核或重复上传；后续公开发布仍须满足指南中的全部前置条件。
-
-## 可复现产物核对
-
-核对 duplicate modId、production mappings、module jar freshness 与 dev/pack parity 等当前要求的 gate；检查实际生成的 zip、类和资源，而不是仅凭文件名/版本判断。发布需使用本地构建并人工检查通过的产物，不能采用取消、缺失或来源不明的产物。
-
-读取 release assets 用分页 REST assets endpoint；删除已授权的目标 asset 用 id（包括 `state=starter`），不能依据 `gh release view --json assets` 的有限快照或按名字猜测。
+- **清理 GitHub Release 资产**：用分页 REST API 查 assets 列表并按 `id` 删除（包括 `state=starter` 的半成品），别用有数量上限的 `gh release view --json assets`。
+- **已弃用工作流**：`sync-build.yml`、`curseforge-publish.yml` 已不再用于正式发版，别去触发它们。

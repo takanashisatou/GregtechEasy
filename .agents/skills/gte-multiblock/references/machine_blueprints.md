@@ -1,8 +1,8 @@
 # 多方块原型示例
 
-仅在新增相应类型机器时读取相关段落。示例用于说明 API 组合；以当前相邻机器、父类和注册器源码核实签名与行为，不能把示意注册名当成已存在内容。语言键统一写入 `datagen/Lang.java` 后运行 datagen，参见 [配方与修改器指南](recipe_and_modifier_guide.md)。
+按需挑对应原型参考 API 组合；实际写代码时对照同包下相邻机器确认最新签名。语言键统一写进 `datagen/Lang.java` 后跑 `runData`。
 
-### 原型 1: 标准电力加工多方块 (Standard Electric Multiblock)
+## 1. 标准电力加工多方块
 
 ```java
 public static final MultiblockMachineDefinition BIG_MACERATOR = GTECore_REGISTRATE
@@ -28,9 +28,7 @@ public static final MultiblockMachineDefinition BIG_MACERATOR = GTECore_REGISTRA
         .register();
 ```
 
----
-
-### 原型 2: 线圈加热多方块 (Coil Heated Multiblock)
+## 2. 线圈加热多方块
 
 ```java
 public static final MultiblockMachineDefinition MEGA_BLAST_FURNACE = GTECore_REGISTRATE
@@ -66,9 +64,7 @@ public static final MultiblockMachineDefinition MEGA_BLAST_FURNACE = GTECore_REG
         .register();
 ```
 
----
-
-### 原型 3: 蒸汽并行多方块 (Steam Parallel Multiblock)
+## 3. 蒸汽并行多方块
 
 ```java
 public static final MultiblockMachineDefinition BIG_STEAM_COMPRESSOR = GTECore_REGISTRATE
@@ -90,7 +86,7 @@ public static final MultiblockMachineDefinition BIG_STEAM_COMPRESSOR = GTECore_R
                         .or(Predicates.abilities(PartAbility.EXPORT_ITEMS))
                         .or(Predicates.abilities(PartAbility.IMPORT_ITEMS))
                         .or(Predicates.abilities(PartAbility.EXPORT_FLUIDS))
-                        .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS))))
+                        .or(Predicates.abilities(PartAbility.IMPORT_FLUIDS)))
                 .build())
         .tooltips(Component.translatable("com.gtecore.tooltips.0"))
         .workableCasingModel(GTCEu.id("block/casings/solid/machine_casing_bronze_plated_bricks"),
@@ -98,9 +94,7 @@ public static final MultiblockMachineDefinition BIG_STEAM_COMPRESSOR = GTECore_R
         .register();
 ```
 
----
-
-### 原型 4: 发电机与高额产能多方块 (Generator / Fuel Engine)
+## 4. 发电机多方块
 
 ```java
 public static final MultiblockMachineDefinition MEGA_FUEL_GENERATOR = GTECore_REGISTRATE
@@ -126,9 +120,9 @@ public static final MultiblockMachineDefinition MEGA_FUEL_GENERATOR = GTECore_RE
         .register();
 ```
 
----
+## 5. 带内部流体渲染的自定义控制器
 
-### 原型 5: 腔体流体渲染与模块化多方块 (Fluid Render & Module Multi)
+有自定义 `@DescSynced` 字段时，务必把 `MANAGED_FIELD_HOLDER` 链接到父类并重写 `getFieldHolder()`：
 
 ```java
 public class CustomFluidProcessMachine extends WorkableElectricMultiblockMachine implements IFluidRenderMulti, IDisplayUIMachine {
@@ -163,7 +157,6 @@ public class CustomFluidProcessMachine extends WorkableElectricMultiblockMachine
     @NotNull
     @Override
     public Set<BlockPos> saveOffsets() {
-        // 计算腔体内部相对于控制器的相对方块偏移集合
         Set<BlockPos> offsets = new HashSet<>();
         Direction back = getFrontFacing().getOpposite();
         BlockPos center = getPos().relative(back);
@@ -172,5 +165,3 @@ public class CustomFluidProcessMachine extends WorkableElectricMultiblockMachine
     }
 }
 ```
-
----

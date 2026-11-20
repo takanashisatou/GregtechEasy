@@ -1,76 +1,58 @@
 ---
 name: gte-pixel-lab
-description: Universal Minecraft pixel art, LDLib CTM quadrant inspection, animated strip conversion, color palette analysis, and texture verification toolset. Use whenever inspecting, diagnosing, creating, animating, recoloring, or troubleshooting item/block textures in GTE.
+description: >-
+  GTE 像素美术与贴图工程工具链：用 pixel_tool.py 查看贴图与色板、终端预览、
+  诊断和一键修复 LDLib CTM 4 象限错位、动图条转 GIF、拼对比图/差异图、换色与生成 .mcmeta。
+  Use whenever inspecting, diagnosing, animating, recoloring, or troubleshooting
+  item/block/CTM textures in GTE.
 ---
 
-# GTE Pixel Lab & Texture Engineering Guide
+# GTE 贴图工具箱（pixel_tool.py）
 
-This skill provides a standardized toolset and workflow for inspecting, diagnosing, animating, validating, and recoloring Minecraft item, block, and CTM textures in GTE.
+仓库里查贴图尺寸、色板、动画帧、CTM 象限、换色和出对比图，统一跑 `scripts/texture_lab/pixel_tool.py`，不用手动开 PS 或写一次性脚本。
 
----
+## 1. CLI 命令速查
 
-## 1. Fast CLI Tool: `pixel_tool.py`
-
-Location: `scripts/texture_lab/pixel_tool.py`
-
-Run with Python 3:
 ```powershell
-python scripts/texture_lab/pixel_tool.py <command> [args...]
+python scripts/texture_lab/pixel_tool.py <命令> [参数...]
 ```
 
-### Supported Commands
+| 命令 | 用法 | 干嘛用 |
+| --- | --- | --- |
+| `info` | `pixel_tool.py info <a.png>` | 看宽高、动画帧数、`.mcmeta` 状态、透明占比、前 8 主色 |
+| `render` | `pixel_tool.py render <a.png> [--frame 0] [--ansi]` | 直接在终端画 ASCII 或 24 位 ANSI 彩色像素预览 |
+| `ctm-check` | `pixel_tool.py ctm-check <ctm.png>` | 逐帧检查 LDLib 4 象限布局和边缘亮度，揪出 TR/BL 反了的 CTM |
+| `ctm-fix` | `pixel_tool.py ctm-fix <ctm.png> [--swap-tr-bl] [--output out.png]` | 逐帧互换右上（TR）和左下（BL）象限 |
+| `to-gif` | `pixel_tool.py to-gif <strip.png> [--output out.gif] [--fps 10] [--scale 8]` | 把 MC 竖向动画条（`16 × 16*N`）转成放大版 GIF 方便肉眼看 |
+| `board` | `pixel_tool.py board <图1> <图2> ... --output board.png [--scale 8]` | 在深色底板上拼带标签的多图并排对比板 |
+| `diff` | `pixel_tool.py diff <旧.png> <新.png> --output diff.png [--scale 8]` | 生成「旧 / 新 / 差异」三联图，改动像素用洋红高亮 |
+| `recolor` | `pixel_tool.py recolor <a.png> --map "#旧1:#新1,#旧2:#新2" [--output out.png]` | 精确色板替换，单帧和多帧动画条都支持 |
+| `mcmeta` | `pixel_tool.py mcmeta <strip.png> [--frametime 2] [--interpolate]` | 自动生成配套的 `<名>.png.mcmeta`（`--interpolate` 默认开启） |
 
-| Command | Usage | Description |
-| :--- | :--- | :--- |
-| **`info`** | `python scripts/texture_lab/pixel_tool.py info <path.png>` | Inspects width, height, frame count, `.mcmeta` presence/config, transparency ratio, and top 8 palette colors. |
-| **`render`** | `python scripts/texture_lab/pixel_tool.py render <path.png> [--frame 0] [--ansi]` | Renders terminal ASCII or 24-bit ANSI background pixel art directly to console. |
-| **`ctm-check`** | `python scripts/texture_lab/pixel_tool.py ctm-check <ctm.png>` | Validates LDLib 4-quadrant layout across all animation frames and checks edge luminance. |
-| **`ctm-fix`** | `python scripts/texture_lab/pixel_tool.py ctm-fix <ctm.png> [--swap-tr-bl] [--output out.png]` | Auto-swaps Top-Right (Vertical) and Bottom-Left (Horizontal) quadrants across all frames. |
-| **`to-gif`** | `python scripts/texture_lab/pixel_tool.py to-gif <strip.png> [--fps 10] [--scale 8]` | Converts a vertical Minecraft animation strip ($16 \times (16 \times N)$) to scaled animated GIF. |
-| **`board`** | `python scripts/texture_lab/pixel_tool.py board <img1> <img2> ... --output board.png [--scale 8]` | Generates a labeled side-by-side comparison board on a clean dark studio background. |
-| **`diff`** | `python scripts/texture_lab/pixel_tool.py diff <before.png> <after.png> --output diff.png` | Produces a 3-panel Before / After / Diff board highlighting modified pixels in magenta. |
-| **`recolor`** | `python scripts/texture_lab/pixel_tool.py recolor <img.png> --map "#HEX1:#HEX2,#HEX3:#HEX4" [--output out.png]` | Precision palette swapping across single images or animated multi-frame strips. |
-| **`mcmeta`** | `python scripts/texture_lab/pixel_tool.py mcmeta <strip.png> [--frametime 2] [--interpolate true]` | Auto-generates matching `<name>.png.mcmeta` JSON metadata. |
+## 2. LDLib CTM 四象限布局与高频坑
 
----
-
-## 2. LDLib CTM 4-Quadrant Architecture
-
-LowDragLib (LDLib) uses a 4-quadrant submap coordinate system for connected texture sheets ($32 \times 32$ per animation frame):
+LDLib 的连接材质（`_ctm.png`）每帧是 `32 × 32`，拆成 4 个 `16 × 16` 象限：
 
 ```
-+-------------------+-------------------+
-| Top-Left (TL)     | Top-Right (TR)    |
-| (0, 0) .. (16, 16)| (16, 0) .. (32, 16|
-|                   |                   |
-| CENTER SEAMLESS   | VERTICAL BORDER   |
-| (Connected All)   | (Left & Right)    |
-+-------------------+-------------------+
-| Bottom-Left (BL)  | Bottom-Right (BR) |
-| (0, 16) .. (16, 32| (16, 16) .. (32,32|
-|                   |                   |
-| HORIZONTAL BORDER | CORNER JUNCTION   |
-| (Top & Bottom)    | (Cross / Inner +) |
-+-------------------+-------------------+
++----------------------+----------------------+
+| 左上 TL (0..16,0..16) | 右上 TR (16..32,0..16)|
+| 中心无缝图            | 竖向边框（左右有边）  |
+| （四面全连）          |                      |
++----------------------+----------------------+
+| 左下 BL (0..16,16..32)| 右下 BR (16..32,16..32)|
+| 横向边框（上下有边）  | 十字/内角交汇        |
++----------------------+----------------------+
 ```
 
-### The "Swapped TR/BL" Bug:
-- If TR contains horizontal borders and BL contains vertical borders:
-  - Top/Bottom connections will show horizontal stripes cutting vertically.
-  - Left/Right connections will show vertical stripes cutting horizontally.
-- **Fix**: Run `python scripts/texture_lab/pixel_tool.py ctm-fix <file.png> --swap-tr-bl`.
+**经典的 TR / BL 互换 Bug**：
+- 症状：游戏里上下相连的方块出现一排横纹把竖边切断，左右相连的方块出现竖纹把横边切断。
+- 诊断：`python scripts/texture_lab/pixel_tool.py ctm-check <ctm.png>`
+- 一键修：`python scripts/texture_lab/pixel_tool.py ctm-fix <ctm.png> --swap-tr-bl --output <ctm.png>`
 
----
+## 3. GTE 贴图命名与电路规范
 
-## 3. Circuit Progression Palette Standards
-
-When creating or modifying GregTech circuit tiers:
-1. **Tier Progression**:
-   - `processor` $\to$ Tier $N$ (e.g. UHV)
-   - `assembly` $\to$ Tier $N+1$ (e.g. UEV)
-   - `computer` $\to$ Tier $N+2$ (e.g. UIV)
-   - `mainframe` $\to$ Tier $N+3$ (e.g. UXV)
-2. **Animation Consistency**:
-   - Multi-frame animated circuits must always provide a matching `<name>.png.mcmeta`.
-   - Never mix static $16 \times 16$ with animated $16 \times 112$ in the same tier series.
-   - Run `pixel_tool.py info` to confirm all 4 tiers have matching frame counts and palettes.
+- **电路 4 级序列**：同一系列按 `processor`（N 级）→ `assembly`（N+1）→ `computer`（N+2）→ `mainframe`（N+3）递增。
+  - 多帧动画电路必须配同名 `.png.mcmeta`。
+  - 同一系列别把 `16×16` 静图和 `16×112` 动图混着用，改完用 `pixel_tool.py info` 逐张核对帧数和色板。
+- **自发光外壳与线圈**：GTECore 的 `createActiveLightCasingBlock` 和 `createCoilBlock` 都会自动引用 `<name>_bloom.png`，缺了 `_bloom.png` 机器一运行就变紫黑块。
+- **Datagen 顺序**：新方块/物品的 `.png`、`.png.mcmeta`、`_bloom.png`、`_ctm.png` 先全部落盘，再跑 `:modules:gtecore:runData`。

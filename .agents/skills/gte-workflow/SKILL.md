@@ -1,70 +1,69 @@
 ---
 name: gte-workflow
 description: >-
-  Develop and debug GTE module sources, dependencies, and the development runtime.
-  Use for GTE Java/Kotlin changes, crashes, source PRs, and explicitly requested
-  production JAR builds, CurseForge module publication, official modpack preparation
-  and releases. Maven publication applies only when requested.
+  GTE 日常开发与调试工作流：查源码、改 Java/Kotlin 逻辑、跑 Datagen/GameTest、
+  启动开发客户端、排查依赖与运行崩溃。Use for GTE module code changes, code search,
+  builds, GameTests, dev client runs, and runtime debugging.
 ---
 
 # GTE 开发工作流
 
-先读取当前仓库的 `AGENTS.md`。依赖版本、模块分支、JDK 路径和 CI 状态以当前源码与远端为准；技能不扩大用户已经授权的任务范围。
+这套仓库是 Minecraft Forge 1.20.1 + JDK 21 的多模块工程，日常改代码、查问题、跑测试都从这里下手。
 
-## 先确定交付范围
+## 模块与分支速览
 
-| 用户请求 | 应交付的结果 | 结束条件 |
+| 路径 | 职责 | 主分支 |
 | --- | --- | --- |
-| 静态分析、代码审查 | 基于指定提交的发现、依据与不确定项 | 报告完成；不自动修改、启动游戏或发布 |
-| 源码修复、机器开发 | 归属模块中的改动及必要验证 | 本地改动完成，或会话已授权的源码 PR / 指针 PR 合并完成 |
-| 技能、说明、测试夹具优化 | 对应文件与适用的验证 | 文本/脚本检查、相关测试及已授权的 PR 流程完成 |
-| 整合包、生产 JAR 更新、发布 | 用户明确指定的产物或发布结果 | 进入 [打包与发布流程](references/packaging_and_release.md) |
+| `modules/gtecore` | GTECore 主内容（机器、配方、方块、物品、Datagen） | `master` |
+| `modules/gtm-reborn` | GregTech Modern Reborn 上游魔改版 | `satou` |
+| `modules/gt--` | GT-- CE（Kotlin，modId 仍叫 `gtnn`） | `kotlin` |
+| `modules/docs` | 文档 / Wiki | `main` |
+| `modules/gte-dev-runtime` | 根仓库自带的开发启动器（不发版） | 随根仓库 |
+| `gte/` | 整合包配置、KubeJS、任务书、正式 mods | 随根仓库 `main` |
 
-本项目的正式整合包默认走 CurseForge 流程，用户另有指定时从其要求。“先发布更新后的 JAR，再打本地包让我检验”包含通过 CI 上传模块到 CurseForge；构建或 JAR 刷新 PR 不能代替上传。本地验收包使用上传记录中的准确 file ID，整合包公开发布留到用户验收及授权之后。执行前先读打包参考及其链接的 CurseForge 发布指南。
+GTECore 自己的玩法、联动和性能优化放在 `modules/gtecore`，别为了图省事去改 `modules/gtm-reborn`。
 
-修复源码不等于更新生产 JAR。只有明确请求的手动生产构建才创建 JAR 刷新 PR，源码合并不自动构建。用户要求不更新 JAR 时，提交范围不包含 `gte/overrides/mods/`。常规编译、GameTest 和审计在本地运行，PR 合并不启动或等待 CI。
+## 查代码路线
 
-## 定位与读取
+1. **中文名找 ID**：先查 `modules/gtecore/src/generated/resources/assets/gtecore/lang/zh_cn.json`，拿不到再看对应模块的语言文件或任务语言文件。
+2. **顺藤摸瓜**：拿到 ID 后只搜对应目录（机器注册、控制器、配方、KubeJS），沿着父类、配方条件和修改器追下去。详细路径表看 [精准检索](references/code_search_runbook.md)。
+3. **别硬读巨型矩阵**：遇到上千字符的 `.aisle(...)`，用一行脚本抽尺寸、字符统计和控制器坐标，只直接读短的 `.where(...)` 和逻辑代码。
 
-1. 中文名称先查 `modules/gtecore/src/generated/resources/assets/gtecore/lang/zh_cn.json`，取得注册 ID；必要时再查旧命名空间的主资源语言文件或任务语言文件。
-2. 按 ID 限定到注册类、控制器、配方类型与配方文件，再沿父类、条件与修改器追踪。详见 [精准检索](references/code_search_runbook.md)。
-3. 记录用户指定分支实际锁定的子模块提交；比较本地 HEAD 与远端，保留未提交改动。不要把当前子模块分支当成整合包的锁定版本。
+## 常用 Gradle 命令
 
-只读相关文件和行段。大型 `.aisle(...)` 矩阵应提取尺寸、字符计数和谓词摘要，避免打印整段巨型字符串导致关键输出被截断。每次读取参考资料只选择当前问题需要的主题。
-
-## 源码改动与验证
-
-- 在拥有该功能的模块创建功能分支，先复现或确认阻断点，再做一个有依据的修复。
-- 纯文本/技能修改使用结构、链接与脚本检查；测试夹具修改运行对应测试。不要把这些任务升级为生产包构建或客户端启动。
-- Java/Kotlin 行为修改做严格编译与针对性运行验证；按 `AGENTS.md` 执行适用的强制检查。已有通过结果只在改动、失败或新疑点出现时重跑。
-- **新增/改名注册内容、语言键或标签时**，语言源写在 `modules/gtecore/src/main/java/org/satou/gtecore/datagen/Lang.java` 的 `provider.add(key, en, zh)`，再运行 `:modules:gtecore:runData`。不手改 `src/generated/`。没有数据变化的逻辑修复不自动要求本地 datagen；明确请求的生产构建仍按其配置生成数据。
-- 测试要验证可观察的行为。结构 GameTest 的 `empty` 模板只清理自身范围；大结构必须显式隔离完整场地，不能假定抬高相对高度后没有地形。详见 [多方块测试](../gte-multiblock/references/gametest_workflow.md)。
-
-常用命令（Windows 从根目录运行，先按 `AGENTS.md` 设置 JDK 21 的 `JAVA_HOME`）：
+Windows 下先切好 JDK 21 再在根目录跑 Gradle：
 
 ```powershell
+$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+
+# 严格编译
 .\gradlew.bat :modules:gtecore:compileJava -Pwerror --console=plain
+
+# 新增/改名注册项、语言键或标签后跑数据生成
 .\gradlew.bat :modules:gtecore:runData --console=plain
+
+# 跑 GameTest
 .\gradlew.bat :modules:gtecore:runGameTestServer --console=plain
+.\gradlew.bat :modules:gtm-reborn:runGameTestServer --console=plain
+
+# 启动完整开发客户端（自带窗口拉起）
+.\gradlew.bat runFullPack
 ```
 
-## PR 与本地验证
+## 踩过血坑的硬约束
 
-仅在用户已授权 commit / push / PR / merge 的范围内执行后续动作，不重复询问已有授权。源码流程按仓库要求依次完成模块 PR，再更新根仓库指针；根级技能/工具改动使用根仓库功能分支。
+- **语言和生成资源**：GTECore 的中英文统一写在 `modules/gtecore/src/main/java/org/satou/gtecore/datagen/Lang.java`（`provider.add(key, en, zh)`），然后跑 `:modules:gtecore:runData`。**千万别手改 `src/generated/`**，下次 datagen 会直接冲掉。贴图/模型文件先写完再跑 datagen。
+- **`legacyForge.mods` 只声明自己**：子模块的 `legacyForge.mods` 塞了 sibling sourceSet 会把 `runData` 的 Registrate 类加载器搞炸。跨模块引用走 Gradle project 依赖，只有 `gte-dev-runtime` 负责聚合多模块。
+- **Mixin 别强转 accessor**：用 `instanceof` 守卫或原版 API；目标在 `net.minecraft.*` / `net.minecraftforge.*` 的 Mixin 保留 remap。
+- **开发环境别靠 SRG jarJar**：开发 JAR 排除了 `META-INF/jarjar/**`，运行配置必须提供对应的 named standalone 依赖（`modLocalRuntime`）；没有 `mods.toml` 的库保留原始 Maven 文件名方便去重。也别手改第三方 JAR 内部字节。
+- **光影/优化窗口配置**：Embeddium + Oculus 下保持 `config/fml.toml` 的 `earlyWindowControl=false` 和 `-Dfml.earlyprogresswindow=false` / `-Dforge.earlyWindow=false`，窗口没弹出来也别把早期窗口改回 true。
+- **提交顺序**：子模块有改动时，先在子模块里 `git commit && git push`，再回根仓库把新的子模块指针（和根仓库改动）一起 `git commit && git push`。
+- **dev 目录联接**：`run/client/` 下的 `config/ftbquests`、`config/openloader/resources`、`kubejs` 等直接联接到 `gte/overrides/`，游戏里随手改的配置会变成 git 改动，提交前 `git status` 看一眼别误提交。
 
-- 提交前确认分支；不直接提交到受保护的目标分支。
-- 合并前在本地完成适用的严格编译、GameTest 和审计，在 PR 中记录结果；源码 push、PR 和 merge 不运行 CI，也不要求 CI 状态检查。
-- 模块自动构建、测试和格式工作流在仓库设置中保持禁用；根仓库工作流保留手动入口，继续使用 PR 合并。
-- 验证失败先读失败步骤及具体断言，再判断实现、测试场地还是环境问题；不要用反复重跑、删测试或改断言掩盖可复现错误。用户排除新增测试时不加测试。
-- 明确请求的生产构建或发布才启动对应手动 CI；消费产物前核对实际来源 SHA 和最终成功结果。不要把源码任务延伸到未请求的发布流水线。
+## 按需扩展
 
-## 会影响运行的关键约束
-
-- 不强转 Mixin accessor；对 vanilla/Forge 目标保留 remap。
-- 开发运行依赖使用 `modLocalRuntime` 及命名映射；编译依赖使用相应 compile 配置。
-- 子模块的 `legacyForge.mods` 只声明自己的 source set；跨模块走 Gradle project 依赖，只有专用 `gte-dev-runtime` 聚合多模块 source set。
-- 开发 JAR 不依赖 SRG jarJar 内嵌库；实际加载模块的每个运行配置提供对应的命名 standalone 依赖。
-- 需要图形启动验证时，使用 Gradle `runFullPack` / `:modules:gte-dev-runtime:runClient`。优化/光影环境保持 `earlyWindowControl=false`，不通过重新启用早期窗口修复“窗口没出现”。
-- 不修改第三方 JAR 内部，不把开发重映射输出覆盖进生产整合包。
-
-启动、类加载、窗口与缓存问题按症状查 [运行时排障](references/runtime_troubleshooting.md)；只有实际涉及该主题才读取。当前项目的 `.agents/skills/` 是这套 GTE 技能的唯一维护来源，避免保留旧同名副本、旧正文归档或相互矛盾的第二套指引。
+- 找文件、追调用链 → [精准检索](references/code_search_runbook.md)
+- 启动崩溃、映射报错、窗口失踪、文件锁 → [运行时排障](references/runtime_troubleshooting.md)
+- 正式 CurseForge 发版（本地编 JAR + 零 JAR 包 + 手动上传）→ [gte-release-publish](../gte-release-publish/SKILL.md)
+- 其他打包格式（Full-Mod / 服务端包 / Maven / GitHub Release Assets）→ [打包格式速查](references/packaging_and_release.md)
+- 多方块机器 / GameTest → [gte-multiblock](../gte-multiblock/SKILL.md)

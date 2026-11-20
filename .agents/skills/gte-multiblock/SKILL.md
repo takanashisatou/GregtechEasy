@@ -1,53 +1,55 @@
 ---
 name: gte-multiblock
 description: >-
-  Create, statically inspect, or debug GTE/GregTech multiblock controllers,
-  structure patterns, recipe conditions, modifiers, and shape previews.
-  Use the architecture skill only when designing a new shape.
+  GTE/GregTech 多方块机器开发与排错：控制器、FactoryBlockPattern 结构与谓词、
+  配方条件与修改器、JEI 预览和 GameTest 回归测试。Use when creating, inspecting,
+  or debugging multiblock machines in GTECore. For designing brand-new shapes
+  and aesthetics, pair with gte-multiblock-architecture.
 ---
 
-# GTE 多方块开发与诊断
+# GTE 多方块开发与排错
 
-源码/PR 范围、依赖和生产产物边界遵循 [gte-workflow](../gte-workflow/SKILL.md) 与当前 `AGENTS.md`。现有机器排错不自动重设计结构；源码修复不自动刷新生产 JAR。
+做新机器、查旧机器为啥不成型/不跑配方、写结构或配方 GameTest 都走这里。如果要从零设计外形与配色，先去 [gte-multiblock-architecture](../gte-multiblock-architecture/SKILL.md)。
 
-## 按请求选择流程
+## 按需求查对应参考
 
-| 请求 | 优先检查 | 按需读取 |
+| 你在干嘛 | 先查什么 | 参考文档 |
 | --- | --- | --- |
-| 静态分析现有机器 | 锁定提交、注册入口、矩阵、能力、条件、修改器 | [结构谓词](references/block_pattern_guide.md)、[配方链](references/recipe_and_modifier_guide.md) |
-| 配方不能运行 | 配方模式、真实配方 ID、控制器类型、条件、输入输出、电力 | [配方链](references/recipe_and_modifier_guide.md) |
-| 结构不能成型或预览异常 | 实际错误坐标、方块状态、尺寸、数量限制、朝向 | [结构谓词](references/block_pattern_guide.md) |
-| 新增机器或更改形状 | 选相近现有控制器与结构；设计任务再用架构技能 | [原型示例](references/machine_blueprints.md)、[外壳与线圈](references/casings_and_coils.md) |
-| 添加运行回归测试 | 使用真实定义、配方和仓口，隔离测试场地 | [GameTest 工作流](references/gametest_workflow.md) |
+| 排查旧机器 | 注册入口 → 矩阵谓词 → 控制器 → recipeTypes → 条件与修改器 | [结构与谓词](references/block_pattern_guide.md)、[配方与修改器](references/recipe_and_modifier_guide.md) |
+| 配方跑不起来 | 配方模式、实际配方 ID、控制器类型、条件判断、输入/输出/电力 | [配方与修改器](references/recipe_and_modifier_guide.md) |
+| 结构不成型 / 预览错 | 失败坐标、实际方块、切片宽高、数量限制、朝向 | [结构与谓词](references/block_pattern_guide.md) |
+| 新增多方块 / 外壳 / 线圈 | 抄相近现有机器和 API，按需注册新方块 | [原型示例](references/machine_blueprints.md)、[外壳与线圈](references/casings_and_coils.md) |
+| 写多方块 GameTest | 清空独立测试场地、走真实成型与真实配方 | [GameTest 工作流](references/gametest_workflow.md) |
 
-## 现有机器静态检查
+## 排查旧机器的 5 个高频坑
 
-沿注册 ID 追踪 `GTEMultiMachine` 或独立注册类 → 控制器及父类 → `recipeTypes` → 条件/修改器 → Java 与 KubeJS 配方。不要只看机器声明就断定配方可运行。
+沿这条链查：`GTEMultiMachine`（或独立注册类）→ 控制器及父类 → `recipeTypes` → 条件/修改器 → Java & KubeJS 配方。重点盯紧这几处：
 
-- 矩阵各切片行数一致、各行宽度一致；所有字符有谓词；控制器字符全结构恰好一次。实际世界方向由 `FactoryBlockPattern.start(...)` 与控制器朝向决定，不能只凭字符串排列猜坐标。
-- 区分 `air()` 和 `any()`；能力是否允许出现在相应外壳位置，数量限制是否与真实位置数量相容。
-- `autoAbilities(recipeTypes)` 只涵盖基础配方 IO，特殊催化剂仓/数据仓等须核实并显式加入。布尔重载的参数是 **maintenance、muffler、parallel**，不是物品/流体/电力。
-- 检查运行模式、条件中的 `instanceof`/能力接口、反向条件及其他要求。多配方类型声明不会自动满足某一控制器专属条件。
-- 并行上限不是实际并行；查输入、电力与输出容量约束，零并行、耗时下限及数值范围。固定耗时倍率不等同于真正 subtick 超频。
-- 检查注册初始化链、所用方块与资源。只有材质或模型涉及变动/异常时才展开资产检查；纹理问题再使用像素技能。
+1. **坐标轴别靠脑补**：`FactoryBlockPattern.start()` 默认局部方向是 `(LEFT, UP, FRONT)`，世界坐标还要叠加 `start(...)` 自定义方向、控制器朝向与 flip。检查所有切片行数一致、每行等宽、控制器字符全结构只出现一次。
+2. **`air()` 和 `any()` 别混用**：内部空腔用 `air()`，外部不管用 `any()`；同时核对仓口能否替换到外壳位置，数量限制（`setMinGlobalLimited` / `setExactLimit` / `setMaxGlobalLimited`）有没有和实际方块数打架。
+3. **`autoAbilities` 的布尔重载是个大坑**：
+   - `autoAbilities(recipeTypes)` 只自动加基础物品/流体/电力 IO，**不包含**特殊催化剂仓、数据仓等，特殊仓口要显式 `.or(abilities(...))`。
+   - `autoAbilities(boolean, boolean, boolean)` 的三个参数是 **`(maintenance, muffler, parallel)`**，不是物品/流体/电力！
+4. **支持配方类型 ≠ 满足配方条件**：很多配方挂着针对特定控制器或外壳的条件（`instanceof`、能力接口、反向条件）。修条件兼容时只放行目标机器，保留原有反向条件和其他要求，别图省事把整个条件列表删了。
+5. **并行与超频别看错**：`maxParallel` 只是上限，实际并行受输入、电力、输出空间限制；`FUEL_ENGINE.getParallelAmount` 只看输入侧，普通电力加工用 `ParallelLogic.getParallelAmount`。固定 `.durationMultiplier(...)` 只是耗时倍率，不是真正的 subtick 超频。
 
-报告区分“确认的运行缺陷”“文案不一致”与“尚未运行验证”。静态检查通过不能推断所有朝向、存档和模组组合都通过。
+## 新增一台多方块涉及哪些文件
 
-## 实现与注册
+优先参照同类型现有机器写，通常只改这几处：
 
-优先沿用同类机器与当前 API，而不是复制整份示意蓝图。通常涉及：
+- **机器注册**：`modules/gtecore/src/main/java/org/satou/gtecore/common/data/machines/`
+- **自定义控制器**（仅需特殊逻辑时）：`modules/gtecore/src/main/java/org/satou/gtecore/common/machine/multiblock/`；有自定义同步字段时，`ManagedFieldHolder` 必须链接父类并由 `getFieldHolder()` 返回。
+- **新配方类型 / 外壳 / 线圈**：`GTERecipeTypes.java`、`GTEBlocks.java`、`GTECoilBlock.java`。
+- **配方与修改器**：`data/recipe/`、`utils/GTERecipeModifiers.java`。
+- **双语文本**：写入 `modules/gtecore/src/main/java/org/satou/gtecore/datagen/Lang.java`（`provider.add(key, en, zh)`），贴图/模型都放好后再跑 `:modules:gtecore:runData`。
 
-- 注册：`modules/gtecore/src/main/java/org/satou/gtecore/common/data/machines/`。
-- 控制器：同模块 `common/machine/multiblock/`；自定义同步字段的 `ManagedFieldHolder` 要包含父类并由 `getFieldHolder()` 返回。
-- 配方类型/方块：`GTERecipeTypes.java`、`GTEBlocks.java`；配方与修改器按现有归属查找。
-- 双语名称与提示：`datagen/Lang.java`，再由 `runData` 生成 `src/generated/resources/`。
+## 编译与测试
 
-只注册任务实际需要的新类型/外壳/线圈。只有新增或更改这些数据时才本地运行 datagen；资源资产须先完整写入，才可开始依赖它们的数据生成。
+```powershell
+$env:JAVA_HOME='C:\Users\Ex_Je\.jdks\ms-21.0.11'
+.\gradlew.bat :modules:gtecore:compileJava -Pwerror --console=plain
+.\gradlew.bat :modules:gtecore:runData --console=plain
+.\gradlew.bat :modules:gtecore:runGameTestServer --console=plain
+```
 
-## 验证与完成
-
-静态请求交付有依据的分析；修复请求执行严格编译和必要的行为验证。条件兼容修改至少检查目标机器成功、其他机器仍受限、其他条件与反向语义保留；不能直接删掉整份配方条件列表。
-
-结构测试要验证实际 pattern，而不只验证预览或注册字符串。`empty` 模板不隔离大结构；先清空完整结构范围，创意 autobuild 也可能放入可选部件，数量测试应从已知零个部件状态开始。测试完成以必需测试的最终结果为准，见 [GameTest 工作流](references/gametest_workflow.md)。
-
-完成已授权的源码流程后，报告改动、验证与静态检查的实际范围。整合包生产 JAR、发布、Maven 上传按明确的独立请求处理。
+写结构 GameTest 时别只看预览或注册字符串，直接测真实 pattern；`empty` 模板不清大结构外围地形，创意 `autoBuild` 还会保留非空气并塞可选仓，具体踩坑写法看 [GameTest 工作流](references/gametest_workflow.md)。
