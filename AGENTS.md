@@ -92,7 +92,7 @@ Runtime dependency, window, debug-dump, and linking details are in [runtime trou
 
 ## Git and PR Flow
 
-1. Create a feature branch in the owning repository (default prefix `codex/`). Confirm the current branch before every commit; never commit/push directly to a target branch, including one-line fixes and CI changes.
+1. Create a feature branch in the owning repository (default prefix `agy/`). Confirm the current branch before every commit; never commit/push directly to a target branch, including one-line fixes and CI changes.
 2. Complete applicable local checks, commit and push the intended changes, and open the PR against the base in the ownership table. Record the local validation results in the PR.
 3. Squash merge within the user's authorized scope after local validation. After a submodule merge, use its merged commit in a separate root-pointer PR and validate that change locally before merging.
 4. Keep automatic module build/test/format workflows disabled in repository settings. Keep root workflows manual and retain PR protection without required CI status checks. Do not dispatch CI merely to merge a source PR.
